@@ -43,6 +43,10 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd="#"
 	  ;;
 
+	ba | bac | back | backt | backtr | backtra | backtrac | backtrace | bt | T | wh | whe | wher | where )
+	  _Dbg_do_backtrace $args
+	  ;;
+
 	# next/single-step N times (default 1)
 	n | ne | nex | next | s | st | ste | step | sk | ski | skip )
 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"

@@ -11,3 +11,7 @@ function _Dbg_split {
 function _Dbg_msg {
     print "$@" 
 }
+
+function _Dbg_msg_nocr {
+    echo -n $@
+}
