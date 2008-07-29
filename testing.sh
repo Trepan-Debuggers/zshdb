@@ -1,4 +1,5 @@
 echo testing here
+x=2
 echo another line
 fooffdafsd
 foo() {

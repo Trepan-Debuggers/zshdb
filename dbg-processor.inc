@@ -53,6 +53,18 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd='down'
 	  ;;
 
+	# evaluate as bash command
+	e | ev | eva | eval )
+	  _Dbg_do_eval $args
+	  _Dbg_last_cmd='eval'
+	  ;;
+
+	#  Set stack frame
+	fr | fra | fra | frame )
+	  _Dbg_do_frame $args
+	  _Dbg_last_cmd='frame'
+	  ;;
+
 	# next/single-step N times (default 1)
 	n | ne | nex | next | s | st | ste | step | sk | ski | skip )
 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
@@ -68,10 +80,10 @@ _Dbg_onecmd() {
 	  fi
 	  ;;
 
-	#  Set stack frame
-	fr | fra | fra | frame )
-	  _Dbg_do_frame $args
-	  _Dbg_last_cmd='frame'
+	# print globbed or substituted variables
+	p | pr | pri | prin | print )
+	  _Dbg_do_print "$args"
+	  _Dbg_last_cmd='print'
 	  ;;
 
 	# quit
@@ -93,3 +105,7 @@ _Dbg_onecmd() {
       return 0
 }
 
+# This is put at the so we have something at the end to stop at 
+# when we debug this. By stopping at the end all of the above functions
+# and variables can be tested.
+[[ -z $_Dbg_processor_ver ]] && typeset -r _Dbg_processor_ver='$Id: dbg-processor.inc,v 1.3 2008/07/29 03:47:15 rockyb Exp $'
