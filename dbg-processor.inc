@@ -47,6 +47,12 @@ _Dbg_onecmd() {
 	  _Dbg_do_backtrace $args
 	  ;;
 
+	# Move call stack down
+	do | dow | down )
+	  _Dbg_do_down $args
+	  _Dbg_last_cmd='down'
+	  ;;
+
 	# next/single-step N times (default 1)
 	n | ne | nex | next | s | st | ste | step | sk | ski | skip )
 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
@@ -62,11 +68,24 @@ _Dbg_onecmd() {
 	  fi
 	  ;;
 
+	#  Set stack frame
+	fr | fra | fra | frame )
+	  _Dbg_do_frame $args
+	  _Dbg_last_cmd='frame'
+	  ;;
+
 	# quit
 	q | qu | qui | quit )
 	  _Dbg_last_cmd='quit'
 	  _Dbg_do_quit $args
 	  ;;
+
+	# Move call stack up
+	u | up )
+	  _Dbg_do_up $args
+	  _Dbg_last_cmd='up'
+	  ;;
+
 	* ) 
           _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
 	  ;;

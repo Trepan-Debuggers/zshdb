@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!/src/external-cvs/zsh/Src/zsh
 
 # Array of file:line string from functrace.
 typeset -a _Dbg_frame_stack

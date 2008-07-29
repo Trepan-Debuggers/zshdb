@@ -9,7 +9,7 @@ function _Dbg_split {
 }
 
 function _Dbg_msg {
-    print "$@" 
+    print -- "$@" 
 }
 
 function _Dbg_msg_nocr {
