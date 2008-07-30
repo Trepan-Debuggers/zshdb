@@ -1,5 +1,7 @@
-echo testing here
 x=2
+x=2
+y='
+abc'
 echo another line
 fooffdafsd
 foo() {

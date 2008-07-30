@@ -19,16 +19,16 @@
 # set dollar variables ($1, $2, ... $?) 
 # to their values in the debugged environment before we entered the debugger.
 
-# local _Dbg_set_str="set --"
-# local -i _Dbg__i
+# typeset _Dbg_set_str='set --'
+# typeset -i _Dbg__i
 # for (( _Dbg__i=1 ; _Dbg__i<=${#_Dbg_arg[@]}; _Dbg__i++ )) ; do
 #   local dq_argi=$(_Dbg_esc_dq "${_Dbg_arg[$_Dbg__i]}")
 #   _Dbg_set_str="$_Dbg_set_str \"$dq_argi\""
 # done
 # eval $_Dbg_set_str
 
-# PS4="$_Dbg_old_PS4"
-# IFS="$_Dbg_old_IFS"
+PS4="$_Dbg_old_PS4"
+IFS="$_Dbg_old_IFS"
 
 # Setting $? be the last statement
 # _Dbg_set_dol_q

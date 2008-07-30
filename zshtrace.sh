@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 #!/src/external-cvs/zsh/Src/zsh
 
 # Array of file:line string from functrace.
@@ -16,5 +17,7 @@ else
     file=./testing.sh
 fi
 # trap '_Dbg_debug_trap_handler $? $LINENO $@' DEBUG
+trap 'echo EXIT hit' EXIT
+set -o DEBUG_BEFORE_CMD
 trap '_Dbg_debug_trap_handler $? $@' DEBUG
 . $file "$@" # testing.

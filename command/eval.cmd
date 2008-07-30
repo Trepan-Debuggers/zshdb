@@ -22,14 +22,14 @@ typeset _Dbg_evalfile=$(_Dbg_tempname eval)
 
 _Dbg_do_eval() {
 
-    echo ". ${_Dbg_libdir}/dbg-set-d-vars.inc" > $_Dbg_evalfile
+    # echo ". ${_Dbg_libdir}/dbg-set-d-vars.inc" > $_Dbg_evalfile
     echo "$@" >> $_Dbg_evalfile
-#   if [[ -n $_Dbg_tty  ]] ; then
-#     . $_Dbg_evalfile >>$_Dbg_tty
-#   else
-#     . $_Dbg_evalfile
-#   fi
+   if [[ -n $_Dbg_tty  ]] ; then
+     . $_Dbg_evalfile >>$_Dbg_tty
+   else
+     . $_Dbg_evalfile
+   fi
   # We've reset some variables like IFS and PS4 to make eval look
   # like they were before debugger entry - so reset them now
-  _Dbg_set_debugger_internal
+  # _Dbg_set_debugger_internal
 }
