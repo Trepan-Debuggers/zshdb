@@ -20,12 +20,8 @@ function _Dbg_debug_trap_handler {
     trap 'echo EXIT encountered inside debugger' EXIT
     typeset -i _Dbg_debugged_exit_code=$1
     shift
-    # typeset -i _Dbg_lineno=$1
-    # shift
     typeset -a _Dbg_args
-    for arg in "$@" ; do 
-	_Dbg_args+=$arg
-    done
+    _Dbg_args=("$@")
 
     # Determine if we stop or not. 
 

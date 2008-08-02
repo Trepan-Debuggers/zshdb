@@ -57,3 +57,4 @@ _Dbg_do_backtrace() {
   done
   return 0
 }
+alias add_alias bt where

@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# up.cmd - gdb-like up debugger command
+# up.cmd - gdb-like "up" debugger command
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #

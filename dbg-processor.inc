@@ -3,14 +3,20 @@
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
 
-typeset _Dbg_prompt_str='bashdb<1> '
+typeset _Dbg_prompt_str='zshdb<1> '
 
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
 
+typeset -a _Dbg_debugger_commands
+
 for file in ${_Dbg_libdir}/command/*.cmd ; do 
   source $file
+  # Extract command name
+  debugger_command=${file##*/}
+  _Dbg_debugger_commands+=${debugger_command:s/.cmd//}
 done
+
 
 # Note: We have to be careful here in naming "local" variables. In contrast
 # to other places in the debugger, because of the read/eval loop, they are
@@ -33,9 +39,10 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
-    local _Dbg_cmd="$1"
-    shift
-    local args="$@"
+    expand_alias $1
+    local _Dbg_cmd="$expanded_alias"
+    eval "set -- $2"
+
     case $_Dbg_cmd in
 	# Comment line
 	[#]* ) 
@@ -43,27 +50,35 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd="#"
 	  ;;
 
-	ba | bac | back | backt | backtr | backtra | backtrac | backtrace | bt | T | wh | whe | wher | where )
-	  _Dbg_do_backtrace $args
+	alias )
+	  _Dbg_do_alias $@
+	  ;;
+
+	backtrace | T | where )
+	  _Dbg_do_backtrace $@
 	  ;;
 
 	# Move call stack down
 	do | dow | down )
-	  _Dbg_do_down $args
+	  _Dbg_do_down $@
 	  _Dbg_last_cmd='down'
 	  ;;
 
 	# evaluate as bash command
 	e | ev | eva | eval )
-	  _Dbg_do_eval $args
+	  _Dbg_do_eval $@
 	  _Dbg_last_cmd='eval'
 	  ;;
 
 	#  Set stack frame
 	fr | fra | fra | frame )
-	  _Dbg_do_frame $args
+	  _Dbg_do_frame $@
 	  _Dbg_last_cmd='frame'
 	  ;;
+
+	# print help command menu
+	h | he | hel | help | '?'  )
+	  _Dbg_do_help $args ;;
 
 	# next/single-step N times (default 1)
 	n | ne | nex | next | s | st | ste | step | sk | ski | skip )
@@ -89,7 +104,7 @@ _Dbg_onecmd() {
 	# quit
 	q | qu | qui | quit )
 	  _Dbg_last_cmd='quit'
-	  _Dbg_do_quit $args
+	  _Dbg_do_quit $@
 	  ;;
 
 	# Move call stack up

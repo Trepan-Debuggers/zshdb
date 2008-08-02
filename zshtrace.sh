@@ -1,5 +1,4 @@
-#!/usr/bin/zsh
-#!/src/external-cvs/zsh/Src/zsh
+#!/src/external-cvs/zsh/Src/zsh -f
 
 # Array of file:line string from functrace.
 typeset -a _Dbg_frame_stack
@@ -17,7 +16,7 @@ else
     file=./testing.sh
 fi
 # trap '_Dbg_debug_trap_handler $? $LINENO $@' DEBUG
-trap 'echo EXIT hit' EXIT
 set -o DEBUG_BEFORE_CMD
-trap '_Dbg_debug_trap_handler $? $@' DEBUG
-. $file "$@" # testing.
+setopt localtraps
+trap '_Dbg_debug_trap_handler $? "$@"' DEBUG
+. $file $@

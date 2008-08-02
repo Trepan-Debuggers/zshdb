@@ -1,9 +1,9 @@
 x=2
-x=2
+fooffdafsd
+x=3
 y='
 abc'
 echo another line
-fooffdafsd
 foo() {
   echo calling bar 10
   bar 10
