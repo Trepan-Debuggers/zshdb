@@ -19,6 +19,9 @@
 
 # Move default values down $1 or one in the stack. 
 
+add_help down \
+'down [count]    Set file location for printing down the call stack by 
+                count. If count is omitted use 1.'
 _Dbg_do_down() {
   local -i count=${1:-1}
   _Dbg_adjust_frame $count -1

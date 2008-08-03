@@ -3,7 +3,7 @@
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
 
-typeset _Dbg_prompt_str='zshdb<1> '
+typeset _Dbg_prompt_str="$_Dbg_debugger_name<1> "
 
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
@@ -53,7 +53,7 @@ _Dbg_onecmd() {
 	  _Dbg_do_alias $@
 	  ;;
 
-	backtrace | T | where )
+	where )
 	  _Dbg_do_backtrace $@
 	  ;;
 
@@ -104,6 +104,12 @@ _Dbg_onecmd() {
 	q | qu | qui | quit )
 	  _Dbg_last_cmd='quit'
 	  _Dbg_do_quit $@
+	  ;;
+
+	# restart debug session.
+	ru | run )
+	  _Dbg_last_cmd='run'
+	  _Dbg_do_run $args
 	  ;;
 
 	# Move call stack up

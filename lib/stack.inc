@@ -3,8 +3,11 @@
 #================ VARIABLE INITIALIZATIONS ====================#
 
 # Where are we in stack? This can be changed by "up", "down" or "frame"
-# commands. On debugger entry, the value is set to _Dbg_STACK_TOP.
-typeset -i  _Dbg_stack_pos=1
+# commands.
+
+typeset -i _Dbg_stack_pos=1
+typeset -a _Dbg_frame_stack
+typeset -a _Dbg_func_stack
 
 #======================== FUNCTIONS  ============================#
 
@@ -26,15 +29,15 @@ _Dbg_adjust_frame() {
     ((pos=_Dbg_stack_pos+(count*signum)))
   fi
 
-  if (( $pos <= 0 )) ; then 
+  if (( $pos < 0 )) ; then 
     _Dbg_msg 'Would be beyond bottom-most (most recent) entry.'
     return 1
-  elif (( $pos > ${#_Dbg_frame_stack} )) ; then 
+  elif (( $pos >= ${#_Dbg_frame_stack} )) ; then 
     _Dbg_msg 'Would be beyond top-most (least recent) entry.'
     return 1
   fi
 
-  ((_Dbg_stack_pos = pos))
+  ((_Dbg_stack_pos = pos+1))
 # #   local -i j=_Dbg_stack_pos+2
 # #   _Dbg_listline=${BASH_LINENO[$j]}
 # #   ((j++))

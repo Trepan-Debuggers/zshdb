@@ -65,5 +65,5 @@ function _Dbg_set_debugger_entry {
 # internal settings  
 function _Dbg_set_debugger_internal {
   IFS="$_Dbg_space_IFS";
-  PS4='%N:%i %? zsh+ '
+  PS4='%N:%i: %? zsh+ '
 }

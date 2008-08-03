@@ -18,8 +18,32 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 typeset -i _Dbg_help_cols=6
+# _Dbg_do_help() {
+#   if ((0==$#)) ; then
+#       print -C $_Dbg_help_cols $_Dbg_debugger_commands
+#   elif ((1==$#)) ; then
+#       if [[ -n ${_Dbg_command_help[(k)$1] ]] ; then
+# 	  print ${_Dbg_command_help[(k)$1]}
+#       else
+# 	  print "Don't have help for $1"
+#       fi
+#   fi
+# }
 _Dbg_do_help() {
   if ((0==$#)) ; then
       print -C $_Dbg_help_cols $_Dbg_debugger_commands
+   else
+      local cmd=$1
+      if [[ -n $_Dbg_command_help[(k)$cmd] ]] ; then
+ 	  print $_Dbg_command_help[$cmd]
+      else
+	  expand_alias $cmd
+	  local cmd="$expanded_alias"
+	  if [[ -n $_Dbg_command_help[(k)$cmd] ]] ; then
+ 	      print $_Dbg_command_help[$cmd]
+	  else
+      	      print "Don't have help for '$1'."
+	  fi
+      fi
   fi
 }

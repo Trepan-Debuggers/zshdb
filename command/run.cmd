@@ -20,10 +20,10 @@
 # Restart script in same way with saved arguments (probably the same
 # ones as we were given before).
 
-add_help restart \
-'restart [args]        Attempt to restart the program.'
+add_help run \
+'run [args]        Attempt to restart the program.'
 
-_Dbg_do_restart() {
+_Dbg_do_run() {
 
   local script_args
   if (( $# != 0 )) ; then 
@@ -64,5 +64,7 @@ _Dbg_do_restart() {
   builtin cd $_Dbg_init_cwd
 
   _Dbg_cleanup
-  exec $exec_cmd
+  eval "exec $exec_cmd"
 }
+add_alias R run
+add_alias restart run

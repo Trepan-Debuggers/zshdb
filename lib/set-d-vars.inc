@@ -1,5 +1,5 @@
-#$Id: dbg-set-d-vars.inc,v 1.2 2007/02/11 23:06:41 rockyb Exp $
 # -*- shell-script -*-
+#$Id: set-d-vars.inc,v 1.2 2007/02/11 23:06:41 rockyb Exp $
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under

@@ -20,9 +20,11 @@
 # temp file for internal eval'd commands
 typeset _Dbg_evalfile=$(_Dbg_tempname eval)
 
+add_help eval \
+'eval cmd	Evaluate a bash command by sourcing it in a subshell.'
 _Dbg_do_eval() {
 
-    # echo ". ${_Dbg_libdir}/dbg-set-d-vars.inc" > $_Dbg_evalfile
+    # echo ". ${_Dbg_libdir}/lib/set-d-vars.inc" > $_Dbg_evalfile
     echo "$@" >> $_Dbg_evalfile
    if [[ -n $_Dbg_tty  ]] ; then
      . $_Dbg_evalfile >>$_Dbg_tty

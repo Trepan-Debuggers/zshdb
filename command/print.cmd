@@ -20,10 +20,13 @@
 # The arguments in the last "print" command.
 typeset _Dbg_last_print_args=''
 
+add_help print \
+'print *string*	Print value of a substituted string.'
+
 _Dbg_do_print() {
   local -r _Dbg_expr=${@:-"$_Dbg_last_print_args"}
   local -r dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
-  . ${_Dbg_libdir}/dbg-set-d-vars.inc
+  . ${_Dbg_libdir}/lib/set-d-vars.inc
   eval "_Dbg_msg $_Dbg_expr"
   _Dbg_last_print_args="$dq_expr"
 }

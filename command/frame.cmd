@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# frame.cmd - gdb-like frame debugger command
+# frame.cmd - gdb-like "frame" debugger command
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -17,6 +17,8 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+add_help frame \
+'frame frame-number	Move the current frame to the frame-number'
 _Dbg_do_frame() {
   local -i pos=${1:-0}
   _Dbg_adjust_frame $pos 0

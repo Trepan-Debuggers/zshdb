@@ -1,22 +1,25 @@
-#!/src/external-cvs/zsh/Src/zsh -f
+#!/usr/local/bin/zsh -f
 
-# Array of file:line string from functrace.
-typeset -a _Dbg_frame_stack
-typeset -a _Dbg_func_stack
+typeset -a _Dbg_script_args
+_Dbg_script_args=($@)
 
-zmodload -ap zsh/mapfile mapfile
+# Original $0. Note we can't set this in an include.
+typeset -r _Dbg_orig_0=$0
 
-. ./dbg-main.inc
+. ./init.inc
+. ./main.inc
 
-# Temporary crutch to save me typing.
-if (( 0 != $# )) ; then
-    file=$1
-    shift
+# Note that this is called via zshdb rather than "zsh --debugger"
+_Dbg_script=1
+
+# Save me typing in testing.
+if (( ${#_Dbg_script_args[@]} > 0 )) ; then
+    _Dbg_script_file="$_Dbg_script_args[1]"
 else
-    file=./testing.sh
+    _Dbg_script_file=./testing.sh
 fi
-# trap '_Dbg_debug_trap_handler $? $LINENO $@' DEBUG
-set -o DEBUG_BEFORE_CMD
-setopt localtraps
+
+# Set $1, $2 for source'd script.
+set -- ${_Dbg_script_args[@]}
 trap '_Dbg_debug_trap_handler $? "$@"' DEBUG
-. $file $@
+. $_Dbg_script_file

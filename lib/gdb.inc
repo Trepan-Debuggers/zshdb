@@ -10,8 +10,8 @@ function _Dbg_print_location {
 
     typeset filename=${split_result[1]}
     typeset -i line=${split_result[2]}
-    ((pos1=pos+1))
-    if [[ $filename == ${_Dbg_func_stack[$pos1]} ]] ; then
+    ((pos1=1))
+    if [[ $filename == $_Dbg_func_stack[pos1] ]] ; then
 	_Dbg_msg "($file_line): -- nope"
     else
 	_Dbg_msg "($file_line):"

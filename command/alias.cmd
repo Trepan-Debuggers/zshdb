@@ -17,27 +17,8 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-typeset -A _Dbg_aliases
-
-# Add an new alias in the alias table
-function add_alias {
-    (( $# != 2 )) && return 1
-    _Dbg_aliases[$1]=$2
-    return 0
-}
-
-function remove_alias {
-    (( $# != 1 )) && return 1
-    unset "_Dbg_aliases[$1]"
-    return 0
-}
-
-function expand_alias {
-    (( $# != 1 )) && return 1
-    expanded_alias=$1
-    [[ ${_Dbg_aliases[(k)$1]} != '' ]] && expanded_alias=$_Dbg_aliases[$1]
-    return 0
-}
+add_help alias \
+'alias name debugger-command	Make name be an alias for debugger-command.'
 
 _Dbg_do_alias() {
   add_alias $1 $2

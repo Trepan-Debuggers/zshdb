@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# dbg-sig.inc - Bourne Again Shell Debugger Signal handling routines
+# sig.inc - Bourne Again Shell Debugger Signal handling routines
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -16,14 +16,18 @@
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+
+# Place to save values of $1, $2, etc.
+
 function _Dbg_debug_trap_handler {
     # setopt localtraps
     # trap 'echo EXIT encountered inside debugger' EXIT
     # trap 'echo ERR encountered inside debugger' ERR
     typeset -i _Dbg_debugged_exit_code=$1
     shift
-    typeset -a _Dbg_args
-    _Dbg_args=("$@")
+    typeset -a _Dbg_arg
+
+    _Dbg_arg=($@)
 
     # Determine if we stop or not. 
 
@@ -37,7 +41,7 @@ function _Dbg_debug_trap_handler {
     _Dbg_print_location
     _Dbg_process_commands
     # _Dbg_print_frame 1 '##'
-    # echo "$_Dbg_frame_stack $_Dbg_debugged_exit_code - $_Dbg_args"
+    # echo "$_Dbg_frame_stack $_Dbg_debugged_exit_code - $_Dbg_arg"
 }
 
 # Cleanup routine: erase temp files before exiting.

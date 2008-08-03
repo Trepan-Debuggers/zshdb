@@ -9,7 +9,7 @@ testSplit()
 }
 
 typeset src_dir=${src_dir:-'../../'}
-. $src_dir/dbg-fns.inc
+. $src_dir/lib/fns.inc
 
 # load shunit2
 set -o shwordsplit

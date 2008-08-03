@@ -18,7 +18,9 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 # Move default values up $1 or one in the stack. 
-
+add_help up \
+'u | up [count]  Set file location for printing up the call stack by 
+                count. If count is omitted use 1.'
 _Dbg_do_up() {
   local -i count=${1:-1}
   _Dbg_adjust_frame $count +1
