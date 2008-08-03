@@ -11,5 +11,5 @@ foo() {
 bar() {
   x=20
 }
-foo arg1
+foo arg1 $1
 x=5

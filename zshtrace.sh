@@ -15,6 +15,7 @@ _Dbg_script=1
 # Save me typing in testing.
 if (( ${#_Dbg_script_args[@]} > 0 )) ; then
     _Dbg_script_file="$_Dbg_script_args[1]"
+    shift _Dbg_script_args
 else
     _Dbg_script_file=./testing.sh
 fi
