@@ -57,6 +57,18 @@ _Dbg_onecmd() {
 	  _Dbg_do_backtrace $@
 	  ;;
 
+	# Continue
+	c | cont | conti |contin |continu | continue )
+	  
+	  _Dbg_last_cmd='continue'
+	  if _Dbg_do_continue $@ ; then
+	    IFS="$_Dbg_old_IFS";
+	    # _Dbg_write_journal_eval \
+	    #  "_Dbg_old_set_opts=\"$_Dbg_old_set_opts -o functrace\""
+	    return 1
+	  fi
+	  ;;
+
 	# Move call stack down
 	do | dow | down )
 	  _Dbg_do_down $@
@@ -79,20 +91,20 @@ _Dbg_onecmd() {
 	h | he | hel | help | '?'  )
 	  _Dbg_do_help $args ;;
 
-	# next/single-step N times (default 1)
-	n | ne | nex | next | s | st | ste | step | sk | ski | skip )
-	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
-	  _Dbg_last_next_step_args="$args"
-	  # _Dbg_do_next_step_skip $_Dbg_cmd "$args"
-	  if [[ $_Dbg_cmd == sk* ]] ; then
-	    _Dbg_inside_skip=1
-	    _Dbg_last_cmd='skip'
-	    return 1
-	  else
-	    _Dbg_last_cmd='next'
-	    return 2
-	  fi
-	  ;;
+# 	# next/skip-step N times (default 1)
+# 	n | ne | nex | next | sk | ski | skip )
+# 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
+# 	  _Dbg_last_next_step_args="$args"
+# 	  # _Dbg_do_next_step_skip $_Dbg_cmd "$args"
+# 	  if [[ $_Dbg_cmd == sk* ]] ; then
+# 	    _Dbg_inside_skip=1
+# 	    _Dbg_last_cmd='skip'
+# 	    return 1
+# 	  else
+# 	    _Dbg_last_cmd='next'
+# 	    return 2
+# 	  fi
+# 	  ;;
 
 	# print globbed or substituted variables
 	p | pr | pri | prin | print )
@@ -104,6 +116,14 @@ _Dbg_onecmd() {
 	q | qu | qui | quit )
 	  _Dbg_last_cmd='quit'
 	  _Dbg_do_quit $@
+	  ;;
+
+	# single-step N times (default 1)
+	s | st | ste | step | n | ne | nex | next | sk | ski | skip )
+	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
+	  _Dbg_last_next_step_args="$@"
+	  _Dbg_do_step $@
+	  return $?
 	  ;;
 
 	# restart debug session.
