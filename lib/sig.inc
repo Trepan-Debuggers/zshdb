@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# dbg-sig.inc - Bourne Again Shell Debugger Utility Functions
+# dbg-sig.inc - Bourne Again Shell Debugger Signal handling routines
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -17,7 +17,9 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 function _Dbg_debug_trap_handler {
-    trap 'echo EXIT encountered inside debugger' EXIT
+    # setopt localtraps
+    # trap 'echo EXIT encountered inside debugger' EXIT
+    # trap 'echo ERR encountered inside debugger' ERR
     typeset -i _Dbg_debugged_exit_code=$1
     shift
     typeset -a _Dbg_args

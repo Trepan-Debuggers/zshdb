@@ -10,11 +10,10 @@ typeset _Dbg_last_cmd=''
 
 typeset -a _Dbg_debugger_commands
 
+# Extract command names
 for file in ${_Dbg_libdir}/command/*.cmd ; do 
-  source $file
-  # Extract command name
-  debugger_command=${file##*/}
-  _Dbg_debugger_commands+=${debugger_command:s/.cmd//}
+    debugger_command=${file##*/}
+    _Dbg_debugger_commands+=${debugger_command:s/.cmd//}
 done
 
 
