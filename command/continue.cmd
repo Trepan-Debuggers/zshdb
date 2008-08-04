@@ -1,8 +1,7 @@
 # -*- shell-script -*-
 # continue.cmd - gdb-like "continue" debugger command
 #
-#   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008 Rocky Bernstein
-#   rocky@gnu.org
+#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -26,13 +25,7 @@
 # commands may shift this.
 
 add_help continue \
-'continue [linespec | - ]  Continue execution until the next breakpoint or end of 
-                   program or linespec. 
-
-If instead of a line specification you enter -, then debugging will be turned 
-off after continuing causing your program to run at full speed.
-Long command name: continue.
-'
+'continue	Continue execution.'
 
 function _Dbg_do_continue {
 
@@ -41,7 +34,7 @@ function _Dbg_do_continue {
       return 1
   fi
 
-  _Dbg_steps=-1
+  _Dbg_step_ignore=-1
   return 0
 #   [[ -z $1 ]] && return 0
 #   typeset filename

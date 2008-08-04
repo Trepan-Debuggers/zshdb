@@ -30,5 +30,5 @@ eval $_Dbg_set_str
 PS4="$_Dbg_old_PS4"
 IFS="$_Dbg_old_IFS"
 
-# Setting $? be the last statement
+# Setting $? has to be done last.
 # _Dbg_set_dol_q

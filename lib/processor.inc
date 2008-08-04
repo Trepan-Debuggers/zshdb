@@ -1,4 +1,20 @@
 # -*- shell-script -*-
+#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#
+#   zshdb is free software; you can redistribute it and/or modify it under
+#   the terms of the GNU General Public License as published by the Free
+#   Software Foundation; either version 2, or (at your option) any later
+#   version.
+#
+#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
+#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+#   for more details.
+#   
+#   You should have received a copy of the GNU General Public License along
+#   with zshdb; see the file COPYING.  If not, write to the Free Software
+#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+
 # ==================== VARIABLES =======================================
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
@@ -10,12 +26,7 @@ typeset _Dbg_last_cmd=''
 
 typeset -a _Dbg_debugger_commands
 
-# Extract command names
-for file in ${_Dbg_libdir}/command/*.cmd ; do 
-    debugger_command=${file##*/}
-    _Dbg_debugger_commands+=${debugger_command:s/.cmd//}
-done
-
+# ===================== FUNCTIONS =======================================
 
 # Note: We have to be careful here in naming "local" variables. In contrast
 # to other places in the debugger, because of the read/eval loop, they are
@@ -38,7 +49,7 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
-    expand_alias $1
+    local expanded_alias; expand_alias $1
     local _Dbg_cmd="$expanded_alias"
     eval "set -- $2"
 
@@ -144,8 +155,3 @@ _Dbg_onecmd() {
       esac
       return 0
 }
-
-# This is put at the so we have something at the end to stop at 
-# when we debug this. By stopping at the end all of the above functions
-# and variables can be tested.
-[[ -z $_Dbg_processor_ver ]] && typeset -r _Dbg_processor_ver='$Id: dbg-processor.inc,v 1.3 2008/07/29 03:47:15 rockyb Exp $'

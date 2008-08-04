@@ -18,13 +18,11 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# Print a stack backtrace.  
-# $1 is an additional offset correction - this routine is called from two
-# different places and one routine has one more additional call on top.
-# $2 is the maximum number of entries to include.
-# $3 is which entry we start from; the "up", "down" and the "frame"
-# commands may shift this.
+add_help step \
+'step [ nnn]	step (into functions) once or nnn times.'
 
+# Step command
+# $1 is an optional additional count.
 _Dbg_do_step() {
 
   if (( ! _Dbg_running )) ; then
@@ -35,12 +33,12 @@ _Dbg_do_step() {
   local count=${1:-1}
 
   if [[ $count == [0-9]* ]] ; then
-    _Dbg_steps=${count:-1}
+    _Dbg_step_ignore=${count:-1}
   else
     _Dbg_msg "Argument ($count) should be a number or nothing."
-    _Dbg_steps=1
+    _Dbg_step_ignore=1
   fi
-  _Dbg_write_journal "_Dbg_steps=$_Dbg_steps"
+  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_steps"
   return 1
 }
 

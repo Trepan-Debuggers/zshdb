@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# Things related to the file journal
+# Things related to variable journaling.
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -16,6 +16,14 @@
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+
+# We use a journal file to save variable state so that we can pass
+# values set in a subshell or nested shell back. This typically
+# includes debugger information, e.g. breakpoints and state. This file
+# is just code (usually assignment statements) that get eval'd.
+
+# The file to save the journal information.
+typeset _Dbg_journal=$(_Dbg_tempname journal)
 
 # append a command into journal file and then run the command.
 _Dbg_write_journal_eval() {
@@ -63,3 +71,8 @@ _Dbg_source_journal() {
     ## (( BASH_SUBSHELL == 0 )) && _Dbg_erase_journals
   fi
 }
+
+# if [ ! -f _Dbg_journal ] ; then 
+#   typeset -i BASHDB_QUIT_LEVELS=0
+#   _Dbg_write_journal "BASHDB_QUIT_LEVELS=0"
+# fi

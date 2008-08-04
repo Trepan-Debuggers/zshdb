@@ -23,7 +23,7 @@ typeset -i _Dbg_running=1      # True we are not finished running the program
 # Is used intially to get out of sourced dbg-main.inc script
 # and in zshdb script to not stop in remaining zshdb statements
 # before the sourcing the script to be debugged.
-typeset -i _Dbg_steps=1
+typeset -i _Dbg_step_ignore=1
 
 # Will be set to 1 if called via zshdb rather than "zsh --debugger"
 typeset -i _Dbg_script=0
