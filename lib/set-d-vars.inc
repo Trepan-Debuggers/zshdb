@@ -31,4 +31,4 @@ PS4="$_Dbg_old_PS4"
 IFS="$_Dbg_old_IFS"
 
 # Setting $? has to be done last.
-# _Dbg_set_dol_q
+_Dbg_set_dol_q
