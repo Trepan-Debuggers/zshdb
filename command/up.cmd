@@ -24,4 +24,5 @@ add_help up \
 _Dbg_do_up() {
   local -i count=${1:-1}
   _Dbg_adjust_frame $count +1
+  _Dbg_print_location
 }

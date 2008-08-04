@@ -22,4 +22,5 @@ add_help frame \
 _Dbg_do_frame() {
   local -i pos=${1:-0}
   _Dbg_adjust_frame $pos 0
+  _Dbg_print_location
 }

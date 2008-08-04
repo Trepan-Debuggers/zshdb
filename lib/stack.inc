@@ -26,7 +26,7 @@ _Dbg_adjust_frame() {
       ((pos=count))
     fi
   else
-    ((pos=_Dbg_stack_pos+(count*signum)))
+    ((pos=_Dbg_stack_pos-1+(count*signum)))
   fi
 
   if (( $pos < 0 )) ; then 

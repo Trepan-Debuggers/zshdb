@@ -20,9 +20,9 @@ else
     _Dbg_script_file=./testing.sh
 fi
 
-# Set $1, $2 for source'd script.
-set -- ${_Dbg_script_args[@]}
 while : ; do
+  # Set $1, $2 for source'd script.
+  set -- ${_Dbg_script_args[@]}
   _Dbg_step_ignore=2
   trap '_Dbg_debug_trap_handler $? "$@"' DEBUG
   . $_Dbg_script_file
