@@ -58,10 +58,6 @@ typeset _Dbg_tmpdir=/tmp
 # Name we refer to ourselves by
 typeset _Dbg_debugger_name='zshdb'
 
-# A place to put help command text
-typeset -A _Dbg_command_help
-export _Dbg_command_help
-
 # Array of file:line string from functrace.
 typeset -a _Dbg_frame_stack
 typeset -a _Dbg_func_stack

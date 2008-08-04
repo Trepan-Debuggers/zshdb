@@ -23,7 +23,34 @@ function _Dbg_esc_dq {
 
 # Set $? to $1 if supplied or the saved entry value of $?. 
 function _Dbg_set_dol_q {
-  return ${1:-$_Dbg_debugged_exit_code}
+  [[ $# -eq 0 ]] && return $_Dbg_debugged_exit_code
+  return $1
+}
+
+function _Dbg_errmsg {
+    typeset -r prefix='**'
+    _Dbg_msg "$prefix $@"
+}
+
+function _Dbg_errmsg_no_cr {
+    typeset -r prefix='**'
+    _Dbg_msg_no_cr "$prefix $@"
+}
+
+# _Dbg_is_function returns 0 if $1 is a defined function or nonzero otherwise. 
+# if $2 is nonzero, system functions, i.e. those whose name starts with
+# an underscore (_), are included in the search.
+_Dbg_is_function() {
+    typeset needed_fn=$1
+    [[ -z $needed_fn ]] && return 1
+    typeset -i include_system=${2:-0}
+    [[ $needed_fn[1,1] == '_' ]] && ((!include_system)) && {
+	return 1
+    }
+    typeset fn
+    fn=$(declare -f $needed_fn 2>&1)
+    [[ -n "$fn" ]]
+    return $?
 }
 
 function _Dbg_msg {

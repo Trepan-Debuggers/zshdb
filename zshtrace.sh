@@ -22,5 +22,11 @@ fi
 
 # Set $1, $2 for source'd script.
 set -- ${_Dbg_script_args[@]}
-trap '_Dbg_debug_trap_handler $? "$@"' DEBUG
-. $_Dbg_script_file
+while : ; do
+  _Dbg_step_ignore=2
+  trap '_Dbg_debug_trap_handler $? "$@"' DEBUG
+  . $_Dbg_script_file
+  trap '' DEBUG
+  _Dbg_msg "Program terminated. Type 's' or 'R' to restart."
+  _Dbg_process_commands
+done

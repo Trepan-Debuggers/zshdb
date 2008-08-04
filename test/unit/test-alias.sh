@@ -13,10 +13,12 @@ testAlias()
 
 typeset src_dir=${src_dir:-'../../'}
 . $src_dir/lib/alias.inc
+. $src_dir/lib/help.inc
 . $src_dir/command/alias.cmd
 
 # load shunit2
 set -o shwordsplit
+SHUNIT_PARENT=$0
 
 suite() {
     suite_addTest 'testAlias'
