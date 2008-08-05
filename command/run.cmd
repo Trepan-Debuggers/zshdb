@@ -27,21 +27,23 @@ _Dbg_do_run() {
 
   local script_args
   if (( $# != 0 )) ; then 
-    script_args="$@"
+    script_args=$@
   else
-    script_args="${_Dbg_script_args[@]}"
+    script_args=${_Dbg_script_args[@]}
   fi
 
-  local exec_cmd="$_Dbg_orig_0 $script_args";
+  local exec_cmd="$_Dbg_orig_0 $_Dbg_script_file $script_args";
+  local ZSH_INTERPRETER; get_zsh_interpreter
+  
   if (( !_Dbg_script )); then
 #     if [[ $_cur_source_file == $_Dbg_bogus_file ]] ; then
 #       script_args="--debugger -c \"$BASH_EXECUTION_STRING\""
-#       exec_cmd="$ZSH_NAME --debugger -c \"$BASH_EXECUTION_STRING\"";
+#       exec_cmd="$ZSH_INTERPETER --debugger -c \"$BASH_EXECUTION_STRING\"";
 #     else
-#       exec_cmd="$ZSH_NAME --debugger $_Dbg_orig_0 $script_args";
+#       exec_cmd="$ZSH_INTERPRETER --debugger $_Dbg_orig_0 $script_args";
 #     fi
   else
-      local exec_cmd="$ZSH_NAME $_Dbg_orig_0 $script_args";
+      local exec_cmd="$ZSH_INTERPRETER $_Dbg_orig_0 $_Dbg_script_file $script_args";
   fi
 
   if (( _Dbg_basename_only )) ; then 

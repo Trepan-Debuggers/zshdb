@@ -1,10 +1,6 @@
 # -*- shell-script -*-
 zmodload -ap zsh/mapfile mapfile
 
-_Dbg_libdir='.'
-prefix=/usr/local  # cygwin gets PKGDATADIR wrong
-[ -z $_Dbg_libdir ] && typeset _Dbg_libdir=${prefix}/share/zshdb
-
 # Things in init have to come before other includes and things in lib
 # have to come before command.
 source ${_Dbg_libdir}/init.inc

@@ -1,6 +1,4 @@
 # -*- shell-script -*-
-# Eval command.
-#
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
@@ -17,21 +15,8 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# temp file for internal eval'd commands
-typeset _Dbg_evalfile=$(_Dbg_tempname eval)
-
-add_help eval \
-'eval cmd	Evaluate a bash command by sourcing it in a subshell.'
-_Dbg_do_eval() {
-
-    print ". ${_Dbg_libdir}/lib/set-d-vars.inc" > $_Dbg_evalfile
-    print "$@" >> $_Dbg_evalfile
-   if [[ -n $_Dbg_tty  ]] ; then
-     . $_Dbg_evalfile >>$_Dbg_tty
-   else
-     . $_Dbg_evalfile
-   fi
-  # We've reset some variables like IFS and PS4 to make eval look
-  # like they were before debugger entry - so reset them now
-  _Dbg_set_debugger_internal
+function get_zsh_interpreter {
+  typeset -a cmd
+  cmd=( $(ps h -o command -p $$) )
+  ZSH_INTERPRETER=$cmd[1]
 }

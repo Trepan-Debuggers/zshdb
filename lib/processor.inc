@@ -143,10 +143,20 @@ _Dbg_onecmd() {
 	  _Dbg_do_run $args
 	  ;;
 
+	# Trace a function
+	tr | tra | tra | trac | trace )
+	  _Dbg_do_trace_fn $args 
+	  ;;
+
 	# Move call stack up
 	u | up )
 	  _Dbg_do_up $args
 	  _Dbg_last_cmd='up'
+	  ;;
+
+	# Remove a function trace
+	unt | untr | untra | untrac | untrace )
+	  _Dbg_do_untrace_fn $args 
 	  ;;
 
 	* ) 

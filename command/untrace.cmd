@@ -1,5 +1,4 @@
 # -*- shell-script -*-
-# Eval command.
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -17,21 +16,28 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# temp file for internal eval'd commands
-typeset _Dbg_evalfile=$(_Dbg_tempname eval)
+add_help untrace \
+'untrace *function*	untrace previosly traced *function*'
 
-add_help eval \
-'eval cmd	Evaluate a bash command by sourcing it in a subshell.'
-_Dbg_do_eval() {
-
-    print ". ${_Dbg_libdir}/lib/set-d-vars.inc" > $_Dbg_evalfile
-    print "$@" >> $_Dbg_evalfile
-   if [[ -n $_Dbg_tty  ]] ; then
-     . $_Dbg_evalfile >>$_Dbg_tty
-   else
-     . $_Dbg_evalfile
-   fi
-  # We've reset some variables like IFS and PS4 to make eval look
-  # like they were before debugger entry - so reset them now
-  _Dbg_set_debugger_internal
+# Undo wrapping fn
+# $? is 0 if successful.
+function _Dbg_do_untrace_fn {
+    typeset -r fn=$1
+    if [[ -z $fn ]] ; then
+	_Dbg_errmsg "untrace_fn: missing or invalid function name."
+	return 2
+    fi
+    _Dbg_is_function "$fn" || {
+	_Dbg_errmsg "untrace_fn: function \"$fn\" is not a function."
+	return 3
+    }
+    _Dbg_is_function "old_$fn" || {
+	_Dbg_errmsg "untrace_fn: old function old_$fn not seen - nothing done."
+	return 4
+    }
+    cmd=$(declare -f -- "old_$fn") || return 5
+    cmd=${cmd#old_}
+    ((_Dbg_debug_debugger)) && echo $cmd 
+    eval "$cmd" || return 6
+    return 0
 }

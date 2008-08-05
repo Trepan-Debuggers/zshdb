@@ -26,7 +26,8 @@ add_help print \
 _Dbg_do_print() {
   local -r _Dbg_expr=${@:-"$_Dbg_last_print_args"}
   local -r dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
-  . ${_Dbg_libdir}/lib/set-d-vars.inc
+  . ${_Dbg_libdir}/lib/set-d-vars.inc $_Dbg_debugged_exit_code
   eval "_Dbg_msg $_Dbg_expr"
   _Dbg_last_print_args="$dq_expr"
+  _Dbg_set_debugger_internal
 }
