@@ -53,6 +53,12 @@ _Dbg_onecmd() {
     local _Dbg_cmd="$expanded_alias"
     eval "set -- $2"
 
+    # Set default next, step or skip command
+    if [[ -z $_Dbg_cmd ]]; then
+	_Dbg_cmd=$_Dbg_last_next_step_cmd
+	args=$_Dbg_last_next_step_args
+    fi
+    
     case $_Dbg_cmd in
 	# Comment line
 	[#]* ) 
@@ -130,10 +136,17 @@ _Dbg_onecmd() {
 	  ;;
 
 	# single-step N times (default 1)
-	s | st | ste | step | n | ne | nex | next | sk | ski | skip )
+	s | st | ste | step | n | ne | nex | next )
 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
 	  _Dbg_last_next_step_args="$@"
 	  _Dbg_do_step $@
+	  return $?
+	  ;;
+
+	# skip N times (default 1)
+	sk | ski | skip )
+	  _Dbg_last_cmd='skip'
+	  _Dbg_do_skip $@
 	  return $?
 	  ;;
 
@@ -159,8 +172,23 @@ _Dbg_onecmd() {
 	  _Dbg_do_untrace_fn $args 
 	  ;;
 
+	'' )
+	  # Redo last_cmd
+	  if [[ -n $_Dbg_last_cmd ]] ; then 
+	      _Dbg_cmd=$_Dbg_last_cmd 
+	      _Dbg_redo=1
+	  fi
+	  ;;
+
 	* ) 
-          _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
+	   if (( _Dbg_autoeval )) ; then
+	     _Dbg_do_eval $_Dbg_cmd $args
+	   else
+             _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
+	     # _Dbg_remove_history_item
+	     # local -a last_history=(`history 1`)
+	     # history -d ${last_history[0]}
+	   fi
 	  ;;
       esac
       return 0

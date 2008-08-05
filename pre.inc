@@ -1,3 +1,4 @@
+# -*- shell-script -*-
 [[ -z $_Dbg_release ]] || return
 typeset -r _Dbg_release='zshdb-0.01git'
 

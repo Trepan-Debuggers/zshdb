@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# step.cmd - gdb-like "step" debugger command
+# skip.cmd - gdb-like "skip" debugger command
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -17,12 +17,15 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-add_help step \
-'step [ nnn]	step (into functions) once or nnn times.'
+# Number of statements to skip before entering the debugger if greater than 0
+typeset -i _Dbg_skip_ignore=0
 
-# Step command
+add_help skip \
+'skip [ nnn]	skip once or nnn times.'
+
+# Skip command
 # $1 is an optional additional count.
-_Dbg_do_step() {
+_Dbg_do_skip() {
 
   if (( ! _Dbg_running )) ; then
       _Dbg_msg "The program is not being run."
@@ -32,13 +35,13 @@ _Dbg_do_step() {
   local count=${1:-1}
 
   if [[ $count == [0-9]* ]] ; then
-    _Dbg_step_ignore=${count:-1}
+    _Dbg_skip_count=${count:-1}
   else
     _Dbg_msg "Argument ($count) should be a number or nothing."
-    _Dbg_step_ignore=1
+    _Dbg_skip_count=0
     return 0
   fi
-  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
-  return 1
+  _Dbg_write_journal "_Dbg_skip_count=$_Dbg_skip_count"
+  return 2
 }
 

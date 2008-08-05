@@ -71,21 +71,10 @@ function _Dbg_split {
 
 function _Dbg_set_debugger_entry {
 
-  # Nuke DEBUG trap
-  # trap '' DEBUG
-
-  # _cur_fn=${FUNCNAME[2]}
-  # let _curline=${BASH_LINENO[1]}
-  # ((_curline < 1)) && let _curline=1
-
   _Dbg_old_IFS="$IFS"
   _Dbg_old_PS4="$PS4"
-  # _cur_source_file=${BASH_SOURCE[2]:-$_Dbg_bogus_file}
-  # _Dbg_stack_pos=$_Dbg_STACK_TOP
-  # _Dbg_listline=_curline
+
   _Dbg_set_debugger_internal
-  # _cur_source_file="`_Dbg_resolve_expand_filename $_cur_source_file`"
-  # _cur_filevar="`_Dbg_file2var $_cur_source_file`"
 }
 
 # Does things to after on entry of after an eval to set some debugger

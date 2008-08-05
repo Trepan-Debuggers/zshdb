@@ -34,6 +34,11 @@ function _Dbg_debug_trap_handler {
 	_Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
     fi
 
+    if ((_Dbg_skip_ignore > 0)) ; then
+	((_Dbg_skip_ignore--))
+	_Dbg_write_journal "_Dbg_step_ignore=$_Dbg_skip_ignore"
+    fi
+
     # Determine if we stop or not. 
 
     # next, check if step mode and no. of steps is up
