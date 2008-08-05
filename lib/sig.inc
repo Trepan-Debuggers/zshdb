@@ -23,8 +23,7 @@ function _Dbg_debug_trap_handler {
     # setopt localtraps
     # trap 'echo EXIT encountered inside debugger' EXIT
     # trap 'echo ERR encountered inside debugger' ERR
-    typeset -i _Dbg_debugged_exit_code=$1
-    shift
+    typeset -i _Dbg_debugged_exit_code=$?
     typeset -a _Dbg_arg
 
     _Dbg_arg=($@)

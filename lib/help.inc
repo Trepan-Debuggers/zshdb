@@ -1,6 +1,4 @@
 # -*- shell-script -*-
-# Print command.
-#
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
@@ -17,21 +15,13 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# The arguments in the last "print" command.
-typeset _Dbg_last_print_args=''
+# A place to put help command text
+typeset -A _Dbg_command_help
+export _Dbg_command_help
 
-add_help print \
-'print *string*	Print value of a substituted string.'
-
-_Dbg_do_print() {
-  local -r _Dbg_expr=${@:-"$_Dbg_last_print_args"}
-  local -r dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
-
-  ### FIXME: something strange in zsh causes _Dbg_debugged_exit_code
-  # Not to be seen in _Dbg_do_eval if we don't have the bogus assignment 
-  # below
-  local foo=$_Dbg_debugged_exit_code  
-
-  _Dbg_do_eval _Dbg_msg "$_Dbg_expr"
-  _Dbg_set_debugger_internal
+# Add help text $2 for command $1
+function add_help {
+    (($# != 2)) && return 1
+     _Dbg_command_help[$1]=$2
+     return 0
 }

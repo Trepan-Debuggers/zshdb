@@ -24,11 +24,13 @@ add_help eval \
 'eval cmd	Evaluate a bash command by sourcing it in a subshell.'
 _Dbg_do_eval() {
 
-    print ". ${_Dbg_libdir}/lib/set-d-vars.inc" > $_Dbg_evalfile
-    print "$@" >> $_Dbg_evalfile
+   print ". ${_Dbg_libdir}/lib/set-d-vars.inc" > $_Dbg_evalfile
+   print "$@" >> $_Dbg_evalfile
    if [[ -n $_Dbg_tty  ]] ; then
+     _Dbg_set_dol_q $_Dbg_debugged_exit_code
      . $_Dbg_evalfile >>$_Dbg_tty
    else
+     _Dbg_set_dol_q $_Dbg_debugged_exit_code
      . $_Dbg_evalfile
    fi
   # We've reset some variables like IFS and PS4 to make eval look
