@@ -1,11 +1,10 @@
-/Makefile.am~
+/*.tar.gz
+/*~
 /Makefile.in
 /aclocal.m4
 /autom4te.cache
 /config.log
 /config.status
 /configure
-/configure.ac~
+/elisp-comp
 /install-sh
-/opts.inc~
-/pre.inc~

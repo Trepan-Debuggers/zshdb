@@ -1,2 +1,2 @@
-SUBDIRS = test
+SUBDIRS = emacs test
 
