@@ -7,8 +7,7 @@ pkgdata_DATA =        \
 	help.cmd      \
 	quit.cmd      \
 	run.cmd       \
-	skip.cmd      \
-	step.cmd      \
+	stepping.cmd  \
 	tracefn.cmd   \
 	where.cmd
 
