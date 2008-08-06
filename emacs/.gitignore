@@ -1,3 +1,7 @@
-/Makefile.am~
+/*~
+/.*~
+/Makefile
+/Makefile.in
 /elc-stamp
+/zshdb-test.el
 /zshdb.elc
