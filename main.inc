@@ -9,12 +9,8 @@ for file in ${_Dbg_libdir}/lib/*.inc ; do
     source $file
 done
 
-typeset -a _Dbg_debugger_commands
 for file in ${_Dbg_libdir}/command/*.cmd ; do 
     source $file
-    # Extract command name
-    debugger_command=${file##*/}
-    _Dbg_debugger_commands+=${debugger_command:s/.cmd//}
 done
 
 unsetopt localtraps

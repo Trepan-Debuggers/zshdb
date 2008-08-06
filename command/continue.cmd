@@ -17,22 +17,12 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# Print a stack backtrace.  
-# $1 is an additional offset correction - this routine is called from two
-# different places and one routine has one more additional call on top.
-# $2 is the maximum number of entries to include.
-# $3 is which entry we start from; the "up", "down" and the "frame"
-# commands may shift this.
-
-add_help continue \
+_Dbg_add_help continue \
 'continue	Continue execution.'
 
 function _Dbg_do_continue {
 
-  if (( ! _Dbg_running )) ; then
-      _Dbg_msg 'The program is not being run.'
-      return 1
-  fi
+  _Dbg_check_running
 
   _Dbg_step_ignore=-1
   return 0

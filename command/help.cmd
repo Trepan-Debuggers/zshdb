@@ -22,7 +22,9 @@ _Dbg_do_help() {
   if ((0==$#)) ; then
       _Dbg_msg "Type 'help <command-name>' for help on a specific command.\n"
       _Dbg_msg 'Available commands:'
-      print -C $_Dbg_help_cols $_Dbg_debugger_commands
+      local -a commands
+      commands=(${(ki)_Dbg_command_help})
+      print -C $_Dbg_help_cols $commands
    else
       local cmd=$1
       if [[ -n $_Dbg_command_help[(k)$cmd] ]] ; then

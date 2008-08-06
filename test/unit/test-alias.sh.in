@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!@ZSH_PROG@
 # -*- shell-script -*-
 
 testAlias()
@@ -11,12 +11,12 @@ testAlias()
     assertEquals 'q' $expanded_alias
 }
 
-# Make sure ../.. has a trailing slash
-if [ '../..' = '' ] ; then
+# Make sure @top_builddir@ has a trailing slash
+if [ '@top_builddir@' = '' ] ; then
   echo "Something is wrong top_builddir is not set."
  exit 1
 fi
-top_builddir=../..
+top_builddir=@top_builddir@
 top_builddir=${top_builddir%%/}/
 
 . $top_builddir/lib/alias.inc
@@ -31,6 +31,6 @@ suite() {
     suite_addTest 'testAlias'
 }
 
-srcdir=.
+srcdir=@srcdir@
 srcdir=${srcdir}/
 . ${srcdir}/shunit2

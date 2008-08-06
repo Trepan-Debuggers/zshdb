@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# skip.cmd - gdb-like "skip" debugger command
+# stepping.cmd - gdb-like "step" and "skip" debugger commands
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -27,10 +27,7 @@ add_help skip \
 # $1 is an optional additional count.
 _Dbg_do_skip() {
 
-  if (( ! _Dbg_running )) ; then
-      _Dbg_msg "The program is not being run."
-      return 0
-  fi
+  _Dbg_check_running
 
   local count=${1:-1}
 
@@ -45,3 +42,24 @@ _Dbg_do_skip() {
   return 2
 }
 
+add_help step \
+'step [ nnn]	step (into functions) once or nnn times.'
+
+# Step command
+# $1 is an optional additional count.
+_Dbg_do_step() {
+
+  _Dbg_check_running
+
+  local count=${1:-1}
+
+  if [[ $count == [0-9]* ]] ; then
+    _Dbg_step_ignore=${count:-1}
+  else
+    _Dbg_msg "Argument ($count) should be a number or nothing."
+    _Dbg_step_ignore=1
+    return 0
+  fi
+  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
+  return 1
+}

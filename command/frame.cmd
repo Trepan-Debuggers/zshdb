@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# frame.cmd - gdb-like "frame" debugger command
+# stepping.cmd - gdb-like "up", "down" and "frame" debugger commands
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -17,10 +17,32 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-add_help frame \
+# Move default values down $1 or one in the stack. 
+
+_Dbg_add_help down \
+'down [count]    Set file location for printing down the call stack by 
+                count. If count is omitted use 1.'
+_Dbg_do_down() {
+  local -i count=${1:-1}
+  _Dbg_adjust_frame $count -1
+  _Dbg_print_location
+}
+
+_Dbg_add_help frame \
 'frame frame-number	Move the current frame to the frame-number'
+
 _Dbg_do_frame() {
   local -i pos=${1:-0}
   _Dbg_adjust_frame $pos 0
+  _Dbg_print_location
+}
+
+# Move default values up $1 or one in the stack. 
+add_help up \
+'u | up [count]  Set file location for printing up the call stack by 
+                count. If count is omitted use 1.'
+_Dbg_do_up() {
+  local -i count=${1:-1}
+  _Dbg_adjust_frame $count +1
   _Dbg_print_location
 }

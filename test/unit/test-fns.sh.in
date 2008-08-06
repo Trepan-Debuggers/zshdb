@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!@ZSH_PROG@
 # -*- shell-script -*-
 
 # Test _Dbg_is_function
@@ -57,12 +57,12 @@ test_split()
     assertEquals '5' ${split_result[2]}
 }
 
-# Make sure ../.. has a trailing slash
-if [ '../..' = '' ] ; then
+# Make sure @top_builddir@ has a trailing slash
+if [ '@top_builddir@' = '' ] ; then
   echo "Something is wrong top_builddir is not set."
  exit 1
 fi
-top_builddir=../..
+top_builddir=@top_builddir@
 top_builddir=${top_builddir%%/}/
 
 . $top_builddir/lib/fns.inc
@@ -71,7 +71,7 @@ top_builddir=${top_builddir%%/}/
 set -o shwordsplit
 SHUNIT_PARENT=$0
 
-srcdir=.
+srcdir=@srcdir@
 srcdir=${srcdir}/
 . ${srcdir}/shunit2
 

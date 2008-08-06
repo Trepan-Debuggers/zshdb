@@ -20,8 +20,11 @@ typeset -A _Dbg_command_help
 export _Dbg_command_help
 
 # Add help text $2 for command $1
-function add_help {
+function _Dbg_add_help {
     (($# != 2)) && return 1
      _Dbg_command_help[$1]=$2
      return 0
 }
+
+# FIXME: Until convert all of the files in command
+alias add_help=_Dbg_add_help
