@@ -15,8 +15,8 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# Add escapes to a string $1 so that when it is read back via "$1"
-# it is the same as $1.
+# Add escapes to a string $1 so that when it is read back using
+# eval echo "$1" it is the same as echo $1.
 function _Dbg_esc_dq {
   builtin echo $1 | sed -e 's/[`$\"]/\\\0/g' 
 }

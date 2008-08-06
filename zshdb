@@ -1,21 +1,38 @@
 #!/usr/local/bin/zsh -f
 
-typeset -a _Dbg_script_args
-_Dbg_script_args=($@)
-
 # Original $0. Note we can't set this in an include.
 typeset -r _Dbg_orig_0=$0
 
-# Stuff common to zshdb and zshdb-trace
-. ./pre.inc
+## Stuff set by autoconf/configure ###
+prefix=/usr/local 
+typeset _Dbg_libdir=${prefix}/share/zshdb
+###
 
-# Things that have to be done before the bulk of main
-. ./main.inc
+[[ ! -d _Dbg_libdir ]] && _Dbg_libdir='.'
+# Parse just the libdir option
+local libdir
+zparseopts -E L:=libdir -library:=libdir
+if [[ -n $libdir ]] ; then
+    local -a words
+    words=($libdir)
+    if [[ ! -d $words[2] ]] ; then
+	print "$words[2] is not a directory"
+	exit 1
+    fi
+    _Dbg_libdir=$words[2]
+fi
+
+# Stuff common to zshdb and zshdb-trace. Include the rest of options
+# processing.
+. ${_Dbg_libdir}/dbg-pre.inc
+
+# Pulls in the rest of the debugger code.
+. ${_Dbg_libdir}/main.inc
 
 # Note that this is called via zshdb rather than "zsh --debugger" or zshdb-trace
 _Dbg_script=1
 
-# Save me typing in testing.
+# TEMPORARY: Save me typing in testing.
 if (( ${#_Dbg_script_args[@]} > 0 )) ; then
     _Dbg_script_file="$_Dbg_script_args[1]"
     shift _Dbg_script_args

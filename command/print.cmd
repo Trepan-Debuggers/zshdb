@@ -25,7 +25,9 @@ add_help print \
 
 _Dbg_do_print() {
   local -r _Dbg_expr=${@:-"$_Dbg_last_print_args"}
-  local -r dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
+  local dq_expr
+  dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
+  readonly dq_expr
 
   ### FIXME: something strange in zsh causes _Dbg_debugged_exit_code
   # Not to be seen in _Dbg_do_eval if we don't have the bogus assignment 

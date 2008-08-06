@@ -6,8 +6,10 @@ AM_INIT_AUTOMAKE([no-define])
 AM_CONDITIONAL(INSTALL_EMACS_LISP, test "x$lispdir" != "x")
 
 AC_CONFIG_FILES([Makefile \
+	command/Makefile \
 	emacs/Makefile \
 	emacs/zshdb-test.el \
+	lib/Makefile \
 	test/Makefile \
 	test/unit/Makefile])
 
