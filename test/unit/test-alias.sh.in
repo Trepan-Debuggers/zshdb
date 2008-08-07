@@ -3,11 +3,11 @@
 
 test_alias()
 {
-    add_alias q quit
-    expand_alias q
+    _Dbg_add_alias q quit
+    _Dbg_expand_alias q
     assertEquals 'quit' $expanded_alias
-    remove_alias q
-    expand_alias q
+    _Dbg_remove_alias q
+    _Dbg_expand_alias q
     assertEquals 'q' $expanded_alias
 }
 
@@ -19,9 +19,9 @@ fi
 top_builddir=@top_builddir@
 top_builddir=${top_builddir%%/}/
 
-. $top_builddir/lib/alias.inc
-. $top_builddir/lib/help.inc
-. $top_builddir/command/alias.cmd
+. $top_builddir/lib/alias.sh
+. $top_builddir/lib/help.sh
+. $top_builddir/command/alias.sh
 
 # load shunit2
 set -o shwordsplit

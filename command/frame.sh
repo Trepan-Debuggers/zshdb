@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# stepping.cmd - gdb-like "up", "down" and "frame" debugger commands
+# stepping.sh - gdb-like "up", "down" and "frame" debugger commands
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #

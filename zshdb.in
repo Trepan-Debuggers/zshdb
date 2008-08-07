@@ -5,7 +5,7 @@
 typeset -r _Dbg_orig_0=$0
 
 ## Stuff set by autoconf/configure ###
-prefix=/usr/local 
+prefix=@prefix@ # cygwin gets PKGDATADIR wrong
 typeset _Dbg_libdir=${prefix}/share/zshdb
 ###
 
@@ -28,7 +28,7 @@ fi
 . ${_Dbg_libdir}/dbg-pre.inc
 
 # Pulls in the rest of the debugger code.
-. ${_Dbg_libdir}/main.inc
+. ${_Dbg_libdir}/dbg-main.sh
 
 # Note that this is called via zshdb rather than "zsh --debugger" or zshdb-trace
 _Dbg_script=1

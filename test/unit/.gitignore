@@ -1,6 +1,7 @@
-/.*~
 /*~
+/.*~
 /Makefile
 /Makefile.in
 /test-alias.sh
 /test-fns.sh
+/test-run.sh

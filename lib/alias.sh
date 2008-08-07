@@ -1,5 +1,4 @@
 # -*- shell-script -*-
-#$Id: set-d-vars.inc,v 1.2 2007/02/11 23:06:41 rockyb Exp $
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
@@ -16,19 +15,24 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# set dollar variables ($1, $2, ... $?) 
-# to their values in the debugged environment before we entered the debugger.
+# Add an new alias in the alias table
+typeset -A _Dbg_aliases
 
-typeset _Dbg_set_str='set --'
-typeset -i _Dbg__i
-for (( _Dbg__i=1 ; _Dbg__i<=${#_Dbg_arg[@]}; _Dbg__i++ )) ; do
-  local dq_argi="${_Dbg_arg[_Dbg__i]}"
-  _Dbg_set_str="$_Dbg_set_str \"$dq_argi\""
-done
-eval $_Dbg_set_str
+function _Dbg_add_alias {
+    (( $# != 2 )) && return 1
+    _Dbg_aliases[$1]=$2
+    return 0
+}
 
-PS4="$_Dbg_old_PS4"
-IFS="$_Dbg_old_IFS"
+function _Dbg_remove_alias {
+    (( $# != 1 )) && return 1
+    unset "_Dbg_aliases[$1]"
+    return 0
+}
 
-# Setting $? has to be done last.
-_Dbg_set_dol_q $_Dbg_debugged_exit_code
+function _Dbg_expand_alias {
+    (( $# != 1 )) && return 1
+    expanded_alias=$1
+    [[ -n ${_Dbg_aliases[(k)$1]} ]] && expanded_alias=$_Dbg_aliases[$1]
+    return 0
+}

@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# alias.cmd - gdb-like "alias" debugger command
+# help.sh - gdb-like "help" debugger command
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -17,9 +17,26 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-add_help alias \
-'alias name debugger-command	Make name be an alias for debugger-command.'
-
-_Dbg_do_alias() {
-  _Dbg_add_alias $1 $2
+typeset -i _Dbg_help_cols=6
+_Dbg_do_help() {
+  if ((0==$#)) ; then
+      _Dbg_msg "Type 'help <command-name>' for help on a specific command.\n"
+      _Dbg_msg 'Available commands:'
+      local -a commands
+      commands=(${(ki)_Dbg_command_help})
+      print -C $_Dbg_help_cols $commands
+   else
+      local cmd=$1
+      if [[ -n $_Dbg_command_help[(k)$cmd] ]] ; then
+ 	  print $_Dbg_command_help[$cmd]
+      else
+	  local expanded_alias; _Dbg_expand_alias $cmd
+	  local cmd="$expanded_alias"
+	  if [[ -n $_Dbg_command_help[(k)$cmd] ]] ; then
+ 	      print $_Dbg_command_help[$cmd]
+	  else
+      	      print "Don't have help for '$1'."
+	  fi
+      fi
+  fi
 }

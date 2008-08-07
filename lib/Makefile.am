@@ -1,15 +1,15 @@
 pkgdatadir        = ${datadir}/@PACKAGE@/lib
 pkgdata_DATA =      	\
-	alias.inc    	\
-	fns.inc  	\
-	gdb.inc  	\
-	help.inc  	\
-	journal.inc  	\
-	help.inc    	\
-	processor.inc  	\
-	run.inc    	\
-	set-d-vars.inc 	\
-	sig.inc	 	\
-	stack.inc
+	alias.sh    	\
+	fns.sh  	\
+	gdb.sh  	\
+	help.sh  	\
+	journal.sh  	\
+	help.sh    	\
+	processor.sh  	\
+	run.sh    	\
+	set-d-vars.sh 	\
+	sig.sh	 	\
+	stack.sh
 
 EXTRA_DIST = $(pkgdata_DATA)

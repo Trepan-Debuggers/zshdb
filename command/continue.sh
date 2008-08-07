@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# continue.cmd - gdb-like "continue" debugger command
+# continue.sh - gdb-like "continue" debugger command
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #

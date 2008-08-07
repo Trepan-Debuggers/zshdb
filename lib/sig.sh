@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# sig.inc - Bourne Again Shell Debugger Signal handling routines
+# sig.sh - Bourne Again Shell Debugger Signal handling routines
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #

@@ -93,7 +93,7 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
-    local expanded_alias; expand_alias $1
+    local expanded_alias; _Dbg_expand_alias $1
     local _Dbg_cmd="$expanded_alias"
     eval "set -- $2"
 

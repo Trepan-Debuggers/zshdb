@@ -1,6 +1,6 @@
 SUBDIRS = command emacs lib test
 
-pkgdata_DATA = dbg-pre.inc main.inc opts.inc
+pkgdata_DATA = dbg-pre.sh dbg-main.sh dbg-opts.sh
 
 EXTRA_DIST = $(pkgdata_DATA)
 

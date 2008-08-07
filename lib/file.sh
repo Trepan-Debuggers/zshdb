@@ -1,4 +1,6 @@
 # -*- shell-script -*-
+# Things related to file handling.
+#
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
@@ -14,25 +16,20 @@
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+# Directory search patch for unqualified file names
 
-# Add an new alias in the alias table
-typeset -A _Dbg_aliases
+typeset -a _Dbg_dir
+_Dbg_dir=('\$cdir' '\$cwd' )
 
-function _Dbg_add_alias {
-    (( $# != 2 )) && return 1
-    _Dbg_aliases[$1]=$2
-    return 0
+# Directory in which the script is located
+## [[ -z _Dbg_cdir ]] && typeset -r _Dbg_cdir=${_Dbg_source_file%/*}
+
+# $1 contains the name you want to glob. return 1 if exists and is
+# readible or 0 if not. 
+# The result will be in variable $filename which is assumed to be 
+# local'd by the caller
+_Dbg_glob_filename() {
+  typeset cmd="filename=$(expr $1)"
+  eval $cmd
 }
 
-function _Dbg_remove_alias {
-    (( $# != 1 )) && return 1
-    unset "_Dbg_aliases[$1]"
-    return 0
-}
-
-function expand_alias {
-    (( $# != 1 )) && return 1
-    expanded_alias=$1
-    [[ -n ${_Dbg_aliases[(k)$1]} ]] && expanded_alias=$_Dbg_aliases[$1]
-    return 0
-}
