@@ -8,6 +8,8 @@ Runs zsh <script_file> under a debugger.
 options:
     -h | --help             print this help
     -q | --quiet            Do not print introductory and quiet messages.
+    -B | --basename         basename only on source listings. 
+                            (Needed in regression tests)
     -L libdir | --library libdir
                             set directory location of library helper file: $_Dbg_main
     -n | --nx |--no-init    Don't run initialization files
@@ -24,15 +26,16 @@ show_version() {
 }
 
 # Debugger command file
-local o_cmdfile='' o_nx=''
+local o_cmdfile='' o_nx='' o_basename=''
 
 local temp
-zparseopts -D -- \
-  L:=temp        -library:=temp \
-  V=o_version    -version=o_version \
-  h=o_help       -help=o_help \
+zparseopts -D --                        \
+  B=o_basename                          \
+  L:=temp        -library:=temp         \
+  V=o_version    -version=o_version     \
+  h=o_help       -help=o_help           \
   n=o_nx         -nx=o_nx -no-init=o_nx \
-  q=o_quiet      -quiet=o_quiet \
+  q=o_quiet      -quiet=o_quiet         \
   x:=o_cmdfile   -command:=o_cmdfile
                 
 [[ $? != 0 || "$o_help" != '' ]] && usage
@@ -47,6 +50,4 @@ welcome to change it and/or distribute copies of it under certain conditions.
 '
 fi
 [[ -n $o_version ]] && show_version
-
-
-
+[[ -n $o_basename ]] && _Dbg_basename_only=1
