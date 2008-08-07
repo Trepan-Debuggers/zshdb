@@ -62,6 +62,6 @@ _Dbg_do_backtrace() {
   return 0
 }
 
-add_alias bt where
-add_alias T where
-add_alias backtrace where
+_Dbg_add_alias bt where
+_Dbg_add_alias T where
+_Dbg_add_alias backtrace where

@@ -1,7 +1,7 @@
 #!@ZSH_PROG@
 # -*- shell-script -*-
 
-testAlias()
+test_alias()
 {
     add_alias q quit
     expand_alias q
@@ -26,10 +26,6 @@ top_builddir=${top_builddir%%/}/
 # load shunit2
 set -o shwordsplit
 SHUNIT_PARENT=$0
-
-suite() {
-    suite_addTest 'testAlias'
-}
 
 srcdir=@srcdir@
 srcdir=${srcdir}/

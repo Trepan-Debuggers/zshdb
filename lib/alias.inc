@@ -18,13 +18,13 @@
 # Add an new alias in the alias table
 typeset -A _Dbg_aliases
 
-function add_alias {
+function _Dbg_add_alias {
     (( $# != 2 )) && return 1
     _Dbg_aliases[$1]=$2
     return 0
 }
 
-function remove_alias {
+function _Dbg_remove_alias {
     (( $# != 1 )) && return 1
     unset "_Dbg_aliases[$1]"
     return 0

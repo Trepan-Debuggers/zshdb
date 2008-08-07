@@ -1,6 +1,26 @@
 #!@ZSH_PROG@
 # -*- shell-script -*-
 
+# Test _Dbg_eqs_dq
+test_esc_dq_function()
+{
+  check_esc_dq () {
+    local orig="$1"
+    local transform="$(_Dbg_esc_dq "$orig")"
+    eval 'got=$(echo "$1")'
+    assertEquals "$orig" "$got"
+  }
+  check_esc_dq 'Now is the time'
+  check_esc_dq '"Now is the time"'
+  check_esc_dq 'Make $$'
+
+  assertEquals 'abc' $(_Dbg_esc_dq abc)
+  assertEquals '\\\"abc\\\"' $(_Dbg_esc_dq '\"abc\"')
+  # FIXME: 
+  # assertEquals '\\\"a\\bc\\\"' $(_Dbg_esc_dq '\"a\bc\"')
+
+}
+
 # Test _Dbg_is_function
 test_is_function()
 {

@@ -57,5 +57,4 @@ _Dbg_do_print() {
   local foo=$_Dbg_debugged_exit_code  
 
   _Dbg_do_eval _Dbg_msg "$_Dbg_expr"
-  _Dbg_set_debugger_internal
 }

@@ -26,6 +26,28 @@ typeset _Dbg_last_cmd=''
 
 typeset -a _Dbg_debugger_commands
 
+# ==================== VARIABLES =======================================
+# _Dbg_INPUT_START_DESC is the lowest descriptor we use for reading.
+# _Dbg_MAX_INPUT_DESC   is the maximum input descriptor that can be 
+#                       safely used (as per the bash manual on redirection)
+# _Dbg-input_desc       is the current descriptor in use. "sourc"ing other
+#                       command files will increase this descriptor
+
+typeset -ir _Dbg_INPUT_START_DESC=4
+typeset -i  _Dbg_MAX_INPUT_DESC=9  # logfile can reduce this
+typeset -i  _Dbg_input_desc=_Dbg_INPUT_START_DESC # ++ before use
+
+typeset _Dbg_redirect_cmd="exec $_Dbg_input_desc<&0"
+eval $_Dbg_redirect_cmd
+
+# keep a list of source'd command files. If the entry is '', then we are 
+# interactive.
+typeset -a _Dbg_cmdfile
+_Dbg_cmdfile=('')
+
+# List of command files to process
+typeset -a _Dbg_input
+
 # ===================== FUNCTIONS =======================================
 
 # Note: We have to be careful here in naming "local" variables. In contrast
@@ -33,16 +55,38 @@ typeset -a _Dbg_debugger_commands
 # in fact seen by those using the debugger. So in contrast to other "local"s
 # in the debugger, we prefer to preface these with _Dbg_.
 function _Dbg_process_commands {
+
+  # Evaluate all the display expressions
+  ## _Dbg_eval_all_display
+
+  # Evaluate all the display expressions
+  # _Dbg_eval_all_display
+
+  # Loop over all pending open input file descriptors
+  while (( $_Dbg_input_desc >= $_Dbg_INPUT_START_DESC )) ; do
+
     local _Dbg_prompt="$_Dbg_prompt_str"
     # _Dbg_preloop
     local _Dbg_cmd 
     local args
-    while read "?$_Dbg_prompt" _Dbg_cmd args ; do
+    while read "?$_Dbg_prompt" _Dbg_cmd args <&$_Dbg_input_desc
+    do
     	_Dbg_onecmd "$_Dbg_cmd" "$args"
 	rc=$?
 	# _Dbg_postcmd
         (( $rc != 0 )) && return $rc
-    done
+    done # read "?$_Dbg_prompt" ...
+
+    ((_Dbg_input_desc--))
+    if (( $_Dbg_input_desc >= $_Dbg_INPUT_START_DESC )) ; then
+      _Dbg_redirect_cmd="exec $_Dbg_input_desc<&0"
+      eval $_Dbg_redirect_cmd
+    fi
+
+  done
+  # EOF hit. Same as quit without arguments
+  _Dbg_msg '' # Cause <cr> since EOF may not have put in.
+  _Dbg_do_quit
 }
 
 # Run a single command
@@ -109,7 +153,7 @@ _Dbg_onecmd() {
 	  _Dbg_do_help $args ;;
 
 # 	# next/skip-step N times (default 1)
-# 	n | ne | nex | next | sk | ski | skip )
+# 	n | ne | nex | next )
 # 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
 # 	  _Dbg_last_next_step_args="$args"
 # 	  # _Dbg_do_next_step_skip $_Dbg_cmd "$args"
@@ -130,7 +174,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# quit
-	q | qu | qui | quit )
+	quit )
 	  _Dbg_last_cmd='quit'
 	  _Dbg_do_quit $@
 	  ;;
@@ -148,6 +192,12 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd='skip'
 	  _Dbg_do_skip $@
 	  return $?
+	  ;;
+
+	# Run a debugger comamnd file
+	so | sou | sour | sourc | source )
+	  _Dbg_last_cmd='source'
+	  _Dbg_do_source $@
 	  ;;
 
 	# restart debug session.

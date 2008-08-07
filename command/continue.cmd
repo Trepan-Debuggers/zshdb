@@ -22,7 +22,7 @@ _Dbg_add_help continue \
 
 function _Dbg_do_continue {
 
-  _Dbg_check_running
+  _Dbg_not_running && return 1
 
   _Dbg_step_ignore=-1
   return 0

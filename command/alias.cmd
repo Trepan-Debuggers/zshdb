@@ -21,5 +21,5 @@ add_help alias \
 'alias name debugger-command	Make name be an alias for debugger-command.'
 
 _Dbg_do_alias() {
-  add_alias $1 $2
+  _Dbg_add_alias $1 $2
 }

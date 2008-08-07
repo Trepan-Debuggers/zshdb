@@ -1,4 +1,5 @@
 #!/usr/local/bin/zsh
+# -*- shell-script -*-
 
 # Original $0. Note we can't set this in an include.
 typeset -r _Dbg_orig_0=$0
@@ -13,13 +14,13 @@ typeset _Dbg_libdir=${prefix}/share/zshdb
 local libdir
 zparseopts -E L:=libdir -library:=libdir
 if [[ -n $libdir ]] ; then
-    local -a words
-    words=($libdir)
-    if [[ ! -d $words[2] ]] ; then
-	print "$words[2] is not a directory"
+    local -a lib_opts
+    lib_opts=($libdir)
+    if [[ ! -d $lib_opts[2] ]] ; then
+	print "$lib_opts[2] is not a directory"
 	exit 1
     fi
-    _Dbg_libdir=$words[2]
+    _Dbg_libdir=$lib_opts[2]
 fi
 
 # Stuff common to zshdb and zshdb-trace. Include the rest of options
@@ -43,6 +44,11 @@ fi
 # setopt localtraps
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
+
+  # Redirect stdin to this new file descriptor.
+  cmd="exec $_Dbg_input_desc<&0"
+  eval $cmd
+
   _Dbg_step_ignore=2
   trap '_Dbg_debug_trap_handler "$@"' DEBUG
   . $_Dbg_script_file ${_Dbg_script_args[@]}

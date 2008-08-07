@@ -44,6 +44,7 @@ fi
 # setopt localtraps
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
+
   _Dbg_step_ignore=2
   trap '_Dbg_debug_trap_handler "$@"' DEBUG
   . $_Dbg_script_file ${_Dbg_script_args[@]}

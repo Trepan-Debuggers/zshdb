@@ -27,7 +27,7 @@ add_help skip \
 # $1 is an optional additional count.
 _Dbg_do_skip() {
 
-  _Dbg_check_running
+  _Dbg_not_running && return 1
 
   local count=${1:-1}
 
@@ -49,7 +49,7 @@ add_help step \
 # $1 is an optional additional count.
 _Dbg_do_step() {
 
-  _Dbg_check_running
+  _Dbg_not_running && return 1
 
   local count=${1:-1}
 

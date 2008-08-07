@@ -21,7 +21,10 @@ function get_zsh_interpreter {
   ZSH_INTERPRETER=$cmd[1]
 }
 
-alias _Dbg_check_running='if (( ! _Dbg_running )) 
-then _Dbg_errmsg "The program is not being run."
-  return 0
-fi'
+_Dbg_not_running ()  {
+  if (( ! _Dbg_running )) ; then 
+    _Dbg_errmsg 'The program is not being run.'
+    return 0
+  fi
+  return 1
+}
