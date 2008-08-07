@@ -5,7 +5,7 @@ zmodload -ap zsh/mapfile mapfile
 # processing. Also includes things which have to come before other includes
 . ${_Dbg_libdir}/dbg-pre.sh
 
-# All lib code has to come before command code.
+# All debugger lib code has to come before debugger command code.
 for file in ${_Dbg_libdir}/lib/*.sh ; do 
     source $file
 done
@@ -24,7 +24,8 @@ if [ -n "$o_cmdfile" ] ; then
   _Dbg_no_init=1
 fi
 
-if [[ -z $_Dbg_no_init && -r ~/.zshdbrc ]] ; then
+# Run the user's debugger startup file
+if [[ -z $o_nx && -r ~/.zshdbrc ]] ; then
   _Dbg_do_source ~/.zshbrc
 fi
 
