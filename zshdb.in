@@ -23,10 +23,6 @@ if [[ -n $libdir ]] ; then
     _Dbg_libdir=$lib_opts[2]
 fi
 
-# Stuff common to zshdb and zshdb-trace. Include the rest of options
-# processing.
-. ${_Dbg_libdir}/dbg-pre.inc
-
 # Pulls in the rest of the debugger code.
 . ${_Dbg_libdir}/dbg-main.sh
 

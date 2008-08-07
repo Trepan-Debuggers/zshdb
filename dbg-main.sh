@@ -1,10 +1,11 @@
 # -*- shell-script -*-
 zmodload -ap zsh/mapfile mapfile
 
-# Things in init have to come before other includes and things in lib
-# have to come before command.
-source ${_Dbg_libdir}/init.inc
+# Stuff common to zshdb and zshdb-trace. Include the rest of options
+# processing. Also includes things which have to come before other includes
+. ${_Dbg_libdir}/dbg-pre.sh
 
+# All lib code has to come before command code.
 for file in ${_Dbg_libdir}/lib/*.sh ; do 
     source $file
 done
