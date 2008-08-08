@@ -1,6 +1,5 @@
 #!/usr/local/bin/zsh
 # -*- shell-script -*-
-echo "opts: $@"
 
 # Original $0. Note we can't set this in an include.
 typeset -r _Dbg_orig_0=$0
@@ -17,7 +16,6 @@ typeset _Dbg_libdir=${prefix}/share/zshdb
 # Parse just the libdir option
 local -a libdir
 zparseopts -a libdir -E L: -library:
-echo ${libdir[@]}
 if (( ${#libdir} > 0 )) ; then
     eval "lib_opts=($libdir)"
     if [[ ! -d $lib_opts[2] ]] ; then

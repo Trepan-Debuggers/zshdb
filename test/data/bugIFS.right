@@ -1,11 +1,4 @@
+
+(bugIFS.sh:2):
 (bugIFS.sh:3):
-3:	IFS="."
-+# Debugger test of an old IFS bug
-+# 
-+step 
-(bugIFS.sh:4):
-4:	PS4='foo'
-+## Make sure PS4 in an eval is the same as what we just set.
-+p "+$IFS+"
 +.+
-+quit 

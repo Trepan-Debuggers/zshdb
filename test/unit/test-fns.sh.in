@@ -21,6 +21,20 @@ test_esc_dq_function()
 
 }
 
+# Test _Dbg_set_entry and _Dbg_set_to_return_from_debugger
+test_esc_dbg_enter_return() {
+  local old_IFS="$IFS"
+  local old_PS4="$PS4"
+  local myps4="Well, isn't that just dandy."
+  IFS='hi there'
+  PS4="$myps4"
+  _Dbg_set_debugger_entry
+  _Dbg_restore_user_vars
+  IFS=$old_IFS
+  assertEquals "$myps4" "$PS4"
+  PS4=$old_PS4
+}
+
 # Test _Dbg_is_function
 test_is_function()
 {
