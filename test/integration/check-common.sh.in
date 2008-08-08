@@ -23,7 +23,7 @@ check_output() {
 # $TEST_NAME have been set previously
 run_debugger() {
   debugged_script=$1
-  zshdb_opts=${2:-"-B -q -L ${top_builddir}"}
+  zshdb_opts=${2:-"-L ${top_builddir} -B -q"}
   cmdfile=${3:-"${top_builddir}/test/data/${TEST_NAME}.cmd"}
   $ZSH -- ${top_builddir}/zshdb $zshdb_opts -x $cmdfile $debugged_script
 }

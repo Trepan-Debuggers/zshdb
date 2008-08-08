@@ -14,11 +14,10 @@ typeset _Dbg_libdir=${prefix}/share/zshdb
 
 [[ ! -d _Dbg_libdir ]] && _Dbg_libdir='.'
 # Parse just the libdir option
-local libdir
-zparseopts -E L:=libdir -library:=libdir
-if [[ -n $libdir ]] ; then
-    local -a lib_opts
-    lib_opts=($libdir)
+local -a libdir
+zparseopts -a libdir -E L: -library:
+if (( ${#libdir} > 0 )) ; then
+    eval "lib_opts=($libdir)"
     if [[ ! -d $lib_opts[2] ]] ; then
 	print "$lib_opts[2] is not a directory"
 	exit 1

@@ -23,9 +23,6 @@ typeset -r _Dbg_release='0.01git'
 # Name we refer to ourselves by
 typeset _Dbg_debugger_name='zshdb'
 
-# Equivalent to basename $_Dbg_orig_0 -- the short program name
-typeset _Dbg_pname=${_Dbg_orig_0##*/} 
-
 # Will be set to 1 if called via zshdb rather than "zsh --debugger"
 typeset -i _Dbg_script=0
 
