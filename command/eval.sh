@@ -21,7 +21,7 @@
 typeset _Dbg_evalfile=$(_Dbg_tempname eval)
 
 _Dbg_add_help eval \
-'eval cmd	Evaluate a bash command by sourcing it in a subshell.'
+'eval cmd	Evaluate a zsh command.'
 
 _Dbg_do_eval() {
 
