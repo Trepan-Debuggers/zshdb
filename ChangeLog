@@ -1,0 +1,280 @@
+2008-08-08  R. Bernstein <rocky@gnu.org>
+
+	* command/eval.sh: We're not bash here.
+
+2008-08-08  R. Bernstein <rocky@gnu.org>
+
+	* .gitignore: The usual
+
+2008-08-08  R. Bernstein <rocky@gnu.org>
+
+	* autogen.sh: Remove tracing shmutz.
+
+2008-08-08  R. Bernstein <rocky.bernstein@gmail.com>
+
+	* AUTHORS, ChangeLog, NEWS, README, autogen.sh: Fill in some
+	automess stuff. First github commit!
+
+2008-08-08  R. Bernstein <rocky@sanchez.(none)>
+
+	* test/integration/test-bugIFS: Add the integration test
+
+2008-08-08  R. Bernstein <rocky@sanchez.(none)>
+
+	* configure.ac, test/data/bugIFS.right,
+	test/integration/check-common.sh.in, test/unit/test-fns.sh.in,
+	zshdb: My first integration test passes!
+
+2008-08-08  R. Bernstein <rocky@sanchez.(none)>
+
+	* dbg-pre.sh, test/integration/check-common.sh.in, zshdb, zshdb.in: 
+	Closer to working integration test. Command parsing is still a
+	problem.
+
+2008-08-08  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/eval.sh, command/where.sh, configure.ac, dbg-main.sh,
+	dbg-opts.sh, lib/fns.sh, lib/sig.sh, test/Makefile.am,
+	test/data/.gitignore, test/data/bugIFS.cmd, test/data/bugIFS.right,
+	test/example/bugIFS.sh, test/example/dbg-test1.sh,
+	test/integration/.gitignore, test/integration/Makefile.am,
+	test/integration/check-common.sh.in, zshdb, zshdb.in: Closer to
+	getting integration tests working. In the process some bugs
+	discovered: count handling in the "where" command. Saving/restoring
+	IFS on debugger entry. Give a better error message if dbg-main.sh is
+	not found.
+
+2008-08-07  R. Bernstein <rocky@verne.corp.ce-interactive.com>
+
+	* dbg-opts.sh, lib/gdb.sh: Add basename option
+
+2008-08-07  R. Bernstein <rocky@sanchez.(none)>
+
+	* dbg-main.sh, dbg-opts.sh, dbg-pre.sh: Add --nx option. Reorg
+	dbg-pre.sh to hopefully be more logical.
+
+2008-08-07  R. Bernstein <rocky@sanchez.(none)>
+
+	* dbg-main.sh, dbg-opts.sh, dbg-pre.sh, init.inc, zshdb, zshdb.in: 
+	Remove init.inc by merging with dbg-pre.sh. Add quiet option and
+	show version.
+
+2008-08-07  R. Bernstein <rocky@sanchez.(none)>
+
+	* Makefile.am, command/Makefile.am, command/alias.cmd,
+	command/alias.sh, command/continue.cmd, command/continue.sh,
+	command/eval.cmd, command/eval.sh, command/frame.cmd,
+	command/frame.sh, command/help.cmd, command/help.sh,
+	command/quit.cmd, command/quit.sh, command/run.cmd, command/run.sh,
+	command/source.sh, command/stepping.cmd, command/stepping.sh,
+	command/tracefn.cmd, command/tracefn.sh, command/where.cmd,
+	command/where.sh, dbg-main.sh, dbg-opts.sh, dbg-pre.inc,
+	dbg-pre.sh, lib/Makefile.am, lib/alias.inc, lib/alias.sh,
+	lib/file.sh, lib/fns.inc, lib/fns.sh, lib/gdb.inc, lib/gdb.sh,
+	lib/help.inc, lib/help.sh, lib/journal.inc, lib/journal.sh,
+	lib/processor.inc, lib/processor.sh, lib/run.inc, lib/run.sh,
+	lib/set-d-vars.inc, lib/set-d-vars.sh, lib/sig.inc, lib/sig.sh,
+	lib/stack.inc, lib/stack.sh, main.inc, opts.inc,
+	test/unit/.gitignore, test/unit/test-alias.sh.in,
+	test/unit/test-fns.sh.in, test/unit/test-run.sh.in, zshdb, zshdb.in: 
+	Work usage help and add -x --command option. remove .cmd and .inc
+	prefixes in favor of the more normal .sh
+
+2008-08-06  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/alias.cmd, command/continue.cmd, command/eval.cmd,
+	command/frame.cmd, command/quit.cmd, command/run.cmd,
+	command/stepping.cmd, command/where.cmd, configure.ac,
+	lib/alias.inc, lib/processor.inc, lib/run.inc,
+	test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-alias.sh.in, test/unit/test-fns.sh.in, zshdb,
+	zshdb.in: Get "source" command running!  add_alias ->
+	_Dbg_add_alias; same with remove_alias. More _Dbg_not_running tests.
+	A number of other cleanups too.
+
+2008-08-06  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/Makefile.am: add Makefile.am
+
+2008-08-06  R. Bernstein <rocky@sanchez.(none)>
+
+	* lib/sig.inc, test/unit/test-alias.sh, test/unit/test-fns.sh: 
+	remove derived files
+
+2008-08-06  R. Bernstein <rocky@verne.corp.ce-interactive.com>
+
+	* lib/sig.inc: Remove derived files
+
+2008-08-06  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/Makefile.am, command/continue.cmd, command/down.cmd,
+	command/eval.cmd, command/frame.cmd, command/help.cmd,
+	command/print.cmd, command/skip.cmd, command/step.cmd,
+	command/stepping.cmd, command/trace.cmd, command/tracefn.cmd,
+	command/untrace.cmd, command/up.cmd, configure.ac, emacs/zshdb.el,
+	lib/help.inc, lib/run.inc, main.inc, test/unit/test-alias.sh,
+	test/unit/test-alias.sh.in, test/unit/test-fns.sh,
+	test/unit/test-fns.sh.in, zshdb, zshdb.in: Figure out list of
+	commands from help message. This means we can now combine small
+	related commands. Add substitutions via autoconf.
+
+2008-08-05  R. Bernstein <rocky@sanchez.(none)>
+
+	* .gitignore, command/.gitignore, command/Makefile.am,
+	emacs/.gitignore, lib/.gitignore, lib/Makefile.am, test/.gitignore,
+	test/unit/.gitignore: More housekeeping.
+
+2008-08-05  R. Bernstein <rocky@sanchez.(none)>
+
+	* opts.inc: Housekeeping.
+
+2008-08-05  R. Bernstein <rocky@sanchez.(none)>
+
+	* Makefile.am, command/print.cmd, configure.ac, dbg-pre.inc,
+	lib/fns.inc, lib/set-d-vars.inc, pre.inc, zshdb: print.cmd, fns.inc,
+	lib/set-d-vars.inc: fix problem in quoting zshdb, dbg-pre.inc:
+	handle -L --libdir option.  configure, Makefile.am: more automess.
+
+2008-08-05  R. Bernstein <rocky@sanchez.(none)>
+
+	* .gitignore, Makefile.am, configure.ac, emacs/.gitignore,
+	emacs/Makefile.am, emacs/zshdb-test.el.in, test/unit/.gitignore: 
+	More automess.
+
+2008-08-05  R. Bernstein <rocky@sanchez.(none)>
+
+	* Makefile.am, configure.ac, test/.gitignore, test/Makefile.am,
+	test/unit/.gitignore, test/unit/Makefile.am, zshdb, zshtrace.sh: 
+	Start automess.
+
+2008-08-05  R. Bernstein <rocky@sanchez>
+
+	* .gitignore: Start automess.
+
+2008-08-05  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/skip.cmd, command/step.cmd, lib/fns.inc,
+	lib/processor.inc, lib/sig.inc, pre.inc: Add skip command. zsh
+	patching does not seem to have worked though.
+
+2008-08-04  R. Bernstein <rocky@sanchez>
+
+	* .gitignore, command/.gitignore, command/eval.cmd,
+	command/print.cmd, init.inc, lib/.gitignore, lib/help.inc,
+	lib/set-d-vars.inc, lib/sig.inc, pre.inc, zshtrace.sh: Get $?
+	working.
+
+2008-08-04  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/eval.cmd, command/print.cmd, command/run.cmd,
+	command/trace.cmd, command/untrace.cmd, lib/processor.inc,
+	lib/run.inc, main.inc, zshtrace.sh: print/eval.cmd: restore IFS and
+	PS4 Add trace/untrace commands. Yay! Make run/restart work.
+
+2008-08-04  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/down.cmd, command/frame.cmd, command/up.cmd,
+	lib/stack.inc, zshtrace.sh: Fix for 0 origin stack display
+
+2008-08-04  R. Bernstein <rocky@sanchez.(none)>
+
+	* init.inc, lib/fns.inc, test/unit/shunit2,
+	test/unit/test-alias.sh, test/unit/test-fns.sh, zshtrace.sh: Loop
+	debugger
+
+2008-08-03  R. Bernstein <rocky@sanchez>
+
+	* lib/set-d-vars.inc: We do have _Dbg_set_dol_q
+
+2008-08-03  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/continue.cmd, command/help.cmd, command/step.cmd,
+	init.inc, lib/alias.inc, lib/journal.inc, lib/processor.inc,
+	lib/set-d-vars.inc, lib/sig.inc: Not sure.
+
+2008-08-03  R. Bernstein <rocky@dr-ferdinand.(none)>
+
+	* lib/processor.inc: Add stepping.
+
+2008-08-03  R. Bernstein <rocky@dr-ferdinand.(none)>
+
+	* command/continue.cmd: Continue command.
+
+2008-08-03  R. Bernstein <rocky@dr-ferdinand.(none)>
+
+	* command/step.cmd, lib/journal.inc: Add stepping.
+
+2008-08-02  R. Bernstein <rocky@sanchez.(none)>
+
+	* testing.sh, zshtrace.sh: Small bug in script parameter handling.
+
+2008-08-02  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/alias.cmd, command/down.cmd, command/eval.cmd,
+	command/frame.cmd, command/help.cmd, command/print.cmd,
+	command/run.cmd, command/up.cmd, command/where.cmd, init.inc,
+	lib/alias.inc, lib/fns.inc, lib/gdb.inc, lib/processor.inc,
+	lib/set-d-vars.inc, lib/sig.inc, lib/stack.inc, main.inc,
+	test/unit/test-fns.sh, zshtrace.sh: Some work on getting argument
+	passing right
+
+2008-08-02  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/run.cmd: Add run command. Start on getting zshtrace.sh to
+	pass a real command name.
+
+2008-08-02  R. Bernstein <rocky@sanchez.(none)>
+
+	* dbg-fns.inc, dbg-gdb.inc, dbg-init.inc, dbg-main.inc,
+	dbg-processor.inc, dbg-set-d-vars.inc, dbg-sig.inc, dbg-stack.inc,
+	init.inc, lib/alias.inc, lib/fns.inc, lib/gdb.inc,
+	lib/processor.inc, lib/set-d-vars.inc, lib/sig.inc, lib/stack.inc,
+	main.inc, test/unit/test-alias.sh: Create lib directory and move
+	files there. Add help.
+
+2008-08-01  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/alias.cmd, command/backtrace.cmd, command/help.cmd,
+	command/print.cmd, command/quit.cmd, command/up.cmd,
+	command/where.cmd, dbg-processor.inc, dbg-set-d-vars.inc,
+	dbg-sig.inc, emacs/elk-test.el, emacs/zshdb-test.el.in,
+	emacs/zshdb.el, testing.sh, zshtrace.sh: Attempt full substitution
+	in print and eval. Add alias command. Add alias for "bt". Add emacs.
+
+
+2008-07-30  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/eval.cmd, command/print.cmd, dbg-set-d-vars.inc,
+	dbg-sig.inc, testing.sh, zshtrace.sh: Set to run DEBUG trap before
+	command, not after.
+
+2008-07-29  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/eval.cmd, command/print.cmd, dbg-fns.inc, dbg-init.inc,
+	dbg-processor.inc, dbg-set-d-vars.inc, dbg-sig.inc, testing.sh: 
+	First stab at print and eval commands. Causes weird execution
+	stepping when used though.
+
+2008-07-28  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/backtrace.cmd, command/down.cmd, command/frame.cmd,
+	command/up.cmd, dbg-fns.inc, dbg-init.inc, dbg-main.inc,
+	dbg-processor.inc, dbg-stack.inc, zshtrace.sh: Add some frame motion
+	commands.
+
+2008-07-27  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/backtrace.cmd, dbg-fns.inc, dbg-init.inc,
+	dbg-processor.inc, dbg-sig.inc, dbg-stack.inc, zshtrace.sh: Add
+	where command. Fill in more of the files from bashdb.
+
+2008-07-26  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/quit.cmd, dbg-fns.inc, dbg-gdb.inc, dbg-processor.inc,
+	dbg-stack.inc, test/unit/shunit2, test/unit/test-fns.sh,
+	zshtrace.sh: Close to a more working debugger skeleton.
+
+2008-07-26  R. Bernstein <rocky@sanchez.(none)>
+
+	* Start zsh debugger
+
