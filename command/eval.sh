@@ -25,7 +25,7 @@ _Dbg_add_help eval \
 
 _Dbg_do_eval() {
 
-   print ". ${_Dbg_libdir}/lib/set-d-vars.inc" > $_Dbg_evalfile
+   print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
    print "$@" >> $_Dbg_evalfile
    if [[ -n $_Dbg_tty  ]] ; then
      _Dbg_set_dol_q $_Dbg_debugged_exit_code

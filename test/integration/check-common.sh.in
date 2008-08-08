@@ -1,0 +1,32 @@
+#@ZSH_PROG@ -f
+# -*- shell-script -*-
+
+if [ -z "$ZSH" ] ; then 
+  ZSH=@ZSH_PROG@
+fi
+
+export top_builddir=@abs_top_builddir@
+export top_srcdir=@abs_top_srcdir@
+
+check_output() {
+  testfile="$1"
+  rightfile="$2"
+  # Bourne sh
+  # set -o noglob
+
+  @DIFF@ @DIFF_OPTS@ $testfile $rightfile && rm -f $testfile
+  return $?
+}
+
+# Run the zsh debugger on test program $1 with (optional) zshdb options $2
+# using commandfile $3. We assume $TOP_BUILDDIR, $TOP_SRCDIR and
+# $TEST_NAME have been set previously
+run_debugger() {
+  debugged_script=$1
+  zshdb_opts=${2:-"-B -q -L ${top_builddir}"}
+  cmdfile=${3:-"${top_builddir}/test/data/${TEST_NAME}.cmd"}
+  $ZSH -- ${top_builddir}/zshdb $zshdb_opts -x $cmdfile $debugged_script
+}
+
+TEST_FILE="${top_builddir}/test/data/${TEST_NAME}.check"
+RIGHT_FILE="${top_builddir}/test/data/${TEST_NAME}.right"

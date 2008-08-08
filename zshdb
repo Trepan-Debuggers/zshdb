@@ -4,6 +4,9 @@
 # Original $0. Note we can't set this in an include.
 typeset -r _Dbg_orig_0=$0
 
+# Equivalent to basename $0; the short program name
+typeset -r _Dbg_pname=${0##*/}  
+
 ## Stuff set by autoconf/configure ###
 prefix=/usr/local # cygwin gets PKGDATADIR wrong
 typeset _Dbg_libdir=${prefix}/share/zshdb
@@ -23,7 +26,16 @@ if [[ -n $libdir ]] ; then
     _Dbg_libdir=$lib_opts[2]
 fi
 
-# Pulls in the rest of the debugger code.
+# Pull in the rest of the debugger code.
+typeset _Dbg_main="$_Dbg_libdir/dbg-main.sh"
+if [[ ! -r $_Dbg_main ]] ; then 
+  print "${_Dbg_pname}: Can't read debugger library file '${_Dbg_main}'."
+  print "${_Dbg_pname}: Perhaps zshdb is installed wrong (if its installed)." >&2
+  print "${_Dbg_pname}: Try running zshdb using -L (with a different directory)." >&2
+  print "${_Dbg_pname}: Run zshdb --help for a list and explanation of options." >&2
+  exit 1
+    
+fi
 . ${_Dbg_libdir}/dbg-main.sh
 
 # Note that this is called via zshdb rather than "zsh --debugger" or zshdb-trace

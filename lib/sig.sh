@@ -24,9 +24,14 @@ function _Dbg_debug_trap_handler {
     # trap 'echo EXIT encountered inside debugger' EXIT
     # trap 'echo ERR encountered inside debugger' ERR
     typeset -i _Dbg_debugged_exit_code=$?
+    _Dbg_old_set_opts=$-
     typeset -a _Dbg_arg
 
     _Dbg_arg=($@)
+
+    # Turn off line and variable trace listing if were not in our own debug
+    # mode, and set our own PS4 for debugging inside the debugger
+    (( !_Dbg_debug_debugger )) && set +x +v +u
 
     # if in step mode, decrement counter
     if ((_Dbg_step_ignore >= 0)) ; then 
@@ -54,8 +59,8 @@ function _Dbg_debug_trap_handler {
 	
 	_Dbg_print_location
 	_Dbg_process_commands
-	# _Dbg_print_frame 1 '##'
-	# echo "$_Dbg_frame_stack $_Dbg_debugged_exit_code - $_Dbg_arg"
+	_Dbg_set_to_return_from_debugger 1
+	return $_Dbg_rc
     fi
 }
 
@@ -63,7 +68,7 @@ function _Dbg_debug_trap_handler {
 _Dbg_cleanup() {
   rm $_Dbg_evalfile 2>/dev/null
   _Dbg_erase_journals
-  # _Dbg_restore_user_vars
+  _Dbg_restore_user_vars
 }
 
 # Somehow we can't put this in _Dbg_cleanup and have it work.

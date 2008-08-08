@@ -1,2 +1,2 @@
 # SUBDIRS = example integration unit 
-SUBDIRS = unit 
+SUBDIRS = unit integration

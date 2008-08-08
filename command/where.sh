@@ -57,7 +57,7 @@ _Dbg_do_backtrace() {
     typeset -i line=${split_result[2]}
     (( _Dbg_basename_only )) && filename=${filename##*/}
     _Dbg_msg "$prefix file \`$filename' at line ${line}"
-    ((count++))
+    ((count--))
   done
   return 0
 }

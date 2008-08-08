@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 usage() {
   printf "Usage: 
-   ${_Dbg_orig_0##*/} [OPTIONS] <script_file>
+   ${_Dbg_pname} [OPTIONS] <script_file>
 
 Runs zsh <script_file> under a debugger.
 
