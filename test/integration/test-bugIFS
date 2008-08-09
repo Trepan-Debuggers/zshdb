@@ -8,7 +8,7 @@ TEST_NAME='bugIFS'
 
 . ${builddir}/check-common.sh
 
-debugged_script="${top_builddir}/test/example/bugIFS.sh"
+debugged_script="${top_srcdir}/test/example/bugIFS.sh"
 
 (cd $srcdir && \
   run_debugger $debugged_script > $TEST_FILE 2>&1 < /dev/null)

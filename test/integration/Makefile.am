@@ -9,7 +9,6 @@ TESTS_ENVIRONMENT = \
   builddir="$(abs_builddir)"
 
 EXTRA_DIST = $(TESTS) $(check_DATA) \
-	bugIFS.sh.in
 	check-common.sh.in
 
 

@@ -16,9 +16,9 @@ test_not_running()
     assertEquals  1 ${#errs[@]}
 }
 
-top_builddir=@top_builddir@
-top_builddir=${top_builddir%%/}/
-. ${top_builddir}/lib/run.sh
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+. ${abs_top_srcdir}/lib/run.sh
 
 # load shunit2
 set -o shwordsplit

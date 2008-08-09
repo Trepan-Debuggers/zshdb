@@ -23,11 +23,11 @@ check_output() {
 # $TEST_NAME have been set previously
 run_debugger() {
   typeset debugged_script=$1
-  typeset zshdb_opts=${2:-"-L ${top_builddir} -B -q"}
-  typeset cmdfile=${3:-"${top_builddir}/test/data/${TEST_NAME}.cmd"}
+  typeset zshdb_opts=${2:-"-L ${top_srcdir} -B -q"}
+  typeset cmdfile=${3:-"${top_srcdir}/test/data/${TEST_NAME}.cmd"}
   cmd="$ZSH -- ${top_builddir}/zshdb $zshdb_opts -x $cmdfile $debugged_script"
   eval $cmd
 }
 
 TEST_FILE="${top_builddir}/test/integration/${TEST_NAME}.check"
-RIGHT_FILE="${top_builddir}/test/data/${TEST_NAME}.right"
+RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}.right"

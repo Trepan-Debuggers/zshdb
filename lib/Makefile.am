@@ -1,6 +1,7 @@
 pkgdatadir        = ${datadir}/@PACKAGE@/lib
 pkgdata_DATA =      	\
 	alias.sh    	\
+	file.sh  	\
 	fns.sh  	\
 	gdb.sh  	\
 	help.sh  	\

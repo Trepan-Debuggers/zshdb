@@ -1,2 +1,1 @@
-# SUBDIRS = example integration unit 
-SUBDIRS = unit integration
+SUBDIRS = data example unit integration

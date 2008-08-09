@@ -64,6 +64,8 @@ AC_CONFIG_FILES([Makefile \
 	emacs/zshdb-test.el \
 	lib/Makefile \
 	test/Makefile \
+	test/data/Makefile \
+	test/example/Makefile \
 	test/integration/check-common.sh \
 	test/integration/Makefile \
 	test/unit/Makefile])

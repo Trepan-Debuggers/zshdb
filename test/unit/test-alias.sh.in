@@ -12,16 +12,16 @@ test_alias()
 }
 
 # Make sure @top_builddir@ has a trailing slash
-if [ '@top_builddir@' = '' ] ; then
-  echo "Something is wrong top_builddir is not set."
+if [ '@abs_top_srcdir@' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
  exit 1
 fi
-top_builddir=@top_builddir@
-top_builddir=${top_builddir%%/}/
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
 
-. $top_builddir/lib/alias.sh
-. $top_builddir/lib/help.sh
-. $top_builddir/command/alias.sh
+. $abs_top_srcdir/lib/alias.sh
+. $abs_top_srcdir/lib/help.sh
+. $abs_top_srcdir/command/alias.sh
 
 # load shunit2
 set -o shwordsplit

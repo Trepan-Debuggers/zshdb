@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/zsh -f
 # -*- shell-script -*-
 
 [ -z "$srcdir" ] && srcdir=$PWD
@@ -8,7 +8,7 @@ TEST_NAME='bug-args'
 
 . ${builddir}/check-common.sh
 
-debugged_script="${top_builddir}/test/example/bug-args.sh"
+debugged_script="${top_srcdir}/test/example/bug-args.sh"
 
 (cd $srcdir && \
   run_debugger $debugged_script > $TEST_FILE 2>&1 < /dev/null)

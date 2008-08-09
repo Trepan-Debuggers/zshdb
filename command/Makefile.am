@@ -7,6 +7,7 @@ pkgdata_DATA =        \
 	help.sh      \
 	quit.sh      \
 	run.sh       \
+	source.sh    \
 	stepping.sh  \
 	tracefn.sh   \
 	where.sh
