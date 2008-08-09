@@ -152,21 +152,6 @@ _Dbg_onecmd() {
 	h | he | hel | help | '?'  )
 	  _Dbg_do_help $args ;;
 
-# 	# next/skip-step N times (default 1)
-# 	n | ne | nex | next )
-# 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
-# 	  _Dbg_last_next_step_args="$args"
-# 	  # _Dbg_do_next_step_skip $_Dbg_cmd "$args"
-# 	  if [[ $_Dbg_cmd == sk* ]] ; then
-# 	    _Dbg_inside_skip=1
-# 	    _Dbg_last_cmd='skip'
-# 	    return 1
-# 	  else
-# 	    _Dbg_last_cmd='next'
-# 	    return 2
-# 	  fi
-# 	  ;;
-
 	# print globbed or substituted variables
 	p | pr | pri | prin | print )
 	  _Dbg_do_print "$args"
@@ -187,12 +172,12 @@ _Dbg_onecmd() {
 	  return $?
 	  ;;
 
-	# skip N times (default 1)
-	sk | ski | skip )
-	  _Dbg_last_cmd='skip'
-	  _Dbg_do_skip $@
-	  return $?
-	  ;;
+# 	# skip N times (default 1)
+# 	sk | ski | skip )
+# 	  _Dbg_last_cmd='skip'
+# 	  _Dbg_do_skip $@
+# 	  return $?
+# 	  ;;
 
 	# Run a debugger comamnd file
 	so | sou | sour | sourc | source )

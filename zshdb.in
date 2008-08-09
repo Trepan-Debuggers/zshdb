@@ -1,4 +1,4 @@
-#!@ZSH_PROG@
+#!@ZSH_PROG@ -f
 # -*- shell-script -*-
 
 # Original $0. Note we can't set this in an include.
@@ -8,11 +8,11 @@ typeset -r _Dbg_orig_0=$0
 typeset -r _Dbg_pname=${0##*/}  
 
 ## Stuff set by autoconf/configure ###
-prefix=@prefix@ # cygwin gets PKGDATADIR wrong
-typeset _Dbg_libdir=${prefix}/share/zshdb
+typeset prefix=@prefix@
+typeset _Dbg_libdir=@datarootdir@/zshdb
 ###
 
-[[ ! -d _Dbg_libdir ]] && _Dbg_libdir='.'
+[[ ! -d $_Dbg_libdir ]] && _Dbg_libdir='.'
 # Parse just the libdir option
 local -a libdir
 zparseopts -a libdir -E L: -library:

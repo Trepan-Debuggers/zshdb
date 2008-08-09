@@ -20,27 +20,27 @@
 # Number of statements to skip before entering the debugger if greater than 0
 typeset -i _Dbg_skip_ignore=0
 
-add_help skip \
-'skip [ nnn]	skip once or nnn times.'
+# add_help skip \
+# 'skip [ nnn]	skip once or nnn times.'
 
-# Skip command
-# $1 is an optional additional count.
-_Dbg_do_skip() {
+# # Skip command
+# # $1 is an optional additional count.
+# _Dbg_do_skip() {
 
-  _Dbg_not_running && return 1
+#   _Dbg_not_running && return 1
 
-  local count=${1:-1}
+#   local count=${1:-1}
 
-  if [[ $count == [0-9]* ]] ; then
-    _Dbg_skip_count=${count:-1}
-  else
-    _Dbg_msg "Argument ($count) should be a number or nothing."
-    _Dbg_skip_count=0
-    return 0
-  fi
-  _Dbg_write_journal "_Dbg_skip_count=$_Dbg_skip_count"
-  return 2
-}
+#   if [[ $count == [0-9]* ]] ; then
+#     _Dbg_skip_count=${count:-1}
+#   else
+#     _Dbg_msg "Argument ($count) should be a number or nothing."
+#     _Dbg_skip_count=0
+#     return 0
+#   fi
+#   _Dbg_write_journal "_Dbg_skip_count=$_Dbg_skip_count"
+#   return 2
+# }
 
 add_help step \
 'step [ nnn]	step (into functions) once or nnn times.'

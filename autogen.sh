@@ -1,4 +1,6 @@
 #!/bin/zsh
 autoreconf -i && \
-autoconf && \
-./configure 
+autoconf && {
+  print "Running configure with $@"
+  ./configure $@
+}

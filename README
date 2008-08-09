@@ -1,0 +1,132 @@
+0. INTRODUCTION
+This is a port and cleanup of my bash debugger bashdb
+(http://bashdb.sf.net). 
+
+The command syntax generally follows that of the GNU debugger gdb.
+
+However this debugger depends on a number bug fixes and of debugging
+support features that are neither part of the POSIX 1003.1 standard
+and are not in current "stable" zsh releases. In particular, the
+"functrace" function needs to always report filenames and absolute line
+numbers.  Also both "functrace" and "funcstack" should include source'd
+files in their arrays.
+
+1. SETUP
+
+Although debuggers are useful for novice, right now code setup is not
+really but novices. Some assembly is required. 
+
+To get the code, install git and run in a zsh shell:
+
+  git-clone git://github.com/rocky/zshdb.git
+  cd zshdb
+  ./autogen.sh  # Add configure options. See ./configure --help 
+
+If you've got a suitable zsh installed, then
+  make && make test
+
+To simplify demonstration/testing there is a little program testing.sh
+in the same directory zshdb lives in the source code which gets run
+when zshdb is run without any options. so to run this demo code:
+  ./zshdb # in the zshdb project
+
+Or try on a real program such as perhaps:
+  ./zshdb /etc/zsh/zshrc # substitute .../zshrc with your favorite zsh script
+
+If you are happy (which I doubt), install via:
+  sudo make install
+
+and uninstall with 
+  sudo make uninstall # ;-)
+
+See INSTALL for generic configure installation instructions.
+
+2. WHAT'S HERE, WHAT'S NOT and WHY NOT
+
+Usually when folks write programs such as a debugger, initially there
+will be a number of useful commands minimally done. Since I sort of
+know where I want to wind up (somewhere along the lines of bashdb),
+initially I've been focusing on the skeleton and framework rather than
+the features no matter how useful they may be. So for example, Unit
+tests and a some integration tests work, even though there no command
+to set breakpoints.
+
+What's missing falls into a two categories:
+
+  * Stuff that can be ported in a straightforward way from bashdb
+  * Stuff that needs additional zsh support
+
+Of the things which can be ported in a straight-forward way, however
+some of them I want to revise and simplify. In some cases, the fact
+that zsh has associative arrays simplifies code. On other cases, the
+code I wrote needs refactoring and better modularization.
+
+Writing documentation is important, but an extensive guide will have
+to wait. For now one can consult the reference guide that comes with
+bashdb: http://bashdb.sf.net/bashdb.html There is some minimal help to
+get a list of commands and some help for each.
+
+3. WHAT'S NOT HERE YET IN DETAIL
+
+3.a) source listing commands
+
+Commands to list the source code and show the command that is about to
+be run is missing. There are a couple reasons for this. First, I use
+the emacs interface and that shows me source code lines. To use this:
+
+  M-x load-library (with zshdb/emacs/zshdb.el in source)
+  M-x zshdb (name of program when prompted)
+
+The other reason listing is not around is that bash doesn't have
+assocative arrays in 3.x and this would simplify the code. Indpendent
+of that, the code needs to be modularized better. In ruby-debug and
+pydb, this is its own module. Also possible is that zsh could add more
+support for showing the command to be executed. Ruby has a neat
+mechanism that causes the source as an array of lines to be stored
+when a certain associative array is defined. Finally bashdb adds a
+builtin to speed up reading files into an array. (zsh has mapfile, but
+that is not enough.)
+
+3.b) breakpoints
+
+This is probably a straight-forward port of code from bashdb. Possibly
+some simplification with associative arrays.
+
+3.c) next (step over function calls) 
+
+This can be implemented without support from zsh, but probably
+debugging support would be faster with the code added to zsh. So I'm
+punting on this for now.
+
+3.d) Showing frame arguments
+
+Like next, this can done with or without support from zsh, abeit
+faster with help from zsh. Changing scope when changing frames however
+has to be done with zsh support. 
+
+3.e) Information persisting when a subshell is left
+
+One of the challenges of POSIX shells is to be able to pass
+information back from a subshell or nested shell back to a
+parent. bashdb uses a journal file for this and tests SHLVL and
+BASH_SUBSHELL; zshdb lacks the latter. BASH_SUBSHELL is probably a
+simple thing to add though.
+
+Adding breakpoints and debugger settings will make this problem more apparent.
+
+3.f) Skipping code 
+
+Under discussion in the zsh-workers mailing list. Not hard to add when
+that gets worked out.
+
+3.g) Setting $0
+
+3.h) lots of other stuff including...
+
+  display expressions, signal handling, invoking the debugger directly
+  from a script, command history, command completion.
+
+  None of this is rocket science. Should be pretty straight-forward to
+  add.
+
+
