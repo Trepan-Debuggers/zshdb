@@ -13,9 +13,7 @@ debugged_script="${top_builddir}/test/example/bugIFS.sh"
 (cd $srcdir && \
   run_debugger $debugged_script > $TEST_FILE 2>&1 < /dev/null)
 
-check_output $TEST_FILE ${RIGHT_FILE} && {
-  rm -f $TEST_FILE
-}
+check_output $TEST_FILE $RIGHT_FILE
 
 # Return code tells testing mechanism whether passed or not.
 exit $?

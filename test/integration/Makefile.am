@@ -1,4 +1,4 @@
-TESTS = test-bugIFS
+TESTS = test-bug-args test-bugIFS
 check_DATA = check-common.sh
 
 abs_srcdir=@abs_srcdir@

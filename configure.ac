@@ -3,6 +3,11 @@ AM_PATH_LISPDIR
 AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE([no-define])
 
+AC_CONFIG_SRCDIR(zshdb.in)
+if test x$ac_srcdir = x ; then
+  ac_srcdir=.
+fi
+
 # List of output variables produced by this configure script
 #
 AC_SUBST(DIFF)
@@ -34,6 +39,21 @@ else
       DIFF_OPTS="$DIFF_OPTS $diff_opt"
     fi
   done
+fi
+
+AM_MISSING_PROG(GIT2CL, git2cl, $missing_dir)
+AC_PROG_LN_S
+AC_PATH_PROG(RM, rm, true)
+
+AC_PATH_PROG(EMACS, emacs, no)
+if test x$EMACS = xno ; then
+  emacs_lisp=no
+else 
+  $EMACS -batch -q -no-site-file -eval \
+  '(if (not (and (= emacs-major-version 21) (<= emacs-minor-version 3))) (error "This gud is for Emacs 21.0 to 21.3."))'
+  if test $? -ne 0 ; then
+    emacs_lisp=no
+  fi
 fi
 
 AM_CONDITIONAL(INSTALL_EMACS_LISP, test "x$lispdir" != "x")

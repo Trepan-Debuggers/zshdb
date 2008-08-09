@@ -10,10 +10,10 @@ MAINTAINERCLEANFILES = ChangeLog
 if MAINTAINER_MODE
 
 .PHONY: ChangeLog
-# ChangeLog:
-# 	$(CVS2CL) -W 450 --header $(srcdir)/cvs2cl_header --utc -w -I ChangeLog --usermap $(srcdir)/cvs2cl_usermap -P 
+ChangeLog:
+	git log --pretty --numstat --summary | $(GIT2CL)
 
-# ACLOCAL_AMFLAGS=-I .
+ACLOCAL_AMFLAGS=-I .
 
 endif
 
