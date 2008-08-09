@@ -4,8 +4,8 @@ AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE([no-define])
 
 AC_CONFIG_SRCDIR(zshdb.in)
-if test x$ac_srcdir = x ; then
-  ac_srcdir=.
+if test x$srcdir = x ; then
+  srcdir=$ac_pwd
 fi
 
 # List of output variables produced by this configure script
@@ -30,7 +30,7 @@ if test "$ZSH_PROG" = no; then
 fi
 
 AC_MSG_CHECKING([Checking whether $ZSH_PROG is compatible with zshdb])
-if ! (cd $ac_srcdir/test/zsh && $ZSH_PROG ./ok4zshdb.sh) ; then
+if ! (cd ${srcdir}/test/zsh && $ZSH_PROG ./ok4zshdb.sh) ; then
   AC_MSG_RESULT([no dice :-(])
   AC_MSG_ERROR([You might want to retry with another zsh using the --with-zsh option.])
 else
