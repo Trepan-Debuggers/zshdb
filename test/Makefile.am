@@ -1,1 +1,1 @@
-SUBDIRS = data example unit integration
+SUBDIRS = data example unit integration zsh

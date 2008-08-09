@@ -24,6 +24,19 @@ then
   AC_PATH_PROG(ZSH_PROG, zsh, no)
 fi
 
+if test "$ZSH_PROG" = no; then
+  AC_MSG_ERROR([I didn't find the zsh executable.\
+  You might want to use the --with-zsh option.])
+fi
+
+AC_MSG_CHECKING([Checking whether $ZSH_PROG is compatible with zshdb])
+if ! (cd $ac_srcdir/test/zsh && $ZSH_PROG ./ok4zshdb.sh) ; then
+  AC_MSG_RESULT([no dice :-(])
+  AC_MSG_ERROR([You might want to retry with another zsh using the --with-zsh option.])
+else
+  AC_MSG_RESULT(yes!)
+fi
+
 dnl We use a diff in regression testing
 AC_PATH_PROG(DIFF, diff, no)
 DIFF_OPTS=
@@ -68,7 +81,9 @@ AC_CONFIG_FILES([Makefile \
 	test/example/Makefile \
 	test/integration/check-common.sh \
 	test/integration/Makefile \
-	test/unit/Makefile])
+	test/unit/Makefile \
+	test/zsh/Makefile \
+	])
 
 AC_CONFIG_FILES([zshdb], [chmod +x zshdb])
 AC_CONFIG_FILES([test/unit/test-alias.sh], [chmod +x test/unit/test-alias.sh])

@@ -7,9 +7,9 @@ The command syntax generally follows that of the GNU debugger gdb.
 However this debugger depends on a number bug fixes and of debugging
 support features that are neither part of the POSIX 1003.1 standard
 and are not in current "stable" zsh releases. In particular, the
-"functrace" function needs to always report filenames and absolute line
-numbers.  Also both "functrace" and "funcstack" should include source'd
-files in their arrays.
+"functrace" function should always report filenames and absolute line
+numbers.  Also both "functrace" and "funcstack" should include
+source'd files in their arrays.
 
 1. SETUP
 
