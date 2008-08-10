@@ -6,6 +6,7 @@ zmodload -ap zsh/mapfile mapfile
 . ${_Dbg_libdir}/dbg-pre.sh
 
 # All debugger lib code has to come before debugger command code.
+typeset file
 for file in ${_Dbg_libdir}/lib/*.sh ; do 
     source $file
 done

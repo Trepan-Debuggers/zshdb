@@ -25,6 +25,3 @@ function _Dbg_add_help {
      _Dbg_command_help[$1]=$2
      return 0
 }
-
-# FIXME: Until convert all of the files in command
-alias add_help=_Dbg_add_help

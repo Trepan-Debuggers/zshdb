@@ -15,21 +15,25 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# Add an new alias in the alias table
+# Command aliases are stored here.
 typeset -A _Dbg_aliases
 
+# Add an new alias in the alias table
 function _Dbg_add_alias {
     (( $# != 2 )) && return 1
     _Dbg_aliases[$1]=$2
     return 0
 }
 
+# Remove alias $1 from our list of command aliases.
 function _Dbg_remove_alias {
     (( $# != 1 )) && return 1
     unset "_Dbg_aliases[$1]"
     return 0
 }
 
+# Expand alias $1. The result is set in variable expanded_alias which
+# could be declared local in the caller.
 function _Dbg_expand_alias {
     (( $# != 1 )) && return 1
     expanded_alias=$1

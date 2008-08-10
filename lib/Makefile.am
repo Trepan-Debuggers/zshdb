@@ -3,6 +3,7 @@ pkgdata_DATA =      	\
 	alias.sh    	\
 	file.sh  	\
 	fns.sh  	\
+	frame.sh        \
 	gdb.sh  	\
 	help.sh  	\
 	journal.sh  	\
@@ -10,7 +11,6 @@ pkgdata_DATA =      	\
 	processor.sh  	\
 	run.sh    	\
 	set-d-vars.sh 	\
-	sig.sh	 	\
-	stack.sh
+	sig.sh
 
 EXTRA_DIST = $(pkgdata_DATA)

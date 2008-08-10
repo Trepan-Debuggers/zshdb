@@ -17,7 +17,7 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-add_help alias \
+_Dbg_add_help alias \
 'alias name debugger-command	Make name be an alias for debugger-command.'
 
 _Dbg_do_alias() {

@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# sig.sh - Bourne Again Shell Debugger Signal handling routines
+# sig.sh - Debugger Signal handling routines
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -17,16 +17,15 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# Place to save values of $1, $2, etc.
-
 function _Dbg_debug_trap_handler {
     # setopt localtraps
     # trap 'echo EXIT encountered inside debugger' EXIT
     # trap 'echo ERR encountered inside debugger' ERR
     typeset -i _Dbg_debugged_exit_code=$?
     _Dbg_old_set_opts=$-
-    typeset -a _Dbg_arg
 
+    # Place to save values of $1, $2, etc.
+    typeset -a _Dbg_arg
     _Dbg_arg=($@)
 
     # Turn off line and variable trace listing if were not in our own debug

@@ -20,7 +20,7 @@
 # This code assumes the version of zsh where functrace has file names
 # and absolute line positions, not function names and offset.
 
-add_help where \
+_Dbg_add_help where \
 'where [n] 	Stack trace of calling functions or sourced files.'
 
 # Print a stack backtrace.  

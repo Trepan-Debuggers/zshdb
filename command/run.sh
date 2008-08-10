@@ -20,7 +20,7 @@
 # Restart script in same way with saved arguments (probably the same
 # ones as we were given before).
 
-add_help run \
+_Dbg_add_help run \
 'run [args]        Attempt to restart the program.'
 
 _Dbg_do_run() {

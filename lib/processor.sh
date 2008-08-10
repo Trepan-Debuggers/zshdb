@@ -72,8 +72,8 @@ function _Dbg_process_commands {
     while read "?$_Dbg_prompt" _Dbg_cmd args <&$_Dbg_input_desc
     do
     	_Dbg_onecmd "$_Dbg_cmd" "$args"
-	rc=$?
-	# _Dbg_postcmd
+        rc=$?
+        # _Dbg_postcmd
         (( $rc != 0 )) && return $rc
     done # read "?$_Dbg_prompt" ...
 

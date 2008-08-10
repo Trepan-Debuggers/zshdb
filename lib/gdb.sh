@@ -3,8 +3,8 @@
 # So happens this is how it's stored in global _Dbg_frame_stack which
 # is where we get the information from
 function _Dbg_print_location {
-    local -i pos=${1:-$_Dbg_stack_pos}
-    local file_line="${_Dbg_frame_stack[$pos]}"
+    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset file_line="${_Dbg_frame_stack[$pos]}"
 
     _Dbg_split "$file_line" ':'
 

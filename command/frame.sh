@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# stepping.sh - gdb-like "up", "down" and "frame" debugger commands
+# frame.sh - gdb-like "up", "down" and "frame" debugger commands
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
@@ -40,7 +40,7 @@ _Dbg_do_frame() {
 }
 
 # Move default values up $1 or one in the stack. 
-add_help up \
+_Dbg_add_help up \
 'u | up [count]  Set file location for printing up the call stack by 
                 count. If count is omitted use 1.'
 _Dbg_do_up() {

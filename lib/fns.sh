@@ -21,12 +21,6 @@ function _Dbg_esc_dq {
   builtin echo $1 | sed -e 's/[`$\"]/\\\0/g' 
 }
 
-# Set $? to $1 if supplied or the saved entry value of $?. 
-function _Dbg_set_dol_q {
-  [[ $# -eq 0 ]] && return $_Dbg_debugged_exit_code
-  return $1
-}
-
 function _Dbg_errmsg {
     typeset -r prefix='**'
     _Dbg_msg "$prefix $@"
@@ -59,6 +53,12 @@ function _Dbg_msg {
 
 function _Dbg_msg_nocr {
     echo -n $@
+}
+
+# Set $? to $1 if supplied or the saved entry value of $?. 
+function _Dbg_set_dol_q {
+  [[ $# -eq 0 ]] && return $_Dbg_debugged_exit_code
+  return $1
 }
 
 # Split string $1 into an array using delimitor $2 to split on
