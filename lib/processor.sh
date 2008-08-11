@@ -24,8 +24,6 @@ typeset _Dbg_prompt_str="$_Dbg_debugger_name<1> "
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
 
-typeset -a _Dbg_debugger_commands
-
 # ==================== VARIABLES =======================================
 # _Dbg_INPUT_START_DESC is the lowest descriptor we use for reading.
 # _Dbg_MAX_INPUT_DESC   is the maximum input descriptor that can be 
@@ -65,10 +63,10 @@ function _Dbg_process_commands {
   # Loop over all pending open input file descriptors
   while (( $_Dbg_input_desc >= $_Dbg_INPUT_START_DESC )) ; do
 
-    local _Dbg_prompt="$_Dbg_prompt_str"
+    typeset _Dbg_prompt="$_Dbg_prompt_str"
     # _Dbg_preloop
-    local _Dbg_cmd 
-    local args
+    typeset _Dbg_cmd 
+    typeset args
     while read "?$_Dbg_prompt" _Dbg_cmd args <&$_Dbg_input_desc
     do
     	_Dbg_onecmd "$_Dbg_cmd" "$args"
@@ -93,8 +91,8 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
-    local expanded_alias; _Dbg_expand_alias $1
-    local _Dbg_cmd="$expanded_alias"
+    typeset expanded_alias; _Dbg_expand_alias $1
+    typeset _Dbg_cmd="$expanded_alias"
     eval "set -- $2"
 
     # Set default next, step or skip command
@@ -221,7 +219,7 @@ _Dbg_onecmd() {
 	   else
              _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
 	     # _Dbg_remove_history_item
-	     # local -a last_history=(`history 1`)
+	     # typeset -a last_history=(`history 1`)
 	     # history -d ${last_history[0]}
 	   fi
 	  ;;

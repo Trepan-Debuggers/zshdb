@@ -24,7 +24,7 @@ _Dbg_add_help down \
                 count. If count is omitted use 1.'
 _Dbg_do_down() {
   _Dbg_not_running && return 1
-  local -i count=${1:-1}
+  typeset -i count=${1:-1}
   _Dbg_adjust_frame $count -1
   _Dbg_print_location
 }
@@ -34,7 +34,7 @@ _Dbg_add_help frame \
 
 _Dbg_do_frame() {
   _Dbg_not_running && return 1
-  local -i pos=${1:-0}
+  typeset -i pos=${1:-0}
   _Dbg_adjust_frame $pos 0
   _Dbg_print_location
 }
@@ -45,7 +45,7 @@ _Dbg_add_help up \
                 count. If count is omitted use 1.'
 _Dbg_do_up() {
   _Dbg_not_running && return 1
-  local -i count=${1:-1}
+  typeset -i count=${1:-1}
   _Dbg_adjust_frame $count +1
   _Dbg_print_location
 }

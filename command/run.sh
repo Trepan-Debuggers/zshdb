@@ -33,7 +33,7 @@ _Dbg_do_run() {
   fi
 
   local exec_cmd="$_Dbg_orig_0 $_Dbg_script_file $script_args";
-  local ZSH_INTERPRETER; get_zsh_interpreter
+  local SH_INTERPRETER; get_sh_interpreter
   
   if (( !_Dbg_script )); then
 #     if [[ $_cur_source_file == $_Dbg_bogus_file ]] ; then

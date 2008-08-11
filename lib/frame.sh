@@ -28,13 +28,13 @@ typeset -a _Dbg_func_stack
 #======================== FUNCTIONS  ============================#
 
 _Dbg_adjust_frame() {
-  local -i count=$1
-  local -i signum=$2
+  typeset -i count=$1
+  typeset -i signum=$2
 
-  local -i retval
+  typeset -i retval
   _Dbg_stack_int_setup $count || return 
 
-  local -i pos
+  typeset -i pos
   if (( signum==0 )) ; then
     if (( count < 0 )) ; then
       ((pos=${#_Dbg_func_stack}+count))
@@ -54,7 +54,7 @@ _Dbg_adjust_frame() {
   fi
 
   ((_Dbg_stack_pos = pos+1))
-# #   local -i j=_Dbg_stack_pos+2
+# #   typeset -i j=_Dbg_stack_pos+2
 # #   _Dbg_listline=${BASH_LINENO[$j]}
 # #   ((j++))
 # #   _cur_source_file=${BASH_SOURCE[$j]}
@@ -65,8 +65,8 @@ _Dbg_adjust_frame() {
 # Print position $1 of stack frame (from global _Dbg_frame_stack)
 # Prefix the entry with $2 if that's set.
 function _Dbg_print_frame {
-    local -i pos=${1:-$_Dbg_stack_pos}
-    local file_line="${_Dbg_frame_stack[$pos]}"
+    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset prefix=${2:-''}
 
     _Dbg_split "$file_line" ':'

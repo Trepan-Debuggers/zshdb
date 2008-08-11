@@ -9,7 +9,6 @@ TESTS_ENVIRONMENT = \
   builddir="$(abs_builddir)"
 
 EXTRA_DIST = $(TESTS) $(check_DATA) \
-	test-alias.sh.in test-fns.sh.in test-run.sh.in test-fns.sh.in
-
-
-
+	test-alias.sh.in \
+	test-fns.sh.in \
+	test-run.sh.in
