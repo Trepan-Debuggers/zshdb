@@ -5,9 +5,9 @@ pkgdata_DATA =      	\
 	fns.sh  	\
 	frame.sh        \
 	gdb.sh  	\
-	help.sh  	\
-	journal.sh  	\
 	help.sh    	\
+	journal.sh  	\
+	msg.sh  	\
 	processor.sh  	\
 	run.sh    	\
 	set-d-vars.sh 	\

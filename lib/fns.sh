@@ -21,16 +21,6 @@ function _Dbg_esc_dq {
   builtin echo $1 | sed -e 's/[`$\"]/\\\0/g' 
 }
 
-function _Dbg_errmsg {
-    typeset -r prefix='**'
-    _Dbg_msg "$prefix $@"
-}
-
-function _Dbg_errmsg_no_cr {
-    typeset -r prefix='**'
-    _Dbg_msg_no_cr "$prefix $@"
-}
-
 # _Dbg_is_function returns 0 if $1 is a defined function or nonzero otherwise. 
 # if $2 is nonzero, system functions, i.e. those whose name starts with
 # an underscore (_), are included in the search.
@@ -45,14 +35,6 @@ _Dbg_is_function() {
     fn=$(declare -f $needed_fn 2>&1)
     [[ -n "$fn" ]]
     return $?
-}
-
-function _Dbg_msg {
-    print -- "$@" 
-}
-
-function _Dbg_msg_nocr {
-    echo -n $@
 }
 
 # Set $? to $1 if supplied or the saved entry value of $?. 
