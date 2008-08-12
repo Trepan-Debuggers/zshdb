@@ -146,7 +146,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# print help command menu
-	h | he | hel | help | '?'  )
+	help )
 	  _Dbg_do_help $args ;;
 
 	# print globbed or substituted variables

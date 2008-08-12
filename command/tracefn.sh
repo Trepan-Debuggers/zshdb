@@ -24,7 +24,7 @@
 # $? is 0 if successful.
 
 _Dbg_add_help trace \
-'trace *function*	wrap *function* in set -x'
+'trace *function*	- Wrap *function* in set -x'
 
 function _Dbg_do_trace_fn {
     typeset -r fn=$1

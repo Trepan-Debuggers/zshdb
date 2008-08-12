@@ -17,26 +17,32 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+_Dbg_add_help help \
+'help	- Print list of commands.'
+
 typeset -i _Dbg_help_cols=6
 _Dbg_do_help() {
   if ((0==$#)) ; then
       _Dbg_msg "Type 'help <command-name>' for help on a specific command.\n"
       _Dbg_msg 'Available commands:'
-      local -a commands
+      typeset -a commands
       commands=(${(ki)_Dbg_command_help})
       print -C $_Dbg_help_cols $commands
    else
-      local cmd=$1
-      if [[ -n $_Dbg_command_help[(k)$cmd] ]] ; then
- 	  print $_Dbg_command_help[$cmd]
+      typeset cmd=$1
+      if [[ -n ${_Dbg_command_help[(k)$cmd]} ]] ; then
+ 	  print ${_Dbg_command_help[$cmd]}
       else
-	  local expanded_alias; _Dbg_expand_alias $cmd
-	  local cmd="$expanded_alias"
-	  if [[ -n $_Dbg_command_help[(k)$cmd] ]] ; then
- 	      print $_Dbg_command_help[$cmd]
+	  typeset expanded_alias; _Dbg_expand_alias $cmd
+	  typeset cmd="$expanded_alias"
+	  if [[ -n ${_Dbg_command_help[(k)$cmd]} ]] ; then
+ 	      print ${_Dbg_command_help[$cmd]}
 	  else
       	      print "Don't have help for '$1'."
 	  fi
       fi
   fi
 }
+
+_Dbg_add_alias '?' help
+_Dbg_add_alias 'h' help

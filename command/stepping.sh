@@ -43,7 +43,7 @@ typeset -i _Dbg_skip_ignore=0
 # }
 
 _Dbg_add_help step \
-'step [ nnn]	step (into functions) once or nnn times.'
+'step [ nnn]	- step (into functions) once or nnn times.'
 
 # Step command
 # $1 is an optional additional count.

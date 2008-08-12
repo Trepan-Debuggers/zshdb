@@ -3,3 +3,4 @@
 /Makefile.in
 /bugIFS.sh
 /check-common.sh
+/*.check
