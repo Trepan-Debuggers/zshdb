@@ -37,7 +37,7 @@ _Dbg_adjust_frame() {
   typeset -i pos
   if (( signum==0 )) ; then
     if (( count < 0 )) ; then
-      ((pos=${#_Dbg_func_stack}+count))
+      ((pos=${#_Dbg_func_stack[@]}+count))
     else
       ((pos=count))
     fi
@@ -48,7 +48,7 @@ _Dbg_adjust_frame() {
   if (( $pos < 0 )) ; then 
     _Dbg_msg 'Would be beyond bottom-most (most recent) entry.'
     return 1
-  elif (( $pos >= ${#_Dbg_frame_stack} )) ; then 
+  elif (( $pos >= ${#_Dbg_frame_stack[@]} )) ; then 
     _Dbg_msg 'Would be beyond top-most (least recent) entry.'
     return 1
   fi

@@ -30,10 +30,9 @@ _Dbg_do_backtrace() {
   _Dbg_not_running && return 1
 
   typeset prefix='##'
-  typeset -i n=${#_Dbg_frame_stack}
+  typeset -i n=${#_Dbg_frame_stack[@]}
   typeset -i count=${1:-$n}
   typeset -i i=1
-  typeset -i im1
 
   # Loop which dumps out stack trace.
   for (( i=0 ; (( i < n && count > 0 )) ; i++ )) ; do 
