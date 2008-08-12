@@ -35,11 +35,11 @@ local -a libdir
 zparseopts -a libdir -E L: -library:
 if (( ${#libdir} > 0 )) ; then
     eval "lib_opts=($libdir)"
-    if [[ ! -d $lib_opts[2] ]] ; then
-	print "$lib_opts[2] is not a directory"
+    if [[ ! -d ${lib_opts[2]} ]] ; then
+	print "${lib_opts[2]} is not a directory"
 	exit 1
     fi
-    _Dbg_libdir=$lib_opts[2]
+    _Dbg_libdir=${lib_opts[2]}
 fi
 
 # Pull in the rest of the debugger code.
@@ -54,12 +54,14 @@ if [[ ! -r $_Dbg_main ]] ; then
 fi
 . ${_Dbg_libdir}/dbg-main.sh
 
+_Dbg_set_debugger_entry
+
 # Note that this is called via zshdb rather than "zsh --debugger" or zshdb-trace
 _Dbg_script=1
 
 # TEMPORARY: Save me typing in testing.
 if (( ${#_Dbg_script_args[@]} > 0 )) ; then
-    _Dbg_script_file="$_Dbg_script_args[1]"
+    _Dbg_script_file="${_Dbg_script_args[0]}"
     shift _Dbg_script_args
 else
     _Dbg_script_file=./testing.sh
@@ -69,6 +71,7 @@ fi
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
 
+  _Dbg_set_to_return_from_debugger
   _Dbg_step_ignore=2
   trap '_Dbg_debug_trap_handler "$@"' DEBUG
   . $_Dbg_script_file ${_Dbg_script_args[@]}

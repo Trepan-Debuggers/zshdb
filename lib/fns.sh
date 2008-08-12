@@ -25,10 +25,11 @@ function _Dbg_esc_dq {
 # if $2 is nonzero, system functions, i.e. those whose name starts with
 # an underscore (_), are included in the search.
 _Dbg_is_function() {
+    setopt ksharrays
     typeset needed_fn=$1
     [[ -z $needed_fn ]] && return 1
     typeset -i include_system=${2:-0}
-    [[ $needed_fn[1,1] == '_' ]] && ((!include_system)) && {
+    [[ ${needed_fn[0,0]} == '_' ]] && ((!include_system)) && {
 	return 1
     }
     typeset fn
@@ -51,49 +52,3 @@ function _Dbg_split {
     IFS="$separator" read -A split_result <<< $string
 }
 
-function _Dbg_set_debugger_entry {
-
-  _Dbg_old_IFS="$IFS"
-  _Dbg_old_PS4="$PS4"
-
-  _Dbg_set_debugger_internal
-}
-
-# Does things to after on entry of after an eval to set some debugger
-# internal settings  
-function _Dbg_set_debugger_internal {
-  IFS="$_Dbg_space_IFS"
-  PS4='%N:%i: %? zshdb
-'
-}
-
-function _Dbg_restore_user_vars {
-  IFS="$_Dbg_space_IFS"
-  set -$_Dbg_old_set_opts
-  IFS="$_Dbg_old_IFS";
-  PS4="$_Dbg_old_PS4"
-}
-
-function _Dbg_set_to_return_from_debugger {
-    _Dbg_rc=$?
-
-#   _Dbg_currentbp=0
-#   _Dbg_stop_reason=''
-#   if (( $1 != 0 )) ; then
-#     _Dbg_last_bash_command="$_Dbg_bash_command"
-#     _Dbg_last_curline="$_curline"
-#     _Dbg_last_source_file="$_cur_source_file"
-#   else
-#     _Dbg_last_curline==${BASH_LINENO[1]}
-#     _Dbg_last_source_file=${BASH_SOURCE[2]:-$_Dbg_bogus_file}
-#     _Dbg_last_bash_command="**unsaved _bashdb command**"
-#   fi
-
-#   if (( _Dbg_restore_debug_trap )) ; then
-#     trap '_Dbg_debug_trap_handler 0 "$BASH_COMMAND" "$@"' DEBUG
-#   else
-#     trap - DEBUG
-#   fi  
-
-  _Dbg_restore_user_vars
-}

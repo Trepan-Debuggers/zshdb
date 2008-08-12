@@ -5,3 +5,4 @@
 /test-alias.sh
 /test-fns.sh
 /test-run.sh
+/test-save-restore.sh

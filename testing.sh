@@ -1,6 +1,8 @@
-x=2
+# unsetopt ksharrays
+typeset -a x
+x=(10 20)
+echo $x[1]
 fooffdafsd
-x=3
 y='
 abc'
 echo another line

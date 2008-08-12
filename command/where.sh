@@ -36,13 +36,12 @@ _Dbg_do_backtrace() {
   typeset -i im1
 
   # Loop which dumps out stack trace.
-  for (( i=1 ; (( i <= n && count > 0 )) ; i++ )) ; do 
+  for (( i=0 ; (( i < n && count > 0 )) ; i++ )) ; do 
     prefix='##'
     (( i == _Dbg_stack_pos)) && prefix='->'
 
-    ((im1=i-1))
-    prefix+="$im1 "
-    if ((i!=1)) ; then 
+    prefix+="$ "
+    if ((i!=0)) ; then 
 	prefix+="${_Dbg_func_stack[i-1]} called from"
     else
 	prefix+='in'
@@ -50,8 +49,8 @@ _Dbg_do_backtrace() {
 
     typeset file_line="${_Dbg_frame_stack[i]}"
     _Dbg_split "$file_line" ':'
-    typeset filename=${split_result[1]}
-    typeset -i line=${split_result[2]}
+    typeset filename=${split_result[0]}
+    typeset -i line=${split_result[1]}
     (( _Dbg_basename_only )) && filename=${filename##*/}
     _Dbg_msg "$prefix file \`$filename' at line ${line}"
     ((count--))

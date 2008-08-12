@@ -89,5 +89,7 @@ AC_CONFIG_FILES([zshdb], [chmod +x zshdb])
 AC_CONFIG_FILES([test/unit/test-alias.sh], [chmod +x test/unit/test-alias.sh])
 AC_CONFIG_FILES([test/unit/test-fns.sh],   [chmod +x test/unit/test-fns.sh])
 AC_CONFIG_FILES([test/unit/test-run.sh],   [chmod +x test/unit/test-run.sh])
+AC_CONFIG_FILES([test/unit/test-save-restore.sh],
+		[chmod +x test/unit/test-save-restore.sh])
 
 AC_OUTPUT

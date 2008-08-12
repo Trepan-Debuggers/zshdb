@@ -1,4 +1,4 @@
-TESTS = test-alias.sh test-fns.sh test-run.sh
+TESTS = test-alias.sh test-fns.sh test-run.sh test-save-restore.sh
 check_DATA = shunit2
 
 abs_srcdir=@abs_srcdir@
@@ -11,4 +11,5 @@ TESTS_ENVIRONMENT = \
 EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-alias.sh.in \
 	test-fns.sh.in \
-	test-run.sh.in
+	test-run.sh.in \
+	test-save-restore.sh.in

@@ -3,13 +3,13 @@
 # So happens this is how it's stored in global _Dbg_frame_stack which
 # is where we get the information from
 function _Dbg_print_location {
-    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset -i pos=${0:-$_Dbg_stack_pos}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
 
     _Dbg_split "$file_line" ':'
 
-    typeset filename=${split_result[1]}
-    typeset -i line=${split_result[2]}
+    typeset filename=${split_result[0]}
+    typeset -i line=${split_result[1]}
     if ((_Dbg_basename_only)); then
 	filename=${filename##*/}
 	file_line="${filename}:${line}"

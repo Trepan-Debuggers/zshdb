@@ -21,7 +21,7 @@
 # Where are we in stack? This can be changed by "up", "down" or "frame"
 # commands.
 
-typeset -i _Dbg_stack_pos=1
+typeset -i _Dbg_stack_pos=0
 typeset -a _Dbg_frame_stack
 typeset -a _Dbg_func_stack
 
@@ -65,13 +65,13 @@ _Dbg_adjust_frame() {
 # Print position $1 of stack frame (from global _Dbg_frame_stack)
 # Prefix the entry with $2 if that's set.
 function _Dbg_print_frame {
-    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset -i pos=${0:-$_Dbg_stack_pos}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset prefix=${2:-''}
 
     _Dbg_split "$file_line" ':'
-    typeset filename=${split_result[1]}
-    typeset -i line=${split_result[2]}
+    typeset filename=${split_result[0]}
+    typeset -i line=${split_result[1]}
     _Dbg_msg "$prefix$pos in file \`$filename' at line $line"
 
 }

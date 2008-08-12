@@ -1,0 +1,42 @@
+#!/usr/local/bin/zsh
+# -*- shell-script -*-
+
+test_is_unsetopt()
+{
+    _Dbg_is_unsetopt shwordsplit
+    assertFalse 'shwordsplit should be set' $? 
+    unsetopt ksharrays
+    _Dbg_is_unsetopt ksharrays
+    assertTrue 'ksharrays should be set' $? 
+    setopt ksharrays
+    _Dbg_is_unsetopt ksharrays
+    assertFalse 'ksharrays should not be set' $? 
+}
+
+test_create_unsetopt()
+{
+PS4='(%N:%i): [%?] zsh+ 
+'
+    unsetopt cshjunkiehistory cshjunkieloops cshjunkiequotes cshnullcmd
+    opts=' cshjunkiehistory cshjunkieloops cshjunkiequotes cshnullcmd' 
+    _Dbg_create_unsetopt $opts
+    assertEquals "$opts" "$unset_opts"
+}
+
+# Make sure ../.. has a trailing slash
+if [ '/src/git/zshdb' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+abs_top_srcdir=/src/git/zshdb
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+. $abs_top_srcdir/lib/save-restore.sh
+
+# load shunit2
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+srcdir=.
+srcdir=${srcdir}/
+. ${srcdir}/shunit2

@@ -85,10 +85,11 @@ test_set_q()
 # Test _Dbg_split
 test_split()
 {
+    setopt ksharrays
     typeset -a words
     _Dbg_split 'foo.c:5' ':'
-    assertEquals 'foo.c' ${split_result[1]}
-    assertEquals '5' ${split_result[2]}
+    assertEquals 'foo.c' ${split_result[0]}
+    assertEquals '5' ${split_result[1]}
 }
 
 # Make sure @abs_top_srcdir@ has a trailing slash
@@ -100,6 +101,7 @@ abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 
 . $abs_top_srcdir/lib/fns.sh
+. $abs_top_srcdir/lib/save-restore.sh
 
 # load shunit2
 set -o shwordsplit
