@@ -62,20 +62,6 @@ _Dbg_adjust_frame() {
 #   return 0
 }
 
-# Print position $1 of stack frame (from global _Dbg_frame_stack)
-# Prefix the entry with $2 if that's set.
-function _Dbg_print_frame {
-    typeset -i pos=${0:-$_Dbg_stack_pos}
-    typeset file_line="${_Dbg_frame_stack[$pos]}"
-    typeset prefix=${2:-''}
-
-    _Dbg_split "$file_line" ':'
-    typeset filename=${split_result[0]}
-    typeset -i line=${split_result[1]}
-    _Dbg_msg "$prefix$pos in file \`$filename' at line $line"
-
-}
-
 # Tests for a signed integer parameter and set global retval
 # if everything is okay. Retval is set to 1 on error
 _Dbg_stack_int_setup() {

@@ -39,19 +39,14 @@ _Dbg_do_backtrace() {
     prefix='##'
     (( i == _Dbg_stack_pos)) && prefix='->'
 
-    prefix+="$ "
+    prefix+="$i "
     if ((i!=0)) ; then 
 	prefix+="${_Dbg_func_stack[i-1]} called from"
     else
 	prefix+='in'
     fi
 
-    typeset file_line="${_Dbg_frame_stack[i]}"
-    _Dbg_split "$file_line" ':'
-    typeset filename=${split_result[0]}
-    typeset -i line=${split_result[1]}
-    (( _Dbg_basename_only )) && filename=${filename##*/}
-    _Dbg_msg "$prefix file \`$filename' at line ${line}"
+    _Dbg_print_frame "$i" "$prefix"
     ((count--))
   done
   return 0

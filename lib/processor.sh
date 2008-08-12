@@ -121,7 +121,6 @@ _Dbg_onecmd() {
 	  
 	  _Dbg_last_cmd='continue'
 	  if _Dbg_do_continue $@ ; then
-	    IFS="$_Dbg_old_IFS";
 	    # _Dbg_write_journal_eval \
 	    #  "_Dbg_old_set_opts=\"$_Dbg_old_set_opts -o functrace\""
 	    return 1

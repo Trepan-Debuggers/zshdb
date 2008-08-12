@@ -50,9 +50,9 @@ function _Dbg_debug_trap_handler {
 	_Dbg_stop_reason='after being stepped'
 	
 	# If we don't have to stop we might consider skipping 
-	_Dbg_set_debugger_entry
 	_Dbg_frame_stack=($functrace)
 	_Dbg_func_stack=($funcstack)
+	_Dbg_set_debugger_entry
 
 	shift _Dbg_func_stack # Remove our function name
 	
