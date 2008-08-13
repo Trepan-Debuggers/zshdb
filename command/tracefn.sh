@@ -37,14 +37,14 @@ function _Dbg_do_trace_fn {
 	_Dbg_errmsg "trace_fn: function \"$fn\" is not a function."
 	return 3
     }
-    cmd=old_$(declare -f -- "$fn") || {
+    cmd=old_$(typeset -f -- "$fn") || {
 	return 4
     }
     ((_Dbg_debug_debugger)) && print $cmd 
     typeset save_clear_debug_trap_cmd=''
     typeset restore_trap_cmd=''
     if (( clear_debug_trap )) ; then
-	save_clear_trap_cmd='local old_handler=$(trap -p DEBUG); trap - DEBUG'
+	save_clear_trap_cmd='typeset old_handler=$(trap -p DEBUG); trap - DEBUG'
 	restore_trap_cmd='eval $old_handler'
     fi
     eval "$cmd" || return 5
@@ -83,7 +83,7 @@ function _Dbg_do_untrace_fn {
 	_Dbg_errmsg "untrace_fn: old function old_$fn not seen - nothing done."
 	return 4
     }
-    cmd=$(declare -f -- "old_$fn") || return 5
+    cmd=$(typeset -f -- "old_$fn") || return 5
     cmd=${cmd#old_}
     ((_Dbg_debug_debugger)) && echo $cmd 
     eval "$cmd" || return 6
