@@ -162,9 +162,11 @@ _Dbg_onecmd() {
 	  ;;
 
 	# single-step N times (default 1)
-	s | st | ste | step | n | ne | nex | next )
+	step )
 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
 	  _Dbg_last_next_step_args="$@"
+	  PS4='(%N:%i): [%?] zsh+ 
+'
 	  _Dbg_do_step $@
 	  return $?
 	  ;;

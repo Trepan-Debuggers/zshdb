@@ -26,8 +26,10 @@ _Dbg_do_help() {
       _Dbg_msg "Type 'help <command-name>' for help on a specific command.\n"
       _Dbg_msg 'Available commands:'
       typeset -a commands
+      unsetopt ksharrays
       commands=(${(ki)_Dbg_command_help})
       print -C $_Dbg_help_cols $commands
+      setopt ksharrays
    else
       typeset cmd=$1
       if [[ -n ${_Dbg_command_help[(k)$cmd]} ]] ; then

@@ -36,7 +36,7 @@ function _Dbg_remove_alias {
 # could be declared local in the caller.
 function _Dbg_expand_alias {
     (( $# != 1 )) && return 1
-    expanded_alias=$1
-    [[ -n ${_Dbg_aliases[(k)$1]} ]] && expanded_alias=${_Dbg_aliases[$1]}
+    expanded_alias="$1"
+    [[ -n ${_Dbg_aliases[$1]} ]] && expanded_alias=${_Dbg_aliases[$1]}
     return 0
 }

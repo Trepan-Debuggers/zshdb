@@ -48,9 +48,10 @@ function _Dbg_debug_trap_handler {
     # next, check if step mode and no. of steps is up
     if ((_Dbg_step_ignore == 0)); then
 	_Dbg_stop_reason='after being stepped'
+	unsetopt errexit
 	
 	# If we don't have to stop we might consider skipping 
-	_Dbg_frame_stack=($functrace)
+	_Dbg_frame_stack=($funcfiletrace)
 	_Dbg_func_stack=($funcstack)
 	_Dbg_set_debugger_entry
 
@@ -59,7 +60,9 @@ function _Dbg_debug_trap_handler {
 	_Dbg_print_location
 	_Dbg_process_commands
 	_Dbg_set_to_return_from_debugger 1
+	(( $_Dbg_rc == 2 )) && setopt errexit  # Set to skip statement
 	return $_Dbg_rc
+
     fi
 }
 

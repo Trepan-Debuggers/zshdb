@@ -1,15 +1,23 @@
-#!/bin/zsh -f
+#!/usr/local/bin/zsh -f
 # Returns 0 if run with a zsh compatible with zshdb
+
+second_fn() {
+  decls=$(declare -p)
+  if [[ $decls != *funcfiletrace* ]] ; then
+    print "Looks like you don't have funcfiletrace."
+    print "We need a zsh new enough which has that."
+    exit 10
+  fi
+  fn=$funcfiletrace[1]
+  if [[ $fn != *ok4zshdb.sh:20 ]]; then
+    print "Didn't get the answer back from funcfiletrace[1] I was expecting"
+    print "Got: $fn"
+    exit 15
+  fi
+}
 
 functrace_no_source() {
   second_fn
-}
-second_fn() {
-  fn=$functrace[1]
-  if [[ $fn == 'functrace_no_source:1' ]]; then
-    print "Your functrace does not report file names and line numbers properly."
-    exit 10
-  fi
 }
 
 functrace_no_source
