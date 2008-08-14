@@ -3,11 +3,11 @@
 
 test_alias()
 {
-    _Dbg_add_alias q quit
-    _Dbg_expand_alias q
+    _Dbg_alias_add q quit
+    _Dbg_alias_expand q
     assertEquals 'quit' $expanded_alias
-    _Dbg_remove_alias q
-    _Dbg_expand_alias q
+    _Dbg_alias_remove q
+    _Dbg_alias_expand q
     assertEquals 'q' $expanded_alias
 }
 

@@ -19,14 +19,14 @@
 typeset -A _Dbg_aliases
 
 # Add an new alias in the alias table
-function _Dbg_add_alias {
+function _Dbg_alias_add {
     (( $# != 2 )) && return 1
     _Dbg_aliases[$1]=$2
     return 0
 }
 
 # Remove alias $1 from our list of command aliases.
-function _Dbg_remove_alias {
+function _Dbg_alias_remove {
     (( $# != 1 )) && return 1
     unset "_Dbg_aliases[$1]"
     return 0
@@ -34,7 +34,7 @@ function _Dbg_remove_alias {
 
 # Expand alias $1. The result is set in variable expanded_alias which
 # could be declared local in the caller.
-function _Dbg_expand_alias {
+function _Dbg_alias_expand {
     (( $# != 1 )) && return 1
     expanded_alias="$1"
     [[ -n ${_Dbg_aliases[$1]} ]] && expanded_alias=${_Dbg_aliases[$1]}

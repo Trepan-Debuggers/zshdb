@@ -68,5 +68,5 @@ _Dbg_do_run() {
   _Dbg_cleanup
   eval "exec $exec_cmd"
 }
-_Dbg_add_alias R run
-_Dbg_add_alias restart run
+_Dbg_alias_add R run
+_Dbg_alias_add restart run

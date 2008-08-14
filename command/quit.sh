@@ -24,5 +24,5 @@ function _Dbg_do_quit {
     _Dbg_cleanup
    exit
 }
-_Dbg_add_alias q quit
-_Dbg_add_alias exit quit
+_Dbg_alias_add q quit
+_Dbg_alias_add exit quit

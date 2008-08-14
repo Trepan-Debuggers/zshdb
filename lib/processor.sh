@@ -91,7 +91,7 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
-    typeset expanded_alias; _Dbg_expand_alias $1
+    typeset expanded_alias; _Dbg_alias_expand $1
     typeset _Dbg_cmd="$expanded_alias"
     eval "set -- $2"
 

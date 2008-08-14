@@ -64,8 +64,8 @@ _Dbg_do_step() {
   return 1
 }
 
-_Dbg_add_alias 's' step
-_Dbg_add_alias 'n' step  # FIXME: remove when we have a real next
-_Dbg_add_alias 'next' step  # FIXME: remove when we have a real next
+_Dbg_alias_add 's' step
+_Dbg_alias_add 'n' step  # FIXME: remove when we have a real next
+_Dbg_alias_add 'next' step  # FIXME: remove when we have a real next
 
 
