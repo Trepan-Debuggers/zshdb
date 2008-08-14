@@ -46,15 +46,14 @@ _Dbg_add_help print \
 'print *string*	Print value of a substituted string.'
 
 _Dbg_do_print() {
-  local -r _Dbg_expr=${@:-"$_Dbg_last_print_args"}
-  local dq_expr
+  typeset _Dbg_expr=${@:-"$_Dbg_last_print_args"}
+  typeset dq_expr
   dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
-  readonly dq_expr
 
   ### FIXME: something strange in zsh causes _Dbg_debugged_exit_code
   # Not to be seen in _Dbg_do_eval if we don't have the bogus assignment 
   # below
-  local foo=$_Dbg_debugged_exit_code  
+  typeset foo=$_Dbg_debugged_exit_code  
 
   _Dbg_do_eval _Dbg_msg "$_Dbg_expr"
 }

@@ -54,6 +54,12 @@ else
   done
 fi
 
+# Get the fully expanded name of pkgdatadir. This is used in zshdb.in
+# and dbg-main.sh.in and for installing debugger files.
+
+pkgdatadir=$datadir/zshdb
+AC_SUBST_DIR(PKGDATADIR, $pkgdatadir)
+
 AM_MISSING_PROG(GIT2CL, git2cl, $missing_dir)
 AC_PROG_LN_S
 AC_PATH_PROG(RM, rm, true)
