@@ -18,8 +18,8 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 
-_Dbg_add_help continue \
-'continue	Continue execution.'
+_Dbg_help_add continue \
+'continue	- Continue execution.'
 
 function _Dbg_do_continue {
 

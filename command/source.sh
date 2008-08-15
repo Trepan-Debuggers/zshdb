@@ -21,11 +21,11 @@
 # input-file descriptor by one and redirect input which will
 # be picked up in next debugger command loop.
 
-_Dbg_add_help source \
+_Dbg_help_add source \
 'source file     - Read in debugger command file.'
 
 _Dbg_do_source() {
-  local filename
+  typeset filename
   if (( $# == 0 )) ; then
     _Dbg_errmsg 'Need to give a filename for the "source" command'
     return 1

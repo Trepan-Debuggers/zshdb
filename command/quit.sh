@@ -17,7 +17,7 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-_Dbg_add_help quit \
+_Dbg_help_add quit \
 'quit	- Quit the debugger.  The program being debugged is aborted.'
 
 function _Dbg_do_quit {

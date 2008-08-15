@@ -20,7 +20,7 @@
 # Number of statements to skip before entering the debugger if greater than 0
 typeset -i _Dbg_skip_ignore=0
 
-# _Dbg_add_help skip \
+# _Dbg_help_add skip \
 # 'skip [ nnn]	skip once or nnn times.'
 
 # Skip command
@@ -42,7 +42,7 @@ _Dbg_do_skip() {
   return 2
 }
 
-_Dbg_add_help step \
+_Dbg_help_add step \
 'step [ nnn]	- step (into functions) once or nnn times.'
 
 # Step command

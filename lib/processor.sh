@@ -134,7 +134,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# evaluate as bash command
-	e | ev | eva | eval )
+	eval )
 	  _Dbg_do_eval $@
 	  _Dbg_last_cmd='eval'
 	  ;;
@@ -150,7 +150,7 @@ _Dbg_onecmd() {
 	  _Dbg_do_help $args ;;
 
 	# print globbed or substituted variables
-	p | pr | pri | prin | print )
+	print )
 	  _Dbg_do_print "$args"
 	  _Dbg_last_cmd='print'
 	  ;;
@@ -196,7 +196,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# Move call stack up
-	u | up )
+	up )
 	  _Dbg_do_up $args
 	  _Dbg_last_cmd='up'
 	  ;;

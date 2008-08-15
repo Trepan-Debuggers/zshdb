@@ -23,7 +23,7 @@
 # function is called old_$1.
 # $? is 0 if successful.
 
-_Dbg_add_help trace \
+_Dbg_help_add trace \
 'trace *function*	- Wrap *function* in set -x'
 
 function _Dbg_do_trace_fn {
@@ -64,7 +64,7 @@ function _Dbg_do_trace_fn {
     return 0
 }
 
-_Dbg_add_help untrace \
+_Dbg_help_add untrace \
 'untrace *function*	untrace previosly traced *function*'
 
 # Undo wrapping fn
