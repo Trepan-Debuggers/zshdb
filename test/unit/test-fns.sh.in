@@ -1,4 +1,4 @@
-#!@ZSH_PROG@
+#!@SH_PROG@
 # -*- shell-script -*-
 
 # Test _Dbg_eqs_dq

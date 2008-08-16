@@ -17,20 +17,20 @@ AC_SUBST(DIFF_OPTS)
 ## test which bash to run. It can be omitted too in which case we'll
 ## look for a zsh binary.
 AC_ARG_WITH(zsh, AC_HELP_STRING([--with-zsh], 
-		  [location of zsh program]), ZSH_PROG=$withval)
+		  [location of zsh program]), SH_PROG=$withval)
 
-if test "$ZSH_PROG" = "yes" || test "$ZSH_PROG" = "no" || test -z "$ZSH_PROG"
+if test "$SH_PROG" = "yes" || test "$SH_PROG" = "no" || test -z "$SH_PROG"
 then
-  AC_PATH_PROG(ZSH_PROG, zsh, no)
+  AC_PATH_PROG(SH_PROG, zsh, no)
 fi
 
-if test "$ZSH_PROG" = no; then
+if test "$SH_PROG" = no; then
   AC_MSG_ERROR([I didn't find the zsh executable.\
   You might want to use the --with-zsh option.])
 fi
 
-AC_MSG_CHECKING([Checking whether $ZSH_PROG is compatible with zshdb])
-if ! (cd ${srcdir}/test/zsh && $ZSH_PROG ./ok4zshdb.sh) ; then
+AC_MSG_CHECKING([Checking whether $SH_PROG is compatible with zshdb])
+if ! (cd ${srcdir}/test/zsh && $SH_PROG ./ok4zshdb.sh) ; then
   AC_MSG_RESULT([no dice :-(])
   AC_MSG_ERROR([You might want to retry with another zsh using the --with-zsh option.])
 else

@@ -1,8 +1,8 @@
-#@ZSH_PROG@ -f
+#@SH_PROG@ -f
 # -*- shell-script -*-
 
 if [ -z "$ZSH" ] ; then 
-  ZSH=@ZSH_PROG@
+  SH=@SH_PROG@
 fi
 
 export top_builddir=@abs_top_builddir@
@@ -25,7 +25,7 @@ run_debugger() {
   typeset debugged_script=$1
   typeset zshdb_opts=${2:-"-L ${top_srcdir} -B -q"}
   typeset cmdfile=${3:-"${top_srcdir}/test/data/${TEST_NAME}.cmd"}
-  cmd="$ZSH -- ${top_builddir}/zshdb $zshdb_opts -x $cmdfile $debugged_script"
+  cmd="$SH -- ${top_builddir}/zshdb $zshdb_opts -x $cmdfile $debugged_script"
   eval $cmd
 }
 
