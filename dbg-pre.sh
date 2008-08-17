@@ -17,6 +17,16 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+# We put definiitions common to both the script debugger and bash
+# --debugger. In contrast to other routines this is sourced early --
+# before most of the kshdb script is run. The other routines are
+# done near the end of the kshdb script. In this way the script can
+# has access to definitions that --debugger has without duplicating code.
+
+# Note: the trend now is to move initializations which are generally
+# used in only one sub-part (e.g. variables for break/watch/actions) to 
+# the corresponding file.
+
 [[ -z $_Dbg_release ]] || return
 typeset -r _Dbg_release='0.01git'
 
@@ -28,6 +38,46 @@ typeset -i _Dbg_script=0
 
 typeset -i _Dbg_basename_only=0
 
+# Expand filename given as $1.
+# we echo the expanded name or return $1 unchanged if a bad filename.
+# Return is 0 if good or 1 if bad.
+# File globbing is handled. 
+# Note we don't check that the file exists, just that the format is 
+# valid; we do check that we can "search" the directory implied in the 
+# filename.
+
+function _Dbg_expand_filename {
+  typeset -r filename="$1"
+
+  # Break out basename and dirname
+  typeset basename=${filename##*/}
+  typeset -x dirname=${filename%/*}
+
+  # No slash given in filename? Then use . for dirname
+  [[ $dirname == $basename ]] && dirname='.'
+
+  # Dirname is ''? Then use / for dirname
+  dirname=${dirname:-/}
+
+  # Handle tilde expansion in dirname
+  dirname=$(echo $dirname)
+
+  typeset long_path;
+
+  [[ $basename == '.' ]] && basename=''
+  if long_path=$( (cd "$dirname" ; pwd) ) ; then
+    if [[ $long_path == '/' ]] ; then
+      echo "/$basename"
+    else
+      echo "$long_path/$basename"
+    fi
+    return 0
+  else
+    echo $filename
+    return 1
+  fi
+}
+
 # $_Dbg_tmpdir could have been set by zshdb script rather than
 # zsh --debugger
 typeset _Dbg_tmpdir=/tmp
@@ -38,11 +88,14 @@ _Dbg_tempname() {
   echo "$_Dbg_tmpdir/${_Dbg_debugger_name}$1$$"
 }
 
-# Code common to zshdb and zshdb-trace.
-# We assume _Dbg_libdir has been set correctly somehoaw
-
 # Process command-line options
 . ${_Dbg_libdir}/dbg-opts.sh
+
+if [[ ! -d $_Dbg_tmpdir ]] && [[ ! -w $_Dbg_tmpdir ]] ; then
+  echo "${_Dbg_pname}: cannot write to temp directory $_Dbg_tmpdir." >&2
+  echo "${_Dbg_pname}: Use -T try directory location." >&2
+  exit 1
+fi
 
 # Save the initial working directory so we can reset it on a restart.
 typeset _Dbg_init_cwd=$PWD

@@ -43,7 +43,7 @@ _Dbg_do_skip() {
 }
 
 _Dbg_help_add step \
-'step [ nnn]	- step (into functions) once or nnn times.'
+'step [ nnn]	-- step (into functions) once or nnn times.'
 
 # Step command
 # $1 is an optional additional count.
@@ -51,7 +51,7 @@ _Dbg_do_step() {
 
   _Dbg_not_running && return 1
 
-  local count=${1:-1}
+  typeset count=${1:-1}
 
   if [[ $count == [0-9]* ]] ; then
     _Dbg_step_ignore=${count:-1}
@@ -67,5 +67,3 @@ _Dbg_do_step() {
 _Dbg_alias_add 's' step
 _Dbg_alias_add 'n' step  # FIXME: remove when we have a real next
 _Dbg_alias_add 'next' step  # FIXME: remove when we have a real next
-
-

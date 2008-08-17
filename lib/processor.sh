@@ -133,7 +133,7 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd='down'
 	  ;;
 
-	# evaluate as bash command
+	# evaluate as shell command
 	eval )
 	  _Dbg_do_eval $@
 	  _Dbg_last_cmd='eval'
@@ -165,8 +165,6 @@ _Dbg_onecmd() {
 	step )
 	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
 	  _Dbg_last_next_step_args="$@"
-	  PS4='(%N:%i): [%?] zsh+ 
-'
 	  _Dbg_do_step $@
 	  return $?
 	  ;;

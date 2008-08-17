@@ -21,29 +21,29 @@
 # ones as we were given before).
 
 _Dbg_help_add run \
-'run [args]        - Attempt to restart the program.'
+'run [args]        -- Attempt to restart the program.'
 
 _Dbg_do_run() {
 
-  local script_args
+  typeset script_args
   if (( $# != 0 )) ; then 
     script_args=$@
   else
     script_args=${_Dbg_script_args[@]}
   fi
 
-  local exec_cmd="$_Dbg_orig_0 $_Dbg_script_file $script_args";
-  local SH_INTERPRETER; get_sh_interpreter
+  typeset exec_cmd="$_Dbg_orig_0 $_Dbg_script_file $script_args";
+  typeset SH_INTERPRETER; get_sh_interpreter
   
   if (( !_Dbg_script )); then
 #     if [[ $_cur_source_file == $_Dbg_bogus_file ]] ; then
 #       script_args="--debugger -c \"$BASH_EXECUTION_STRING\""
-#       exec_cmd="$ZSH_INTERPETER --debugger -c \"$BASH_EXECUTION_STRING\"";
+#       exec_cmd="$SH_INTERPRETER --debugger -c \"$BASH_EXECUTION_STRING\"";
 #     else
-#       exec_cmd="$ZSH_INTERPRETER --debugger $_Dbg_orig_0 $script_args";
+#       exec_cmd="$SH_INTERPRETER --debugger $_Dbg_orig_0 $script_args";
 #     fi
   else
-      local exec_cmd="$ZSH_INTERPRETER $_Dbg_orig_0 $_Dbg_script_file $script_args";
+      typeset exec_cmd="$SH_INTERPRETER $_Dbg_orig_0 $_Dbg_script_file $script_args";
   fi
 
   if (( _Dbg_basename_only )) ; then 
