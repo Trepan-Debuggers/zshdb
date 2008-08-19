@@ -1,0 +1,26 @@
+#!/bin/zsh -f
+# -*- shell-script -*-
+# Test debugger options.
+
+[ -z "$srcdir" ] && export srcdir=$PWD
+[ -z "$builddir" ] && export builddir=$PWD
+
+TEST_NAME='sopts'
+
+. ${builddir}/check-common.sh
+
+(cd $srcdir && $SH ${TEST_NAME}.tests > $TEST_FILE 2>&1 < /dev/null)
+
+check_output $TEST_FILE $RIGHT_FILE
+rc=$?
+
+TEST_NAME='lopts'
+TEST_FILE="${top_builddir}/test/${TEST_NAME}.check"
+RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}.right"
+(cd $srcdir && $SH ${TEST_NAME}.tests > $TEST_FILE 2>&1 < /dev/null)
+
+check_output $TEST_FILE $RIGHT_FILE
+((0==rc)) && rc=$?
+
+# Return code tells testing mechanism whether passed or not.
+exit $rc

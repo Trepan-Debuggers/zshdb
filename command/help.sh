@@ -42,12 +42,12 @@ _Dbg_do_help() {
    else
       typeset dbg_cmd=$1
       if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
- 	  print ${_Dbg_command_help[$dbg_cmd]}
+ 	  print "${_Dbg_command_help[$dbg_cmd]}"
       else
 	  typeset expanded_alias; _Dbg_alias_expand $dbg_cmd
 	  dbg_cmd="$expanded_alias"
 	  if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
- 	      _Dbg_msg ${_Dbg_command_help[$dbg_cmd]}
+ 	      _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
 	  else
 	      _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
 	  fi

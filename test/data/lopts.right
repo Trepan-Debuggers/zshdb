@@ -1,0 +1,20 @@
+Usage: 
+   zshdb [OPTIONS] <script_file>
+
+Runs zsh <script_file> under a debugger.
+
+options:
+    -h | --help             print this help
+    -q | --quiet            Do not print introductory and quiet messages.
+    -A | --annotate  LEVEL  set annotation level.
+    -B | --basename         basename only on source listings. 
+                            (Needed in regression tests)
+    -L libdir | --library libdir
+                            set directory location of library helper file: /src/git/zshdb/dbg-main.sh
+    -n | --nx |--no-init    Don't run initialization files
+    -x command | --command cmdfile
+                            execute debugger commands from cmdfile
+
+(dbg-test1.sh:5):
+
+(dbg-test1.sh:5):

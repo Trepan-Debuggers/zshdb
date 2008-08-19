@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # Note: no CVS Id line since it would mess up regression testing.
 # This code is used for various debugger testing.
 
@@ -31,5 +31,5 @@ echo $(fn3 30)
 fn3 31
 fn1;
 fn3 33
-source dbg-test1.sub
-exit 0
+# source example/dbg-test1.sub
+exit 0;

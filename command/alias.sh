@@ -18,8 +18,17 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add alias \
-'alias name debugger-command	Make name be an alias for debugger-command.'
+'alias NAME DEBUGGER-COMMAND	-- Make NAME be an alias for DEBUGGER-COMMAND.
+
+Use "unalias" to remove an alias.'
 
 _Dbg_do_alias() {
   _Dbg_alias_add $1 $2
+}
+
+_Dbg_help_add unalias \
+'unalias NAME	-- Remove debugger command alias NAME.'
+
+_Dbg_do_unalias() {
+  _Dbg_alias_remove $1
 }

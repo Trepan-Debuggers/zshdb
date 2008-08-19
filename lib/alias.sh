@@ -21,7 +21,7 @@ typeset -A _Dbg_aliases
 # Add an new alias in the alias table
 function _Dbg_alias_add {
     (( $# != 2 )) && return 1
-    _Dbg_aliases[$1]=$2
+    _Dbg_aliases[$1]="$2"
     return 0
 }
 

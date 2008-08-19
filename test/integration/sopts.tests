@@ -1,0 +1,16 @@
+#!/bin/zsh -f
+# -*- shell-script -*-
+PS4='(%N:%i): [%?] zsh+ 
+'
+set -o shwordsplit
+
+[ -z "$srcdir" ] && srcdir=$PWD
+[ -z "$builddir" ] && builddir=$PWD
+
+. ${builddir}/check-common.sh
+
+quitcmd="${top_srcdir}/test/data/quit.cmd"
+contcmd="${top_srcdir}/test/data/quit.cmd"
+debugged_script="${top_srcdir}/test/example/dbg-test1.sh"
+
+$SH ${top_builddir}/zshdb -B -q -L $top_builddir -x $contcmd $debugged_script

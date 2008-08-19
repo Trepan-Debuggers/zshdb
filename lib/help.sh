@@ -22,6 +22,6 @@ export _Dbg_command_help
 # Add help text $2 for command $1
 function _Dbg_help_add {
     (($# != 2)) && return 1
-     _Dbg_command_help[$1]=$2
+     _Dbg_command_help[$1]="$2"
      return 0
 }

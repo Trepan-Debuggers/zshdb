@@ -1,5 +1,8 @@
 #@SH_PROG@ -f
 # -*- shell-script -*-
+PS4='(%N:%i): [%?] zsh+ 
+'
+set -o shwordsplit
 
 if [ -z "$ZSH" ] ; then 
   SH=@SH_PROG@
@@ -18,16 +21,18 @@ check_output() {
   return $?
 }
 
-# Run the zsh debugger on test program $1 with (optional) zshdb options $2
+# Run the debugger on test program $1 with (optional) debugger options $2
 # using commandfile $3. We assume $TOP_BUILDDIR, $TOP_SRCDIR and
 # $TEST_NAME have been set previously
 run_debugger() {
+  set -o shwordsplit
   typeset debugged_script=$1
-  typeset zshdb_opts=${2:-"-L ${top_srcdir} -B -q"}
+  typeset dbg_opts=${2:-"-L ${top_srcdir} -B -q"}
   typeset cmdfile=${3:-"${top_srcdir}/test/data/${TEST_NAME}.cmd"}
-  cmd="$SH -- ${top_builddir}/zshdb $zshdb_opts -x $cmdfile $debugged_script"
-  eval $cmd
+  $SH -- ${top_builddir}/zshdb $dbg_opts -x $cmdfile $debugged_script
 }
 
 TEST_FILE="${top_builddir}/test/integration/${TEST_NAME}.check"
 RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}.right"
+TEST_FILTERED_FILE="/tmp/${TEST_NAME}-filtered.check"
+RIGHT_FILTERED_FILE="/tmp/${TEST_NAME}-filtered.right"
