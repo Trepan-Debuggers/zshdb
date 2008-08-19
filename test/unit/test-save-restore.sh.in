@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!@SH_PROG@
 # -*- shell-script -*-
 
 test_is_unsetopt()
@@ -15,12 +15,73 @@ test_is_unsetopt()
 
 test_create_unsetopt()
 {
-PS4='(%N:%i): [%?] zsh+ 
-'
     unsetopt cshjunkiehistory cshjunkieloops cshjunkiequotes cshnullcmd
     opts=' cshjunkiehistory cshjunkieloops cshjunkiequotes cshnullcmd' 
     _Dbg_create_unsetopt $opts
     assertEquals "$opts" "$unset_opts"
+}
+
+# Test that we are saving and restoring POSIX variables IFS and PS4 that
+# the debugger changes.
+test_save_restore_IFS_PS4()
+{
+    typeset  _Dbg_space_IFS=' '
+    typeset old_IFS="$IFS"
+    typeset new_ifs=' 	'
+    IFS="$new_ifs"
+    PS4='123'
+    _Dbg_set_debugger_entry
+    assertEquals "$_Dbg_space_IFS" "$IFS"
+    assertNotEquals '123' "$PS4"
+    _Dbg_set_to_return_from_debugger
+    assertNotEquals "$_Dbg_space_IFS" "$IFS"
+    assertEquals "$new_ifs" "$IFS"
+    IFS="$old_IFS"
+}
+
+# Test that we are saving and restoring zsh option ksharrays that
+# the debugger changes.
+test_save_restore_ksharrays()
+{
+    # Try without ksharrays set
+    unsetopt ksharrays
+    typeset -a aa
+    _Dbg_set_debugger_entry
+    _Dbg_set_to_return_from_debugger
+    aa=(one two three)
+    typeset test_value=$aa[1]
+    assertEquals 'one' "$test_value"
+
+    # Try with ksharrays set
+    setopt ksharrays
+    _Dbg_set_debugger_entry
+    _Dbg_set_to_return_from_debugger
+    aa=(one two three)
+    typeset test_value=${aa[1]}
+    assertEquals 'two' "$test_value"
+}
+
+# Test that we are saving and restoring zsh option shwordsplit that
+# the debugger changes.
+test_save_restore_shwordsplit()
+{
+    # Try without shwordopt set
+    unsetopt ksharrays shwordsplit
+    typeset test_string='one two three'
+    typeset -a aa
+    _Dbg_set_debugger_entry
+    _Dbg_set_to_return_from_debugger
+    aa=($test_string)
+    typeset test_value=$aa[1] # $aa[1] won't work if ksharrays is set
+    setopt shwordsplit # Needed for assertEquals
+    assertEquals "$test_string" "$test_value"
+
+    # Try with shwordsplit set. It was set just before assertEquals
+    _Dbg_set_debugger_entry
+    _Dbg_set_to_return_from_debugger
+    aa=($test_string)
+    typeset test_value=$aa[1] # $aa[1] won't work if ksharrays is set
+    assertEquals 'one' "$test_value"
 }
 
 # Make sure ../.. has a trailing slash
@@ -28,7 +89,7 @@ if [ '/src/git/zshdb' = '' ] ; then
   echo "Something is wrong abs_top_srcdir is not set."
  exit 1
 fi
-abs_top_srcdir=/src/git/zshdb
+abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 
 . $abs_top_srcdir/lib/save-restore.sh
@@ -37,6 +98,6 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 set -o shwordsplit
 SHUNIT_PARENT=$0
 
-srcdir=.
+srcdir=@srcdir@
 srcdir=${srcdir}/
 . ${srcdir}/shunit2

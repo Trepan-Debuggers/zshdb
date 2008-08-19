@@ -3,12 +3,20 @@
 
 test_alias()
 {
+    _Dbg_alias_add u up
+    typeset expanded_alias=''; _Dbg_alias_expand u
+    assertEquals 'up' $expanded_alias
+
     _Dbg_alias_add q quit
-    _Dbg_alias_expand q
-    assertEquals 'quit' "$expanded_alias"
+    expanded_alias=''; _Dbg_alias_expand q
+    assertEquals 'quit' $expanded_alias
+
     _Dbg_alias_remove q
-    _Dbg_alias_expand q
-    assertEquals 'q' "$expanded_alias"
+    expanded_alias=''; _Dbg_alias_expand q
+    assertEquals 'q' $expanded_alias
+
+    expanded_alias=''; _Dbg_alias_expand u
+    assertEquals 'up' $expanded_alias
 }
 
 # Make sure @top_builddir@ has a trailing slash
