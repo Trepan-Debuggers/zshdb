@@ -32,7 +32,7 @@ _Dbg_do_edit() {
   fi
   typeset -i line_number
   if (( $# == 0 )) ; then
-    _Dbg_frame_line
+    _Dbg_frame_lineno
     line_number=$?
     _Dbg_frame_file
     ((0 != $?)) && return 3

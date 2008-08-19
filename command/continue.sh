@@ -54,3 +54,5 @@ function _Dbg_do_continue {
 #   return 1
 }
 
+_Dbg_alias_add 'c' 'continue'
+_Dbg_alias_add 'cont' 'continue'

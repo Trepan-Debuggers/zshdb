@@ -20,6 +20,10 @@
 # So happens this is how it's stored in global _Dbg_frame_stack which
 # is where we get the information from
 function _Dbg_print_location {
+    if (($# > 1)); then 
+      _Dbg_errmsg "got $# parameters, but need 0 or 1."
+      return 2
+    fi
     typeset -i pos=${0:-$_Dbg_stack_pos}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
 
@@ -42,7 +46,12 @@ function _Dbg_print_location {
 # Print position $1 of stack frame (from global _Dbg_frame_stack)
 # Prefix the entry with $2 if that's set.
 function _Dbg_print_frame {
-    typeset -i pos=${0:-$_Dbg_stack_pos}
+    if (($# > 2)); then 
+      _Dbg_errmsg "got $# parameters, but need 0 or 1."
+      return -1
+    fi
+
+    typeset -i pos=${1:-$_Dbg_stack_pos}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset prefix=${2:-''}
 

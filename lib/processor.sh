@@ -133,6 +133,12 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd='down'
 	  ;;
 
+	# edit file currently positioned at
+	edit )
+	  _Dbg_do_edit $args
+	  _Dbg_last_cmd='edit'
+	  ;;
+
 	# evaluate as shell command
 	eval )
 	  _Dbg_do_eval $@

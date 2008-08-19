@@ -32,7 +32,7 @@ _Dbg_do_run() {
     script_args=${_Dbg_script_args[@]}
   fi
 
-  typeset exec_cmd="$_Dbg_orig_0 $_Dbg_script_file $script_args";
+  typeset exec_cmd="$_Dbg_script_file $script_args";
   typeset SH_INTERPRETER; get_sh_interpreter
   
   if (( !_Dbg_script )); then
@@ -42,8 +42,9 @@ _Dbg_do_run() {
 #     else
 #       exec_cmd="$SH_INTERPRETER --debugger $_Dbg_orig_0 $script_args";
 #     fi
+      :
   else
-      typeset exec_cmd="$SH_INTERPRETER $_Dbg_orig_0 $_Dbg_script_file $script_args";
+      typeset exec_cmd="$SH_INTERPRETER $_Dbg_script_file $script_args";
   fi
 
   if (( _Dbg_basename_only )) ; then 

@@ -18,7 +18,7 @@
 function get_sh_interpreter {
   typeset -a cmd
   cmd=( $(ps h -o command -p $$) )
-  SH_INTERPRETER=${cmd[1]}
+  SH_INTERPRETER=${cmd[@]}
 }
 
 _Dbg_not_running ()  {

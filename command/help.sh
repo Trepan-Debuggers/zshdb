@@ -30,17 +30,26 @@ _Dbg_do_help() {
       commands=(${(ki)_Dbg_command_help})
       print -C $_Dbg_help_cols $commands
       setopt ksharrays
+#       typeset columnized; columnize "$commands" 45
+#       typeset -i i
+#       for ((i=0; i<${#columnized[@]}; i++)) ; do 
+# 	  _Dbg_msg "  ${columnized[i]}"
+#       done
+      _Dbg_msg ''
+      _Dbg_msg 'Readline command line editing (emacs/vi mode) is available.'
+      _Dbg_msg 'Type "help" followed by command name for full documentation.'
+      return 0
    else
-      typeset cmd=$1
-      if [[ -n ${_Dbg_command_help[(k)$cmd]} ]] ; then
- 	  print ${_Dbg_command_help[$cmd]}
+      typeset dbg_cmd=$1
+      if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
+ 	  print ${_Dbg_command_help[$dbg_cmd]}
       else
-	  typeset expanded_alias; _Dbg_alias_expand $cmd
-	  typeset cmd="$expanded_alias"
-	  if [[ -n ${_Dbg_command_help[(k)$cmd]} ]] ; then
- 	      print ${_Dbg_command_help[$cmd]}
+	  typeset expanded_alias; _Dbg_alias_expand $dbg_cmd
+	  dbg_cmd="$expanded_alias"
+	  if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
+ 	      _Dbg_msg ${_Dbg_command_help[$dbg_cmd]}
 	  else
-      	      print "Don't have help for '$1'."
+	      _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
 	  fi
       fi
   fi

@@ -52,3 +52,78 @@ function _Dbg_split {
     IFS="$separator" read -A split_result <<< $string
 }
 
+# Common routine for setup of commands that take a single
+# linespec argument. We assume the following variables 
+# which we store into:
+#  filename, line_number, full_filename
+
+function _Dbg_linespec_setup {
+  typeset linespec=${1:-''}
+  if [[ -z $linespec ]] ; then
+    _Dbg_msg "Invalid line specification, null given"
+  fi
+  typeset -a word
+  word=($(_Dbg_parse_linespec "$linespec"))
+  if [[ ${#word[@]} == 0 ]] ; then
+    _Dbg_msg "Invalid line specification: $linespec"
+    return
+  fi
+  
+  filename=${word[2]}
+  typeset -ir is_function=${word[1]}
+  line_number=${word[0]}
+  full_filename=`_Dbg_is_file $filename`
+
+  if (( is_function )) ; then
+      if [[ -z $full_filename ]] ; then 
+	  _Dbg_readin "$filename"
+	  full_filename=`_Dbg_is_file $filename`
+      fi
+  fi
+}
+
+# Parse linespec in $1 which should be one of
+#   int
+#   file:line
+#   function-num
+# Return triple (line,  is-function?, filename,)
+# We return the filename last since that can have embedded blanks.
+function _Dbg_parse_linespec {
+  typeset linespec=$1
+  eval "$_seteglob"
+  case "$linespec" in
+
+    # line number only - use .sh.file for filename
+    $int_pat )	
+      echo "$linespec 0 ${.sh.file}"
+      ;;
+    
+    # file:line
+    [^:][^:]*[:]$int_pat )
+      # Split the POSIX way
+      typeset line_word=${linespec##*:}
+      typeset file_word=${linespec%${line_word}}
+      file_word=${file_word%?}
+      echo "$line_word 0 $file_word"
+      ;;
+
+    # Function name or error
+    * )
+      if _Dbg_is_function $linespec ${_Dbg_debug_debugger} ; then 
+	typeset -a word==( $(typeset -p +f $linespec) )
+	typeset -r fn=${word[1]%\(\)}
+	echo "${word[3]} 1 ${word[4]}"
+      else
+	echo ''
+      fi
+      ;;
+   esac
+}
+
+# Add escapes to a string $1 so that when it is read back via "$1"
+# it is the same as $1.
+function _Dbg_onoff {
+  typeset onoff='off.'
+  (( $1 != 0 )) && onoff='on.'
+  echo $onoff
+}

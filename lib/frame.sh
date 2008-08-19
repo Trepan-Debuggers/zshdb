@@ -27,12 +27,12 @@ typeset -a _Dbg_func_stack
 
 #======================== FUNCTIONS  ============================#
 
-_Dbg_adjust_frame() {
+_Dbg_frame_adjust() {
   typeset -i count=$1
   typeset -i signum=$2
 
   typeset -i retval
-  _Dbg_stack_int_setup $count || return 
+  _Dbg_frame_int_setup $count || return 
 
   typeset -i pos
   if (( signum==0 )) ; then
@@ -64,7 +64,7 @@ _Dbg_adjust_frame() {
 
 # Tests for a signed integer parameter and set global retval
 # if everything is okay. Retval is set to 1 on error
-_Dbg_stack_int_setup() {
+_Dbg_frame_int_setup() {
 
   if (( ! _Dbg_running )) ; then
     _Dbg_errmsg "No stack."
@@ -79,4 +79,25 @@ _Dbg_stack_int_setup() {
     # Reset EXTENDED_GLOB
     return 0
   fi
+}
+
+_Dbg_frame_lineno() {
+    (($# > 1)) && return -1
+    # FIXME check to see that $1 doesn't run off the end.
+    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset file_line="${_Dbg_frame_stack[$pos]}"
+    _Dbg_split "$file_line" ':'
+    typeset -i line=${split_result[1]}
+    return $line
+}
+
+_Dbg_frame_file() {
+    (($# > 1)) && return 2
+    # FIXME check to see that $1 doesn't run off the end.
+    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset file_line="${_Dbg_frame_stack[$pos]}"
+    _Dbg_split "$file_line" ':'
+    _Dbg_frame_filename=${split_result[0]}
+    (( _Dbg_basename_only )) && _Dbg_frame_filename=${_Dbg_frame_filename##*/}
+    return 0
 }
