@@ -10,6 +10,7 @@ pkgdata_DATA =      	\
 	msg.sh  	\
 	processor.sh  	\
 	run.sh    	\
+	save-restore.sh	\
 	set-d-vars.sh 	\
 	sig.sh
 
