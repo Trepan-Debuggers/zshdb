@@ -194,6 +194,18 @@ _Dbg_onecmd() {
 	  _Dbg_do_run $args
 	  ;;
 
+	# Command to set debugger options
+	set )
+	  _Dbg_do_set $args
+	  _Dbg_last_cmd='set'
+	  ;;
+
+	# Command to show debugger settings
+	show )
+	  _Dbg_do_show $args
+	  _Dbg_last_cmd='show'
+	  ;;
+
 	# Trace a function
 	tr | tra | tra | trac | trace )
 	  _Dbg_do_trace_fn $args 

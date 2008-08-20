@@ -25,11 +25,11 @@ _Dbg_help_add edit \
 If LOCATION is not given, use the current location."
 
 _Dbg_do_edit() {
-  typeset editor=${EDITOR:-ex}
   if (($# > 2)) ; then 
       _Dbg_errmsg "got $# parameters, but need 0 or 1."
       return 2
   fi
+  typeset editor=${EDITOR:-ex}
   typeset -i line_number
   if (( $# == 0 )) ; then
     _Dbg_frame_lineno

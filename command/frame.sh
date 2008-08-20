@@ -23,6 +23,7 @@ _Dbg_help_add down \
 'down [COUNT]	-- Set the call stack position down by COUNT.
 
 If COUNT is omitted use 1.'
+
 _Dbg_do_down() {
   _Dbg_not_running && return 1
   typeset -i count=${1:-1}

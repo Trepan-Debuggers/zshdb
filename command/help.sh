@@ -48,8 +48,19 @@ _Dbg_do_help() {
 	  dbg_cmd="$expanded_alias"
 	  if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
  	      _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
+
 	  else
-	      _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
+	      case $dbg_cmd in 
+	      sh | sho | show )
+		_Dbg_help_show $2
+                return ;;
+	      se | set  )
+	        _Dbg_help_set $2
+                return ;;
+	     * )
+  	        _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
+  	         return ;;
+	     esac
 	  fi
       fi
   fi
