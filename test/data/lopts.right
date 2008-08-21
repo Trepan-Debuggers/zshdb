@@ -16,5 +16,9 @@ options:
                             execute debugger commands from cmdfile
 
 (dbg-test1.sh:5):
++# Just a simple quit command.
++quit 
 
 (dbg-test1.sh:5):
++# Just a simple quit command.
++quit 

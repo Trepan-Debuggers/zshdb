@@ -1,2 +1,4 @@
 
 (dbg-test1.sh:5):
++# Just a simple quit command.
++quit 

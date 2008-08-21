@@ -1,103 +1,16 @@
-# -*- shell-script -*-
-# show.sh - Show debugger settings
-#
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
-#
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
-#
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
-#   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# Sets whether or not to display command to be executed in debugger prompt.
-# If yes, always show. If auto, show only if the same line is to be run
-# but the command is different.
-typeset _Dbg_show_command="auto"
+(dbg-test2.sh:6):
++# Test of miscellaneous commands:
++# 'source', 'info args', 'show args', 'show warranty', 'show copying', etc.
++#### Invalid commands...
++show badcommand
+Don't know how to show badcommand.
++another-bad-command 
+Undefined command: "another-bad-command". Try "help".
++#### *** GNU things...
++# show warranty
++show copying
 
-_Dbg_help_add show ''  # Help routine is elsewhere
-
-_Dbg_do_show() {
-  typeset show_cmd=$1
-  typeset label=$2
-
-  # Warranty, copying, directories, and aliases are omitted below.
-  typeset -r subcmds="annotate args autoeval basename debugger listsize prompt trace-commands"
-
-  if [[ -z $show_cmd ]] ; then 
-      typeset thing
-      for thing in $subcmds ; do 
-	_Dbg_do_show $thing 1
-      done
-      return 0
-  fi
-
-  case $show_cmd in 
-    al | ali | alia | alias | aliase | aliases )
-      unsetopt ksharrays
-      for alias in ${(ki)_Dbg_aliases} ; do
-	  _Dbg_msg "\t${alias}\t${_Dbg_aliases[$alias]}"
-      done
-      setopt ksharrays
-      return 0
-      ;;
-    ar | arg | args )
-      [[ -n $label ]] && label='args:     '
-      _Dbg_msg \
-"${label}Argument list to give script when debugged program starts is:\n" \
-"      \"${_Dbg_script_args[@]}\"."
-      return 0
-      ;;
-    an | ann | anno | annot | annota | annotat | annotate )
-      [[ -n $label ]] && label='annotate: '
-     _Dbg_msg \
-"${label}Annotation_level is $_Dbg_annotate."
-      return 0
-      ;;
-    au | aut | auto | autoe | autoev | autoeva | autoeval )
-      [[ -n $label ]] && label='autoeval: '
-      _Dbg_msg \
-"${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_autoeval)
-      return 0
-      ;;
-    b | ba | bas | base | basen | basena | basenam | basename )
-      [[ -n $label ]] && label='basename: '
-      _Dbg_msg \
-"${label}Show short filenames (the basename) in debug output is" $(_Dbg_onoff $_Dbg_basename_only)
-      return 0
-      ;;
-    com | comm | comma | comman | command | commands )
-      local -i default_hi_start=_Dbg_hi-1
-      if ((default_hi_start < 0)) ; then default_hi_start=0 ; fi
-      local hi_start=${2:-$default_hi_start}
-
-      eval "$_seteglob"
-      case $hi_start in
-	+ )
-	  ((hi_start=_Dbg_hi_last_stop-1))
-	  ;;
-	$int_pat | -$int_pat)
-	    ;;
-	* )
-	   _Dbg_msg "Invalid parameter $hi_start. Need an integer or '+'"
-      esac
-      eval "$_resteglob"
-      
-      local -i hi_stop=hi_start-10
-      _Dbg_do_history_list $hi_start $hi_stop
-      _Dbg_hi_last_stop=$hi_stop
-      return 0
-      ;;
-    cop | copy| copyi | copyin | copying )
-      _Dbg_msg \
-"
 		    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
 
@@ -161,13 +74,13 @@ modification follow.
 
   0. This License applies to any program or other work which contains
 a notice placed by the copyright holder saying it may be distributed
-under the terms of this General Public License.  The \"Program\", below,
-refers to any such program or work, and a \"work based on the Program\"
+under the terms of this General Public License.  The "Program", below,
+refers to any such program or work, and a "work based on the Program"
 means either the Program or any derivative work under copyright law:
 that is to say, a work containing the Program or a portion of it,
 either verbatim or with modifications and/or translated into another
 language.  (Hereinafter, translation is included without limitation in
-the term \"modification\".)  Each licensee is addressed as \"you\".
+the term "modification".)  Each licensee is addressed as "you".
 
 Activities other than copying, distribution and modification are not
 covered by this License; they are outside its scope.  The act of
@@ -340,8 +253,8 @@ be similar in spirit to the present version, but may differ in detail to
 address new problems or concerns.
 
 Each version is given a distinguishing version number.  If the Program
-specifies a version number of this License which applies to it and \"any
-later version\", you have the option of following the terms and conditions
+specifies a version number of this License which applies to it and "any
+later version", you have the option of following the terms and conditions
 either of that version or of any later version published by the Free
 Software Foundation.  If the Program does not specify a version number of
 this License, you may choose any version ever published by the Free Software
@@ -354,115 +267,66 @@ Software Foundation, write to the Free Software Foundation; we sometimes
 make exceptions for this.  Our decision will be guided by the two goals
 of preserving the free status of all derivatives of our free software and
 of promoting the sharing and reuse of software generally.
-"
-      return 0
-      ;;
-#     e | ed | edi | edit | editi | editin | editing )
-#       [[ -n $label ]] && label='editing:  '
-#       local onoff="on."
-#       [[ -z $_Dbg_edit ]] && onoff='off.'
-#      _Dbg_msg \
-# "${label}Editing of command lines as they are typed is" $onoff
-#       return 0
-#       ;;
-    de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-      local onoff=${1:-'on'}
-      [[ -n $label ]] && label='debugger: '
-      local onoff="off."
-      (( $_Dbg_debug_debugger )) && onoff='on.'
-     _Dbg_msg \
-"${label}Allow debugging the debugger is" $onoff
-      return 0
-      ;;
-    di|dir|dire|direc|direct|directo|director|directori|directorie|directories)
-      local list=${_Dbg_dir[0]}
-      local -i n=${#_Dbg_dir[@]}
-      local -i i
-      for (( i=1 ; i < n; i++ )) ; do
-	list="${list}:${_Dbg_dir[i]}"
-      done
 
-     _Dbg_msg "Source directories searched: $list"
-      return 0
-      ;;
-    hi|his|hist|histo|histor|history)
-      _Dbg_msg \
-"filename: The filename in which to record the command history is $_Dbg_histfile"
-      _Dbg_msg \
-"save: Saving of history save is" $(_Dbg_onoff $_Dbg_history_save)
-      _Dbg_msg \
-"size: Debugger history size is $_Dbg_history_length"
-      ;;
-
-    lin | line | linet | linetr | linetra | linetrac | linetrace )
-      [[ -n $label ]] && label='line tracing: '
-      local onoff="off."
-      (( $_Dbg_linetrace != 0 )) && onoff='on.'
-      _Dbg_msg \
-"${label}Show line tracing is" $onoff
-      _Dbg_msg \
-"${label}Show line trace delay is ${_Dbg_linetrace_delay}."
-      return 0
-      ;;
-
-    lis | list | lists | listsi | listsiz | listsize )
-      [[ -n $label ]] && label='listsize: '
-     _Dbg_msg \
-"${label}Number of source lines zshdb will list by default is" \
-      "$_Dbg_listsize."
-      return 0
-      ;;
-
-    lo | log | logg | loggi | loggin | logging )
-      shift
-      _Dbg_do_show_logging $*
-      ;;
-    p | pr | pro | prom | promp | prompt )
-      [[ -n $label ]] && label='prompt:   '
-      _Dbg_msg \
-"${label}zshdb's prompt is:\n" \
-"      \"$_Dbg_prompt_str\"."
-      return 0
-      ;;
-    sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
-      [[ -n $label ]] && label='showcommand: '
-     _Dbg_msg \
-"${label}Show commands in debugger prompt is" \
-      "$_Dbg_show_command."
-      return 0
-      ;;
-    t|tr|tra|trac|trace|trace-|tracec|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
-      [[ -n $label ]] && label='trace-commands: '
-     _Dbg_msg \
-"${label}State of command tracing is" \
-      "$_Dbg_trace_commands."
-      return 0
-      ;;
-    v | ve | ver | vers | versi | versio | version )
-      _Dbg_do_show_versions
-      return 0
-      ;;
-    w | wa | war | warr | warra | warran | warrant | warranty )
-      _Dbg_do_info warranty
-      return 0
-      ;;
-    *)
-      _Dbg_msg "Don't know how to show $show_cmd."
-      return 1
-  esac
-}
-
-_Dbg_do_show_versions()
-{
-  _Dbg_printf "%-12s => $_Dbg_release" "Release"
-  _Dbg_msg "=================================================================="
-  if [[ -n $_Dbg_script ]] ; then
-    _Dbg_printf "%-12s => $_Dbg_ver", 'zshdb'
-    local version
-    for file in $_Dbg_includes; do
-      local set_version_cmd="version=\$_Dbg_${file}_ver"
-      eval $set_version_cmd
-      _Dbg_printf "%-12s => $version" $file
-    done
-  fi
-}
++show 
+annotate: Annotation_level is 0.
+args:     Argument list to give script when debugged program starts is:
+       "testarg1 testarg2".
+autoeval: Evaluate unrecognized commands is off.
+basename: Show short filenames (the basename) in debug output is on.
+debugger: Allow debugging the debugger is off.
+listsize: Number of source lines zshdb will list by default is 10.
+prompt:   zshdb's prompt is:
+       "zshdb<1> ".
+trace-commands: State of command tracing is on.
++#### and show...
++show args
+Argument list to give script when debugged program starts is:
+       "testarg1 testarg2".
++set args now is the time
++show args
+Argument list to give script when debugged program starts is:
+       "now is the time".
++set misspelled 40
+Undefined set command "misspelled"
++set listsize 40
+Integer argument expected; got: 40
++set listsize bad
+Integer argument expected; got: bad
++set annotate bad
+Argument required (integer to set it to.).
++set annotate 6
+Argument required (integer to set it to.).
++show annotate
+Annotation_level is 0.
++set annotate 1
+Argument required (integer to set it to.).
++show listsize
+Number of source lines zshdb will list by default is 10.
++show annotate
+Annotation_level is 0.
++# set history size
++# set history size 10
++# show history
++# show history save
++# set history save off
++# show history
++# set history save on
++# show history
++######################### 
++#### Test 'show commands'...
++# show commands
++# show commands +
++# show commands -5
++# show commands 12
++######################### 
++#### Test 'autoeval'...
++set autoeval on
+typeset xx=''
++xx=1 ; declare -p xx
+typeset xx=''
++set autoeval off
+typeset xx=''
++xx=1 ; declare -p xx
+Undefined command: "xx=1". Try "help".
++quit 

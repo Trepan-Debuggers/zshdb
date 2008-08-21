@@ -1,4 +1,4 @@
-# set trace-co on
+set trace-co on
 # Debugger test of an old IFS bug
 #
 step

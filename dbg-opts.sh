@@ -44,8 +44,10 @@ show_version() {
   exit 101
 }
 
+typeset -i _Dbg_annotate=0
+
 # Debugger command file
-local o_cmdfile='' o_nx='' o_basename=''
+typeset o_cmdfile='' o_nx='' o_basename=''
 
 local temp
 zparseopts -D --                        \
@@ -71,3 +73,6 @@ welcome to change it and/or distribute copies of it under certain conditions.
 fi
 [[ -n $o_version ]] && show_version
 [[ -n $o_basename ]] && _Dbg_basename_only=1
+
+# FIXME: check that o_annotate is an integer
+[[ -n $o_annotate ]] && _Dbg_annotate=$o_annotate

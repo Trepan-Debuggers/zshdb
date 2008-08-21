@@ -27,7 +27,7 @@ function _Dbg_help_add {
 }
 
 # typeset -r _Dbg_set_cmds="args annotate autoeval basename debugger editing linetrace listsize prompt showcommand trace-commands"
-typeset -r _Dbg_set_cmds="args basename debugger prompt"
+typeset -r _Dbg_set_cmds="args annotate autoeval basename debugger linetrace listsize prompt trace-commands"
 
 _Dbg_help_set() {
   typeset -r set_cmd=$1
@@ -133,9 +133,9 @@ Follow this command with any number of args, to be passed to the program."
   esac
 }
 
-# typeset -r _Dbg_show_cmds="aliases args annotate autoeval basename debugger commands copying debugger directories linetrace listsize prompt trace-commands warranty"
+# typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename debugger commands debugger directories linetrace listsize prompt trace-commands warranty"
 
-typeset -r _Dbg_show_cmds="aliases args basename copying debugger prompt"
+typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename copying debugger linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
   typeset -r show_cmd=$1

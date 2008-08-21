@@ -1,5 +1,5 @@
-TESTS = test-bug-args test-bugIFS test-opts
-check_DATA = check-common.sh
+TESTS = test-bug-args test-bugIFS test-opts test-setshow
+check_DATA = check-common.sh setshow.tests
 
 abs_srcdir=@abs_srcdir@
 abs_builddir=@abs_builddir@

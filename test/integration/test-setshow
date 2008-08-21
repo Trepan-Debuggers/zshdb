@@ -1,0 +1,31 @@
+#!/bin/zsh -f
+# -*- shell-script -*-
+
+[ -z "$srcdir" ] && export srcdir=$PWD
+[ -z "$builddir" ] && export builddir=$PWD
+[ -z "$top_builddir" ] && export top_builddir=$builddir/..
+
+TEST_NAME='setshow'
+
+. ${builddir}/check-common.sh
+
+OUT1_NAME='setshow'
+OUT1_FILE="/tmp/${OUT1_NAME}.check"
+rm -f $OUT1_FILE 
+(cd $srcdir && $SH ${srcdir}/${TEST_NAME}.tests > $TEST_FILE 2>&1 < /dev/null)
+
+cat ${TEST_FILE} | sed -e "s:-x .*/data/setshow\.cmd .*/example/dbg-test2.sh:-x data/setshow.cmd example/dbg-test2.sh:" \
+| sed -e 's:record the command history is .*:record the command history is: ' \
+> ${TEST_FILTERED_FILE}
+
+check_output $TEST_FILTERED_FILE $RIGHT_FILE
+rc=$?
+
+if test $rc -eq  0 ; then
+  exit $rc
+fi
+
+check_output $OUT1_FILE ${srcdir}/data/${OUT1_NAME}.right
+
+# Return code tells testing mechanism whether passed or not.
+exit $?

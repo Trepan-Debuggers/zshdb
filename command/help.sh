@@ -40,9 +40,9 @@ _Dbg_do_help() {
       _Dbg_msg 'Type "help" followed by command name for full documentation.'
       return 0
    else
-      typeset dbg_cmd=$1
+      typeset dbg_cmd="$1"
       if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
- 	  print "${_Dbg_command_help[$dbg_cmd]}"
+ 	  print ${_Dbg_command_help[$dbg_cmd]}
       else
 	  typeset expanded_alias; _Dbg_alias_expand $dbg_cmd
 	  dbg_cmd="$expanded_alias"

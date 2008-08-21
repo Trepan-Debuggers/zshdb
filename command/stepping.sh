@@ -19,6 +19,7 @@
 
 # Number of statements to skip before entering the debugger if greater than 0
 typeset -i _Dbg_skip_ignore=0
+typeset last_next_step_cmd='s' # Default is step.
 
 # _Dbg_help_add skip \
 # 'skip [ nnn]	skip once or nnn times.'

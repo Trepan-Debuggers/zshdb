@@ -1,13 +1,27 @@
 
 (bug-args.sh:3):
++# Debugger test to see that parameter handling of $1, $2, etc is correct.
++print $#
 0
++print $5
 
++step 2
 First parm is:
 (bug-args.sh:5):
++# There should now be 5 args set and $5 should have a value
++print $#
 5
++print $3
 c
++print $5
 e
++step 
 (bug-args.sh:7):
++# There should now be 3 args set and $5 should not have a value
++print $#
 3
++print $3
 e
++print $5
 
++quit 

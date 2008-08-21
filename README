@@ -100,7 +100,7 @@ punting on this for now.
 
 3.d) Showing frame arguments
 
-Like next, this can done with or without support from zsh, abeit
+Like next, this can done with or without support from zsh, albeit
 faster with help from zsh. Changing scope when changing frames however
 has to be done with zsh support. 
 

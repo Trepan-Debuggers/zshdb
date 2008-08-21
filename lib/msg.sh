@@ -34,3 +34,9 @@ function _Dbg_msg {
 function _Dbg_msg_nocr {
     echo -n $@
 }
+
+# Common funnel for "Undefined command" message
+_Dbg_undefined_cmd() {
+  _Dbg_msg "Undefined $1 command \"$2\""
+}
+
