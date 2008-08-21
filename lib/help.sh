@@ -26,8 +26,8 @@ function _Dbg_help_add {
      return 0
 }
 
-# typeset -r _Dbg_set_cmds="args annotate autoeval basename debugger editing linetrace listsize prompt showcommand trace-commands"
-typeset -r _Dbg_set_cmds="args annotate autoeval basename debugger linetrace listsize prompt trace-commands"
+# typeset _Dbg_set_cmds="args annotate autoeval basename debugger editing linetrace listsize prompt showcommand trace-commands"
+typeset _Dbg_set_cmds="args annotate autoeval basename debugger linetrace listsize prompt trace-commands"
 
 _Dbg_help_set() {
   typeset -r set_cmd=$1

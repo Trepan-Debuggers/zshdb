@@ -74,9 +74,9 @@ _Dbg_do_show() {
       return 0
       ;;
     com | comm | comma | comman | command | commands )
-      local -i default_hi_start=_Dbg_hi-1
+      typeset -i default_hi_start=_Dbg_hi-1
       if ((default_hi_start < 0)) ; then default_hi_start=0 ; fi
-      local hi_start=${2:-$default_hi_start}
+      typeset hi_start=${2:-$default_hi_start}
 
       eval "$_seteglob"
       case $hi_start in
@@ -90,7 +90,7 @@ _Dbg_do_show() {
       esac
       eval "$_resteglob"
       
-      local -i hi_stop=hi_start-10
+      typeset -i hi_stop=hi_start-10
       _Dbg_do_history_list $hi_start $hi_stop
       _Dbg_hi_last_stop=$hi_stop
       return 0
@@ -359,25 +359,25 @@ of promoting the sharing and reuse of software generally.
       ;;
 #     e | ed | edi | edit | editi | editin | editing )
 #       [[ -n $label ]] && label='editing:  '
-#       local onoff="on."
+#       typeset onoff="on."
 #       [[ -z $_Dbg_edit ]] && onoff='off.'
 #      _Dbg_msg \
 # "${label}Editing of command lines as they are typed is" $onoff
 #       return 0
 #       ;;
     de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-      local onoff=${1:-'on'}
+      typeset onoff=${1:-'on'}
       [[ -n $label ]] && label='debugger: '
-      local onoff="off."
+      typeset onoff="off."
       (( $_Dbg_debug_debugger )) && onoff='on.'
      _Dbg_msg \
 "${label}Allow debugging the debugger is" $onoff
       return 0
       ;;
     di|dir|dire|direc|direct|directo|director|directori|directorie|directories)
-      local list=${_Dbg_dir[0]}
-      local -i n=${#_Dbg_dir[@]}
-      local -i i
+      typeset list=${_Dbg_dir[0]}
+      typeset -i n=${#_Dbg_dir[@]}
+      typeset -i i
       for (( i=1 ; i < n; i++ )) ; do
 	list="${list}:${_Dbg_dir[i]}"
       done
@@ -396,7 +396,7 @@ of promoting the sharing and reuse of software generally.
 
     lin | line | linet | linetr | linetra | linetrac | linetrace )
       [[ -n $label ]] && label='line tracing: '
-      local onoff="off."
+      typeset onoff="off."
       (( $_Dbg_linetrace != 0 )) && onoff='on.'
       _Dbg_msg \
 "${label}Show line tracing is" $onoff
@@ -458,9 +458,9 @@ _Dbg_do_show_versions()
   _Dbg_msg "=================================================================="
   if [[ -n $_Dbg_script ]] ; then
     _Dbg_printf "%-12s => $_Dbg_ver", 'zshdb'
-    local version
+    typeset version
     for file in $_Dbg_includes; do
-      local set_version_cmd="version=\$_Dbg_${file}_ver"
+      typeset set_version_cmd="version=\$_Dbg_${file}_ver"
       eval $set_version_cmd
       _Dbg_printf "%-12s => $version" $file
     done
