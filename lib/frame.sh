@@ -42,7 +42,7 @@ _Dbg_frame_adjust() {
       ((pos=count))
     fi
   else
-    ((pos=_Dbg_stack_pos-1+(count*signum)))
+    ((pos=_Dbg_stack_pos+(count*signum)))
   fi
 
   if (( $pos < 0 )) ; then 
@@ -53,7 +53,7 @@ _Dbg_frame_adjust() {
     return 1
   fi
 
-  ((_Dbg_stack_pos = pos+1))
+  ((_Dbg_stack_pos = pos))
 # #   typeset -i j=_Dbg_stack_pos+2
 # #   _Dbg_listline=${BASH_LINENO[$j]}
 # #   ((j++))
