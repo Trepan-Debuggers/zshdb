@@ -75,4 +75,4 @@ fi
 [[ -n $o_basename ]] && _Dbg_basename_only=1
 
 # FIXME: check that o_annotate is an integer
-[[ -n $o_annotate ]] && _Dbg_annotate=$o_annotate
+## [[ -n $o_annotate ]] && _Dbg_annotate=$o_annotate
