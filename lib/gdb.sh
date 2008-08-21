@@ -24,7 +24,7 @@ function _Dbg_print_location {
       _Dbg_errmsg "got $# parameters, but need 0 or 1."
       return 2
     fi
-    typeset -i pos=${0:-$_Dbg_stack_pos}
+    typeset -i pos=${1:-${_Dbg_stack_pos}}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
 
     _Dbg_split "$file_line" ':'
