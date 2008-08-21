@@ -1,7 +1,7 @@
 # unsetopt ksharrays
 typeset -a x
 x=(10 20)
-echo $x[1]
+echo ${x[1]}
 fooffdafsd
 y='
 abc def'

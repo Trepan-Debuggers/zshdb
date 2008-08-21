@@ -11,9 +11,20 @@ test_alias()
     expanded_alias=''; _Dbg_alias_expand q
     assertEquals 'quit' $expanded_alias
 
+    typeset aliases_found=''
+    _Dbg_alias_find_aliased quit
+    assertEquals 'q' "$aliases_found"
+
+    _Dbg_alias_add exit quit
+    _Dbg_alias_find_aliased quit
+    assertEquals 'q, exit' "$aliases_found"
+
     _Dbg_alias_remove q
     expanded_alias=''; _Dbg_alias_expand q
     assertEquals 'q' $expanded_alias
+
+    _Dbg_alias_find_aliased quit
+    assertEquals 'exit' "$aliases_found"
 
     expanded_alias=''; _Dbg_alias_expand u
     assertEquals 'up' $expanded_alias

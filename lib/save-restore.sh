@@ -85,7 +85,7 @@ _Dbg_set_to_return_from_debugger() {
 #   fi
 
 #   if (( _Dbg_restore_debug_trap )) ; then
-#     trap '_Dbg_debug_trap_handler 0 "$BASH_COMMAND" "$@"' DEBUG
+#     trap '_Dbg_debug_trap_handler "$@"; [[ $? -eq 2 ]] && setopt errexit' DEBUG
 #   else
 #     trap - DEBUG
 #   fi  

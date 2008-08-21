@@ -48,7 +48,13 @@ _Dbg_do_help() {
 	  dbg_cmd="$expanded_alias"
 	  if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
  	      _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
-
+	      typeset aliases_found=''
+	      _Dbg_alias_find_aliased "$dbg_cmd"
+	      if [[ -n $aliases_found ]] ; then
+		  _Dbg_msg ''
+		  _Dbg_msg "Aliases for $dbg_cmd: $aliases_found"
+	      fi
+	      return 0
 	  else
 	      case $dbg_cmd in 
 	      sh | sho | show )

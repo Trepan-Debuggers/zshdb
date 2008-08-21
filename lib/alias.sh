@@ -40,3 +40,23 @@ function _Dbg_alias_expand {
     [[ -n ${_Dbg_aliases[$1]} ]] && expanded_alias=${_Dbg_aliases[$1]}
     return 0
 }
+
+# Return in help_aliases an array of strings that are aliases
+# of $1
+_Dbg_alias_find_aliased() {
+    (($# != 1)) &&  return 255
+    typeset find_name=$1
+    aliases_found=''
+    typeset -i i
+    unsetopt ksharrays
+    typeset aliases="${(k)_Dbg_aliases}"
+    setopt ksharrays
+    for alias in $aliases ; do
+	if [[ ${_Dbg_aliases[$alias]} == "$find_name" ]] ; then 
+	    [[ -n $aliases_found ]] && aliases_found+=', '
+	    aliases_found+="$alias"
+	fi
+    done
+    return 0
+    
+}
