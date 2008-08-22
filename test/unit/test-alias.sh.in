@@ -40,6 +40,7 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 
 . $abs_top_srcdir/lib/alias.sh
 . $abs_top_srcdir/lib/help.sh
+. $abs_top_srcdir/lib/run.sh
 . $abs_top_srcdir/command/alias.sh
 
 # load shunit2

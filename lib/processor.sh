@@ -93,7 +93,7 @@ function _Dbg_process_commands {
 _Dbg_onecmd() {
     typeset expanded_alias; _Dbg_alias_expand $1
     typeset _Dbg_cmd="$expanded_alias"
-    eval "set -- $2"
+    eval "set -- \"$2\""
 
     # Set default next, step or skip command
     if [[ -z $_Dbg_cmd ]]; then

@@ -322,11 +322,9 @@ Annotation_level is 0.
 +######################### 
 +#### Test 'autoeval'...
 +set autoeval on
-typeset xx=''
 +xx=1 ; declare -p xx
 typeset xx=''
 +set autoeval off
-typeset xx=''
 +xx=1 ; declare -p xx
 Undefined command: "xx=1". Try "help".
 +quit 

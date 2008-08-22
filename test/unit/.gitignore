@@ -4,5 +4,6 @@
 /Makefile.in
 /test-alias.sh
 /test-fns.sh
+/test-frame.sh
 /test-run.sh
 /test-save-restore.sh

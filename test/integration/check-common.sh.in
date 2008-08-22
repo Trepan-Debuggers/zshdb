@@ -2,7 +2,7 @@
 # -*- shell-script -*-
 PS4='(%N:%i): [%?] zsh+ 
 '
-set -o shwordsplit
+setopt shwordsplit ksharrays
 
 if [ -z "$ZSH" ] ; then 
   SH=@SH_PROG@

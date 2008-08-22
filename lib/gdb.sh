@@ -45,7 +45,7 @@ function _Dbg_print_location {
 
 # Print position $1 of stack frame (from global _Dbg_frame_stack)
 # Prefix the entry with $2 if that's set.
-function _Dbg_print_frame {
+_Dbg_print_frame() {
     if (($# > 2)); then 
       _Dbg_errmsg "got $# parameters, but need 0 or 1."
       return -1
@@ -55,6 +55,8 @@ function _Dbg_print_frame {
     typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset prefix=${2:-''}
 
+    setopt ksharrays
+    typeset -a split_result
     _Dbg_split "$file_line" ':'
     typeset filename=${split_result[0]}
     typeset -i line=${split_result[1]}

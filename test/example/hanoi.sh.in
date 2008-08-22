@@ -1,0 +1,47 @@
+#!@SH_PROG@
+# $Id: hanoi.sh.in,v 1.2 2008/08/22 18:54:08 rockyb Exp $
+# Towers of Hanoi
+# We've added calls to set line tracing if the 1st argument is "trace"
+
+init() {
+  # We want to test _Dbg_set_trace inside a call
+  if (( $tracing )) ; then
+    _Dbg_linetrace=1
+  fi
+}
+
+hanoi() { 
+  local -i n=$1
+  # Mul
+  # _Dbg_set_trace
+  local -r a=$2
+  local -r b=$3
+  local -r c=$4
+  if (( n > 0 )) ; then
+    (( n-- ))
+    hanoi $n $a $c $b
+    ((disc_num=max-n))
+    echo "Move disk $n on $a to $b"
+    if (( n > 0 )) ; then
+       hanoi $n $c $b $a
+    fi
+  fi
+}
+
+typeset -i max=3
+typeset -i tracing=0
+if [[ "$1" = 'trace' ]] ; then
+  if [[ -n $2 ]] ; then
+      builddir=$2
+  elif [[ -z $builddir ]] ; then
+      builddir=`pwd`
+  fi
+  tracing=1
+  source ${top_builddir}/zshdb-trace -q -L ../.. -B  -x ../data/settrace.cmd
+fi
+init
+hanoi $max "a" "b" "c"
+if (( $tracing )) ; then
+  _Dbg_linetrace=0
+  # BASHDB_QUIT_ON_QUIT=1
+fi

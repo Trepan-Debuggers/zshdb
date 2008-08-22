@@ -65,6 +65,7 @@ abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 
 . $abs_top_srcdir/lib/fns.sh
+. $abs_top_srcdir/lib/run.sh
 . $abs_top_srcdir/lib/frame.sh
 
 # load shunit2

@@ -52,7 +52,7 @@ function _Dbg_debug_trap_handler {
 	_Dbg_stop_reason='after being stepped'
 	unsetopt errexit
 	
-	# If we don't have to stop we might consider skipping 
+	# FIXME: put next to lines in a function
 	_Dbg_frame_stack=(${funcfiletrace[@]})
 	_Dbg_func_stack=(${funcstack[@]})
 	_Dbg_set_debugger_entry
@@ -65,6 +65,17 @@ function _Dbg_debug_trap_handler {
 	(( $_Dbg_rc == 2 )) && setopt errexit  # Set to skip statement
 	return $_Dbg_rc
 
+    fi
+    if ((_Dbg_linetrace)) ; then 
+	if ((_Dbg_linetrace_delay)) ; then
+	    sleep $_Dbg_linetrace_delay
+	fi
+	# FIXME: put next to lines in a function
+	_Dbg_frame_stack=(${funcfiletrace[@]})
+	_Dbg_func_stack=(${funcstack[@]})
+	_Dbg_set_debugger_entry
+	_Dbg_print_location
+	_Dbg_set_to_return_from_debugger 1
     fi
 }
 

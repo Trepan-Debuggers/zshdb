@@ -45,6 +45,7 @@ show_version() {
 }
 
 typeset -i _Dbg_annotate=0
+typeset -i _Dbg_linetrace=0
 
 # Debugger command file
 typeset o_cmdfile='' o_nx='' o_basename=''

@@ -112,6 +112,8 @@ AC_CONFIG_FILES([Makefile \
 	])
 
 AC_CONFIG_FILES([zshdb], [chmod +x zshdb])
+AC_CONFIG_FILES([test/example/hanoi.sh], 
+                [chmod +x test/example/hanoi.sh])
 AC_CONFIG_FILES([test/unit/test-alias.sh], [chmod +x test/unit/test-alias.sh])
 AC_CONFIG_FILES([test/unit/test-fns.sh],   [chmod +x test/unit/test-fns.sh])
 AC_CONFIG_FILES([test/unit/test-frame.sh], [chmod +x test/unit/test-frame.sh])

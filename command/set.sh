@@ -22,9 +22,8 @@
 # but the command is different.
 
 # Set initial line tracing flag off
-typeset -i _Dbg_linetrace=0 
 typeset -i _Dbg_linetrace_expand=0 # expand variables in linetrace output
-typeset -i _Dbg_linetrace_delay=0  # sleep after linetrace
+typeset    _Dbg_linetrace_delay=0  # sleep after linetrace
 
 typeset -i _Dbg_autoeval=0     # Evaluate unrecognized commands?
 typeset -i _Dbg_listsize=10    # How many lines in a listing? 
