@@ -53,8 +53,8 @@ function _Dbg_debug_trap_handler {
 	unsetopt errexit
 	
 	# If we don't have to stop we might consider skipping 
-	_Dbg_frame_stack=($funcfiletrace)
-	_Dbg_func_stack=($funcstack)
+	_Dbg_frame_stack=(${funcfiletrace[@]})
+	_Dbg_func_stack=(${funcstack[@]})
 	_Dbg_set_debugger_entry
 
 	shift _Dbg_func_stack # Remove our function name

@@ -1,7 +1,27 @@
-AC_INIT([zshdb],[0.01],[rocky@gnu.org])
+AC_INIT([zshdb],[0.01git],[rocky@gnu.org])
 AM_PATH_LISPDIR
 AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE([no-define])
+
+AC_SUBST(TRY_GETOPT)
+
+AC_ARG_ENABLE([gnugetopt],
+	AC_HELP_STRING([--enable-getopt], 
+	[Allow GNU-style long options (default enabled)]))
+
+if test "${enable_getopt}" != "no" ; then
+  $SH_PROG ./getopt-test.sh
+  if test $? -eq 0 ; then
+    AC_MSG_RESULT([Good! Your long options seem to be working okay.])
+    TRY_GETOPT=1
+  else
+    AC_MSG_WARN([getopt doesn't seem to handle long options correctly.])
+    AC_MSG_WARN([Disabling long-options in bashdb.])
+    TRY_GETOPT=0
+  fi  
+else
+  TRY_GETOPT=0
+fi
 
 AC_CONFIG_SRCDIR(zshdb.in)
 if test x$srcdir = x ; then
@@ -94,6 +114,7 @@ AC_CONFIG_FILES([Makefile \
 AC_CONFIG_FILES([zshdb], [chmod +x zshdb])
 AC_CONFIG_FILES([test/unit/test-alias.sh], [chmod +x test/unit/test-alias.sh])
 AC_CONFIG_FILES([test/unit/test-fns.sh],   [chmod +x test/unit/test-fns.sh])
+AC_CONFIG_FILES([test/unit/test-frame.sh], [chmod +x test/unit/test-frame.sh])
 AC_CONFIG_FILES([test/unit/test-run.sh],   [chmod +x test/unit/test-run.sh])
 AC_CONFIG_FILES([test/unit/test-save-restore.sh],
 		[chmod +x test/unit/test-save-restore.sh])

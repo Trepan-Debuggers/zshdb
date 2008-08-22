@@ -42,33 +42,33 @@ _Dbg_do_help() {
    else
       typeset dbg_cmd="$1"
       if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
- 	  print ${_Dbg_command_help[$dbg_cmd]}
+ 	  _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
       else
 	  typeset expanded_alias; _Dbg_alias_expand $dbg_cmd
 	  dbg_cmd="$expanded_alias"
 	  if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
  	      _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
-	      typeset aliases_found=''
-	      _Dbg_alias_find_aliased "$dbg_cmd"
-	      if [[ -n $aliases_found ]] ; then
-		  _Dbg_msg ''
-		  _Dbg_msg "Aliases for $dbg_cmd: $aliases_found"
-	      fi
-	      return 0
 	  else
 	      case $dbg_cmd in 
 	      sh | sho | show )
 		_Dbg_help_show $2
-                return ;;
+                ;;
 	      se | set  )
 	        _Dbg_help_set $2
-                return ;;
+                ;;
 	     * )
   	        _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
-  	         return ;;
+  	         return 1 ;;
 	     esac
 	  fi
       fi
+      aliases_found=''
+      _Dbg_alias_find_aliased "$dbg_cmd"
+      if [[ -n $aliases_found ]] ; then
+	  _Dbg_msg ''
+	  _Dbg_msg "Aliases for $dbg_cmd: $aliases_found"
+      fi
+      return 0
   fi
 }
 

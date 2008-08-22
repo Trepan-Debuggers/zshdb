@@ -28,16 +28,18 @@ typeset -a _Dbg_func_stack
 #======================== FUNCTIONS  ============================#
 
 _Dbg_frame_adjust() {
-  typeset -i count=$1
-  typeset -i signum=$2
+  (($# != 2)) && return -1
 
-  typeset -i retval
-  _Dbg_frame_int_setup $count || return 
+  local -i count="$1"
+  local -i signum="$2"
 
-  typeset -i pos
+  local -i retval
+  _Dbg_frame_int_setup $count || return 2
+
+  local -i pos
   if (( signum==0 )) ; then
     if (( count < 0 )) ; then
-      ((pos=${#_Dbg_func_stack[@]}+count))
+      ((pos=${#_Dbg_frame_stack[@]}+count))
     else
       ((pos=count))
     fi
@@ -46,10 +48,10 @@ _Dbg_frame_adjust() {
   fi
 
   if (( $pos < 0 )) ; then 
-    _Dbg_msg 'Would be beyond bottom-most (most recent) entry.'
+    _Dbg_errmsg 'Would be beyond bottom-most (most recent) entry.'
     return 1
   elif (( $pos >= ${#_Dbg_frame_stack[@]} )) ; then 
-    _Dbg_msg 'Would be beyond top-most (least recent) entry.'
+    _Dbg_errmsg 'Would be beyond top-most (least recent) entry.'
     return 1
   fi
 
