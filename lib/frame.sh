@@ -1,4 +1,5 @@
 # -*- shell-script -*-
+# frame.sh - Call Stack routines
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
@@ -14,7 +15,6 @@
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
-# -*- shell-script -*-
 
 #================ VARIABLE INITIALIZATIONS ====================#
 
@@ -50,7 +50,7 @@ _Dbg_frame_adjust() {
   if (( $pos < 0 )) ; then 
     _Dbg_errmsg 'Would be beyond bottom-most (most recent) entry.'
     return 1
-  elif (( $pos >= ${#_Dbg_frame_stack[@]} )) ; then 
+  elif (( pos >= ${#_Dbg_frame_stack[@]} )) ; then 
     _Dbg_errmsg 'Would be beyond top-most (least recent) entry.'
     return 1
   fi
@@ -68,19 +68,15 @@ _Dbg_frame_adjust() {
 # if everything is okay. Retval is set to 1 on error
 _Dbg_frame_int_setup() {
 
-  if (( ! _Dbg_running )) ; then
-    _Dbg_errmsg "No stack."
-    return 1
-  else
-    setopt EXTENDED_GLOB
-    if [[ $1 != '' && $1 != ([-+]|)([0-9])## ]] ; then 
-      _Dbg_msg "Bad integer parameter: $1"
+  _Dbg_not_running && return 1
+  setopt EXTENDED_GLOB
+  if [[ $1 != '' && $1 != ([-+]|)([0-9])## ]] ; then 
+      _Dbg_errmsg "Bad integer parameter: $1"
       # Reset EXTENDED_GLOB
       return 1
-    fi
-    # Reset EXTENDED_GLOB
-    return 0
   fi
+  # Reset EXTENDED_GLOB
+  return 0
 }
 
 _Dbg_frame_lineno() {
