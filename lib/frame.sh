@@ -64,6 +64,18 @@ _Dbg_frame_adjust() {
 #   return 0
 }
 
+
+_Dbg_frame_file() {
+    (($# > 1)) && return 2
+    # FIXME check to see that $1 doesn't run off the end.
+    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset file_line="${_Dbg_frame_stack[$pos]}"
+    _Dbg_split "$file_line" ':'
+    _Dbg_frame_filename=${split_result[0]}
+    (( _Dbg_basename_only )) && _Dbg_frame_filename=${_Dbg_frame_filename##*/}
+    return 0
+}
+
 # Tests for a signed integer parameter and set global retval
 # if everything is okay. Retval is set to 1 on error
 _Dbg_frame_int_setup() {
@@ -89,13 +101,19 @@ _Dbg_frame_lineno() {
     return $line
 }
 
-_Dbg_frame_file() {
-    (($# > 1)) && return 2
-    # FIXME check to see that $1 doesn't run off the end.
-    typeset -i pos=${1:-$_Dbg_stack_pos}
-    typeset file_line="${_Dbg_frame_stack[$pos]}"
-    _Dbg_split "$file_line" ':'
-    _Dbg_frame_filename=${split_result[0]}
-    (( _Dbg_basename_only )) && _Dbg_frame_filename=${_Dbg_frame_filename##*/}
-    return 0
+# Save stack frames in array _Dbg_frame_stack ignoring the 
+# first (most recent) $1 of these. We assume "setopt ksharrarrys" 
+# (origin 0) has beeen set previously.
+_Dbg_frame_save_frames() {
+    typeset ignore=${1:-0}
+    typeset -i i
+    typeset -i j=$ignore
+    typeset -i n=${#funcfiletrace[@]}
+    _Dbg_frame_stack=()
+    _Dbg_func_stack=()
+    for ((i=0; j < n; i++, j++)) ; do
+	_Dbg_frame_stack[i]=${funcfiletrace[j]}
+	_Dbg_func_stack[i]=${funcstack[j]}
+    done
+    shift _Dbg_func_stack # Remove our function name
 }

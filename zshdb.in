@@ -76,14 +76,12 @@ else
     _Dbg_script_file=./testing.sh
 fi
 
-# setopt localtraps
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
 
   _Dbg_set_to_return_from_debugger
   _Dbg_step_ignore=2
-#  trap '_Dbg_debug_trap_handler "$@"; [[ $? -eq 2 ]] && setopt errexit' DEBUG
-  trap '_Dbg_debug_trap_handler "$@"' DEBUG
+  trap '_Dbg_debug_trap_handler "$@"; ((2==$?)) && setopt errexit' DEBUG
   . $_Dbg_script_file ${_Dbg_script_args[@]}
   trap '' DEBUG
   _Dbg_msg "Program terminated. Type 's' or 'R' to restart."

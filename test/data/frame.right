@@ -1,98 +1,72 @@
-(hanoi.sh:31):
-31:	typeset -i max=3
+
+(hanoi.sh:6):
 +# Test of frame commands
 +# We also try all of the various where/backtrace variants
 +# Do we give a valid stack listing initially?
 +where 
-->0 in file `hanoi.sh' at line 31
-##1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+->0 file `hanoi.sh' at line 6
+##1 file `zshdb' at line 85
 +# How about after a frame command?
 +frame 0
-(hanoi.sh:31):
-31:	typeset -i max=3
-+where 
-->0 in file `hanoi.sh' at line 31
-##1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
-+where 
-->0 in file `hanoi.sh' at line 31
-##1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+(hanoi.sh:6):
++where 1
+->0 file `hanoi.sh' at line 6
++where 1
+->0 file `hanoi.sh' at line 6
 +# How about after moving?
 +up 
-(zshdb:160):
-160:	  . "$_source_file"
-+where 
-##0 in file `hanoi.sh' at line 31
-->1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+(zshdb:85):
++where 1
+##0 file `hanoi.sh' at line 6
 +down 
-(hanoi.sh:31):
-31:	typeset -i max=3
+(hanoi.sh:6):
 +where 
-->0 in file `hanoi.sh' at line 31
-##1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+->0 file `hanoi.sh' at line 6
+##1 file `zshdb' at line 85
 +# Try moving past the end
 +down 
 ** Would be beyond bottom-most (most recent) entry.
-+where 
-->0 in file `hanoi.sh' at line 31
-##1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+(hanoi.sh:6):
++where 1
+->0 file `hanoi.sh' at line 6
 +up 2
 ** Would be beyond top-most (least recent) entry.
-+where 
-->0 in file `hanoi.sh' at line 31
-##1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+(hanoi.sh:6):
++where 1
+->0 file `hanoi.sh' at line 6
 +# Try some negative numbers
 +# should be the same as up
 +down -1
-(zshdb:160):
-160:	  . "$_source_file"
+(zshdb:85):
 +where 
-##0 in file `hanoi.sh' at line 31
-->1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+##0 file `hanoi.sh' at line 6
+->1 file `zshdb' at line 85
 +# Should to to least recent frame
 +frame -1
-(zshdb:160):
-160:	  . "$_source_file"
-+where 
-##0 in file `hanoi.sh' at line 31
-->1 source("hanoi.sh") called from file `zshdb' at line 160
-##2 main() called from file `zshdb' at line 0
+(zshdb:85):
++where 1
+##0 file `hanoi.sh' at line 6
 +# Let's add another stack entry
-+continue hanoi
-One-time breakpoint 1 set in file hanoi.sh, line 13.
-(hanoi.sh:13):
-13:	hanoi() { 
-+where 
-->0 in file `hanoi.sh' at line 13
-##1 hanoi("3", "a", "b", "c") called from file `hanoi.sh' at line 43
-##2 source("hanoi.sh") called from file `zshdb' at line 160
-##3 main() called from file `zshdb' at line 0
++## continue hanoi
++step 10
+(hanoi.sh:43):
++where 2
+##0 file `hanoi.sh' at line 14
+->1 file `hanoi.sh' at line 43
 +# Again least recent stack entry
 +frame -1
-(zshdb:160):
-160:	  . "$_source_file"
+(zshdb:85):
 +where 
-##0 in file `hanoi.sh' at line 13
-##1 hanoi("3", "a", "b", "c") called from file `hanoi.sh' at line 43
-->2 source("hanoi.sh") called from file `zshdb' at line 160
-##3 main() called from file `zshdb' at line 0
+##0 file `hanoi.sh' at line 14
+##1 file `hanoi.sh' at line 43
+->2 file `zshdb' at line 85
 +# Most recent stack entry
 +frame +0
-(hanoi.sh:13):
-13:	hanoi() { 
+(hanoi.sh:14):
 +where 
-->0 in file `hanoi.sh' at line 13
-##1 hanoi("3", "a", "b", "c") called from file `hanoi.sh' at line 43
-##2 source("hanoi.sh") called from file `zshdb' at line 160
-##3 main() called from file `zshdb' at line 0
+->0 file `hanoi.sh' at line 14
+##1 file `hanoi.sh' at line 43
+##2 file `zshdb' at line 85
 +up 2
-(zshdb:160):
-160:	  . "$_source_file"
+(zshdb:85):
 +quit 

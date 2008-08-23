@@ -180,11 +180,11 @@ _Dbg_onecmd() {
 	  return $?
 	  ;;
 
-# 	# skip N times (default 1)
-# 	sk | ski | skip )
-# 	  _Dbg_last_cmd='skip'
-# 	  _Dbg_do_skip $@ && return 2
-# 	  ;;
+	# skip N times (default 1)
+	sk | ski | skip )
+	  _Dbg_last_cmd='skip'
+	  _Dbg_do_skip $@ && return 2
+	  ;;
 
 	# Run a debugger comamnd file
 	so | sou | sour | sourc | source )

@@ -11,12 +11,12 @@ init() {
 }
 
 hanoi() { 
-  local -i n=$1
+  typeset -i n=$1
   # Mul
   # _Dbg_set_trace
-  local -r a=$2
-  local -r b=$3
-  local -r c=$4
+  typeset -r a=$2
+  typeset -r b=$3
+  typeset -r c=$4
   if (( n > 0 )) ; then
     (( n-- ))
     hanoi $n $a $c $b

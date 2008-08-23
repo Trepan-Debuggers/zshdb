@@ -5,11 +5,6 @@ PS4='(%N:%i): [%?] zsh+
 
 typeset -a _Dbg_frame_stack
 setopt ksharrays
-_Dbg_frame_save_frames() {
-    setopt ksharrays
-    _Dbg_frame_stack=(${funcfiletrace[@]})
-    _Dbg_func_stack=(${funcstack[@]})
-}
 
 test_frame()
 {
@@ -49,7 +44,7 @@ test_frame_adjust()
     # Test invalid values
     for pair in '5 0' '5 -1' '4 +1' '-6 0'; do 
 	unset errmsg; errmsg=()
-	typeset _Dbg_stack_pos=2
+	local _Dbg_stack_pos=2  # Bug if typeset is used.
 	_Dbg_frame_adjust $pair
 	assertNotEquals 0 "$?"
 	assertNotEquals 0 ${#errmsg[@]}

@@ -44,6 +44,8 @@ _Dbg_do_skip() {
   fi
   # We're cool. Do the skip.
   _Dbg_write_journal "_Dbg_skip_count=$_Dbg_skip_count"
+  _Dbg_step_ignore=1   # Set to do a stepping stop after skipping
+  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
   return 0
 }
 
