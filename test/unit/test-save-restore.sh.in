@@ -85,10 +85,6 @@ test_save_restore_shwordsplit()
 }
 
 # Make sure ../.. has a trailing slash
-if [ '/src/git/zshdb' = '' ] ; then
-  echo "Something is wrong abs_top_srcdir is not set."
- exit 1
-fi
 abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 

@@ -111,7 +111,7 @@ Follow this command with any number of args, to be passed to the program."
     p | pr | pro | prom | promp | prompt )
       [[ -n $label ]] && label='set prompt    -- '
       _Dbg_msg \
-"${label}zshdb's prompt is:\n" \
+"${label}${_Dbg_debugger_name}'s prompt is:\n" \
 "      \"$_Dbg_prompt_str\"."
       return 0
       ;;

@@ -115,5 +115,8 @@ _Dbg_frame_save_frames() {
 	_Dbg_frame_stack[i]=${funcfiletrace[j]}
 	_Dbg_func_stack[i]=${funcstack[j]}
     done
-    shift _Dbg_func_stack # Remove our function name
+
+    # Remove our function name. Shouldn't need to do,
+    # but there have been bugs.
+    (( ${#_Dbg_func_stack} > 1 )) && shift _Dbg_func_stack 
 }

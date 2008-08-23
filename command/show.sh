@@ -420,7 +420,7 @@ of promoting the sharing and reuse of software generally.
     p | pr | pro | prom | promp | prompt )
       [[ -n $label ]] && label='prompt:   '
       _Dbg_msg \
-"${label}zshdb's prompt is:\n" \
+"${label}${_Dbg_debugger_name}'s prompt is:\n" \
 "      \"$_Dbg_prompt_str\"."
       return 0
       ;;
@@ -439,7 +439,7 @@ of promoting the sharing and reuse of software generally.
       return 0
       ;;
     v | ve | ver | vers | versi | versio | version )
-      _Dbg_do_show_versions
+      _Dbg_do_show_version
       return 0
       ;;
     w | wa | war | warr | warra | warran | warrant | warranty )
@@ -452,17 +452,11 @@ of promoting the sharing and reuse of software generally.
   esac
 }
 
-_Dbg_do_show_versions()
+_Dbg_do_show_version()
 {
   _Dbg_printf "%-12s => $_Dbg_release" "Release"
   _Dbg_msg "=================================================================="
   if [[ -n $_Dbg_script ]] ; then
-    _Dbg_printf "%-12s => $_Dbg_ver", 'zshdb'
-    typeset version
-    for file in $_Dbg_includes; do
-      typeset set_version_cmd="version=\$_Dbg_${file}_ver"
-      eval $set_version_cmd
-      _Dbg_printf "%-12s => $version" $file
-    done
+    _Dbg_printf "%-12s => $_Dbg_ver", "$_Dbg_debugger_name"
   fi
 }

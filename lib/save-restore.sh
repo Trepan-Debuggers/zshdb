@@ -56,7 +56,7 @@ function _Dbg_create_unsetopt {
 # internal settings  
 _Dbg_set_debugger_internal() {
   IFS="$_Dbg_space_IFS"
-  PS4='%N:%i: %? zshdb
+  PS4='%N:%i: %? $_Dbg_debugger_name
 '
   setopt ksharrays shwordsplit
 }

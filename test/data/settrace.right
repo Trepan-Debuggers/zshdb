@@ -1,0 +1,38 @@
+(settrace.sh:6):
+6:	  _Dbg_debugger; :
++# Test set_trace call.
++where 
+->0 in file `settrace.sh' at line 6
+##1 init() called from file `settrace.sh' at line 42
+##2 main() called from file `settrace.sh' at line 0
++list 5
+  5:   init() {
+  6:==>  _Dbg_debugger; :
+  7:   }
+  8:   
+  9:   hanoi() { 
+ 10:     local -i n=$1
+ 11:     local -r a=$2
+ 12:     local -r b=$3
+ 13:     local -r c=$4
+ 14:   
++info files
+Source files for which have been read in:
+
+settrace.sh (45 lines)
++continue 
+(settrace.sh:17):
+17:	    (( n-- ))
++where 
+->0 in file `settrace.sh' at line 17
+##1 hanoi("1", "a", "b", "c") called from file `settrace.sh' at line 43
+##2 main() called from file `settrace.sh' at line 0
++continue 
+(settrace.sh:19):
+19:	    ((disc_num=max-n))
++where 
+->0 in file `settrace.sh' at line 19
+##1 hanoi("1", "a", "b", "c") called from file `settrace.sh' at line 43
+##2 main() called from file `settrace.sh' at line 0
++continue 
+Move disk 0 on a to b

@@ -97,7 +97,8 @@ fi
 
 AM_CONDITIONAL(INSTALL_EMACS_LISP, test "x$lispdir" != "x")
 
-AC_CONFIG_FILES([Makefile \
+AC_CONFIG_FILES([
+	Makefile \
 	command/Makefile \
 	emacs/Makefile \
 	emacs/zshdb-test.el \
@@ -105,10 +106,11 @@ AC_CONFIG_FILES([Makefile \
 	test/Makefile \
 	test/data/Makefile \
 	test/example/Makefile \
-	test/integration/check-common.sh \
 	test/integration/Makefile \
+	test/integration/check-common.sh \
 	test/unit/Makefile \
 	test/zsh/Makefile \
+	zshdb-trace \
 	])
 
 AC_CONFIG_FILES([zshdb], [chmod +x zshdb])

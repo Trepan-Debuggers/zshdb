@@ -12,5 +12,6 @@
 /install-sh
 /missing
 /zshdb
+/zshdb-trace
 COPYING
 INSTALL
