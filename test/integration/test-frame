@@ -1,6 +1,6 @@
 #!/bin/zsh -f
 # -*- shell-script -*-
-exit 77
+# exit 77
 
 [ -z "$srcdir" ] && export srcdir=$PWD
 [ -z "$builddir" ] && export builddir=$PWD
