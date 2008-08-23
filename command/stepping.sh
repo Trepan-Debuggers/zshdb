@@ -21,12 +21,12 @@
 typeset -i _Dbg_skip_ignore=0
 typeset last_next_step_cmd='s' # Default is step.
 
-# _Dbg_help_add skip \
-# "skip [COUNT]	-- Skip (don't run) the next COUNT command(s).
+_Dbg_help_add skip \
+"skip [COUNT]	-- Skip (don't run) the next COUNT command(s).
 
-# If COUNT is given, stepping occurs that many times before
-# stopping. Otherwise COUNT is one. COUNT an be an arithmetic
-# expression. See also \"next\" and \"step\"."
+If COUNT is given, stepping occurs that many times before
+stopping. Otherwise COUNT is one. COUNT an be an arithmetic
+expression. See also \"next\" and \"step\"."
 
 # Return 0 if we should skip. Nonzero if there was an error.
 _Dbg_do_skip() {
@@ -36,15 +36,18 @@ _Dbg_do_skip() {
   typeset count=${1:-1}
 
   if [[ $count == [0-9]* ]] ; then
-    _Dbg_skip_count=${count:-1}
+    _Dbg_skip_ignore=${count:-1}
+    ((_Dbg_skip_ignore--)) # Remove one from the skip caused by this return
   else
     _Dbg_errmsg "Argument ($count) should be a number or nothing."
-    _Dbg_skip_count=0
+    _Dbg_skip_ignore=0
     return 3
   fi
   # We're cool. Do the skip.
-  _Dbg_write_journal "_Dbg_skip_count=$_Dbg_skip_count"
-  _Dbg_step_ignore=1   # Set to do a stepping stop after skipping
+  _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
+
+  # Set to do a stepping stop after skipping
+  _Dbg_step_ignore=0
   _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
   return 0
 }

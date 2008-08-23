@@ -35,14 +35,21 @@ function _Dbg_debug_trap_handler {
     (( !_Dbg_debug_debugger )) && set +x +v +u
 
     # if in step mode, decrement counter
-    if ((_Dbg_step_ignore >= 0)) ; then 
+    if ((_Dbg_step_ignore > 0)) ; then 
 	((_Dbg_step_ignore--))
 	_Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
+	# Can't return here because we may want to stop for another
+	# reason.
     fi
 
     if ((_Dbg_skip_ignore > 0)) ; then
+	_Dbg_set_debugger_entry
 	((_Dbg_skip_ignore--))
-	_Dbg_write_journal "_Dbg_step_ignore=$_Dbg_skip_ignore"
+	_Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
+	setopt errexit  # Set to skip statement
+
+	_Dbg_set_to_return_from_debugger 1
+	return $_Dbg_rc
     fi
 
     # Determine if we stop or not. 
