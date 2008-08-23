@@ -1,4 +1,4 @@
-#!/bin/zsh -f
+#!/usr/bin/env zsh
 # Towers of Hanoi
 set -u
 
@@ -41,7 +41,7 @@ else
   cmdfile=${top_srcdir}/test/data/settrace.cmd
 fi
 
-source ${top_builddir}/zshdb-trace -q -L $top_builddir -B  -x $cmdfile
+source ${top_builddir}/dbg-trace.sh -q -L $top_builddir -B  -x $cmdfile
 typeset -i max=1
 init
 hanoi $max 'a' 'b' 'c'

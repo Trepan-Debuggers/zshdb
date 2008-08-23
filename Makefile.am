@@ -16,15 +16,16 @@
 
 SUBDIRS = command emacs lib test
 
-pkgdata_DATA =      \
-	dbg-pre.sh  \
-	dbg-main.sh \
-	dbg-opts.sh
+pkgdata_DATA =       \
+	dbg-pre.sh   \
+	dbg-main.sh  \
+	dbg-opts.sh  \
+	dbg-trace.sh
 
 # Set up the install target 
 bin_SCRIPTS = zshdb
 
-EXTRA_DIST = $(pkgdata_DATA)
+EXTRA_DIST = $(pkgdata_DATA) THANKS
 
 # cvs2cl
 MAINTAINERCLEANFILES = ChangeLog

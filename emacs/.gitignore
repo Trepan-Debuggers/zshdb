@@ -3,5 +3,5 @@
 /Makefile
 /Makefile.in
 /elc-stamp
-/zshdb-test.el
+/dbg-test.el
 /zshdb.elc

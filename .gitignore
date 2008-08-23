@@ -5,13 +5,14 @@
 /Makefile.in
 /aclocal.m4
 /autom4te.cache
+/bug
 /config.log
 /config.status
 /configure
+/dbg-trace.sh
 /elisp-comp
 /install-sh
 /missing
 /zshdb
-/zshdb-trace
 COPYING
 INSTALL

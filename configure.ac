@@ -1,3 +1,6 @@
+dnl Configure script for Shell debugger
+define(DEBUGGER, zshdb)
+define(POSIXSHELL, zsh)
 AC_INIT([zshdb],[0.01git],[rocky@gnu.org])
 AM_PATH_LISPDIR
 AM_MAINTAINER_MODE
@@ -23,7 +26,7 @@ else
   TRY_GETOPT=0
 fi
 
-AC_CONFIG_SRCDIR(zshdb.in)
+AC_CONFIG_SRCDIR(DEBUGGER.in)
 if test x$srcdir = x ; then
   srcdir=$ac_pwd
 fi
@@ -36,8 +39,8 @@ AC_SUBST(DIFF_OPTS)
 ## --with-zsh can be used to tell the zshdb script and the regression
 ## test which bash to run. It can be omitted too in which case we'll
 ## look for a zsh binary.
-AC_ARG_WITH(zsh, AC_HELP_STRING([--with-zsh], 
-		  [location of zsh program]), SH_PROG=$withval)
+AC_ARG_WITH(DEBUGGER, AC_HELP_STRING([--with-POSIXSHELL], 
+		  [location of POSIXSHELL program]), SH_PROG=$withval)
 
 if test "$SH_PROG" = "yes" || test "$SH_PROG" = "no" || test -z "$SH_PROG"
 then
@@ -45,8 +48,8 @@ then
 fi
 
 if test "$SH_PROG" = no; then
-  AC_MSG_ERROR([I didn't find the zsh executable.\
-  You might want to use the --with-zsh option.])
+  AC_MSG_ERROR([I didn't find the DEBUGGER executable.\
+  You might want to use the --with-DEBUGGER option.])
 fi
 
 AC_MSG_CHECKING([Checking whether $SH_PROG is compatible with zshdb])
@@ -77,7 +80,7 @@ fi
 # Get the fully expanded name of pkgdatadir. This is used in zshdb.in
 # and dbg-main.sh.in and for installing debugger files.
 
-pkgdatadir=$datadir/zshdb
+pkgdatadir=$datadir/DEBUGGER
 AC_SUBST_DIR(PKGDATADIR, $pkgdatadir)
 
 AM_MISSING_PROG(GIT2CL, git2cl, $missing_dir)
@@ -97,11 +100,12 @@ fi
 
 AM_CONDITIONAL(INSTALL_EMACS_LISP, test "x$lispdir" != "x")
 
-AC_CONFIG_FILES([
+AC_CONFIG_FILES([ \
 	Makefile \
 	command/Makefile \
+	dbg-trace.sh \
 	emacs/Makefile \
-	emacs/zshdb-test.el \
+	emacs/dbg-test.el \
 	lib/Makefile \
 	test/Makefile \
 	test/data/Makefile \
@@ -110,10 +114,9 @@ AC_CONFIG_FILES([
 	test/integration/check-common.sh \
 	test/unit/Makefile \
 	test/zsh/Makefile \
-	zshdb-trace \
 	])
 
-AC_CONFIG_FILES([zshdb], [chmod +x zshdb])
+AC_CONFIG_FILES([zshdb], [chmod +x DEBUGGER])
 AC_CONFIG_FILES([test/example/hanoi.sh], 
                 [chmod +x test/example/hanoi.sh])
 AC_CONFIG_FILES([test/unit/test-alias.sh], [chmod +x test/unit/test-alias.sh])
