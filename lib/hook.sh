@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# sig.sh - Debugger Signal handling routines
+# hook.sh - Debugger trap hook
 #
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
