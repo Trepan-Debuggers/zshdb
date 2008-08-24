@@ -1,4 +1,3 @@
-
 (hanoi.sh:6):
 +# Test of frame commands
 +# We also try all of the various where/backtrace variants

@@ -49,9 +49,9 @@ fi
 typeset _Dbg_main="$_Dbg_libdir/dbg-main.sh"
 if [[ ! -r $_Dbg_main ]] ; then 
   print "${_Dbg_pname}: Can't read debugger library file '${_Dbg_main}'."
-  print "${_Dbg_pname}: Perhaps zshdb is installed wrong (if its installed)." >&2
-  print "${_Dbg_pname}: Try running zshdb using -L (with a different directory)." >&2
-  print "${_Dbg_pname}: Run zshdb --help for a list and explanation of options." >&2
+  print "${_Dbg_pname}: Perhaps @PACKAGE@ is installed wrong (if its installed)." >&2
+  print "${_Dbg_pname}: Try running @PACKAGE@ using -L (with a different directory)." >&2
+  print "${_Dbg_pname}: Run @PACKAGE@ --help for a list and explanation of options." >&2
   exit 1
     
 fi

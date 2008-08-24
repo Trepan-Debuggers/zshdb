@@ -18,7 +18,7 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add quit \
-'quit	- Quit the debugger.  The program being debugged is aborted.'
+'quit -- Quit the debugger.  The program being debugged is aborted.'
 
 function _Dbg_do_quit {
     _Dbg_cleanup

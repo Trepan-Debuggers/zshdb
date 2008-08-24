@@ -21,7 +21,7 @@
 # ones as we were given before).
 
 _Dbg_help_add run \
-'run [args]        -- Attempt to restart the program.'
+'run [args] -- Attempt to restart the program.'
 
 _Dbg_do_run() {
 

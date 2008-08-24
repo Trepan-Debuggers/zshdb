@@ -24,27 +24,16 @@ typeset _Dbg_prompt_str="$_Dbg_debugger_name<1> "
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
 
-# ==================== VARIABLES =======================================
-# _Dbg_INPUT_START_DESC is the lowest descriptor we use for reading.
-# _Dbg_MAX_INPUT_DESC   is the maximum input descriptor that can be 
-#                       safely used (as per the bash manual on redirection)
-# _Dbg-input_desc       is the current descriptor in use. "sourc"ing other
-#                       command files will increase this descriptor
+# A list of debugger command input-file descriptors.
+# Duplicate standard input
+typeset -i _Dbg_fdi ; exec {_Dbg_fdi}<&0
 
-typeset -ir _Dbg_INPUT_START_DESC=4
-typeset -i  _Dbg_MAX_INPUT_DESC=9  # logfile can reduce this
-typeset -i  _Dbg_input_desc=_Dbg_INPUT_START_DESC # ++ before use
+# Save descriptor number
+typeset -a _Dbg_fd ; _Dbg_fd=("$_Dbg_fdi")
 
-typeset _Dbg_redirect_cmd="exec $_Dbg_input_desc<&0"
-eval $_Dbg_redirect_cmd
-
-# keep a list of source'd command files. If the entry is '', then we are 
+# A list of source'd command files. If the entry is '', then we are 
 # interactive.
-typeset -a _Dbg_cmdfile
-_Dbg_cmdfile=('')
-
-# List of command files to process
-typeset -a _Dbg_input
+typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 
 # ===================== FUNCTIONS =======================================
 
@@ -55,19 +44,16 @@ typeset -a _Dbg_input
 function _Dbg_process_commands {
 
   # Evaluate all the display expressions
-  ## _Dbg_eval_all_display
-
-  # Evaluate all the display expressions
   # _Dbg_eval_all_display
 
   # Loop over all pending open input file descriptors
-  while (( $_Dbg_input_desc >= $_Dbg_INPUT_START_DESC )) ; do
+  while (( ${#_Dbg_fd[@]} > 0 )) ; do
 
     typeset _Dbg_prompt="$_Dbg_prompt_str"
     # _Dbg_preloop
     typeset _Dbg_cmd 
     typeset args
-    while read "?$_Dbg_prompt" _Dbg_cmd args <&$_Dbg_input_desc
+    while read "?$_Dbg_prompt" _Dbg_cmd args <&${_Dbg_fdi}
     do
     	_Dbg_onecmd "$_Dbg_cmd" "$args"
         rc=$?
@@ -75,13 +61,10 @@ function _Dbg_process_commands {
         (( $rc != 0 )) && return $rc
     done # read "?$_Dbg_prompt" ...
 
-    ((_Dbg_input_desc--))
-    if (( $_Dbg_input_desc >= $_Dbg_INPUT_START_DESC )) ; then
-      _Dbg_redirect_cmd="exec $_Dbg_input_desc<&0"
-      eval $_Dbg_redirect_cmd
-    fi
-
+    _Dbg_fd[-1]=()  # Remove last element
+    (( ${#_Dbg_fd[@]} <= 0 )) && break
   done
+
   # EOF hit. Same as quit without arguments
   _Dbg_msg '' # Cause <cr> since EOF may not have put in.
   _Dbg_do_quit

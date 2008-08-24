@@ -35,9 +35,9 @@ unsetopt localtraps
 set -o DEBUG_BEFORE_CMD
 
 # Have we already specified  where to read debugger input from?
-if [ -n "$o_cmdfile" ] ; then 
-  _Dbg_input=($o_cmdfile)
-  _Dbg_do_source ${_Dbg_input[2]}
+# Have we already specified where to read debugger input from?  
+if [ -n "$DBG_INPUT" ] ; then 
+  _Dbg_do_source "$DBG_INPUT"
   _Dbg_no_init=1
 fi
 

@@ -19,7 +19,9 @@
 
 
 _Dbg_help_add continue \
-'continue	- Continue execution.'
+'continue -- Continue script execution.
+
+Continue until the next breakpoint or the end of program is reached.'
 
 function _Dbg_do_continue {
 

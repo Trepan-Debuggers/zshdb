@@ -72,8 +72,15 @@ welcome to change it and/or distribute copies of it under certain conditions.
 
 '
 fi
-[[ -n $o_version ]] && show_version
-[[ -n $o_basename ]] && _Dbg_basename_only=1
+[[ -n "$o_version" ]] && show_version
+[[ -n "$o_basename" ]] && _Dbg_basename_only=1
+[[ -n "$o_cmdfile" ]] && {
+    typeset -a _Dbg_input
+    _Dbg_input=($o_cmdfile)
+    DBG_INPUT=${_Dbg_input[-1]}
+    unset _Dbg_input
+}
+
 
 # FIXME: check that o_annotate is an integer
 ## [[ -n $o_annotate ]] && _Dbg_annotate=$o_annotate
