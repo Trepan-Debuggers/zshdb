@@ -21,7 +21,9 @@
 typeset _Dbg_evalfile=$(_Dbg_tempname eval)
 
 _Dbg_help_add eval \
-'eval cmd	Evaluate a zsh command.'
+'eval CMD -- Run eval on CMD.
+
+CMD is a string sent to special shell builtin eval. See also print.'
 
 _Dbg_do_eval() {
 
@@ -35,7 +37,7 @@ _Dbg_do_eval() {
      . $_Dbg_evalfile
    fi
   # We've reset some variables like IFS and PS4 to make eval look
-  # like they were before debugger entry - so reset them now
+  # like they were before debugger entry - so reset them now.
   _Dbg_set_debugger_internal
 }
 
@@ -45,7 +47,10 @@ _Dbg_alias_add 'e' 'eval'
 typeset _Dbg_last_print_args=''
 
 _Dbg_help_add print \
-'print *string*	Print value of a substituted string.'
+'print EXPRESSION -- Print EXPRESSION.
+
+EXPRESSION is a string like you would put in a print statement.
+See also eval.'
 
 _Dbg_do_print() {
   typeset _Dbg_expr=${@:-"$_Dbg_last_print_args"}

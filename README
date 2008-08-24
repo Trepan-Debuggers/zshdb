@@ -112,12 +112,16 @@ parent. bashdb uses a journal file for this and tests SHLVL and
 BASH_SUBSHELL; zshdb lacks the latter. BASH_SUBSHELL is probably a
 simple thing to add though.
 
-Adding breakpoints and debugger settings will make this problem more apparent.
+Adding breakpoints and debugger settings will make this problem more
+apparent.
 
 3.f) Skipping code 
 
-Under discussion in the zsh-workers mailing list. Not hard to add when
-that gets worked out.
+There is currently a skip command, but it doesn't skip functions and
+assignment statements properly. If the code in neccessary support in
+zsh is not corrected, it's possible this will get pulled. It depends
+on whether the confusion it causes more problem than the benefit it
+offers.
 
 3.g) Setting $0
 

@@ -4,7 +4,7 @@ PS4='(%N:%i): [%?] zsh+
 '
 setopt shwordsplit ksharrays
 
-if [ -z "$ZSH" ] ; then 
+if [ -z "$SH" ] ; then 
   SH=@SH_PROG@
 fi
 
@@ -29,7 +29,7 @@ run_debugger() {
   typeset debugged_script=$1
   typeset dbg_opts=${2:-"-L ${top_srcdir} -B -q"}
   typeset cmdfile=${3:-"${top_srcdir}/test/data/${TEST_NAME}.cmd"}
-  $SH -- ${top_builddir}/zshdb $dbg_opts -x $cmdfile $debugged_script
+  $SH -- ${top_builddir}/@PACKAGE@ $dbg_opts -x $cmdfile $debugged_script
 }
 
 TEST_FILE="${top_builddir}/test/integration/${TEST_NAME}.check"
