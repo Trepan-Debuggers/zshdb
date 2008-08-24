@@ -12,7 +12,6 @@ init() {
 
 hanoi() { 
   typeset -i n=$1
-  # Mul
   # _Dbg_set_trace
   typeset -r a=$2
   typeset -r b=$3
@@ -31,16 +30,11 @@ hanoi() {
 typeset -i max=3
 typeset -i tracing=0
 if [[ "$1" = 'trace' ]] ; then
-  if [[ -n $2 ]] ; then
-      builddir=$2
-  elif [[ -z $builddir ]] ; then
-      builddir=`pwd`
-  fi
   tracing=1
-  source ${top_builddir}/zshdb-trace -q -L ../.. -B  -x ../data/settrace.cmd
+  source @top_builddir@/dbg-trace -q -L @top_builddir@ -x @top_builddir@/test/data/settrace.cmd
 fi
 init
-hanoi $max "a" "b" "c"
+hanoi $max 'a' 'b' 'c'
 if (( $tracing )) ; then
   _Dbg_linetrace=0
   # BASHDB_QUIT_ON_QUIT=1
