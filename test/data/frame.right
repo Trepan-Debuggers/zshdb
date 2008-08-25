@@ -48,10 +48,10 @@
 +# Let's add another stack entry
 +## continue hanoi
 +step 10
-(hanoi.sh:37):
+(hanoi.sh:14):
 +where 2
-##0 file `hanoi.sh' at line 14
-->1 file `hanoi.sh' at line 37
+->0 file `hanoi.sh' at line 14
+##1 file `hanoi.sh' at line 37
 +# Again least recent stack entry
 +frame -1
 (zshdb:83):
