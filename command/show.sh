@@ -29,7 +29,7 @@ _Dbg_do_show() {
   typeset label=$2
 
   # Warranty, copying, directories, and aliases are omitted below.
-  typeset -r subcmds="annotate args autoeval basename debugger listsize prompt trace-commands"
+  typeset -r subcmds="annotate args autoeval basename debugger force listsize prompt trace-commands"
 
   if [[ -z $show_cmd ]] ; then 
       typeset thing
@@ -357,14 +357,6 @@ of promoting the sharing and reuse of software generally.
 "
       return 0
       ;;
-#     e | ed | edi | edit | editi | editin | editing )
-#       [[ -n $label ]] && label='editing:  '
-#       typeset onoff="on."
-#       [[ -z $_Dbg_edit ]] && onoff='off.'
-#      _Dbg_msg \
-# "${label}Editing of command lines as they are typed is" $onoff
-#       return 0
-#       ;;
     de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
       typeset onoff=${1:-'on'}
       [[ -n $label ]] && label='debugger: '
@@ -383,6 +375,12 @@ of promoting the sharing and reuse of software generally.
       done
 
      _Dbg_msg "Source directories searched: $list"
+      return 0
+      ;;
+    force )
+      [[ -n $label ]] && label='force: '
+      _Dbg_msg \
+"${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_step_auto_force)
       return 0
       ;;
     hi|his|hist|histo|histor|history)
@@ -408,7 +406,7 @@ of promoting the sharing and reuse of software generally.
     lis | list | lists | listsi | listsiz | listsize )
       [[ -n $label ]] && label='listsize: '
      _Dbg_msg \
-"${label}Number of source lines zshdb will list by default is" \
+"${label}Number of source lines ${_Dbg_debugger_name} will list by default is" \
       "$_Dbg_listsize."
       return 0
       ;;

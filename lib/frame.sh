@@ -25,6 +25,11 @@ typeset -i _Dbg_stack_pos=0
 typeset -a _Dbg_frame_stack
 typeset -a _Dbg_func_stack
 
+# Save the last-entered frame for to determine stopping when
+# "set force" or step+ is in effect.
+typeset _Dbg_frame_last_filename=''
+typeset -i _Dbg_frame_last_lineno=0
+
 #======================== FUNCTIONS  ============================#
 
 _Dbg_frame_adjust() {
@@ -56,12 +61,7 @@ _Dbg_frame_adjust() {
   fi
 
   ((_Dbg_stack_pos = pos))
-# #   typeset -i j=_Dbg_stack_pos+2
-# #   _Dbg_listline=${BASH_LINENO[$j]}
-# #   ((j++))
-# #   _cur_source_file=${BASH_SOURCE[$j]}
-# #   _Dbg_print_source_line $_Dbg_listline
-#   return 0
+
 }
 
 
@@ -122,4 +122,9 @@ _Dbg_frame_save_frames() {
 
     # Set stack position to the most recent entry.
     _Dbg_stack_pos=0
+    typeset file_line="${_Dbg_frame_stack[0]}"
+    _Dbg_split "$file_line" ':'
+    _Dbg_frame_last_file=${split_result[0]}
+    _Dbg_frame_last_lineno=${split_result[1]}
+
 }

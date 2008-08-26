@@ -22,6 +22,7 @@
 # but the command is different.
 
 # Set initial line tracing flag off
+typeset -i _Dbg_linetrace=0 
 typeset -i _Dbg_linetrace_expand=0 # expand variables in linetrace output
 typeset    _Dbg_linetrace_delay=0  # sleep after linetrace
 
@@ -100,6 +101,19 @@ _Dbg_do_set() {
       esac
       return 0
       ;;
+    d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
+      typeset onoff=${1:-'on'}
+      case $onoff in 
+	on | 1 ) 
+	  _Dbg_write_journal_eval "_Dbg_debug_debugger=1"
+	  ;;
+	off | 0 )
+	  _Dbg_write_journal_eval "_Dbg_debug_debugger=0"
+	  ;;
+	* )
+	  _Dbg_msg "\"on\" or \"off\" expected."
+      esac
+      ;;
     e | ed | edi | edit | editi | editin | editing )
       typeset onoff=${1:-'on'}
       case $onoff in 
@@ -113,18 +127,20 @@ _Dbg_do_set() {
 	  _Dbg_msg "\"on\" or \"off\" expected."
       esac
       ;;
-    d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-      typeset onoff=${1:-'on'}
+    force )
+      typeset onoff=${1:-'off'}
       case $onoff in 
 	on | 1 ) 
-	  _Dbg_write_journal_eval "_Dbg_debug_debugger=1"
+	  _Dbg_write_journal_eval "_Dbg_step_auto_force=1"
 	  ;;
 	off | 0 )
-	  _Dbg_write_journal_eval "_Dbg_debug_debugger=0"
+	  _Dbg_write_journal_eval "_Dbg_step_auto_force=0"
 	  ;;
 	* )
 	  _Dbg_msg "\"on\" or \"off\" expected."
+	  return 1
       esac
+      return 0
       ;;
    hi|his|hist|histo|histor|history)
       case $1 in 

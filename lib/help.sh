@@ -27,7 +27,7 @@ function _Dbg_help_add {
 }
 
 # typeset _Dbg_set_cmds="args annotate autoeval basename debugger editing linetrace listsize prompt showcommand trace-commands"
-typeset _Dbg_set_cmds="args annotate autoeval basename debugger linetrace listsize prompt trace-commands"
+typeset _Dbg_set_cmds="args annotate autoeval basename debugger force linetrace listsize prompt trace-commands"
 
 _Dbg_help_set() {
   typeset -r set_cmd=$1
@@ -84,12 +84,12 @@ Follow this command with any number of args, to be passed to the program."
 "${label}Set debugging the debugger is" $onoff
       return 0
       ;;
-    e | ed | edi | edit | editi | editin | editing )
-      [[ -n $label ]] && label='set editing   -- '
+    force )
+      [[ -n $label ]] && label='set force     -- '
       typeset onoff="off."
       (( $_Dbg_edit )) && onoff='on.'
       _Dbg_msg \
-"${label}Set editing of command lines as they are typed is" $onoff
+"${label}Set stepping forces a different line is" $onoff
       ;;
     lin | line | linet | linetr | linetra | linetrac | linetrace )
       [[ -n $label ]] && label='set linetrace -- '
@@ -135,7 +135,7 @@ Follow this command with any number of args, to be passed to the program."
 
 # typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename debugger commands debugger directories linetrace listsize prompt trace-commands warranty"
 
-typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename copying debugger linetrace listsize prompt trace-commands warranty"
+typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename copying debugger force linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
   typeset -r show_cmd=$1
@@ -167,7 +167,7 @@ _Dbg_help_show() {
       ;;
     au | aut | auto | autoe | autoev | autoeva | autoeval )
       _Dbg_msg \
-"show auotoeval   -- Show if we evaluate unrecognized commands"
+"show autoeval    -- Show if we evaluate unrecognized commands"
       return 0
       ;;
     b | ba | bas | base | basen | basena | basenam | basename )
@@ -194,6 +194,10 @@ number of lines to list."
     di|dir|dire|direc|direct|directo|director|directori|directorie|directories)
       _Dbg_msg \
 "show directories -- Show if we are set to debug the debugger"
+      ;;
+    force)
+      _Dbg_msg \
+"show force       -- Show if setting forces a different line"
       ;;
     lin | line | linet | linetr | linetra | linetrac | linetrace )
       _Dbg_msg \
