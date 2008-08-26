@@ -26,25 +26,30 @@ _Dbg_help_add run \
 _Dbg_do_run() {
 
   typeset script_args
-  if (( $# != 0 )) ; then 
-    script_args=$@
+  typeset exec_cmd
+  if (( $# == 0 )) ; then 
+      script_args=${_Dbg_script_args[@]}
+      typeset SH_RUN_CMDLINE; _Dbg_run_cmdline
+      if [[ -n $SH_RUN_CMDLINE ]] ; then
+	  exec_cmd="$SH_RUN_CMDLINE";
+      else
+	  exec_cmd="$_Dbg_script_file"
+	  [[ -n $script_args ]] && exec_cmd+=" $script_args"
+      fi
   else
-    script_args=${_Dbg_script_args[@]}
+      exec_cmd="$_Dbg_script_file"
+      script_args=$@
+      [[ -n $script_args ]] && exec_cmd+=" $script_args"
   fi
 
-  typeset exec_cmd="$_Dbg_script_file $script_args";
-  typeset SH_INTERPRETER; get_sh_interpreter
-  
   if (( !_Dbg_script )); then
 #     if [[ $_cur_source_file == $_Dbg_bogus_file ]] ; then
-#       script_args="--debugger -c \"$BASH_EXECUTION_STRING\""
-#       exec_cmd="$SH_INTERPRETER --debugger -c \"$BASH_EXECUTION_STRING\"";
+#       script_args="--debugger -c \"$SH_EXECUTION_STRING\""
+#       exec_cmd="$SH_RUN_CMDLINE --debugger -c \"$SH_EXECUTION_STRING\"";
 #     else
-#       exec_cmd="$SH_INTERPRETER --debugger $_Dbg_orig_0 $script_args";
+#       exec_cmd="$SH_RUN_CMDLINE --debugger $_Dbg_orig_0 $script_args";
 #     fi
       :
-  else
-      typeset exec_cmd="$SH_INTERPRETER $_Dbg_script_file $script_args";
   fi
 
   if (( _Dbg_basename_only )) ; then 
@@ -57,7 +62,7 @@ _Dbg_do_run() {
 #   # first before we restart. The strategy is to write into persistent
 #   # storage the restart command, and issue a "quit." The quit should
 #   # discover the restart at the last minute and issue the restart.
-#   if (( BASH_SUBSHELL > 0 )) ; then 
+#   if (( SH_SUBSHELL > 0 )) ; then 
 #     _Dbg_msg "Note you are in a subshell. We will need to leave that first."
 #     _Dbg_write_journal "BASHDB_RESTART_COMMAND=\"$exec_cmd\""
 #     _Dbg_do_quit 0

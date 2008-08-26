@@ -15,10 +15,10 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-function get_sh_interpreter {
+function _Dbg_run_cmdline {
   typeset -a cmd
-  cmd=( $(ps h -o command -p $$) )
-  SH_INTERPRETER=${cmd[@]}
+  cmd=( $(COLUMNS=3000 ps h -o command -p $$) )
+  SH_RUN_CMDLINE=${cmd[@]}
 }
 
 _Dbg_not_running ()  {
