@@ -53,7 +53,7 @@ _Dbg_do_skip() {
 }
 
 _Dbg_help_add step \
-"step [COUNT]	-- Single step an statement.
+"step [COUNT] -- Single step a statement COUNT times.
 
 If COUNT is given, stepping occurs that many times before
 stopping. Otherwise COUNT is one. COUNT an be an arithmetic
