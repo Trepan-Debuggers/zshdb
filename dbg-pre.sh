@@ -30,9 +30,6 @@
 [[ -z $_Dbg_release ]] || return
 typeset -r _Dbg_release='0.01git'
 
-# Name we refer to ourselves by
-typeset _Dbg_debugger_name='zshdb'
-
 # Will be set to 1 if called via zshdb rather than "zsh --debugger"
 typeset -i _Dbg_script=0
 
@@ -111,6 +108,7 @@ typeset -a _Dbg_script_args
 _Dbg_script_args=($@)
 
 typeset -i _Dbg_running=1      # True we are not finished running the program
+typeset last_next_step_cmd='s' # Default is step.
 
 # Known normal IFS consisting of a space, tab and newline
 typeset _Dbg_space_IFS=' 	

@@ -36,6 +36,9 @@ typeset prefix=@prefix@
 typeset _Dbg_libdir=@PKGDATADIR@
 ###
 
+# Name we refer to ourselves by
+typeset _Dbg_debugger_name='@PACKAGE@'
+
 [[ ! -d $_Dbg_libdir ]] && _Dbg_libdir='.'
 # Parse just the libdir option
 local -a libdir

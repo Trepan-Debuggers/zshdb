@@ -105,7 +105,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# Continue
-	c | cont | conti |contin |continu | continue )
+	continue )
 	  
 	  _Dbg_last_cmd='continue'
 	  if _Dbg_do_continue $@ ; then
@@ -116,7 +116,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# Move call stack down
-	do | dow | down )
+	down )
 	  _Dbg_do_down $@
 	  _Dbg_last_cmd='down'
 	  ;;
@@ -134,7 +134,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	#  Set stack frame
-	fr | fra | fra | frame )
+	frame )
 	  _Dbg_do_frame $@
 	  _Dbg_last_cmd='frame'
 	  ;;
@@ -163,14 +163,30 @@ _Dbg_onecmd() {
 	  return $?
 	  ;;
 
+	# single-step force 
+	'step+' )
+	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
+	  _Dbg_last_next_step_args="$@"
+	  _Dbg_do_step_force $@
+	  return $?
+	  ;;
+
+	# single-step no force
+	'step-' )
+	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
+	  _Dbg_last_next_step_args="$@"
+	  _Dbg_do_step_no_force $@
+	  return $?
+	  ;;
+
 	# skip N times (default 1)
 	sk | ski | skip )
 	  _Dbg_last_cmd='skip'
 	  _Dbg_do_skip $@ && return 2
 	  ;;
 
-	# Run a debugger comamnd file
-	so | sou | sour | sourc | source )
+	# Run a debugger command file
+	source )
 	  _Dbg_last_cmd='source'
 	  _Dbg_do_source $@
 	  ;;
@@ -194,7 +210,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# Trace a function
-	tr | tra | tra | trac | trace )
+	trace )
 	  _Dbg_do_trace_fn $args 
 	  ;;
 
