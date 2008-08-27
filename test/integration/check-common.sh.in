@@ -29,10 +29,20 @@ run_debugger() {
   typeset debugged_script=$1
   typeset dbg_opts=${2:-"-L ${top_srcdir} -B -q"}
   typeset cmdfile=${3:-"${top_srcdir}/test/data/${TEST_NAME}.cmd"}
-  $SH -- ${top_builddir}/@PACKAGE@ $dbg_opts -x $cmdfile $debugged_script
+  $SH -- ${top_builddir}/@PACKAGE@ $dbg_opts -x $cmdfile $debugged_script $ARGS
 }
 
 TEST_FILE="${top_builddir}/test/integration/${TEST_NAME}.check"
 RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}.right"
 TEST_FILTERED_FILE="/tmp/${TEST_NAME}-filtered.check"
 RIGHT_FILTERED_FILE="/tmp/${TEST_NAME}-filtered.right"
+ARGS=''
+
+run_test_check() {
+    short_script_name=${1:-$TEST_NAME}
+    debugged_script="${top_srcdir}/test/example/${short_script_name}.sh"
+    (cd $srcdir && run_debugger $debugged_script 2>&1 >$TEST_FILE </dev/null)
+    check_output $TEST_FILE $RIGHT_FILE
+    # Return code tells testing mechanism whether passed or not.
+    exit $?
+}

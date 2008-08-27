@@ -1,19 +1,7 @@
 #!/bin/zsh -f
 # -*- shell-script -*-
+t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
 
-[ -z "$srcdir" ] && srcdir=$PWD
 [ -z "$builddir" ] && builddir=$PWD
-
-TEST_NAME='bugIFS'
-
 . ${builddir}/check-common.sh
-
-debugged_script="${top_srcdir}/test/example/bugIFS.sh"
-
-(cd $srcdir && \
-  run_debugger $debugged_script > $TEST_FILE 2>&1 < /dev/null)
-
-check_output $TEST_FILE $RIGHT_FILE
-
-# Return code tells testing mechanism whether passed or not.
-exit $?
+run_test_check
