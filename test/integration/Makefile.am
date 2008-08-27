@@ -5,7 +5,7 @@ TESTS = \
 	test-opts     \
 	test-setshow
 
-check_DATA = check-common.sh setshow.tests
+check_DATA = check-common.sh
 
 abs_srcdir=@abs_srcdir@
 abs_builddir=@abs_builddir@
