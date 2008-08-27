@@ -100,7 +100,7 @@ _Dbg_alias_add 'next' step  # FIXME: remove when we have a real next
 _Dbg_help_add 'step+' \
 "step+ -- Single step a statement ensuring a different line after the step.
 
-In contrast to \"step\", we unsure that the file and line position is
+In contrast to \"step\", we ensure that the file and line position is
 different from the last one just stopped at.
 
 See also \"step-\" and \"set force\"."
