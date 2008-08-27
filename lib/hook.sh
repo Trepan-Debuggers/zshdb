@@ -63,10 +63,11 @@ function _Dbg_debug_trap_handler {
 	    typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
 	    _Dbg_frame_save_frames 1
 	    if ((_Dbg_frame_previous_lineno == _Dbg_frame_last_lineno)) && \
-		[ $_Dbg_frame_previous_file == $_Dbg_frame_last_file ] ; then
+		[ "$_Dbg_frame_previous_file" = "$_Dbg_frame_last_file" ] ; then
 		_Dbg_set_to_return_from_debugger 1
 		return $_Dbg_rc
 	    fi
+	    set +x
 	else
 	    _Dbg_frame_save_frames 1
 	fi

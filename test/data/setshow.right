@@ -274,6 +274,7 @@ args:     Argument list to give script when debugged program starts is:
 autoeval: Evaluate unrecognized commands is off.
 basename: Show short filenames (the basename) in debug output is on.
 debugger: Allow debugging the debugger is off.
+force: Show stepping forces a new line is off.
 listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:
        "zshdb<1> ".
