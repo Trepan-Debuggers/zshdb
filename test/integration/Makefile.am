@@ -3,9 +3,10 @@ TESTS = \
 	test-bugIFS   \
 	test-frame    \
 	test-opts     \
-	test-setshow
+	test-setshow  \
+	test-step
 
-check_DATA = check-common.sh setshow.tests
+check_DATA = check-common.sh
 
 abs_srcdir=@abs_srcdir@
 abs_builddir=@abs_builddir@
