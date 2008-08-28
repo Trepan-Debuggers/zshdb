@@ -43,6 +43,8 @@ typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 # in the debugger, we prefer to preface these with _Dbg_.
 function _Dbg_process_commands {
 
+  _Dbg_step_ignore=-1  # Nuke any prior step ignore counts
+
   # Evaluate all the display expressions
   ## _Dbg_eval_all_display
 

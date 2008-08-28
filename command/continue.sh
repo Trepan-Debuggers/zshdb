@@ -27,7 +27,6 @@ function _Dbg_do_continue {
 
   _Dbg_not_running && return 1
 
-  _Dbg_step_ignore=-1
   return 0
 #   [[ -z $1 ]] && return 0
 #   typeset filename
