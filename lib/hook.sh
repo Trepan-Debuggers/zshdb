@@ -67,7 +67,6 @@ function _Dbg_debug_trap_handler {
 		_Dbg_set_to_return_from_debugger 1
 		return $_Dbg_rc
 	    fi
-	    set +x
 	else
 	    _Dbg_frame_save_frames 1
 	fi
