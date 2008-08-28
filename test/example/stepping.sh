@@ -1,5 +1,5 @@
-#!/bin/ksh
-# For testing step, step+ step-, default steop and set force.
+#!/bin/zsh
+# For testing step, step+ step-, default step and set force.
 for ((i=0; i<3; i++)) do print 1st loop $i ; done
 for ((i=0; i<3; i++)) do print 2nd loop $i ; done
 for ((i=0; i<3; i++)) do print 3rd loop $i ; done
