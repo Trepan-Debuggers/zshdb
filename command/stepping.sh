@@ -70,33 +70,6 @@ into.
 
 See also \"skip\", \"step-\" \"step+\", and \"set force\"."
 
-# Step command
-# $1 is an optional additional count.
-_Dbg_do_step() {
-
-  _Dbg_not_running && return 1
-
-  typeset count=${1:-1}
-
-  if [[ $count == [0-9]* ]] ; then
-    _Dbg_step_ignore=${count:-1}
-  else
-    _Dbg_errmsg "Argument ($count) should be a number or nothing."
-    _Dbg_step_ignore=1
-    return 0
-  fi
-
-  _Dbg_step_force=${2:-$_Dbg_step_auto_force}
-
-  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
-  _Dbg_write_journal "_Dbg_step_force=$_Dbg_step_force"
-  return 1
-}
-
-_Dbg_alias_add 's' step
-_Dbg_alias_add 'n' step  # FIXME: remove when we have a real next
-_Dbg_alias_add 'next' step  # FIXME: remove when we have a real next
-
 _Dbg_help_add 'step+' \
 "step+ -- Single step a statement ensuring a different line after the step.
 
@@ -104,14 +77,6 @@ In contrast to \"step\", we ensure that the file and line position is
 different from the last one just stopped at.
 
 See also \"step-\" and \"set force\"."
-
-
-_Dbg_do_step_force() {
-    _Dbg_do_step "$1" 1
-    return $?
-}
-
-_Dbg_alias_add 's+' 'step+'
 
 _Dbg_help_add 'step-' \
 "step- -- Single step a statement without the \`step force' setting.
@@ -121,9 +86,41 @@ this command.
 
 See also \"step\" and \"set force\"."
 
-_Dbg_do_step_no_force() {
-    _Dbg_do_step "$1" 0
-    return $?
+# Step command
+# $1 is command step+, step-, or step
+# $2 is an optional additional count.
+_Dbg_do_step() {
+
+  _Dbg_not_running && return 1
+
+  _Dbg_last_cmd="$1"
+  _Dbg_last_next_step_cmd="$1"; shift
+  _Dbg_last_next_step_args="$@"
+
+  typeset count=${1:-1}
+
+  case "$_Dbg_last_next_step_cmd" in
+      'step+' ) _Dbg_step_force=1 ;;
+      'step-' ) _Dbg_step_force=0 ;;
+      'step'  ) _Dbg_step_force=$_Dbg_step_auto_force ;;
+      * ) ;;
+  esac
+
+  if [[ $count == [0-9]* ]] ; then
+    _Dbg_step_ignore=${count:-1}
+  else
+    _Dbg_errmsg "Argument ($count) should be a number or nothing."
+    _Dbg_step_ignore=1
+    return 0
+  fi
+
+  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
+  _Dbg_write_journal "_Dbg_step_force=$_Dbg_step_force"
+  return 1
 }
 
+_Dbg_alias_add 's' step
+_Dbg_alias_add 'n' step  # FIXME: remove when we have a real next
+_Dbg_alias_add 'next' step  # FIXME: remove when we have a real next
+_Dbg_alias_add 's+' 'step+'
 _Dbg_alias_add 's-' 'step-'

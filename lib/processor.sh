@@ -44,7 +44,7 @@ typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 function _Dbg_process_commands {
 
   # Evaluate all the display expressions
-  # _Dbg_eval_all_display
+  ## _Dbg_eval_all_display
 
   # Loop over all pending open input file descriptors
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
@@ -155,30 +155,6 @@ _Dbg_onecmd() {
 	  _Dbg_do_quit $@
 	  ;;
 
-	# single-step N times (default 1)
-	step )
-	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
-	  _Dbg_last_next_step_args="$@"
-	  _Dbg_do_step $@
-	  return $?
-	  ;;
-
-	# single-step force 
-	'step+' )
-	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
-	  _Dbg_last_next_step_args="$@"
-	  _Dbg_do_step_force $@
-	  return $?
-	  ;;
-
-	# single-step no force
-	'step-' )
-	  _Dbg_last_next_step_cmd="$_Dbg_cmd"
-	  _Dbg_last_next_step_args="$@"
-	  _Dbg_do_step_no_force $@
-	  return $?
-	  ;;
-
 	# skip N times (default 1)
 	sk | ski | skip )
 	  _Dbg_last_cmd='skip'
@@ -207,6 +183,12 @@ _Dbg_onecmd() {
 	show )
 	  _Dbg_do_show $args
 	  _Dbg_last_cmd='show'
+	  ;;
+
+	# single-step 
+	'step+' | 'step-' | 'step' | 'next' )
+	  _Dbg_do_step "$_Dbg_cmd" $@
+	  return $?
 	  ;;
 
 	# Trace a function
