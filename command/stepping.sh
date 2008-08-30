@@ -23,6 +23,9 @@ typeset -i _Dbg_skip_ignore=0
 # 1 if we need to ensure we stop on a different line? 
 typeset -i _Dbg_step_force=0  
 
+# if positive, the frame level we want to stop at next
+typeset -i _Dbg_return_level=-1
+
 # The default behavior of step_force. 
 typeset -i _Dbg_step_auto_force=0  
 
@@ -68,7 +71,7 @@ expression.
 In contrast to \"next\", functions and source\'d files are stepped
 into. 
 
-See also \"skip\", \"step-\" \"step+\", and \"set force\"."
+See also \"next\" \"skip\", \"step-\" \"step+\", and \"set force\"."
 
 _Dbg_help_add 'step+' \
 "step+ -- Single step a statement ensuring a different line after the step.
@@ -114,12 +117,79 @@ _Dbg_do_step() {
     return 0
   fi
 
+  _Dbg_write_journal_eval "_Dbg_return_level=-1"
   _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
   _Dbg_write_journal "_Dbg_step_force=$_Dbg_step_force"
   return 1
 }
+
+_Dbg_help_add next \
+"next [COUNT] -- Single step a statement COUNT times ignoring functions.
+
+If COUNT is given, stepping occurs that many times before
+stopping. Otherwise COUNT is one. COUNT an be an arithmetic
+expression.
+
+In contrast to \"step\", functions and source\'d files are not stepped
+into. 
+
+See also \"step\" \"skip\", \"next-\" \"next+\", and \"set force\"."
+
+_Dbg_help_add 'next+' \
+"next+ -- Next stepping ensuring a different line after the step.
+
+In contrast to \"next\", we ensure that the file and line position is
+different from the last one just stopped at.
+
+See also \"next-\", \"next\" and \"set force\"."
+
+_Dbg_help_add 'next-' \
+"next- -- Next stepping a statement without the \`set force' setting.
+
+Set step force may have been set on. step- ensures we turn that off for
+this command. 
+
+See also \"next+\", \"next\" and \"set force\"."
+
+# Next command
+# $1 is command next+, next-, or next
+# $2 is an optional additional count.
+_Dbg_do_next() {
+
+  _Dbg_not_running && return 1
+
+  _Dbg_last_cmd="$1"
+  _Dbg_last_next_step_cmd="$1"; shift
+  _Dbg_last_next_step_args="$@"
+
+  typeset count=${1:-1}
+
+  case "$_Dbg_last_next_step_cmd" in
+      'next+' ) _Dbg_step_force=1 ;;
+      'next-' ) _Dbg_step_force=0 ;;
+      'next'  ) _Dbg_step_force=$_Dbg_step_auto_force ;;
+      * ) ;;
+  esac
+
+  if [[ $count == [0-9]* ]] ; then
+    _Dbg_step_ignore=${count:-1}
+  else
+    _Dbg_errmsg "Argument ($count) should be a number or nothing."
+    _Dbg_step_ignore=1
+    return 0
+  fi
+
+  _Dbg_write_journal_eval "_Dbg_return_level=${#_Dbg_frame_stack[@]}"
+  echo $_Dbg_return_level
+  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
+  _Dbg_write_journal "_Dbg_step_force=$_Dbg_step_force"
+  return 1
+}
+
+_Dbg_alias_add 'n' next
+_Dbg_alias_add 'n+' 'next+'
+_Dbg_alias_add 'n-' 'next-'
 _Dbg_alias_add 's' step
-_Dbg_alias_add 'n' step  # FIXME: remove when we have a real next
-_Dbg_alias_add 'next' step  # FIXME: remove when we have a real next
 _Dbg_alias_add 's+' 'step+'
 _Dbg_alias_add 's-' 'step-'
+

@@ -20,7 +20,7 @@
 _Dbg_help_add help \
 'help	- Print list of commands.'
 
-typeset -i _Dbg_help_cols=7
+typeset -i _Dbg_help_cols=8
 _Dbg_do_help() {
   if ((0==$#)) ; then
       _Dbg_msg "Type 'help <command-name>' for help on a specific command.\n"

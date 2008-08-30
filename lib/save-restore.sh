@@ -63,10 +63,10 @@ _Dbg_set_debugger_internal() {
 
 _Dbg_restore_user_vars() {
   IFS="$_Dbg_space_IFS"
-  set -$_Dbg_old_set_opts
   IFS="$_Dbg_old_IFS";
   PS4="$_Dbg_old_PS4"
   [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
+  set -$_Dbg_old_set_opts
 }
 
 _Dbg_set_to_return_from_debugger() {
@@ -85,7 +85,7 @@ _Dbg_set_to_return_from_debugger() {
 #   fi
 
 #   if (( _Dbg_restore_debug_trap )) ; then
-#     trap '_Dbg_debug_trap_handler "$@"; [[ $? -eq 2 ]] && setopt errexit' DEBUG
+#     trap '_Dbg_debug_trap_handler $? "$@"; [[ $? -eq 2 ]] && setopt errexit' DEBUG
 #   else
 #     trap - DEBUG
 #   fi  

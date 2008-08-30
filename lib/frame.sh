@@ -64,7 +64,6 @@ _Dbg_frame_adjust() {
 
 }
 
-
 _Dbg_frame_file() {
     (($# > 1)) && return 2
     # FIXME check to see that $1 doesn't run off the end.

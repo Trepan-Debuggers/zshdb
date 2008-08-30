@@ -48,5 +48,5 @@ _Dbg_debugger() {
   fi
   set -${_Dbg_trace_old_set_opts}
   unset _Dbg_trace_old_set_opts
-  trap '_Dbg_debug_trap_handler "$@"; ((2==$?)) && setopt errexit' DEBUG
+  trap '_Dbg_debug_trap_handler $? "$@"; ((2==$?)) && setopt errexit' DEBUG
 }

@@ -44,6 +44,7 @@ typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 function _Dbg_process_commands {
 
   _Dbg_step_ignore=-1  # Nuke any prior step ignore counts
+  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
 
   # Evaluate all the display expressions
   ## _Dbg_eval_all_display
@@ -145,6 +146,12 @@ _Dbg_onecmd() {
 	help )
 	  _Dbg_do_help $args ;;
 
+	# single-step ignoring functions
+	'next+' | 'next-' | 'next' )
+	  _Dbg_do_next "$_Dbg_cmd" $@
+	  return $?
+	  ;;
+
 	# print globbed or substituted variables
 	print )
 	  _Dbg_do_print "$args"
@@ -188,7 +195,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	# single-step 
-	'step+' | 'step-' | 'step' | 'next' )
+	'step+' | 'step-' | 'step' )
 	  _Dbg_do_step "$_Dbg_cmd" $@
 	  return $?
 	  ;;
