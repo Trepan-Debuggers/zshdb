@@ -92,19 +92,13 @@ that is not enough.)
 This is probably a straight-forward port of code from bashdb. Possibly
 some simplification with associative arrays.
 
-3.c) next (step over function calls) 
-
-This can be implemented without support from zsh, but probably
-debugging support would be faster with the code added to zsh. So I'm
-punting on this for now.
-
-3.d) Showing frame arguments
+3.c) Showing frame arguments
 
 Like next, this can done with or without support from zsh, albeit
 faster with help from zsh. Changing scope when changing frames however
 has to be done with zsh support. 
 
-3.e) Information persisting when a subshell is left
+3.d) Information persisting when a subshell is left
 
 One of the challenges of POSIX shells is to be able to pass
 information back from a subshell or nested shell back to a
@@ -115,22 +109,32 @@ simple thing to add though.
 Adding breakpoints and debugger settings will make this problem more
 apparent.
 
-3.f) Skipping code 
+3.e) Setting $0
 
-There is currently a skip command, but it doesn't skip functions and
-assignment statements properly. If the code in neccessary support in
-zsh is not corrected, it's possible this will get pulled. It depends
-on whether the confusion it causes more problem than the benefit it
-offers.
-
-3.g) Setting $0
-
-3.h) lots of other stuff including...
+3.f) lots of other stuff including...
 
   display expressions, signal handling, invoking the debugger directly
   from a script, command history, command completion.
 
   None of this is rocket science. Should be pretty straight-forward to
   add.
+
+4. WHAT MAY NEED MORE WORK AND SUPPORT FROM ZSH
+
+
+4.a) next (step over function calls) 
+
+This is implemented without additional support from zsh, but probably
+debugging support would be faster with the code added to zsh.
+
+4.b) line number information
+
+We rely on zsh to give line numbers. In some cases the numbers can be
+funky. Languages which grew up without debuggers tend to be sloppy
+about tracking line number information accurately, because nobody care
+about it that much, so folks don't notice. (But in truth better line
+numbers also means more accurate error reporting information as well.)
+ 
+4.c) Possibly stopping points
 
 

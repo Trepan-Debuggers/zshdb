@@ -180,7 +180,6 @@ _Dbg_do_next() {
   fi
 
   _Dbg_write_journal_eval "_Dbg_return_level=${#_Dbg_frame_stack[@]}"
-  echo $_Dbg_return_level
   _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
   _Dbg_write_journal "_Dbg_step_force=$_Dbg_step_force"
   return 1
