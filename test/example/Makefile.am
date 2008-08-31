@@ -3,6 +3,8 @@ check_DATA = \
 	bugIFS.sh     \
 	dbg-test1.sh  \
 	bugIFS.sh     \
-	hanoi.sh
+	hanoi.sh      \
+	nexting.sh    \
+	stepping.sh
 
 EXTRA_DIST = $(check_DATA)

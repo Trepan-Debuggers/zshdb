@@ -61,7 +61,7 @@ _Dbg_do_skip() {
   return 0
 }
 
-_Dbg_help_add step \
+_Dbg_help_add 'step' \
 "step [COUNT] -- Single step a statement COUNT times.
 
 If COUNT is given, stepping occurs that many times before
@@ -71,7 +71,7 @@ expression.
 In contrast to \"next\", functions and source\'d files are stepped
 into. 
 
-See also \"next\" \"skip\", \"step-\" \"step+\", and \"set force\"."
+See also \"next\", \"skip\", \"step-\" \"step+\", and \"set force\"."
 
 _Dbg_help_add 'step+' \
 "step+ -- Single step a statement ensuring a different line after the step.
@@ -113,7 +113,7 @@ _Dbg_do_step() {
     _Dbg_step_ignore=${count:-1}
   else
     _Dbg_errmsg "Argument ($count) should be a number or nothing."
-    _Dbg_step_ignore=1
+    _Dbg_step_ignore=-1
     return 0
   fi
 
@@ -191,4 +191,3 @@ _Dbg_alias_add 'n-' 'next-'
 _Dbg_alias_add 's' step
 _Dbg_alias_add 's+' 'step+'
 _Dbg_alias_add 's-' 'step-'
-

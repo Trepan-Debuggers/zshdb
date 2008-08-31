@@ -23,18 +23,18 @@ _Dbg_help_add help \
 typeset -i _Dbg_help_cols=8
 _Dbg_do_help() {
   if ((0==$#)) ; then
-      _Dbg_msg "Type 'help <command-name>' for help on a specific command.\n"
       _Dbg_msg 'Available commands:'
       typeset -a commands
       unsetopt ksharrays
       commands=(${(ki)_Dbg_command_help})
-      print -C $_Dbg_help_cols $commands
+#      print -C $_Dbg_help_cols $commands
+      cmd_list="${commands[@]}"
       setopt ksharrays
-#       typeset columnized; columnize "$commands" 45
-#       typeset -i i
-#       for ((i=0; i<${#columnized[@]}; i++)) ; do 
-# 	  _Dbg_msg "  ${columnized[i]}"
-#       done
+      typeset -a columnized; columnize "$cmd_list" 45
+      typeset -i i
+      for ((i=0; i<${#columnized[@]}; i++)) ; do 
+	  _Dbg_msg "  ${columnized[i]}"
+      done
       _Dbg_msg ''
       _Dbg_msg 'Readline command line editing (emacs/vi mode) is available.'
       _Dbg_msg 'Type "help" followed by command name for full documentation.'

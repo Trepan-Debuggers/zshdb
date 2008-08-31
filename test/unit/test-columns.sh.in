@@ -1,0 +1,51 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+
+PS4='(%N:%i): [%?] zsh+ 
+'
+setopt ksharrays
+test_columnized()
+{
+    do_one() {
+	typeset cols="$1"
+	shift
+	typeset last_line="$1"
+	shift
+	typeset -a columnized
+	columnize "$1" "$2" "$3"
+	typeset size=${#columnized[@]}
+	assertEquals "$cols" "$size"
+	assertEquals "$last_line" "${columnized[-1]}"
+    }
+    do_one 1 '<empty>' '' 
+    do_one 1 'a,2,c' 'a 2 c' 10 ','
+    do_one 3 'three  six' \
+' 1   two three
+  for 5   six
+  7   8' 12
+
+    do_one 3 '3    six' \
+' 1   two 3
+  for 5   six
+  7   8' 12
+
+
+}
+
+# Make sure @top_builddir@ has a trailing slash
+if [ '@abs_top_srcdir@' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+. $abs_top_srcdir/lib/columns.sh
+
+# load shunit2
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+srcdir=@srcdir@
+srcdir=${srcdir}/
+. ${srcdir}/shunit2

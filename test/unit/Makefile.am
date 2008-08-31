@@ -1,5 +1,8 @@
-TESTS = test-alias.sh test-fns.sh \
-	test-frame.sh test-run.sh \
+TESTS = test-alias.sh \
+	test-columns.sh \
+	test-fns.sh \
+	test-frame.sh \
+	test-run.sh \
 	test-save-restore.sh
 check_DATA = shunit2
 
@@ -12,6 +15,7 @@ TESTS_ENVIRONMENT = \
 
 EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-alias.sh.in \
+	test-columns.sh \
 	test-fns.sh.in \
 	test-frame.sh.in \
 	test-run.sh.in \

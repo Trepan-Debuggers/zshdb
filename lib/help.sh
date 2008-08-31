@@ -135,7 +135,7 @@ Follow this command with any number of args, to be passed to the program."
 
 # typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename debugger commands debugger directories linetrace listsize prompt trace-commands warranty"
 
-typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename copying debugger force linetrace listsize prompt trace-commands warranty"
+typeset _Dbg_show_cmds="aliases annotate args autoeval basename copying debugger force linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
   typeset -r show_cmd=$1

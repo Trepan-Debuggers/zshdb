@@ -3,6 +3,7 @@
 /Makefile
 /Makefile.in
 /test-alias.sh
+/test-columns.sh
 /test-fns.sh
 /test-frame.sh
 /test-run.sh
