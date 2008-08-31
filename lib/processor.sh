@@ -24,6 +24,11 @@ typeset _Dbg_prompt_str="$_Dbg_debugger_name<1> "
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
 
+typeset last_next_step_cmd='s' # Default is step.
+
+typeset _Dbg_last_print=''     # expression on last print command
+typeset _Dbg_last_printe=''    # expression on last print expression command
+
 # A list of debugger command input-file descriptors.
 # Duplicate standard input
 typeset -i _Dbg_fdi ; exec {_Dbg_fdi}<&0

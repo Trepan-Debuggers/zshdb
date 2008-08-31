@@ -20,11 +20,17 @@ functrace_no_source() {
   second_fn
 }
 
+typeset -fuz is-at-least  # Same as "functions -u -z" but better documented.
+if ! is-at-least 4.3.6-dev-0 ; then
+  print "zsh needs version 4.3.6-dev-0 or greater"
+  exit 20
+fi
+
 functrace_no_source
 
 . ./trap-bug1.sh && {
   print "Your zsh doesn't handle \$? inside traps properly"
-  exit 20
+  exit 30
 }
 
 debug_hook() { . ./is-dbg-ok3; }
@@ -33,5 +39,5 @@ trap 'debug_hook' DEBUG
 . ./is-dbg-ok2
 # If you get here is-dbg-ok2 didn't work. Failure
 print "Your zsh doesn't handle trap DEBUG properly."
-exit 30
+exit 40
 

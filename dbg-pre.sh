@@ -17,20 +17,26 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# We put definiitions common to both the script debugger and bash
-# --debugger. In contrast to other routines this is sourced early --
-# before most of the kshdb script is run. The other routines are
-# done near the end of the kshdb script. In this way the script can
-# has access to definitions that --debugger has without duplicating code.
+# Here we put definitions common to both the script debugger and
+# dbg-trace.sh. In contrast to other routines, this code is sourced
+# early -- before most of the debugger script is run.
 
-# Note: the trend now is to move initializations which are generally
-# used in only one sub-part (e.g. variables for break/watch/actions) to 
-# the corresponding file.
+# Note: initializations which are mostly used in only one sub-part
+# (e.g. variables for break/watch/actions) are in the corresponding
+# file: either in lib or (less good) command.
+
+# Are we using a debugger-enabled shell? If not let's stop right here.
+typeset -fuz is-at-least  # Same as "functions -u -z" but better documented.
+if ! is-at-least 4.3.6-dev-0 ; then
+  print "Sorry, your $_Dbg_shell_name just isn't modern enough." 2>&1
+  print "We need 4.3.6-dev-0 or greater." 2>&1
+  exit 30
+fi
 
 [[ -z $_Dbg_release ]] || return
 typeset -r _Dbg_release='0.01git'
 
-# Will be set to 1 if called via zshdb rather than "zsh --debugger"
+# Will be set to 1 if the top-level call is a debugger.
 typeset -i _Dbg_script=0
 
 typeset -i _Dbg_basename_only=0
@@ -75,9 +81,8 @@ function _Dbg_expand_filename {
   fi
 }
 
-# $_Dbg_tmpdir could have been set by zshdb script rather than
-# zsh --debugger
-typeset _Dbg_tmpdir=/tmp
+# $_Dbg_tmpdir could have been set by the top-level debugger script.
+[[ -z $_Dbg_tmpdir ]] && typeset _Dbg_tmpdir=/tmp
 
 # Create temporary file based on $1
 # file $1
@@ -108,19 +113,19 @@ typeset -a _Dbg_script_args
 _Dbg_script_args=($@)
 
 typeset -i _Dbg_running=1      # True we are not finished running the program
-typeset last_next_step_cmd='s' # Default is step.
+
+typeset -i _Dbg_currentbp=0    # If nonzero, the breakpoint number that we 
+                               # are currently stopped at.
+
+# Sets whether or not to display command before executing it.
+typeset _Dbg_trace_commands='off'
 
 # Known normal IFS consisting of a space, tab and newline
 typeset _Dbg_space_IFS=' 	
 '
 
-# Number of statements to run before entering the debugger.
-# Is used intially to get out of sourced dbg-main.inc script
-# and in zshdb script to not stop in remaining zshdb statements
-# before the sourcing the script to be debugged.
+# Number of statements to run before entering the debugger.  Is used
+# intially to get out of sourced dbg-main.inc script and in top-level
+# debugger script to not stop in remaining debugger statements before
+# the sourcing the script to be debugged.
 typeset -i _Dbg_step_ignore=1
-
-# Array of file:line string from functrace.
-typeset -a _Dbg_frame_stack
-typeset -a _Dbg_func_stack
-

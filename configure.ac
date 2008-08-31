@@ -55,7 +55,7 @@ fi
 AC_MSG_CHECKING([Checking whether $SH_PROG is compatible with zshdb])
 if ! (cd ${srcdir}/test/zsh && $SH_PROG ./ok4zshdb.sh) ; then
   AC_MSG_RESULT([no dice :-(])
-  AC_MSG_ERROR([You might want to retry with another zsh using the --with-zsh option.])
+  AC_MSG_ERROR([You might want to retry with another POSIXSHELL using the --with-POSIXSHELL option.])
 else
   AC_MSG_RESULT(yes!)
 fi

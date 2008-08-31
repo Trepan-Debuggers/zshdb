@@ -22,6 +22,8 @@
 # commands.
 
 typeset -i _Dbg_stack_pos=0
+
+# Array of file:line string from functrace.
 typeset -a _Dbg_frame_stack
 typeset -a _Dbg_func_stack
 

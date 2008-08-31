@@ -35,7 +35,7 @@
 +# Try some negative numbers
 +# should be the same as up
 +down -1
-(zshdb:86):
+(zshdb:93):
 +where 2
 ##0 file `hanoi.sh' at line 8
 ##1 file `hanoi.sh' at line 36
