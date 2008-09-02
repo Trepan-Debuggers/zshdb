@@ -42,10 +42,17 @@ _Dbg_do_show() {
   case $show_cmd in 
     al | ali | alia | alias | aliase | aliases )
       unsetopt ksharrays
+      typeset -a list
+      list=()
       for alias in ${(ki)_Dbg_aliases} ; do
-	  _Dbg_msg "\t${alias}\t${_Dbg_aliases[$alias]}"
+	 list+=("${alias}: ${_Dbg_aliases[$alias]}")
       done
       setopt ksharrays
+      typeset -a columnized; columnize 50  '  |  '
+      typeset -i i
+      for ((i=0; i<${#columnized[@]}; i++)) ; do 
+	  _Dbg_msg "  ${columnized[i]}"
+      done
       return 0
       ;;
     ar | arg | args )

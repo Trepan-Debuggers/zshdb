@@ -18,17 +18,12 @@
 #  Code ported from my Ruby code which is in turn ported from a routine
 #  from Python.
 
-# columnize a blank-delmited string $1 with maximum column width $2,
-# separate columns with $3. The column width defaults to 80 and the
-# column separator is two spaces.  However if we are using ksh93t or
-# greater, then $1 is where the return value is to go and the other
-# parameters are shifted by 1: $2 contains the list to columnize and
-# $3 the maximum width, etc.
+# columnize a blank-delmited string global "list" with maximum column
+# width $1, separate columns with $2. The column width defaults to 80
+# and the column separator is two spaces.  
 columnize() {
-    typeset -a list
-    eval "list=($1)"
-    typeset -i displaywidth=${2:-80}
-    typeset colsep=${3:-'  '}
+    typeset -i displaywidth=${1:-80}
+    (($# < 2)) && typeset colsep='  ' || typeset colsep="$2"
     typeset -i list_size=${#list[@]}
     if ((list_size == 0)) ; then
       columnized=('<empty>')
@@ -61,7 +56,7 @@ columnize() {
               if ((i >= list_size)); then
 		  break
 	      fi
-	      typeset item=${list[i]}
+	      typeset item="${list[i]}"
 	      ((colwidth < ${#item})) && colwidth=${#item}
           done
           colwidths+=($colwidth)
@@ -70,7 +65,7 @@ columnize() {
               break
           fi
       done
-      if ((totwidth <= displaywidth)); then
+      if ((totwidth <= $displaywidth)); then
           break
       fi
     done
@@ -102,7 +97,7 @@ columnize() {
 	text_cell=''
 	for (( col=0; col<text_size; col++ )); do
 	    fmt="%-${colwidths[col]}s"
-	    text_cell=$(printf $fmt ${texts[col]})
+	    text_cell=$(printf $fmt "${texts[col]}")
 	    text_row+="${text_cell}"
 	    ((col != text_size-1)) && text_row+="${colsep}"
 	done
@@ -118,7 +113,9 @@ if [[ $0 == *columnize.sh ]] ; then
 	typeset -a columnized
 PS4='(%N:%i): [%?] zsh+ 
 '
-        columnize "$1" "$2" "$3"
+        typeset -a list
+	list=($1)
+        columnize $2 $3
 	typeset -i i
 	echo '==============='
 	for ((i=0; i<${#columnized[@]}; i++)) ; do 
