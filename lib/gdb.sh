@@ -52,14 +52,17 @@ _Dbg_print_frame() {
     fi
 
     typeset -i pos=${1:-$_Dbg_stack_pos}
-    typeset file_line="${_Dbg_frame_stack[$pos]}"
-    typeset prefix=${2:-''}
+    typeset file_line
+    file_line="${_Dbg_frame_stack[$pos]}"
+    typeset prefix
+    prefix=${2:-''}
 
     setopt ksharrays
     typeset -a split_result
     _Dbg_split "$file_line" ':'
-    typeset filename=${split_result[0]}
-    typeset -i line=${split_result[1]}
+    typeset filename
+    filename="${split_result[0]}"
+    typeset -i line="${split_result[1]}"
     (( _Dbg_basename_only )) && filename=${filename##*/}
     _Dbg_msg "$prefix file \`$filename' at line $line"
 

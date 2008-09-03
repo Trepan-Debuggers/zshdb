@@ -18,12 +18,9 @@
 #  Code ported from my Ruby code which is in turn ported from a routine
 #  from Python.
 
-# columnize a blank-delmited string $1 with maximum column width $2,
-# separate columns with $3. The column width defaults to 80 and the
-# column separator is two spaces.  However if we are using ksh93t or
-# greater, then $1 is where the return value is to go and the other
-# parameters are shifted by 1: $2 contains the list to columnize and
-# $3 the maximum width, etc.
+# columnize a blank-delimited string "list" with maximum column width
+# $1, separate columns with $2. The column width defaults to 80 and
+# the column separator is two spaces.
 columnize() {
     typeset -a list
     eval "list=($1)"

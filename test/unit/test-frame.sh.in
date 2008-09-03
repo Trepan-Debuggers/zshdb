@@ -9,7 +9,7 @@ setopt ksharrays
 test_frame()
 {
     _Dbg_frame_save_frames 0
-    assertEquals 4 ${#_Dbg_frame_stack[@]}
+    assertEquals 5 ${#_Dbg_frame_stack[@]}
     _Dbg_basename_only=1
     typeset _Dbg_frame_filename=''
     _Dbg_frame_file a b c
@@ -28,7 +28,7 @@ test_frame_adjust()
     _Dbg_running=1
     typeset -a errmsg=()
     _Dbg_frame_save_frames 0
-    assertEquals 4 ${#_Dbg_frame_stack[@]}
+    assertEquals 5 ${#_Dbg_frame_stack[@]}
 
     # Test frame_adjust parameter checking
     _Dbg_frame_adjust a
