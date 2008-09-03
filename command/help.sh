@@ -28,9 +28,10 @@ _Dbg_do_help() {
       unsetopt ksharrays
       commands=(${(ki)_Dbg_command_help})
 #      print -C $_Dbg_help_cols $commands
-      cmd_list="${commands[@]}"
+      typeset -a list
+      list=(${commands[@]})
       setopt ksharrays
-      typeset -a columnized; columnize "$cmd_list" 45
+      typeset -a columnized; columnize 45
       typeset -i i
       for ((i=0; i<${#columnized[@]}; i++)) ; do 
 	  _Dbg_msg "  ${columnized[i]}"

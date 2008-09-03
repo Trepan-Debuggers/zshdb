@@ -12,8 +12,18 @@ test_columnized()
 	typeset last_line="$1"
 	shift
 	typeset -a columnized
-	columnize "$1" "$2" "$3"
+	typeset -a list
+	eval "list=($1)"
+	if (($# == 3)) ; then
+	    columnize "$2" "$3"
+	else
+	    columnize "$2"
+	fi
 	typeset size=${#columnized[@]}
+# 	typeset -i i
+# 	for ((i=0; i<${#columnized[@]}; i++)) ; do 
+# 	    print "  ${columnized[i]}"
+# 	done
 	assertEquals "$cols" "$size"
 	assertEquals "$last_line" "${columnized[-1]}"
     }
