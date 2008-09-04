@@ -108,8 +108,16 @@ _Dbg_onecmd() {
 	  _Dbg_do_alias $@
 	  ;;
 
-	where )
-	  _Dbg_do_backtrace $@
+# 	# Set breakpoint on a line
+# 	break )
+# 	  _Dbg_do_break 0 $args 
+# 	  _Dbg_last_cmd="break"
+# 	  ;;
+
+	# Delete all breakpoints by line number.
+	clear )
+	  _Dbg_do_clear_brkpt $args
+	  _Dbg_last_cmd='clear'
 	  ;;
 
 	# Continue
@@ -221,6 +229,10 @@ _Dbg_onecmd() {
 	  _Dbg_do_untrace_fn $args 
 	  ;;
 
+	where )
+	  _Dbg_do_backtrace $@
+	  ;;
+
 	'' )
 	  # Redo last_cmd
 	  if [[ -n $_Dbg_last_cmd ]] ; then 
@@ -228,6 +240,13 @@ _Dbg_onecmd() {
 	      _Dbg_redo=1
 	  fi
 	  ;;
+
+	# List all breakpoints and actions.
+# 	L )
+# 	  _Dbg_do_list_brkpt
+# 	  # _Dbg_list_watch
+# 	  # _Dbg_list_action
+# 	  ;;
 
 	* ) 
 	   if (( _Dbg_autoeval )) ; then

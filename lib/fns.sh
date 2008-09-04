@@ -15,6 +15,9 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+typeset -a _Dbg_yn
+_Dbg_yn=("n" "y")         
+
 # Add escapes to a string $1 so that when it is read back using
 # eval echo "$1" it is the same as echo $1.
 function _Dbg_esc_dq {
@@ -60,7 +63,7 @@ function _Dbg_split {
 function _Dbg_linespec_setup {
   typeset linespec=${1:-''}
   if [[ -z $linespec ]] ; then
-    _Dbg_msg "Invalid line specification, null given"
+    _Dbg_errmsg "Invalid line specification, null given"
   fi
   typeset -a word
   word=($(_Dbg_parse_linespec "$linespec"))
@@ -72,14 +75,15 @@ function _Dbg_linespec_setup {
   filename=${word[2]}
   typeset -ir is_function=${word[1]}
   line_number=${word[0]}
-  full_filename=`_Dbg_is_file $filename`
+  full_filename=$filename
+  full_filename=$(_Dbg_is_file $filename)
 
-  if (( is_function )) ; then
-      if [[ -z $full_filename ]] ; then 
-	  _Dbg_readin "$filename"
-	  full_filename=`_Dbg_is_file $filename`
-      fi
-  fi
+#   if (( is_function )) ; then
+#       if [[ -z $full_filename ]] ; then 
+# 	  _Dbg_readin "$filename"
+# 	  full_filename=`_Dbg_is_file $filename`
+#       fi
+#   fi
 }
 
 # Parse linespec in $1 which should be one of
@@ -90,16 +94,17 @@ function _Dbg_linespec_setup {
 # We return the filename last since that can have embedded blanks.
 function _Dbg_parse_linespec {
   typeset linespec=$1
-  eval "$_seteglob"
   case "$linespec" in
 
     # line number only - use .sh.file for filename
-    $int_pat )	
-      echo "$linespec 0 ${.sh.file}"
+    [0-9]* )	
+      typeset _Dbg_frame_filename=''
+      _Dbg_frame_file
+      echo "$linespec 0 ${_Dbg_frame_filename}"
       ;;
     
     # file:line
-    [^:][^:]*[:]$int_pat )
+    [^:][^:]*[:][0-9]* )
       # Split the POSIX way
       typeset line_word=${linespec##*:}
       typeset file_word=${linespec%${line_word}}

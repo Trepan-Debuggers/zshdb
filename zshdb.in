@@ -84,6 +84,13 @@ else
     _Dbg_script_file=./testing.sh
 fi
 
+if [[ ! -r "$_Dbg_script_file" ]] && [[ -z $_Dbg_script_file ]] ; then
+  echo "${_Dbg_pname}: cannot read program to debug: $_Dbg_script_file." >&2
+  exit 1
+fi
+typeset _Dbg_source_file
+_Dbg_source_file=$(_Dbg_expand_filename $_Dbg_script_file)
+
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
 

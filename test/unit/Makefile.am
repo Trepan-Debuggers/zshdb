@@ -1,5 +1,6 @@
 TESTS = test-alias.sh \
 	test-columns.sh \
+	test-file.sh \
 	test-fns.sh \
 	test-frame.sh \
 	test-run.sh \
@@ -16,6 +17,7 @@ TESTS_ENVIRONMENT = \
 EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-alias.sh.in \
 	test-columns.sh \
+	test-file.sh.in \
 	test-fns.sh.in \
 	test-frame.sh.in \
 	test-run.sh.in \

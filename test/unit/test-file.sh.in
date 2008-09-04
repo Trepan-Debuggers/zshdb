@@ -1,0 +1,75 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+
+setopt ksharrays
+
+# Test _Dbg_glob_filename
+test_glob_filename()
+{
+    typeset filename
+    filename=''
+    _Dbg_glob_filename ${srcdir}/shunit2
+    assertEquals '0' $?
+    filename=${filename##*/}  
+    assertEquals 'shunit2' $filename
+    _Dbg_glob_filename ./${srcdir}/shunit?
+    assertEquals '0' $?
+    filename=${filename##*/}  
+    assertEquals 'shunit2' $filename
+    _Dbg_glob_filename ${srcdir}/abcdefg
+    assertEquals '1' $?
+    filename=${filename##*/}  
+    assertEquals 'abcdefg' $filename
+}
+
+# Test _Dbg_adjust_filename
+test_adjust_filename()
+{
+    typeset filename
+    _Dbg_annotate=0
+    _Dbg_basename=0
+    filename=$(_Dbg_adjust_filename abc)
+    assertEquals 'abc' $filename
+    filename=$(_Dbg_adjust_filename /abc)
+    assertEquals '/abc' $filename
+    _Dbg_basename_only=1
+    filename=$(_Dbg_adjust_filename /abc)
+    assertEquals 'abc' $filename
+}
+
+# Test _Dbg_glob_filename
+test_resolve_expand_filename()
+{
+    filename=$(_Dbg_resolve_expand_filename /)
+    assertEquals '0' $?
+    assertEquals '/' $filename
+    filename=$(_Dbg_resolve_expand_filename .)
+    assertEquals '0' $?
+    assertEquals '/' ${filename[0]}
+    filename=$(_Dbg_resolve_expand_filename ./fdafdsa)
+    assertEquals '0' $?
+    assertEquals '/fdafdsa' ${filename[-8,-1]}
+    assertNotEquals '.' ${filename[-9]}
+}
+
+# Make sure /src/git/zshdb has a trailing slash
+if [ '/src/git/zshdb' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+_Dbg_libdir=$abs_top_srcdir
+. $abs_top_srcdir/dbg-pre.sh
+. $abs_top_srcdir/lib/file.sh
+
+# load shunit2
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+srcdir=@srcdir@
+srcdir=${srcdir}/
+. ${srcdir}/shunit2
+
