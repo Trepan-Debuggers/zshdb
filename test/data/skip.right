@@ -1,0 +1,13 @@
+(stepping.sh:3):
++# Make sure autostep is off for next text
++set force on
++# Test that skip skips multiple statements
++skip 
+(stepping.sh:4):
++where 1
+->0 in file `stepping.sh' at line 4
++skip 2
+(stepping.sh:6):
++where 1
+->0 in file `stepping.sh' at line 6
++quit 

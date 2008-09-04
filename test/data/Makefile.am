@@ -6,6 +6,10 @@ check_DATA = \
 	bugIFS.cmd         \
 	bugIFS.right       \
 	setshow.cmd        \
-	setshow.right
+	setshow.right      \
+	skip.cmd           \
+	skip.right         \
+	step.cmd           \
+	step.right
 
 EXTRA_DIST = $(check_DATA)

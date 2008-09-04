@@ -6,6 +6,7 @@ TESTS = \
 	test-next          \
 	test-opts          \
 	test-setshow       \
+	test-skip	   \
 	test-step
 
 check_DATA = check-common.sh
