@@ -21,14 +21,6 @@
 typeset -a _Dbg_dir
 _Dbg_dir=('\$cdir' '\$cwd' )
 
-# Keys are the canonic expanded filename
-typeset -A _Dbg_files_seen
-_Dbg_files_seen=()
-
-# Maps a name into its canonic form which can then be looked up in files_seen
-typeset -A _Dbg_file2canonic
-_Dbg_file2canonic=()
-
 # Directory in which the script is located
 [[ -z ${_Dbg_cdir} ]] && [[ -n ${_Dbg_source_file} ]] && \
     _Dbg_cdir=${_Dbg_source_file%/*}
@@ -56,59 +48,6 @@ _Dbg_adjust_filename() {
   fi
 }
 
-# _Dbg_is_file echoes the full filename if $1 is a filename found in files
-# '' is echo'd if no file found.
-function _Dbg_is_file {
-
-  if (( $# == 0 )) ; then
-    _Dbg_errmsg "Internal debug error: null file to find"
-    echo ''
-    return 1
-  fi
-  typeset find_file="$1"
-
-  if [[ ${find_file[0]} == '/' ]] ; then 
-      # Absolute file name
-      # FIXME: turn into common subroutine
-      for try_file in ${_Dbg_filenames[@]} ; do 
-	  if [[ $try_file == $find_file ]] ; then
-	      echo "$try_file"
-	      return
-	  fi
-      done
-  elif [[ ${find_file[0]} == '.' ]] ; then
-      # Relative file name
-      find_file=$(_Dbg_expand_filename ${_Dbg_init_cwd}/$find_file)
-      # FIXME: turn into common subroutine
-      for try_file in ${_Dbg_filenames[@]} ; do 
-	  if [[ $try_file == $find_file ]] ; then
-	      echo "$try_file"
-	      return
-	  fi
-      done
-  else
-    # Resolve file using _Dbg_dir
-    for try_file in ${_Dbg_filenames[@]} ; do 
-      typeset pathname
-      typeset -i n=${#_Dbg_dir[@]}
-      typeset -i i
-      for (( i=0 ; i < n; i++ )) ; do
-	typeset basename="${_Dbg_dir[i]}"
-	if [[  $basename = '\$cdir' ]] ; then
-	  basename=$_Dbg_cdir
-	elif [[ $basename = '\$cwd' ]] ; then
-	  basename=$(pwd)
-	fi
-	if [[ "$basename/$find_file" == $try_file ]] ; then
-	  echo "$try_file"
-	  return
-	fi
-      done
-    done
-  fi
-  echo ''
-}
-
 #
 # Resolve $1 to a full file name which exists. First see if filename has been
 # mentioned in a debugger "file" command. If not and the file name
@@ -126,7 +65,7 @@ function _Dbg_resolve_expand_filename {
   # Is this one of the files we've that has been specified in a debugger
   # "FILE" command?
   typeset found_file
-  found_file="${_Dbg_files_seen[$file_cmd_file]}"
+  found_file="${_Dbg_filenames[$file_cmd_file]}"
   if [[ -n  $found_file ]] ; then
     print -- "$found_file"
     return 0
@@ -157,26 +96,11 @@ function _Dbg_resolve_expand_filename {
 	basename=$(pwd)
       fi
       if [[ -f "$basename/$find_file" ]] ; then
-	echo "$basename/$find_file"
+	print -- "$basename/$find_file"
 	return 0
       fi
     done
   fi
   echo ''
   return 1
-}
-
-# Check that line $2 is not greater than the number of lines in 
-# file $1
-_Dbg_check_line() {
-  typeset -i line_number=$1
-  typeset filename=$2
-#   typeset -i max_line=$(_Dbg_get_maxline $filename)
-#   if (( $line_number >  max_line )) ; then 
-#     (( _Dbg_basename_only )) && filename=${filename##*/}
-#     _Dbg_err_msg "Line $line_number is too large." \
-#       "File $filename has only $max_line lines."
-#     return 1
-#   fi
-  return 0
 }

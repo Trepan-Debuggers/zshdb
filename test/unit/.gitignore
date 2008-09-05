@@ -5,6 +5,7 @@
 /test-alias.sh
 /test-columns.sh
 /test-file.sh
+/test-filecache.sh
 /test-fns.sh
 /test-frame.sh
 /test-run.sh

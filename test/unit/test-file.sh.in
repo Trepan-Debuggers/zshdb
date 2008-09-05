@@ -63,6 +63,7 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 
 _Dbg_libdir=$abs_top_srcdir
 . $abs_top_srcdir/dbg-pre.sh
+. $abs_top_srcdir/lib/filecache.sh
 . $abs_top_srcdir/lib/file.sh
 
 # load shunit2
