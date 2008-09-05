@@ -25,7 +25,7 @@ pkgdata_DATA =       \
 # Set up the install target 
 bin_SCRIPTS = zshdb
 
-EXTRA_DIST = $(pkgdata_DATA) THANKS
+EXTRA_DIST = $(pkgdata_DATA) THANKS getopt-test.sh
 
 # cvs2cl
 MAINTAINERCLEANFILES = ChangeLog
