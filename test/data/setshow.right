@@ -1,4 +1,5 @@
 (dbg-test2.sh:6):
+fn1 () { echo "fn1 here" x=5 fn3 }
 +# Test of miscellaneous commands:
 +# 'source', 'info args', 'show args', 'show warranty', 'show copying', etc.
 +#### Invalid commands...

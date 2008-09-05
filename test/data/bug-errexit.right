@@ -1,10 +1,13 @@
 (bug-errexit.sh:4):
+set -o errexit
 +# We once had a bug when some options were set (errexit and -u)
 +# Make sure this doesn't happen again.
 +step- 
 (bug-errexit.sh:5):
+set -u
 +step- 
 (bug-errexit.sh:6):
+print one
 +where 1
 ->0 in file `bug-errexit.sh' at line 6
 +quit 

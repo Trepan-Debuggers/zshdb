@@ -1,4 +1,5 @@
 (nexting.sh:3):
+p () { print ${funcfiletrace[0]##*/} print '===' }
 +set basename on
 +# Make sure autostep is off for next text
 +set force off
@@ -6,10 +7,12 @@
 Show stepping forces a new line is off.
 +next 
 (nexting.sh:4):
+setopt ksharrays
 +where 1
 ->0 in file `nexting.sh' at line 4
 +next 
 (nexting.sh:5):
+p
 +where 1
 ->0 in file `nexting.sh' at line 5
 +# Test that next+ skips multiple statements
@@ -17,6 +20,7 @@ Show stepping forces a new line is off.
 nexting.sh:5
 ===
 (nexting.sh:6):
+p
 +where 1
 ->0 in file `nexting.sh' at line 6
 +# Same thing - but should stop at 2nd statement in line
@@ -24,10 +28,12 @@ nexting.sh:5
 nexting.sh:6
 ===
 (nexting.sh:6):
+x=6
 +where 1
 ->0 in file `nexting.sh' at line 6
 +next 
 (nexting.sh:7):
+p
 +where 1
 ->0 in file `nexting.sh' at line 7
 +# Now check with set force on
@@ -38,6 +44,7 @@ Show stepping forces a new line is on.
 nexting.sh:7
 ===
 (nexting.sh:8):
+p
 +where 1
 ->0 in file `nexting.sh' at line 8
 +# Override force
@@ -45,10 +52,12 @@ nexting.sh:7
 nexting.sh:8
 ===
 (nexting.sh:8):
+x=8
 +where 1
 ->0 in file `nexting.sh' at line 8
 +next- 
 (nexting.sh:9):
+p
 +where 1
 ->0 in file `nexting.sh' at line 9
 +# A null command should use the last next
@@ -56,14 +65,17 @@ nexting.sh:8
 nexting.sh:9
 ===
 (nexting.sh:9):
+x=9
 +where 1
 ->0 in file `nexting.sh' at line 9
 +next- 
 (nexting.sh:10):
+p
 +next 
 nexting.sh:10
 ===
 (nexting.sh:11):
+p
 +where 1
 ->0 in file `nexting.sh' at line 11
 +# Try a null command the other way
@@ -71,12 +83,14 @@ nexting.sh:10
 nexting.sh:11
 ===
 (nexting.sh:12):
+p
 +where 1
 ->0 in file `nexting.sh' at line 12
 +next+ 
 nexting.sh:12
 ===
 (nexting.sh:13):
+p
 +where 1
 ->0 in file `nexting.sh' at line 13
 +quit 

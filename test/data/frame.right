@@ -1,4 +1,5 @@
 (hanoi.sh:6):
+init () { if (( $tracing )) then _Dbg_linetrace=1 fi }
 +# Test of frame commands
 +# We also try all of the various where/backtrace variants
 +# Do we give a valid stack listing initially?
@@ -14,6 +15,7 @@
 +# Let's start with a couple of stack entries
 +step 7
 (hanoi.sh:8):
+if (( $tracing )) then _Dbg_linetrace=1 fi
 +where 2
 ->0 in file `hanoi.sh' at line 8
 ##1 init called from file `hanoi.sh' at line 36
@@ -49,6 +51,7 @@
 +## continue hanoi
 +step 12
 (hanoi.sh:16):
+typeset -r a=$2
 +where 3
 ->0 in file `hanoi.sh' at line 16
 ##1 hanoi called from file `hanoi.sh' at line 21

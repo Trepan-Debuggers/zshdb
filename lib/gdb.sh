@@ -44,6 +44,11 @@ function _Dbg_print_location {
     fi
 }
 
+function _Dbg_print_location_and_command {
+    _Dbg_print_location $@
+   _Dbg_msg $ZSH_DEBUG_CMD
+}
+
 # Print position $1 of stack frame (from global _Dbg_frame_stack)
 # Prefix the entry with $2 if that's set.
 _Dbg_print_frame() {
