@@ -1,8 +1,10 @@
 pkgdatadir        = ${datadir}/@PACKAGE@/lib
 pkgdata_DATA =      	\
 	alias.sh    	\
+	break.sh    	\
 	columns.sh  	\
 	file.sh  	\
+	filecache.sh  	\
 	fns.sh  	\
 	frame.sh        \
 	gdb.sh  	\
