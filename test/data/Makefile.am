@@ -5,11 +5,18 @@ check_DATA = \
 	bug-errexit.right  \
 	bugIFS.cmd         \
 	bugIFS.right       \
+	frame.cmd          \
+	frame.right        \
+	lopts.right        \
+	next.cmd           \
+	next.right         \
 	setshow.cmd        \
 	setshow.right      \
 	skip.cmd           \
 	skip.right         \
+	sopts.right        \
 	step.cmd           \
-	step.right
+	step.right         \
+	quit.cmd
 
 EXTRA_DIST = $(check_DATA)

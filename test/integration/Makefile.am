@@ -1,4 +1,6 @@
 TESTS = \
+	lopts.tests        \
+	sopts.tests        \
 	test-bug-args      \
 	test-bugIFS        \
 	test-bug-errexit   \
