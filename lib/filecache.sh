@@ -47,8 +47,10 @@ function _Dbg_readin {
     typeset -i line_count=0
     typeset -ir NOT_SMALLFILE=1000
 
-    typeset -ir next=${#_Dbg_filenames[@]}
-    typeset source_array_var="_Dbg_source_${next}"
+    typeset -i next;
+    next=${#_Dbg_filenames[@]}
+    typeset source_array_var;
+    source_array_var="_Dbg_source_${next}"
 
     if [[ -z filename ]] || [[ filename == _Dbg_bogus_file ]] ; then 
 	eval "typeset -a $source_array_var; ${source_array_var}=()"

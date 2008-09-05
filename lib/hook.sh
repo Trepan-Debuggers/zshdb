@@ -36,7 +36,6 @@ function _Dbg_debug_trap_handler {
     ((_Dbg_skipping_fn =
 	    (_Dbg_return_level >= 0 && 
 	     ${#funcfiletrace[@]} > _Dbg_return_level) ))
-    # echo "${#funcfiletrace[@]} vs $_Dbg_return_level ; $_Dbg_skipping_fn"
 
     # if in step mode, decrement counter
     if ((_Dbg_step_ignore > 0)) ; then 
@@ -59,13 +58,48 @@ function _Dbg_debug_trap_handler {
 	    return $_Dbg_rc
 	fi
     fi
-
+    
+    typeset -i set_entry_called=0
     # Determine if we stop or not. 
+
+    # Check breakpoints.
+    if ((_Dbg_brkpt_count > 0)) ; then 
+	_Dbg_set_debugger_entry; set_entry_called=1
+	typeset full_filenaname
+	typeset file_line
+	file_line=${funcfiletrace[-2]}
+	_Dbg_split "$file_line" ':'
+	full_filename=${split_result[0]}
+	lineno=${split_result[1]}
+	full_filename=$(_Dbg_is_file $full_filename)
+	typeset -a linenos
+	linenos=${_Dbg_brkpt_file2linenos[$full_filename]}
+	if [[ $linenos =~ " $lineno "  ]] ; then
+	    # TODO: check conditions and find actual entry.
+	    if ((_Dbg_step_force)) ; then
+		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
+		typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
+		_Dbg_frame_save_frames 1
+	    else
+		_Dbg_frame_save_frames 1
+	    fi
+	    _Dbg_msg 'Breakpoint hit'
+	    _Dbg_print_location
+	    _Dbg_stop_reason='breakpoint reached'
+	    _Dbg_process_commands
+	    _Dbg_set_to_return_from_debugger 1
+	    (( $_Dbg_rc == 2 )) && setopt errexit  # Set to skip statement
+	    return $_Dbg_rc
+	fi
+    fi
 
     # Check if step mode and number steps to ignore.
     if ((_Dbg_step_ignore == 0 && ! _Dbg_skipping_fn )); then
 
-	_Dbg_set_debugger_entry
+	if ((set_entry_called == 0)) ; then
+	    _Dbg_set_debugger_entry
+	    set_entry_called=1
+	fi
 	if ((_Dbg_step_force)) ; then
 	    typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
 	    typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
@@ -93,7 +127,10 @@ function _Dbg_debug_trap_handler {
 	    sleep $_Dbg_linetrace_delay
 	fi
 
-	_Dbg_set_debugger_entry
+	if (($set_entry_called == 0)) ; then
+	    _Dbg_set_debugger_entry
+	    set_entry_called=1
+	fi
 	_Dbg_frame_save_frames 1
 	_Dbg_print_location
 

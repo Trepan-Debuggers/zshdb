@@ -31,6 +31,9 @@ _Dbg_keep=('keep' 'del')
 # Line number of breakpoint
 typeset -a _Dbg_brkpt_line; _Dbg_brkpt_line=()
 
+# Number of breakpoints.
+typeset -i _Dbg_brkpt_count=0
+
 # filename of breakpoint
 typeset -a  _Dbg_brkpt_file; _Dbg_brkpt_file=()
 
@@ -48,7 +51,10 @@ typeset -a  _Dbg_brkpt_cond; _Dbg_brkpt_cond=()
 
 # Needed because we can't figure out what the max index is and arrays
 # can be sparse.
-typeset -i  _Dbg_brkpt_max; _Dbg_brkpt_max=0 
+typeset -i  _Dbg_brkpt_max=0 
+
+# Maps a resolved filename to a list of breakpoint entries.
+typeset -A _Dbg_brkpt_file2linenos; _Dbg_brkpt_file2linenos=()
  
 # Note: we loop over possibly sparse arrays with _Dbg_brkpt_max by adding one
 # and testing for an entry. Could add yet another array to list only 
@@ -167,15 +173,16 @@ _Dbg_clear_all_brkpt() {
 # Internal routine to a set breakpoint unconditonally. 
 
 _Dbg_set_brkpt() {
-  typeset source_file=$1
-  typeset -ir line=$2
+  typeset source_file="$1"
+  typeset -ir lineno=$2
   typeset -ir is_temp=$3
   typeset -r  condition=${4:-1}
 
   # Increment brkpt_max here because we are 1-origin
   ((_Dbg_brkpt_max++))
+  ((_Dbg_brkpt_count++))
 
-  _Dbg_brkpt_line[$_Dbg_brkpt_max]=$line
+  _Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno
   _Dbg_brkpt_file[$_Dbg_brkpt_max]="$source_file"
   _Dbg_brkpt_cond[$_Dbg_brkpt_max]="$condition"
   _Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp
@@ -184,18 +191,26 @@ _Dbg_set_brkpt() {
 
   typeset dq_source_file=$(_Dbg_esc_dq "$source_file")
   typeset dq_condition=$(_Dbg_esc_dq "$condition")
-  _Dbg_write_journal "_Dbg_brkpt_line[$_Dbg_brkpt_max]=$line"
+  _Dbg_write_journal "_Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno"
   _Dbg_write_journal "_Dbg_brkpt_file[$_Dbg_brkpt_max]=\"$dq_source_file\""
   _Dbg_write_journal "_Dbg_brkpt_cond[$_Dbg_brkpt_max]=\"$dq_condition\""
   _Dbg_write_journal "_Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp"
   _Dbg_write_journal "_Dbg_brkpt_count[$_Dbg_brkpt_max]=\"0\""
   _Dbg_write_journal "_Dbg_brkpt_enable[$_Dbg_brkpt_max]=1"
 
+  # Add line number with a leading and trailing space. Delimiting the
+  # number with space helps do a string search for the line number.
+  if [[ -z _Dbg_brkpt_file2linenos[$source_file] ]] ; then
+      _Dbg_brkpt_file2linenos[$source_file]="$ lineno "  
+  else
+      _Dbg_brkpt_file2linenos[$source_file]+=" $lineno "
+  fi
+
   source_file=$(_Dbg_adjust_filename "$source_file")
   if (( $is_temp == 0 )) ; then 
-    _Dbg_msg "Breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $line."
+    _Dbg_msg "Breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
   else 
-    _Dbg_msg "One-time breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $line."
+    _Dbg_msg "One-time breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
   fi
   _Dbg_write_journal "_Dbg_brkpt_max=$_Dbg_brkpt_max"
 }
@@ -234,6 +249,7 @@ _Dbg_unset_brkpt() {
     else
       _Dbg_unset_brkpt_arrays $del
       ((found++))
+      ((_Dbg_brkpt_count--))
     fi
   done
   _Dbg_write_journal_eval "unset _Dbg_brkpt_$filevar[$line]"

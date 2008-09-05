@@ -106,6 +106,7 @@ _Dbg_frame_lineno() {
 # first (most recent) $1 of these. We assume "setopt ksharrarrys" 
 # (origin 0) has beeen set previously.
 _Dbg_frame_save_frames() {
+    setopt ksharrays
     typeset ignore=${1:-0}
     typeset -i i
     typeset -i j=$ignore

@@ -130,7 +130,7 @@ _Dbg_do_list_brkpt() {
       return 1
   fi
 
-  if (( ${#_Dbg_brkpt_line[@]} != 0 )); then
+  if (( _Dbg_brkpt_count > 0 )); then
     typeset -i i
 
     _Dbg_msg "Num Type       Disp Enb What"
