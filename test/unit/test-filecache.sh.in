@@ -9,10 +9,10 @@ setopt ksharrays
 test_readin()
 {
     typeset filename
-    _Dbg_readin ${srcdir}/shunit2
+    _Dbg_readin ${srcdir}shunit2
     assertEquals '0' $?
     typeset file2
-    file2=$(_Dbg_is_file ${srcdir}/shunit2)
+    file2=$(_Dbg_is_file ${srcdir}shunit2)
     assertEquals '0' $?
     assertNotEquals '' "$file2"
 }
@@ -38,6 +38,6 @@ set -o shwordsplit
 SHUNIT_PARENT=$0
 
 srcdir=.
-srcdir=${srcdir}/
-. ${srcdir}/shunit2
+srcdir=${srcdir%%/}/
+. ${srcdir}shunit2
 

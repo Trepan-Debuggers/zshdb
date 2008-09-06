@@ -16,6 +16,7 @@
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+
 # Directory search patch for unqualified file names
 
 typeset -a _Dbg_dir
@@ -73,7 +74,8 @@ function _Dbg_resolve_expand_filename {
 
   if [[ ${find_file[0]} == '/' ]] ; then 
     # Absolute file name
-    print -- "$find_file"
+    full_find_file=$(_Dbg_expand_filename $find_file)
+    print -- "$full_find_file"
     return 0
   elif [[ ${find_file[0]} == '.' ]] ; then
     # Relative file name

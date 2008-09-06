@@ -72,7 +72,7 @@ _Dbg_source_journal() {
   fi
 }
 
-# if [ ! -f _Dbg_journal ] ; then 
-#   typeset -i BASHDB_QUIT_LEVELS=0
-#   _Dbg_write_journal "BASHDB_QUIT_LEVELS=0"
-# fi
+if [ ! -f _Dbg_journal ] ; then 
+  typeset -i SHELL_QUIT_LEVELS=0
+  _Dbg_write_journal "SHELL_QUIT_LEVELS=0"
+fi

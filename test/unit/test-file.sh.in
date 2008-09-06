@@ -1,6 +1,8 @@
 #!@SH_PROG@
 # -*- shell-script -*-
 
+PS4='(%N:%i): [%?] zsh+ 
+'
 setopt ksharrays
 
 # Test _Dbg_glob_filename
@@ -8,15 +10,15 @@ test_glob_filename()
 {
     typeset filename
     filename=''
-    _Dbg_glob_filename ${srcdir}/shunit2
+    _Dbg_glob_filename ${srcdir}shunit2
     assertEquals '0' $?
     filename=${filename##*/}  
     assertEquals 'shunit2' $filename
-    _Dbg_glob_filename ./${srcdir}/shunit?
+    _Dbg_glob_filename ./${srcdir}shunit?
     assertEquals '0' $?
     filename=${filename##*/}  
     assertEquals 'shunit2' $filename
-    _Dbg_glob_filename ${srcdir}/abcdefg
+    _Dbg_glob_filename ${srcdir}abcdefg
     assertEquals '1' $?
     filename=${filename##*/}  
     assertEquals 'abcdefg' $filename
@@ -42,21 +44,15 @@ test_resolve_expand_filename()
 {
     filename=$(_Dbg_resolve_expand_filename /)
     assertEquals '0' $?
-    assertEquals '/' $filename
+    assertEquals '/' "$filename"
     filename=$(_Dbg_resolve_expand_filename .)
     assertEquals '0' $?
-    assertEquals '/' ${filename[0]}
+    assertEquals '/' "${filename[0]}"
     filename=$(_Dbg_resolve_expand_filename ./fdafdsa)
     assertEquals '0' $?
-    assertEquals '/fdafdsa' ${filename[-8,-1]}
-    assertNotEquals '.' ${filename[-9]}
+    assertEquals '/fdafdsa' "${filename[-8,-1]}"
+    assertNotEquals '.' "${filename[-9]}"
 }
-
-# Make sure /src/git/zshdb has a trailing slash
-if [ '/src/git/zshdb' = '' ] ; then
-  echo "Something is wrong abs_top_srcdir is not set."
- exit 1
-fi
 
 abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
@@ -72,6 +68,6 @@ set -o shwordsplit
 SHUNIT_PARENT=$0
 
 srcdir=@srcdir@
-srcdir=${srcdir}/
-. ${srcdir}/shunit2
+srcdir=${srcdir%%/}/
+. ${srcdir}shunit2
 

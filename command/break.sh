@@ -33,13 +33,13 @@ _Dbg_do_break() {
   if (( $# > 0 )) ; then 
       n=$1
   else
-      _Dbg_frame_lineno; n=$?
+      _Dbg_frame_lineno; n=$_Dbg_frame_lineno
   fi
   shift
 
-  typeset condition=${1:-''};
+  typeset condition=${1:-''}
   if [[ "$n" == 'if' ]]; then
-      _Dbg_frame_lineno; n=$?
+    _Dbg_frame_lineno; n=$_Dbg_frame_lineno
   elif [[ -z $condition ]] ; then
     condition=1
   elif [[ $condition == 'if' ]] ; then
@@ -55,18 +55,18 @@ _Dbg_do_break() {
   typeset -i line_number
   typeset full_filename
 
-  _Dbg_linespec_setup $n
+  _Dbg_linespec_setup "$n"
 
-  if [[ -n $full_filename ]]  ; then 
-    if (( $line_number ==  0 )) ; then 
-      _Dbg_errmsg "There is no line 0 to break at."
+  if [[ -n "$full_filename" ]]  ; then 
+    if (( line_number ==  0 )) ; then 
+      _Dbg_errmsg 'There is no line 0 to break at.'
     else 
       _Dbg_check_line $line_number "$full_filename"
       (( $? == 0 )) && \
 	_Dbg_set_brkpt "$full_filename" "$line_number" $is_temp "$condition"
     fi
   else
-    _Dbg_file_not_read_in $filename
+    _Dbg_file_not_read_in "$filename"
   fi
 }
 
@@ -151,9 +151,8 @@ _Dbg_do_list_brkpt() {
       fi
     done
   else
-    _Dbg_errmsg "No breakpoints have been set."
+    _Dbg_errmsg 'No breakpoints have been set.'
   fi
 }
 
 _Dbg_alias_add b break
-
