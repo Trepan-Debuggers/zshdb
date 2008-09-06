@@ -23,6 +23,7 @@
 
 # Set initial line tracing flag off
 typeset -i _Dbg_linetrace=0 
+typeset -i _Dbg_linewidth; _Dbg_linewidth=${COLUMNS:-80} 
 typeset -i _Dbg_linetrace_expand=0 # expand variables in linetrace output
 typeset    _Dbg_linetrace_delay=1  # sleep after linetrace
 
@@ -54,21 +55,18 @@ _Dbg_do_set() {
       done
       ;;
     an | ann | anno | annot | annota | annotat | annotate )
-      eval "$_seteglob"
       if [[ -z $2 ]] ; then
 	  _Dbg_msg "Argument required (integer to set it to.)."
-      elif [[ $1 == $int_pat ]] ; then 
+      elif [[ $1 == [0-9]* ]] ; then 
 	if (( $1 > 1 )) ; then
 	  _Dbg_msg "annotation level must be 0 or 1"
 	else
 	_Dbg_write_journal_eval "_Dbg_annotate=$1"
 	fi
       else
-	eval "$_resteglob"
 	_Dbg_msg "Integer argument expected; got: $1"
 	return 1
       fi
-      eval "$_resteglob"
       return 0
       ;;
     au | aut | auto | autoe | autoev | autoeva | autoeval )
@@ -162,7 +160,7 @@ _Dbg_do_set() {
 	  eval "$_seteglob"
 	  if [[ -z $2 ]] ; then
 	    _Dbg_msg "Argument required (integer to set it to.)."
-	  elif [[ $2 != $int_pat ]] ; then 
+	  elif [[ $2 != [0-9]* ]] ; then 
 	    _Dbg_msg "Bad int parameter: $2"
 	    eval "$_resteglob"
 	    return 1
@@ -185,10 +183,8 @@ _Dbg_do_set() {
 	  _Dbg_write_journal_eval "_Dbg_linetrace=0"
 	  ;;
 	d | de | del | dela | delay )
-	  eval "$_seteglob"
-	  if [[ $2 != $int_pat ]] ; then 
+	  if [[ $2 != [0-9]* ]] ; then 
 	    _Dbg_msg "Bad int parameter: $2"
-	    eval "$_resteglob"
 	    return 1
 	  fi
 	  eval "$_resteglob"
@@ -216,15 +212,12 @@ _Dbg_do_set() {
       return 0
       ;;
     li | lis | list | lists | listsi | listsiz | listsize )
-      eval "$_seteglob"
-      if [[ $1 == $int_pat ]] ; then 
+      if [[ $1 == [0-9]* ]] ; then 
 	_Dbg_write_journal_eval "_Dbg_listsize=$1"
       else
-	eval "$_resteglob"
 	_Dbg_msg "Integer argument expected; got: $1"
 	return 1
       fi
-      eval "$_resteglob"
       return 0
       ;;
     lo | log | logg | loggi | loggin | logging )
@@ -263,6 +256,15 @@ _Dbg_do_set() {
 	* )
 	  _Dbg_msg "\"on\", \"off\" expected."
       esac
+      return 0
+      ;;
+    w | wi | wid | width )
+      if [[ $1 == [0-9]* ]] ; then 
+	_Dbg_write_journal_eval "_Dbg_linewidth=$1"
+      else
+	_Dbg_msg "Integer argument expected; got: $1"
+	return 1
+      fi
       return 0
       ;;
     *)

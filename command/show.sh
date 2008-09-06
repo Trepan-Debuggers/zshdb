@@ -29,7 +29,7 @@ _Dbg_do_show() {
   typeset label=$2
 
   # Warranty, copying, directories, and aliases are omitted below.
-  typeset -r subcmds="annotate args autoeval basename debugger force listsize prompt trace-commands"
+  typeset -r subcmds='annotate args autoeval basename debugger force listsize prompt trace-commands width'
 
   if [[ -z $show_cmd ]] ; then 
       typeset thing
@@ -48,7 +48,8 @@ _Dbg_do_show() {
 	 list+=("${alias}: ${_Dbg_aliases[$alias]}")
       done
       setopt ksharrays
-      typeset -a columnized; columnize 50  '  |  '
+      typeset -i width; ((width=_Dbg_linewidth-5))
+      typeset -a columnized; columnize $width  '  |  '
       typeset -i i
       for ((i=0; i<${#columnized[@]}; i++)) ; do 
 	  _Dbg_msg "  ${columnized[i]}"
@@ -449,6 +450,12 @@ of promoting the sharing and reuse of software generally.
       ;;
     w | wa | war | warr | warra | warran | warrant | warranty )
       _Dbg_do_info warranty
+      return 0
+      ;;
+    wi | wid | width )
+      [[ -n $label ]] && label='width: '
+     _Dbg_msg \
+"${label}Line width is $_Dbg_linewidth."
       return 0
       ;;
     *)

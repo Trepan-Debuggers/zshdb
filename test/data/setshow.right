@@ -268,6 +268,8 @@ make exceptions for this.  Our decision will be guided by the two goals
 of preserving the free status of all derivatives of our free software and
 of promoting the sharing and reuse of software generally.
 
++#### and show...
++set width 80
 +show 
 annotate: Annotation_level is 0.
 args:     Argument list to give script when debugged program starts is:
@@ -280,7 +282,7 @@ listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:
        "$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater} ".
 trace-commands: State of command tracing is on.
-+#### and show...
+width: Line width is 80.
 +show args
 Argument list to give script when debugged program starts is:
        "testarg1 testarg2".
@@ -291,7 +293,6 @@ Argument list to give script when debugged program starts is:
 +set misspelled 40
 Undefined set command "misspelled"
 +set listsize 40
-Integer argument expected; got: 40
 +set listsize bad
 Integer argument expected; got: bad
 +set annotate bad
@@ -303,9 +304,12 @@ Annotation_level is 0.
 +set annotate 1
 Argument required (integer to set it to.).
 +show listsize
-Number of source lines zshdb will list by default is 10.
+Number of source lines zshdb will list by default is 40.
 +show annotate
 Annotation_level is 0.
++set width 40
++show width
+Line width is 40.
 +# set history size
 +# set history size 10
 +# show history

@@ -7,8 +7,9 @@ another-bad-command
 #### *** GNU things...
 # show warranty
 show copying
-show
 #### and show...
+set width 80
+show
 show args
 set args now is the time
 show args
@@ -21,6 +22,8 @@ show annotate
 set annotate 1
 show listsize
 show annotate
+set width 40
+show width
 # set history size
 # set history size 10
 # show history

@@ -46,7 +46,12 @@ function _Dbg_print_location {
 
 function _Dbg_print_location_and_command {
     _Dbg_print_location $@
-   _Dbg_msg $ZSH_DEBUG_CMD
+    typeset -i width; ((width=_Dbg_linewidth-6))
+    if (( ${#ZSH_DEBUG_CMD} > width )) ; then
+	_Dbg_msg "${ZSH_DEBUG_CMD[0,$width]} ..."
+    else
+	_Dbg_msg $ZSH_DEBUG_CMD
+    fi
 }
 
 # Print position $1 of stack frame (from global _Dbg_frame_stack)

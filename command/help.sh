@@ -27,11 +27,11 @@ _Dbg_do_help() {
       typeset -a commands
       unsetopt ksharrays
       commands=(${(ki)_Dbg_command_help})
-#      print -C $_Dbg_help_cols $commands
       typeset -a list
       list=(${commands[@]})
       setopt ksharrays
-      typeset -a columnized; columnize 45
+      typeset -i width; ((width=_Dbg_linewidth-5))
+      typeset -a columnized; columnize $width
       typeset -i i
       for ((i=0; i<${#columnized[@]}; i++)) ; do 
 	  _Dbg_msg "  ${columnized[i]}"
