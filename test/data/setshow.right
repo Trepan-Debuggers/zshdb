@@ -278,7 +278,7 @@ debugger: Allow debugging the debugger is off.
 force: Show stepping forces a new line is off.
 listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:
-       "zshdb<1> ".
+       "$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater} ".
 trace-commands: State of command tracing is on.
 +#### and show...
 +show args

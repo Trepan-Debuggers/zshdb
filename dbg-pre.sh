@@ -26,12 +26,17 @@
 # file: either in lib or (less good) command.
 
 # Are we using a debugger-enabled shell? If not let's stop right here.
-typeset -fuz is-at-least  # Same as "functions -u -z" but better documented.
-if ! is-at-least 4.3.6-dev-0 ; then
-  print "Sorry, your $_Dbg_shell_name just isn't modern enough." 2>&1
-  print "We need 4.3.6-dev-0 or greater." 2>&1
-  exit 30
-fi
+typeset old_setopt="$-"
+
+# is-at-least messes up in some situations so we have to not use it for now.
+# typeset -fuz is-at-least  # Same as "functions -u -z" but better documented.
+# if ! is-at-least 4.3.6-dev-0 ; then
+#   print "Sorry, your $_Dbg_shell_name just isn't modern enough." 2>&1
+#   print "We need 4.3.6-dev-0 or greater." 2>&1
+#   exit 30
+# fi
+# is-at-least does an emulate -L zsh
+# emulate -L ksh
 
 [[ -z $_Dbg_release ]] || return
 typeset -r _Dbg_release='0.01git'

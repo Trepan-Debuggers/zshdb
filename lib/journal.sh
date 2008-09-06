@@ -52,10 +52,10 @@ _Dbg_write_journal_avar() {
 # Append a command into journal file. But we only need to do
 # if we are in a subshell.
 _Dbg_write_journal() {
-#   if (( $BASH_SUBSHELL != 0 )) ; then
-#     echo "$@" >> ${_Dbg_journal} 2>/dev/null
-#   fi
-  # return $?
+  if (( ZSH_SUBSHELL != 0 )) ; then
+    echo "$@" >> ${_Dbg_journal} 2>/dev/null
+  fi
+  return $?
 }
 
 # Remove all journal files.

@@ -1,6 +1,25 @@
 #!@SH_PROG@
 # -*- shell-script -*-
 
+test_copies()
+{
+    typeset result='bogus'
+
+#     _Dbg_copies 'a' 'b'
+#     assertFalse '_Dbg_copies "a" "b" should fail' "$?"
+
+    _Dbg_copies 'a' -1
+    assertFalse '_Dbg_copies "a" -1 should fail' "$?"
+
+    _Dbg_copies 'a' 3
+    assertTrue '_Dbg_copies "a" 3 should succeed' "$?"
+    assertEquals 'aaa' "$result"
+
+    _Dbg_copies ' ab' 4
+    assertTrue '_Dbg_copies " ab" 4 should succeed' "$?"
+    assertEquals ' ab ab ab ab' "$result"
+}
+
 # Test _Dbg_eqs_dq
 test_esc_dq_function()
 {

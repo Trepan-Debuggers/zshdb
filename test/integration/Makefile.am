@@ -1,6 +1,4 @@
 TESTS = \
-	lopts.tests        \
-	sopts.tests        \
 	test-bug-args      \
 	test-bugIFS        \
 	test-bug-errexit   \
@@ -21,7 +19,8 @@ TESTS_ENVIRONMENT = \
   builddir="$(abs_builddir)"
 
 EXTRA_DIST = $(TESTS) $(check_DATA) \
-	check-common.sh.in
-
+	check-common.sh.in \
+	lopts.tests        \
+	sopts.tests
 
 

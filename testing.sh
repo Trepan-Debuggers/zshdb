@@ -6,7 +6,7 @@ fooffdafsd
 y='
 abc def'
 x=($y)  # get different results if unsetopt shwordsplit
-echo another line
+( echo another line )
 foo() {
   echo calling bar 10
   bar 10

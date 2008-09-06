@@ -64,7 +64,7 @@ for shunit_const_ in ${shunit_constants_}; do
       *) shunit_ro_opts_='-g' ;;  # declare readonly constants globally
     esac
   fi
-  readonly ${shunit_ro_opts_} ${shunit_const_}
+  # readonly ${shunit_ro_opts_} ${shunit_const_}
 done
 unset shunit_const_ shunit_constants_ shunit_ro_opts_
 

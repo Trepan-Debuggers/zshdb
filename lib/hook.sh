@@ -24,6 +24,8 @@ function _Dbg_debug_trap_handler {
     _Dbg_old_set_opts=$-
     # Turn off line and variable trace listing.
     set +x +v +u +e
+    setopt localtraps
+    trap 'print ERROR AT: ${funcfiletrace[@]}' ERR
 
     typeset -i _Dbg_debugged_exit_code=$1
     shift

@@ -18,6 +18,21 @@
 typeset -a _Dbg_yn
 _Dbg_yn=("n" "y")         
 
+# Return $2 copies of $1. If successful, $? is 0 and the return value
+# is in result.  Otherwise $? is 1 and result ''
+function _Dbg_copies { 
+    result=''
+    (( $# < 2 )) && return 1
+    typeset -r string="$1"
+    typeset -i count=$2 || return 2;
+    (( count > 0 )) || return 3
+    result=$(builtin printf "%${count}s" ' ')
+    typeset cmd
+    cmd="result=\${result// /$string}"
+    eval $cmd
+    return 0
+}
+
 # Add escapes to a string $1 so that when it is read back using
 # eval echo "$1" it is the same as echo $1.
 function _Dbg_esc_dq {

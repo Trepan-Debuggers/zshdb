@@ -98,20 +98,9 @@ Like next, this can done with or without support from zsh, albeit
 faster with help from zsh. Changing scope when changing frames however
 has to be done with zsh support. 
 
-3.d) Information persisting when a subshell is left
+3.d) Setting $0
 
-One of the challenges of POSIX shells is to be able to pass
-information back from a subshell or nested shell back to a
-parent. bashdb uses a journal file for this and tests SHLVL and
-BASH_SUBSHELL; zshdb lacks the latter. BASH_SUBSHELL is probably a
-simple thing to add though.
-
-Adding breakpoints and debugger settings will make this problem more
-apparent.
-
-3.e) Setting $0
-
-3.f) lots of other stuff including...
+3.e) lots of other stuff including...
 
   display expressions, signal handling, invoking the debugger directly
   from a script, command history, command completion.

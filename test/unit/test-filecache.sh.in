@@ -11,7 +11,8 @@ test_readin()
     typeset filename
     _Dbg_readin ${srcdir}/shunit2
     assertEquals '0' $?
-    typeset file2=$(_Dbg_is_file ${srcdir}/shunit2)
+    typeset file2
+    file2=$(_Dbg_is_file ${srcdir}/shunit2)
     assertEquals '0' $?
     assertNotEquals '' "$file2"
 }
@@ -27,6 +28,7 @@ abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 
 _Dbg_libdir=$abs_top_srcdir
+set -- -q  # Don't need to show banner
 . $abs_top_srcdir/dbg-pre.sh
 . $abs_top_srcdir/lib/filecache.sh
 . $abs_top_srcdir/lib/file.sh

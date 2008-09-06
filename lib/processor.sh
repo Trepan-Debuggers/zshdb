@@ -19,7 +19,7 @@
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
 
-typeset _Dbg_prompt_str="$_Dbg_debugger_name<1> "
+typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater} '
 
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
@@ -57,7 +57,19 @@ function _Dbg_process_commands {
   # Loop over all pending open input file descriptors
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
 
-    typeset _Dbg_prompt="$_Dbg_prompt_str"
+    # Set up prompt to show shell and subshell levels.
+    typeset _Dbg_greater='>'
+    typeset _Dbg_less='<'
+    typeset result  # Used by copies to return a value.
+
+    if _Dbg_copies ')' $ZSH_SUBSHELL ; then
+	_Dbg_greater="${result}${_Dbg_greater}"
+	_Dbg_less="${_Dbg_less}${result//)/(}"
+    fi
+
+
+    typeset _Dbg_prompt
+    eval "_Dbg_prompt=$_Dbg_prompt_str"
     # _Dbg_preloop
     typeset _Dbg_cmd 
     typeset args
