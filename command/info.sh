@@ -149,10 +149,20 @@ POSSIBILITY OF SUCH DAMAGES.
 	return
 	;;
       *)
-	_Dbg_errmsg "Unknown subcommand: $info_cmd"
+	_Dbg_errmsg "Unknown info subcommand: $info_cmd"
     esac
   fi
-  _Dbg_msg "Info subcommands are: ${subcmds[@]}"
+  typeset -a list
+  list=(${subcmds[@]})
+  typeset columnized=''
+  typeset -i width; ((width=_Dbg_linewidth-5))
+  typeset -a columnized; columnize $width
+  typeset -i i
+  _Dbg_errmsg "Info subcommands are:"
+  for ((i=0; i<${#columnized[@]}; i++)) ; do 
+      _Dbg_errmsg "  ${columnized[i]}"
+  done
+  return 1
 }
 
 # _Dbg_do_info_args() {

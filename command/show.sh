@@ -459,8 +459,17 @@ of promoting the sharing and reuse of software generally.
       return 0
       ;;
     *)
-      _Dbg_msg "Don't know how to show $show_cmd."
-      return 1
+    _Dbg_errmsg "Unknown show subcommand: $show_cmd"
+    typeset -a list; list=(${subcmds[@]})
+    typeset columnized=''
+    typeset -i width; ((width=_Dbg_linewidth-5))
+    typeset -a columnized; columnize $width
+    typeset -i i
+    _Dbg_errmsg "Show subcommands are:"
+    for ((i=0; i<${#columnized[@]}; i++)) ; do 
+	_Dbg_errmsg "  ${columnized[i]}"
+    done
+    return 1
   esac
 }
 

@@ -16,6 +16,7 @@ pkgdata_DATA =      	\
 	processor.sh  	\
 	run.sh    	\
 	save-restore.sh	\
-	set-d-vars.sh
+	set-d-vars.sh   \
+	sort.sh
 
 EXTRA_DIST = $(pkgdata_DATA)

@@ -1,14 +1,14 @@
 set trace-commands on
 # Test of miscellaneous commands: 
 # 'source', 'info args', 'show args', 'show warranty', 'show copying', etc.
-#### Invalid commands...
-show badcommand
-another-bad-command
 #### *** GNU things...
 # show warranty
 show copying
 #### and show...
 set width 80
+#### Invalid commands...
+show badcommand
+another-bad-command
 show
 show args
 set args now is the time

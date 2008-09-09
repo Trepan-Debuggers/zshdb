@@ -2,11 +2,6 @@
 fn1 () { echo "fn1 here" x=5 fn3 }
 +# Test of miscellaneous commands:
 +# 'source', 'info args', 'show args', 'show warranty', 'show copying', etc.
-+#### Invalid commands...
-+show badcommand
-Don't know how to show badcommand.
-+another-bad-command 
-Undefined command: "another-bad-command". Try "help".
 +#### *** GNU things...
 +# show warranty
 +show copying
@@ -270,6 +265,14 @@ of promoting the sharing and reuse of software generally.
 
 +#### and show...
 +set width 80
++#### Invalid commands...
++show badcommand
+** Unknown show subcommand: badcommand
+** Show subcommands are:
+**   annotate  autoeval  debugger  listsize  trace-commands
+**   args      basename  force     prompt    width         
++another-bad-command 
+Undefined command: "another-bad-command". Try "help".
 +show 
 annotate: Annotation_level is 0.
 args:     Argument list to give script when debugged program starts is:

@@ -133,5 +133,7 @@ AC_CONFIG_FILES([test/unit/test-journal.sh],
 AC_CONFIG_FILES([test/unit/test-run.sh],   [chmod +x test/unit/test-run.sh])
 AC_CONFIG_FILES([test/unit/test-save-restore.sh],
 		[chmod +x test/unit/test-save-restore.sh])
+AC_CONFIG_FILES([test/unit/test-sort.sh],
+		[chmod +x test/unit/test-sort.sh])
 
 AC_OUTPUT
