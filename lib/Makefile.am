@@ -10,6 +10,7 @@ pkgdata_DATA =      	\
 	gdb.sh  	\
 	help.sh    	\
 	hook.sh		\
+	info.sh		\
 	journal.sh  	\
 	msg.sh  	\
 	processor.sh  	\

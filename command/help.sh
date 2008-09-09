@@ -51,6 +51,9 @@ _Dbg_do_help() {
  	      _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
 	  else
 	      case $dbg_cmd in 
+	      i | in | inf | info )
+		_Dbg_info_help $2
+                ;;
 	      sh | sho | show )
 		_Dbg_help_show $2
                 ;;

@@ -171,6 +171,10 @@ _Dbg_onecmd() {
 	help )
 	  _Dbg_do_help $args ;;
 
+	#  Info subcommands
+	info )
+	  _Dbg_do_info $args ;;
+
 	# single-step ignoring functions
 	'next+' | 'next-' | 'next' )
 	  _Dbg_do_next "$_Dbg_cmd" $@
