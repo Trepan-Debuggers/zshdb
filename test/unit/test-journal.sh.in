@@ -1,0 +1,59 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+PS4='(%N:%i): [%?] zsh+ 
+'
+
+setopt ksharrays
+
+# Test _Dbg_glob_filename
+test_journal()
+{
+    typeset -i var
+    # Start off with a clean slate
+    _Dbg_erase_journals 
+    [[ ! -f $_Dbg_journal ]]
+    assertEquals 0 "$?"
+
+    # Set a value to var via eval:
+    _Dbg_write_journal_eval "var=5"
+    assertEquals '5' "$var"
+
+    var=10
+    # Should do nothing since we shouldn't be in a subshell
+    _Dbg_source_journal
+    assertEquals '10' "$var"
+
+    # Now go into a subshell and try again
+    ( _Dbg_write_journal_eval "var=5" )
+    _Dbg_source_journal
+    assertEquals '5' "$var"
+
+    # But since we're not in a subshell not journal file should
+    # now not exist
+    [[ ! -f $_Dbg_journal ]]
+    assertEquals 0 "$?"
+}
+
+
+# Make sure @abs_top_srcdir@ has a trailing slash
+if [ '/src/git/zshdb' = '' ] ; then
+  echo "Something is wrong: abs_top_srcdir is not set."
+ exit 1
+fi
+
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+_Dbg_libdir=$abs_top_srcdir
+set -- -q  # Don't need to show banner
+
+. $abs_top_srcdir/dbg-pre.sh
+. $abs_top_srcdir/lib/journal.sh
+
+# load shunit2
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+srcdir=@srcdir@
+srcdir=${srcdir%%/}/
+. ${srcdir}shunit2

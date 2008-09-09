@@ -60,7 +60,8 @@ _Dbg_write_journal() {
 
 # Remove all journal files.
 _Dbg_erase_journals() {
-  rm ${_Dbg_journal} 2>/dev/null
+  [[ -f $_Dbg_journal ]] && rm ${_Dbg_journal} 2>/dev/null
+  return $?
 }
 
 # read in or "source" in journal file which will set variables.
@@ -71,8 +72,3 @@ _Dbg_source_journal() {
     (( ZSH_SUBSHELL == 0 )) && _Dbg_erase_journals
   fi
 }
-
-if [ ! -f _Dbg_journal ] ; then 
-  typeset -i SHELL_QUIT_LEVELS=0
-  _Dbg_write_journal "SHELL_QUIT_LEVELS=0"
-fi

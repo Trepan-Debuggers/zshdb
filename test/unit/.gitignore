@@ -8,5 +8,6 @@
 /test-filecache.sh
 /test-fns.sh
 /test-frame.sh
+/test-journal.sh
 /test-run.sh
 /test-save-restore.sh

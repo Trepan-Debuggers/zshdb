@@ -1,5 +1,7 @@
 #!@SH_PROG@
 # -*- shell-script -*-
+PS4='(%N:%i): [%?] zsh+ 
+'
 
 test_is_unsetopt()
 {

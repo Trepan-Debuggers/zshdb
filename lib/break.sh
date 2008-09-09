@@ -74,15 +74,15 @@ _Dbg_save_breakpoints() {
   typeset file
   for file in ${_Dbg_filenames[@]} ; do  
     typeset filevar="`_Dbg_file2var $file`"
-    declare -p _Dbg_brkpt_$filevar >> $_Dbg_statefile 2>/dev/null
+    typeset -p _Dbg_brkpt_$filevar >> $_Dbg_statefile 2>/dev/null
   done        
-  declare -p _Dbg_brkpt_line >> $_Dbg_statefile
-  declare -p _Dbg_brkpt_file >> $_Dbg_statefile 
-  declare -p _Dbg_brkpt_cond >> $_Dbg_statefile 
-  declare -p _Dbg_brkpt_count >> $_Dbg_statefile 
-  declare -p _Dbg_brkpt_enable >> $_Dbg_statefile
-  declare -p _Dbg_brkpt_onetime >> $_Dbg_statefile
-  declare -p _Dbg_brkpt_max >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_line >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_file >> $_Dbg_statefile 
+  typeset -p _Dbg_brkpt_cond >> $_Dbg_statefile 
+  typeset -p _Dbg_brkpt_count >> $_Dbg_statefile 
+  typeset -p _Dbg_brkpt_enable >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_onetime >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_max >> $_Dbg_statefile
 
 }
 

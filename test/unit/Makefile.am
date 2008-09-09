@@ -4,6 +4,7 @@ TESTS = test-alias.sh \
 	test-filecache.sh \
 	test-fns.sh \
 	test-frame.sh \
+	test-journal.sh \
 	test-run.sh \
 	test-save-restore.sh
 check_DATA = shunit2
@@ -22,5 +23,6 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-filecache.sh.in \
 	test-fns.sh.in \
 	test-frame.sh.in \
+	test-journal.sh.in \
 	test-run.sh.in \
 	test-save-restore.sh.in
