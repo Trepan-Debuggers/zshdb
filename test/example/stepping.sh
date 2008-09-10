@@ -1,5 +1,5 @@
 #!/bin/zsh
-# For testing step, step+ step-, default step and set force.
+# For testing break, delete, step, step+ step-, default step and set force.
 for ((i=0; i<3; i++)) do print 1st loop $i ; done
 for ((i=0; i<3; i++)) do print 2nd loop $i ; done
 for ((i=0; i<3; i++)) do print 3rd loop $i ; done

@@ -1,0 +1,71 @@
+(stepping.sh:3):
+for ((i=0; i<3; i++)) do print 1st loop $i done
++# Make sure autostep is off for next text
++set force on
++############################### 
++# Invalid delete commands
++delete 0
+** No breakpoint number 0.
++break 4
+Breakpoint 1 set in file stepping.sh, line 4.
++delete 4
+** No breakpoint number 4.
++info break
+Num Type       Disp Enb What
+1   breakpoint keep y   stepping.sh:4
++############################### 
++# Should work
++delete 1
+Removed 1 breakpoint(s).
++info break
+** No breakpoints have been set.
++############################### 
++# Should fail - already deleted
++delete 1
+** No breakpoint number 1.
++break 5
+Breakpoint 2 set in file stepping.sh, line 5.
++continue 
+1st loop 0
+1st loop 1
+1st loop 2
+2nd loop 0
+2nd loop 1
+2nd loop 2
+Breakpoint hit
+(stepping.sh:5):
+for ((i=0; i<3; i++)) do print 3rd loop $i done
++# Should stop at line 5 not 4
++where 1
+->0 in file `stepping.sh' at line 5
++info break
+Num Type       Disp Enb What
+2   breakpoint keep y   stepping.sh:5
++break 6
+Breakpoint 3 set in file stepping.sh, line 6.
++############################### 
++# try deleting multiple breakpoints
++delete 2 3
+Removed 2 breakpoint(s).
++info break
+** No breakpoints have been set.
++############################### 
++# Should be able to set several brkpts on same line.
++break 7
+Breakpoint 4 set in file stepping.sh, line 7.
++break 7
+Breakpoint 5 set in file stepping.sh, line 7.
++continue 
+3rd loop 0
+3rd loop 1
+3rd loop 2
+4th loop 0
+4th loop 1
+4th loop 2
+Breakpoint hit
+(stepping.sh:7):
+for ((i=0; i<3; i++)) do print 5th loop $i done
++# Should be at breakpoint but not one that's been deleted
++where 1
+->0 in file `stepping.sh' at line 7
++quit 

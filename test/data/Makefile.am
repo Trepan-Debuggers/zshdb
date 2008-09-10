@@ -7,6 +7,8 @@ check_DATA = \
 	bug-errexit.right  \
 	bugIFS.cmd         \
 	bugIFS.right       \
+	delete.cmd         \
+	delete.right       \
 	frame.cmd          \
 	frame.right        \
 	lopts.right        \
