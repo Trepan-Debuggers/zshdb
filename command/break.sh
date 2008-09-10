@@ -29,17 +29,17 @@ _Dbg_do_break() {
   typeset -i is_temp=$1
   shift
 
-  typeset -i n;
+  typeset linespec
   if (( $# > 0 )) ; then 
-      n=$1
+      linespec="$1"
   else
-      _Dbg_frame_lineno; n=$_Dbg_frame_lineno
+      _Dbg_frame_lineno; linespec=$_Dbg_frame_lineno
   fi
   shift
 
   typeset condition=${1:-''}
-  if [[ "$n" == 'if' ]]; then
-    _Dbg_frame_lineno; n=$_Dbg_frame_lineno
+  if [[ "$linespec" == 'if' ]]; then
+    _Dbg_frame_lineno; linespec=$_Dbg_frame_lineno
   elif [[ -z $condition ]] ; then
     condition=1
   elif [[ $condition == 'if' ]] ; then
@@ -55,7 +55,7 @@ _Dbg_do_break() {
   typeset -i line_number
   typeset full_filename
 
-  _Dbg_linespec_setup "$n"
+  _Dbg_linespec_setup "$linespec"
 
   if [[ -n "$full_filename" ]]  ; then 
     if (( line_number ==  0 )) ; then 

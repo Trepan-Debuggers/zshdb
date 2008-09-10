@@ -1,0 +1,12 @@
+# This file is intended to be sourced from one of the debugger test programs
+# -*- shell-script -*-
+
+sourced_fn() {
+    name="fn2"
+    echo "SOURCED FN LINENO $LINENO"
+}
+
+echo "SOURCED LINENO $LINENO"
+filename=${funcfiletrace[0]}
+echo "funcfiletrace[0]: $filename"
+sourced_fn

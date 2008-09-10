@@ -19,7 +19,7 @@
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
 
-typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater} '
+typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater}'
 
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
@@ -69,7 +69,7 @@ function _Dbg_process_commands {
 
 
     typeset _Dbg_prompt
-    eval "_Dbg_prompt=$_Dbg_prompt_str"
+    eval "_Dbg_prompt=\"$_Dbg_prompt_str \""
     # _Dbg_preloop
     typeset _Dbg_cmd 
     typeset args

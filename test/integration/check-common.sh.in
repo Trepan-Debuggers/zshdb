@@ -10,6 +10,7 @@ fi
 
 export top_builddir=@abs_top_builddir@
 export top_srcdir=@abs_top_srcdir@
+export srcdir=@abs_srcdir@
 
 check_output() {
   typeset testfile="$1"

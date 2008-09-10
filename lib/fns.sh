@@ -114,7 +114,7 @@ function _Dbg_parse_linespec {
     # line number only - use .sh.file for filename
     [0-9]* )	
       typeset _Dbg_frame_filename=''
-      _Dbg_frame_file
+      _Dbg_frame_file $_Dbg_stack_pos 0
       echo "$linespec 0 ${_Dbg_frame_filename}"
       ;;
     

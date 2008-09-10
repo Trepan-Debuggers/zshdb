@@ -3,6 +3,7 @@ check_DATA = \
 	bug-errexit.sh \
 	bugIFS.sh      \
 	dbg-test1.sh   \
+	dbg-test1.sub  \
 	dbg-test2.sh   \
 	bugIFS.sh      \
 	hanoi.sh       \

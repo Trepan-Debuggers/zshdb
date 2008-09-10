@@ -1,4 +1,6 @@
 check_DATA = \
+	brkpt1.cmd         \
+	brkpt1.right       \
 	bug-args.cmd       \
 	bug-args.right     \
 	bug-errexit.cmd    \

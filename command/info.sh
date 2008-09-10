@@ -25,105 +25,105 @@
 
 _Dbg_help_add info ''
 
-_Dbg_do_info() {
-  typeset info_cmd=$1
-#   typeset -a subcmds=( args breakpoints display files functions program source \
+typeset -a _Dbg_info_subcmds
+# typeset -a _Dbg_infosubcmds=( args breakpoints display files functions program source \
 #                       sources stack terminal variables watchpoints )
-  typeset -a subcmds
-  subcmds=( breakpoints files program source  stack )
-  
-  if [[ -n $info_cmd ]] ; then
-    shift
-    case $info_cmd in 
-      a | ar | arg | args )
-        _Dbg_do_info_args 3  # located in dbg-stack.sh
-	return
-	;;
-      b | br | bre | brea | 'break' | breakp | breakpo | breakpoints )
-#      b | br | bre | brea | 'break' | breakp | breakpo | breakpoints | \
-#      w | wa | wat | watc | 'watch' | watchp | watchpo | watchpoints )
-	_Dbg_do_list_brkpt $*
-#	_Dbg_list_watch $*
-	return
-	;;
-
-#       d | di | dis| disp | displ | displa | display )
-# 	_Dbg_do_list_display $*
-# 	return
-# 	;;
-
-      fi | file| files | sources )
-        _Dbg_msg "Source files for which have been read in:
+_Dbg_info_subcmds=( breakpoints files program source  stack )
+_Dbg_do_info() {
+      
+  if (($# > 0)) ; then
+      typeset info_cmd=$1
+      shift
+      case $info_cmd in 
+	  a | ar | arg | args )
+              _Dbg_do_info_args 3  # located in dbg-stack.sh
+	      return 0
+	      ;;
+	  b | br | bre | brea | 'break' | breakp | breakpo | breakpoints )
+	      #      b | br | bre | brea | 'break' | breakp | breakpo | breakpoints | \
+	      #      w | wa | wat | watc | 'watch' | watchp | watchpo | watchpoints )
+	      _Dbg_do_list_brkpt $*
+	      #	_Dbg_list_watch $*
+	      return 0
+	      ;;
+	  
+	  #       d | di | dis| disp | displ | displa | display )
+	  # 	_Dbg_do_list_display $*
+	  # 	return
+	  # 	;;
+	  
+          file| files | sources )
+              _Dbg_msg "Source files for which have been read in:
 "
-	unsetopt ksharrays
-	for file in ${(ki)_Dbg_file2canonic} ; do
-	    _Dbg_msg "${file}: ${_Dbg_file2canonic[$file]}"
-	done
-	setopt ksharrays
-        return
-	;;
-
-#       fu | fun| func | funct | functi | functio | function | functions )
-#         _Dbg_do_list_subroutines $*
-#         return
-# 	;;
-
-#       h | ha | han | hand | handl | handle | \
-#           si | sig | sign | signa | signal | signals )
-#         _Dbg_info_signals
-#         return
-# 	;;
-
-      l | li | lin | line )
-            if (( ! _Dbg_running )) ; then
-		_Dbg_msg "No line number information available."
-		return
-	    fi
-	    
-	    _Dbg_frame_file; _Dbg_frame_lineno
-            _Dbg_msg "Line $_Dbg_frame_lineno of \"$_Dbg_frame_filename\""
-	    return
-	    ;;
-
-      p | pr | pro | prog | progr | progra | program )
-      if (( _Dbg_running )) ; then
-	  _Dbg_msg "Program stopped."
-	  if (( _Dbg_currentbp )) ; then
-	      _Dbg_msg "It stopped at breakpoint ${_Dbg_currentbp}."
-	  elif [[ -n $_Dbg_stop_reason ]] ; then
-	      _Dbg_msg "It stopped ${_Dbg_stop_reason}."
-	  fi
-      else
-	  _Dbg_msg "The program being debugged is not being run."
-      fi
-      return
-      ;;
-
-      so | sou | sourc | source )
-	    _Dbg_frame_file
-            _Dbg_msg "Current script file is $_Dbg_frame_filename" 
-	    # 	typeset -i max_line=$(_Dbg_get_assoc_scalar_entry "_Dbg_maxline_" $_cur_filevar)
-	    # 	_Dbg_msg "Contains $max_line lines." ; 
-            return
-	    ;;
-
-      st | sta | stac | stack )
-	_Dbg_do_backtrace 1 $*
-	return
-	;;
-
-#       te | ter | term | termi | termin | termina | terminal | tt | tty )
-# 	_Dbg_msg "tty: $_Dbg_tty"
-# 	return;
-# 	;;
-
-#       v | va | var | vari | varia | variab | variabl | variable | variables )
-# 	_Dbg_do_list_variables "$1"
-# 	return
-#         ;;
-
-      w | wa | war | warr | warra | warran | warrant | warranty )
-        _Dbg_msg "
+	      unsetopt ksharrays
+	      for file in ${(ki)_Dbg_file2canonic} ; do
+		  _Dbg_msg "${file}: ${_Dbg_file2canonic[$file]}"
+	      done
+	      setopt ksharrays
+              return 0
+	      ;;
+	  
+	  #       fu | fun| func | funct | functi | functio | function | functions )
+	  #         _Dbg_do_list_subroutines $*
+	  #         return
+	  # 	;;
+	  
+	  #       h | ha | han | hand | handl | handle | \
+	  #           si | sig | sign | signa | signal | signals )
+	  #         _Dbg_info_signals
+	  #         return
+	  # 	;;
+	  
+	  l | li | lin | line )
+              if (( ! _Dbg_running )) ; then
+		  _Dbg_errmsg "No line number information available."
+		  return $?
+	      fi
+	      
+	      _Dbg_frame_file; _Dbg_frame_lineno
+              _Dbg_msg "Line $_Dbg_frame_lineno of \"$_Dbg_frame_filename\""
+	      return
+	      ;;
+	  
+	  p | pr | pro | prog | progr | progra | program )
+	      if (( _Dbg_running )) ; then
+		  _Dbg_msg "Program stopped."
+		  if (( _Dbg_currentbp )) ; then
+		      _Dbg_msg "It stopped at breakpoint ${_Dbg_currentbp}."
+		  elif [[ -n $_Dbg_stop_reason ]] ; then
+		      _Dbg_msg "It stopped ${_Dbg_stop_reason}."
+		  fi
+	      else
+		  _Dbg_errmsg "The program being debugged is not being run."
+	      fi
+	      return $?
+	      ;;
+	  
+	  so | sou | sourc | source )
+	      _Dbg_frame_file
+              _Dbg_msg "Current script file is $_Dbg_frame_filename" 
+	      # 	typeset -i max_line=$(_Dbg_get_assoc_scalar_entry "_Dbg_maxline_" $_cur_filevar)
+	      # 	_Dbg_msg "Contains $max_line lines." ; 
+              return $?
+	      ;;
+	  
+	  st | sta | stac | stack )
+	      _Dbg_do_backtrace 1 $*
+	      return $?
+	      ;;
+	  
+	  #       te | ter | term | termi | termin | termina | terminal | tt | tty )
+	  # 	_Dbg_msg "tty: $_Dbg_tty"
+	  # 	return;
+	  # 	;;
+	  
+	  #       v | va | var | vari | varia | variab | variabl | variable | variables )
+	  # 	_Dbg_do_list_variables "$1"
+	  # 	return
+	  #         ;;
+	  
+	  w | wa | war | warr | warra | warran | warrant | warranty )
+              _Dbg_msg "
 			    NO WARRANTY
 
   11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
@@ -146,21 +146,24 @@ YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
 PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGES.
 "
-	return
-	;;
-      *)
-	_Dbg_errmsg "Unknown info subcommand: $info_cmd"
-    esac
+	      return 0
+	      ;;
+	  *)
+	      _Dbg_errmsg "Unknown info subcommand: $info_cmd"
+	      msg=_Dbg_errmsg
+      esac
+  else
+      msg=_Dbg_msg
   fi
   typeset -a list
-  list=(${subcmds[@]})
+  list=(${_Dbg_info_subcmds[@]})
   typeset columnized=''
   typeset -i width; ((width=_Dbg_linewidth-5))
   typeset -a columnized; columnize $width
   typeset -i i
-  _Dbg_errmsg "Info subcommands are:"
+  $msg "Info subcommands are:"
   for ((i=0; i<${#columnized[@]}; i++)) ; do 
-      _Dbg_errmsg "  ${columnized[i]}"
+      $msg "  ${columnized[i]}"
   done
   return 1
 }
