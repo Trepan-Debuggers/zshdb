@@ -126,11 +126,11 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd="break"
 	  ;;
 
-	# Delete all breakpoints by line number.
-	clear )
-	  _Dbg_do_clear_brkpt $args
-	  _Dbg_last_cmd='clear'
-	  ;;
+# 	# Delete all breakpoints by line number.
+# 	clear )
+# 	  _Dbg_do_clear_brkpt $args
+# 	  _Dbg_last_cmd='clear'
+# 	  ;;
 
 	# Continue
 	continue )
@@ -141,6 +141,12 @@ _Dbg_onecmd() {
 	    #  "_Dbg_old_set_opts=\"$_Dbg_old_set_opts -o functrace\""
 	    return 1
 	  fi
+	  ;;
+
+	# Delete breakpoints by entry numbers. 
+	delete )
+	  _Dbg_do_delete $args
+	  _Dbg_last_cmd='delete'
 	  ;;
 
 	# Move call stack down

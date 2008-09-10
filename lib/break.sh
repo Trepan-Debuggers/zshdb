@@ -1,5 +1,4 @@
 # -*- shell-script -*-
-# brk.sh - Debugger Breakpoint routines
 #
 #   Copyright (C) 2008 Rocky Bernstein  rocky@gnu.org
 #
@@ -28,13 +27,13 @@ _Dbg_keep=('keep' 'del')
 
 # Breakpoint data structures
 
-# Line number of breakpoint
+# Line number of breakpoint $i
 typeset -a _Dbg_brkpt_line; _Dbg_brkpt_line=()
 
 # Number of breakpoints.
 typeset -i _Dbg_brkpt_count=0
 
-# filename of breakpoint
+# filename of breakpoint $i
 typeset -a  _Dbg_brkpt_file; _Dbg_brkpt_file=()
 
 # 1/0 if enabled or not
@@ -150,8 +149,6 @@ function _Dbg_print_brkpt_count {
   fi
 }
 
-#======================== BREAKPOINTS  ============================#
-
 # clear all brkpts
 _Dbg_clear_all_brkpt() {
 
@@ -218,12 +215,13 @@ _Dbg_set_brkpt() {
 # Internal routine to unset the actual breakpoint arrays
 _Dbg_unset_brkpt_arrays() {
   typeset -i del=$1
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_line[$del]"
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_count[$del]"
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_file[$del]"
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_enable[$del]"
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_cond[$del]"
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_onetime[$del]"
+  _Dbg_write_journal_eval "_Dbg_brkpt_line[$del]=''"
+  _Dbg_write_journal_eval "_Dbg_brkpt_count[$del]=''"
+  _Dbg_write_journal_eval "_Dbg_brkpt_file[$del]=''"
+  _Dbg_write_journal_eval "_Dbg_brkpt_enable[$del]=''"
+  _Dbg_write_journal_eval "_Dbg_brkpt_cond[$del]=''"
+  _Dbg_write_journal_eval "_Dbg_brkpt_onetime[$del]=''"
+  ((_Dbg_brkpt_count--))
 }
 
 # Internal routine to delete a breakpoint by file/line.
@@ -234,7 +232,6 @@ _Dbg_unset_brkpt() {
   typeset -r fullname="`_Dbg_expand_filename $filename`"
   typeset -i found=0
   
-  # set -xv
   ## typeset -r entries=`_Dbg_get_assoc_array_entry "_Dbg_brkpt_$filevar" $line`
   typeset -i del
   for del in $entries ; do 
@@ -254,44 +251,41 @@ _Dbg_unset_brkpt() {
   done
   _Dbg_write_journal_eval "unset _Dbg_brkpt_$filevar[$line]"
   return $found
-  # set +xv
 }
 
 # Routine to a delete breakpoint by entry number: $1.
 # Returns whether or not anything was deleted.
 _Dbg_delete_brkpt_entry() {
-  typeset -r  del=$1
+  (( $# == 0 )) && return 0
+  typeset -r  del="$1"
   typeset -i  i
   typeset -i  found=0
   
-  # set -xv
   if [[ -z ${_Dbg_brkpt_file[$del]} ]] ; then
-    _Dbg_msg "Breakpoint entry $del is not set."
-    return 0
+      _Dbg_errmsg "No breakpoint number $del."
+      return 0
   fi
-  typeset filevar="`_Dbg_file2var ${_Dbg_brkpt_file[$del]}`"
-  typeset line=${_Dbg_brkpt_line[$del]}
-  typeset -r  entries=`_Dbg_get_assoc_array_entry "_Dbg_brkpt_$filevar" $line`
-  typeset     try 
-  typeset -a  new_val=()
-  for try in $entries ; do 
-    if (( $try == $del )) ; then
-      _Dbg_unset_brkpt_arrays $del
-      found=1
-    else
-      if [[ -n ${_Dbg_brkpt_file[$try]} ]] ; then
-	new_val[${#new_val[@]}]=$try
+  typeset    source_file=${_Dbg_brkpt_file[$del]}
+  typeset -i lineno=${_Dbg_brkpt_line[$del]}
+  typeset -i try 
+  typeset -a new_val; new_val=()
+  for try in ${_Dbg_brkpt_file2linenos[$source_file]} ; do 
+      if (( $try == $lineno )) ; then
+	  _Dbg_unset_brkpt_arrays $del
+	  ((found++))
+      else
+	  new_val+=$try
       fi
-    fi
   done
-  if [[ ${#new_val[@]} == 0 ]] ; then 
-   _Dbg_write_journal_eval "unset _Dbg_brkpt_$filevar[$line]"
-  else
-    ## _Dbg_set_assoc_array_entry "_Dbg_brkpt_$filevar" $line "${new_val[@]}"
+  if (( found > 0 )) ; then
+      if (( ${#new_val[@]} == 0 )) ; then 
+	  _Dbg_write_journal_eval "unset '_Dbg_brkpt_file2linenos[$source_file]'"
+      else
+	  _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos[$source_file]=${new_val}"
+      fi
   fi
 
   return $found
-  # set +xv
 }
 
 # Enable/disable breakpoint(s) by entry numbers.

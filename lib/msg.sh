@@ -22,6 +22,7 @@ function _Dbg_errmsg {
     _Dbg_msg "$prefix $@"
 }
 
+# Print an error message without the ending carriage return
 function _Dbg_errmsg_no_cr {
     typeset -r prefix='**'
     _Dbg_msg_no_cr "$prefix $@"
@@ -32,7 +33,7 @@ function _Dbg_msg {
 }
 
 function _Dbg_msg_nocr {
-    echo -n $@
+    echo -n "$@"
 }
 
 # print message to output device

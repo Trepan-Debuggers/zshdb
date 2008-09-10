@@ -1,4 +1,4 @@
-(dbg-test1.sh:5):
+(dbg-test1.sh:4):
 fn1 () { echo "fn1 here" x=5 fn3 }
 +# Just a simple quit command.
 +quit 
