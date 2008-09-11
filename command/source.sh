@@ -37,6 +37,7 @@ _Dbg_do_source() {
       exec {_Dbg_fdi} < $filename
       # Save descriptor number and assocated file name.
       _Dbg_fd+=($_Dbg_fdi)
+      _Dbg_fd_is_interactive+=(0)
       _Dbg_cmdfile+=("$filename")
   else
     _Dbg_errmsg "Source file $filename is not readable."
