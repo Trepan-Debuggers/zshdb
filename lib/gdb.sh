@@ -20,6 +20,7 @@
 # So happens this is how it's stored in global _Dbg_frame_stack which
 # is where we get the information from
 function _Dbg_print_location {
+#   trap 'print ${#funcfiletrace[@]}' ERR
     if (($# > 1)); then 
       _Dbg_errmsg "got $# parameters, but need 0 or 1."
       return 2

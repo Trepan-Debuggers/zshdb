@@ -24,7 +24,7 @@ _Dbg_set_debugger_entry() {
 
   _Dbg_old_IFS="$IFS"
   _Dbg_old_PS4="$PS4"
-  typeset unset_opts; _Dbg_create_unsetopt ksharrays shwordsplit
+  typeset unset_opts; _Dbg_create_unsetopt ksharrays shwordsplit extendedhistory histignoredups
   _Dbg_restore_unsetopt=$unset_opts
   _Dbg_set_debugger_internal
 }

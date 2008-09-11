@@ -35,7 +35,6 @@ typeset -i _Dbg_fdi ; exec {_Dbg_fdi}<&0
 
 # Save descriptor number
 typeset -a _Dbg_fd ; _Dbg_fd=("$_Dbg_fdi")
-typeset -a _Dbg_fd_is_interactive ; _Dbg_fd_is_interactive=(1)
 
 # A list of source'd command files. If the entry is '', then we are 
 # interactive.
@@ -75,16 +74,10 @@ function _Dbg_process_commands {
     typeset _Dbg_cmd 
     typeset line=''
     while : ; do
-	if (( ${_Dbg_fd_is_interactive[-1]} == 1 )); then
-	    vared -p "$_Dbg_prompt" line <&${_Dbg_fdi} 
-	    if (( $? != 0 )); then
-		break
-	    fi
+	if [[ -t $_Dbg_fdi ]]; then
+	    vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
 	else
-	    read "?$_Dbg_prompt" line <&${_Dbg_fdi}
-	    if (( $? != 0 )) ; then
-		break
-	    fi
+	    read "?$_Dbg_prompt" line <&${_Dbg_fdi} || break
 	fi
         _Dbg_onecmd "$line"
         rc=$?
