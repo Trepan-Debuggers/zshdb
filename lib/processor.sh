@@ -35,6 +35,7 @@ typeset -i _Dbg_fdi ; exec {_Dbg_fdi}<&0
 
 # Save descriptor number
 typeset -a _Dbg_fd ; _Dbg_fd=("$_Dbg_fdi")
+typeset -a _Dbg_fd_is_interactive ; _Dbg_fd_is_interactive=(1)
 
 # A list of source'd command files. If the entry is '', then we are 
 # interactive.
@@ -72,13 +73,24 @@ function _Dbg_process_commands {
     eval "_Dbg_prompt=\"$_Dbg_prompt_str \""
     # _Dbg_preloop
     typeset _Dbg_cmd 
-    typeset args
-    while read "?$_Dbg_prompt" _Dbg_cmd args <&${_Dbg_fdi}
-    do
-    	_Dbg_onecmd "$_Dbg_cmd" "$args"
+    typeset line=''
+    while : ; do
+	if (( ${_Dbg_fd_is_interactive[-1]} == 1 )); then
+	    vared -p "$_Dbg_prompt" line <&${_Dbg_fdi} 
+	    if (( $? != 0 )); then
+		break
+	    fi
+	else
+	    read "?$_Dbg_prompt" line <&${_Dbg_fdi}
+	    if (( $? != 0 )) ; then
+		break
+	    fi
+	fi
+        _Dbg_onecmd "$line"
         rc=$?
         # _Dbg_postcmd
         (( $rc != 0 )) && return $rc
+	line=''
     done # read "?$_Dbg_prompt" ...
 
     _Dbg_fd[-1]=()  # Remove last element
@@ -94,16 +106,20 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
-    typeset expanded_alias; _Dbg_alias_expand $1
-    typeset _Dbg_cmd="$expanded_alias"
-    eval "set -- \"$2\""
-
-    # Set default next, step or skip command
-    if [[ -z $_Dbg_cmd ]]; then
+    typeset _Dbg_cmd
+    typeset args
+    set -- $*
+    if (( $# == 0 )) ; then
 	_Dbg_cmd=$_Dbg_last_next_step_cmd
 	args=$_Dbg_last_next_step_args
+    else
+	_Dbg_cmd=$1
+	shift
+	args="$*"
     fi
-    
+    typeset expanded_alias; _Dbg_alias_expand $_Dbg_cmd
+    typeset _Dbg_cmd="$expanded_alias"
+
     # If "set trace-commands" is "on", echo the the command
     if [[  $_Dbg_trace_commands == 'on' ]]  ; then
       _Dbg_msg "+$_Dbg_cmd $args"
