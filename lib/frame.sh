@@ -125,7 +125,7 @@ _Dbg_frame_save_frames() {
 
     # Remove our function name. Shouldn't need to do,
     # but there have been bugs.
-    (( ${#_Dbg_func_stack} > 1 )) && shift _Dbg_func_stack 
+    (( ${#_Dbg_func_stack[@]} > 1 )) && shift _Dbg_func_stack 
 
     # Set stack position to the most recent entry.
     _Dbg_stack_pos=0

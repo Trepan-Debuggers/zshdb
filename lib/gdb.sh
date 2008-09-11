@@ -32,16 +32,18 @@ function _Dbg_print_location {
 
     typeset filename=${split_result[0]}
     typeset -i line=${split_result[1]}
-    _Dbg_readin "${filename}"
-    if ((_Dbg_basename_only)); then
-	filename=${filename##*/}
-	file_line="${filename}:${line}"
-    fi
-    ((pos1=1))
-    if [[ $filename == $_Dbg_func_stack[pos1] ]] ; then
-	_Dbg_msg "($file_line): -- nope"
-    else
-	_Dbg_msg "($file_line):"
+    if [[ -n $filename ]] ; then 
+	_Dbg_readin "${filename}"
+	if ((_Dbg_basename_only)); then
+	    filename=${filename##*/}
+	    file_line="${filename}:${line}"
+	fi
+	((pos1=1))
+	if [[ $filename == $_Dbg_func_stack[pos1] ]] ; then
+	    _Dbg_msg "($file_line): -- nope"
+	else
+	    _Dbg_msg "($file_line):"
+	fi
     fi
 }
 

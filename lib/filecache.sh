@@ -41,7 +41,7 @@ function _Dbg_readin {
 	filename="$1"
     else
 	_Dbg_frame_file
-	filename=_Dbg_frame_filename
+	filename="$_Dbg_frame_filename"
     fi
 
     typeset -i line_count=0
@@ -52,7 +52,7 @@ function _Dbg_readin {
     typeset source_array_var;
     source_array_var="_Dbg_source_${next}"
 
-    if [[ -z filename ]] || [[ filename == _Dbg_bogus_file ]] ; then 
+    if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
 	eval "typeset -a $source_array_var; ${source_array_var}=()"
 	typeset cmd="${source_array_var}[0]=\"$BASH_EXECUTION_STRING\""
 	eval $cmd
