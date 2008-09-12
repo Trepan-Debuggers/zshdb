@@ -24,7 +24,8 @@ function _Dbg_debug_trap_handler {
     _Dbg_old_set_opts=$-
     # Turn off line and variable trace listing.
     set +x +v +u +e
-    setopt localtraps
+    setopt localtraps norcs ksharrays
+    # FIXME figure out what below uses shwordsplit.
     trap 'print ERROR AT: ${funcfiletrace[@]}' ERR
 
     typeset -i _Dbg_debugged_exit_code=$1
@@ -32,7 +33,7 @@ function _Dbg_debug_trap_handler {
 
     # Place to save values of $1, $2, etc.
     typeset -a _Dbg_arg
-    _Dbg_arg=($@)
+    _Dbg_arg=($@)   # Does this require shword split off? 
 
     typeset -i _Dbg_skipping_fn
     ((_Dbg_skipping_fn =

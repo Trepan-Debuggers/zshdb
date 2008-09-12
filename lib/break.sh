@@ -129,7 +129,7 @@ _Dbg_enable_disable() {
       if [[ $i == [0-9]* ]] ; then
           _Dbg_enable_disable_brkpt $on $en_dis $i
       # elsif # Check for watch-pat
-          _Dbg_enable_disable_watch $on $en_dis ${del:0:${#del}-1}
+      #   _Dbg_enable_disable_watch $on $en_dis ${del:0:${#del}-1}
       else
 	  _Dbg_errmsg "Invalid entry number skipped: $i"
       fi
@@ -295,12 +295,12 @@ _Dbg_enable_disable_brkpt() {
   typeset -i i=$3
   if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
     if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
-      _Dbg_msg "Breakpoint entry $i already $en_dis so nothing done."
+      _Dbg_errmsg "Breakpoint entry $i already $en_dis so nothing done."
     else
       _Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
       _Dbg_msg "Breakpoint entry $i $en_dis."
     fi
   else
-    _Dbg_msg "Breakpoint entry $i doesn't exist so nothing done."
+    _Dbg_errmsg "Breakpoint entry $i doesn't exist so nothing done."
   fi
 }

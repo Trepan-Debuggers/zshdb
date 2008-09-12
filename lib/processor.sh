@@ -158,6 +158,12 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd='delete'
 	  ;;
 
+	# Disable breakpoints
+	disable )
+	  _Dbg_do_disable $args
+	  _Dbg_last_cmd='disable'
+	  ;;
+
 	# Move call stack down
 	down )
 	  _Dbg_do_down $@
@@ -168,6 +174,12 @@ _Dbg_onecmd() {
 	edit )
 	  _Dbg_do_edit $args
 	  _Dbg_last_cmd='edit'
+	  ;;
+
+	# enable breakpoints or watchpoints
+	enable )
+	  _Dbg_do_enable $args
+	  _Dbg_last_cmd='enable'
 	  ;;
 
 	# evaluate as shell command

@@ -28,6 +28,7 @@ function _Dbg_print_location {
     typeset -i pos=${1:-${_Dbg_stack_pos}}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
 
+    typeset split_result
     _Dbg_split "$file_line" ':'
 
     typeset filename=${split_result[0]}
@@ -71,7 +72,6 @@ _Dbg_print_frame() {
     typeset prefix
     prefix=${2:-''}
 
-    setopt ksharrays
     typeset -a split_result
     _Dbg_split "$file_line" ':'
     typeset filename

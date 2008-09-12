@@ -58,7 +58,8 @@ _Dbg_set_debugger_internal() {
   IFS="$_Dbg_space_IFS"
   PS4='%N:%i: %? $_Dbg_debugger_name
 '
-  setopt ksharrays shwordsplit
+  setopt ksharrays shwordsplit norcs
+  unsetopt localoptions
 }
 
 _Dbg_restore_user_vars() {
