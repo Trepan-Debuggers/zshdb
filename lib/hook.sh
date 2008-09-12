@@ -77,23 +77,35 @@ function _Dbg_debug_trap_handler {
 	full_filename=$(_Dbg_is_file $full_filename)
 	typeset -a linenos
 	linenos=${_Dbg_brkpt_file2linenos[$full_filename]}
-	if [[ $linenos =~ " $lineno "  ]] ; then
-	    # TODO: check conditions and find actual entry.
-	    if ((_Dbg_step_force)) ; then
-		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
-		typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
-		_Dbg_frame_save_frames 1
-	    else
-		_Dbg_frame_save_frames 1
+	typeset -i try_lineno
+	typeset -i i=-1
+	# Check breakpoints within full_filename
+	for try_lineno in $linenos ; do 
+	    ((i++))
+	    if (( try_lineno == lineno )) ; then
+		# Got a match, but is the breakpoint enabled? 
+		typeset -a brkpt_nos; brkpt_nos=(${_Dbg_brkpt_file2brkpt[$full_filename]})
+		typeset -i _Dbg_brkpt_num; (( _Dbg_brkpt_num = brkpt_nos[i] ))
+		if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )) ; then
+		    if ((_Dbg_step_force)) ; then
+			typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
+			typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
+			_Dbg_frame_save_frames 1
+		    else
+			_Dbg_frame_save_frames 1
+		    fi
+		    ((_Dbg_brkpt_counts[_Dbg_brkpt_num]++))
+		    _Dbg_msg "Breakpoint $_Dbg_brkpt_num hit."
+		    _Dbg_print_location_and_command
+		    _Dbg_stop_reason='breakpoint reached'
+		    _Dbg_process_commands
+		    _Dbg_set_to_return_from_debugger 1
+		    (( $_Dbg_rc == 2 )) && setopt errexit  # Set to skip statement
+		    return $_Dbg_rc
+		fi
 	    fi
-	    _Dbg_msg 'Breakpoint hit'
-	    _Dbg_print_location_and_command
-	    _Dbg_stop_reason='breakpoint reached'
-	    _Dbg_process_commands
-	    _Dbg_set_to_return_from_debugger 1
-	    (( $_Dbg_rc == 2 )) && setopt errexit  # Set to skip statement
-	    return $_Dbg_rc
-	fi
+	done
+	set +x
     fi
 
     # Check if step mode and number steps to ignore.

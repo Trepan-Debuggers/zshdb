@@ -124,7 +124,7 @@ _Dbg_do_list_brkpt() {
 	  if [[ ${_Dbg_brkpt_cond[$i]} != '1' ]] ; then
 	      _Dbg_printf "\tstop only if %s" "${_Dbg_brkpt_cond[$i]}"
 	  fi
-	  _Dbg_print_brkpt_count ${_Dbg_brkpt_count[$i]}
+	  _Dbg_print_brkpt_count ${_Dbg_brkpt_counts[$i]}
 	  return 0
       fi
       return 1
@@ -146,7 +146,7 @@ _Dbg_do_list_brkpt() {
 	  _Dbg_printf "\tstop only if %s" "${_Dbg_brkpt_cond[$i]}"
 	fi
 	if (( _Dbg_brkpt_count[$i] != 0 )) ; then
-	  _Dbg_print_brkpt_count ${_Dbg_brkpt_count[$i]}
+	  _Dbg_print_brkpt_count ${_Dbg_brkpt_counts[$i]}
 	fi
       fi
     done
