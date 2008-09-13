@@ -55,10 +55,8 @@ function _Dbg_debug_trap_handler {
 	    _Dbg_set_debugger_entry
 	    ((_Dbg_skip_ignore--))
 	    _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
-	    setopt errexit  # Set to skip statement
-	    
 	    _Dbg_set_to_return_from_debugger 1
-	    return $_Dbg_rc
+	    return 2
 	fi
     fi
     
@@ -68,46 +66,23 @@ function _Dbg_debug_trap_handler {
     # Check breakpoints.
     if ((_Dbg_brkpt_count > 0)) ; then 
 	_Dbg_set_debugger_entry; set_entry_called=1
-	typeset full_filenaname
-	typeset file_line
-	file_line=${funcfiletrace[0]}
-	_Dbg_split "$file_line" ':'
-	full_filename=${split_result[0]}
-	lineno=${split_result[1]}
-	full_filename=$(_Dbg_is_file $full_filename)
-	typeset -a linenos
-	linenos=${_Dbg_brkpt_file2linenos[$full_filename]}
-	typeset -i try_lineno
-	typeset -i i=-1
-	# Check breakpoints within full_filename
-	for try_lineno in $linenos ; do 
-	    ((i++))
-	    if (( try_lineno == lineno )) ; then
-		# Got a match, but is the breakpoint enabled? 
-		typeset -a brkpt_nos; brkpt_nos=(${_Dbg_brkpt_file2brkpt[$full_filename]})
-		typeset -i _Dbg_brkpt_num; (( _Dbg_brkpt_num = brkpt_nos[i] ))
-		if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )) ; then
-		    if ((_Dbg_step_force)) ; then
-			typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
-			typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
-			_Dbg_frame_save_frames 1
-		    else
-			_Dbg_frame_save_frames 1
-		    fi
-		    ((_Dbg_brkpt_counts[_Dbg_brkpt_num]++))
-		    _Dbg_msg "Breakpoint $_Dbg_brkpt_num hit."
-		    _Dbg_print_location_and_command
-		    _Dbg_stop_reason='breakpoint reached'
-		    _Dbg_process_commands
-		    _Dbg_set_to_return_from_debugger 1
-		    (( $_Dbg_rc == 2 )) && setopt errexit  # Set to skip statement
-		    return $_Dbg_rc
-		fi
+	typeset -i _Dbg_brkpt_num
+	if _Dbg_hook_breakpoint_hit ; then 
+	    if ((_Dbg_step_force)) ; then
+		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
+		typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
+		_Dbg_frame_save_frames 1
+	    else
+		_Dbg_frame_save_frames 1
 	    fi
-	done
+	    ((_Dbg_brkpt_counts[_Dbg_brkpt_num]++))
+	    _Dbg_msg "Breakpoint $_Dbg_brkpt_num hit."
+	    _Dbg_hook_enter_debugger
+	    return $?
+	fi
     fi
 
-    # Check if step mode and number steps to ignore.
+    # Check if step mode and number of steps to ignore.
     if ((_Dbg_step_ignore == 0 && ! _Dbg_skipping_fn )); then
 
 	if ((set_entry_called == 0)) ; then
@@ -121,19 +96,14 @@ function _Dbg_debug_trap_handler {
 	    if ((_Dbg_frame_previous_lineno == _Dbg_frame_last_lineno)) && \
 		[ "$_Dbg_frame_previous_file" = "$_Dbg_frame_last_file" ] ; then
 		_Dbg_set_to_return_from_debugger 1
-		return $_Dbg_rc
+		return 0
 	    fi
 	else
 	    _Dbg_frame_save_frames 1
 	fi
 
-	_Dbg_print_location_and_command
-
-	_Dbg_stop_reason='after being stepped'
-	_Dbg_process_commands
-	_Dbg_set_to_return_from_debugger 1
-	(( $_Dbg_rc == 2 )) && setopt errexit  # Set to skip statement
-	return $_Dbg_rc
+	_Dbg_hook_enter_debugger 'after being stepped'
+	return $?
 
     fi
     if ((_Dbg_linetrace)) ; then 
@@ -147,9 +117,47 @@ function _Dbg_debug_trap_handler {
 	fi
 	_Dbg_frame_save_frames 1
 	_Dbg_print_location_and_command
-
 	_Dbg_set_to_return_from_debugger 1
+	return 0
     fi
+}
+
+# Return 0 if we are at a breakpoint position or 1 if not.
+# Sets _Dbg_brkpt_num to the breakpoint number found.
+_Dbg_hook_breakpoint_hit() {
+    typeset full_filenaname
+    typeset file_line
+    file_line=${funcfiletrace[1]}
+    _Dbg_split "$file_line" ':'
+    full_filename=${split_result[0]}
+    lineno=${split_result[1]}
+    full_filename=$(_Dbg_is_file $full_filename)
+    typeset -a linenos
+    linenos=${_Dbg_brkpt_file2linenos[$full_filename]}
+    typeset -i try_lineno
+    typeset -i i=-1
+    # Check breakpoints within full_filename
+    for try_lineno in $linenos ; do 
+	((i++))
+	if (( try_lineno == lineno )) ; then
+	    # Got a match, but is the breakpoint enabled? 
+	    typeset -a brkpt_nos; brkpt_nos=(${_Dbg_brkpt_file2brkpt[$full_filename]})
+	    (( _Dbg_brkpt_num = brkpt_nos[i] ))
+	    if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )) ; then
+		return 0
+	    fi
+	fi
+    done
+    return 1
+}
+
+_Dbg_hook_enter_debugger() {
+    _Dbg_stop_reason="$1"
+    typeset -i _Dbg_rc=0
+    _Dbg_print_location_and_command
+    _Dbg_process_commands
+    _Dbg_set_to_return_from_debugger 1
+    return $_Dbg_rc
 }
 
 # Cleanup routine: erase temp files before exiting.
@@ -157,11 +165,4 @@ _Dbg_cleanup() {
   rm $_Dbg_evalfile 2>/dev/null
   _Dbg_erase_journals
   _Dbg_restore_user_vars
-}
-
-# Somehow we can't put this in _Dbg_cleanup and have it work.
-# I am not sure why.
-_Dbg_cleanup2() {
-  _Dbg_erase_journals
-  trap - EXIT
 }
