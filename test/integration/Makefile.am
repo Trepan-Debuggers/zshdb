@@ -4,6 +4,7 @@ TESTS = \
 	test-bugIFS        \
 	test-bug-errexit   \
 	test-delete        \
+	test-enable        \
 	test-frame         \
 	test-next          \
 	test-opts          \

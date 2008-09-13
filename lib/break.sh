@@ -141,8 +141,7 @@ _Dbg_enable_disable() {
 }
 
 function _Dbg_print_brkpt_count {
-  typeset -i i
-  i=$1
+  typeset -i i; i=$1
   if (( _Dbg_brkpt_counts[i] != 0 )) ; then
     if (( _Dbg_brkpt_counts[i] == 1 )) ; then 
       _Dbg_printf '    breakpoint already hit 1 time'

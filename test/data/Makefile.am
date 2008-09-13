@@ -9,6 +9,8 @@ check_DATA = \
 	bugIFS.right       \
 	delete.cmd         \
 	delete.right       \
+	enable.cmd         \
+	enable.right       \
 	frame.cmd          \
 	frame.right        \
 	lopts.right        \

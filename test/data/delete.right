@@ -41,6 +41,7 @@ for ((i=0; i<3; i++)) do print 3rd loop $i done
 +info break
 Num Type       Disp Enb What
 2   breakpoint keep y   stepping.sh:5
+    breakpoint already hit 1 time
 +break 6
 Breakpoint 3 set in file stepping.sh, line 6.
 +############################### 

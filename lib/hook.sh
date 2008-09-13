@@ -70,7 +70,7 @@ function _Dbg_debug_trap_handler {
 	_Dbg_set_debugger_entry; set_entry_called=1
 	typeset full_filenaname
 	typeset file_line
-	file_line=${funcfiletrace[-2]}
+	file_line=${funcfiletrace[0]}
 	_Dbg_split "$file_line" ':'
 	full_filename=${split_result[0]}
 	lineno=${split_result[1]}
@@ -105,7 +105,6 @@ function _Dbg_debug_trap_handler {
 		fi
 	    fi
 	done
-	set +x
     fi
 
     # Check if step mode and number steps to ignore.
