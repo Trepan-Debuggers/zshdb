@@ -140,6 +140,9 @@ _Dbg_enable_disable() {
   return 0
 }
 
+# Print a message regarding how many times we've encounterd
+# breakpoint number $1 if the number of times is greater than 0.
+# Uses global array _Dbg_brkpt_counts.
 function _Dbg_print_brkpt_count {
   typeset -i i; i=$1
   if (( _Dbg_brkpt_counts[i] != 0 )) ; then
@@ -151,16 +154,10 @@ function _Dbg_print_brkpt_count {
   fi
 }
 
-# clear all brkpts
+# clear all breakpoints
 _Dbg_clear_all_brkpt() {
-
-  typeset -i k
-  for (( k=0; (( k < ${#_Dbg_filenames[@]} )) ; k++ )) ; do
-    typeset filename=${_filename[$k]}
-    typeset filevar="`_Dbg_file2var $filename`"
-    typeset brkpt_a="_Dbg_brkpt_${filevar}"
-    _Dbg_write_journal_eval "unset ${brkpt_a}[$k]"
-  done
+  _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos=()"
+  _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_line=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_cond=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_file=()"

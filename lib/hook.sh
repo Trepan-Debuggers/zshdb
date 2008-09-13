@@ -56,7 +56,7 @@ function _Dbg_debug_trap_handler {
 	    ((_Dbg_skip_ignore--))
 	    _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
 	    _Dbg_set_to_return_from_debugger 1
-	    return 2
+	    return 2 # 2 indicates skip statement.
 	fi
     fi
     
@@ -71,13 +71,17 @@ function _Dbg_debug_trap_handler {
 	    if ((_Dbg_step_force)) ; then
 		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
 		typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
-		_Dbg_frame_save_frames 1
-	    else
-		_Dbg_frame_save_frames 1
 	    fi
+	    _Dbg_frame_save_frames 1
 	    ((_Dbg_brkpt_counts[_Dbg_brkpt_num]++))
 	    _Dbg_msg "Breakpoint $_Dbg_brkpt_num hit."
-	    _Dbg_hook_enter_debugger
+	    if (( ${_Dbg_brkpt_onetime[_Dbg_brkpt_num]} == 1 )) ; then
+		_Dbg_stop_reason='at a breakpoint that has since been deleted'
+		_Dbg_delete_brkpt_entry $_Dbg_brkpt_num
+	    else
+		_Dbg_stop_reason='breakpoint reached'
+	    fi
+	    _Dbg_hook_enter_debugger $_Dbg_stop_reason
 	    return $?
 	fi
     fi
@@ -151,6 +155,7 @@ _Dbg_hook_breakpoint_hit() {
     return 1
 }
 
+# Go into the command loop
 _Dbg_hook_enter_debugger() {
     _Dbg_stop_reason="$1"
     typeset -i _Dbg_rc=0

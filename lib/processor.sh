@@ -256,6 +256,12 @@ _Dbg_onecmd() {
 	  return $?
 	  ;;
 
+	# Set a one-time breakpoint
+	tbreak )
+	  _Dbg_do_break 1 $args 
+	  _Dbg_last_cmd='tbreak'
+	  ;;
+
 	# Trace a function
 	trace )
 	  _Dbg_do_trace_fn $args 

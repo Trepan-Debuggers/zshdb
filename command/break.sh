@@ -15,15 +15,26 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# Add breakpoint(s) at given line number of the current file.  $1 is
-# the line number or _curline if omitted.  $2 is a condition to test
-# for whether to stop.
-
 _Dbg_help_add break \
-'break [LOCSPEC]	-- Set a breakpoint at LOCSPEC. 
+'break [LOCSPEC] -- Set a breakpoint at LOCSPEC. 
+
+If no location specification is given, use the current line.
+
+Multiple breakpoints at one place are permitted, and useful if conditional.
+See also "tbreak" and "continue".'
+
+_Dbg_help_add tbreak \
+'tbreak [LOCSPEC] -- Set a one-time breakpoint at LOCSPEC. 
+
+Like "break" except the breakpoint is only temporary,
+so it will be deleted when hit.  Equivalent to "break" followed
+by using "delete" on the breakpoint number.
 
 If no location specification is given, use the current line.'
 
+# Add breakpoint(s) at given line number of the current file.  $1 is
+# the line number or _curline if omitted.  $2 is a condition to test
+# for whether to stop.
 _Dbg_do_break() {
 
   typeset -i is_temp=$1

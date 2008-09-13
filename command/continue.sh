@@ -19,9 +19,13 @@
 
 
 _Dbg_help_add continue \
-'continue -- Continue script execution.
+'continue [LOC | - ] -- Continue script execution. 
 
-Continue until the next breakpoint or the end of program is reached.'
+If not LOC or - is given, continue until the next breakpoint or the end
+of program is reached.  If - is given, then debugging will be turned off
+after continuing causing your program to run at full speed. 
+
+If LOC is given, a temporary breakpoint is set at the location.'
 
 function _Dbg_do_continue {
 
