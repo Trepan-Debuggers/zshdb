@@ -99,6 +99,7 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
+    setopt shwordsplit ksharrays
     typeset _Dbg_cmd
     typeset args
     set -- $*
@@ -186,6 +187,11 @@ _Dbg_onecmd() {
 	eval )
 	  _Dbg_do_eval $@
 	  _Dbg_last_cmd='eval'
+	  ;;
+
+	# intelligent print of variable, function or expression
+	examine )
+	  _Dbg_do_examine "$args"
 	  ;;
 
 	#  Set stack frame

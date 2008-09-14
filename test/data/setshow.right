@@ -331,7 +331,7 @@ Line width is 40.
 +#### Test 'autoeval'...
 +set autoeval on
 +xx=1 ; declare -p xx
-typeset xx=''
+typeset xx=1
 +set autoeval off
 +xx=1 ; declare -p xx
 Undefined command: "xx=1". Try "help".

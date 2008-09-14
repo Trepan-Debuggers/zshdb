@@ -55,6 +55,19 @@ test_esc_dbg_enter_return() {
 }
 
 # Test _Dbg_is_function
+test_defined()
+{
+    _Dbg_defined 
+    assertFalse 'No variable given; is_function should report false' $? 
+    unset xxx
+    _Dbg_defined xxx
+    assertFalse 'variable xxx should not be defined' $? 
+    typeset xxx=1
+    _Dbg_defined xxx
+    assertTrue 'variable xxx should be defined' $? 
+}
+
+# Test _Dbg_is_function
 test_is_function()
 {
     _Dbg_is_function 

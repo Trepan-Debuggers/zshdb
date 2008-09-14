@@ -33,6 +33,18 @@ function _Dbg_copies {
     return 0
 }
 
+_Dbg_defined() {
+    (( 0 == $# )) && return 1
+    output=$(typeset -p $1 2>&1)
+    if [[ $? != 0 ]] ; then 
+	return 1
+    elif [[ $output =~ ": no such variable: $1" ]] ; then
+	return 1
+    else
+	return 0
+    fi
+}
+
 # Add escapes to a string $1 so that when it is read back using
 # eval echo "$1" it is the same as echo $1.
 function _Dbg_esc_dq {
@@ -44,8 +56,8 @@ function _Dbg_esc_dq {
 # an underscore (_), are included in the search.
 _Dbg_is_function() {
     setopt ksharrays
+    (( 0 == $# )) && return 1
     typeset needed_fn=$1
-    [[ -z $needed_fn ]] && return 1
     typeset -i include_system=${2:-0}
     [[ ${needed_fn[0,0]} == '_' ]] && ((!include_system)) && {
 	return 1
