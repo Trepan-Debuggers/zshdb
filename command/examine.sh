@@ -30,7 +30,7 @@ function _Dbg_do_examine {
   if _Dbg_defined $_Dbg_expr ; then
     _Dbg_result=$(typeset -p $_Dbg_expr)
     _Dbg_msg "$_Dbg_result"
-  elif _Dbg_is_function $_Dbg_expr ; then 
+  elif _Dbg_is_function "$_Dbg_expr" $_Dbg_debug_debugger; then 
     _Dbg_result=$(typeset -f $_Dbg_expr)
     _Dbg_msg "$_Dbg_result"
   else 

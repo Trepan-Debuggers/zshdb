@@ -7,6 +7,7 @@ pkgdata_DATA =        \
 	edit.sh      \
 	enable.sh    \
 	eval.sh      \
+	examine.sh   \
 	frame.sh     \
 	help.sh      \
 	info.sh      \

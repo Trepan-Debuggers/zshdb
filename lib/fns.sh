@@ -35,7 +35,7 @@ function _Dbg_copies {
 
 _Dbg_defined() {
     (( 0 == $# )) && return 1
-    output=$(typeset -p $1 2>&1)
+    output=$(typeset -p "$1" 2>&1)
     if [[ $? != 0 ]] ; then 
 	return 1
     elif [[ $output =~ ": no such variable: $1" ]] ; then
