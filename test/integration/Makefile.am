@@ -10,7 +10,8 @@ TESTS = \
 	test-opts          \
 	test-setshow       \
 	test-skip	   \
-	test-step
+	test-step	   \
+	test-tbreak
 
 check_DATA = check-common.sh
 

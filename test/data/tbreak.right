@@ -1,0 +1,33 @@
+(nexting.sh:3):
+p () { print ${funcfiletrace[0]##*/} print '===' }
++# Get past line 3
++step 
+(nexting.sh:4):
+setopt ksharrays
++# Temporary breakpoint inside function
++tbreak 3
+One-time breakpoint 1 set in file nexting.sh, line 3.
++info break
+Num Type       Disp Enb What
+1   breakpoint del  y   nexting.sh:3
++# Should stop at line 3
++continue 6
+One-time breakpoint 2 set in file nexting.sh, line 6.
+Breakpoint 1 hit.
+(nexting.sh:3):
+print ${funcfiletrace[0]##*/}
++# Breakpoint at line 6 should still be shown
++info break
+Num Type       Disp Enb What
+2   breakpoint del  y   nexting.sh:6
++continue 
+nexting.sh:5
+===
+Breakpoint 2 hit.
+(nexting.sh:6):
+p
++# Now we get to line 6 and
++# no more breakpoints should be shown.
++info break
+** No breakpoints have been set.
++quit 

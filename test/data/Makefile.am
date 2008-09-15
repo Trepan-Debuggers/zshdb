@@ -23,6 +23,8 @@ check_DATA = \
 	sopts.right        \
 	step.cmd           \
 	step.right         \
+	tbreak.cmd         \
+	tbreak.right       \
 	quit.cmd
 
 EXTRA_DIST = $(check_DATA)
