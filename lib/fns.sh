@@ -38,8 +38,6 @@ _Dbg_defined() {
     output=$(typeset -p "$1" 2>&1)
     if [[ $? != 0 ]] ; then 
 	return 1
-    elif [[ $output =~ ": no such variable: $1" ]] ; then
-	return 1
     else
 	return 0
     fi
