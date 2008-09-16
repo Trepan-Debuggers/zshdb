@@ -27,4 +27,5 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	lopts.tests        \
 	sopts.tests
 
-
+test: check
+test-integration: check

@@ -27,7 +27,9 @@ need $ to have their value substituted."
 function _Dbg_do_examine {
   typeset _Dbg_expr; _Dbg_expr=${@:-"$_Dbg_last_x_args"}
   typeset _Dbg_result
-  if _Dbg_defined $_Dbg_expr ; then
+  if [[ -z $_Dbg_expr ]] then 
+      _Dbg_msg "$_Dbg_expr"      
+  elif _Dbg_defined $_Dbg_expr ; then
     _Dbg_result=$(typeset -p $_Dbg_expr)
     _Dbg_msg "$_Dbg_result"
   elif _Dbg_is_function "$_Dbg_expr" $_Dbg_debug_debugger; then 
@@ -35,7 +37,9 @@ function _Dbg_do_examine {
     _Dbg_msg "$_Dbg_result"
   else 
     typeset -i _Dbg_rc
+    . ${_Dbg_libdir}/lib/set-d-vars.sh
     eval let _Dbg_result=$_Dbg_expr 2>/dev/null; _Dbg_rc=$?
+    _Dbg_set_debugger_internal
     if (( $_Dbg_rc != 0 )) ; then
       _Dbg_do_print "$_Dbg_expr"
     else

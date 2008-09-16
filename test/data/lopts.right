@@ -10,7 +10,7 @@ options:
     -B | --basename         basename only on source listings. 
                             (Needed in regression tests)
     -L libdir | --library libdir
-                            set directory location of library helper file: /src/git/zshdb/dbg-main.sh
+                            set directory location of library helper file
     -n | --nx |--no-init    Don't run initialization files
     -x command | --command cmdfile
                             execute debugger commands from cmdfile

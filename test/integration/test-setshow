@@ -12,7 +12,7 @@ debugged_script="${top_srcdir}/test/example/dbg-test2.sh"
 cat ${TEST_FILE} | sed -e "s:-x .*/data/setshow\.cmd .*/example/dbg-test2.sh:-x data/setshow.cmd example/dbg-test2.sh:" \
 | sed -e 's:record the command history is .*:record the command history is: ' \
 > ${TEST_FILTERED_FILE}
-check_output $TEST_FILE $RIGHT_FILE
+check_output $TEST_FILTERED_FILE $RIGHT_FILE
 
 # Return code tells testing mechanism whether passed or not.
 exit $?
