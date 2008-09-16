@@ -28,3 +28,6 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-run.sh.in              \
 	test-save-restore.sh.in     \
 	test-sort.sh.in
+
+test: check
+test-unit: check

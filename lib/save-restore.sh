@@ -16,39 +16,43 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+[[ -z $_Dbg_check_opts ]] && \
+  typeset  -r _Dbg_check_opts='ksharrays shwordsplit\
+                               extendedhistory histignoredups'
+
 # set dollar variables ($1, $2, ... $?) 
 # to their values in the debugged environment before we entered the debugger.
 
-typeset _Dbg_restore_unsetopts=' '
 _Dbg_set_debugger_entry() {
 
   _Dbg_old_IFS="$IFS"
   _Dbg_old_PS4="$PS4"
-  typeset unset_opts; _Dbg_create_unsetopt ksharrays shwordsplit extendedhistory histignoredups
-  _Dbg_restore_unsetopt=$unset_opts
+  if [[ -z "$_Dbg_restore_unsetopt" ]] ; then 
+      _Dbg_create_unsetopt "$_Dbg_check_opts"
+  fi
   _Dbg_set_debugger_internal
 }
 
 # Return 0 if $1 is not a zsh option set
 _Dbg_is_unsetopt() {
     (( $# != 1 )) || [[ -z $1 ]] && return 2
-    typeset opt=$1
-    typeset old_IFS
-    old_IFS="$IFS"
-    IFS=''
-    typeset opts=$(setopt | tr '
-' ' ')
-    IFS="$old_IFS"
-    [[ ${opts[@]} == *$opt* ]] && return 1
+    typeset opt="$1"
+    typeset -a opts
+    opts=( $(setopt ) )
+    for try_opt in ${opts[@]} ; do 
+	[[ $try_opt == $opt ]] && return 1
+    done
     return 0
 }
 
 # Set string unset_opts to be those zsh options in $* that are not set.
 function _Dbg_create_unsetopt {
-    unset_opts=''
+    typeset unset_opts=''
+    eval "set -- $*"
     for opt ; do
 	_Dbg_is_unsetopt $opt && unset_opts="$unset_opts $opt"
     done
+    _Dbg_restore_unsetopt=$unset_opts
 }
 
 
@@ -68,6 +72,7 @@ _Dbg_restore_user_vars() {
   PS4="$_Dbg_old_PS4"
   [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
   set -$_Dbg_old_set_opts
+
 }
 
 _Dbg_set_to_return_from_debugger() {

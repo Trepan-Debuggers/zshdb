@@ -24,6 +24,9 @@ function _Dbg_debug_trap_handler {
     _Dbg_old_set_opts=$-
     # Turn off line and variable trace listing.
     set +x +v +u +e
+    typeset _Dbg_restore_unsetopt=''
+    _Dbg_create_unsetopt $Dbg_check_opts
+
     setopt localtraps norcs ksharrays
     # FIXME figure out what below uses shwordsplit.
     trap 'print ERROR AT: ${funcfiletrace[@]}' ERR
