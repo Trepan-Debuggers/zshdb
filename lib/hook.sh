@@ -22,12 +22,15 @@ typeset     _Dbg_stop_reason=''    # The reason we are in the debugger.
 
 function _Dbg_debug_trap_handler {
     _Dbg_old_set_opts=$-
+
     # Turn off line and variable trace listing.
     set +x +v +u +e
-    typeset _Dbg_restore_unsetopt=''
-    _Dbg_create_unsetopt $Dbg_check_opts
 
+    # Save zsh "setopt" options and then set the ones we need.
+    typeset _Dbg_restore_unsetopt=''
+    _Dbg_create_unsetopt $_Dbg_check_opts
     setopt localtraps norcs ksharrays
+
     # FIXME figure out what below uses shwordsplit.
     trap 'print ERROR AT: ${funcfiletrace[@]}' ERR
 
@@ -53,9 +56,11 @@ function _Dbg_debug_trap_handler {
 	fi
     fi
 
+    typeset -i set_entry_called=0
+
     if ((_Dbg_skip_ignore > 0)) ; then
 	if ((! _Dbg_skipping_fn )) ; then
-	    _Dbg_set_debugger_entry
+	    _Dbg_set_debugger_entry; set_entry_called=1
 	    ((_Dbg_skip_ignore--))
 	    _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
 	    _Dbg_set_to_return_from_debugger 1
@@ -63,7 +68,6 @@ function _Dbg_debug_trap_handler {
 	fi
     fi
     
-    typeset -i set_entry_called=0
     # Determine if we stop or not. 
 
     # Check breakpoints.
@@ -96,6 +100,7 @@ function _Dbg_debug_trap_handler {
 	    _Dbg_set_debugger_entry
 	    set_entry_called=1
 	fi
+	set_entry_called=1
 	if ((_Dbg_step_force)) ; then
 	    typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
 	    typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
@@ -118,7 +123,7 @@ function _Dbg_debug_trap_handler {
 	    sleep $_Dbg_linetrace_delay
 	fi
 
-	if (($set_entry_called == 0)) ; then
+	if ((set_entry_called == 0)) ; then
 	    _Dbg_set_debugger_entry
 	    set_entry_called=1
 	fi
@@ -127,6 +132,11 @@ function _Dbg_debug_trap_handler {
 	_Dbg_set_to_return_from_debugger 1
 	return 0
     fi
+    if [[ -n $_Dbg_restore_unsetopt ]] ; then
+	# eval "unsetopt $_Dbg_restore_unsetopt"
+	set -$_Dbg_old_set_opts
+    fi
+    return 0
 }
 
 # Return 0 if we are at a breakpoint position or 1 if not.

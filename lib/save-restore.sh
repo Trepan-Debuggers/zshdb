@@ -17,8 +17,8 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 [[ -z $_Dbg_check_opts ]] && \
-  typeset  -r _Dbg_check_opts='ksharrays shwordsplit\
-                               extendedhistory histignoredups'
+  typeset  -r _Dbg_check_opts='extendedhistory shwordsplit ksharrays \
+                               localtraps histignoredups'
 
 # set dollar variables ($1, $2, ... $?) 
 # to their values in the debugged environment before we entered the debugger.
