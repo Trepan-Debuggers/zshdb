@@ -37,9 +37,7 @@ _Dbg_set_debugger_entry() {
 
   _Dbg_old_IFS="$IFS"
   _Dbg_old_PS4="$PS4"
-  if [[ -z "$_Dbg_restore_unsetopt" ]] ; then 
-      _Dbg_create_unsetopt "$_Dbg_check_opts"
-  fi
+  (( $# > 0 )) && _Dbg_create_unsetopt "$_Dbg_check_opts"
   _Dbg_set_debugger_internal
 }
 

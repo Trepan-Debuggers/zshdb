@@ -26,13 +26,8 @@ function _Dbg_debug_trap_handler {
     # Turn off line and variable trace listing.
     set +x +v +u +e
 
-    # Save zsh "setopt" options and then set the ones we need.
-    typeset _Dbg_restore_unsetopt=''
-    _Dbg_create_unsetopt $_Dbg_check_opts
+    _Dbg_set_debugger_entry 'save_opts'
     
-    setopt localtraps norcs ksharrays
-    unsetopt $_Dbg_debugger_unset_opts
-
     # FIXME figure out what below uses shwordsplit.
     trap 'print ERROR AT: ${funcfiletrace[@]}' ERR
 
@@ -58,11 +53,8 @@ function _Dbg_debug_trap_handler {
 	fi
     fi
 
-    typeset -i set_entry_called=0
-
     if ((_Dbg_skip_ignore > 0)) ; then
 	if ((! _Dbg_skipping_fn )) ; then
-	    _Dbg_set_debugger_entry; set_entry_called=1
 	    ((_Dbg_skip_ignore--))
 	    _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
 	    _Dbg_set_to_return_from_debugger 1
@@ -74,7 +66,6 @@ function _Dbg_debug_trap_handler {
 
     # Check breakpoints.
     if ((_Dbg_brkpt_count > 0)) ; then 
-	_Dbg_set_debugger_entry; set_entry_called=1
 	typeset -i _Dbg_brkpt_num
 	if _Dbg_hook_breakpoint_hit ; then 
 	    if ((_Dbg_step_force)) ; then
@@ -98,11 +89,6 @@ function _Dbg_debug_trap_handler {
     # Check if step mode and number of steps to ignore.
     if ((_Dbg_step_ignore == 0 && ! _Dbg_skipping_fn )); then
 
-	if ((set_entry_called == 0)) ; then
-	    _Dbg_set_debugger_entry
-	    set_entry_called=1
-	fi
-	set_entry_called=1
 	if ((_Dbg_step_force)) ; then
 	    typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
 	    typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
@@ -125,18 +111,10 @@ function _Dbg_debug_trap_handler {
 	    sleep $_Dbg_linetrace_delay
 	fi
 
-	if ((set_entry_called == 0)) ; then
-	    _Dbg_set_debugger_entry
-	    set_entry_called=1
-	fi
 	_Dbg_frame_save_frames 1
 	_Dbg_print_location_and_command
-	_Dbg_set_to_return_from_debugger 1
-	return 0
     fi
-    [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
-    [[ -n $_Dbg_restore_setopt ]] && eval "setopt $_Dbg_restore_setopt"
-    set -$_Dbg_old_set_opts
+    _Dbg_set_to_return_from_debugger 1
     return 0
 }
 

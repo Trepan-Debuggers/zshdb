@@ -56,8 +56,7 @@ test_save_restore_ksharrays()
     unsetopt ksharrays
     _Dbg_old_set_opts=$-
     typeset -a aa
-    _Dbg_restore_unsetopt=''
-    _Dbg_set_debugger_entry
+    _Dbg_set_debugger_entry 'save_opts'
     _Dbg_set_to_return_from_debugger
     aa=(one two three)
     typeset test_value=$aa[1]
@@ -65,8 +64,7 @@ test_save_restore_ksharrays()
 
     # Try with ksharrays set
     setopt ksharrays
-    _Dbg_restore_unsetopt=''
-    _Dbg_set_debugger_entry
+    _Dbg_set_debugger_entry 'save_opts'
     _Dbg_set_to_return_from_debugger
     aa=(one two three)
     typeset test_value=${aa[1]}
@@ -83,8 +81,7 @@ test_save_restore_shwordsplit()
     _Dbg_restore_unsetopt=''
     typeset test_string='one two three'
     typeset -a aa
-    _Dbg_restore_unsetopt=''
-    _Dbg_set_debugger_entry
+    _Dbg_set_debugger_entry 'save_opts'
     _Dbg_set_to_return_from_debugger
     aa=($test_string)
     typeset test_value=$aa[1] # $aa[1] won't work if ksharrays is set
@@ -92,8 +89,7 @@ test_save_restore_shwordsplit()
     assertEquals "$test_string" "$test_value"
 
     # Try with shwordsplit set. It was set just before assertEquals
-    _Dbg_restore_unsetopt=''
-    _Dbg_set_debugger_entry
+    _Dbg_set_debugger_entry 'save_opts'
     _Dbg_set_to_return_from_debugger
     aa=($test_string)
     typeset test_value=$aa[1] # $aa[1] won't work if ksharrays is set
