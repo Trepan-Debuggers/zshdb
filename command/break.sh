@@ -55,12 +55,9 @@ _Dbg_do_break() {
     condition=1
   elif [[ $condition == 'if' ]] ; then
     shift
-  fi
-  if [[ -z $condition ]] ; then
-    condition=1
-  else 
     condition="$*"
   fi
+  [[ -z $condition ]] && condition=1
 
   typeset filename
   typeset -i line_number

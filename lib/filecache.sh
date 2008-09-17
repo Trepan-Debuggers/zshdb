@@ -140,8 +140,9 @@ function _Dbg_is_file {
 	elif [[ $basename = '\$cwd' ]] ; then
 	  basename=$(pwd)
 	fi
-	if [[ -n ${_Dbg_filenames[$find_file]} ]] ; then
-	    print -- "$find_file"
+	try_find_file=${basename}/$find_file
+	if [[ -n ${_Dbg_filenames[$try_find_file]} ]] ; then
+	    print -- "$try_find_file"
 	    return 0
 	fi
       done

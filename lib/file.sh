@@ -22,10 +22,6 @@
 typeset -a _Dbg_dir
 _Dbg_dir=('\$cdir' '\$cwd' )
 
-# Directory in which the script is located
-[[ -z ${_Dbg_cdir} ]] && [[ -n ${_Dbg_source_file} ]] && \
-    _Dbg_cdir=${_Dbg_source_file%/*}
-
 # $1 contains the name you want to glob. return 0 if exists and is
 # readible or 1 if not. 
 # The result will be in variable $filename which is assumed to be 

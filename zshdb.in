@@ -91,6 +91,9 @@ fi
 typeset _Dbg_source_file
 _Dbg_source_file=$(_Dbg_expand_filename $_Dbg_script_file)
 
+# Directory in which the script is located
+typeset _Dbg_cdir=${_Dbg_source_file%/*}
+
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
 
