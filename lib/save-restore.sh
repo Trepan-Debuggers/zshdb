@@ -38,7 +38,7 @@ _Dbg_is_unsetopt() {
     (( $# != 1 )) || [[ -z $1 ]] && return 2
     typeset opt="$1"
     typeset -a opts
-    opts=( $(setopt ) )
+    eval "opts=( $(setopt ) )"
     for try_opt in ${opts[@]} ; do 
 	[[ $try_opt == $opt ]] && return 1
     done

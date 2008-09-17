@@ -1,0 +1,7 @@
+#!/bin/zsh -f
+# -*- shell-script -*-
+t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
+
+[ -z "$builddir" ] && builddir=$PWD
+. ${builddir}/check-common.sh
+run_test_check exam

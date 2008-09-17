@@ -11,6 +11,8 @@ check_DATA = \
 	delete.right       \
 	enable.cmd         \
 	enable.right       \
+	examine.right      \
+	examine.cmd        \
 	frame.cmd          \
 	frame.right        \
 	lopts.right        \

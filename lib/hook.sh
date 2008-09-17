@@ -29,6 +29,7 @@ function _Dbg_debug_trap_handler {
     # Save zsh "setopt" options and then set the ones we need.
     typeset _Dbg_restore_unsetopt=''
     _Dbg_create_unsetopt $_Dbg_check_opts
+    
     setopt localtraps norcs ksharrays
 
     # FIXME figure out what below uses shwordsplit.
@@ -132,10 +133,8 @@ function _Dbg_debug_trap_handler {
 	_Dbg_set_to_return_from_debugger 1
 	return 0
     fi
-    if [[ -n $_Dbg_restore_unsetopt ]] ; then
-	# eval "unsetopt $_Dbg_restore_unsetopt"
-	set -$_Dbg_old_set_opts
-    fi
+    [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
+    set -$_Dbg_old_set_opts
     return 0
 }
 

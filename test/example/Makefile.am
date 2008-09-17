@@ -6,6 +6,7 @@ check_DATA = \
 	dbg-test1.sub  \
 	dbg-test2.sh   \
 	bugIFS.sh      \
+	exam.sh        \
 	hanoi.sh       \
 	nexting.sh     \
 	stepping.sh
