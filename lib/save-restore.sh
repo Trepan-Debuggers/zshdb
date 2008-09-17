@@ -81,8 +81,7 @@ _Dbg_set_debugger_internal() {
 }
 
 _Dbg_restore_user_vars() {
-  IFS="$_Dbg_space_IFS"
-  IFS="$_Dbg_old_IFS";
+  IFS="$_Dbg_old_IFS"
   PS4="$_Dbg_old_PS4"
   [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
   [[ -n $_Dbg_restore_setopt ]] && eval "setopt $_Dbg_restore_setopt"
