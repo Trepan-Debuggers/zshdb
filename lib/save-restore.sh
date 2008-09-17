@@ -16,9 +16,19 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+# Options which are set inside the debugger
+[[ -z $_Dbg_debugger_set_opts ]] && \
+  typeset -r _Dbg_debugger_set_opts=\
+'extendedhistory extendedglob shwordsplit ksharrays histignoredups'
+
+# Options which are unset inside the debugger
+[[ -z $_Dbg_debugger_unset_opts ]] && \
+  typeset -r _Dbg_debugger_unset_opts='localtraps'
+
+# Options to save/restore between entering/leaving the debugger
 [[ -z $_Dbg_check_opts ]] && \
-  typeset  -r _Dbg_check_opts='extendedhistory shwordsplit ksharrays \
-                               localtraps histignoredups'
+  typeset -r _Dbg_check_opts=\
+"$_Dbg_debugger_set_opts $_Dbg_debugger_unset_opts"
 
 # set dollar variables ($1, $2, ... $?) 
 # to their values in the debugged environment before we entered the debugger.
@@ -48,11 +58,17 @@ _Dbg_is_unsetopt() {
 # Set string unset_opts to be those zsh options in $* that are not set.
 function _Dbg_create_unsetopt {
     typeset unset_opts=''
+    typeset set_opts=''
     eval "set -- $*"
     for opt ; do
-	_Dbg_is_unsetopt $opt && unset_opts="$unset_opts $opt"
+	if _Dbg_is_unsetopt $opt ; then
+	    unset_opts="$unset_opts $opt"
+	else
+	    set_opts="$set_opts $opt"
+	fi
     done
     _Dbg_restore_unsetopt=$unset_opts
+    _Dbg_restore_setopt=$set_opts
 }
 
 
@@ -63,7 +79,7 @@ _Dbg_set_debugger_internal() {
   PS4='%N:%i: %? $_Dbg_debugger_name
 '
   setopt ksharrays shwordsplit norcs
-  unsetopt localoptions
+  unsetopt $_Dbg_debugger_unset_opts
 }
 
 _Dbg_restore_user_vars() {
@@ -71,6 +87,7 @@ _Dbg_restore_user_vars() {
   IFS="$_Dbg_old_IFS";
   PS4="$_Dbg_old_PS4"
   [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
+  [[ -n $_Dbg_restore_setopt ]] && eval "setopt $_Dbg_restore_setopt"
   set -$_Dbg_old_set_opts
 
 }

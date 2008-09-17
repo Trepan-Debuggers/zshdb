@@ -99,7 +99,7 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
-    setopt shwordsplit ksharrays
+    # setopt shwordsplit ksharrays  # Done in _Dbg_debug_trap_handler
     typeset _Dbg_cmd
     typeset args
     set -- $*

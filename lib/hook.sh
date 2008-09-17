@@ -31,6 +31,7 @@ function _Dbg_debug_trap_handler {
     _Dbg_create_unsetopt $_Dbg_check_opts
     
     setopt localtraps norcs ksharrays
+    unsetopt $_Dbg_debugger_unset_opts
 
     # FIXME figure out what below uses shwordsplit.
     trap 'print ERROR AT: ${funcfiletrace[@]}' ERR
@@ -134,6 +135,7 @@ function _Dbg_debug_trap_handler {
 	return 0
     fi
     [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
+    [[ -n $_Dbg_restore_setopt ]] && eval "setopt $_Dbg_restore_setopt"
     set -$_Dbg_old_set_opts
     return 0
 }

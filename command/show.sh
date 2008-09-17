@@ -475,9 +475,5 @@ of promoting the sharing and reuse of software generally.
 
 _Dbg_do_show_version()
 {
-  _Dbg_printf "%-12s => $_Dbg_release" "Release"
-  _Dbg_msg "=================================================================="
-  if [[ -n $_Dbg_script ]] ; then
-    _Dbg_printf "%-12s => $_Dbg_ver", "$_Dbg_debugger_name"
-  fi
+  _Dbg_msg "${_Dbg_debugger_name}, release $_Dbg_release"
 }

@@ -53,7 +53,7 @@ function _Dbg_esc_dq {
 # if $2 is nonzero, system functions, i.e. those whose name starts with
 # an underscore (_), are included in the search.
 _Dbg_is_function() {
-    setopt ksharrays
+    # setopt ksharrays  # Done in _Dbg_debug_trap_handler
     (( 0 == $# )) && return 1
     typeset needed_fn=$1
     typeset -i include_system=${2:-0}

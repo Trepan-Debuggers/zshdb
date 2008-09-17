@@ -17,10 +17,17 @@ test_is_unsetopt()
 
 test_create_unsetopt()
 {
-    unsetopt cshjunkiehistory cshjunkieloops cshjunkiequotes cshnullcmd
-    opts=' cshjunkiehistory cshjunkieloops cshjunkiequotes cshnullcmd' 
+    _Dbg_restore_unsetopt='foo'
+    _Dbg_restore_setopt='bar'
+    typeset opts=' cshjunkiehistory cshjunkieloops cshjunkiequotes cshnullcmd'
+    unsetopt $opts
     _Dbg_create_unsetopt $opts
     assertEquals "$opts" "$_Dbg_restore_unsetopt"
+    assertEquals '' "$_Dbg_restore_setopt"
+    setopt localtraps
+    _Dbg_create_unsetopt $opts localtraps
+    assertEquals "$opts" "$_Dbg_restore_unsetopt"
+    assertEquals ' localtraps' "$_Dbg_restore_setopt"
 }
 
 # Test that we are saving and restoring POSIX variables IFS and PS4 that

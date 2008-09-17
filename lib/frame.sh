@@ -111,7 +111,7 @@ _Dbg_frame_lineno() {
 # first (most recent) $1 of these. We assume "setopt ksharrarrys" 
 # (origin 0) has beeen set previously.
 _Dbg_frame_save_frames() {
-    setopt ksharrays
+    # setopt ksharrays  # Done in _Dbg_debug_trap_handler
     typeset ignore=${1:-0}
     typeset -i i
     typeset -i j=$ignore
