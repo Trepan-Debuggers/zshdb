@@ -5,34 +5,27 @@ set trace-commands on
 # Test the simplest of breakpoints
 break 22
 info break
-###############################################################
-####  Test enable/disable...
-## enable 1
-## disable 1
 ################################################################
 ####  Try setting breakpoints outside of the file range...
-## break 99
+break 99
 break 0
 # 
 # list breakpoints
 L
-#### Try Deleting a non-existent breakpoint...
-## clear 10
-## d 0
 ###############################################################
 #### Test display status...
-## delete 1
-## info break
+delete 1
+info break
 break 22
 info break
 ###############################################################
 #### *** Test using file:line format on break...
 break ../example/dbg-test1.sh:23
 break ../example/dbg-test1.sh:0
-## break ../example/dbg-test1.sh:1955
+break ../example/dbg-test1.sh:1955
+# multiple breakpoints on the same line are ok
 break 23
 info break
-# delete 3
 ###############################################################
 #### Test breakpoints with conditions...
 # break 23 if x==0

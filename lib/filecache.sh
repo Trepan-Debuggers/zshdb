@@ -17,6 +17,8 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+zmodload -ap zsh/mapfile mapfile
+
 # Keys are the canonic expanded filename. _Dbg_filenames[filename] is
 # name of variable which contains text.
 typeset -A _Dbg_filenames
@@ -54,45 +56,17 @@ function _Dbg_readin {
 
     if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
 	eval "typeset -a $source_array_var; ${source_array_var}=()"
-	typeset cmd="${source_array_var}[0]=\"$BASH_EXECUTION_STRING\""
-	eval $cmd
+	eval "${source_array_var}[0]=\"$BASH_EXECUTION_STRING\""
     else 
 	typeset fullname=$(_Dbg_resolve_expand_filename $filename)
 	if [[ -r $fullname ]] ; then
 	    _Dbg_file2canonic[$filename]="$fullname"
-	    eval "typeset -a $source_array_var; ${source_array_var}=()"
-	    typeset -r progress_prefix="Reading $filename"
-	    # No readarray. Do things the long way.
-	    typeset -i i=-1
-	    typeset -i fd
-# 	    exec {fd} < $fullname
-# 	    while read line <&${fd}
-# 	    do
-# 		((i++))
-# 		typeset assign_cmd="${source_array_var}[$i]=\"$line\""
-# 		eval $assign_cmd
-# 		if (( i % 1000 == 0 )) ; then
-# 		    if (( i==NOT_SMALLFILE )) ; then
-# 			if wc -l < /dev/null >/dev/null 2>&1 ; then 
-# 			    line_count=$(wc -l < "${fullname}")
-# 			else
-# 			    _Dbg_msg_nocr "${progress_prefix} "
-# 			fi
-# 		    fi
-# 		    if (( line_count == 0 )) ; then
-# 			_Dbg_msg_nocr "${i}... "
-# 		    else
-# 			_Dbg_progess_show "${progress_prefix}" ${line_count} ${i}
-# 		    fi
-# 		fi
-# 	    done
-# 	    (( line_count != 0 )) && _Dbg_progess_done
+	    _Dbg_file2canonic[$fullname]="$fullname"
+	    eval "$source_array_var=( \${(f)mapfile[$fullname]} )"
 	else
 	    return 1
 	fi
     fi
-    
-#    (( i >= NOT_SMALLFILE )) && _Dbg_msg "done."
     
     # Save info about file: # lines, checksum and date.
     ## 
@@ -149,17 +123,37 @@ function _Dbg_is_file {
   return 1
 }
 
+# Return the maximum line of filename $1. $1 is expected to be
+# read in already and therefore stored in _Dbg_file2canonic.
+
+_Dbg_get_maxline() {
+    (( $# != 1 )) && return 1
+    typeset filename="$1"
+    typeset fullname=${_Dbg_file2canonic[$filename]}
+    typeset source_array_var=${_Dbg_filenames[$fullname]}
+    [[ -z $source_array_var  ]] && return 2
+    eval "print \${#${source_array_var}[@]}"
+    return $?
+}
+
 # Check that line $2 is not greater than the number of lines in 
 # file $1
 _Dbg_check_line() {
-  typeset -i line_number=$1
-  typeset filename=$2
-#   typeset -i max_line=$(_Dbg_get_maxline $filename)
-#   if (( $line_number >  max_line )) ; then 
-#     (( _Dbg_basename_only )) && filename=${filename##*/}
-#     _Dbg_err_msg "Line $line_number is too large." \
-#       "File $filename has only $max_line lines."
-#     return 1
-#   fi
-  return 0
+    (( $# != 2 )) && return 1
+    typeset -i line_number=$1
+    typeset filename=$2
+    typeset -i max_line
+    max_line=$(_Dbg_get_maxline $filename)
+    if (( $? != 0 )) ; then
+	_Dbg_errmsg "internal error getting number of lines in $filename"
+	return 1
+    fi
+
+    if (( $line_number >  max_line )) ; then 
+	(( _Dbg_basename_only )) && filename=${filename##*/}
+	_Dbg_errmsg "Line $line_number is too large." \
+	    "File $filename has only $max_line lines."
+	return 1
+    fi
+    return 0
 }

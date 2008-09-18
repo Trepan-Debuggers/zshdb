@@ -9,6 +9,7 @@ pkgdata_DATA =      	\
 	frame.sh        \
 	gdb.sh  	\
 	help.sh    	\
+	hist.sh    	\
 	hook.sh		\
 	info.sh		\
 	journal.sh  	\

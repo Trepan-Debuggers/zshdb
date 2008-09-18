@@ -56,7 +56,8 @@ _Dbg_do_info() {
               _Dbg_msg "Source files which we have recorded info about:"
 	      unsetopt ksharrays
 	      for file in ${(ki)_Dbg_file2canonic} ; do
-		  _Dbg_msg "  ${file}: ${_Dbg_file2canonic[$file]}"
+		  typeset -i lines=$(_Dbg_get_maxline $file)
+		  _Dbg_msg "  ${file}: ${_Dbg_file2canonic[$file]}, $lines lines"
 	      done
 	      setopt ksharrays
               return 0

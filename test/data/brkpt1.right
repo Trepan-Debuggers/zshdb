@@ -9,13 +9,10 @@ Breakpoint 1 set in file dbg-test1.sh, line 22.
 +info break
 Num Type       Disp Enb What
 1   breakpoint keep y   dbg-test1.sh:22
-+############################################################### 
-+#### Test enable/disable...
-+## enable 1
-+## disable 1
 +################################################################ 
 +#### Try setting breakpoints outside of the file range...
-+## break 99
++break 99
+** Line 99 is too large. File dbg-test1.sh has only 30 lines.
 +break 0
 ** There is no line 0 to break at.
 +# 
@@ -23,18 +20,16 @@ Num Type       Disp Enb What
 +L 
 Num Type       Disp Enb What
 1   breakpoint keep y   dbg-test1.sh:22
-+#### Try Deleting a non-existent breakpoint...
-+## clear 10
-+## d 0
 +############################################################### 
 +#### Test display status...
-+## delete 1
-+## info break
++delete 1
+Removed 1 breakpoint(s).
++info break
+** No breakpoints have been set.
 +break 22
 Breakpoint 2 set in file dbg-test1.sh, line 22.
 +info break
 Num Type       Disp Enb What
-1   breakpoint keep y   dbg-test1.sh:22
 2   breakpoint keep y   dbg-test1.sh:22
 +############################################################### 
 +#### *** Test using file:line format on break...
@@ -42,16 +37,16 @@ Num Type       Disp Enb What
 Breakpoint 3 set in file dbg-test1.sh, line 23.
 +break ../example/dbg-test1.sh:0
 ** There is no line 0 to break at.
-+## break ../example/dbg-test1.sh:1955
++break ../example/dbg-test1.sh:1955
+** Line 1955 is too large. File dbg-test1.sh has only 30 lines.
++# multiple breakpoints on the same line are ok
 +break 23
 Breakpoint 4 set in file dbg-test1.sh, line 23.
 +info break
 Num Type       Disp Enb What
-1   breakpoint keep y   dbg-test1.sh:22
 2   breakpoint keep y   dbg-test1.sh:22
 3   breakpoint keep y   dbg-test1.sh:23
 4   breakpoint keep y   dbg-test1.sh:23
-+# delete 3
 +############################################################### 
 +#### Test breakpoints with conditions...
 +# break 23 if x==0

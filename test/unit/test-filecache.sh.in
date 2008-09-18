@@ -6,7 +6,7 @@ PS4='(%x:%I): [%?] zsh+
 setopt ksharrays
 
 # Test _Dbg_glob_filename
-test_readin()
+test_readin_maxline()
 {
     typeset filename
     _Dbg_readin ${srcdir}shunit2
@@ -15,6 +15,11 @@ test_readin()
     file2=$(_Dbg_is_file ${srcdir}shunit2)
     assertEquals '0' $?
     assertNotEquals '' "$file2"
+    typeset maxline
+    maxline=$(_Dbg_get_maxline $file2)
+    assertEquals '0' $?
+    # We'll assume shunit2 isn't going to get smaller ;-)
+    assertTrue $(( maxline > 1000 ))
 }
 
 

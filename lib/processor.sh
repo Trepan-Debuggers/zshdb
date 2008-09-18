@@ -99,7 +99,10 @@ function _Dbg_process_commands {
 # Parameters: _Dbg_cmd and args
 # 
 _Dbg_onecmd() {
+
     # setopt shwordsplit ksharrays  # Done in _Dbg_debug_trap_handler
+    typeset full_cmd
+    full_cmd="$*"
     typeset _Dbg_cmd
     typeset args
     set -- $*
@@ -308,11 +311,10 @@ _Dbg_onecmd() {
 	     _Dbg_do_eval $_Dbg_cmd $args
 	   else
              _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
-	     # _Dbg_remove_history_item
-	     # typeset -a last_history=(`history 1`)
-	     # history -d ${last_history[0]}
+	     return 0
 	   fi
 	  ;;
       esac
+      print -s "$full_cmd"
       return 0
 }

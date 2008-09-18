@@ -15,8 +15,6 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-zmodload -ap zsh/mapfile mapfile
-
 # Stuff common to zshdb and zshdb-trace. Include the rest of options
 # processing. Also includes things which have to come before other includes
 . ${_Dbg_libdir}/dbg-pre.sh
@@ -45,5 +43,3 @@ typeset _Dbg_startup_cmdfile=${HOME:-.}/.${_Dbg_debugger_name}rc
 if [[ -z $o_nx && -r $_Dbg_startup_cmdfile ]] ; then
   _Dbg_do_source $_Dbg_startup_cmdfile
 fi
-
-typeset _Dbg_history_file=${HOME:-.}/.${_Dbg_debugger_name}_hist
