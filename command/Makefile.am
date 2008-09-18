@@ -11,6 +11,7 @@ pkgdata_DATA =        \
 	frame.sh     \
 	help.sh      \
 	info.sh      \
+	list.sh      \
 	quit.sh      \
 	run.sh       \
 	set.sh       \

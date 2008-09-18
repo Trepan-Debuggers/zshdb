@@ -32,50 +32,27 @@ _Dbg_file2canonic=()
 typeset -A _Dbg_fileinfo
 _Dbg_fileinfo=()
 
-# Read $1 into _DBG_source_*n* array where *n* is an entry in
-# _Dbg_filenames.  Variable _Dbg_seen[canonic-name] will be set to
-# note the file has been read and the filename will be saved in array
-# _Dbg_filenames
-
-function _Dbg_readin {
-    typeset filename
-    if (($# != 0)) ; then 
-	filename="$1"
-    else
-	_Dbg_frame_file
-	filename="$_Dbg_frame_filename"
+# Check that line $2 is not greater than the number of lines in 
+# file $1
+_Dbg_check_line() {
+    (( $# != 2 )) && return 1
+    typeset -i line_number=$1
+    typeset filename=$2
+    typeset -i max_line
+    max_line=$(_Dbg_get_maxline $filename)
+    if (( $? != 0 )) ; then
+	_Dbg_errmsg "internal error getting number of lines in $filename"
+	return 1
     fi
 
-    typeset -i line_count=0
-    typeset -ir NOT_SMALLFILE=1000
-
-    typeset -i next;
-    next=${#_Dbg_filenames[@]}
-    typeset source_array_var;
-    source_array_var="_Dbg_source_${next}"
-
-    if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
-	eval "typeset -a $source_array_var; ${source_array_var}=()"
-	eval "${source_array_var}[0]=\"$BASH_EXECUTION_STRING\""
-    else 
-	typeset fullname=$(_Dbg_resolve_expand_filename $filename)
-	if [[ -r $fullname ]] ; then
-	    _Dbg_file2canonic[$filename]="$fullname"
-	    _Dbg_file2canonic[$fullname]="$fullname"
-	    eval "$source_array_var=( \${(f)mapfile[$fullname]} )"
-	else
-	    return 1
-	fi
+    if (( $line_number >  max_line )) ; then 
+	(( _Dbg_basename_only )) && filename=${filename##*/}
+	_Dbg_errmsg "Line $line_number is too large." \
+	    "File $filename has only $max_line lines."
+	return 1
     fi
-    
-    # Save info about file: # lines, checksum and date.
-    ## 
-    
-    # Add $filename to list of all filenames
-    _Dbg_filenames[$fullname]=$source_array_var;
     return 0
 }
-
 
 # _Dbg_is_file echoes the full filename if $1 is a filename found in files
 # '' is echo'd if no file found. Return 0 (in $?) if found, 1 if not.
@@ -130,30 +107,90 @@ _Dbg_get_maxline() {
     (( $# != 1 )) && return 1
     typeset filename="$1"
     typeset fullname=${_Dbg_file2canonic[$filename]}
-    typeset source_array_var=${_Dbg_filenames[$fullname]}
-    [[ -z $source_array_var  ]] && return 2
-    eval "print \${#${source_array_var}[@]}"
+    _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
+    [[ -z $_Dbg_source_array_var  ]] && return 2
+    eval "print \${#${_Dbg_source_array_var}[@]}"
     return $?
 }
 
-# Check that line $2 is not greater than the number of lines in 
-# file $1
-_Dbg_check_line() {
-    (( $# != 2 )) && return 1
-    typeset -i line_number=$1
-    typeset filename=$2
-    typeset -i max_line
-    max_line=$(_Dbg_get_maxline $filename)
-    if (( $? != 0 )) ; then
-	_Dbg_errmsg "internal error getting number of lines in $filename"
-	return 1
+# Read $1 into _DBG_source_*n* array where *n* is an entry in
+# _Dbg_filenames.  Variable _Dbg_seen[canonic-name] will be set to
+# note the file has been read and the filename will be saved in array
+# _Dbg_filenames
+
+function _Dbg_readin {
+    typeset filename
+    if (($# != 0)) ; then 
+	filename="$1"
+    else
+	_Dbg_frame_file
+	filename="$_Dbg_frame_filename"
     fi
 
-    if (( $line_number >  max_line )) ; then 
-	(( _Dbg_basename_only )) && filename=${filename##*/}
-	_Dbg_errmsg "Line $line_number is too large." \
-	    "File $filename has only $max_line lines."
-	return 1
+    typeset -i line_count=0
+    typeset -ir NOT_SMALLFILE=1000
+
+    typeset -i next;
+    next=${#_Dbg_filenames[@]}
+    _Dbg_source_array_var="_Dbg_source_${next}"
+
+    if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
+	eval "${_Dbg_source_array_var}[0]=\"$BASH_EXECUTION_STRING\""
+    else 
+	typeset fullname=$(_Dbg_resolve_expand_filename $filename)
+	if [[ -r $fullname ]] ; then
+	    _Dbg_file2canonic[$filename]="$fullname"
+	    _Dbg_file2canonic[$fullname]="$fullname"
+	    eval "$_Dbg_source_array_var=( \${(f)mapfile[$fullname]} )"
+	else
+	    return 1
+	fi
     fi
+    
+    # Save info about file: # lines, checksum and date.
+    ## 
+    
+    # Add $filename to list of all filenames
+    _Dbg_filenames[$fullname]=$_Dbg_source_array_var;
     return 0
 }
+
+function _Dbg_readin_if_new {
+    typeset fullname
+    fullname=${_Dbg_file2canonic[$filename]}
+    if [[ -z $fullname ]] ; then 
+	_Dbg_readin $filename
+	typeset rc=$?
+	(( $? != 0 )) && return $rc
+    fi
+    _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
+    [[ -z $_Dbg_source_array_var  ]] && return 2
+    return 0
+}
+
+# Return text for source line for line $1 of filename $2 in variable
+# $source_line. The hope is that this has been declared "typeset" in the 
+# caller.
+
+# If $2 is omitted, # use _cur_source_file, if $1 is omitted use _curline.
+function _Dbg_get_source_line {
+    typeset -i lineno
+    if (( $# == 0 )); then
+	Dbg_frame_lineno
+	lineno=$Dbg_frame_lineno
+    else
+	lineno=$1
+	shift
+    fi
+    typeset filename
+    if (( $# == 0 )) ; then
+	_Dbg_frame_file
+    else
+	filename=$_Dbg_frame_filename
+	filename=$1
+    fi
+  _Dbg_readin_if_new $filename
+  return
+  eval "source_line=\${$_Dbg_source_array_var[$lineno]}"
+}
+

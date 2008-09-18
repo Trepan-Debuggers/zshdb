@@ -13,6 +13,7 @@ pkgdata_DATA =      	\
 	hook.sh		\
 	info.sh		\
 	journal.sh  	\
+	list.sh  	\
 	msg.sh  	\
 	processor.sh  	\
 	run.sh    	\
