@@ -53,11 +53,10 @@ _Dbg_do_info() {
 	  # 	;;
 	  
           file| files | sources )
-              _Dbg_msg "Source files for which have been read in:
-"
+              _Dbg_msg "Source files which we have recorded info about:"
 	      unsetopt ksharrays
 	      for file in ${(ki)_Dbg_file2canonic} ; do
-		  _Dbg_msg "${file}: ${_Dbg_file2canonic[$file]}"
+		  _Dbg_msg "  ${file}: ${_Dbg_file2canonic[$file]}"
 	      done
 	      setopt ksharrays
               return 0

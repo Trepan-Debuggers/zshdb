@@ -269,8 +269,8 @@ of promoting the sharing and reuse of software generally.
 +show badcommand
 ** Unknown show subcommand: badcommand
 ** Show subcommands are:
-**   annotate  autoeval  debugger  listsize  trace-commands
-**   args      basename  force     prompt    width         
+**   annotate  autoeval  debugger  force     prompt          width
+**   args      basename  editing   listsize  trace-commands
 +another-bad-command 
 Undefined command: "another-bad-command". Try "help".
 +show 
@@ -280,10 +280,11 @@ args:     Argument list to give script when debugged program starts is:
 autoeval: Evaluate unrecognized commands is off.
 basename: Show short filenames (the basename) in debug output is on.
 debugger: Allow debugging the debugger is off.
+editing:  Editing of command lines as they are typed is off.
 force: Show stepping forces a new line is off.
 listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:
-       "$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater} ".
+       "$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater}".
 trace-commands: State of command tracing is on.
 width: Line width is 80.
 +show args

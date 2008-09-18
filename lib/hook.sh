@@ -128,6 +128,9 @@ _Dbg_hook_breakpoint_hit() {
     full_filename=${split_result[0]}
     lineno=${split_result[1]}
     full_filename=$(_Dbg_is_file $full_filename)
+    if [[ -r $full_filename ]] ; then 
+	_Dbg_file2canonic[$filename]="$fullname"
+    fi
     typeset -a linenos
     linenos=${_Dbg_brkpt_file2linenos[$full_filename]}
     typeset -i try_lineno

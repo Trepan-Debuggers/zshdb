@@ -62,7 +62,7 @@ function _Dbg_resolve_expand_filename {
   # Is this one of the files we've that has been specified in a debugger
   # "FILE" command?
   typeset found_file
-  found_file="${_Dbg_filenames[$file_cmd_file]}"
+  found_file="${_Dbg_file2canonic[$find_file]}"
   if [[ -n  $found_file ]] ; then
     print -- "$found_file"
     return 0

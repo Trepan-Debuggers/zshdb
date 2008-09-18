@@ -41,7 +41,9 @@ if [ -n "$DBG_INPUT" ] ; then
 fi
 
 # Run the user's debugger startup file
-if [[ -z $o_nx && -r ~/.zshdbrc ]] ; then
-  _Dbg_do_source ~/.zshbrc
+typeset _Dbg_startup_cmdfile=${HOME:-.}/.${_Dbg_debugger_name}rc
+if [[ -z $o_nx && -r $_Dbg_startup_cmdfile ]] ; then
+  _Dbg_do_source $_Dbg_startup_cmdfile
 fi
 
+typeset _Dbg_history_file=${HOME:-.}/.${_Dbg_debugger_name}_hist

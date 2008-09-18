@@ -19,7 +19,7 @@
 # Options which are set inside the debugger
 [[ -z $_Dbg_debugger_set_opts ]] && \
   typeset -r _Dbg_debugger_set_opts=\
-'extendedhistory extendedglob shwordsplit ksharrays histignoredups'
+'extendedhistory extendedglob shwordsplit ksharrays histignoredups zle'
 
 # Options which are unset inside the debugger
 [[ -z $_Dbg_debugger_unset_opts ]] && \

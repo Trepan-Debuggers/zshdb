@@ -29,7 +29,7 @@ _Dbg_do_show() {
   typeset label=$2
 
   # Warranty, copying, directories, and aliases are omitted below.
-  typeset -r subcmds='annotate args autoeval basename debugger force listsize prompt trace-commands width'
+  typeset -r subcmds='annotate args autoeval basename debugger editing force listsize prompt trace-commands width'
 
   if [[ -z $show_cmd ]] ; then 
       typeset thing
@@ -383,6 +383,19 @@ of promoting the sharing and reuse of software generally.
       done
 
      _Dbg_msg "Source directories searched: $list"
+      return 0
+      ;;
+    e | ed | edi | edit | editi | editin | editing )
+      [[ -n $label ]] && label='editing:  '
+     _Dbg_msg_nocr \
+"${label}Editing of command lines as they are typed is "
+      if [[ -z $_Dbg_edit ]] ; then 
+	  _Dbg_msg 'off.'
+      else
+	  _Dbg_msg 'on.'
+	  _Dbg_msg \
+"${label}Edit style is $_Dbg_edit_style."
+      fi
       return 0
       ;;
     force )

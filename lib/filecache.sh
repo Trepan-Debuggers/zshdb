@@ -59,6 +59,7 @@ function _Dbg_readin {
     else 
 	typeset fullname=$(_Dbg_resolve_expand_filename $filename)
 	if [[ -r $fullname ]] ; then
+	    _Dbg_file2canonic[$filename]="$fullname"
 	    eval "typeset -a $source_array_var; ${source_array_var}=()"
 	    typeset -r progress_prefix="Reading $filename"
 	    # No readarray. Do things the long way.
@@ -105,7 +106,6 @@ function _Dbg_readin {
 # _Dbg_is_file echoes the full filename if $1 is a filename found in files
 # '' is echo'd if no file found. Return 0 (in $?) if found, 1 if not.
 function _Dbg_is_file {
-
   if (( $# == 0 )) ; then
     _Dbg_errmsg "Internal debug error: null file to find"
     echo ''
@@ -121,31 +121,28 @@ function _Dbg_is_file {
       fi
   elif [[ ${find_file[0]} == '.' ]] ; then
       # Relative file name
-      find_file=$(_Dbg_expand_filename ${_Dbg_init_cwd}/$find_file)
+      try_find_file=$(_Dbg_expand_filename ${_Dbg_init_cwd}/$find_file)
       # FIXME: turn into common subroutine
-      if [[ -n ${_Dbg_filenames[$find_file]} ]] ; then
-	  print -- "$find_file"
+      if [[ -n ${_Dbg_filenames[$try_find_file]} ]] ; then
+	  print -- "$try_find_file"
 	  return 0
       fi
   else
     # Resolve file using _Dbg_dir
-    for try_file in ${_Dbg_filenames[@]} ; do 
-      typeset pathname
-      typeset -i n=${#_Dbg_dir[@]}
-      typeset -i i
-      for (( i=0 ; i < n; i++ )) ; do
-	typeset basename="${_Dbg_dir[i]}"
-	if [[  $basename = '\$cdir' ]] ; then
-	  basename=$_Dbg_cdir
-	elif [[ $basename = '\$cwd' ]] ; then
-	  basename=$(pwd)
-	fi
-	try_find_file=${basename}/$find_file
-	if [[ -n ${_Dbg_filenames[$try_find_file]} ]] ; then
-	    print -- "$try_find_file"
-	    return 0
-	fi
-      done
+    typeset -i n=${#_Dbg_dir[@]}
+    typeset -i i
+    for (( i=0 ; i < n; i++ )) ; do
+      typeset basename="${_Dbg_dir[i]}"
+      if [[  $basename == '\$cdir' ]] ; then
+	basename=$_Dbg_cdir
+      elif [[ $basename == '\$cwd' ]] ; then
+	basename=$(pwd)
+      fi
+      try_find_file="$basename/$find_file"
+      if [[ -f "$try_find_file" ]] ; then
+	  print -- "$try_find_file"
+	  return 0
+      fi
     done
   fi
   echo ''
