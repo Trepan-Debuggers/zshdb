@@ -36,7 +36,7 @@ test_journal()
 
 
 # Make sure @abs_top_srcdir@ has a trailing slash
-if [ '/src/git/zshdb' = '' ] ; then
+if [ '@abs_top_srcdir@' = '' ] ; then
   echo "Something is wrong: abs_top_srcdir is not set."
  exit 1
 fi

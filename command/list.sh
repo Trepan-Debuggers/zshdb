@@ -40,9 +40,9 @@ _Dbg_do_list() {
     fi
     
     if [[ $first_arg == '.' ]] ; then
-	echo "$_Dbg_frame_last_file"
+	echo "$_Dbg_frame_last_filename"
 	echo "$*"
-	_Dbg_list $_Dbg_frame_last_file $*
+	_Dbg_list $_Dbg_frame_last_filename $*
 	return $?
     fi
 

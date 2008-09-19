@@ -69,7 +69,7 @@ function _Dbg_debug_trap_handler {
 	typeset -i _Dbg_brkpt_num
 	if _Dbg_hook_breakpoint_hit ; then 
 	    if ((_Dbg_step_force)) ; then
-		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
+		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_filename"
 		typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
 	    fi
 	    _Dbg_frame_save_frames 1
@@ -90,11 +90,11 @@ function _Dbg_debug_trap_handler {
     if ((_Dbg_step_ignore == 0 && ! _Dbg_skipping_fn )); then
 
 	if ((_Dbg_step_force)) ; then
-	    typeset _Dbg_frame_previous_file="$_Dbg_frame_last_file"
+	    typeset _Dbg_frame_previous_file="$_Dbg_frame_last_filename"
 	    typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
 	    _Dbg_frame_save_frames 1
 	    if ((_Dbg_frame_previous_lineno == _Dbg_frame_last_lineno)) && \
-		[ "$_Dbg_frame_previous_file" = "$_Dbg_frame_last_file" ] ; then
+		[ "$_Dbg_frame_previous_file" = "$_Dbg_frame_last_filename" ] ; then
 		_Dbg_set_to_return_from_debugger 1
 		return 0
 	    fi

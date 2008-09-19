@@ -33,7 +33,7 @@ _Dbg_list() {
     if (( $# > 0 )) ; then
 	filename=$1
     else
-	filename=$_Dbg_frame_last_file
+	filename=$_Dbg_frame_last_filename
     fi
 
     if [[ $2 = '.' ]]; then
@@ -68,7 +68,7 @@ _Dbg_list() {
 
     typeset source_line
     typeset frame_fullfile
-    frame_fullfile=${_Dbg_file2canonic[$_Dbg_frame_last_file]}
+    frame_fullfile=${_Dbg_file2canonic[$_Dbg_frame_last_filename]}
     
     for ((  ; (( _Dbg_listline <= n && _Dbg_listline <= max_line )) \
             ; _Dbg_listline++ )) ; do

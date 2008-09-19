@@ -64,7 +64,7 @@ _Dbg_frame_adjust() {
 
   typeset file_line="${_Dbg_frame_stack[$pos]}"
   _Dbg_split "$file_line" ':'
-  _Dbg_frame_last_file=${split_result[0]}
+  _Dbg_frame_last_filename=${split_result[0]}
   _Dbg_frame_last_lineno=${split_result[1]}
   ((_Dbg_stack_pos = pos))
 
@@ -135,7 +135,7 @@ _Dbg_frame_save_frames() {
     _Dbg_stack_pos=0
     typeset file_line="${_Dbg_frame_stack[0]}"
     _Dbg_split "$file_line" ':'
-    _Dbg_frame_last_file=${split_result[0]}
+    _Dbg_frame_last_filename=${split_result[0]}
     _Dbg_frame_last_lineno=${split_result[1]}
 
 }
