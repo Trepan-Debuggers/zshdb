@@ -109,7 +109,7 @@ _Dbg_get_maxline() {
     typeset fullname=${_Dbg_file2canonic[$filename]}
     _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
     [[ -z $_Dbg_source_array_var  ]] && return 2
-    eval "print \${#${_Dbg_source_array_var}[@]}"
+    eval "print \$((\${#${_Dbg_source_array_var}[@]}-1))"
     return $?
 }
 
@@ -141,7 +141,7 @@ function _Dbg_readin {
 	if [[ -r $fullname ]] ; then
 	    _Dbg_file2canonic[$filename]="$fullname"
 	    _Dbg_file2canonic[$fullname]="$fullname"
-	    eval "$_Dbg_source_array_var=( \${(f)mapfile[$fullname]} )"
+	    eval "$_Dbg_source_array_var=( \"\${(f@)mapfile[$fullname]}\" )"
 	else
 	    return 1
 	fi
