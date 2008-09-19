@@ -213,10 +213,10 @@ _Dbg_onecmd() {
 
 	# List line.
 	# print lines in file
-# 	l | li | lis | list )
-# 	  _Dbg_do_list $args
-# 	  _Dbg_last_cmd='list'
-# 	  ;;
+	l | li | lis | list )
+	  _Dbg_do_list $args
+	  _Dbg_last_cmd='list'
+	  ;;
 
 	# single-step ignoring functions
 	'next+' | 'next-' | 'next' )

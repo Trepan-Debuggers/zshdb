@@ -33,15 +33,15 @@ _Dbg_list() {
     if (( $# > 0 )) ; then
 	filename=$1
     else
-	_Dbg_frame_file
-	filename=$_Dbg_frame_filename
+	filename=$_Dbg_frame_last_file
     fi
 
     if [[ $2 = '.' ]]; then
-	Dbg_frame_lineno
-	_Dbg_listline=$Dbg_frame_lineno
+	_Dbg_listline=$Dbg_frame_last_lineno
     elif [[ -n $2 ]] ; then
       _Dbg_listline=$2
+    else
+	_Dbg_listline=$_Dbg_frame_last_lineno
     fi
     (( _Dbg_listline==0 )) && ((_Dbg_listline++))
 
@@ -67,15 +67,16 @@ _Dbg_list() {
     fi
 
     typeset source_line
+    typeset frame_fullfile
+    frame_fullfile=${_Dbg_file2canonic[$_Dbg_frame_last_file]}
+    
     for ((  ; (( _Dbg_listline <= n && _Dbg_listline <= max_line )) \
             ; _Dbg_listline++ )) ; do
-     typeset prefix="   "
-     set -x
+     typeset prefix='    '
      _Dbg_get_source_line $_Dbg_listline $filename
-     set +x
 
-#       (( _Dbg_listline == _Dbg_frame_lineno )) \
-#         && [[ $filename == $_Dbg_frame_filename ]] &&  prefix="==>"
+       (( _Dbg_listline == _Dbg_frame_last_lineno )) \
+         && [[ $fullname == $frame_fullfile ]] &&  prefix=' => '
       _Dbg_printf "%3d:%s%s" $_Dbg_listline "$prefix" "$source_line"
     done
     (( _Dbg_listline > max_line && _Dbg_listline-- ))

@@ -62,6 +62,10 @@ _Dbg_frame_adjust() {
     return 1
   fi
 
+  typeset file_line="${_Dbg_frame_stack[$pos]}"
+  _Dbg_split "$file_line" ':'
+  _Dbg_frame_last_file=${split_result[0]}
+  _Dbg_frame_last_lineno=${split_result[1]}
   ((_Dbg_stack_pos = pos))
 
 }

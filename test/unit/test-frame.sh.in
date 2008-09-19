@@ -26,7 +26,7 @@ test_frame_adjust()
 	errmsg+=("$1")
     }
     _Dbg_running=1
-    typeset -a errmsg=()
+    typeset -a errmsg; errmsg=()
     _Dbg_frame_save_frames 0
     assertEquals 5 ${#_Dbg_frame_stack[@]}
 

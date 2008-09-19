@@ -116,7 +116,7 @@ _Dbg_get_maxline() {
 # Read $1 into _DBG_source_*n* array where *n* is an entry in
 # _Dbg_filenames.  Variable _Dbg_seen[canonic-name] will be set to
 # note the file has been read and the filename will be saved in array
-# _Dbg_filenames
+# _Dbg_filenames. fullname is set to the expanded filename
 
 function _Dbg_readin {
     typeset filename
@@ -137,7 +137,7 @@ function _Dbg_readin {
     if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
 	eval "${_Dbg_source_array_var}[0]=\"$BASH_EXECUTION_STRING\""
     else 
-	typeset fullname=$(_Dbg_resolve_expand_filename $filename)
+	fullname=$(_Dbg_resolve_expand_filename $filename)
 	if [[ -r $fullname ]] ; then
 	    _Dbg_file2canonic[$filename]="$fullname"
 	    _Dbg_file2canonic[$fullname]="$fullname"
@@ -156,12 +156,14 @@ function _Dbg_readin {
 }
 
 function _Dbg_readin_if_new {
-    typeset fullname
+    (( $# != 1 )) && return 1
+    typeset filename=$1
     fullname=${_Dbg_file2canonic[$filename]}
     if [[ -z $fullname ]] ; then 
 	_Dbg_readin $filename
 	typeset rc=$?
 	(( $? != 0 )) && return $rc
+	[[ -z $fullname ]] && return 1
     fi
     _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
     [[ -z $_Dbg_source_array_var  ]] && return 2
@@ -172,7 +174,8 @@ function _Dbg_readin_if_new {
 # $source_line. The hope is that this has been declared "typeset" in the 
 # caller.
 
-# If $2 is omitted, # use _cur_source_file, if $1 is omitted use _curline.
+# If $2 is omitted, # use _Dbg_frame_filename, if $1 is omitted use 
+# _Dbg_frame_lineno. The return value is put in source_line.
 function _Dbg_get_source_line {
     typeset -i lineno
     if (( $# == 0 )); then
@@ -190,7 +193,6 @@ function _Dbg_get_source_line {
 	filename=$1
     fi
   _Dbg_readin_if_new $filename
-  return
-  eval "source_line=\${$_Dbg_source_array_var[$lineno]}"
+  eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
 }
 
