@@ -109,8 +109,37 @@ _Dbg_get_maxline() {
     typeset fullname=${_Dbg_file2canonic[$filename]}
     _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
     [[ -z $_Dbg_source_array_var  ]] && return 2
-    eval "print \$((\${#${_Dbg_source_array_var}[@]}-1))"
+    eval "typeset last_line=\${${_Dbg_source_array_var}[-1]}"
+    typeset -i last_not_null
+    [[ -z $last_line ]] && last_line_is_null=1 || last_line_is_null=0
+    eval "print \$((\${#${_Dbg_source_array_var}[@]}-$last_line_is_null))"
     return $?
+}
+
+# Return text for source line for line $1 of filename $2 in variable
+# $source_line. The hope is that this has been declared "typeset" in the 
+# caller.
+
+# If $2 is omitted, # use _Dbg_frame_filename, if $1 is omitted use 
+# _Dbg_frame_lineno. The return value is put in source_line.
+function _Dbg_get_source_line {
+    typeset -i lineno
+    if (( $# == 0 )); then
+	Dbg_frame_lineno
+	lineno=$Dbg_frame_lineno
+    else
+	lineno=$1
+	shift
+    fi
+    typeset filename
+    if (( $# == 0 )) ; then
+	_Dbg_frame_file
+    else
+	filename=$_Dbg_frame_filename
+	filename=$1
+    fi
+  _Dbg_readin_if_new $filename
+  eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
 }
 
 # Read $1 into _DBG_source_*n* array where *n* is an entry in
@@ -155,7 +184,7 @@ function _Dbg_readin {
     return 0
 }
 
-function _Dbg_readin_if_new {
+_Dbg_readin_if_new() {
     (( $# != 1 )) && return 1
     typeset filename=$1
     fullname=${_Dbg_file2canonic[$filename]}
@@ -168,31 +197,5 @@ function _Dbg_readin_if_new {
     _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
     [[ -z $_Dbg_source_array_var  ]] && return 2
     return 0
-}
-
-# Return text for source line for line $1 of filename $2 in variable
-# $source_line. The hope is that this has been declared "typeset" in the 
-# caller.
-
-# If $2 is omitted, # use _Dbg_frame_filename, if $1 is omitted use 
-# _Dbg_frame_lineno. The return value is put in source_line.
-function _Dbg_get_source_line {
-    typeset -i lineno
-    if (( $# == 0 )); then
-	Dbg_frame_lineno
-	lineno=$Dbg_frame_lineno
-    else
-	lineno=$1
-	shift
-    fi
-    typeset filename
-    if (( $# == 0 )) ; then
-	_Dbg_frame_file
-    else
-	filename=$_Dbg_frame_filename
-	filename=$1
-    fi
-  _Dbg_readin_if_new $filename
-  eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
 }
 
