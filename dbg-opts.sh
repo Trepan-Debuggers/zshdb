@@ -17,7 +17,7 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-usage() {
+_Dbg_usage() {
   printf "Usage: 
    ${_Dbg_pname} [OPTIONS] <script_file>
 
@@ -38,7 +38,7 @@ options:
   exit 100
 }
 
-show_version() {
+_Dbg_show_version() {
   printf 'There is absolutely no warranty for zshdb.  Type "show warranty" for details.
 '
   exit 101
@@ -61,7 +61,7 @@ zparseopts -D --                        \
   q=o_quiet      -quiet=o_quiet         \
   x:=o_cmdfile   -command:=o_cmdfile
                 
-[[ $? != 0 || "$o_help" != '' ]] && usage
+[[ $? != 0 || "$o_help" != '' ]] && _Dbg_usage
 
 if [[ -z $o_quiet || -n $o_version ]]; then 
   print "Zsh Shell Debugger, release $_Dbg_release"
@@ -72,7 +72,7 @@ welcome to change it and/or distribute copies of it under certain conditions.
 
 '
 fi
-[[ -n "$o_version" ]] && show_version
+[[ -n "$o_version" ]] && _Dbg_show_version
 [[ -n "$o_basename" ]] && _Dbg_basename_only=1
 [[ -n "$o_cmdfile" ]] && {
     typeset -a _Dbg_input

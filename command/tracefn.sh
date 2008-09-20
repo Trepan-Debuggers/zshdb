@@ -33,34 +33,14 @@ function _Dbg_do_trace_fn {
 	_Dbg_errmsg "trace_fn: missing or invalid function name"
 	return 2
     fi
-    _Dbg_is_function "$fn" 1 || {
+    _Dbg_is_function "$fn" $_Dbg_debug_debugger || {
 	_Dbg_errmsg "trace_fn: function \"$fn\" is not a function."
 	return 3
     }
     cmd=old_$(typeset -f -- "$fn") || {
 	return 4
     }
-    ((_Dbg_debug_debugger)) && print "$cmd"
-    typeset save_clear_debug_trap_cmd=''
-    typeset restore_trap_cmd=''
-    if (( clear_debug_trap )) ; then
-	save_clear_trap_cmd='typeset old_handler=$(trap -p DEBUG); trap - DEBUG'
-	restore_trap_cmd='eval $old_handler'
-    fi
-    eval "$cmd" || return 5
-    cmd="${fn}() { 
-    $save_clear_trap_cmd
-    typeset -ri old_set_x=is_traced
-    set -x
-    old_$fn \"\$@\"
-    typeset -ri rc=\$?
-    (( old_set_x == 0 )) && set +x # still messes up of fn did: set -x
-    $restore_trap_cmd
-    return \$rc
-    }
-"
-    ((_Dbg_debug_debugger)) && echo "$cmd"
-    eval "$cmd" || return 6
+    typeset -ft $fn
     return 0
 }
 
@@ -75,17 +55,10 @@ function _Dbg_do_untrace_fn {
 	_Dbg_errmsg "untrace_fn: missing or invalid function name."
 	return 2
     fi
-    _Dbg_is_function "$fn" || {
+    _Dbg_is_function "$fn" $_Dbg_debug_debugger || {
 	_Dbg_errmsg "untrace_fn: function \"$fn\" is not a function."
 	return 3
     }
-    _Dbg_is_function "old_$fn" || {
-	_Dbg_errmsg "untrace_fn: old function old_$fn not seen - nothing done."
-	return 4
-    }
-    cmd=$(typeset -f -- "old_$fn") || return 5
-    cmd=${cmd#old_}
-    ((_Dbg_debug_debugger)) && echo $cmd 
-    eval "$cmd" || return 6
+    typeset +ft $fn
     return 0
 }

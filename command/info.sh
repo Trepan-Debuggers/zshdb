@@ -28,7 +28,7 @@ _Dbg_help_add info ''
 typeset -a _Dbg_info_subcmds
 # typeset -a _Dbg_infosubcmds=( args breakpoints display files functions program source \
 #                       sources stack terminal variables watchpoints )
-_Dbg_info_subcmds=( breakpoints files program source  stack )
+_Dbg_info_subcmds=( breakpoints files functions program source stack )
 _Dbg_do_info() {
       
   if (($# > 0)) ; then
@@ -63,10 +63,10 @@ _Dbg_do_info() {
               return 0
 	      ;;
 	  
-	  #       fu | fun| func | funct | functi | functio | function | functions )
-	  #         _Dbg_do_list_subroutines $*
-	  #         return
-	  # 	;;
+	  fu | fun| func | funct | functi | functio | function | functions )
+	      _Dbg_do_list_functions $*
+	      return
+	      ;;
 	  
 	  #       h | ha | han | hand | handl | handle | \
 	  #           si | sig | sign | signa | signal | signals )

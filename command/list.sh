@@ -63,3 +63,19 @@ _Dbg_do_list() {
 	return 1
     fi
 }
+
+# list Subroutine names matching a pattern.  Pass along whether or not
+# to print debugger functions?
+_Dbg_do_list_functions() {
+
+    typeset -a list
+    list=( $(_Dbg_get_functions $*) )
+    typeset -i rc=$?
+    (( $rc != 0 )) && return $rc
+    typeset -i width; ((width=_Dbg_linewidth-5))
+    typeset -a columnized; columnize $width
+    typeset -i i
+    for ((i=0; i<${#columnized[@]}; i++)) ; do 
+	_Dbg_msg "  ${columnized[i]}"
+    done
+}

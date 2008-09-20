@@ -17,7 +17,7 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-typeset -r _Dbg_info_cmds='breakpoints files line program source stack warranty'
+typeset -r _Dbg_info_cmds='breakpoints files functions line program source stack warranty'
 
 _Dbg_info_help() {
   typeset -r info_cmd=$1
@@ -55,11 +55,11 @@ _Dbg_info_help() {
 'info files -- Source files in the program'
       return 0
       ;;
-#     fu | fun| func | funct | functi | functio | function | functions )
-#       _Dbg_msg \
-# 'info functions -- All function names'
-#       return 0
-#       ;;
+    fu | fun| func | funct | functi | functio | function | functions )
+      _Dbg_msg \
+'info functions -- All function names'
+      return 0
+      ;;
     l | li| lin | line )
       _Dbg_msg \
 'info line -- list current line number and and file name'

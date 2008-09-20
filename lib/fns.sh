@@ -49,6 +49,24 @@ function _Dbg_esc_dq {
   builtin echo $1 | sed -e 's/[`$\"]/\\\0/g' 
 }
 
+# _get_function echoes a list of all of the functions matchining
+# optional pattern if $1 is nonzero, include debugger functions,
+# i.e. those whose name starts with an underscore (_Dbg), are included in
+# the search.  FIXME add parameter search pattern.
+_Dbg_get_functions() {
+    typeset pat=''
+    (( $# > 1 )) && { pat=$1 ; shift }
+    (( $# != 0 )) && return 1
+    
+    typeset -a list
+    if ((_Dbg_debug_debugger)) ; then
+	typeset +f $pat
+    else
+	typeset +f $pat | grep -v ^_Dbg_
+    fi
+}
+
+
 # _Dbg_is_function returns 0 if $1 is a defined function or nonzero otherwise. 
 # if $2 is nonzero, system functions, i.e. those whose name starts with
 # an underscore (_), are included in the search.
