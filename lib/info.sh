@@ -17,7 +17,7 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-typeset -r _Dbg_info_cmds='breakpoints files functions line program source stack warranty'
+typeset -r _Dbg_info_cmds='breakpoints files line program source stack variables warranty'
 
 _Dbg_info_help() {
   typeset -r info_cmd=$1
@@ -53,11 +53,6 @@ _Dbg_info_help() {
     fi | file| files | sources )
       _Dbg_msg \
 'info files -- Source files in the program'
-      return 0
-      ;;
-    fu | fun| func | funct | functi | functio | function | functions )
-      _Dbg_msg \
-'info functions -- All function names'
       return 0
       ;;
     l | li| lin | line )
@@ -96,11 +91,11 @@ _Dbg_info_help() {
 # 'info tracepoints -- Status of tracepoints'
 #       return 0
 #       ;;
-#     v | va | var | vari | varia | variab | variabl | variable | variables )
-#       _Dbg_msg \
-# 'info variables -- All global and static variable names'
-#       return 0
-#       ;;
+    v | va | var | vari | varia | variab | variabl | variable | variables )
+      _Dbg_msg \
+'info variables -- Variable lists by property (array, fn, export, ...)'
+      return 0
+      ;;
     w | wa | war | warr | warra | warran | warrant | warranty )
       _Dbg_msg \
 'info warranty -- Various kinds of warranty you do not have'

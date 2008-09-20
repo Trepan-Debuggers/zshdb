@@ -35,10 +35,10 @@
 
 _Dbg_set_debugger_entry() {
 
-  _Dbg_old_IFS="$IFS"
-  _Dbg_old_PS4="$PS4"
-  (( $# > 0 )) && _Dbg_create_unsetopt "$_Dbg_check_opts"
-  _Dbg_set_debugger_internal
+    _Dbg_old_IFS="$IFS"
+    _Dbg_old_PS4="$PS4"
+    (( $# > 0 )) && _Dbg_create_unsetopt "$_Dbg_check_opts"
+    _Dbg_set_debugger_internal
 }
 
 # Return 0 if $1 is not a zsh option set

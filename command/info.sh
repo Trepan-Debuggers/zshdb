@@ -28,7 +28,7 @@ _Dbg_help_add info ''
 typeset -a _Dbg_info_subcmds
 # typeset -a _Dbg_infosubcmds=( args breakpoints display files functions program source \
 #                       sources stack terminal variables watchpoints )
-_Dbg_info_subcmds=( breakpoints files functions program source stack )
+_Dbg_info_subcmds=( breakpoints files program source stack variables )
 _Dbg_do_info() {
       
   if (($# > 0)) ; then
@@ -63,11 +63,6 @@ _Dbg_do_info() {
               return 0
 	      ;;
 	  
-	  fu | fun| func | funct | functi | functio | function | functions )
-	      _Dbg_do_list_functions $*
-	      return
-	      ;;
-	  
 	  #       h | ha | han | hand | handl | handle | \
 	  #           si | sig | sign | signa | signal | signals )
 	  #         _Dbg_info_signals
@@ -100,10 +95,11 @@ _Dbg_do_info() {
 	      ;;
 	  
 	  so | sou | sourc | source )
-	      _Dbg_frame_file
-              _Dbg_msg "Current script file is $_Dbg_frame_filename" 
-	      # 	typeset -i max_line=$(_Dbg_get_assoc_scalar_entry "_Dbg_maxline_" $_cur_filevar)
-	      # 	_Dbg_msg "Contains $max_line lines." ; 
+              _Dbg_msg "Current script file is $_Dbg_frame_last_filename" 
+              _Dbg_msg "Located in ${_Dbg_file2canonic[$_Dbg_frame_last_filename]}" 
+	      typeset -i max_line
+	      max_line=$(_Dbg_get_maxline $_Dbg_frame_last_filename)
+	      	_Dbg_msg "Contains $max_line lines." ; 
               return $?
 	      ;;
 	  
@@ -117,13 +113,84 @@ _Dbg_do_info() {
 	  # 	return;
 	  # 	;;
 	  
-	  #       v | va | var | vari | varia | variab | variabl | variable | variables )
-	  # 	_Dbg_do_list_variables "$1"
-	  # 	return
-	  #         ;;
+	  v | va | var | vari | varia | variab | variabl | variable | variables )
+	      _Dbg_do_info_variables $*
+	      return $?
+	      ;;
 	  
 	  w | wa | war | warr | warra | warran | warrant | warranty )
-              _Dbg_msg "
+	      _Dbg_do_info_warranty
+	      return $?
+	      ;;
+	  *)
+	      _Dbg_errmsg "Unknown info subcommand: $info_cmd"
+	      msg=_Dbg_errmsg
+      esac
+  else
+      msg=_Dbg_msg
+  fi
+  typeset -a list
+  list=(${_Dbg_info_subcmds[@]})
+  typeset columnized=''
+  typeset -i width; ((width=_Dbg_linewidth-5))
+  typeset -a columnized; columnize $width
+  typeset -i i
+  $msg "Info subcommands are:"
+  for ((i=0; i<${#columnized[@]}; i++)) ; do 
+      $msg "  ${columnized[i]}"
+  done
+  return 1
+}
+
+_Dbg_do_info_variables() {
+    typeset attrs="array, export, fixed, float, function, hash, integer, or readonly"
+    if (($# > 0)) ; then
+	typeset kind="$1"
+	shift
+	case "$kind" in
+	    a | ar | arr | arra | array )
+		_Dbg_do_list_typeset_attr '+a' $*
+		return 0
+		;;
+	    e | ex | exp | expor | export )
+		_Dbg_do_list_typeset_attr '+x' $*
+		return 0
+		;;
+	    fu|fun|func|funct|functi|functio|function )
+		_Dbg_do_list_typeset_attr '+f' $*
+		return 0
+		;;
+	    fi|fix|fixe|fixed )
+		_Dbg_do_list_typeset_attr '+F' $*
+		return 0
+		;;
+	    fl|flo|floa|float )
+		_Dbg_do_list_typeset_attr '+E' $*
+		return 0
+		;;
+	    h | ha | has | hash )
+		_Dbg_do_list_typeset_attr '+A' $*
+		return 0
+		;;
+	    i | in | int| inte | integ | intege | integer )
+		_Dbg_do_list_typeset_attr '+i' $*
+		return 0
+		;;
+	    r | re | rea| read | reado | readon | readonl | readonly )
+		_Dbg_do_list_typeset_attr '+r' $*
+		return 0
+		;;
+	    * )
+		_Dbg_errmsg "Don't know how to list variable type: $kind"
+	esac
+    fi
+    _Dbg_errmsg "Need to specify a variable class which is one of: "
+    _Dbg_errmsg "\t$attrs"
+    return 1
+}
+
+_Dbg_do_info_warranty() {
+    _Dbg_msg "
 			    NO WARRANTY
 
   11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
@@ -146,26 +213,7 @@ YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
 PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGES.
 "
-	      return 0
-	      ;;
-	  *)
-	      _Dbg_errmsg "Unknown info subcommand: $info_cmd"
-	      msg=_Dbg_errmsg
-      esac
-  else
-      msg=_Dbg_msg
-  fi
-  typeset -a list
-  list=(${_Dbg_info_subcmds[@]})
-  typeset columnized=''
-  typeset -i width; ((width=_Dbg_linewidth-5))
-  typeset -a columnized; columnize $width
-  typeset -i i
-  $msg "Info subcommands are:"
-  for ((i=0; i<${#columnized[@]}; i++)) ; do 
-      $msg "  ${columnized[i]}"
-  done
-  return 1
+    return 0
 }
 
 # _Dbg_do_info_args() {

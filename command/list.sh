@@ -64,18 +64,15 @@ _Dbg_do_list() {
     fi
 }
 
-# list Subroutine names matching a pattern.  Pass along whether or not
-# to print debugger functions?
-_Dbg_do_list_functions() {
-
+# List in column form variables having attribute $1.
+# A grep pattern can be given in $2. ! indicates negation.
+_Dbg_do_list_typeset_attr() {
+    (($# == 0)) && return 1
+    typeset attr="$1"; shift
     typeset -a list
-    list=( $(_Dbg_get_functions $*) )
+    list=( $(_Dbg_get_typeset_attr "$attr" $*) )
     typeset -i rc=$?
     (( $rc != 0 )) && return $rc
-    typeset -i width; ((width=_Dbg_linewidth-5))
-    typeset -a columnized; columnize $width
-    typeset -i i
-    for ((i=0; i<${#columnized[@]}; i++)) ; do 
-	_Dbg_msg "  ${columnized[i]}"
-    done
+    _Dbg_list_columns
+    return $?
 }

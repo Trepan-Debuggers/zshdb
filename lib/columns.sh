@@ -22,6 +22,7 @@
 # width $1, separate columns with $2. The column width defaults to 80
 # and the column separator is two spaces.  
 columnize() {
+    setopt ksharrays
     typeset -i displaywidth=${1:-80}
     (($# < 2)) && typeset colsep='  ' || typeset colsep="$2"
     typeset -i list_size=${#list[@]}
@@ -106,40 +107,69 @@ columnize() {
 }
 
 if [[ $0 == *columnize.sh ]] ; then 
-    #
-    setopt ksharrays sh_word_split
-    set -o shwordsplit
+#if : ; then
     print_columns() {
+	setopt ksharrays sh_word_split
 	typeset -a columnized
-PS4='(%N:%i): [%?] zsh+ 
+PS4='(%x:%I): [%?] zsh+ 
 '
-        typeset -a list
-	list=($1)
-        columnize $2 $3
+        columnize $1 "$2"
 	typeset -i i
 	echo '==============='
 	for ((i=0; i<${#columnized[@]}; i++)) ; do 
 	    print "${columnized[$i]}"
 	done
+	unsetopt shwordsplit
     }
+    unset list
     print_columns
-    print_columns ''
-    print_columns oneitem
-    print_columns 'a 2 c' 10 ', '
-    print_columns \
-' 1   two three
-  for 5   six
-  7   8' 12
+    typeset -a list
+    print_columns
+    list=(oneitem); print_columns
+    list=(a 2 c) print_columns 10 ', '
+    list=(
+ 1   two three
+ for 5   six
+ 7   8) print_columns 12 
 
-    print_columns \
-' one two three
-  4ne 5wo 6hree
-  7ne 8wo 9hree
-  10e 11o 12ree' 18
+    list=(
+ one two three
+ 4ne 5wo 6hree
+ 7ne 8wo 9hree
+ 10e 11o 12ree) print_columns 18 
 
-    print_columns \
-' 1   two 3
-  for 5   six
-  7   8' 12
+    list=(
+ 1   two 3
+ for 5   six
+ 7   8) print_columns 12
+
+    list=(
+	argv
+	cdpath
+	fignore
+	fpath      
+	funcfiletrace
+	funcstack
+	lib_opts    
+	libdir     
+	list       
+	mailpath
+	manpath     
+	module_path
+	o_annotate
+	o_basename
+	o_cmdfile   
+	o_help    
+	o_nx       
+	o_quiet
+	o_version
+	path    
+	pipestatus
+	psvar   
+	signals
+	split_result
+	temp 
+	watch)
+  print_columns 80 ' | '
 
 fi

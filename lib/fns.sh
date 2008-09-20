@@ -49,18 +49,20 @@ function _Dbg_esc_dq {
   builtin echo $1 | sed -e 's/[`$\"]/\\\0/g' 
 }
 
-# _get_function echoes a list of all of the functions matchining
+# _Dbg__get_function echoes a list of all of the functions matching
 # optional pattern if $1 is nonzero, include debugger functions,
 # i.e. those whose name starts with an underscore (_Dbg), are included in
 # the search.  
 # A grep pattern can be specified to filter function names. If the 
 # pattern starts with ! we report patterns that don't match.
-_Dbg_get_functions() {
+_Dbg_get_typeset_attr() {
+    (( $# == 0 )) && return 1
+    typeset attr="$1"; shift
     typeset pat=''
     (( $# > 0 )) && { pat=$1 ; shift }
     (( $# != 0 )) && return 1
 
-    typeset cmd="typeset +f"
+    typeset cmd="typeset $attr"
     if [[ -n $pat ]] ; then
 	if [[ ${pat[0]} == '!' ]] ; then
 	    cmd+=" | grep -v ${pat[1,-1]}"

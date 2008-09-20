@@ -82,3 +82,21 @@ _Dbg_list() {
     (( _Dbg_listline > max_line && _Dbg_listline-- ))
     return 0
 }
+
+_Dbg_list_typeset_attr() {
+    typeset -a list
+    list=( $(_Dbg_get_typeset_attr '+p' $*) )
+    typeset -i rc=$?
+    (( $rc != 0 )) && return $rc
+    _Dbg_list_columns
+}
+
+_Dbg_list_columns() {
+    typeset -i width; ((width=_Dbg_linewidth-5))
+    typeset -a columnized; columnize $width
+    typeset -i i
+    for ((i=0; i<${#columnized[@]}; i++)) ; do 
+	_Dbg_msg "  ${columnized[i]}"
+    done
+
+}

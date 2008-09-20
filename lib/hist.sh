@@ -27,9 +27,7 @@ _Dbg_history_read() {
 }
 
 _Dbg_history_write() {
-    set -x
     fc -W $_Dbg_histfile
-    set +x
 }
 
 # Show history via fc -l
