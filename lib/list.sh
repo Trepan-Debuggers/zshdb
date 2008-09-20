@@ -92,8 +92,10 @@ _Dbg_list_typeset_attr() {
 }
 
 _Dbg_list_columns() {
-    typeset -i width; ((width=_Dbg_linewidth-5))
-    typeset -a columnized; columnize $width
+    typeset colsep='  '
+    (($# > 0 )) && { colsep="$1"; shift; }
+    (($# != 0)) && return 1
+    typeset -a columnized; columnize $_Dbg_linewidth "$colsep"
     typeset -i i
     for ((i=0; i<${#columnized[@]}; i++)) ; do 
 	_Dbg_msg "  ${columnized[i]}"

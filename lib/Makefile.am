@@ -3,6 +3,7 @@ pkgdata_DATA =      	\
 	alias.sh    	\
 	break.sh    	\
 	columns.sh  	\
+	dbg-call.sh  	\
 	file.sh  	\
 	filecache.sh  	\
 	fns.sh  	\

@@ -29,7 +29,7 @@ test_columnized()
     }
     do_one 1 '<empty>' '' 
     do_one 1 'a,2,c' 'a 2 c' 10 ','
-    do_one 3 'three  six' \
+    do_one 4 'for    8  ' \
 ' 1   two three
   for 5   six
   7   8' 12

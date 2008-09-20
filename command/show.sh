@@ -48,12 +48,7 @@ _Dbg_do_show() {
 	 list+=("${alias}: ${_Dbg_aliases[$alias]}")
       done
       setopt ksharrays
-      typeset -i width; ((width=_Dbg_linewidth-5))
-      typeset -a columnized; columnize $width  '  |  '
-      typeset -i i
-      for ((i=0; i<${#columnized[@]}; i++)) ; do 
-	  _Dbg_msg "  ${columnized[i]}"
-      done
+      _Dbg_list_columns '  |  '
       return 0
       ;;
     ar | arg | args )

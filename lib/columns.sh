@@ -22,7 +22,6 @@
 # width $1, separate columns with $2. The column width defaults to 80
 # and the column separator is two spaces.  
 columnize() {
-    setopt ksharrays
     typeset -i displaywidth=${1:-80}
     (($# < 2)) && typeset colsep='  ' || typeset colsep="$2"
     typeset -i list_size=${#list[@]}
@@ -53,11 +52,12 @@ columnize() {
           colwidth=0
 	  typeset -i row
           for (( row=0; row<=(nrows-1); row++ )); do
-              ((i=row + nrows*col))  # [rows, cols]
-              if ((i >= list_size)); then
+	      typeset -i j
+              ((j=row + nrows*col))  # [rows, cols]
+              if ((j >= list_size)); then
 		  break
 	      fi
-	      typeset item="${list[i]}"
+	      typeset item="${list[j]}"
 	      ((colwidth < ${#item})) && colwidth=${#item}
           done
           colwidths+=($colwidth)
@@ -66,7 +66,7 @@ columnize() {
               break
           fi
       done
-      if ((totwidth <= $displaywidth)); then
+      if ((totwidth <= displaywidth)); then
           break
       fi
     done
