@@ -55,7 +55,7 @@ _Dbg_check_line() {
 }
 
 # _Dbg_is_file echoes the full filename if $1 is a filename found in files
-# '' is echo'd if no file found. Return 0 (in $?) if found, 1 if not.
+# '' is echo'd if no file found. Return 0 if found, 1 if not.
 function _Dbg_is_file {
   if (( $# == 0 )) ; then
     _Dbg_errmsg "Internal debug error: null file to find"
@@ -102,14 +102,13 @@ function _Dbg_is_file {
 
 # Return the maximum line of filename $1. $1 is expected to be
 # read in already and therefore stored in _Dbg_file2canonic.
-
 _Dbg_get_maxline() {
     (( $# != 1 )) && return 1
-    typeset filename="$1"
-    typeset fullname=${_Dbg_file2canonic[$filename]}
-    _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
-    [[ -z $_Dbg_source_array_var  ]] && return 2
+    _Dbg_set_source_array_var "$1" || return $?
     eval "typeset last_line=\${${_Dbg_source_array_var}[-1]}"
+    # If the file had a final newline the last line of the data read in
+    # is the empty string.  We want to count the last line whether or
+    # not it had a newline.
     typeset -i last_not_null
     [[ -z $last_line ]] && last_line_is_null=1 || last_line_is_null=0
     eval "print \$((\${#${_Dbg_source_array_var}[@]}-$last_line_is_null))"
@@ -142,11 +141,11 @@ function _Dbg_get_source_line {
   eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
 }
 
-# Read $1 into _DBG_source_*n* array where *n* is an entry in
-# _Dbg_filenames.  Variable _Dbg_seen[canonic-name] will be set to
-# note the file has been read and the filename will be saved in array
+# Read $1 into _Dbg_source_*n* array where *n* is an entry in
+# _Dbg_filenames.  Variable _Dbg_source_array_var will be set to
+# _Dbg_source_*n* and filename will be saved in array
 # _Dbg_filenames. fullname is set to the expanded filename
-
+# 0 is returned if everything went ok.
 function _Dbg_readin {
     typeset filename
     if (($# != 0)) ; then 
@@ -184,18 +183,31 @@ function _Dbg_readin {
     return 0
 }
 
+# Read in file $1 unless it has already been read in.
+# 0 is returned if everything went ok.
 _Dbg_readin_if_new() {
     (( $# != 1 )) && return 1
-    typeset filename=$1
-    fullname=${_Dbg_file2canonic[$filename]}
+    typeset filename="$1"
+    _Dbg_set_source_array_var "$filename"
     if [[ -z $fullname ]] ; then 
 	_Dbg_readin $filename
 	typeset rc=$?
 	(( $? != 0 )) && return $rc
 	[[ -z $fullname ]] && return 1
+	_Dbg_set_source_array_var "$filename" || return $?
     fi
-    _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
-    [[ -z $_Dbg_source_array_var  ]] && return 2
     return 0
 }
 
+# Set _Dbg_source_array_var to the variable that contains file lines
+# for $1. Variable "fullname" will contain the exanded full filename for $1.
+# 0 is returned if everything went ok.
+_Dbg_set_source_array_var() {
+    (( $# != 1 )) && return 1
+    typeset filename="$1"
+    fullname=${_Dbg_file2canonic[$filename]}
+    [[ -z $fullname ]] && return 2
+    _Dbg_source_array_var=${_Dbg_filenames[$fullname]}
+    [[ -z $_Dbg_source_array_var ]] && return 2
+    return 0
+}
