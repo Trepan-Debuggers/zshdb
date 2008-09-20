@@ -30,12 +30,7 @@ _Dbg_do_help() {
       typeset -a list
       list=(${commands[@]})
       setopt ksharrays
-      typeset -i width; ((width=_Dbg_linewidth-5))
-      typeset -a columnized; columnize $width
-      typeset -i i
-      for ((i=0; i<${#columnized[@]}; i++)) ; do 
-	  _Dbg_msg "  ${columnized[i]}"
-      done
+      _Dbg_list_columns
       _Dbg_msg ''
       _Dbg_msg 'Readline command line editing (emacs/vi mode) is available.'
       _Dbg_msg 'Type "help" followed by command name for full documentation.'
