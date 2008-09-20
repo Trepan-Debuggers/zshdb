@@ -26,7 +26,7 @@ function _Dbg_debug_trap_handler {
     # Turn off line and variable trace listing.
     set +x +v +u +e
 
-    _Dbg_set_debugger_entry
+    _Dbg_set_debugger_entry 'create_unsetopt'
     # If some options are set (like localtraps?) then 
     # some of the above doesn't work. So repeat some of it.
     setopt ksharrays shwordsplit norcs

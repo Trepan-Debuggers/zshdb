@@ -29,7 +29,7 @@ test_readin_maxline()
     maxline=$(_Dbg_get_maxline $file2)
     assertEquals '0' $?
     # We'll assume shunit2 isn't going to get smaller ;-)
-    assertEquals $(( maxline > 1000 ))
+    assertEquals 1 $(( maxline > 1000 ))
 }
 
 
