@@ -52,18 +52,24 @@ function _Dbg_esc_dq {
 # _get_function echoes a list of all of the functions matchining
 # optional pattern if $1 is nonzero, include debugger functions,
 # i.e. those whose name starts with an underscore (_Dbg), are included in
-# the search.  FIXME add parameter search pattern.
+# the search.  
+# A grep pattern can be specified to filter function names. If the 
+# pattern starts with ! we report patterns that don't match.
 _Dbg_get_functions() {
     typeset pat=''
-    (( $# > 1 )) && { pat=$1 ; shift }
+    (( $# > 0 )) && { pat=$1 ; shift }
     (( $# != 0 )) && return 1
-    
-    typeset -a list
-    if ((_Dbg_debug_debugger)) ; then
-	typeset +f $pat
-    else
-	typeset +f $pat | grep -v ^_Dbg_
+
+    typeset cmd="typeset +f"
+    if [[ -n $pat ]] ; then
+	if [[ ${pat[0]} == '!' ]] ; then
+	    cmd+=" | grep -v ${pat[1,-1]}"
+	else
+	    cmd+=" | grep $pat"
+	fi
     fi
+    ((!_Dbg_debug_debugger)) && cmd+=' | grep -v ^_Dbg_'
+    eval $cmd
 }
 
 

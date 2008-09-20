@@ -156,14 +156,13 @@ function _Dbg_readin {
     fi
 
     typeset -i line_count=0
-    typeset -ir NOT_SMALLFILE=1000
 
     typeset -i next;
     next=${#_Dbg_filenames[@]}
     _Dbg_source_array_var="_Dbg_source_${next}"
 
     if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
-	eval "${_Dbg_source_array_var}[0]=\"$BASH_EXECUTION_STRING\""
+	eval "${_Dbg_source_array_var}[0]=\"$Dbg_EXECUTION_STRING\""
     else 
 	fullname=$(_Dbg_resolve_expand_filename $filename)
 	if [[ -r $fullname ]] ; then
