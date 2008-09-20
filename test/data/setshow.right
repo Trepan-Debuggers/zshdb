@@ -284,7 +284,7 @@ editing:  Editing of command lines as they are typed is off.
 force: Show stepping forces a new line is off.
 listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:
-       "$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater}".
+       "$_Dbg_debugger_name${_Dbg_less}%h${_Dbg_greater}".
 trace-commands: State of command tracing is on.
 width: Line width is 80.
 +show args

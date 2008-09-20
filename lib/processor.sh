@@ -19,7 +19,7 @@
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
 
-typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}1${_Dbg_greater}'
+typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}%h${_Dbg_greater}'
 
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
@@ -70,6 +70,7 @@ function _Dbg_process_commands {
 
     typeset _Dbg_prompt
     eval "_Dbg_prompt=\"$_Dbg_prompt_str \""
+    _Dbg_prompt=$(print -R "$_Dbg_prompt")
     # _Dbg_preloop
     typeset _Dbg_cmd 
     typeset line=''
@@ -82,7 +83,9 @@ function _Dbg_process_commands {
         _Dbg_onecmd "$line"
         rc=$?
         # _Dbg_postcmd
-        (( $rc != 0 )) && return $rc
+	(( $rc >= 0 )) && print -s -- "$line"
+        (( $rc > 0 ))  && return $rc
+
 	line=''
     done # read "?$_Dbg_prompt" ...
 
@@ -315,13 +318,12 @@ _Dbg_onecmd() {
 
 	* ) 
 	   if (( _Dbg_autoeval )) ; then
-	     _Dbg_do_eval $_Dbg_cmd $args
+	     ! _Dbg_do_eval $_Dbg_cmd $args && return -1
 	   else
              _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
-	     return 0
+	     return -1
 	   fi
 	  ;;
       esac
-      print -s "$full_cmd"
       return 0
 }

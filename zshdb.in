@@ -1,4 +1,4 @@
-#!@SH_PROG@ -f
+#!@SH_PROG@ -if
 # -*- shell-script -*-
 # zshdb - top-level debugger program.
 #

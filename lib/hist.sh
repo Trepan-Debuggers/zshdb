@@ -18,19 +18,26 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 typeset -i _Dbg_history_save=1
-typeset _Dbg_history_file=${HOME:-.}/.${_Dbg_debugger_name}_hist
+_Dbg_histfile=${ZDOTDIR:-$HOME}/.${_Dbg_debugger_name}_hist
 
 _Dbg_history_read() {
-  if [[ -r $_Dbg_histfile ]] ; then 
-    fc -R $_Dbg_histfile
-  fi
+    if [[ -r $_Dbg_histfile ]] ; then 
+	fc -R $_Dbg_histfile
+    fi
 }
 
 _Dbg_history_write() {
-  if [[ -w $_Dbg_histfile ]] ; then 
-    fc -R $_Dbg_histfile
-  fi
+    set -x
+    fc -W $_Dbg_histfile
+    set +x
 }
 
-_Dbg_history_read
+# Show history via fc -l
+_Dbg_history_list() {
+    ## FIXME: if 1st command we get
+    # _Dbg_do_show:fc:2: no such event: 1
+    # Punt for now by eliminating error messages.
+    fc -l $@ 2>/dev/null
+    return $?
+}
 

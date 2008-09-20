@@ -166,7 +166,9 @@ _Dbg_hook_enter_debugger() {
 
 # Cleanup routine: erase temp files before exiting.
 _Dbg_cleanup() {
-  rm $_Dbg_evalfile 2>/dev/null
-  _Dbg_erase_journals
-  _Dbg_restore_user_vars
+    setopt | grep interactive && _Dbg_history_write
+    rm $_Dbg_evalfile 2>/dev/null
+    _Dbg_erase_journals
+    _Dbg_restore_user_vars
+  
 }

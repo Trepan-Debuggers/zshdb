@@ -43,3 +43,8 @@ typeset _Dbg_startup_cmdfile=${HOME:-.}/.${_Dbg_debugger_name}rc
 if [[ -z $o_nx && -r $_Dbg_startup_cmdfile ]] ; then
   _Dbg_do_source $_Dbg_startup_cmdfile
 fi
+
+if ((Dbg_history_save)) ; then  
+    history -ap "$_Dbg_histfile"
+fi
+

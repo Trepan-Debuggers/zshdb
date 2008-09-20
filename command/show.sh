@@ -82,27 +82,10 @@ _Dbg_do_show() {
       return 0
       ;;
     com | comm | comma | comman | command | commands )
-      typeset -i default_hi_start=_Dbg_hi-1
-      if ((default_hi_start < 0)) ; then default_hi_start=0 ; fi
-      typeset hi_start=${2:-$default_hi_start}
-
-      eval "$_seteglob"
-      case $hi_start in
-	+ )
-	  ((hi_start=_Dbg_hi_last_stop-1))
+	  shift # shift off "commands"
+	  _Dbg_history_list $*
+	  return $?
 	  ;;
-	$int_pat | -$int_pat)
-	    ;;
-	* )
-	   _Dbg_msg "Invalid parameter $hi_start. Need an integer or '+'"
-      esac
-      eval "$_resteglob"
-      
-      typeset -i hi_stop=hi_start-10
-      _Dbg_do_history_list $hi_start $hi_stop
-      _Dbg_hi_last_stop=$hi_stop
-      return 0
-      ;;
     cop | copy| copyi | copyin | copying )
       _Dbg_msg \
 "
@@ -406,11 +389,12 @@ of promoting the sharing and reuse of software generally.
       ;;
     hi|his|hist|histo|histor|history)
       _Dbg_msg \
-"filename: The filename in which to record the command history is $_Dbg_histfile"
+"filename: The filename in which to record the command history is:"
+      _Dbg_msg "	$_Dbg_histfile"
       _Dbg_msg \
 "save: Saving of history save is" $(_Dbg_onoff $_Dbg_history_save)
       _Dbg_msg \
-"size: Debugger history size is $_Dbg_history_length"
+"size: Debugger history size is $HISTSIZE"
       ;;
 
     lin | line | linet | linetr | linetra | linetrac | linetrace )
