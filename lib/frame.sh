@@ -115,16 +115,15 @@ _Dbg_frame_lineno() {
 # first (most recent) $1 of these. We assume "setopt ksharrarrys" 
 # (origin 0) has beeen set previously.
 _Dbg_frame_save_frames() {
-    setopt ksharrays  # Done in _Dbg_debug_trap_handler, but unset somehow
+    # setopt ksharrays  # Done in _Dbg_debug_trap_handler
     typeset ignore=${1:-0}
     typeset -i i
     typeset -i j=$ignore
     typeset -i n=${#funcfiletrace[@]}
-    typeset -i n2=${#funcstack[@]}
     _Dbg_frame_stack=()
     _Dbg_func_stack=()
     for ((i=0; j < n; i++, j++)) ; do
-	(( j < n2 )) && _Dbg_func_stack[i]=${funcstack[j]}
+	_Dbg_func_stack[i]=${funcstack[j]}
 	_Dbg_frame_stack[i]=${funcfiletrace[j]}
     done
 
