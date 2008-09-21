@@ -3,6 +3,7 @@ TESTS = \
 	test-bug-args      \
 	test-bugIFS        \
 	test-bug-errexit   \
+	test-bug-ksharrays \
 	test-delete        \
 	test-enable        \
 	test-examine       \

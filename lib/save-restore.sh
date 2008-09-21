@@ -44,13 +44,7 @@ _Dbg_set_debugger_entry() {
 # Return 0 if $1 is not a zsh option set
 _Dbg_is_unsetopt() {
     (( $# != 1 )) || [[ -z $1 ]] && return 2
-    typeset opt="$1"
-    typeset -a opts
-    eval "opts=( $(setopt ) )"
-    for try_opt in ${opts[@]} ; do 
-	[[ $try_opt == $opt ]] && return 1
-    done
-    return 0
+    ! setopt | grep "$1" >/dev/null 2>&1
 }
 
 # Set string unset_opts to be those zsh options in $* that are not set.

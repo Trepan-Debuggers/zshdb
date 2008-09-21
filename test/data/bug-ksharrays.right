@@ -1,0 +1,19 @@
+(bug-ksharrays.sh:3):
+unsetopt ksharrays
++# Get past initial unsetopt
++next 
+(bug-ksharrays.sh:4):
+setopt ksharrays sh_word_split
++# Show we don't have ksharrays set
++eval setopt
+norcs
++# Now move past set ksharrays
++next 
+(bug-ksharrays.sh:5):
+x=1
++# See that we have this set inside eval
++eval setopt
+ksharrays
+norcs
+shwordsplit
++quit 

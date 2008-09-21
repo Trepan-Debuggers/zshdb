@@ -5,6 +5,8 @@ check_DATA = \
 	bug-args.right     \
 	bug-errexit.cmd    \
 	bug-errexit.right  \
+	bug-ksharrays.cmd  \
+	bug-ksharrays.right\
 	bugIFS.cmd         \
 	bugIFS.right       \
 	delete.cmd         \
