@@ -26,9 +26,7 @@
 _Dbg_help_add info ''
 
 typeset -a _Dbg_info_subcmds
-# typeset -a _Dbg_infosubcmds=( args breakpoints display files functions program source \
-#                       sources stack terminal variables watchpoints )
-_Dbg_info_subcmds=( breakpoints files program source stack variables )
+_Dbg_info_subcmds=( breakpoints files line program source stack variables )
 _Dbg_do_info() {
       
   if (($# > 0)) ; then
@@ -52,7 +50,7 @@ _Dbg_do_info() {
 	  # 	return
 	  # 	;;
 	  
-          file| files | sources )
+          file| files )
               _Dbg_msg "Source files which we have recorded info about:"
 	      unsetopt ksharrays
 	      for file in ${(ki)_Dbg_file2canonic} ; do
@@ -75,8 +73,7 @@ _Dbg_do_info() {
 		  return $?
 	      fi
 	      
-	      _Dbg_frame_file; _Dbg_frame_lineno
-              _Dbg_msg "Line $_Dbg_frame_lineno of \"$_Dbg_frame_filename\""
+              _Dbg_msg "Line $_Dbg_frame_last_lineno of \"$_Dbg_frame_last_filename\""
 	      return
 	      ;;
 	  
@@ -131,7 +128,7 @@ _Dbg_do_info() {
   fi
   $msg "Info subcommands are:"
   typeset -a list; list=(${_Dbg_info_subcmds[@]})
-  _Dbg_list_columns '  ' errmsg
+  _Dbg_list_columns '  ' $msg
   return 1
 }
 

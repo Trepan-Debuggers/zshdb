@@ -52,7 +52,7 @@ _Dbg_do_help() {
 	      sh | sho | show )
 		_Dbg_help_show $2
                 ;;
-	      se | set  )
+	      se | set )
 	        _Dbg_help_set $2
                 ;;
 	     * )

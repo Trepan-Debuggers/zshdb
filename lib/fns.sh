@@ -49,7 +49,7 @@ function _Dbg_esc_dq {
   builtin echo $1 | sed -e 's/[`$\"]/\\\0/g' 
 }
 
-# _Dbg__get_function echoes a list of all of the functions matching
+# _Dbg_get_typeset_attr echoes a list of all of the functions matching
 # optional pattern if $1 is nonzero, include debugger functions,
 # i.e. those whose name starts with an underscore (_Dbg), are included in
 # the search.  
@@ -59,7 +59,7 @@ _Dbg_get_typeset_attr() {
     (( $# == 0 )) && return 1
     typeset attr="$1"; shift
     typeset pat=''
-    (( $# > 0 )) && { pat=$1 ; shift }
+    (( $# > 0 )) && { pat=$1 ; shift; }
     (( $# != 0 )) && return 1
 
     typeset cmd="typeset $attr"
@@ -73,7 +73,6 @@ _Dbg_get_typeset_attr() {
     ((!_Dbg_debug_debugger)) && cmd+=' | grep -v ^_Dbg_'
     eval $cmd
 }
-
 
 # _Dbg_is_function returns 0 if $1 is a defined function or nonzero otherwise. 
 # if $2 is nonzero, system functions, i.e. those whose name starts with
@@ -94,7 +93,7 @@ _Dbg_is_function() {
 
 # Set $? to $1 if supplied or the saved entry value of $?. 
 function _Dbg_set_dol_q {
-  [[ $# -eq 0 ]] && return $_Dbg_debugged_exit_code
+  (( $# == 0 )) && return $_Dbg_debugged_exit_code
   return $1
 }
 

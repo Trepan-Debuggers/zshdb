@@ -110,8 +110,8 @@ _Dbg_list_typeset_attr() {
 _Dbg_list_columns() {
     typeset colsep='  '
     (($# > 0 )) && { colsep="$1"; shift; }
-    if (($# > 0 )) ; then 
-	msg=_Dbg_errmsg
+    if (($# > 0 )) && ; then 
+	msg=$1
 	shift
     else
 	msg=_Dbg_msg

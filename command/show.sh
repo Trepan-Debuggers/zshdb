@@ -454,7 +454,7 @@ of promoting the sharing and reuse of software generally.
     _Dbg_errmsg "Unknown show subcommand: $show_cmd"
     _Dbg_errmsg "Show subcommands are:"
     typeset -a list; list=(${subcmds[@]})
-    _Dbg_list_columns '  ' errmsg
+    _Dbg_list_columns '  ' _Dbg_errmsg
     return 1
   esac
 }
