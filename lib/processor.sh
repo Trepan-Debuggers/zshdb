@@ -57,40 +57,40 @@ function _Dbg_process_commands {
   # Loop over all pending open input file descriptors
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
 
-    # Set up prompt to show shell and subshell levels.
-    typeset _Dbg_greater='>'
-    typeset _Dbg_less='<'
-    typeset result  # Used by copies to return a value.
-
-    if _Dbg_copies ')' $ZSH_SUBSHELL ; then
-	_Dbg_greater="${result}${_Dbg_greater}"
-	_Dbg_less="${_Dbg_less}${result//)/(}"
-    fi
-
-
-    typeset _Dbg_prompt
-    eval "_Dbg_prompt=\"$_Dbg_prompt_str \""
-    _Dbg_prompt=$(print -R "$_Dbg_prompt")
-    # _Dbg_preloop
-    typeset _Dbg_cmd 
-    typeset line=''
-    while : ; do
-	if [[ -t $_Dbg_fdi ]]; then
-	    vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
-	else
-	    read "?$_Dbg_prompt" line <&${_Dbg_fdi} || break
-	fi
-        _Dbg_onecmd "$line"
-        rc=$?
-        # _Dbg_postcmd
-	(( $rc >= 0 )) && print -s -- "$line"
-        (( $rc > 0 ))  && return $rc
-
-	line=''
-    done # read "?$_Dbg_prompt" ...
-
-    _Dbg_fd[-1]=()  # Remove last element
-    (( ${#_Dbg_fd[@]} <= 0 )) && break
+      _Dbg_fdi=${_Dbg_fd[-1]}
+      # Set up prompt to show shell and subshell levels.
+      typeset _Dbg_greater='>'
+      typeset _Dbg_less='<'
+      typeset result  # Used by copies to return a value.
+      
+      if _Dbg_copies ')' $ZSH_SUBSHELL ; then
+	  _Dbg_greater="${result}${_Dbg_greater}"
+	  _Dbg_less="${_Dbg_less}${result//)/(}"
+      fi
+      
+      typeset _Dbg_prompt
+      eval "_Dbg_prompt=\"$_Dbg_prompt_str \""
+      _Dbg_prompt=$(print -R "$_Dbg_prompt")
+      # _Dbg_preloop
+      typeset _Dbg_cmd 
+      typeset line=''
+      while : ; do
+	  if [[ -t $_Dbg_fdi ]]; then
+	      vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
+	  else
+	      read "?$_Dbg_prompt" line <&${_Dbg_fdi} || break
+	  fi
+          _Dbg_onecmd "$line"
+          rc=$?
+          # _Dbg_postcmd
+	  (( $rc >= 0 )) && print -s -- "$line"
+          (( $rc > 0 ))  && return $rc
+	  
+	  line=''
+      done # read "?$_Dbg_prompt" ...
+      
+      _Dbg_fd[-1]=()  # Remove last element
+      (( ${#_Dbg_fd[@]} <= 0 )) && break
   done
 
   # EOF hit. Same as quit without arguments

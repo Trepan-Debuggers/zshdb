@@ -168,6 +168,10 @@ _Dbg_do_info_variables() {
 		_Dbg_do_list_typeset_attr '+E' $*
 		return 0
 		;;
+# 	    g | gl | glo | glob | globa | global )
+# 		_Dbg_do_list_globals
+# 		return 0
+# 		;;
 	    h | ha | has | hash )
 		_Dbg_do_list_typeset_attr '+A' $*
 		return 0
@@ -176,6 +180,10 @@ _Dbg_do_info_variables() {
 		_Dbg_do_list_typeset_attr '+i' $*
 		return 0
 		;;
+# 	    l | lo | loc | loca | local | locals )
+# 		_Dbg_do_list_locals
+# 		return 0
+# 		;;
 	    r | re | rea| read | reado | readon | readonl | readonly )
 		_Dbg_do_list_typeset_attr '+r' $*
 		return 0

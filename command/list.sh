@@ -64,6 +64,24 @@ _Dbg_do_list() {
     fi
 }
 
+# _Dbg_do_list_globals() {
+#     (($# != 0)) && return 1
+#     list=(${(k)parameters[(R)*^local*]})
+#     typeset -i rc=$?
+#     (( $rc != 0 )) && return $rc
+#     _Dbg_list_columns
+#     return $?
+# }
+
+# _Dbg_do_list_locals() {
+#     (($# != 0)) && return 1
+#     list=(${(k)parameters[(R)*local*]})
+#     typeset -i rc=$?
+#     (( $rc != 0 )) && return $rc
+#     _Dbg_list_columns
+#     return $?
+# }
+
 # List in column form variables having attribute $1.
 # A grep pattern can be given in $2. ! indicates negation.
 _Dbg_do_list_typeset_attr() {
@@ -76,3 +94,4 @@ _Dbg_do_list_typeset_attr() {
     _Dbg_list_columns
     return $?
 }
+

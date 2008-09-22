@@ -48,22 +48,22 @@ typeset -i _Dbg_annotate=0
 typeset -i _Dbg_linetrace=0
 
 # Debugger command file
-typeset o_cmdfile='' o_nx='' o_basename='' o_quiet=''
+typeset _Dbg_o_cmdfile='' _Dbg_o_nx='' _Dbg_o_basename='' _Dbg_o_quiet=''
 
 local temp
-zparseopts -D --                        \
-  A:=o_annotate  -annotate:=o_annotate  \
-  B=o_basename   -basename=o_basename   \
-  L:=temp        -library:=temp         \
-  V=o_version    -version=o_version     \
-  h=o_help       -help=o_help           \
-  n=o_nx         -nx=o_nx -no-init=o_nx \
-  q=o_quiet      -quiet=o_quiet         \
-  x:=o_cmdfile   -command:=o_cmdfile
+zparseopts -D --                                       \
+  A:=_Dbg_o_annotate  -annotate:=_Dbg_o_annotate       \
+  B=_Dbg_o_basename   -basename=_Dbg_o_basename        \
+  L:=temp             -library:=temp                   \
+  V=_Dbg_o_version    -version=_Dbg_o_version          \
+  h=_Dbg_o_help       -help=_Dbg_o_help                \
+  n=_Dbg_o_nx         -nx=_Dbg_o_nx -no-init=_Dbg_o_nx \
+  q=_Dbg_o_quiet      -quiet=_Dbg_o_quiet              \
+  x:=_Dbg_o_cmdfile   -command:=_Dbg_o_cmdfile
                 
-[[ $? != 0 || "$o_help" != '' ]] && _Dbg_usage
+[[ $? != 0 || "$_Dbg_o_help" != '' ]] && _Dbg_usage
 
-if [[ -z $o_quiet || -n $o_version ]]; then 
+if [[ -z $_Dbg_o_quiet || -n $_Dbg_o_version ]]; then 
   print "Zsh Shell Debugger, release $_Dbg_release"
   printf '
 Copyright 2008 Rocky Bernstein
@@ -72,15 +72,15 @@ welcome to change it and/or distribute copies of it under certain conditions.
 
 '
 fi
-[[ -n "$o_version" ]] && _Dbg_show_version
-[[ -n "$o_basename" ]] && _Dbg_basename_only=1
-[[ -n "$o_cmdfile" ]] && {
+[[ -n "$_Dbg_o_version" ]] && _Dbg_show_version
+[[ -n "$_Dbg_o_basename" ]] && _Dbg_basename_only=1
+[[ -n "$_Dbg_o_cmdfile" ]] && {
     typeset -a _Dbg_input
-    _Dbg_input=($o_cmdfile)
+    _Dbg_input=($_Dbg_o_cmdfile)
     DBG_INPUT=${_Dbg_input[-1]}
     unset _Dbg_input
 }
 
 
-# FIXME: check that o_annotate is an integer
-## [[ -n $o_annotate ]] && _Dbg_annotate=$o_annotate
+# FIXME: check that _Dbg_o_annotate is an integer
+## [[ -n $_Dbg_o_annotate ]] && _Dbg_annotate=$_Dbg_o_annotate

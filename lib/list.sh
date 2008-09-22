@@ -83,6 +83,22 @@ _Dbg_list() {
     return 0
 }
 
+_Dbg_list_locals() {
+    typeset -a list
+    list=(${(k)parameters[(R)*local*]})
+    typeset -i rc=$?
+    (( $rc != 0 )) && return $rc
+    _Dbg_list_columns
+}
+
+_Dbg_list_globals() {
+    typeset -a list
+    list=(${(k)parameters[(R)^*local*]})
+    typeset -i rc=$?
+    (( $rc != 0 )) && return $rc
+    _Dbg_list_columns
+}
+
 _Dbg_list_typeset_attr() {
     typeset -a list
     list=( $(_Dbg_get_typeset_attr '+p' $*) )
