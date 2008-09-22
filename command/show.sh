@@ -389,7 +389,7 @@ of promoting the sharing and reuse of software generally.
       _Dbg_msg \
 "save: Saving of history save is" $(_Dbg_onoff $_Dbg_history_save)
       _Dbg_msg \
-"size: Debugger history size is $HISTSIZE"
+"size: Debugger history size is $HISTSIZE, saving $SAVEHIST"
       ;;
 
     lin | line | linet | linetr | linetra | linetrac | linetrace )

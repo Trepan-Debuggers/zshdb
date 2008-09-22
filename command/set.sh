@@ -171,16 +171,13 @@ _Dbg_do_set() {
 	  esac
           ;;
 	si | siz | size )
-	  eval "$_seteglob"
 	  if [[ -z $2 ]] ; then
 	    _Dbg_msg "Argument required (integer to set it to.)."
 	  elif [[ $2 != [0-9]* ]] ; then 
-	    _Dbg_msg "Bad int parameter: $2"
-	    eval "$_resteglob"
-	    return 1
+	      _Dbg_errmsg "Integer argument expected; got: $2"
+	      return 1
 	  fi
-	  eval "$_resteglob"
-	  _Dbg_write_journal_eval "_Dbg_history_length=$2"
+	  _Dbg_write_journal_eval "SAVEHIST=$2"
           ;;
         *)
 	_Dbg_msg "\"save\", or \"size\" expected."
@@ -229,7 +226,7 @@ _Dbg_do_set() {
       if [[ $1 == [0-9]* ]] ; then 
 	_Dbg_write_journal_eval "_Dbg_listsize=$1"
       else
-	_Dbg_msg "Integer argument expected; got: $1"
+	_Dbg_errmsg "Integer argument expected; got: $1"
 	return 1
       fi
       return 0

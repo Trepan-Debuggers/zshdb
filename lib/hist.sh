@@ -17,7 +17,8 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-typeset -i _Dbg_history_save=1
+typeset -i _Dbg_history_save=0
+SAVEHIST=30
 _Dbg_histfile=${ZDOTDIR:-$HOME}/.${_Dbg_debugger_name}_hist
 
 _Dbg_history_read() {
@@ -27,7 +28,7 @@ _Dbg_history_read() {
 }
 
 _Dbg_history_write() {
-    fc -W $_Dbg_histfile
+    (( $SAVEHIST > 0 && _Dbg_history_save)) && fc -WI $_Dbg_histfile
 }
 
 # Show history via fc -l
