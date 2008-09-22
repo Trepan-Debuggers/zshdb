@@ -129,16 +129,9 @@ _Dbg_do_info() {
   else
       msg=_Dbg_msg
   fi
-  typeset -a list
-  list=(${_Dbg_info_subcmds[@]})
-  typeset columnized=''
-  typeset -i width; ((width=_Dbg_linewidth-5))
-  typeset -a columnized; columnize $width
-  typeset -i i
   $msg "Info subcommands are:"
-  for ((i=0; i<${#columnized[@]}; i++)) ; do 
-      $msg "  ${columnized[i]}"
-  done
+  typeset -a list; list=(${_Dbg_info_subcmds[@]})
+  _Dbg_list_columns '  ' errmsg
   return 1
 }
 
