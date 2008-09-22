@@ -298,7 +298,7 @@ Argument list to give script when debugged program starts is:
 Undefined set command "misspelled"
 +set listsize 40
 +set listsize bad
-Integer argument expected; got: bad
+** Integer argument expected; got: bad
 +set annotate bad
 Argument required (integer to set it to.).
 +set annotate 6

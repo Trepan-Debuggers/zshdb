@@ -110,11 +110,17 @@ _Dbg_list_typeset_attr() {
 _Dbg_list_columns() {
     typeset colsep='  '
     (($# > 0 )) && { colsep="$1"; shift; }
+    if (($# > 0 )) ; then 
+	msg=_Dbg_errmsg
+	shift
+    else
+	msg=_Dbg_msg
+    fi
     (($# != 0)) && return 1
     typeset -a columnized; columnize $_Dbg_linewidth "$colsep"
     typeset -i i
     for ((i=0; i<${#columnized[@]}; i++)) ; do 
-	_Dbg_msg "  ${columnized[i]}"
+	$msg "  ${columnized[i]}"
     done
 
 }
