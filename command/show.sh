@@ -455,7 +455,7 @@ of promoting the sharing and reuse of software generally.
     _Dbg_errmsg "Show subcommands are:"
     typeset -a list; list=(${subcmds[@]})
     _Dbg_list_columns '  ' _Dbg_errmsg
-    return 1
+    [[ $msg == '_Dbg_errmsg' ]] && return 1 || return 0
   esac
 }
 

@@ -69,26 +69,27 @@ _Dbg_do_info() {
 	  
 	  l | li | lin | line )
               if (( ! _Dbg_running )) ; then
-		  _Dbg_errmsg "No line number information available."
-		  return $?
+		  _Dbg_errmsg 'No line number information available.'
+		  return 1
 	      fi
 	      
               _Dbg_msg "Line $_Dbg_frame_last_lineno of \"$_Dbg_frame_last_filename\""
-	      return
+	      return 0
 	      ;;
 	  
 	  p | pr | pro | prog | progr | progra | program )
 	      if (( _Dbg_running )) ; then
-		  _Dbg_msg "Program stopped."
+		  _Dbg_msg 'Program stopped.'
 		  if (( _Dbg_currentbp )) ; then
 		      _Dbg_msg "It stopped at breakpoint ${_Dbg_currentbp}."
 		  elif [[ -n $_Dbg_stop_reason ]] ; then
 		      _Dbg_msg "It stopped ${_Dbg_stop_reason}."
 		  fi
 	      else
-		  _Dbg_errmsg "The program being debugged is not being run."
+		  _Dbg_errmsg 'The program being debugged is not being run.'
+		  return 1
 	      fi
-	      return $?
+	      return 0
 	      ;;
 	  
 	  so | sou | sourc | source )
@@ -96,8 +97,8 @@ _Dbg_do_info() {
               _Dbg_msg "Located in ${_Dbg_file2canonic[$_Dbg_frame_last_filename]}" 
 	      typeset -i max_line
 	      max_line=$(_Dbg_get_maxline $_Dbg_frame_last_filename)
-	      	_Dbg_msg "Contains $max_line lines." ; 
-              return $?
+	      _Dbg_msg "Contains $max_line lines."
+              return 0
 	      ;;
 	  
 	  st | sta | stac | stack )
