@@ -18,17 +18,18 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 typeset -i _Dbg_history_save=0
-SAVEHIST=30
+typeset -i _Dbg_history_length=${HISTSIZE:-256}  # gdb's default value
+# SAVEHIST=30  # what zsh uses by default on save
 _Dbg_histfile=${ZDOTDIR:-$HOME}/.${_Dbg_debugger_name}_hist
 
 _Dbg_history_read() {
-    if [[ -r $_Dbg_histfile ]] ; then 
-	fc -R $_Dbg_histfile
+    if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then 
+	fc -R $_Dbg_histfile 
     fi
 }
 
 _Dbg_history_write() {
-    (( $SAVEHIST > 0 && _Dbg_history_save)) && fc -WI $_Dbg_histfile
+    (( _Dbg_history_length > 0 && _Dbg_history_save)) && fc -WI $_Dbg_histfile
 }
 
 # Show history via fc -l

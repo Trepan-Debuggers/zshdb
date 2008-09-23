@@ -128,7 +128,7 @@ _Dbg_hook_breakpoint_hit() {
     typeset full_filenaname
     typeset file_line
     file_line=${funcfiletrace[1]}
-    _Dbg_split "$file_line" ':'
+    typeset -a split_result; _Dbg_split "$file_line" ':'
     full_filename=${split_result[0]}
     lineno=${split_result[1]}
     full_filename=$(_Dbg_is_file $full_filename)

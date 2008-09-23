@@ -177,7 +177,7 @@ _Dbg_do_set() {
 	      _Dbg_errmsg "Integer argument expected; got: $2"
 	      return 1
 	  fi
-	  _Dbg_write_journal_eval "SAVEHIST=$2"
+	  _Dbg_write_journal_eval "_Dbg_history_length=$2"
           ;;
         *)
 	_Dbg_msg "\"save\", or \"size\" expected."

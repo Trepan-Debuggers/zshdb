@@ -76,6 +76,9 @@ function _Dbg_process_commands {
       typeset line=''
       while : ; do
 	  if [[ -t $_Dbg_fdi ]]; then
+	      if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then 
+		  fc -ap $_Dbg_histfile $_Dbg_history_length $_Dbg_history_length
+	      fi
 	      vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
 	  else
 	      read "?$_Dbg_prompt" line <&${_Dbg_fdi} || break

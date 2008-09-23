@@ -28,8 +28,7 @@ function _Dbg_print_location {
     typeset -i pos=${1:-${_Dbg_stack_pos}}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
 
-    typeset split_result
-    _Dbg_split "$file_line" ':'
+    typeset split_result; _Dbg_split "$file_line" ':'
 
     typeset filename=${split_result[0]}
     typeset -i line=${split_result[1]}
@@ -39,8 +38,7 @@ function _Dbg_print_location {
 	    filename=${filename##*/}
 	    file_line="${filename}:${line}"
 	fi
-	((pos1=1))
-	if [[ $filename == $_Dbg_func_stack[pos1] ]] ; then
+	if [[ $filename == $_Dbg_func_stack[1] ]] ; then
 	    _Dbg_msg "($file_line): -- nope"
 	else
 	    _Dbg_msg "($file_line):"
@@ -72,8 +70,7 @@ _Dbg_print_frame() {
     typeset prefix
     prefix=${2:-''}
 
-    typeset -a split_result
-    _Dbg_split "$file_line" ':'
+    typeset -a split_result; _Dbg_split "$file_line" ':'
     typeset filename
     filename="${split_result[0]}"
     typeset -i line="${split_result[1]}"

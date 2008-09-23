@@ -1,4 +1,4 @@
-#!@SH_PROG@ -if
+#!@SH_PROG@ -f
 # -*- shell-script -*-
 # zshdb - top-level debugger program.
 #
@@ -51,13 +51,15 @@ typeset _Dbg_libdir=@PKGDATADIR@
 local -a libdir
 zparseopts -a libdir -E L: -library:
 if (( ${#libdir} > 0 )) ; then
-    eval "lib_opts=($libdir)"
+    typeset -a lib_opts; eval "lib_opts=($libdir)"
     if [[ ! -d ${lib_opts[2]} ]] ; then
 	print "${lib_opts[2]} is not a directory"
 	exit 1
     fi
     _Dbg_libdir=${lib_opts[2]}
+    unset lib_opts
 fi
+unset libdir
 
 # Pull in the rest of the debugger code.
 typeset _Dbg_main="$_Dbg_libdir/dbg-main.sh"

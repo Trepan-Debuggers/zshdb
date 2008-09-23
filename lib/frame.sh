@@ -63,7 +63,7 @@ _Dbg_frame_adjust() {
   fi
 
   typeset file_line="${_Dbg_frame_stack[$pos]}"
-  _Dbg_split "$file_line" ':'
+  typeset -a split_result; _Dbg_split "$file_line" ':'
   _Dbg_frame_last_filename=${split_result[0]}
   _Dbg_frame_last_lineno=${split_result[1]}
   ((_Dbg_stack_pos = pos))
@@ -80,7 +80,7 @@ _Dbg_frame_file() {
     typeset -i pos=${1:-$_Dbg_stack_pos}
     typeset -i basename_only=${2:-$_Dbg_basename_only}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
-    _Dbg_split "$file_line" ':'
+    typeset -a split_result; _Dbg_split "$file_line" ':'
     _Dbg_frame_filename=${split_result[0]}
     (( basename_only )) && _Dbg_frame_filename=${_Dbg_frame_filename##*/}
     return 0
@@ -106,7 +106,7 @@ _Dbg_frame_lineno() {
     # FIXME check to see that $1 doesn't run off the end.
     typeset -i pos=${1:-$_Dbg_stack_pos}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
-    _Dbg_split "$file_line" ':'
+    typeset -a split_result; _Dbg_split "$file_line" ':'
     _Dbg_frame_lineno=${split_result[1]}
     return $Dbg_frame_lineno
 }
@@ -134,7 +134,7 @@ _Dbg_frame_save_frames() {
     # Set stack position to the most recent entry.
     _Dbg_stack_pos=0
     typeset file_line="${_Dbg_frame_stack[0]}"
-    _Dbg_split "$file_line" ':'
+    typeset -a split_result; _Dbg_split "$file_line" ':'
     _Dbg_frame_last_filename=${split_result[0]}
     _Dbg_frame_last_lineno=${split_result[1]}
 
