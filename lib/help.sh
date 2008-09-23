@@ -1,4 +1,5 @@
 # -*- shell-script -*-
+# help.sh - Debugger Help Routines
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
@@ -27,24 +28,25 @@ function _Dbg_help_add {
 }
 
 typeset _Dbg_set_cmds
-# _Dbg_set_cmds="args annotate autoeval basename debugger editing linetrace listsize prompt showcommand trace-commands"
 _Dbg_set_cmds='args annotate autoeval basename debugger force linetrace listsize prompt trace-commands width'
 
 _Dbg_help_set() {
-  typeset -r set_cmd=$1
-  typeset label=$2
 
-  if [[ -z $set_cmd ]] ; then 
+  if (( $# == 0 )) ; then 
       typeset thing
       for thing in $_Dbg_set_cmds ; do 
 	_Dbg_help_set $thing 1
       done
-      return
+      return 0
   fi
 
+  typeset set_cmd="$1"
+  typeset label="$2"
+
   case $set_cmd in 
+
     ar | arg | args )
-      [[ -n $label ]] && label='set args           -- '
+      [[ -n $label ]] && label='set args -- '
       _Dbg_msg \
 "${label}Set argument list to give program being debugged when it is started.
 Follow this command with any number of args, to be passed to the program."
@@ -52,7 +54,7 @@ Follow this command with any number of args, to be passed to the program."
       ;;
     an | ann | anno | annot | annota | annotat | annotate )
       if [[ -n $label ]] ; then 
-	label='set annotate       -- '
+	label='set annotate  -- '
       else
 	typeset post_label='
 0 == normal;     1 == fullname (for use when running under emacs).'
@@ -62,7 +64,7 @@ Follow this command with any number of args, to be passed to the program."
       return 0
       ;;
     au | aut | auto | autoe | autoev | autoeva | autoeval )
-      [[ -n $label ]] && label='set autoeval       -- '
+      [[ -n $label ]] && label='set autoeval  -- '
       typeset onoff="off."
       (( $_Dbg_autoeval != 0 )) && onoff='on.'
       _Dbg_msg \
@@ -70,7 +72,7 @@ Follow this command with any number of args, to be passed to the program."
       return 0
       ;;
     b | ba | bas | base | basen | basena | basenam | basename )
-      [[ -n $label ]] && label='set basename       -- '
+      [[ -n $label ]] && label='set basename  -- '
       typeset onoff="off."
       (( $_Dbg_basename_only != 0 )) && onoff='on.'
       _Dbg_msg \
@@ -79,21 +81,21 @@ Follow this command with any number of args, to be passed to the program."
       ;;
     d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
       typeset onoff=${1:-'on'}
-      [[ -n $label ]] && label='set debugger       -- '
+      [[ -n $label ]] && label='set debugger  -- '
       (( $_Dbg_debug_debugger )) && onoff='on.'
      _Dbg_msg \
 "${label}Set debugging the debugger is" $onoff
       return 0
       ;;
     force )
-      [[ -n $label ]] && label='set force          -- '
+      [[ -n $label ]] && label='set force     -- '
       typeset onoff="off."
       (( $_Dbg_edit )) && onoff='on.'
       _Dbg_msg \
 "${label}Set stepping forces a different line is" $onoff
       ;;
     lin | line | linet | linetr | linetra | linetrac | linetrace )
-      [[ -n $label ]] && label='set linetrace      -- '
+      [[ -n $label ]] && label='set linetrace -- '
       typeset onoff='off.'
       (( $_Dbg_linetrace )) && onoff='on.'
      _Dbg_msg \
@@ -105,19 +107,19 @@ Follow this command with any number of args, to be passed to the program."
       return 0
       ;;
      lis | list | lists | listsi | listsiz | listsize )
-      [[ -n $label ]] && label='set listsize       -- '
+      [[ -n $label ]] && label='set listsize  -- '
       _Dbg_msg \
 "${label}Set number of source lines $_Dbg_debugger_name will list by default."
       ;;
     p | pr | pro | prom | promp | prompt )
-      [[ -n $label ]] && label='set prompt         -- '
+      [[ -n $label ]] && label='set prompt    -- '
       _Dbg_msg \
 "${label}${_Dbg_debugger_name}'s prompt is:\n" \
 "      \"$_Dbg_prompt_str\"."
       return 0
       ;;
     sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
-      [[ -n $label ]] && label='set showcommand    -- '
+      [[ -n $label ]] && label='set showcommand -- '
       _Dbg_msg \
 "${label}Set showing the command to execute is $_Dbg_show_command."
       return 0
@@ -139,12 +141,12 @@ Follow this command with any number of args, to be passed to the program."
   esac
 }
 
-# typeset -r _Dbg_show_cmds="aliases annotate args autoeval basename debugger commands debugger directories linetrace listsize prompt trace-commands warranty"
+# typeset _Dbg_show_cmds="aliases annotate args autoeval basename debugger commands debugger directories linetrace listsize prompt trace-commands warranty"
 
 typeset _Dbg_show_cmds="aliases annotate args autoeval basename copying debugger force linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
-  typeset -r show_cmd=$1
+  typeset show_cmd=$1
 
   if [[ -z $show_cmd ]] ; then 
       typeset thing
