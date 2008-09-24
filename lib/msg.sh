@@ -29,11 +29,19 @@ function _Dbg_errmsg_no_cr {
 }
 
 function _Dbg_msg {
-    print -- "$@" 
+    if [[ -t $_Dbg_fdi  ]] ; then
+	builtin print -- "$@"  >&${_Dbg_fdi}
+    else
+	builtin print -- "$@"
+    fi
 }
 
 function _Dbg_msg_nocr {
-    echo -n "$@"
+    if [[ -t $_Dbg_fdi  ]] ; then
+	echo -n "$@" >&${_Dbg_fdi}
+    else
+	echo -n "$@"
+    fi
 }
 
 # print message to output device

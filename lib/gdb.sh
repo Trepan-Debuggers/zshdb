@@ -28,9 +28,8 @@ function _Dbg_print_location {
     typeset file_line="${_Dbg_frame_stack[$pos]}"
 
     typeset split_result; _Dbg_split "$file_line" ':'
-
-    typeset filename=${split_result[0]}
-    typeset -i line=${split_result[1]}
+    typeset filename="${split_result[0]}"
+    typeset -i line="${split_result[1]}"
     if [[ -n $filename ]] ; then 
 	_Dbg_readin "${filename}"
 	if ((_Dbg_basename_only)); then
