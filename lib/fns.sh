@@ -46,7 +46,7 @@ _Dbg_defined() {
 # Add escapes to a string $1 so that when it is read back using
 # eval echo "$1" it is the same as echo $1.
 function _Dbg_esc_dq {
-  builtin echo $1 | sed -e 's/[`$\"]/\\\0/g' 
+  builtin printf "%q\n" "$1"
 }
 
 # _Dbg_get_typeset_attr echoes a list of all of the functions matching
