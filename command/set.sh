@@ -55,13 +55,13 @@ _Dbg_do_set() {
       done
       ;;
     an | ann | anno | annot | annota | annotat | annotate )
-      if [[ -z $2 ]] ; then
-	  _Dbg_msg "Argument required (integer to set it to.)."
+      if (( $# == 0 )) ; then
+	  _Dbg_msg "Argument required (an integer to set 'annotate' to.)."
       elif [[ $1 == [0-9]* ]] ; then 
-	if (( $1 > 1 )) ; then
-	  _Dbg_msg "annotation level must be 0 or 1"
+	if (( $1 > 3 || $1 < 0)); then
+	    _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
 	else
-	_Dbg_write_journal_eval "_Dbg_annotate=$1"
+	    _Dbg_write_journal_eval "_Dbg_annotate=$1"
 	fi
       else
 	_Dbg_msg "Integer argument expected; got: $1"

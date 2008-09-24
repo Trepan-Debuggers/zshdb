@@ -71,7 +71,7 @@ function _Dbg_process_commands {
       typeset _Dbg_prompt
       eval "_Dbg_prompt=\"$_Dbg_prompt_str \""
       _Dbg_prompt=$(print -R "$_Dbg_prompt")
-      # _Dbg_preloop
+      _Dbg_preloop
       typeset _Dbg_cmd 
       typeset line=''
       while : ; do
@@ -85,7 +85,7 @@ function _Dbg_process_commands {
 	  fi
           _Dbg_onecmd "$line"
           rc=$?
-          # _Dbg_postcmd
+          _Dbg_postcmd
 	  (( $rc >= 0 )) && print -s -- "$line"
           (( $rc > 0 ))  && return $rc
 	  
@@ -99,6 +99,15 @@ function _Dbg_process_commands {
   # EOF hit. Same as quit without arguments
   _Dbg_msg '' # Cause <cr> since EOF may not have put in.
   _Dbg_do_quit
+}
+
+# Run a debugger command "annotating" the output
+_Dbg_annotation() {
+  local label=$1
+  shift
+  _Dbg_do_print "$label"
+  $*
+  _Dbg_do_print  ''
 }
 
 # Run a single command
@@ -330,3 +339,26 @@ _Dbg_onecmd() {
       esac
       return 0
 }
+
+_Dbg_preloop() {
+  if (($_Dbg_annotate)) ; then
+      _Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
+      # _Dbg_annotation 'locals'      _Dbg_do_backtrace 3 
+      _Dbg_annotation 'stack'       _Dbg_do_backtrace 3 
+  fi
+}
+
+_Dbg_postcmd() {
+  if (($_Dbg_annotate)) ; then
+      case $_Dbg_last_cmd in
+        break | tbreak | disable | enable | condition | clear | delete ) 
+	  _Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
+        ;;
+	up | down | frame ) 
+	  _Dbg_annotation 'stack' _Dbg_do_backtrace 3
+	;;
+      * )
+      esac
+  fi
+}
+

@@ -83,4 +83,16 @@ fi
 
 
 # FIXME: check that _Dbg_o_annotate is an integer
-## [[ -n $_Dbg_o_annotate ]] && _Dbg_annotate=$_Dbg_o_annotate
+if [[ -n $_Dbg_o_annotate ]] ; then
+    typeset -a level; eval "level=($_Dbg_o_annotate)"
+    if [[ ${level[-1]} == [0-9]* ]] ; then
+	if (( ${level[-1]} > 3 || ${level[-1]} < 0)); then
+	    print "Annotation level must be less between 0 and 3. Got: ${level[-1]}."
+	else
+	    _Dbg_annotate=${level[-1]}
+	fi
+    else
+	print "Annotate option should be an integer, got ${level[-1]}."
+    fi
+fi
+unset _Dbg_o_annotate _Dbg_o_version _Dbg_o_basename _Dbg_o_cmdfile

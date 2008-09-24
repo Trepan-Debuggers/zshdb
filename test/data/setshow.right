@@ -300,17 +300,16 @@ Undefined set command "misspelled"
 +set listsize bad
 ** Integer argument expected; got: bad
 +set annotate bad
-Argument required (integer to set it to.).
+Integer argument expected; got: bad
 +set annotate 6
-Argument required (integer to set it to.).
+Annotation level must be between 0 and 3. Got: 6.
 +show annotate
 Annotation_level is 0.
 +set annotate 1
-Argument required (integer to set it to.).
 +show listsize
 Number of source lines zshdb will list by default is 40.
 +show annotate
-Annotation_level is 0.
+Annotation_level is 1.
 +set width 40
 +show width
 Line width is 40.
