@@ -42,6 +42,9 @@ _Dbg_set_debugger_entry() {
     fi
     _Dbg_set_debugger_internal
     _Dbg_source_journal
+    if (( DEBUGGER_QUIT_LEVELS > 0 )) ; then
+	_Dbg_do_quit $_Dbg_debugged_exit_code
+    fi
 }
 
 # Return 0 if $1 is not a zsh option set

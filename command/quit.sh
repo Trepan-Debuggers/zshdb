@@ -21,8 +21,41 @@ _Dbg_help_add quit \
 'quit -- Quit the debugger.  The program being debugged is aborted.'
 
 function _Dbg_do_quit {
-    _Dbg_cleanup
-   exit
+    typeset -i return_code=${1:-$_Dbg_program_exit_code}
+
+    typeset -i desired_quit_levels=${2:-0}
+
+    if (( desired_quit_levels == 0 \
+	|| desired_quit_levels > ZSH_SUBSHELL+1)) ; then
+	((desired_quit_levels=ZSH_SUBSHELL+1))
+    fi
+
+    ((DEBUGGER_QUIT_LEVELS+=desired_quit_levels))
+
+    # Reduce the number of recorded levels that we need to leave by
+    # if DEBUGGER_QUIT_LEVELS is greater than 0.
+    ((DEBUGGER_QUIT_LEVELS--))
+
+    ## write this to the next level up can read it.
+    _Dbg_write_journal "DEBUGGER_QUIT_LEVELS=$DEBUGGER_QUIT_LEVELS"
+    _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
+
+    # Reset signal handlers to their default but only if 
+    # we are not in a subshell.
+    if (( ZSH_SUBSHELL == 0 )) ; then
+	
+	# If we were told to restart from deep down, restart instead of quit.
+	if [ -n "$DEBUGGER_RESTART_COMMAND" ] ; then 
+	    _Dbg_erase_journals
+	    _Dbg_save_state
+	    exec $DEBUGGER_RESTART_COMMAND
+	fi
+	_Dbg_cleanup
+
+    fi
+
+    # And just when you thought we'd never get around to it...
+    exit $return_code
 }
 _Dbg_alias_add q quit
 _Dbg_alias_add exit quit

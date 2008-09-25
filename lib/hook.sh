@@ -20,6 +20,11 @@
 typeset  -i _Dbg_debug_debugger=0  # 1 if we are debugging the debugger
 typeset     _Dbg_stop_reason=''    # The reason we are in the debugger.
 
+typeset  -i DEBUGGER_QUIT_LEVELS=0
+
+# Return code that debugged program reports
+typeset -i _Dbg_program_exit_code=0
+
 function _Dbg_debug_trap_handler {
     _Dbg_old_set_opts=$-
 
