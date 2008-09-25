@@ -18,11 +18,11 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add list \
-'list [START|.|-] [COUNT] -- List lines of a script.
+'list [LOC|.|-] [COUNT] -- List COUNT lines of a script starting from LOC
 
-START is the starting line or dot (.) for current line. Subsequent
-list commands continue from the last line listed. If a function name
-is given list the text of the function.
+START is the starting location or dot (.) for current file and
+line. Subsequent list commands continue from the last line
+listed. Frame switching however resets the line to dot.
 
 If COUNT is omitted, use the setting LISTSIZE. Use "set listsize" to 
 change this setting.'
@@ -77,6 +77,7 @@ _Dbg_do_list() {
     fi
 }
 
+
 # _Dbg_do_list_globals() {
 #     (($# != 0)) && return 1
 #     list=(${(k)parameters[(R)*^local*]})
@@ -108,3 +109,4 @@ _Dbg_do_list_typeset_attr() {
     return $?
 }
 
+_Dbg_alias_add l list

@@ -124,3 +124,5 @@ _Dbg_list_columns() {
     done
 
 }
+
+_Dbg_alias_add l list

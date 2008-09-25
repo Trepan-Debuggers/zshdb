@@ -145,24 +145,6 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd="#"
 	  ;;
 
-	# List window up to _curline
-	- )
-	  local -i start_line=(_curline+1-$_Dbg_listsize)
-	  local -i count=($_Dbg_listsize)
-	  if (( start_line <= 0 )) ; then
-	    ((count=count+start_line-1))
-	    start_line=1;
-	  fi
-	  _Dbg_list $_cur_source_file $start_line $count
-	  _Dbg_last_cmd="list"
-	  ;;
-
-	# list current line
-	. )
-	  _Dbg_list $_cur_source_file $_curline 1
-	  _Dbg_last_cmd="list"
-	  ;;
-
 	alias )
 	  _Dbg_do_alias $@
 	  ;;
@@ -247,7 +229,7 @@ _Dbg_onecmd() {
 
 	# List line.
 	# print lines in file
-	l | li | lis | list )
+	list )
 	  _Dbg_do_list $args
 	  _Dbg_last_cmd='list'
 	  ;;

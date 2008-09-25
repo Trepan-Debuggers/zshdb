@@ -1,6 +1,7 @@
 set trace-commands on
 # Test of debugger 'list' command
 #
+help l
 ### List default location
 list 
 ### Should list next sets of lines

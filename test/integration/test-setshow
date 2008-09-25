@@ -14,5 +14,8 @@ cat ${TEST_FILE} | sed -e "s:-x .*/data/setshow\.cmd .*/example/dbg-test2.sh:-x 
 > ${TEST_FILTERED_FILE}
 check_output $TEST_FILTERED_FILE $RIGHT_FILE
 
+rc=$?
+((rc == 0)) && [[ -f ${TEST_FILE} ]] && rm $TEST_FILE
+
 # Return code tells testing mechanism whether passed or not.
 exit $?
