@@ -8,6 +8,7 @@ TESTS = \
 	test-enable        \
 	test-examine       \
 	test-frame         \
+	test-list          \
 	test-next          \
 	test-opts          \
 	test-setshow       \

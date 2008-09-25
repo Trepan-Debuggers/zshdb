@@ -18,7 +18,7 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add list \
-'list [START|.|FN] [COUNT] -- List lines of a script.
+'list [START|.|-] [COUNT] -- List lines of a script.
 
 START is the starting line or dot (.) for current line. Subsequent
 list commands continue from the last line listed. If a function name
@@ -27,23 +27,36 @@ is given list the text of the function.
 If COUNT is omitted, use the setting LISTSIZE. Use "set listsize" to 
 change this setting.'
 
-# l [start|.] [cnt] List cnt lines from line start.
-# l sub       List source code fn
+# l [start|.|-] [cnt] List cnt lines from line start.
 
 _Dbg_do_list() {
     typeset first_arg
-    if (( $# > 0 )) ; then
+    if (( $# == 0 )) ; then
+	if ((_Dbg_listline < 0 )) ; then
+	    first_arg='.'
+	else
+	    first_arg=$_Dbg_listline
+	fi
+    else
 	first_arg="$1"
 	shift
-    else
-	first_arg='.'
     fi
-    
+    typeset count=${1:-$_Dbg_listsize}
+
     if [[ $first_arg == '.' ]] ; then
-	echo "$_Dbg_frame_last_filename"
-	echo "$*"
-	_Dbg_list $_Dbg_frame_last_filename $*
-	return $?
+	first_arg=$_Dbg_frame_last_lineno
+    elif [[ $first_arg == '-' ]] ; then
+	typeset -i start_line
+	if ((_Dbg_listline < 0 )) ; then
+	    ((start_line=_Dbg_frame_last_lineno-_Dbg_listsize))
+	else
+	    ((start_line=_Dbg_listline-2*_Dbg_listsize))
+	fi
+	if (( start_line <= 0 )) ; then
+	    ((count=count+start_line-1))
+	    start_line=1
+	fi
+	first_arg=$start_line
     fi
 
     typeset filename
@@ -56,7 +69,7 @@ _Dbg_do_list() {
 	(( $line_number ==  0 )) && line_number=1
 	_Dbg_check_line $line_number "$full_filename"
 	(( $? == 0 )) && \
-	    _Dbg_list "$full_filename" "$line_number" $*
+	    _Dbg_list "$full_filename" "$line_number" $count
 	return $?
     else
 	_Dbg_file_not_read_in $filename

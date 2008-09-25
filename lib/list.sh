@@ -22,7 +22,7 @@
 typeset _Dbg_last_search_pat
 
 # current line to be listed
-typeset -i _Dbg_listline
+typeset -i _Dbg_listline=-1
 
 # list $3 lines starting at line $2 of file $1. If $1 is '', use
 # $_cur_source_file value.  If $3 is ommited, print $_Dbg_listsize

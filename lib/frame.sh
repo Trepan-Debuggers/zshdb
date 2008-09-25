@@ -67,7 +67,7 @@ _Dbg_frame_adjust() {
   _Dbg_frame_last_filename=${split_result[0]}
   _Dbg_frame_last_lineno=${split_result[1]}
   ((_Dbg_stack_pos = pos))
-
+  _Dbg_listline=-1
 }
 
 # Return the frame file for stack $1 or _Dbg_stack_pos if $1 
@@ -137,5 +137,6 @@ _Dbg_frame_save_frames() {
     typeset -a split_result; _Dbg_split "$file_line" ':'
     _Dbg_frame_last_filename=${split_result[0]}
     _Dbg_frame_last_lineno=${split_result[1]}
+    _Dbg_listline=-1
 
 }

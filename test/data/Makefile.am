@@ -17,6 +17,8 @@ check_DATA = \
 	examine.cmd        \
 	frame.cmd          \
 	frame.right        \
+	list.cmd           \
+	list.right         \
 	lopts.right        \
 	next.cmd           \
 	next.right         \
