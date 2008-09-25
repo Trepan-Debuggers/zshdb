@@ -1,5 +1,7 @@
-#!/usr/local/bin/zsh -f
+#!/usr/bin/zsh -f
 # Returns 0 if run with a zsh compatible with zshdb
+PS4='%(%x:%I): [%?]  
+'
 
 second_fn() {
   decls=$(declare -p)
@@ -8,8 +10,8 @@ second_fn() {
     print "We need a zsh new enough which has that."
     exit 10
   fi
-  fn=$funcfiletrace[1]
-  if [[ $fn != *ok4zshdb.sh:20 ]]; then
+  fn=$funcfiletrace[-2]
+  if [[ $fn != *ok4zshdb.sh:22 ]]; then
     print "Didn't get the answer back from funcfiletrace[1] I was expecting"
     print "Got: $fn"
     exit 15
@@ -28,16 +30,28 @@ fi
 
 functrace_no_source
 
+debug_hook() { . ./ok4zshdb2.sh; }
+
+function get_processor {
+    setopt ksharrays
+    typeset -a cmd
+    cmd=( $(COLUMNS=3000 ps h -o command -p $$) )
+    ZSH_PROCESSOR=${cmd[0]}
+}
+
+get_processor
+$ZSH_PROCESSOR -if ./ok4zshdb3.sh
+if (( $? != 1 )) ; then
+    print "Your zsh doesn't have the fc -l patches."
+fi
+
 . ./trap-bug1.sh && {
   print "Your zsh doesn't handle \$? inside traps properly"
   exit 30
 }
 
-debug_hook() { . ./is-dbg-ok3; }
-
-trap 'debug_hook' DEBUG
-. ./is-dbg-ok2
-# If you get here is-dbg-ok2 didn't work. Failure
-print "Your zsh doesn't handle trap DEBUG properly."
+# trap-bug1.sh is supposed to exit 0. So if
+# you get here no dice.
+print "Internal test error you. You shouldn't be seing this."
 exit 40
 

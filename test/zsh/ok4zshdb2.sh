@@ -1,2 +1,2 @@
-# 3rd part of is-ok-debug test
+# 2nd part of is-ok-debug test
 :

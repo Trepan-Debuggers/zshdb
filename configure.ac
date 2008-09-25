@@ -39,7 +39,7 @@ AC_SUBST(DIFF_OPTS)
 ## --with-zsh can be used to tell the zshdb script and the regression
 ## test which bash to run. It can be omitted too in which case we'll
 ## look for a zsh binary.
-AC_ARG_WITH(DEBUGGER, AC_HELP_STRING([--with-POSIXSHELL], 
+AC_ARG_WITH(POSIXSHELL, AC_HELP_STRING([--with-POSIXSHELL], 
 		  [location of POSIXSHELL program]), SH_PROG=$withval)
 
 if test "$SH_PROG" = "yes" || test "$SH_PROG" = "no" || test -z "$SH_PROG"
