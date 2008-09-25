@@ -24,16 +24,17 @@ _Dbg_usage() {
 Runs zsh <script_file> under a debugger.
 
 options:
-    -h | --help             print this help
+    -h | --help             Print this help.
     -q | --quiet            Do not print introductory and quiet messages.
-    -A | --annotate  LEVEL  set annotation level.
-    -B | --basename         basename only on source listings. 
+    -A | --annotate  LEVEL  Set the annotation level.
+    -B | --basename         Show basename only on source file listings. 
                             (Needed in regression tests)
     -L libdir | --library libdir
-                            set directory location of library helper file: $_Dbg_main
-    -n | --nx |--no-init    Don't run initialization files
-    -x command | --command cmdfile
-                            execute debugger commands from cmdfile
+                            Set the directory location of library helper file: $_Dbg_main
+    -n | --nx |--no-init    Don't run initialization files.
+    -V | --version          Print the debugger version number.
+    -x command | --command CMDFILE
+                            Execute debugger commands from CMDFILE.
 "
   exit 100
 }
