@@ -61,18 +61,16 @@ function _Dbg_process_commands {
       # Set up prompt to show shell and subshell levels.
       typeset _Dbg_greater='>'
       typeset _Dbg_less='<'
-      typeset result  # Used by copies to return a value.
       
       if _Dbg_copies ')' $ZSH_SUBSHELL ; then
 	  _Dbg_greater="${result}${_Dbg_greater}"
 	  _Dbg_less="${_Dbg_less}${result//)/(}"
       fi
       
-      typeset _Dbg_prompt
-      eval "_Dbg_prompt=\"$_Dbg_prompt_str \""
-      _Dbg_prompt=$(print -R "$_Dbg_prompt")
+      # typeset _Dbg_prompt
+      eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
       _Dbg_preloop
-      typeset _Dbg_cmd 
+      # typeset _Dbg_cmd 
       typeset line=''
       while : ; do
 	  if [[ -t $_Dbg_fdi ]]; then
@@ -86,7 +84,10 @@ function _Dbg_process_commands {
           _Dbg_onecmd "$line"
           rc=$?
           _Dbg_postcmd
-	  (( $rc >= 0 )) && print -s -- "$line"
+	  if [[ -n $line ]] && (( $rc >= 0 )) ; then
+	      _Dbg_write_journal "print -s -- \"$line\""
+	      print -s -- "$line"
+	  fi
           (( $rc > 0 ))  && return $rc
 	  
 	  line=''
@@ -330,7 +331,11 @@ _Dbg_onecmd() {
 
 	* ) 
 	   if (( _Dbg_autoeval )) ; then
-	     ! _Dbg_do_eval $_Dbg_cmd $args && return -1
+	       if [[ -t $_Dbg_fdi ]] ; then 
+		   ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 && return -1
+	       else
+		   ! _Dbg_do_eval $_Dbg_cmd $args && return -1
+	       fi
 	   else
              _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
 	     return -1
@@ -361,4 +366,3 @@ _Dbg_postcmd() {
       esac
   fi
 }
-

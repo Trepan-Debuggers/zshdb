@@ -28,7 +28,7 @@ typeset _Dbg_journal=$(_Dbg_tempname journal)
 # append a command into journal file and then run the command.
 _Dbg_write_journal_eval() {
   _Dbg_write_journal "$@" 
-  eval $@
+  eval "$@"
 }
 
 # append a command into journal file and then run the command.

@@ -53,8 +53,8 @@ function _Dbg_printf {
     printf "$format" "$@" >>$_Dbg_logfid
   fi
   if (( ! _Dbg_logging_redirect )) ; then
-    if [[ -n $_Dbg_tty ]] ; then
-      printf "$format" "$@" >>$_Dbg_tty
+    if [[ -t $_Dbg_fdi ]] ; then
+      printf "$format" "$@" >&${_Dbg_fdi}
     else
       printf "$format" "$@"
     fi

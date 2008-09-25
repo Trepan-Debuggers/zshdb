@@ -103,7 +103,7 @@ while : ; do
   _Dbg_step_ignore=2
   emulate -R zsh
   trap '_Dbg_debug_trap_handler $? "$@"; ((2==$?)) && setopt errexit' DEBUG
-  . $_Dbg_script_file ${_Dbg_script_args[@]}
+  . $_Dbg_source_file ${_Dbg_script_args[@]}
   trap '' DEBUG
   _Dbg_msg "Program terminated. Type 's' or 'R' to restart."
   _Dbg_process_commands

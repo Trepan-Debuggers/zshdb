@@ -29,16 +29,19 @@ _Dbg_do_eval() {
 
    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
    print "$@" >> $_Dbg_evalfile
-   if [[ -n $_Dbg_tty  ]] ; then
-     _Dbg_set_dol_q $_Dbg_debugged_exit_code
-     . $_Dbg_evalfile >>$_Dbg_tty
+   print 'rc=$?' >> $_Dbg_evalfile
+   typeset -i rc
+   if [[ -t $_Dbg_fdi  ]] ; then
+       _Dbg_set_dol_q $_Dbg_debugged_exit_code
+       . $_Dbg_evalfile >&${_Dbg_fdi}
    else
-     _Dbg_set_dol_q $_Dbg_debugged_exit_code
-     . $_Dbg_evalfile
+       _Dbg_set_dol_q $_Dbg_debugged_exit_code
+       . $_Dbg_evalfile
    fi
   # We've reset some variables like IFS and PS4 to make eval look
   # like they were before debugger entry - so reset them now.
   _Dbg_set_debugger_internal
+  return $rc
 }
 
 _Dbg_alias_add 'e' 'eval'

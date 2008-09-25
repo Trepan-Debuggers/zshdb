@@ -41,6 +41,7 @@ _Dbg_set_debugger_entry() {
 	_Dbg_create_unsetopt "$_Dbg_check_opts"
     fi
     _Dbg_set_debugger_internal
+    _Dbg_source_journal
 }
 
 # Return 0 if $1 is not a zsh option set
