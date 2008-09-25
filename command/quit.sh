@@ -30,14 +30,14 @@ function _Dbg_do_quit {
 	((desired_quit_levels=ZSH_SUBSHELL+1))
     fi
 
-    ((DEBUGGER_QUIT_LEVELS+=desired_quit_levels))
+    ((_Dbg_QUIT_LEVELS+=desired_quit_levels))
 
     # Reduce the number of recorded levels that we need to leave by
-    # if DEBUGGER_QUIT_LEVELS is greater than 0.
-    ((DEBUGGER_QUIT_LEVELS--))
+    # if _Dbg_QUIT_LEVELS is greater than 0.
+    ((_Dbg_QUIT_LEVELS--))
 
     ## write this to the next level up can read it.
-    _Dbg_write_journal "DEBUGGER_QUIT_LEVELS=$DEBUGGER_QUIT_LEVELS"
+    _Dbg_write_journal "_Dbg_QUIT_LEVELS=$_Dbg_QUIT_LEVELS"
     _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
 
     # Reset signal handlers to their default but only if 
@@ -45,10 +45,10 @@ function _Dbg_do_quit {
     if (( ZSH_SUBSHELL == 0 )) ; then
 	
 	# If we were told to restart from deep down, restart instead of quit.
-	if [ -n "$DEBUGGER_RESTART_COMMAND" ] ; then 
+	if [ -n "$_Dbg_RESTART_COMMAND" ] ; then 
 	    _Dbg_erase_journals
 	    _Dbg_save_state
-	    exec $DEBUGGER_RESTART_COMMAND
+	    exec $_Dbg_RESTART_COMMAND
 	fi
 	_Dbg_cleanup
 

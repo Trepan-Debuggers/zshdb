@@ -42,7 +42,7 @@ _Dbg_set_debugger_entry() {
     fi
     _Dbg_set_debugger_internal
     _Dbg_source_journal
-    if (( DEBUGGER_QUIT_LEVELS > 0 )) ; then
+    if (( _Dbg_QUIT_LEVELS > 0 )) ; then
 	_Dbg_do_quit $_Dbg_debugged_exit_code
     fi
 }
@@ -111,4 +111,19 @@ _Dbg_set_to_return_from_debugger() {
 #   fi  
 
   _Dbg_restore_user_vars
+}
+
+_Dbg_save_state() {
+#   _Dbg_statefile=$(_Dbg_tempname statefile)
+#   echo "" > $_Dbg_statefile
+#   _Dbg_save_breakpoints
+#   _Dbg_save_actions
+#   _Dbg_save_watchpoints
+#   _Dbg_save_display
+#   _Dbg_save_Dbg_set
+#   echo "unset DBG_RESTART_FILE" >> $_Dbg_statefile
+#   echo "rm $_Dbg_statefile" >> $_Dbg_statefile
+#   export DBG_RESTART_FILE="$_Dbg_statefile"
+#   _Dbg_write_journal "export DBG_RESTART_FILE=\"$_Dbg_statefile\""
+
 }

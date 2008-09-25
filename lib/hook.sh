@@ -17,10 +17,10 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-typeset  -i _Dbg_debug_debugger=0  # 1 if we are debugging the debugger
-typeset     _Dbg_stop_reason=''    # The reason we are in the debugger.
+typeset -i _Dbg_debug_debugger=0  # 1 if we are debugging the debugger
+typeset    _Dbg_stop_reason=''    # The reason we are in the debugger.
 
-typeset  -i DEBUGGER_QUIT_LEVELS=0
+typeset -i _Dbg_QUIT_LEVELS=0     # Number of nested shells we have to exit
 
 # Return code that debugged program reports
 typeset -i _Dbg_program_exit_code=0
