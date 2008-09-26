@@ -143,7 +143,7 @@ Follow this command with any number of args, to be passed to the program."
 
 # typeset _Dbg_show_cmds="aliases annotate args autoeval basename debugger commands debugger directories linetrace listsize prompt trace-commands warranty"
 
-typeset _Dbg_show_cmds="aliases annotate args autoeval basename copying debugger force linetrace listsize prompt trace-commands warranty"
+typeset _Dbg_show_cmds="aliases annotate args autoeval basename commands copying debugger force linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
   typeset show_cmd=$1
@@ -159,13 +159,13 @@ _Dbg_help_show() {
   case $show_cmd in 
     al | ali | alia | alias | aliase | aliases )
       _Dbg_msg \
-"show aliases     -- Show list of aliases currently in effect."
+'show aliases     -- Show list of aliases currently in effect.'
       return 0
       ;;
     ar | arg | args )
       _Dbg_msg \
-"show args        -- Show argument list to give program being debugged when it 
-                    is started"
+'show args        -- Show argument list to give program being debugged when it 
+                    is started.'
       return 0
       ;;
     an | ann | anno | annot | annota | annotat | annotate )
@@ -175,59 +175,56 @@ _Dbg_help_show() {
       ;;
     au | aut | auto | autoe | autoev | autoeva | autoeval )
       _Dbg_msg \
-"show autoeval    -- Show if we evaluate unrecognized commands"
+'show autoeval    -- Show if we evaluate unrecognized commands.'
       return 0
       ;;
     b | ba | bas | base | basen | basena | basenam | basename )
       _Dbg_msg \
-"show basename    -- Show if we are are to show short or long filenames"
+'show basename    -- Show if we are are to show short or long filenames.'
       return 0
       ;;
     com | comm | comma | comman | command | commands )
       _Dbg_msg \
-"show commands [+|n] -- Show the history of commands you typed.
-You can supply a command number to start with, or a + to start after
-the previous command number shown. A negative number indicates the 
-number of lines to list."
+'show commands    -- Show the history of commands you typed.'
       ;;
     cop | copy| copyi | copyin | copying )
       _Dbg_msg \
-"show copying     -- Conditions for redistributing copies of debugger"
+'show copying     -- Conditions for redistributing copies of debugger.'
      ;;
     d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
      _Dbg_msg \
-"show debugger    -- Show if we are set to debug the debugger"
+'show debugger    -- Show if we are set to debug the debugger.'
       return 0
       ;;
     di|dir|dire|direc|direct|directo|director|directori|directorie|directories)
       _Dbg_msg \
-"show directories -- Show if we are set to debug the debugger"
+'show directories -- Show if we are set to debug the debugger.'
       ;;
     force)
       _Dbg_msg \
-"show force       -- Show if setting forces a different line"
+'show force       -- Show if setting forces a different line.'
       ;;
     lin | line | linet | linetr | linetra | linetrac | linetrace )
       _Dbg_msg \
-"show linetrace   -- Show whether to trace lines before execution"
+'show linetrace   -- Show whether to trace lines before execution.'
       ;;
     lis | list | lists | listsi | listsiz | listsize )
       _Dbg_msg \
-"show listsize    -- Show number of source lines debugger will list by default"
+'show listsize    -- Show number of source lines debugger will list by default.'
       ;;
     p | pr | pro | prom | promp | prompt )
       _Dbg_msg \
-"show prompt      -- Show debugger's prompt"
+"show prompt      -- Show debugger's prompt."
       return 0
       ;;
     t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
       _Dbg_msg \
-"show trace-commands -- Show if we are echoing debugger commands"
+'show trace-commands -- Show if we are echoing debugger commands'
       return 0
       ;;
     w | wa | war | warr | warra | warran | warrant | warranty )
       _Dbg_msg \
-"show warranty    -- Various kinds of warranty you do not have"
+'show warranty    -- Various kinds of warranty you do not have.'
       return 0
       ;;
     * )
