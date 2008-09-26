@@ -30,7 +30,6 @@ function _Dbg_debug_trap_handler {
 
     # Turn off line and variable trace listing.
     set +x +v +u +e
-    print ${funcfiletrace[@]}
 
     _Dbg_set_debugger_entry 'create_unsetopt'
     # If some options are set (like localtraps?) then 

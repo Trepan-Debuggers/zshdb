@@ -98,7 +98,8 @@ else
   fi
 fi
 
-AM_CONDITIONAL(INSTALL_EMACS_LISP, test "x$lispdir" != "x")
+AM_CONDITIONAL(INSTALL_EMACS_LISP, 
+	       [test "x$lispdir" != "x" -a "x$EMACS" != "xno"])
 
 AC_CONFIG_FILES([ \
 	Makefile \

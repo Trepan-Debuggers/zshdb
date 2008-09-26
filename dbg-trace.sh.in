@@ -44,7 +44,7 @@ typeset _Dbg_libdir=@PKGDATADIR@
 
 [[ ! -d $_Dbg_libdir ]] && _Dbg_libdir='.'
 # Parse just the libdir option
-local -a libdir
+typeset -a libdir
 zparseopts -a libdir -E L: -library:
 if (( ${#libdir} > 0 )) ; then
     typeset -a lib_opts; eval "lib_opts=($libdir)"
