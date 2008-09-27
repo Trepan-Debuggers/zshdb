@@ -64,7 +64,7 @@ for shunit_const_ in ${shunit_constants_}; do
       *) shunit_ro_opts_='-g' ;;  # declare readonly constants globally
     esac
   fi
-  # readonly ${shunit_ro_opts_} ${shunit_const_}
+  readonly ${shunit_ro_opts_} ${shunit_const_}
 done
 unset shunit_const_ shunit_constants_ shunit_ro_opts_
 
@@ -72,10 +72,18 @@ unset shunit_const_ shunit_constants_ shunit_ro_opts_
 __shunit_skip=${SHUNIT_FALSE}
 __shunit_suite=''
 
+# counts of tests
+__shunit_testSuccess=${SHUNIT_TRUE}
+__shunit_testsTotal=0
 __shunit_testsPassed=0
 __shunit_testsFailed=0
-__shunit_testsSkipped=0
-__shunit_testsTotal=0
+
+# counts of asserts
+__shunit_assertsTotal=0
+__shunit_assertsPassed=0
+__shunit_assertsFailed=0
+__shunit_assertsSkipped=0
+
 __shunit_reportGenerated=${SHUNIT_FALSE}
 
 # macros
@@ -124,7 +132,7 @@ assertEquals()
 
   shunit_return=${SHUNIT_TRUE}
   if [ "${shunit_expected_}" = "${shunit_actual_}" ]; then
-    _shunit_testPassed
+    _shunit_assertPass
   else
     failNotEquals "${shunit_message_}" "${shunit_expected_}" "${shunit_actual_}"
     shunit_return=${SHUNIT_FALSE}
@@ -174,7 +182,7 @@ assertNotEquals()
 
   shunit_return=${SHUNIT_TRUE}
   if [ "${shunit_unexpected_}" != "${shunit_actual_}" ]; then
-    _shunit_testPassed
+    _shunit_assertPass
   else
     failSame "${shunit_message_}" "$@"
     shunit_return=${SHUNIT_FALSE}
@@ -394,9 +402,9 @@ assertTrue()
 
   # record the test
   if [ ${shunit_return} -eq ${SHUNIT_TRUE} ]; then
-    _shunit_testPassed
+    _shunit_assertPass
   else
-    _shunit_testFailed "${shunit_message_}"
+    _shunit_assertFail "${shunit_message_}"
   fi
 
   unset shunit_message_ shunit_condition_ shunit_match_
@@ -464,9 +472,9 @@ assertFalse()
 
   # record the test
   if [ ${shunit_return} -eq ${SHUNIT_TRUE} ]; then
-    _shunit_testPassed
+    _shunit_assertPass
   else
-    _shunit_testFailed "${shunit_message_}"
+    _shunit_assertFail "${shunit_message_}"
   fi
 
   unset shunit_message_ shunit_condition_ shunit_match_
@@ -509,7 +517,7 @@ fail()
     shift
   fi
 
-  _shunit_testFailed "${shunit_message_}"
+  _shunit_assertFail "${shunit_message_}"
 
   unset shunit_message_
   return ${SHUNIT_FALSE}
@@ -545,7 +553,7 @@ failNotEquals()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  [ -z "${shunit_message_:-}" ] || shunit_message_=''
   if [ $# -eq 3 ]; then
     shunit_message_="${shunit_message_}$1"
     shift
@@ -553,7 +561,7 @@ failNotEquals()
   shunit_unexpected_=$1
   shunit_actual_=$2
 
-  _shunit_testFailed "${shunit_message_:+${shunit_message_} }expected:<${shunit_unexpected_}> but was:<${shunit_actual_}>"
+  _shunit_assertFail "${shunit_message_:+${shunit_message_} }expected:<${shunit_unexpected_}> but was:<${shunit_actual_}>"
 
   unset shunit_message_ shunit_unexpected_ shunit_actual_
   return ${SHUNIT_FALSE}
@@ -592,7 +600,7 @@ failSame()
     shift
   fi
 
-  _shunit_testFailed "${shunit_message_:+${shunit_message_} }expected not same"
+  _shunit_assertFail "${shunit_message_:+${shunit_message_} }expected not same"
 
   unset shunit_message_
   return ${SHUNIT_FALSE}
@@ -755,11 +763,12 @@ isSkipping()
 #*/
 suite_addTest()
 {
-  _su_func=${1:-}
+  shunit_func_=${1:-}
 
-  __shunit_suite="${__shunit_suite:+${__shunit_suite} }${_su_func}"
+  __shunit_suite="${__shunit_suite:+${__shunit_suite} }${shunit_func_}"
+  __shunit_testsTotal=`expr ${__shunit_testsTotal} + 1`
 
-  unset _su_func
+  unset shunit_func_
 }
 
 #/**
@@ -854,94 +863,6 @@ suite_addTest()
 # internal shUnit2 functions
 #
 
-_shunit_cleanup()
-{
-  name=$1
-
-  case ${name} in
-    EXIT) signal=0 ;;
-    INT) signal=2 ;;
-    TERM) signal=15 ;;
-    *)
-      _shunit_warn "unrecognized trap value (${name})"
-      signal=0
-      ;;
-  esac
-
-  # do our work
-  rm -fr "${__shunit_tmpDir}"
-
-  # exit for all non-EXIT signals
-  if [ ${name} != 'EXIT' ]; then
-    _shunit_warn "trapped and now handling the (${name}) signal"
-    _shunit_generateReport
-    # disable EXIT trap
-    trap 0
-    # add 128 to signal and exit
-    exit `expr ${signal} + 128`
-  elif [ ${__shunit_reportGenerated} -eq ${SHUNIT_FALSE} ] ; then
-    _shunit_testFailed 'Unknown failure encountered running a test'
-    _shunit_generateReport
-  fi
-}
-
-_shunit_execSuite()
-{
-  echo '#'
-  echo '# Performing tests'
-  echo '#'
-  for _su_func in ${__shunit_suite}; do
-    # disable skipping
-    endSkipping
-
-    # execute the per-test setup function
-    setUp
-
-    # execute the test
-    echo "${_su_func}"
-    eval ${_su_func}
-
-    # execute the per-test tear-down function
-    tearDown
-  done
-
-  unset _su_func
-}
-
-_shunit_generateReport()
-{
-  _su__awkPercent='{printf("%4d %3.0f%%", $1, $1*100/$2)}'
-  if [ ${__shunit_testsTotal:-0} -gt 0 ]; then
-    _su__passed=`echo ${__shunit_testsPassed} ${__shunit_testsTotal} |\
-        awk "${_su__awkPercent}"`
-    _su__failed=`echo ${__shunit_testsFailed} ${__shunit_testsTotal} |\
-        awk "${_su__awkPercent}"`
-    _su__skipped=`echo ${__shunit_testsSkipped} ${__shunit_testsTotal} |\
-        awk "${_su__awkPercent}"`
-    _su__total=`echo ${__shunit_testsTotal} 100 |\
-        awk '{printf("%4d %3d%%", $1, $2)}'`
-  else
-    _su__passed=`echo 0 0 |awk '{printf("%4d %3d%%", $1, $2)}'`
-    _su__failed=${_su__passed}
-    _su__skipped=${_su__passed}
-    _su__total=${_su__passed}
-  fi
-
-  cat <<EOF
-
-#
-# Test report
-#
-tests passed:  ${_su__passed}
-tests failed:  ${_su__failed}
-tests skipped: ${_su__skipped}
-tests total:   ${_su__total}
-EOF
-  __shunit_reportGenerated=${SHUNIT_TRUE}
-
-  unset _su__awkPercent _su__passed _su__failed _su__skipped _su__total
-}
-
 # this function is a cross-platform temporary directory creation tool. not all
 # OSes have the mktemp function, so one is included here.
 _shunit_mktempDir()
@@ -951,68 +872,175 @@ _shunit_mktempDir()
 
   # the standard mktemp didn't work.  doing our own.
   if [ -r '/dev/urandom' ]; then
-    _su__random=`od -vAn -N4 -tx4 </dev/urandom |sed 's/^[^0-9a-f]*//'`
+    _shunit_random_=`od -vAn -N4 -tx4 </dev/urandom |sed 's/^[^0-9a-f]*//'`
   elif [ -n "${RANDOM:-}" ]; then
     # $RANDOM works
-    _su__random=${RANDOM}${RANDOM}${RANDOM}$$
+    _shunit_random_=${RANDOM}${RANDOM}${RANDOM}$$
   else
     # $RANDOM doesn't work
-    _su__date=`date '+%Y%m%d%H%M%S'`
-    _su__random=`expr ${_su__date} / $$`
+    _shunit_date_=`date '+%Y%m%d%H%M%S'`
+    _shunit_random_=`expr ${_shunit_date_} / $$`
   fi
 
-  _su__tmpDir="${TMPDIR:-/tmp}/shunit.${_su__random}"
-  ( umask 077 && mkdir "${_su__tmpDir}" ) || {
-    echo 'shUnit:FATAL could not create temporary directory! exiting' >&2
-    exit 1
+  _shunit_tmpDir_="${TMPDIR:-/tmp}/shunit.${_shunit_random_}"
+  ( umask 077 && mkdir "${_shunit_tmpDir_}" ) || {
+    _shunit_fatal 'could not create temporary directory! exiting'
+    exit ${SHUNIT_FALSE}
   }
 
-  echo ${_su__tmpDir}
-  unset _su__date _su__random _su__tmpDir
+  echo ${_shunit_tmpDir_}
+  unset _shunit_date_ _shunit_random_ _shunit_tmpDir_
 }
 
 # this function is here to work around issues in Cygwin
 _shunit_mktempFunc()
 {
-  for _su__func in oneTimeSetUp oneTimeTearDown setUp tearDown suite; do
-    _su__file="${__shunit_tmpDir}/${_su__func}"
-    cat <<EOF >"${_su__file}"
+  for _shunit_func_ in oneTimeSetUp oneTimeTearDown setUp tearDown suite; do
+    _shunit_file_="${__shunit_tmpDir}/${_shunit_func_}"
+    cat <<EOF >"${_shunit_file_}"
 #! /bin/sh
-exit 0
+exit ${SHUNIT_TRUE}
 EOF
-    chmod +x "${_su__file}"
+    chmod +x "${_shunit_file_}"
   done
 
-  unset _su__file
+  unset _shunit_file_
+}
+
+_shunit_cleanup()
+{
+  _shunit_name_=$1
+
+  case ${_shunit_name_} in
+    EXIT) _shunit_signal_=0 ;;
+    INT) _shunit_signal_=2 ;;
+    TERM) _shunit_signal_=15 ;;
+    *)
+      _shunit_warn "unrecognized trap value (${_shunit_name_})"
+      _shunit_signal_=0
+      ;;
+  esac
+
+  # do our work
+  rm -fr "${__shunit_tmpDir}"
+
+  # exit for all non-EXIT signals
+  if [ ${_shunit_name_} != 'EXIT' ]; then
+    _shunit_warn "trapped and now handling the (${_shunit_name_}) signal"
+    # disable EXIT trap
+    trap 0
+    # add 128 to signal and exit
+    exit `expr ${_shunit_signal_} + 128`
+  elif [ ${__shunit_reportGenerated} -eq ${SHUNIT_FALSE} ] ; then
+    _shunit_assertFail 'Unknown failure encountered running a test'
+    _shunit_generateReport
+    exit ${SHUNIT_ERROR}
+  fi
+
+  unset _shunit_name_ _shunit_signal_
+}
+
+# The actual running of the tests happens here.
+_shunit_execSuite()
+{
+  for _shunit_test_ in ${__shunit_suite}; do
+    __shunit_testSuccess=${SHUNIT_TRUE}
+
+    # disable skipping
+    endSkipping
+
+    # execute the per-test setup function
+    setUp
+
+    # execute the test
+    echo "${_shunit_test_}"
+    eval ${_shunit_test_}
+
+    # execute the per-test tear-down function
+    tearDown
+
+    # update stats
+    if [ ${__shunit_testSuccess} -eq ${SHUNIT_TRUE} ]; then
+      __shunit_testsPassed=`expr ${__shunit_testsPassed} + 1`
+    else
+      __shunit_testsFailed=`expr ${__shunit_testsFailed} + 1`
+    fi
+  done
+
+  unset _shunit_test_
+}
+
+# This function exits shUnit2 with the appropriate error code and OK/FAILED
+# message.
+_shunit_generateReport()
+{
+  _shunit_ok_=${SHUNIT_TRUE}
+
+  # if no exit code was provided one, determine an appropriate one
+  [ ${__shunit_testsFailed} -gt 0 \
+      -o ${__shunit_testSuccess} -eq ${SHUNIT_FALSE} ] \
+          && _shunit_ok_=${SHUNIT_FALSE}
+
+  echo
+  if [ ${__shunit_testsTotal} -eq 1 ]; then
+    echo "Ran ${__shunit_testsTotal} test."
+  else
+    echo "Ran ${__shunit_testsTotal} tests."
+  fi
+
+  _shunit_failures_=''
+  _shunit_skipped_=''
+  [ ${__shunit_assertsFailed} -gt 0 ] \
+      && _shunit_failures_="failures=${__shunit_assertsFailed}"
+  [ ${__shunit_assertsSkipped} -gt 0 ] \
+      && _shunit_skipped_="skipped=${__shunit_assertsSkipped}"
+
+  if [ ${_shunit_ok_} -eq ${SHUNIT_TRUE} ]; then
+    _shunit_msg_='OK'
+    [ -n "${_shunit_skipped_}" ] \
+        && _shunit_msg_="${_shunit_msg_} (${_shunit_skipped_})"
+  else
+    _shunit_msg_="FAILED (${_shunit_failures_}"
+    [ -n "${_shunit_skipped_}" ] \
+        && _shunit_msg_="${_shunit_msg_},${_shunit_skipped_}"
+    _shunit_msg_="${_shunit_msg_})"
+  fi
+
+  echo
+  echo ${_shunit_msg_}
+  __shunit_reportGenerated=${SHUNIT_TRUE}
+
+  unset _shunit_failures_ _shunit_msg_ _shunit_ok_ _shunit_skipped_
 }
 
 _shunit_shouldSkip()
 {
   [ ${__shunit_skip} -eq ${SHUNIT_FALSE} ] && return ${SHUNIT_FALSE}
-  _shunit_testSkipped
+  _shunit_assertSkip
 }
 
-_shunit_testPassed()
+_shunit_assertPass()
 {
-  __shunit_testsPassed=`expr ${__shunit_testsPassed} + 1`
-  __shunit_testsTotal=`expr ${__shunit_testsTotal} + 1`
+  __shunit_assertsPassed=`expr ${__shunit_assertsPassed} + 1`
+  __shunit_assertsTotal=`expr ${__shunit_assertsTotal} + 1`
 }
 
-_shunit_testFailed()
+_shunit_assertFail()
 {
-  _su__msg=$1
+  _shunit_msg_=$1
 
-  __shunit_testsFailed=`expr ${__shunit_testsFailed} + 1`
-  __shunit_testsTotal=`expr ${__shunit_testsTotal} + 1`
-  echo "${__SHUNIT_ASSERT_MSG_PREFIX}${_su__msg}" >&2
+  __shunit_testSuccess=${SHUNIT_FALSE}
+  __shunit_assertsFailed=`expr ${__shunit_assertsFailed} + 1`
+  __shunit_assertsTotal=`expr ${__shunit_assertsTotal} + 1`
+  echo "${__SHUNIT_ASSERT_MSG_PREFIX}${_shunit_msg_}"
 
-  unset _su__msg
+  unset _shunit_msg_
 }
 
-_shunit_testSkipped()
+_shunit_assertSkip()
 {
-  __shunit_testsSkipped=`expr ${__shunit_testsSkipped} + 1`
-  __shunit_testsTotal=`expr ${__shunit_testsTotal} + 1`
+  __shunit_assertsSkipped=`expr ${__shunit_assertsSkipped} + 1`
+  __shunit_assertsTotal=`expr ${__shunit_assertsTotal} + 1`
 }
 
 #------------------------------------------------------------------------------
@@ -1054,10 +1082,12 @@ _shunit_execSuite
 # execute the oneTimeTearDown function (if it exists)
 oneTimeTearDown
 
-# generate report
+# generate the report
 _shunit_generateReport
 
-[ ${__shunit_testsFailed} -eq 0 ] || exit 1
+# that's it folks
+[ ${__shunit_testsFailed} -eq 0 ]
+exit $?
 
 #/**
 # </s:shelldoc>

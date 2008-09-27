@@ -20,16 +20,16 @@ test_readin_maxline()
 {
     typeset filename
     _Dbg_readin ${shunit_file}
-    assertEquals '0' $?
+    assertEquals "Read ${shunit_file} status test" '0' $?
     typeset file2
     file2=$(_Dbg_is_file ${shunit_file})
-    assertEquals '0' $?
-    assertNotEquals '' "$file2"
+    assertEquals "Cached read of ${shunit_file} test" '0' $?
+    assertNotEquals "Should have gotten cached file name back" '' "$file2"
     typeset -i maxline
     maxline=$(_Dbg_get_maxline $file2)
-    assertEquals '0' $?
+    assertEquals "Line-count of $file exit status" '0' $?
     # We'll assume shunit2 isn't going to get smaller ;-)
-    assertEquals 1 $(( maxline > 1000 ))
+    assertEquals "Number of lines in $file2" 1 $(( maxline > 1000 ))
 }
 
 
