@@ -106,10 +106,9 @@ set -- -q  # Don't need to show banner
 . $abs_top_srcdir/lib/journal.sh
 . $abs_top_srcdir/lib/save-restore.sh
 
-# load shunit2
 set -o shwordsplit
 SHUNIT_PARENT=$0
 
-srcdir=@srcdir@
-srcdir=${srcdir}/
-. ${srcdir}/shunit2
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}

@@ -20,12 +20,11 @@ abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 . ${abs_top_srcdir}/lib/run.sh
 
-# load shunit2
 set -o shwordsplit
 SHUNIT_PARENT=$0
 
-srcdir=@srcdir@
-srcdir=${srcdir}/
-. ${srcdir}/shunit2
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}
 
 
