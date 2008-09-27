@@ -9,6 +9,9 @@ TEST_NAME='sopts'
 
 . ${builddir}/check-common.sh
 
+# Put on all the stuff needed to run outside of source directory
+[[ "$top_builddir" != "$top_srdir" ]] && exit 77
+
 (cd $srcdir && $SH ${TEST_NAME}.tests > $TEST_FILE 2>&1 < /dev/null)
 
 check_output $TEST_FILE $RIGHT_FILE

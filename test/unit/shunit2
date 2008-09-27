@@ -124,7 +124,7 @@ assertEquals()
 
   [ -z "${shunit_message_:-}" ] && shunit_message_=''
   if [ $# -eq 3 ]; then
-    shunit_message_="${shunit_message_}$1"
+    shunit_message_="$1"
     shift
   fi
   shunit_expected_=$1
@@ -174,7 +174,7 @@ assertNotEquals()
 
   [ -z "${shunit_message_:-}" ] && shunit_message_=''
   if [ $# -eq 3 ]; then
-    shunit_message_="${shunit_message_}$1"
+    shunit_message_="$1"
     shift
   fi
   shunit_unexpected_=$1
@@ -555,7 +555,7 @@ failNotEquals()
 
   [ -z "${shunit_message_:-}" ] || shunit_message_=''
   if [ $# -eq 3 ]; then
-    shunit_message_="${shunit_message_}$1"
+    shunit_message_="$1"
     shift
   fi
   shunit_unexpected_=$1
@@ -596,7 +596,7 @@ failSame()
 
   [ -z "${shunit_message_:-}" ] && shunit_message_=''
   if [ $# -eq 3 ]; then
-    shunit_message_="${shunit_message_}$1"
+    shunit_message_="$1"
     shift
   fi
 

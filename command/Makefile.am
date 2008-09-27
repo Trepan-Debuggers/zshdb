@@ -3,6 +3,7 @@ pkgdata_DATA =        \
 	alias.sh     \
 	break.sh     \
 	continue.sh  \
+	delete.sh    \
 	disable.sh   \
 	edit.sh      \
 	enable.sh    \
