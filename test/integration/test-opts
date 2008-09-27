@@ -2,15 +2,15 @@
 # -*- shell-script -*-
 # Test debugger options.
 
-[ -z "$srcdir" ] && export srcdir=$PWD
-[ -z "$builddir" ] && export builddir=$PWD
+[ -z "$srcdir" ] && srcdir=$PWD
+[ -z "$builddir" ] && builddir=$PWD
 
 TEST_NAME='sopts'
 
 . ${builddir}/check-common.sh
 
-# Put on all the stuff needed to run outside of source directory
-[[ "$top_builddir" != "$top_srdir" ]] && exit 77
+# Doesn't work when not built from the source directory.
+[[ "$top_builddir" != "$top_srcdir" ]] && exit 77
 
 (cd $srcdir && $SH ${TEST_NAME}.tests > $TEST_FILE 2>&1 < /dev/null)
 

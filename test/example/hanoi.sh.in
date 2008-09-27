@@ -31,11 +31,11 @@ typeset -i max=3
 typeset -i tracing=0
 if [[ "$1" = 'trace' ]] ; then
   tracing=1
-  source @top_builddir@/dbg-trace -q -L @top_builddir@ -x @top_builddir@/test/data/settrace.cmd
+  source @abs_top_builddir@/dbg-trace -q -L @abs_top_builddir@ -x @abs_top_srcdir@/test/data/settrace.cmd
 fi
 init
 hanoi $max 'a' 'b' 'c'
 if (( $tracing )) ; then
   _Dbg_linetrace=0
-  # BASHDB_QUIT_ON_QUIT=1
+  _Dbg_QUIT_ON_QUIT=1
 fi
