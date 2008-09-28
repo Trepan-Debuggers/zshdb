@@ -28,8 +28,8 @@ then
 fi
 
 if test "$SH_PROG" = no; then
-  AC_MSG_ERROR([I didn't find the DEBUGGER executable.\
-  You might want to use the --with-DEBUGGER option.])
+  AC_MSG_ERROR([I didn't find the] POSIXSHELL [executable.\
+  You might want to use the] --with-POSIXSHELL [option.])
 fi
 
 AC_MSG_CHECKING([Checking whether $SH_PROG is compatible with zshdb])

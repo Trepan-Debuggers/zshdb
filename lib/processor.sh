@@ -104,7 +104,7 @@ function _Dbg_process_commands {
 
 # Run a debugger command "annotating" the output
 _Dbg_annotation() {
-  local label=$1
+  typeset label="$1"
   shift
   _Dbg_do_print "$label"
   $*
