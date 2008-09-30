@@ -25,12 +25,13 @@ pkgdata_DATA =       \
 	dbg-pre.sh   \
 	dbg-main.sh  \
 	dbg-opts.sh  \
-	dbg-trace.sh
+	dbg-trace.sh \
+	getopts_long.sh
 
 # Set up the install target 
 bin_SCRIPTS = zshdb
 
-EXTRA_DIST = $(pkgdata_DATA) THANKS getopts_long.sh
+EXTRA_DIST = $(pkgdata_DATA) THANKS
 
 # cvs2cl
 MAINTAINERCLEANFILES = ChangeLog
@@ -56,4 +57,3 @@ ACLOCAL_AMFLAGS=-I .
 endif
 
 .PHONY: $(CL) test
-

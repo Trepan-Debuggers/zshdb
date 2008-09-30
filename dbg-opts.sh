@@ -110,7 +110,7 @@ _Dbg_parse_options() {
 		exit 2
 		;;
 	esac
-    done	
+    done
     shift "$(($OPTLIND - 1))"
     
     if (( ! _Dbg_o_quiet && ! _Dbg_o_version )); then 
@@ -146,6 +146,7 @@ welcome to change it and/or distribute copies of it under certain conditions.
 
 # Stand-alone Testing. 
 if [[ -n "$_Dbg_dbg_opts_test" ]] ; then
+    OPTLIND=1
     _Dbg_libdir='.'
     _Dbg_parse_options "$@"
     typeset -p _Dbg_annotate
