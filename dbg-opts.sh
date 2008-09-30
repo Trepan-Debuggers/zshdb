@@ -31,69 +31,124 @@ options:
                             (Needed in regression tests)
     -L libdir | --library libdir
                             Set the directory location of library helper file: $_Dbg_main
-    -n | --nx |--no-init    Don't run initialization files.
+    -n | --nx | --no-init   Don't run initialization files.
     -V | --version          Print the debugger version number.
     -x command | --command CMDFILE
                             Execute debugger commands from CMDFILE.
-"
+" >&2
   exit 100
 }
 
 _Dbg_show_version() {
   printf 'There is absolutely no warranty for zshdb.  Type "show warranty" for details.
-'
+' >&2
   exit 101
+
 }
+
+# Script arguments before adulteration by _Dbg_parse_otps
+typeset -a _Dbg_orig_script_args
+_Dbg_orig_script_args=($@)
+
+
+# The following globals are set by _Dbg_parse_opts. Any values set are 
+# the default values.
+typeset -a _Dbg_script_args
 
 typeset -i _Dbg_annotate=0
 typeset -i _Dbg_linetrace=0
+typeset -i _Dbg_basename_only=0
+typeset -i _Dbg_o_nx=0
 
-# Debugger command file
-typeset _Dbg_o_cmdfile='' _Dbg_o_nx='' _Dbg_o_basename='' _Dbg_o_quiet=''
 
-local temp
-zparseopts -D --                                       \
-  A:=_Dbg_o_annotate  -annotate:=_Dbg_o_annotate       \
-  B=_Dbg_o_basename   -basename=_Dbg_o_basename        \
-  L:=temp             -library:=temp                   \
-  V=_Dbg_o_version    -version=_Dbg_o_version          \
-  h=_Dbg_o_help       -help=_Dbg_o_help                \
-  n=_Dbg_o_nx         -nx=_Dbg_o_nx -no-init=_Dbg_o_nx \
-  q=_Dbg_o_quiet      -quiet=_Dbg_o_quiet              \
-  x:=_Dbg_o_cmdfile   -command:=_Dbg_o_cmdfile
-                
-[[ $? != 0 || "$_Dbg_o_help" != '' ]] && _Dbg_usage
+_Dbg_parse_options() {
 
-if [[ -z $_Dbg_o_quiet || -n $_Dbg_o_version ]]; then 
-  print "Zsh Shell Debugger, release $_Dbg_release"
-  printf '
+    . ${_Dbg_libdir}/getopts_long.sh
+
+    typeset -i _Dbg_o_quiet=0
+    typeset -i _Dbg_o_version=0
+
+    while getopts_long A:Bx:hL:nqV opt   \
+	annotate required_argument       \
+	basename 0                       \
+	cmdfile  required_argument       \
+    	help     0                       \
+	'?'      0                       \
+	library  required_argument       \
+	no-init  0                       \
+	nx       0                       \
+	quiet    0                       \
+	version  0                       \
+	'' "$@"
+    do
+	case "$opt" in 
+	    A | annotate ) 
+		_Dbg_o_annotate=$OPTLARG
+		;;
+	    B | basename )
+		_Dbg_basename_only=1
+		;;
+	    x | command )
+		DBG_INPUT=$OPTLARG
+		;;
+	    h | '?' | help )
+		_Dbg_usage
+		;;
+	    L | library ) 
+		;;
+	    V | version )
+		_Dbg_o_version=1
+		;;
+	    n | nx | no-init )
+		_Dbg_o_nx=1
+		;;
+	    q | quiet )
+		_Dbg_o_quiet=1
+		;;
+	    * ) 
+		print "Unknown option $opt. Use -h or --help to see options" >&2
+		exit 2
+		;;
+	esac
+    done	
+    shift "$(($OPTLIND - 1))"
+    
+    if (( ! _Dbg_o_quiet && ! _Dbg_o_version )); then 
+	print "Zsh Shell Debugger, release $_Dbg_release"
+	printf '
 Copyright 2008 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
 welcome to change it and/or distribute copies of it under certain conditions.
 
 '
-fi
-[[ -n "$_Dbg_o_version" ]] && _Dbg_show_version
-[[ -n "$_Dbg_o_basename" ]] && _Dbg_basename_only=1
-[[ -n "$_Dbg_o_cmdfile" ]] && {
-    typeset -a _Dbg_input
-    _Dbg_input=($_Dbg_o_cmdfile)
-    DBG_INPUT=${_Dbg_input[-1]}
-    unset _Dbg_input
+    fi
+    (( _Dbg_o_version )) && _Dbg_show_version
+
+    if [[ -n $_Dbg_o_annotate ]] ; then
+	if [[ ${_Dbg_o_annotate} == [0-9]* ]] ; then
+	    _Dbg_annotate=$_Dbg_o_annotate
+	    if (( _Dbg_annotate > 3 || _Dbg_annotate < 0)); then
+		print "Annotation level must be less between 0 and 3. Got: $_Dbg_annotate." >&2
+		print "Setting Annotation level to 0." >&2
+		_Dbg_annotate=0
+	    fi
+	else
+	    print "Annotate option should be an integer, got ${_Dbg_o_annotate}." >&2
+	    print "Setting annotation level to 0." >&2
+	fi
+    fi
+    unset _Dbg_o_annotate _Dbg_o_version _Dbg_o_quiet
+    _Dbg_script_args=($@)
 }
 
+[[ -n $DBG_INPUT ]] && typeset -p DBG_INPUT
 
-# FIXME: check that _Dbg_o_annotate is an integer
-if [[ -n $_Dbg_o_annotate ]] ; then
-    typeset -a level; eval "level=($_Dbg_o_annotate)"
-    if [[ ${level[-1]} == [0-9]* ]] ; then
-	if (( ${level[-1]} > 3 || ${level[-1]} < 0)); then
-	    print "Annotation level must be less between 0 and 3. Got: ${level[-1]}."
-	else
-	    _Dbg_annotate=${level[-1]}
-	fi
-    else
-	print "Annotate option should be an integer, got ${level[-1]}."
-    fi
+
+# Stand-alone Testing. 
+if [[ -n "$_Dbg_dbg_opts_test" ]] ; then
+    _Dbg_libdir='.'
+    _Dbg_parse_options "$@"
+    typeset -p _Dbg_annotate
+    typeset -p _Dbg_linetrace
+    typeset -p _Dbg_basename_only
 fi
-unset _Dbg_o_annotate _Dbg_o_version _Dbg_o_basename _Dbg_o_cmdfile

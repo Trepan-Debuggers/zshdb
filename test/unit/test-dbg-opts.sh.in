@@ -1,0 +1,74 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+PS4='(%x:%I): [%?] zsh+ 
+'
+
+traceAssertEquals() {
+    first="$1"
+    second="$2"
+    third="$3"
+    typeset -p first
+    typeset -p second
+    typeset -p third
+}
+
+do_opts_test() {
+    if (( $# < 3 )); then
+	assertTrue "Too few parameters: $# should be at least 3" $(($# < 3))
+	return 1
+    fi
+    typeset assert_msg="$1"; shift
+    typeset expected_eval="$1"; shift
+    typeset expected_value="$1" ; shift
+    # typeset -p assert_msg
+    # typeset -p expected_eval
+    # typeset -p expected_value
+
+    . ${abs_top_srcdir}/dbg-opts.sh
+    OPTLIND=1
+    _Dbg_parse_options "$@"
+    assertEquals "$assert_msg" "$expected_value" "$(eval $expected_eval)"
+}
+
+test_opts()
+{
+    #                    Eval expression        value   options
+    msg='Short annotate'
+    do_opts_test "$msg" 'print $_Dbg_annotate'      1   -q -A 1
+    msg='Long annotate'
+    do_opts_test "$msg" 'print $_Dbg_annotate'      3   --quiet --annotate 3
+    msg='Annotate default'
+    do_opts_test "$msg" 'print $_Dbg_annotate'      0   --quiet
+    msg='Short basename'
+    do_opts_test "$msg" 'print $_Dbg_basename_only' 1   -B --quiet
+    msg='basename default'
+    do_opts_test "$msg" 'print $_Dbg_basename_only' 0   --quiet
+    msg='Long basename'
+    do_opts_test "$msg" 'print $_Dbg_basename_only' 1   --quiet --basename
+    msg='Long --no-init'
+    do_opts_test "$msg" 'print $_Dbg_o_nx'          1   --no-init  --quiet
+    msg='--no-init default'
+    do_opts_test "$msg" 'print $_Dbg_o_nx'          0   -q
+    msg='Short --no-init (-n)'
+    do_opts_test "$msg" 'print $_Dbg_o_nx'          1   -n --quiet
+    msg='Alternate no-init'
+    do_opts_test "$msg" 'print $_Dbg_o_nx'          1   -B -q -L . --nx
+}
+
+if [ '@abs_top_srcdir@' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+abs_top_srcdir=@abs_top_srcdir@
+# Make sure @top_srcdir@ has a trailing slash
+abs_top_srcdir=${abs_top_srcdir%%/}/
+_Dbg_libdir=$abs_top_srcdir
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}
+
+

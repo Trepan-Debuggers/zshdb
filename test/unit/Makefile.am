@@ -1,5 +1,6 @@
 TESTS = test-alias.sh        \
 	test-columns.sh      \
+	test-dbg-opts.sh     \
 	test-file.sh         \
 	test-filecache.sh    \
 	test-fns.sh          \
@@ -19,7 +20,8 @@ TESTS_ENVIRONMENT = \
 
 EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-alias.sh.in            \
-	test-columns.sh             \
+	test-columns.sh.in          \
+	test-dbg-opts.sh.in         \
 	test-file.sh.in             \
 	test-filecache.sh.in        \
 	test-fns.sh.in              \

@@ -1,2 +1,6 @@
 Thanks to Peter Stephenson for the adding necessary support to zsh
 needed to get this off the ground and make debugging possible.
+
+Thanks to Kate Ward, Stéphane Chazelas and Nikolaj Schumacher for
+programs used in conjunction with zshdb.
+
