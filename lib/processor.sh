@@ -30,8 +30,8 @@ typeset _Dbg_last_print=''     # expression on last print command
 typeset _Dbg_last_printe=''    # expression on last print expression command
 
 # A list of debugger command input-file descriptors.
-# Duplicate standard input
-typeset -i _Dbg_fdi ; exec {_Dbg_fdi}<&0
+# Duplicate standard input. Note we need to export it as well.
+typeset -ix _Dbg_fdi ; exec {_Dbg_fdi}<&0
 
 # Save descriptor number
 typeset -a _Dbg_fd ; _Dbg_fd=("$_Dbg_fdi")
