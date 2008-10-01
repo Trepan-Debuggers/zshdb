@@ -32,8 +32,7 @@ typeset _Dbg_debugger_name='@PACKAGE@'
 typeset _Dbg_shell='@SH_PROG@'
 
 # The short shell name. Helps keep code common in bash, zsh, and ksh debuggers.
-# Equivalent to 
-typeset _Dbg_shell_name=${_Dbg_shell##*/}
+typeset _Dbg_shell_name=${_Dbg_shell##*/}  # Equivalent to basename(_Dbg_shell)
 
 # Original $0. Note we can't set this in an include.
 typeset _Dbg_orig_0=$0
@@ -65,12 +64,12 @@ unset libdir
 typeset _Dbg_main="$_Dbg_libdir/dbg-main.sh"
 if [[ ! -r $_Dbg_main ]] ; then 
   print "${_Dbg_pname}: Can't read debugger library file '${_Dbg_main}'."
-  print "${_Dbg_pname}: Perhaps zshdb is installed wrong (if its installed)." >&2
-  print "${_Dbg_pname}: Try running zshdb using -L (with a different directory)." >&2
-  print "${_Dbg_pname}: Run zshdb --help for a list and explanation of options." >&2
+  print "${_Dbg_pname}: Perhaps @PACKAGE@ is installed wrong (if its installed)." >&2
+  print "${_Dbg_pname}: Try running @PACKAGE@ using -L (with a different directory)." >&2
+  print "${_Dbg_pname}: Run @PACKAGE@ --help for a list and explanation of options." >&2
   exit 1
-    
 fi
+
 . ${_Dbg_libdir}/dbg-main.sh
 
 _Dbg_set_debugger_entry
