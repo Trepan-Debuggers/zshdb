@@ -19,6 +19,7 @@
 
 typeset -i _Dbg_debug_debugger=0  # 1 if we are debugging the debugger
 typeset    _Dbg_stop_reason=''    # The reason we are in the debugger.
+typeset -i _Dbg_rc=0
 
 typeset -i _Dbg_QUIT_LEVELS=0     # Number of nested shells we have to exit
 
@@ -66,7 +67,7 @@ function _Dbg_debug_trap_handler {
 	if ((! _Dbg_skipping_fn )) ; then
 	    ((_Dbg_skip_ignore--))
 	    _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
-	    _Dbg_set_to_return_from_debugger 1
+	    _Dbg_set_to_return_from_debugger 2
 	    return 2 # 2 indicates skip statement.
 	fi
     fi
@@ -104,7 +105,7 @@ function _Dbg_debug_trap_handler {
 	    _Dbg_frame_save_frames 1
 	    if ((_Dbg_frame_previous_lineno == _Dbg_frame_last_lineno)) && \
 		[ "$_Dbg_frame_previous_file" = "$_Dbg_frame_last_filename" ] ; then
-		_Dbg_set_to_return_from_debugger 1
+		_Dbg_set_to_return_from_debugger
 		return 0
 	    fi
 	else
@@ -123,7 +124,7 @@ function _Dbg_debug_trap_handler {
 	_Dbg_frame_save_frames 1
 	_Dbg_print_location_and_command
     fi
-    _Dbg_set_to_return_from_debugger 1
+    _Dbg_set_to_return_from_debugger
     return 0
 }
 
@@ -162,18 +163,17 @@ _Dbg_hook_breakpoint_hit() {
 # Go into the command loop
 _Dbg_hook_enter_debugger() {
     _Dbg_stop_reason="$1"
-    typeset -i _Dbg_rc=0
     _Dbg_print_location_and_command
     _Dbg_process_commands
-    _Dbg_set_to_return_from_debugger 1
-    return $_Dbg_rc
+    _Dbg_set_to_return_from_debugger $?
+    return $_Dbg_rc # _Dbg_rc set to $? by above
 }
 
 # Cleanup routine: erase temp files before exiting.
 _Dbg_cleanup() {
     setopt | grep interactive 2>&1 >/dev/null && _Dbg_history_write
     rm $_Dbg_evalfile 2>/dev/null
-    _Dbg_erase_journals
+    _Dbg_erase_journals || true  # ignore return code for now
     _Dbg_restore_user_vars
   
 }

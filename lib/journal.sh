@@ -60,8 +60,8 @@ _Dbg_write_journal() {
 
 # Remove all journal files.
 _Dbg_erase_journals() {
-  [[ -f $_Dbg_journal ]] && rm ${_Dbg_journal} 2>/dev/null
-  return $?
+    [[ -f $_Dbg_journal ]] && rm ${_Dbg_journal} 2>/dev/null
+    return $?
 }
 
 # read in or "source" in journal file which will set variables.

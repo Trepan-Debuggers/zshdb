@@ -14,6 +14,7 @@ pkgdata_DATA =        \
 	info.sh      \
 	list.sh      \
 	quit.sh      \
+	return.sh    \
 	run.sh       \
 	set.sh       \
 	show.sh      \

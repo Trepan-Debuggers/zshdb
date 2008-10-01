@@ -35,6 +35,8 @@
 
 _Dbg_set_debugger_entry() {
 
+    _Dbg_rc=0
+    _Dbg_return_rc=0
     _Dbg_old_IFS="$IFS"
     _Dbg_old_PS4="$PS4"
     if (( $# > 0 )) ; then
@@ -90,26 +92,9 @@ _Dbg_restore_user_vars() {
 }
 
 _Dbg_set_to_return_from_debugger() {
-    _Dbg_rc=$?
-
-#   _Dbg_currentbp=0
-#   _Dbg_stop_reason=''
-#   if (( $1 != 0 )) ; then
-#     _Dbg_last_bash_command="$_Dbg_bash_command"
-#     _Dbg_last_curline="$_curline"
-#     _Dbg_last_source_file="$_cur_source_file"
-#   else
-#     _Dbg_last_curline==${BASH_LINENO[1]}
-#     _Dbg_last_source_file=${BASH_SOURCE[2]:-$_Dbg_bogus_file}
-#     _Dbg_last_bash_command="**unsaved _bashdb command**"
-#   fi
-
-#   if (( _Dbg_restore_debug_trap )) ; then
-#     trap '_Dbg_debug_trap_handler $? "$@"; [[ $? -eq 2 ]] && setopt errexit' DEBUG
-#   else
-#     trap - DEBUG
-#   fi  
-
+   _Dbg_rc=${1:-0}
+   _Dbg_currentbp=0
+   _Dbg_stop_reason=''
   _Dbg_restore_user_vars
 }
 

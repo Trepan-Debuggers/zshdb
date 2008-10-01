@@ -74,21 +74,18 @@ function _Dbg_process_commands {
       typeset line=''
       while : ; do
 	  if [[ -t $_Dbg_fdi ]]; then
-	      if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then 
-		  fc -ap $_Dbg_histfile $_Dbg_history_length $_Dbg_history_length
-	      fi
 	      vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
 	  else
 	      read "?$_Dbg_prompt" line <&${_Dbg_fdi} || break
 	  fi
           _Dbg_onecmd "$line"
-          rc=$?
+          typeset -i rc=$?
           _Dbg_postcmd
-	  if [[ -n $line ]] && (( $rc >= 0 )) ; then
+	  if [[ -n $line ]] && (( rc >= 0 )) ; then
 	      _Dbg_write_journal "print -s -- \"$line\""
 	      print -s -- "$line"
 	  fi
-          (( $rc > 0 ))  && return $rc
+          (( rc > 0 )) && return $rc
 	  
 	  line=''
       done # read "?$_Dbg_prompt" ...
@@ -250,6 +247,12 @@ _Dbg_onecmd() {
 	quit )
 	  _Dbg_last_cmd='quit'
 	  _Dbg_do_quit $@
+	  ;;
+
+	# return from function/source without finishing executions
+	return )
+	  _Dbg_do_return $@
+	  return $?
 	  ;;
 
 	# skip N times (default 1)
