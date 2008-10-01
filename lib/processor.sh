@@ -15,7 +15,6 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-# ==================== VARIABLES =======================================
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
 
@@ -40,8 +39,8 @@ typeset -a _Dbg_fd ; _Dbg_fd=("$_Dbg_fdi")
 # interactive.
 typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 
-# ===================== FUNCTIONS =======================================
-
+# The main debugger command reading loop.
+# 
 # Note: We have to be careful here in naming "local" variables. In contrast
 # to other places in the debugger, because of the read/eval loop, they are
 # in fact seen by those using the debugger. So in contrast to other "local"s
@@ -255,18 +254,6 @@ _Dbg_onecmd() {
 	  return $?
 	  ;;
 
-	# skip N times (default 1)
-	sk | ski | skip )
-	  _Dbg_last_cmd='skip'
-	  _Dbg_do_skip $@ && return 2
-	  ;;
-
-	# Run a debugger command file
-	source )
-	  _Dbg_last_cmd='source'
-	  _Dbg_do_source $@
-	  ;;
-
 	# restart debug session.
 	run )
 	  _Dbg_last_cmd='run'
@@ -283,6 +270,18 @@ _Dbg_onecmd() {
 	show )
 	  _Dbg_do_show $args
 	  _Dbg_last_cmd='show'
+	  ;;
+
+	# skip N times (default 1)
+	skip )
+	  _Dbg_last_cmd='skip'
+	  _Dbg_do_skip $@ && return 2
+	  ;;
+
+	# Run a debugger command file
+	source )
+	  _Dbg_last_cmd='source'
+	  _Dbg_do_source $@
 	  ;;
 
 	# single-step 
@@ -349,23 +348,23 @@ _Dbg_onecmd() {
 }
 
 _Dbg_preloop() {
-  if (($_Dbg_annotate)) ; then
-      _Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
-      # _Dbg_annotation 'locals'      _Dbg_do_backtrace 3 
-      _Dbg_annotation 'stack'       _Dbg_do_backtrace 3 
-  fi
+    if ((_Dbg_annotate)) ; then
+	_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
+	# _Dbg_annotation 'locals'      _Dbg_do_backtrace 3 
+	_Dbg_annotation 'stack'       _Dbg_do_backtrace 3 
+    fi
 }
 
 _Dbg_postcmd() {
-  if (($_Dbg_annotate)) ; then
-      case $_Dbg_last_cmd in
-        break | tbreak | disable | enable | condition | clear | delete ) 
-	  _Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
-        ;;
-	up | down | frame ) 
-	  _Dbg_annotation 'stack' _Dbg_do_backtrace 3
-	;;
-      * )
-      esac
-  fi
+    if ((_Dbg_annotate)) ; then
+	case $_Dbg_last_cmd in
+            break | tbreak | disable | enable | condition | clear | delete ) 
+		_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
+		;;
+	    up | down | frame ) 
+		_Dbg_annotation 'stack' _Dbg_do_backtrace 3
+		;;
+	    * )
+	esac
+    fi
 }

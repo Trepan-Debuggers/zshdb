@@ -18,12 +18,24 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add quit \
-'quit -- Quit the debugger.  The program being debugged is aborted.'
+'quit [EXIT-CODE [SHELL-LEVELS]] -- Quit the debugger.
+
+The program being debugged is aborted.  If EXIT-CODE is given that
+will be the exit return code. If SHELL-LEVELS then up to that many
+nested shells are quit. However to be effective, the last of those
+shells should have been run under the debugger.
+
+See also "finish", "return" and "restart".'
 
 function _Dbg_do_quit {
     typeset -i return_code=${1:-$_Dbg_program_exit_code}
 
     typeset -i desired_quit_levels=${2:-0}
+
+    if [[ $desired_quit_levels != [0-9]* ]] ; then
+	_Dbg_errmsg "Argument ($desired_quit_levels) should be a number or nothing."
+	return 0
+    fi
 
     if (( desired_quit_levels == 0 \
 	|| desired_quit_levels > ZSH_SUBSHELL+1)) ; then

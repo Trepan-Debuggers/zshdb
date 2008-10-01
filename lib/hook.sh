@@ -26,11 +26,16 @@ typeset -i _Dbg_QUIT_LEVELS=0     # Number of nested shells we have to exit
 # Return code that debugged program reports
 typeset -i _Dbg_program_exit_code=0
 
-function _Dbg_debug_trap_handler {
-    _Dbg_old_set_opts=$-
+# This is the main hook routine that gets called before every statement.
+# It's the function called via trap DEBUG.
+function _Dbg_hook {
+
+    # Save old set options before destroying them
+    _Dbg_old_set_opts=$-  
 
     # Turn off line and variable trace listing.
-    set +x +v +u +e
+    ((!_Dbg_debug_debugger)) && set +x
+    set +v +u +e
 
     _Dbg_set_debugger_entry 'create_unsetopt'
     # If some options are set (like localtraps?) then 
@@ -38,8 +43,7 @@ function _Dbg_debug_trap_handler {
     setopt ksharrays shwordsplit norcs
     unsetopt $_Dbg_debugger_unset_opts
     
-    # FIXME figure out what below uses shwordsplit.
-    trap 'print ERROR AT: ${funcfiletrace[@]}' ERR
+    trap '_Dbg_hook_error_handler' ERR
 
     typeset -i _Dbg_debugged_exit_code=$1
     shift
@@ -176,4 +180,10 @@ _Dbg_cleanup() {
     _Dbg_erase_journals || true  # ignore return code for now
     _Dbg_restore_user_vars
   
+}
+
+_Dbg_hook_error_handler() {
+    print ERROR AT: ${funcfiletrace[@]}
+    # Set to make sure we stop after we return
+    _Dbg_write_journal_eval "_Dbg_step_ignore=1"
 }

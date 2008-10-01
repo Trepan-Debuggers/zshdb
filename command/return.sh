@@ -18,15 +18,29 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add return \
-'return [int] -- Force a return without futher execution of the current function.'
+'return [RETURN-VALUE] -- Force an immediate return from a function.
+
+The remainder of function will not be executed. If RETURN-VALUE is given,
+it should be an integer and will be the return value passed back as
+$?. See also "finish", "quit", and "run."
+'
 
 # Return value when a return is taken.
 typeset -i _Dbg_return_rc=0
 
 _Dbg_do_return() {
     set -x
-    _Dbg_return_rc=${1:-0}
-    _Dbg_step_ignore=1
+    rc=${1:-0}
+
+    if [[ $_Dbg_return_rc == [0-9]* ]] ; then
+	_Dbg_return_rc=$rc
+    else
+	_Dbg_errmsg "Argument ($rc) should be a number or nothing."
+	_Dbg_skip_ignore=0
+	return 0
+    fi
+    
+    _Dbg_write_journal_eval "_Dbg_step_ignore=1"
     return 255
 }
 
