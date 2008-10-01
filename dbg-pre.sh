@@ -102,7 +102,7 @@ if [[ ! -d $_Dbg_tmpdir ]] && [[ ! -w $_Dbg_tmpdir ]] ; then
 fi
 
 # Save the initial working directory so we can reset it on a restart.
-typeset _Dbg_init_cwd=$PWD
+typeset -x _Dbg_init_cwd=$PWD
 
 # typeset -i _Dbg_have_set0=0
 # if [[ -r $_Dbg_libdir/builtin/set0 ]] ; then
@@ -120,7 +120,7 @@ typeset -i _Dbg_currentbp=0    # If nonzero, the breakpoint number that we
 typeset _Dbg_trace_commands='off'
 
 # Known normal IFS consisting of a space, tab and newline
-typeset _Dbg_space_IFS=' 	
+typeset -x _Dbg_space_IFS=' 	
 '
 
 # Number of statements to run before entering the debugger.  Is used

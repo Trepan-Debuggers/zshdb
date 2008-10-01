@@ -53,7 +53,7 @@ _Dbg_orig_script_args=($@)
 
 # The following globals are set by _Dbg_parse_opts. Any values set are 
 # the default values.
-typeset -a _Dbg_script_args
+typeset -ax _Dbg_script_args
 
 # Use gdb-style annotate?
 typeset -i _Dbg_annotate=0
