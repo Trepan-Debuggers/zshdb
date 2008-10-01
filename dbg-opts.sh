@@ -21,7 +21,7 @@ _Dbg_usage() {
   printf "Usage: 
    ${_Dbg_pname} [OPTIONS] <script_file>
 
-Runs zsh <script_file> under a debugger.
+Runs $_Dbg_shell_name <script_file> under a debugger.
 
 options:
     -h | --help             Print this help.
@@ -35,13 +35,13 @@ options:
     -V | --version          Print the debugger version number.
     -x command | --command CMDFILE
                             Execute debugger commands from CMDFILE.
-" >&2
+"
   exit 100
 }
 
 _Dbg_show_version() {
-  printf 'There is absolutely no warranty for zshdb.  Type "show warranty" for details.
-' >&2
+  printf "There is absolutely no warranty for $_Dbg_debugger_name.  Type \"show warranty\" for details.
+"
   exit 101
 
 }
@@ -55,10 +55,17 @@ _Dbg_orig_script_args=($@)
 # the default values.
 typeset -a _Dbg_script_args
 
+# Use gdb-style annotate?
 typeset -i _Dbg_annotate=0
+
+# Simulate set -x?
 typeset -i _Dbg_linetrace=0
 typeset -i _Dbg_basename_only=0
 typeset -i _Dbg_o_nx=0
+typeset -i _Dbg_o_linetrace=0
+
+# $_Dbg_tmpdir could have been set by the top-level debugger script.
+[[ -z $_Dbg_tmpdir ]] && typeset _Dbg_tmpdir=/tmp
 
 
 _Dbg_parse_options() {
@@ -68,7 +75,7 @@ _Dbg_parse_options() {
     typeset -i _Dbg_o_quiet=0
     typeset -i _Dbg_o_version=0
 
-    while getopts_long A:Bx:hL:nqV opt   \
+    while getopts_long A:Bx:hL:nqTV opt  \
 	annotate required_argument       \
 	basename 0                       \
 	cmdfile  required_argument       \
@@ -83,38 +90,31 @@ _Dbg_parse_options() {
     do
 	case "$opt" in 
 	    A | annotate ) 
-		_Dbg_o_annotate=$OPTLARG
-		;;
+		_Dbg_o_annotate=$OPTLARG;;
 	    B | basename )
-		_Dbg_basename_only=1
-		;;
+		_Dbg_basename_only=1	;;
 	    x | command )
-		DBG_INPUT=$OPTLARG
-		;;
+		DBG_INPUT=$OPTLARG	;;
 	    h | '?' | help )
-		_Dbg_usage
-		;;
-	    L | library ) 
-		;;
+		_Dbg_usage		;;
+	    L | library ) 		;;
 	    V | version )
-		_Dbg_o_version=1
-		;;
+		_Dbg_o_version=1	;;
 	    n | nx | no-init )
-		_Dbg_o_nx=1
-		;;
+		_Dbg_o_nx=1		;;
 	    q | quiet )
-		_Dbg_o_quiet=1
-		;;
+		_Dbg_o_quiet=1		;;
+	    tempdir) 
+		_Dbg_tmpdir=$OPTLARG	;;
 	    * ) 
 		print "Unknown option $opt. Use -h or --help to see options" >&2
-		exit 2
-		;;
+		exit 2		;;
 	esac
     done
     shift "$(($OPTLIND - 1))"
     
     if (( ! _Dbg_o_quiet && ! _Dbg_o_version )); then 
-	print "Zsh Shell Debugger, release $_Dbg_release"
+	print "$_Dbg_shell_name Shell Debugger, release $_Dbg_release"
 	printf '
 Copyright 2008 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are

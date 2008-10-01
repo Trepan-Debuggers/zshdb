@@ -84,9 +84,6 @@ function _Dbg_expand_filename {
   fi
 }
 
-# $_Dbg_tmpdir could have been set by the top-level debugger script.
-[[ -z $_Dbg_tmpdir ]] && typeset _Dbg_tmpdir=/tmp
-
 # Create temporary file based on $1
 # file $1
 _Dbg_tempname() {
