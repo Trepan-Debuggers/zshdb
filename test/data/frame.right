@@ -18,35 +18,35 @@ init () { if (( $tracing )) then _Dbg_linetrace=1 fi }
 if (( $tracing )) then _Dbg_linetrace=1 fi
 +where 2
 ->0 in file `hanoi.sh' at line 8
-##1 init called from file `hanoi.sh' at line 36
+##1 init called from file `hanoi.sh' at line 41
 +# How about after moving?
 +up 
-(hanoi.sh:36):
+(hanoi.sh:41):
 +where 1
 ##0 in file `hanoi.sh' at line 8
 +# Try moving past the end
 +down 2
 ** Would be beyond bottom-most (most recent) entry.
-(hanoi.sh:36):
+(hanoi.sh:41):
 +where 5-3
 ##0 in file `hanoi.sh' at line 8
-->1 init called from file `hanoi.sh' at line 36
+->1 init called from file `hanoi.sh' at line 41
 +up 3
 ** Would be beyond top-most (least recent) entry.
-(hanoi.sh:36):
+(hanoi.sh:41):
 +# Try some negative numbers
 +# should be the same as up
 +down -1
 (zshdb:113):
 +where 2
 ##0 in file `hanoi.sh' at line 8
-##1 init called from file `hanoi.sh' at line 36
+##1 init called from file `hanoi.sh' at line 41
 +# Should go to next-to-least-recent frame
 +frame -2
-(hanoi.sh:36):
+(hanoi.sh:41):
 +where 2
 ##0 in file `hanoi.sh' at line 8
-->1 init called from file `hanoi.sh' at line 36
+->1 init called from file `hanoi.sh' at line 41
 +# Let's add another stack entry
 +## continue hanoi
 +step 12
@@ -55,21 +55,21 @@ typeset -r a=$2
 +where 3
 ->0 in file `hanoi.sh' at line 16
 ##1 hanoi called from file `hanoi.sh' at line 21
-##2 hanoi called from file `hanoi.sh' at line 37
+##2 hanoi called from file `hanoi.sh' at line 42
 +# Again, next-to-least recent stack entry
 +frame -2
-(hanoi.sh:37):
+(hanoi.sh:42):
 +where 3
 ##0 in file `hanoi.sh' at line 16
 ##1 hanoi called from file `hanoi.sh' at line 21
-->2 hanoi called from file `hanoi.sh' at line 37
+->2 hanoi called from file `hanoi.sh' at line 42
 +# Most recent stack entry
 +frame +0
 (hanoi.sh:16):
 +where 3
 ->0 in file `hanoi.sh' at line 16
 ##1 hanoi called from file `hanoi.sh' at line 21
-##2 hanoi called from file `hanoi.sh' at line 37
+##2 hanoi called from file `hanoi.sh' at line 42
 +up 2
-(hanoi.sh:37):
+(hanoi.sh:42):
 +quit 
