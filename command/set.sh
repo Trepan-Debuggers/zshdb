@@ -21,8 +21,6 @@
 # If yes, always show. If auto, show only if the same line is to be run
 # but the command is different.
 
-# Set initial line tracing flag off
-typeset -i _Dbg_linetrace=0 
 typeset -i _Dbg_linewidth; _Dbg_linewidth=${COLUMNS:-80} 
 typeset -i _Dbg_linetrace_expand=0 # expand variables in linetrace output
 typeset    _Dbg_linetrace_delay=1  # sleep after linetrace

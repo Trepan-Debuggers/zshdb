@@ -30,8 +30,13 @@ hanoi() {
 typeset -i max=3
 typeset -i tracing=0
 if [[ "$1" = 'trace' ]] ; then
+  if [[ -n $2 ]] ; then
+      abs_top_builddir=$2
+  elif [[ -z $builddir ]] ; then
+      abs_top_builddir=@abs_top_builddir@
+  fi
   tracing=1
-  source @abs_top_builddir@/dbg-trace -q -L @abs_top_builddir@ -x @abs_top_srcdir@/test/data/settrace.cmd
+  source ${abs_top_builddir}/dbg-trace -q -L ${abs_top_builddir} -x ${abs_top_srcdir}/test/data/settrace.cmd
 fi
 init
 hanoi $max 'a' 'b' 'c'
