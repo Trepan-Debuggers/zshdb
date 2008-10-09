@@ -68,55 +68,24 @@ get a list of commands and some help for each.
 
 3. WHAT'S NOT HERE YET IN DETAIL
 
-3.a) source listing commands
+3.a) Showing frame arguments and subshell nesting for the frame
 
-Commands to list the source code and show the command that is about to
-be run is missing. There are a couple reasons for this. First, I use
-the emacs interface and that shows me source code lines. To use this:
+This can done with or without support from zsh, albeit faster with
+help from zsh. Changing scope when changing frames however has to be
+done with zsh support.
 
-  M-x load-library (with zshdb/emacs/zshdb.el in source)
-  M-x zshdb (name of program when prompted)
+3.b) Setting $0
 
-The other reason listing is not around is that bash doesn't have
-assocative arrays in 3.x and this would simplify the code. Indpendent
-of that, the code needs to be modularized better. In ruby-debug and
-pydb, this is its own module. Also possible is that zsh could add more
-support for showing the command to be executed. Ruby has a neat
-mechanism that causes the source as an array of lines to be stored
-when a certain associative array is defined. Finally bashdb adds a
-builtin to speed up reading files into an array. (zsh has mapfile, but
-that is not enough.)
+3.c) lots of other stuff including...
 
-3.b) breakpoints
-
-This is probably a straight-forward port of code from bashdb. Possibly
-some simplification with associative arrays.
-
-3.c) Showing frame arguments
-
-Like next, this can done with or without support from zsh, albeit
-faster with help from zsh. Changing scope when changing frames however
-has to be done with zsh support. 
-
-3.d) Setting $0
-
-3.e) lots of other stuff including...
-
-  display expressions, signal handling, invoking the debugger directly
-  from a script, command history, command completion.
+  display expressions, signal handling, command completion.
 
   None of this is rocket science. Should be pretty straight-forward to
   add.
 
 4. WHAT MAY NEED MORE WORK AND SUPPORT FROM ZSH
 
-
-4.a) next (step over function calls) 
-
-This is implemented without additional support from zsh, but probably
-debugging support would be faster with the code added to zsh.
-
-4.b) line number information
+4.a) line number information
 
 We rely on zsh to give line numbers. In some cases the numbers can be
 funky. Languages which grew up without debuggers tend to be sloppy
@@ -124,6 +93,6 @@ about tracking line number information accurately, because nobody care
 about it that much, so folks don't notice. (But in truth better line
 numbers also means more accurate error reporting information as well.)
  
-4.c) Possibly stopping points
+4.c) stopping points that can be used for breakpoint
 
 
