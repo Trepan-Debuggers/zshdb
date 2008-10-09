@@ -123,9 +123,6 @@ function _Dbg_split {
 function _Dbg_linespec_setup {
     (($# != 1)) && return 2
     typeset linespec=$1
-    if [[ -z $linespec ]] ; then
-	_Dbg_errmsg "Invalid line specification, null given"
-    fi
     typeset -a word
     word=($(_Dbg_parse_linespec "$linespec"))
     if [[ ${#word[@]} == 0 ]] ; then
@@ -134,7 +131,7 @@ function _Dbg_linespec_setup {
     fi
     
     filename=${word[2]}
-    typeset -ir is_function=${word[1]}
+    typeset -i is_function=${word[1]}
     line_number=${word[0]}
     full_filename=$filename
     full_filename=$(_Dbg_is_file $filename)
