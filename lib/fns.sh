@@ -121,22 +121,23 @@ function _Dbg_split {
 #  filename, line_number, full_filename
 
 function _Dbg_linespec_setup {
-  typeset linespec=${1:-''}
-  if [[ -z $linespec ]] ; then
-    _Dbg_errmsg "Invalid line specification, null given"
-  fi
-  typeset -a word
-  word=($(_Dbg_parse_linespec "$linespec"))
-  if [[ ${#word[@]} == 0 ]] ; then
-    _Dbg_msg "Invalid line specification: $linespec"
-    return
-  fi
-  
-  filename=${word[2]}
-  typeset -ir is_function=${word[1]}
-  line_number=${word[0]}
-  full_filename=$filename
-  full_filename=$(_Dbg_is_file $filename)
+    (($# != 1)) && return 2
+    typeset linespec=$1
+    if [[ -z $linespec ]] ; then
+	_Dbg_errmsg "Invalid line specification, null given"
+    fi
+    typeset -a word
+    word=($(_Dbg_parse_linespec "$linespec"))
+    if [[ ${#word[@]} == 0 ]] ; then
+	_Dbg_errmsg "Invalid line specification: $linespec"
+	return 1
+    fi
+    
+    filename=${word[2]}
+    typeset -ir is_function=${word[1]}
+    line_number=${word[0]}
+    full_filename=$filename
+    full_filename=$(_Dbg_is_file $filename)
 
 #   if (( is_function )) ; then
 #       if [[ -z $full_filename ]] ; then 

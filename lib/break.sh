@@ -64,14 +64,6 @@ typeset -A _Dbg_brkpt_file2brkpt; _Dbg_brkpt_file2brkpt=()
 
 #========================= FUNCTIONS   ============================#
 
-# Error message for file not read in
-_Dbg_file_not_read_in() {
-    typeset -r filename=$(_Dbg_adjust_filename "$1")
-    _Dbg_msg "File $filename not found in read-in files."
-    _Dbg_msg "See 'info files' for a list of known files and"
-    _Dbg_msg "'load' to read in a file."
-}
-
 _Dbg_save_breakpoints() {
   typeset file
   for file in ${_Dbg_filenames[@]} ; do  

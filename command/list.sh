@@ -77,7 +77,6 @@ _Dbg_do_list() {
     fi
 }
 
-
 # _Dbg_do_list_globals() {
 #     (($# != 0)) && return 1
 #     list=(${(k)parameters[(R)*^local*]})

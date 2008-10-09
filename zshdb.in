@@ -80,9 +80,12 @@ _Dbg_script=1
 # TEMPORARY: Save me typing in testing.
 if (( ${#_Dbg_script_args[@]} > 0 )) ; then
     _Dbg_script_file="${_Dbg_script_args[0]}"
-    shift _Dbg_script_args
+     shift _Dbg_script_args
+     
 else
-    _Dbg_script_file=./testing.sh
+#     _Dbg_script_file=./testing.sh
+     echo "${_Dbg_pname}: need a ${_Dbg_shell_name} script to debug." >&2
+     exit 1
 fi
 
 if [[ ! -r "$_Dbg_script_file" ]] && [[ -z $_Dbg_script_file ]] ; then

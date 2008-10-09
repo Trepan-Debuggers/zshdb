@@ -54,6 +54,14 @@ _Dbg_check_line() {
     return 0
 }
 
+# Error message for file not read in
+function _Dbg_file_not_read_in {
+    typeset -r filename=$(_Dbg_adjust_filename "$1")
+    _Dbg_errmsg "File $filename not found in read-in files."
+    _Dbg_errmsg "See 'info files' for a list of known files and"
+    _Dbg_errmsg "'load' to read in a file."
+}
+
 # Return the maximum line of filename $1. $1 is expected to be
 # read in already and therefore stored in _Dbg_file2canonic.
 function _Dbg_get_maxline {
