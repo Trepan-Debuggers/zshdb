@@ -54,7 +54,7 @@ test_esc_dbg_enter_return() {
   PS4=$old_PS4
 }
 
-# Test _Dbg_is_function
+# Test _Dbg_defined
 test_defined()
 {
     _Dbg_defined 
@@ -65,6 +65,23 @@ test_defined()
     typeset xxx=1
     _Dbg_defined xxx
     assertTrue 'variable xxx should be defined' $? 
+}
+
+# Test _Dbg_is_alias
+test_is_alias()
+{
+    _Dbg_is_alias 
+    assertFalse 'No function given; is_alias should report false' $? 
+
+    typeset al
+    unalias testing_is_alias 2>/dev/null 
+    _Dbg_is_alias testing_is_alias
+    assertFalse 'testing_is_alias should not be defined' $? 
+
+    alias testing_is_alias=true
+    _Dbg_is_alias testing_is_alias
+    assertTrue 'test_is_alias should now be defined' "$?"
+    unalias testing_is_alias
 }
 
 # Test _Dbg_is_function

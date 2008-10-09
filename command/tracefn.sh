@@ -24,23 +24,46 @@
 # $? is 0 if successful.
 
 _Dbg_help_add trace \
-'trace *function*	- Wrap *function* in set -x'
+'trace FUNCTION | alias ALIAS -- set xtrace tracing when FUNCTION is called'
 
 function _Dbg_do_trace_fn {
-    typeset -r fn=$1
-    typeset -ri clear_debug_trap=${2:-1}
-    if [[ -z $fn ]] ; then
-	_Dbg_errmsg "trace_fn: missing or invalid function name"
+    if (($# == 0)) ; then
+	_Dbg_errmsg "trace_fn: missing function name."
 	return 2
     fi
+    typeset fn=$1
+    if [[ $fn == 'alias' ]]; then
+	shift
+	_Dbg_do_trace_alias "$@"
+	return $?
+    fi
+
+    typeset -ri clear_debug_trap=${2:-1}
     _Dbg_is_function "$fn" $_Dbg_debug_debugger || {
-	_Dbg_errmsg "trace_fn: function \"$fn\" is not a function."
+	_Dbg_errmsg "_Dbg_do_trace_fn: \"$fn\" is not a function."
 	return 3
     }
     cmd=old_$(typeset -f -- "$fn") || {
 	return 4
     }
     typeset -ft $fn
+    return 0
+}
+
+function _Dbg_do_trace_alias {
+    if (($# == 0)) ; then
+	_Dbg_errmsg "_Dbg_do_trace_alias: missing alias name."
+	return 2
+    fi
+    typeset al=$1
+    if _Dbg_is_alias "$al" ; then
+	alias_body=$(alias $1)
+	alias_body="set -x; $alias_body; set +x"
+	alias ${al}=${alias_body}
+    else
+	_Dbg_errmsg "_Dbg_do_trace_alias: \"$al\" is not an alias."
+	return 3
+    fi
     return 0
 }
 
