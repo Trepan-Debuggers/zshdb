@@ -20,7 +20,7 @@
 typeset -r _Dbg_info_cmds='breakpoints files line program source stack variables warranty'
 
 _Dbg_info_help() {
-    typeset -r info_cmd=$1
+    typeset info_cmd=$1
     typeset label=$2
     
     if (($# > 0)) ; then
@@ -85,7 +85,9 @@ _Dbg_info_help() {
 # 	        ;;
 	    v | va | var | vari | varia | variab | variabl | variable | variables )
 		_Dbg_msg \
-		    'info variables -- Variable lists by property (array, fn, export, ...)'
+		    "info variables [PROPERTY] -- Variable lists by property.
+PROPERTY is one of: 
+\t$_Dbg_info_var_attrs"
 		return 0
 		;;
 	    w | wa | war | warr | warra | warran | warrant | warranty )

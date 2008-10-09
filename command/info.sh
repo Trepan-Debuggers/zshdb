@@ -133,8 +133,8 @@ _Dbg_do_info() {
   return 1
 }
 
+typeset _Dbg_info_var_attrs="array, export, fixed, float, function, hash, integer, or readonly"
 _Dbg_do_info_variables() {
-    typeset attrs="array, export, fixed, float, function, hash, integer, or readonly"
     if (($# > 0)) ; then
 	typeset kind="$1"
 	shift
@@ -184,7 +184,7 @@ _Dbg_do_info_variables() {
 	esac
     fi
     _Dbg_errmsg "Need to specify a variable class which is one of: "
-    _Dbg_errmsg "\t$attrs"
+    _Dbg_errmsg "\t$_Dbg_info_var_attrs"
     return 1
 }
 
