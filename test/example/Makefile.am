@@ -10,6 +10,7 @@ check_DATA = \
 	exam.sh          \
 	hanoi.sh         \
 	nexting.sh       \
-	stepping.sh
+	stepping.sh      \
+	subshell.sh
 
 EXTRA_DIST = $(check_DATA)

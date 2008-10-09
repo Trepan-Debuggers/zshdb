@@ -1,0 +1,74 @@
+(subshell.sh:2):
+x=2
++# Test of debugging through a subshell
++examine x
+x
++step 
+(subshell.sh:3):
+( x='line 3' y='line 4' )
++examine x
+typeset x=2
++step 
+(subshell.sh:3):
+x='line 3'
++print $ZSH_SUBSHELL
+1
++examine x
+typeset x=2
++step 
+(subshell.sh:4):
+y='line 4'
++# Set inside a subshell
++set autoeval on
++examine x
+typeset x='line 3'
++fc -l
+    1  set trace-commands on
+    2  # Test of debugging through a subshell
+    3  x x
+    4  step
+    5  examine x
+    6  s
+    7  print $ZSH_SUBSHELL
+    8  examine x
+    9  s
+   10  # Set inside a subshell
+   11  set autoeval on
+   12  examine x
++step 
+(subshell.sh:6):
+( x=$(print line 7) y='line 8' )
++examine x
+typeset x=2
++print $ZSH_SUBSHELL
+0
++# See that debugger settings and history are preserved
++show autoeval
+Evaluate unrecognized commands is on.
++fc -l
+    2  # Test of debugging through a subshell
+    3  x x
+    4  step
+    5  examine x
+    6  s
+    7  print 0
+    8  examine x
+    9  s
+   10  # Set inside a subshell
+   11  set autoeval on
+   12  examine x
+   13  fc -l
+   14  s
+   15  x x
+   16  print $ZSH_SUBSHELL
+   17  # See that debugger settings and history are preserved
+   18  show autoeval
++step 3
+(subshell.sh:8):
+y='line 8'
++examine x
+typeset x='line 7'
++print $ZSH_SUBSHELL
+1
++# A quit inside a nested subshell.
++quit 

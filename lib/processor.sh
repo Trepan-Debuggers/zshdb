@@ -81,7 +81,7 @@ function _Dbg_process_commands {
           typeset -i rc=$?
           _Dbg_postcmd
 	  if [[ -n $line ]] && (( rc >= 0 )) ; then
-	      _Dbg_write_journal "print -s -- \"$line\""
+	      _Dbg_write_journal "((\$ZSH_SUBSHELL < $ZSH_SUBSHELL)) && print -s -- \"$line\""
 	      print -s -- "$line"
 	  fi
           (( rc > 0 )) && return $rc

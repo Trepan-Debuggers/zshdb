@@ -14,6 +14,7 @@ TESTS = \
 	test-setshow       \
 	test-skip	   \
 	test-step	   \
+	test-subshell	   \
 	test-tbreak
 
 check_DATA = check-common.sh

@@ -29,6 +29,8 @@ check_DATA = \
 	sopts.right        \
 	step.cmd           \
 	step.right         \
+	subshell.cmd       \
+	subshell.right     \
 	tbreak.cmd         \
 	tbreak.right       \
 	quit.cmd
