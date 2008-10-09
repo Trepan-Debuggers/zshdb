@@ -54,6 +54,47 @@ _Dbg_check_line() {
     return 0
 }
 
+# Return the maximum line of filename $1. $1 is expected to be
+# read in already and therefore stored in _Dbg_file2canonic.
+function _Dbg_get_maxline {
+    (( $# != 1 )) && return -1
+    _Dbg_set_source_array_var "$1" || return $?
+    eval "typeset last_line=\${${_Dbg_source_array_var}[-1]}"
+    # If the file had a final newline the last line of the data read in
+    # is the empty string.  We want to count the last line whether or
+    # not it had a newline.
+    typeset -i last_not_null
+    [[ -z $last_line ]] && last_line_is_null=1 || last_line_is_null=0
+    eval "print \$((\${#${_Dbg_source_array_var}[@]}-$last_line_is_null))"
+    return $?
+}
+
+# Return text for source line for line $1 of filename $2 in variable
+# $source_line. The hope is that this has been declared "typeset" in the 
+# caller.
+
+# If $2 is omitted, # use _Dbg_frame_filename, if $1 is omitted use 
+# _Dbg_frame_lineno. The return value is put in source_line.
+function _Dbg_get_source_line {
+    typeset -i lineno
+    if (( $# == 0 )); then
+	Dbg_frame_lineno
+	lineno=$Dbg_frame_lineno
+    else
+	lineno=$1
+	shift
+    fi
+    typeset filename
+    if (( $# == 0 )) ; then
+	_Dbg_frame_file
+    else
+	filename=$_Dbg_frame_filename
+	filename=$1
+    fi
+  _Dbg_readin_if_new $filename
+  eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
+}
+
 # _Dbg_is_file echoes the full filename if $1 is a filename found in files
 # '' is echo'd if no file found. Return 0 if found, 1 if not.
 function _Dbg_is_file {
@@ -98,47 +139,6 @@ function _Dbg_is_file {
   fi
   echo ''
   return 1
-}
-
-# Return the maximum line of filename $1. $1 is expected to be
-# read in already and therefore stored in _Dbg_file2canonic.
-_Dbg_get_maxline() {
-    (( $# != 1 )) && return 1
-    _Dbg_set_source_array_var "$1" || return $?
-    eval "typeset last_line=\${${_Dbg_source_array_var}[-1]}"
-    # If the file had a final newline the last line of the data read in
-    # is the empty string.  We want to count the last line whether or
-    # not it had a newline.
-    typeset -i last_not_null
-    [[ -z $last_line ]] && last_line_is_null=1 || last_line_is_null=0
-    eval "print \$((\${#${_Dbg_source_array_var}[@]}-$last_line_is_null))"
-    return $?
-}
-
-# Return text for source line for line $1 of filename $2 in variable
-# $source_line. The hope is that this has been declared "typeset" in the 
-# caller.
-
-# If $2 is omitted, # use _Dbg_frame_filename, if $1 is omitted use 
-# _Dbg_frame_lineno. The return value is put in source_line.
-function _Dbg_get_source_line {
-    typeset -i lineno
-    if (( $# == 0 )); then
-	Dbg_frame_lineno
-	lineno=$Dbg_frame_lineno
-    else
-	lineno=$1
-	shift
-    fi
-    typeset filename
-    if (( $# == 0 )) ; then
-	_Dbg_frame_file
-    else
-	filename=$_Dbg_frame_filename
-	filename=$1
-    fi
-  _Dbg_readin_if_new $filename
-  eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
 }
 
 # Read $1 into _Dbg_source_*n* array where *n* is an entry in

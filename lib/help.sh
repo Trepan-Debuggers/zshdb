@@ -27,8 +27,7 @@ function _Dbg_help_add {
      return 0
 }
 
-typeset _Dbg_set_cmds
-_Dbg_set_cmds='args annotate autoeval basename debugger force linetrace listsize prompt trace-commands width'
+typeset _Dbg_set_cmds='args annotate autoeval basename debugger force linetrace listsize prompt trace-commands width'
 
 _Dbg_help_set() {
 
@@ -44,7 +43,6 @@ _Dbg_help_set() {
   typeset label="$2"
 
   case $set_cmd in 
-
     ar | arg | args )
       [[ -n $label ]] && label='set args -- '
       _Dbg_msg \

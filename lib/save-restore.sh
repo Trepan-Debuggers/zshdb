@@ -30,9 +30,11 @@
   typeset -r _Dbg_check_opts=\
 "$_Dbg_debugger_set_opts $_Dbg_debugger_unset_opts"
 
-# set dollar variables ($1, $2, ... $?) 
-# to their values in the debugged environment before we entered the debugger.
-
+# Do things for debugger entry. Set some global debugger variables
+# Remove trapping ourselves. 
+# We assume that we are nested two calls deep from the point of debug
+# or signal fault. If this isn't the constant 2, then consider adding
+# a parameter to this routine.
 _Dbg_set_debugger_entry() {
 
     _Dbg_rc=0
