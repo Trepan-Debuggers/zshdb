@@ -52,7 +52,7 @@ typeset -a  _Dbg_brkpt_cond; _Dbg_brkpt_cond=()
 # can be sparse.
 typeset -i  _Dbg_brkpt_max=0 
 
-# Maps a resolved filename to a list of beakpiont line numbers in that file
+# Maps a resolved filename to a list of beakpoint line numbers in that file
 typeset -A _Dbg_brkpt_file2linenos; _Dbg_brkpt_file2linenos=()
 
 # Maps a resolved filename to a list of breakpoint entries.
@@ -67,7 +67,7 @@ typeset -A _Dbg_brkpt_file2brkpt; _Dbg_brkpt_file2brkpt=()
 _Dbg_save_breakpoints() {
   typeset file
   for file in ${_Dbg_filenames[@]} ; do  
-    typeset filevar="`_Dbg_file2var $file`"
+    typeset filevar=$(_Dbg_file2var $file)
     typeset -p _Dbg_brkpt_$filevar >> $_Dbg_statefile 2>/dev/null
   done        
   typeset -p _Dbg_brkpt_line >> $_Dbg_statefile
@@ -92,7 +92,7 @@ _Dbg_enable_disable() {
   typeset en_dis=$2
   shift; shift
 
-  if [[ $1 = 'display' ]] ; then
+  if [[ $1 == 'display' ]] ; then
     shift
     typeset to_go="$@"
     typeset i
@@ -104,7 +104,7 @@ _Dbg_enable_disable() {
       fi
     done
     return 0
-  elif [[ $1 = 'action' ]] ; then
+  elif [[ $1 == 'action' ]] ; then
     shift
     typeset to_go="$@"
     typeset i
@@ -214,10 +214,10 @@ _Dbg_unset_brkpt_arrays() {
 
 # Internal routine to delete a breakpoint by file/line.
 _Dbg_unset_brkpt() {
-  typeset -r  filename=$1
-  typeset -ir line=$2
-  typeset -r filevar="`_Dbg_file2var $filename`"
-  typeset -r fullname="`_Dbg_expand_filename $filename`"
+  typeset -r filename=$1
+  typeset -i line=$2
+  typeset -r filevar=$(_Dbg_file2var $filename)
+  typeset -r fullname=$(_Dbg_expand_filename $filename)
   typeset -i found=0
   
   ## typeset -r entries=`_Dbg_get_assoc_array_entry "_Dbg_brkpt_$filevar" $line`
@@ -229,15 +229,15 @@ _Dbg_unset_brkpt() {
     fi
     typeset brkpt_fullname=$(_Dbg_expand_filename ${_Dbg_brkpt_file[$del]})
     if [[ $brkpt_fullname != $fullname ]] ; then 
-      _Dbg_msg "Brkpt inconsistency:" \
-	"$filename[$line] lists ${_Dbg_brkpt_file[$del]} at entry $del"
+      _Dbg_errmsg "Brkpt inconsistency:" \
+	"${filename[$line]} lists ${_Dbg_brkpt_file[$del]} at entry $del"
     else
       _Dbg_unset_brkpt_arrays $del
       ((found++))
       ((_Dbg_brkpt_count--))
     fi
   done
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_$filevar[$line]"
+  _Dbg_write_journal_eval "unset _Dbg_brkpt_${filevar[$line]}"
   return $found
 }
 
