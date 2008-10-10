@@ -1,4 +1,4 @@
-# $Id: shunit2 211 2008-07-17 14:32:33Z kate.ward@forestent.com $
+# $Id: shunit2 232 2008-10-09 22:00:58Z kate.ward@forestent.com $
 # vim:et:ft=sh:sts=2:sw=2
 # vim:foldmethod=marker:foldmarker=/**,*/
 #
@@ -50,23 +50,19 @@ __SHUNIT_ASSERT_MSG_PREFIX='ASSERT:'
 __SHUNIT_PARENT=${SHUNIT_PARENT:-$0}
 
 # set the constants readonly
-shunit_constants_=`set |grep "^__SHUNIT_" |cut -d= -f1`
-echo "${shunit_constants_}" |grep "^Binary file" >/dev/null
-if [ $? -eq 0 ]; then
-  # deal with binary junk in 'set' output
-  shunit_constants_=`set |grep -a "^__SHUNIT_" |cut -d= -f1`
-fi
-for shunit_const_ in ${shunit_constants_}; do
+shunit_constants_=`set |grep '^__SHUNIT_' |cut -d= -f1`
+echo "${shunit_constants_}" |grep '^Binary file' >/dev/null \
+    && shunit_constants_=`set |grep -a '^__SHUNIT_' |cut -d= -f1`
+for shunit_constant_ in ${shunit_constants_}; do
   shunit_ro_opts_=''
-  if [ -n "${ZSH_VERSION:-}" ]; then
-    case ${ZSH_VERSION} in
-      [123].*) ;;
-      *) shunit_ro_opts_='-g' ;;  # declare readonly constants globally
-    esac
-  fi
-  # readonly ${shunit_ro_opts_} ${shunit_const_}
+  case ${ZSH_VERSION:-} in
+    '') ;;  # this isn't zsh
+    [123].*) ;;  # early versions (1.x, 2.x, 3.x)
+    *) shunit_ro_opts_='-g' ;;  # all later versions. declare readonly globally
+  esac
+  readonly ${shunit_ro_opts_} ${shunit_constant_}
 done
-unset shunit_const_ shunit_constants_ shunit_ro_opts_
+unset shunit_constant_ shunit_constants_ shunit_ro_opts_
 
 # variables
 __shunit_skip=${SHUNIT_FALSE}
@@ -84,10 +80,11 @@ __shunit_assertsPassed=0
 __shunit_assertsFailed=0
 __shunit_assertsSkipped=0
 
+__shunit_lineno=''
 __shunit_reportGenerated=${SHUNIT_FALSE}
 
 # macros
-_SHUNIT_LINENO_='eval if [ "${1:-}" = "--lineno" ]; then [ -n "$2" ] && shunit_message_="[$2]"; shift 2; fi'
+_SHUNIT_LINENO_='eval __shunit_lineno=""; if [ "${1:-}" = "--lineno" ]; then [ -n "$2" ] && __shunit_lineno="[$2]"; shift 2; fi'
 
 #-----------------------------------------------------------------------------
 # assert functions
@@ -122,9 +119,9 @@ assertEquals()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 3 ]; then
-    shunit_message_="$1"
+    shunit_message_="${shunit_message_}$1"
     shift
   fi
   shunit_expected_=$1
@@ -138,7 +135,7 @@ assertEquals()
     shunit_return=${SHUNIT_FALSE}
   fi
 
-  unset shunit_message_ shunit_expected_ shunit_actual_ __shunit_lineno
+  unset shunit_message_ shunit_expected_ shunit_actual_
   return ${shunit_return}
 }
 _ASSERT_EQUALS_='eval assertEquals --lineno "${LINENO:-}"'
@@ -172,9 +169,9 @@ assertNotEquals()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 3 ]; then
-    shunit_message_="$1"
+    shunit_message_="${shunit_message_}$1"
     shift
   fi
   shunit_unexpected_=$1
@@ -220,16 +217,16 @@ assertNull()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 2 ]; then
     shunit_message_="${shunit_message_}$1"
     shift
   fi
-  if [ $# -eq 2 ]; then
-    assertTrue "${shunit_message_}$1" "[ -z '$2' ]"
-  else
-    assertTrue "[ -z '$1' ]"
-  fi
+  assertTrue "${shunit_message_}" "[ -z '$1' ]"
+  shunit_return=$?
+
+  unset shunit_message_
+  return ${shunit_return}
 }
 _ASSERT_NULL_='eval assertNull --lineno "${LINENO:-}"'
 
@@ -261,11 +258,16 @@ assertNotNull()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 2 ]; then
-    assertTrue "$1" "[ -n '$2' ]"
-  else
-    assertTrue "[ -n '${1:-}' ]"
+    shunit_message_="${shunit_message_}$1"
+    shift
   fi
+  assertTrue "${shunit_message_}" "[ -n '${1:-}' ]"
+  shunit_return=$?
+
+  unset shunit_message_
+  return ${shunit_return}
 }
 _ASSERT_NOT_NULL_='eval assertNotNull --lineno "${LINENO:-}"'
 
@@ -297,11 +299,16 @@ assertSame()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  if [ $# -eq 2 ]; then
-    assertEquals "$1" "$2"
-  else
-    assertEquals "$1" "$2" "$3"
+  shunit_message_=${__shunit_lineno}
+  if [ $# -eq 3 ]; then
+    shunit_message_="${shunit_message_}$1"
+    shift
   fi
+  assertEquals "${shunit_message_}" "$1" "$2"
+  shunit_return=$?
+
+  unset shunit_message_
+  return ${shunit_return}
 }
 _ASSERT_SAME_='eval assertSame --lineno "${LINENO:-}"'
 
@@ -334,11 +341,16 @@ assertNotSame()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  if [ $# -eq 2 ]; then
-    assertNotEquals "$1" "$2"
-  else
-    assertNotEquals "$1" "$2" "$3"
+  shunit_message_=${__shunit_lineno}
+  if [ $# -eq 3 ]; then
+    shunit_message_="${shunit_message_:-}$1"
+    shift
   fi
+  assertNotEquals "${shunit_message_}" "$1" "$2"
+  shunit_return=$?
+
+  unset shunit_message_
+  return ${shunit_return}
 }
 _ASSERT_NOT_SAME_='eval assertNotSame --lineno "${LINENO:-}"'
 
@@ -378,9 +390,9 @@ assertTrue()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 2 ]; then
-    shunit_message_="$1"
+    shunit_message_="${shunit_message_}$1"
     shift
   fi
   shunit_condition_=$1
@@ -448,9 +460,9 @@ assertFalse()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 2 ]; then
-    shunit_message_="$1"
+    shunit_message_="${shunit_message_}$1"
     shift
   fi
   shunit_condition_=$1
@@ -511,9 +523,9 @@ fail()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 1 ]; then
-    shunit_message_="$1"
+    shunit_message_="${shunit_message_}$1"
     shift
   fi
 
@@ -553,9 +565,9 @@ failNotEquals()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] || shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 3 ]; then
-    shunit_message_="$1"
+    shunit_message_="${shunit_message_}$1"
     shift
   fi
   shunit_unexpected_=$1
@@ -580,8 +592,8 @@ _FAIL_NOT_EQUALS_='eval failNotEquals --lineno "${LINENO:-}"'
 #       <paramdef>string <parameter>[message]</parameter></paramdef>
 #     </funcprototype>
 #   </funcsynopsis>
-#   <para>Indicate test failure because arguments were not the same. The
-#   message is optional.</para>
+#   <para>Indicate test failure because arguments were the same. The message is
+#   optional.</para>
 # </entry>
 # </s:function>
 #*/
@@ -594,9 +606,9 @@ failSame()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  [ -z "${shunit_message_:-}" ] && shunit_message_=''
+  shunit_message_=${__shunit_lineno}
   if [ $# -eq 3 ]; then
-    shunit_message_="$1"
+    shunit_message_="${shunit_message_}$1"
     shift
   fi
 
@@ -621,9 +633,8 @@ _FAIL_SAME_='eval failSame --lineno "${LINENO:-}"'
 #       <paramdef>string <parameter>actual</parameter></paramdef>
 #     </funcprototype>
 #   </funcsynopsis>
-#   <para>Fails the test if <emphasis>expected</emphasis> and
-#   <emphasis>actual</emphasis> are equal to one another. The message is
-#   optional.</para>
+#   <para>Indicate test failure because arguments were not the same. The
+#   message is optional.</para>
 # </entry>
 # </s:function>
 #*/
@@ -636,11 +647,16 @@ failNotSame()
   fi
   _shunit_shouldSkip && return ${SHUNIT_TRUE}
 
-  if [ $# -eq 2 ]; then
-    failNotEquals "$1" "$2"
-  else
-    failNotEquals "$1" "$2" "$3"
+  shunit_message_=${__shunit_lineno}
+  if [ $# -eq 3 ]; then
+    shunit_message_="${shunit_message_}$1"
+    shift
   fi
+  failNotEquals "${shunit_message_}" "$1" "$2"
+  shunit_return=$?
+
+  unset shunit_message_
+  return ${shunit_return}
 }
 _FAIL_NOT_SAME_='eval failNotSame --lineno "${LINENO:-}"'
 
@@ -1049,6 +1065,11 @@ _shunit_assertSkip()
 
 # create a temporary storage location
 __shunit_tmpDir=`_shunit_mktempDir`
+
+# provide a public temporary directory for unit test scripts
+# TODO(kward): document this
+shunit_tmpDir="${__shunit_tmpDir}/tmp"
+mkdir "${shunit_tmpDir}"
 
 # setup traps to clean up after ourselves
 trap '_shunit_cleanup EXIT' 0
