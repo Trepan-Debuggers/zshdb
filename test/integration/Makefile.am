@@ -11,6 +11,7 @@ TESTS = \
 	test-list          \
 	test-next          \
 	test-opts          \
+	test-restart       \
 	test-setshow       \
 	test-skip	   \
 	test-step	   \
