@@ -29,7 +29,7 @@ options:
     -A | --annotate  LEVEL  Set the annotation level.
     -B | --basename         Show basename only on source file listings. 
                             (Needed in regression tests)
-    -L libdir | --library DIRECTORY
+    -L | --library DIRECTORY
                             Set the directory location of library helper file: $_Dbg_main
     -c | --command STRING   Run STRING instead of a script file
     -n | --nx | --no-init   Don't run initialization files.
