@@ -121,7 +121,7 @@ _Dbg_parse_options() {
     shift "$(($OPTLIND - 1))"
 
     if (( ! _Dbg_o_quiet && ! _Dbg_o_version )); then 
-	print "$_Dbg_shell_name Shell Debugger, release $_Dbg_release"
+	echo "$_Dbg_shell_name Shell Debugger, release $_Dbg_release"
 	printf '
 Copyright 2008 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
