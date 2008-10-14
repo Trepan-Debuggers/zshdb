@@ -82,7 +82,6 @@ if [[ -n $_Dbg_EXECUTION_STRING ]] ; then
     echo "$_Dbg_EXECUTION_STRING" >$_Dbg_script_file
 fi
 
-# TEMPORARY: Save me typing in testing.
 if (( ${#_Dbg_script_args[@]} > 0 )) ; then
     _Dbg_script_file="${_Dbg_script_args[0]}"
      shift _Dbg_script_args
