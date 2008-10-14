@@ -37,11 +37,7 @@ if (( $tracing )) then _Dbg_linetrace=1 fi
 +# Try some negative numbers
 +# should be the same as up
 +down -1
-<<<<<<< HEAD:test/data/frame.right
 (zshdb:118):
-=======
-(zshdb:116):
->>>>>>> af041817c0afe1606d66db4cff19fd36054010f7:test/data/frame.right
 +where 2
 ##0 in file `hanoi.sh' at line 8
 ##1 init called from file `hanoi.sh' at line 41
