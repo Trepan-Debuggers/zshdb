@@ -29,11 +29,12 @@ options:
     -A | --annotate  LEVEL  Set the annotation level.
     -B | --basename         Show basename only on source file listings. 
                             (Needed in regression tests)
-    -L libdir | --library libdir
+    -L libdir | --library DIRECTORY
                             Set the directory location of library helper file: $_Dbg_main
+    -c | --command STRING   Run STRING instead of a script file
     -n | --nx | --no-init   Don't run initialization files.
     -V | --version          Print the debugger version number.
-    -x command | --command CMDFILE
+    -x | --eval-command CMDFILE
                             Execute debugger commands from CMDFILE.
 "
   exit 100
@@ -74,25 +75,28 @@ _Dbg_parse_options() {
     typeset -i _Dbg_o_quiet=0
     typeset -i _Dbg_o_version=0
 
-    while getopts_long A:Bx:hL:nqTV opt  \
-	annotate required_argument       \
-	basename 0                       \
-	cmdfile  required_argument       \
-    	help     0                       \
-	library  required_argument       \
-	no-init  0                       \
-	nx       0                       \
-	quiet    0                       \
-	version  0                       \
+    while getopts_long A:Bc:x:hL:nqTt:VX opt \
+	annotate required_argument           \
+	basename 0                           \
+	command  required_argument           \
+	eval-command required_argument       \
+	cmdfile  required_argument           \
+    	help     0                           \
+	library  required_argument           \
+	no-init  0                           \
+	nx       0                           \
+	quiet    0                           \
+        tempdir  required_argument           \
+	version  0                           \
 	'' "$@"
     do
 	case "$opt" in 
 	    A | annotate ) 
 		_Dbg_o_annotate=$OPTLARG;;
 	    B | basename )
-		_Dbg_basename_only=1	;;
-	    x | command )
-		DBG_INPUT=$OPTLARG	;;
+		_Dbg_basename_only=1  	;;
+	    c | command )
+		_Dbg_EXECUTION_STRING="$OPTLARG" ;;
 	    h | help )
 		_Dbg_usage		;;
 	    L | library ) 		;;
@@ -104,16 +108,18 @@ _Dbg_parse_options() {
 		_Dbg_o_quiet=1		;;
 	    tempdir) 
 		_Dbg_tmpdir=$OPTLARG	;;
+	    x | eval-command )
+		DBG_INPUT=$OPTLARG	;;
 	    '?' )  # Path taken on a bad option
-		echo "Use -h or --help to see options" >&2
+		echo  >&2 'Use -h or --help to see options.'
 		exit 2                  ;;
 	    * ) 
-		echo "Unknown option $opt. Use -h or --help to see options" >&2
+		echo "Unknown option $opt. Use -h or --help to see options." >&2
 		exit 2		;;
 	esac
     done
     shift "$(($OPTLIND - 1))"
-    
+
     if (( ! _Dbg_o_quiet && ! _Dbg_o_version )); then 
 	print "$_Dbg_shell_name Shell Debugger, release $_Dbg_release"
 	printf '
@@ -139,16 +145,15 @@ welcome to change it and/or distribute copies of it under certain conditions.
 	fi
     fi
     unset _Dbg_o_annotate _Dbg_o_version _Dbg_o_quiet
-    _Dbg_script_args=($@)
+    _Dbg_script_args=("$@")
 }
-
-[[ -n $DBG_INPUT ]] && typeset -p DBG_INPUT
 
 
 # Stand-alone Testing. 
 if [[ -n "$_Dbg_dbg_opts_test" ]] ; then
     OPTLIND=1
     _Dbg_libdir='.'
+    [[ -n $_Dbg_input ]] && typeset -p _Dbg_input
     _Dbg_parse_options "$@"
     typeset -p _Dbg_annotate
     typeset -p _Dbg_linetrace

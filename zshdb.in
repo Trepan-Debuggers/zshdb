@@ -77,18 +77,21 @@ _Dbg_set_debugger_entry
 # Note that this is called via zshdb rather than "zsh --debugger" or zshdb-trace
 _Dbg_script=1
 
+if [[ -n $_Dbg_EXECUTION_STRING ]] ; then
+    _Dbg_script_file=$(_Dbg_tempname cmd)
+    echo "$_Dbg_EXECUTION_STRING" >$_Dbg_script_file
+fi
+
 # TEMPORARY: Save me typing in testing.
 if (( ${#_Dbg_script_args[@]} > 0 )) ; then
     _Dbg_script_file="${_Dbg_script_args[0]}"
      shift _Dbg_script_args
-     
-else
-#     _Dbg_script_file=./testing.sh
-     echo "${_Dbg_pname}: need a ${_Dbg_shell_name} script to debug." >&2
-     exit 1
+elif [[ -z $_Dbg_EXECUTION_STRING ]] ; then
+    echo >&2 "${_Dbg_pname}: need to give a script to debug or use the -c option."
+    exit 1
 fi
 
-if [[ ! -r "$_Dbg_script_file" ]] && [[ -z $_Dbg_script_file ]] ; then
+if [[ ! -r "$_Dbg_script_file" ]] ; then
   echo "${_Dbg_pname}: cannot read program to debug: $_Dbg_script_file." >&2
   exit 1
 fi

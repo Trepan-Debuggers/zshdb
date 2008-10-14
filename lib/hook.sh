@@ -177,6 +177,10 @@ _Dbg_hook_enter_debugger() {
 _Dbg_cleanup() {
     setopt | grep interactive 2>&1 >/dev/null && _Dbg_history_write
     rm $_Dbg_evalfile 2>/dev/null
+    set +u
+    if [[ -n $_Dbg_EXECUTION_STRING ]] && [[ -r $_Dbg_script_file ]] ; then
+	rm $_Dbg_script_file
+    fi
     _Dbg_erase_journals || true  # ignore return code for now
     _Dbg_restore_user_vars
   
