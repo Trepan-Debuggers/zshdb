@@ -5,8 +5,8 @@ PS4='(%x:%I): [%?] zsh+
 
 setopt ksharrays
 
-
 this_script=$0
+
 # Test _Dbg_get_source_line
 test_get_source_line()
 {
@@ -33,6 +33,28 @@ test_readin_maxline()
     assertEquals "Number of lines in $file2" 1 $(( maxline > 1000 ))
 }
 
+# Test check_line
+# test should appear after tests which read in source.
+test_check_line() 
+{
+    _Dbg_errmsg() {
+	errmsg+=("$1")
+    }
+    typeset -a errmsg; errmsg=()
+    _Dbg_check_line
+    assertNotEquals "check_line with wrong number of args" '0' $?
+    _Dbg_check_line a 
+    assertNotEquals "check_line with wrong number of args" '0' $?
+    _Dbg_check_line a b c
+    assertNotEquals "check_line with wrong number of args" '0' $?
+    _Dbg_check_line 10 $shunit_file
+    assertEquals "check_line with an in_range number" '0' $?
+    assertEquals "error queue empty so far" '0' ${#errmsg[@]}
+    _Dbg_check_line 10000 $shunit_file
+    assertNotEquals "check_line with wrong number of args" '0' $?
+    assertEquals "error message generated" '1' ${#errmsg[@]}
+    _Dbg_check_line 10000 $shunit_file
+}
 
 # Make sure @top_builddir@ has a trailing slash
 if [ '@abs_top_srcdir@' = '' ] ; then
