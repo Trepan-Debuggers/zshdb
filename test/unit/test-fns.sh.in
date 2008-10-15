@@ -35,8 +35,7 @@ test_esc_dq_function()
 
   assertEquals 'abc' $(_Dbg_esc_dq abc)
   assertEquals '\\\"abc\\\"' $(_Dbg_esc_dq '\"abc\"')
-  # FIXME: 
-  # assertEquals '\\\"a\\bc\\\"' $(_Dbg_esc_dq '\"a\bc\"')
+  assertEquals '\\\"a\\bc\\\"' $(_Dbg_esc_dq '\"a\bc\"')
 
 }
 
