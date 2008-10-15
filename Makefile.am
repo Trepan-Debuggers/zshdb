@@ -14,12 +14,12 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-subdirs = command lib test
 if INSTALL_EMACS_LISP
-SUBDIRS = $(subdirs) emacs
+emacs = emacs
 else
-SUBDIRS = $(subdirs)
+emacs =
 endif
+SUBDIRS = command $(emacs) lib test
 
 pkgdata_DATA =       \
 	dbg-pre.sh   \
