@@ -104,13 +104,6 @@ fi
 # Save the initial working directory so we can reset it on a restart.
 typeset -x _Dbg_init_cwd=$PWD
 
-# typeset -i _Dbg_have_set0=0
-# if [[ -r $_Dbg_libdir/builtin/set0 ]] ; then
-#   if enable -f $_Dbg_libdir/builtin/set0  set0 >/dev/null 2>&1 ; then
-#     _Dbg_have_set0=1
-#   fi
-# fi
-
 typeset -i _Dbg_running=1      # True we are not finished running the program
 
 typeset -i _Dbg_currentbp=0    # If nonzero, the breakpoint number that we 
