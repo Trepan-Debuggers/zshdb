@@ -68,13 +68,15 @@ AC_PROG_LN_S
 AC_PATH_PROG(RM, rm, true)
 
 AC_PATH_PROG(EMACS, emacs, no)
-if test x$EMACS = xno ; then
-  emacs_lisp=no
-else 
+if test x$EMACS != xno ; then
   $EMACS -batch -q -no-site-file -eval \
-  '(if (<= emacs-major-version 21) (error "You need GNU Emacs 22 or better for GNU Emacs support."))'
+  '(if (<= emacs-major-version 21)
+     (progn
+       (error "You need GNU Emacs 22 or better for GNU Emacs support.")
+       (kill-emacs 1)
+     ))'
   if test $? -ne 0 ; then
-    emacs_lisp=no
+    EMACS=no
   fi
 fi
 
