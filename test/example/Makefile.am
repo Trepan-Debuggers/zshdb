@@ -10,6 +10,7 @@ check_DATA = \
 	exam.sh          \
 	hanoi.sh         \
 	nexting.sh       \
+	restart.sh       \
 	stepping.sh      \
 	subshell.sh
 

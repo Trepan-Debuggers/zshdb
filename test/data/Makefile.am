@@ -22,6 +22,9 @@ check_DATA = \
 	lopts.right        \
 	next.cmd           \
 	next.right         \
+	restart2.cmd       \
+	restart.cmd        \
+	restart.right      \
 	setshow.cmd        \
 	setshow.right      \
 	skip.cmd           \
