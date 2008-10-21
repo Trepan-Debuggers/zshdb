@@ -23,8 +23,8 @@ functrace_no_source() {
 }
 
 typeset -fuz is-at-least  # Same as "functions -u -z" but better documented.
-if ! is-at-least 4.3.6-dev-1 ; then
-  print "zsh needs version 4.3.6-dev-1 or greater"
+if ! is-at-least 4.3.6-dev-2 ; then
+  print "zsh needs version 4.3.6-dev-2 or greater"
   exit 20
 fi
 
