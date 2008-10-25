@@ -14,6 +14,8 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+AUTOMAKE_OPTIONS = dist-bzip2
+
 if INSTALL_EMACS_LISP
 emacs = emacs
 else
