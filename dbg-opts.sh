@@ -120,7 +120,10 @@ _Dbg_parse_options() {
     done
     shift "$(($OPTLIND - 1))"
 
-    if (( ! _Dbg_o_quiet && ! _Dbg_o_version )); then 
+    if (( _Dbg_o_version )) ; then
+	_Dbg_do_show_version
+	exit 0
+    elif (( ! _Dbg_o_quiet )); then 
 	echo "$_Dbg_shell_name Shell Debugger, release $_Dbg_release"
 	printf '
 Copyright 2008 Rocky Bernstein

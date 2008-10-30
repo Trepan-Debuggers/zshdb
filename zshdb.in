@@ -31,6 +31,9 @@ typeset _Dbg_debugger_name='@PACKAGE@'
 # The shell we are configured to run under.
 typeset _Dbg_shell='@SH_PROG@'
 
+# The release name we are configured to run under.
+typeset _Dbg_release='@PACKAGE_VERSION@'
+
 # The short shell name. Helps keep code common in bash, zsh, and ksh debuggers.
 typeset _Dbg_shell_name=${_Dbg_shell##*/}  # Equivalent to basename(_Dbg_shell)
 

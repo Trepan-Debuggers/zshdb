@@ -38,11 +38,20 @@ typeset old_setopt="$-"
 # is-at-least does an emulate -L zsh
 # emulate -L ksh
 
-[[ -z $_Dbg_release ]] || return
-typeset -r _Dbg_release='0.01git'
-
 # Will be set to 1 if the top-level call is a debugger.
 typeset -i _Dbg_script=0
+
+# This function is overwritten by when lib/fns.sh gets loaded
+_Dbg_msg()
+{
+  echo $*
+}
+
+# Used by "show version" as well as --version
+_Dbg_do_show_version()
+{
+  _Dbg_msg "$_Dbg_debugger_name, release $_Dbg_release"
+}
 
 # Expand filename given as $1.
 # we echo the expanded name or return $1 unchanged if a bad filename.

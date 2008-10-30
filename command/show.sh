@@ -458,8 +458,3 @@ of promoting the sharing and reuse of software generally.
     [[ $msg == '_Dbg_errmsg' ]] && return 1 || return 0
   esac
 }
-
-_Dbg_do_show_version()
-{
-  _Dbg_msg "${_Dbg_debugger_name}, release $_Dbg_release"
-}

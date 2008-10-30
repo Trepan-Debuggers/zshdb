@@ -6,6 +6,7 @@ TESTS = test-alias.sh        \
 	test-fns.sh          \
 	test-frame.sh        \
 	test-journal.sh      \
+	test-pre.sh          \
 	test-run.sh          \
 	test-save-restore.sh \
 	test-sort.sh
@@ -27,6 +28,7 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-fns.sh.in              \
 	test-frame.sh.in            \
 	test-journal.sh.in          \
+	test-pre.sh.in              \
 	test-run.sh.in              \
 	test-save-restore.sh.in     \
 	test-sort.sh.in
