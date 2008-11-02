@@ -1,7 +1,7 @@
 ;;; zshdb.el --- zsh Debugger mode via GUD and zshdb
 ;;; $Id: zshdb.el,v 1.43 2007/11/30 01:58:43 rockyb Exp $
 
-;; Copyright (C) 2002, 2006, 2007 Rocky Bernstein (rocky@gnu.org) 
+;; Copyright (C) 2002, 2006, 2007, 2008 Rocky Bernstein (rocky@gnu.org) 
 ;;                    and Masatake YAMATO (jet@gyve.org)
 
 ;; This program is free software; you can redistribute it and/or modify

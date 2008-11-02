@@ -85,7 +85,7 @@ _Dbg_save_breakpoints() {
 # Enable/disable breakpoint or watchpoint by entry numbers.
 _Dbg_enable_disable() {
   if (($# == 0)) ; then
-    _Dbg_errmsg "Expecting a list of breakpoint/watchpoint numbers. Got none."
+    _Dbg_errmsg 'Expecting a list of breakpoint/watchpoint numbers. Got none.'
     return 1
   fi
   typeset -i on=$1
@@ -146,7 +146,7 @@ function _Dbg_print_brkpt_count {
   fi
 }
 
-# clear all breakpoints
+# Clear all breakpoints.
 _Dbg_clear_all_brkpt() {
   _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt=()"
@@ -156,6 +156,7 @@ _Dbg_clear_all_brkpt() {
   _Dbg_write_journal_eval "_Dbg_brkpt_enable=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_counts=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_onetime=()"
+  _Dbg_write_journal_eval "_Dbg_brkpt_count=0"
 }
 
 # Internal routine to a set breakpoint unconditonally. 
@@ -200,108 +201,115 @@ _Dbg_set_brkpt() {
   _Dbg_write_journal "_Dbg_brkpt_max=$_Dbg_brkpt_max"
 }
 
-# Internal routine to unset the actual breakpoint arrays
+# Internal routine to unset the actual breakpoint arrays.
+# 0 is returned if successful
 _Dbg_unset_brkpt_arrays() {
-  typeset -i del=$1
-  _Dbg_write_journal_eval "_Dbg_brkpt_line[$del]=''"
-  _Dbg_write_journal_eval "_Dbg_brkpt_counts[$del]=''"
-  _Dbg_write_journal_eval "_Dbg_brkpt_file[$del]=''"
-  _Dbg_write_journal_eval "_Dbg_brkpt_enable[$del]=0"
-  _Dbg_write_journal_eval "_Dbg_brkpt_cond[$del]=0"
-  _Dbg_write_journal_eval "_Dbg_brkpt_onetime[$del]=''"
-  ((_Dbg_brkpt_count--))
+    (( $# != 1 )) && return 1
+    typeset -i del=$1
+    _Dbg_write_journal_eval "_Dbg_brkpt_line[$del]=''"
+    _Dbg_write_journal_eval "_Dbg_brkpt_counts[$del]=''"
+    _Dbg_write_journal_eval "_Dbg_brkpt_file[$del]=''"
+    _Dbg_write_journal_eval "_Dbg_brkpt_enable[$del]=0"
+    _Dbg_write_journal_eval "_Dbg_brkpt_cond[$del]=0"
+    _Dbg_write_journal_eval "_Dbg_brkpt_onetime[$del]=''"
+    ((_Dbg_brkpt_count--))
+    return 0
 }
 
 # Internal routine to delete a breakpoint by file/line.
+# The number of breakpoints unset returned.
 _Dbg_unset_brkpt() {
-  typeset -r filename=$1
-  typeset -i line=$2
-  typeset -r filevar=$(_Dbg_file2var $filename)
-  typeset -r fullname=$(_Dbg_expand_filename $filename)
-  typeset -i found=0
+    (( $# != 2 )) && return 0
+    typeset -r filename=$1
+    typeset -i line=$2
+    typeset -r filevar=$(_Dbg_file2var $filename)
+    typeset -r fullname=$(_Dbg_expand_filename $filename)
+    typeset -i found=0
   
-  ## typeset -r entries=`_Dbg_get_assoc_array_entry "_Dbg_brkpt_$filevar" $line`
-  typeset -i del
-  for del in $entries ; do 
-    if [[ -z ${_Dbg_brkpt_file[$del]} ]] ; then
-      _Dbg_msg "No breakpoint found at $filename:$line"
-      continue
-    fi
-    typeset brkpt_fullname=$(_Dbg_expand_filename ${_Dbg_brkpt_file[$del]})
-    if [[ $brkpt_fullname != $fullname ]] ; then 
-      _Dbg_errmsg "Brkpt inconsistency:" \
-	"${filename[$line]} lists ${_Dbg_brkpt_file[$del]} at entry $del"
-    else
-      _Dbg_unset_brkpt_arrays $del
-      ((found++))
-      ((_Dbg_brkpt_count--))
-    fi
-  done
-  _Dbg_write_journal_eval "unset _Dbg_brkpt_${filevar[$line]}"
-  return $found
+    typeset -i del
+    for del in $entries ; do 
+	if [[ -z ${_Dbg_brkpt_file[$del]} ]] ; then
+	    _Dbg_msg "No breakpoint found at $filename:$line"
+	    continue
+	fi
+	typeset brkpt_fullname=$(_Dbg_expand_filename ${_Dbg_brkpt_file[$del]})
+	if [[ $brkpt_fullname != $fullname ]] ; then 
+	    _Dbg_errmsg "Brkpt inconsistency:" \
+		"${filename[$line]} lists ${_Dbg_brkpt_file[$del]} at entry $del"
+	else
+	    _Dbg_unset_brkpt_arrays $del
+	    ((found++))
+	    ((_Dbg_brkpt_count--))
+	fi
+    done
+    _Dbg_write_journal_eval "unset _Dbg_brkpt_${filevar[$line]}"
+    return $found
 }
 
 # Routine to a delete breakpoint by entry number: $1.
 # Returns whether or not anything was deleted.
 _Dbg_delete_brkpt_entry() {
-  (( $# == 0 )) && return 0
-  typeset -r  del="$1"
-  typeset -i  i
-  typeset -i  found=0
-  
-  if [[ -z ${_Dbg_brkpt_file[$del]} ]] ; then
-      _Dbg_errmsg "No breakpoint number $del."
-      return 0
-  fi
-  typeset    source_file=${_Dbg_brkpt_file[$del]}
-  typeset -i lineno=${_Dbg_brkpt_line[$del]}
-  typeset -i try 
-  typeset -a new_lineno_val; new_lineno_val=()
-  typeset -a new_brkpt_nos; new_brkpt_nos=()
-  typeset -i i=-1
-  typeset -a brkpt_nos
-  brkpt_nos=(${_Dbg_brkpt_file2brkpt[$source_file]})
-  for try in ${_Dbg_brkpt_file2linenos[$source_file]} ; do 
-      ((i++))
-      if (( brkpt_nos[i] == del )) ; then
-	  if (( try != $lineno )) ; then
-	      _Dbg_errmsg 'internal brkpt structure inconsistency'
-	      return 0
-	  fi
-	  _Dbg_unset_brkpt_arrays $del
-	  ((found++))
-      else
-	  new_lineno_val+=$try
-	  new_brkpt_nos+=${brkpt_nos[$i]}
-      fi
-  done
-  set +x
-  if (( found > 0 )) ; then
-      if (( ${#new_lineno_val[@]} == 0 )) ; then 
-	  _Dbg_write_journal_eval "unset '_Dbg_brkpt_file2linenos[$source_file]'"
-	  _Dbg_write_journal_eval "unset '_Dbg_brkpt_file2brkpt[$source_file]'"
-      else
-	  _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos[$source_file]=${new_lineno_val}"
-	  _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt[$source_file]=${new_brkpt_nos}"
-      fi
-  fi
-
-  return $found
+    (( $# == 0 )) && return 0
+    typeset -r  del="$1"
+    typeset -i  i
+    typeset -i  found=0
+    
+    if [[ -z ${_Dbg_brkpt_file[$del]} ]] ; then
+	_Dbg_errmsg "No breakpoint number $del."
+	return 0
+    fi
+    typeset    source_file=${_Dbg_brkpt_file[$del]}
+    typeset -i lineno=${_Dbg_brkpt_line[$del]}
+    typeset -i try 
+    typeset -a new_lineno_val; new_lineno_val=()
+    typeset -a new_brkpt_nos; new_brkpt_nos=()
+    typeset -i i=-1
+    typeset -a brkpt_nos
+    brkpt_nos=(${_Dbg_brkpt_file2brkpt[$source_file]})
+    for try in ${_Dbg_brkpt_file2linenos[$source_file]} ; do 
+	((i++))
+	if (( brkpt_nos[i] == del )) ; then
+	    if (( try != $lineno )) ; then
+		_Dbg_errmsg 'internal brkpt structure inconsistency'
+		return 0
+	    fi
+	    _Dbg_unset_brkpt_arrays $del
+	    ((found++))
+	else
+	    new_lineno_val+=$try
+	    new_brkpt_nos+=${brkpt_nos[$i]}
+	fi
+    done
+    if (( found > 0 )) ; then
+	if (( ${#new_lineno_val[@]} == 0 )) ; then 
+	    _Dbg_write_journal_eval "unset '_Dbg_brkpt_file2linenos[$source_file]'"
+	    _Dbg_write_journal_eval "unset '_Dbg_brkpt_file2brkpt[$source_file]'"
+	else
+	    _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos[$source_file]=${new_lineno_val}"
+	    _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt[$source_file]=${new_brkpt_nos}"
+	fi
+    fi
+    
+    return $found
 }
 
 # Enable/disable breakpoint(s) by entry numbers.
 _Dbg_enable_disable_brkpt() {
+  (($# != 3)) && return 1
   typeset -i on=$1
   typeset en_dis=$2
   typeset -i i=$3
   if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
     if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
       _Dbg_errmsg "Breakpoint entry $i already $en_dis so nothing done."
+      return 1
     else
       _Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
       _Dbg_msg "Breakpoint entry $i $en_dis."
+      return 0
     fi
   else
     _Dbg_errmsg "Breakpoint entry $i doesn't exist so nothing done."
+    return 1
   fi
 }
