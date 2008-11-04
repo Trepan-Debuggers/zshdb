@@ -1,0 +1,71 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+
+PS4='(%x:%I): [%?] zsh+ 
+'
+setopt ksharrays
+
+# Test _Dbg_glob_filename
+test_set_unset()
+{
+    typeset -a msgs
+    msgs=()
+    _Dbg_msg() {
+	msgs+=("$@")
+    }
+    _Dbg_adjust_filename() {
+	print $*
+    }
+    _Dbg_expand_filename() {
+	print $*
+    }
+    _Dbg_set_brkpt 
+    assertNotEquals '0' "$?"
+    _Dbg_set_brkpt 1 2 3 4 5
+    assertNotEquals '0' "$?"
+    _Dbg_set_brkpt test.sh 5 0
+    assertEquals 'Breakpoint 1 set in file test.sh, line 5.' "${msgs[-1]}" 
+
+    msgs=()
+
+    _Dbg_unset_brkpt
+    assertEquals '0' "$?"
+    _Dbg_unset_brkpt 1 2 3
+    assertEquals '0' "$?"
+    _Dbg_unset_brkpt test.sh 6
+    assertEquals '0' "$?"
+    assertEquals 'No breakpoint found at test.sh:6' "${msgs[-1]}" 
+
+    msgs=()
+    _Dbg_unset_brkpt test.sh 5
+    assertEquals '1' "$?"
+    assertEquals '0' "${#msgs[@]}"
+}
+
+
+# Make sure @top_builddir@ has a trailing slash
+if [ '@abs_top_srcdir@' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+_Dbg_libdir=$abs_top_srcdir
+set -- '-q'  # Don't need to show banner
+. $abs_top_srcdir/dbg-pre.sh
+. $abs_top_srcdir/lib/fns.sh
+. $abs_top_srcdir/lib/journal.sh
+. $abs_top_srcdir/lib/break.sh
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+srcdir=.
+srcdir=${srcdir%%/}/
+
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}
+

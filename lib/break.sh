@@ -65,18 +65,15 @@ typeset -A _Dbg_brkpt_file2brkpt; _Dbg_brkpt_file2brkpt=()
 #========================= FUNCTIONS   ============================#
 
 _Dbg_save_breakpoints() {
-  typeset file
-  for file in ${_Dbg_filenames[@]} ; do  
-    typeset filevar=$(_Dbg_file2var $file)
-    typeset -p _Dbg_brkpt_$filevar >> $_Dbg_statefile 2>/dev/null
-  done        
-  typeset -p _Dbg_brkpt_line >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_file >> $_Dbg_statefile 
-  typeset -p _Dbg_brkpt_cond >> $_Dbg_statefile 
-  typeset -p _Dbg_brkpt_counts >> $_Dbg_statefile 
-  typeset -p _Dbg_brkpt_enable >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_onetime >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_max >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_line         >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_file         >> $_Dbg_statefile 
+  typeset -p _Dbg_brkpt_cond         >> $_Dbg_statefile 
+  typeset -p _Dbg_brkpt_counts       >> $_Dbg_statefile 
+  typeset -p _Dbg_brkpt_enable       >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_onetime      >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_max          >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_file2linenos >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_file2brkpt   >> $_Dbg_statefile
 
 }
 
@@ -162,43 +159,46 @@ _Dbg_clear_all_brkpt() {
 # Internal routine to a set breakpoint unconditonally. 
 
 _Dbg_set_brkpt() {
-  typeset source_file="$1"
-  typeset -ir lineno=$2
-  typeset -ir is_temp=$3
-  typeset -r  condition=${4:-1}
+    (( $# < 3 || $# > 4 )) && return 1
+    typeset source_file="$1"
+    typeset -ir lineno=$2
+    typeset -ir is_temp=$3
+    typeset -r  condition=${4:-1}
+    
+    # Increment brkpt_max here because we are 1-origin
+    ((_Dbg_brkpt_max++))
+    ((_Dbg_brkpt_count++))
+    
 
-  # Increment brkpt_max here because we are 1-origin
-  ((_Dbg_brkpt_max++))
-  ((_Dbg_brkpt_count++))
-
-  _Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno
-  _Dbg_brkpt_file[$_Dbg_brkpt_max]="$source_file"
-  _Dbg_brkpt_cond[$_Dbg_brkpt_max]="$condition"
-  _Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp
-  _Dbg_brkpt_counts[$_Dbg_brkpt_max]=0
-  _Dbg_brkpt_enable[$_Dbg_brkpt_max]=1
-
-  typeset dq_source_file=$(_Dbg_esc_dq "$source_file")
-  typeset dq_condition=$(_Dbg_esc_dq "$condition")
-  _Dbg_write_journal "_Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno"
-  _Dbg_write_journal "_Dbg_brkpt_file[$_Dbg_brkpt_max]=\"$dq_source_file\""
-  _Dbg_write_journal "_Dbg_brkpt_cond[$_Dbg_brkpt_max]=\"$dq_condition\""
-  _Dbg_write_journal "_Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp"
-  _Dbg_write_journal "_Dbg_brkpt_counts[$_Dbg_brkpt_max]=0"
-  _Dbg_write_journal "_Dbg_brkpt_enable[$_Dbg_brkpt_max]=1"
-
-  # Add line number with a leading and trailing space. Delimiting the
-  # number with space helps do a string search for the line number.
-  _Dbg_brkpt_file2linenos[$source_file]+=" $lineno "
-  _Dbg_brkpt_file2brkpt[$source_file]+=" $_Dbg_brkpt_max "
-
-  source_file=$(_Dbg_adjust_filename "$source_file")
-  if (( $is_temp == 0 )) ; then 
-    _Dbg_msg "Breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
-  else 
-    _Dbg_msg "One-time breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
-  fi
-  _Dbg_write_journal "_Dbg_brkpt_max=$_Dbg_brkpt_max"
+    _Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno
+    _Dbg_brkpt_file[$_Dbg_brkpt_max]="$source_file"
+    _Dbg_brkpt_cond[$_Dbg_brkpt_max]="$condition"
+    _Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp
+    _Dbg_brkpt_counts[$_Dbg_brkpt_max]=0
+    _Dbg_brkpt_enable[$_Dbg_brkpt_max]=1
+    
+    typeset dq_source_file=$(_Dbg_esc_dq "$source_file")
+    typeset dq_condition=$(_Dbg_esc_dq "$condition")
+    _Dbg_write_journal "_Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno"
+    _Dbg_write_journal "_Dbg_brkpt_file[$_Dbg_brkpt_max]=\"$dq_source_file\""
+    _Dbg_write_journal "_Dbg_brkpt_cond[$_Dbg_brkpt_max]=\"$dq_condition\""
+    _Dbg_write_journal "_Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp"
+    _Dbg_write_journal "_Dbg_brkpt_counts[$_Dbg_brkpt_max]=0"
+    _Dbg_write_journal "_Dbg_brkpt_enable[$_Dbg_brkpt_max]=1"
+    
+    # Add line number with a leading and trailing space. Delimiting the
+    # number with space helps do a string search for the line number.
+    _Dbg_brkpt_file2linenos[$source_file]+=" $lineno "
+    _Dbg_brkpt_file2brkpt[$source_file]+=" $_Dbg_brkpt_max "
+    
+    source_file=$(_Dbg_adjust_filename "$source_file")
+    if (( $is_temp == 0 )) ; then 
+	_Dbg_msg "Breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
+    else 
+	_Dbg_msg "One-time breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
+    fi
+    _Dbg_write_journal "_Dbg_brkpt_max=$_Dbg_brkpt_max"
+    return 0
 }
 
 # Internal routine to unset the actual breakpoint arrays.
@@ -221,28 +221,31 @@ _Dbg_unset_brkpt_arrays() {
 _Dbg_unset_brkpt() {
     (( $# != 2 )) && return 0
     typeset -r filename=$1
-    typeset -i line=$2
-    typeset -r filevar=$(_Dbg_file2var $filename)
-    typeset -r fullname=$(_Dbg_expand_filename $filename)
+    typeset -i lineno=$2
     typeset -i found=0
-  
-    typeset -i del
-    for del in $entries ; do 
-	if [[ -z ${_Dbg_brkpt_file[$del]} ]] ; then
-	    _Dbg_msg "No breakpoint found at $filename:$line"
-	    continue
-	fi
-	typeset brkpt_fullname=$(_Dbg_expand_filename ${_Dbg_brkpt_file[$del]})
-	if [[ $brkpt_fullname != $fullname ]] ; then 
-	    _Dbg_errmsg "Brkpt inconsistency:" \
-		"${filename[$line]} lists ${_Dbg_brkpt_file[$del]} at entry $del"
-	else
-	    _Dbg_unset_brkpt_arrays $del
+    typeset    fullname
+    fullname=$(_Dbg_expand_filename $filename)
+
+
+    typeset linenos
+    linenos="${_Dbg_brkpt_file2linenos[$fullname]}"
+
+    typeset -i try_lineno
+    typeset -i i=-1
+    for try_lineno in $linenos ; do 
+	((i++))
+	if (( try_lineno == lineno )) ; then
+	    # Got a match, find breakpoint entry number
+	    typeset -i brkpt_num
+	    (( brkpt_num = brkpt_nos[i] ))
+	    _Dbg_unset_brkpt_arrays $brkpt_num
 	    ((found++))
 	    ((_Dbg_brkpt_count--))
 	fi
     done
-    _Dbg_write_journal_eval "unset _Dbg_brkpt_${filevar[$line]}"
+    if (( found == 0 )) ; then
+	_Dbg_msg "No breakpoint found at $filename:$lineno"
+    fi
     return $found
 }
 

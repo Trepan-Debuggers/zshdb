@@ -1,4 +1,5 @@
 TESTS = test-alias.sh        \
+	test-break.sh        \
 	test-columns.sh      \
 	test-dbg-opts.sh     \
 	test-file.sh         \
@@ -21,6 +22,7 @@ TESTS_ENVIRONMENT = \
 
 EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-alias.sh.in            \
+	test-break.sh.in            \
 	test-columns.sh.in          \
 	test-dbg-opts.sh.in         \
 	test-file.sh.in             \

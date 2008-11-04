@@ -76,17 +76,17 @@ _Dbg_parse_options() {
 
     while getopts_long A:Bc:x:hL:nqTt:VX opt \
 	annotate required_argument           \
-	basename 0                           \
+	basename no_argument                 \
 	command  required_argument           \
 	eval-command required_argument       \
 	cmdfile  required_argument           \
-    	help     0                           \
+    	help     no_argument                 \
 	library  required_argument           \
-	no-init  0                           \
-	nx       0                           \
-	quiet    0                           \
+	no-init  no_argument                 \
+	nx       no_argument                 \
+	quiet    no_argument                 \
         tempdir  required_argument           \
-	version  0                           \
+	version  no_argument                 \
 	'' "$@"
     do
 	case "$opt" in 
