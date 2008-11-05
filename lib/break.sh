@@ -216,8 +216,8 @@ _Dbg_unset_brkpt_arrays() {
     return 0
 }
 
-# Internal routine to delete a breakpoint by file/line.
-# The number of breakpoints unset returned.
+# Internal routine to delete the first found a breakpoint by file/line.
+# The number of breakpoints (0 or 1) is returned.
 _Dbg_unset_brkpt() {
     (( $# != 2 )) && return 0
     typeset -r filename=$1
@@ -227,26 +227,25 @@ _Dbg_unset_brkpt() {
     fullname=$(_Dbg_expand_filename $filename)
 
 
-    typeset linenos
-    linenos="${_Dbg_brkpt_file2linenos[$fullname]}"
+    typeset -a linenos
+    eval "linenos=(${_Dbg_brkpt_file2linenos[$fullname]})"
 
-    typeset -i try_lineno
-    typeset -i i=-1
-    for try_lineno in $linenos ; do 
-	((i++))
-	if (( try_lineno == lineno )) ; then
+    typeset -i i
+    for ((i=0; i < ${#linenos[@]}; i++)); do 
+	if (( linenos[i] == lineno )) ; then
 	    # Got a match, find breakpoint entry number
 	    typeset -i brkpt_num
 	    (( brkpt_num = brkpt_nos[i] ))
 	    _Dbg_unset_brkpt_arrays $brkpt_num
 	    ((found++))
 	    ((_Dbg_brkpt_count--))
+	    linenos[i]=()  # This is the zsh way to unset an array element
+	    _Dbg_brkpt_file2linenos[$fullname]=${linenos[@]}
+	    return 1
 	fi
     done
-    if (( found == 0 )) ; then
-	_Dbg_msg "No breakpoint found at $filename:$lineno"
-    fi
-    return $found
+    _Dbg_msg "No breakpoint found at $filename:$lineno"
+    return 0
 }
 
 # Routine to a delete breakpoint by entry number: $1.

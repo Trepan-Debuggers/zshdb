@@ -8,8 +8,7 @@ setopt ksharrays
 # Test _Dbg_glob_filename
 test_set_unset()
 {
-    typeset -a msgs
-    msgs=()
+    # Some mock functions
     _Dbg_msg() {
 	msgs+=("$@")
     }
@@ -19,27 +18,41 @@ test_set_unset()
     _Dbg_expand_filename() {
 	print $*
     }
+
+    typeset -a msgs
+    msgs=()
+
+    # Test parameter count checking for _Dbg_set_brkpt
     _Dbg_set_brkpt 
     assertNotEquals '0' "$?"
     _Dbg_set_brkpt 1 2 3 4 5
     assertNotEquals '0' "$?"
+
+    # This should work
     _Dbg_set_brkpt test.sh 5 0
     assertEquals 'Breakpoint 1 set in file test.sh, line 5.' "${msgs[-1]}" 
-
     msgs=()
 
+    # Test parameter count checking for _Dbg_unset_brkpt
     _Dbg_unset_brkpt
     assertEquals '0' "$?"
     _Dbg_unset_brkpt 1 2 3
     assertEquals '0' "$?"
+    # Shouldn't find this breakpoint
     _Dbg_unset_brkpt test.sh 6
     assertEquals '0' "$?"
     assertEquals 'No breakpoint found at test.sh:6' "${msgs[-1]}" 
 
     msgs=()
+    # This should work and remove a breakpoint
     _Dbg_unset_brkpt test.sh 5
     assertEquals '1' "$?"
     assertEquals '0' "${#msgs[@]}"
+
+    # This should not work since breakpoint has already been removed.
+    _Dbg_unset_brkpt test.sh 5
+    assertEquals '0' "$?"
+    assertEquals 'No breakpoint found at test.sh:5' "${msgs[-1]}"
 }
 
 
