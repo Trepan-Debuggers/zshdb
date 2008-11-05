@@ -13,10 +13,10 @@ Num Type       Disp Enb What
 Breakpoint entry 1 disabled.
 +# Already disabled.
 +disable 1
-** Breakpoint entry 1 already disabled so nothing done.
+** Breakpoint entry 1 already disabled, so nothing done.
 +# Invalid disable
 +disable 10
-** Breakpoint entry 10 doesn't exist so nothing done.
+** Breakpoint entry 10 doesn't exist, so nothing done.
 +continue 
 Breakpoint 2 hit.
 (nexting.sh:3):
@@ -30,13 +30,13 @@ Num Type       Disp Enb What
 Breakpoint entry 1 enabled.
 +# enable an already enabled breakpoint
 +enable 2
-** Breakpoint entry 2 already enabled so nothing done.
+** Breakpoint entry 2 already enabled, so nothing done.
 +disable 2
 Breakpoint entry 2 disabled.
 +break 6
 Breakpoint 3 set in file nexting.sh, line 6.
 +enable 10
-** Breakpoint entry 10 doesn't exist so nothing done.
+** Breakpoint entry 10 doesn't exist, so nothing done.
 +continue 
 nexting.sh:5
 ===

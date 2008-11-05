@@ -160,7 +160,8 @@ _Dbg_clear_all_brkpt() {
 
 _Dbg_set_brkpt() {
     (( $# < 3 || $# > 4 )) && return 1
-    typeset source_file="$1"
+    typeset source_file
+    source_file=$(_Dbg_expand_filename "$1")
     typeset -ir lineno=$2
     typeset -ir is_temp=$3
     typeset -r  condition=${4:-1}
@@ -229,6 +230,8 @@ _Dbg_unset_brkpt() {
 
     typeset -a linenos
     eval "linenos=(${_Dbg_brkpt_file2linenos[$fullname]})"
+    typeset -a brkpt_nos
+    eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$fullname]})"
 
     typeset -i i
     for ((i=0; i < ${#linenos[@]}; i++)); do 
@@ -303,7 +306,7 @@ _Dbg_enable_disable_brkpt() {
   typeset -i i=$3
   if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
     if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
-      _Dbg_errmsg "Breakpoint entry $i already $en_dis so nothing done."
+      _Dbg_errmsg "Breakpoint entry $i already $en_dis, so nothing done."
       return 1
     else
       _Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
@@ -311,7 +314,7 @@ _Dbg_enable_disable_brkpt() {
       return 0
     fi
   else
-    _Dbg_errmsg "Breakpoint entry $i doesn't exist so nothing done."
+    _Dbg_errmsg "Breakpoint entry $i doesn't exist, so nothing done."
     return 1
   fi
 }

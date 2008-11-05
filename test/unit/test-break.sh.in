@@ -5,10 +5,13 @@ PS4='(%x:%I): [%?] zsh+
 '
 setopt ksharrays
 
-# Test _Dbg_glob_filename
-test_set_unset()
+# Test breakpoint set, unset, enable, disable, clear
+test_breakpoint()
 {
     # Some mock functions
+    _Dbg_errmsg() {
+	errmsgs+=("$@")
+    }
     _Dbg_msg() {
 	msgs+=("$@")
     }
@@ -53,8 +56,31 @@ test_set_unset()
     _Dbg_unset_brkpt test.sh 5
     assertEquals '0' "$?"
     assertEquals 'No breakpoint found at test.sh:5' "${msgs[-1]}"
-}
 
+    msgs=(); errmsgs=()
+    # Enable/disable parameter checking
+    _Dbg_enable_disable_brkpt
+    assertEquals '1' "$?"
+
+    # Enable a non-existent breakpoint
+    msgs=()
+    _Dbg_enable_disable_brkpt 1 'enabled' 1
+    assertEquals "Breakpoint entry 1 doesn't exist, so nothing done." "${errmsgs[-1]}" 
+
+    msgs=(); errmsgs=()
+    # Add another breakpoint for testing
+    _Dbg_set_brkpt test.sh 6 1
+    assertEquals 'One-time breakpoint 2 set in file test.sh, line 6.' "${msgs[-1]}" 
+
+    msgs=(); errmsgs=()
+    _Dbg_enable_disable_brkpt 1 'enabled' 2
+    assertEquals 'Breakpoint entry 2 already enabled, so nothing done.' "${errmsgs[-1]}" 
+
+    msgs=(); errmsgs=()
+    _Dbg_enable_disable_brkpt 0 'enabled' 2
+    assertEquals 'Breakpoint entry 2 enabled.' "${msgs[-1]}" 
+
+}
 
 # Make sure @top_builddir@ has a trailing slash
 if [ '@abs_top_srcdir@' = '' ] ; then
