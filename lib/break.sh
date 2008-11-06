@@ -221,11 +221,10 @@ _Dbg_unset_brkpt_arrays() {
 # The number of breakpoints (0 or 1) is returned.
 _Dbg_unset_brkpt() {
     (( $# != 2 )) && return 0
-    typeset -r filename=$1
+    typeset -r filename="$1"
     typeset -i lineno=$2
-    typeset -i found=0
     typeset    fullname
-    fullname=$(_Dbg_expand_filename $filename)
+    fullname=$(_Dbg_expand_filename "$filename")
 
 
     # FIXME: combine with _Dbg_unset_brkpt
@@ -241,8 +240,6 @@ _Dbg_unset_brkpt() {
 	    typeset -i brkpt_num
 	    (( brkpt_num = brkpt_nos[i] ))
 	    _Dbg_unset_brkpt_arrays $brkpt_num
-	    ((found++))
-	    ((_Dbg_brkpt_count--))
 	    linenos[i]=()  # This is the zsh way to unset an array element
 	    _Dbg_brkpt_file2linenos[$fullname]=${linenos[@]}
 	    return 1
