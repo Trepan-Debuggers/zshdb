@@ -33,10 +33,10 @@ _Dbg_do_info() {
       typeset info_cmd=$1
       shift
       case $info_cmd in 
-	  a | ar | arg | args )
-              _Dbg_do_info_args 3  # located in dbg-stack.sh
-	      return 0
-	      ;;
+# 	  a | ar | arg | args )
+#               _Dbg_do_info_args 3 
+# 	      return 0
+# 	      ;;
 	  b | br | bre | brea | 'break' | breakp | breakpo | breakpoints )
 	      #      b | br | bre | brea | 'break' | breakp | breakpo | breakpoints | \
 	      #      w | wa | wat | watc | 'watch' | watchp | watchpo | watchpoints )
