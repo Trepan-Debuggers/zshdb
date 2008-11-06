@@ -241,7 +241,6 @@ _Dbg_unset_brkpt() {
 	    (( brkpt_num = brkpt_nos[i] ))
 	    _Dbg_unset_brkpt_arrays $brkpt_num
 	    ((found++))
-	    ((_Dbg_brkpt_count--))
 	    linenos[i]=()  # This is the zsh way to unset an array element
 	    _Dbg_brkpt_file2linenos[$fullname]=${linenos[@]}
 	    return 1

@@ -31,9 +31,12 @@ test_breakpoint()
     _Dbg_set_brkpt 1 2 3 4 5
     assertNotEquals '0' "$?"
 
+    assertEquals 0 $_Dbg_brkpt_count
+
     # This should work
     _Dbg_set_brkpt test.sh 5 0
     assertEquals 'Breakpoint 1 set in file test.sh, line 5.' "${msgs[-1]}" 
+    assertEquals 1 $_Dbg_brkpt_count
     msgs=()
 
     # Test parameter count checking for _Dbg_unset_brkpt
@@ -46,11 +49,13 @@ test_breakpoint()
     assertEquals '0' "$?"
     assertEquals 'No breakpoint found at test.sh:6' "${msgs[-1]}" 
 
+    assertEquals 1 $_Dbg_brkpt_count
     msgs=()
     # This should work and remove a breakpoint
     _Dbg_unset_brkpt test.sh 5
     assertEquals '1' "$?"
     assertEquals '0' "${#msgs[@]}"
+    assertEquals 0 $_Dbg_brkpt_count
 
     # This should not work since breakpoint has already been removed.
     _Dbg_unset_brkpt test.sh 5
@@ -71,6 +76,7 @@ test_breakpoint()
     # Add another breakpoint for testing
     _Dbg_set_brkpt test.sh 6 1
     assertEquals 'One-time breakpoint 2 set in file test.sh, line 6.' "${msgs[-1]}" 
+    assertEquals 1 $_Dbg_brkpt_count
 
     msgs=(); errmsgs=()
     _Dbg_enable_disable_brkpt 1 'enabled' 2
@@ -80,6 +86,14 @@ test_breakpoint()
     _Dbg_enable_disable_brkpt 0 'enabled' 2
     assertEquals 'Breakpoint entry 2 enabled.' "${msgs[-1]}" 
 
+    msgs=(); errmsgs=()
+    _Dbg_enable_disable_brkpt 1 'disabled' 2
+    assertEquals '0' "$?"
+    assertEquals 'Breakpoint entry 2 disabled.' "${msgs[-1]}" 
+
+    assertEquals 1 $_Dbg_brkpt_count
+    _Dbg_clear_all_brkpt
+    assertEquals 0 $_Dbg_brkpt_count
 }
 
 # Make sure @top_builddir@ has a trailing slash
