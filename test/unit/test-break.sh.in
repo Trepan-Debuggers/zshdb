@@ -16,10 +16,10 @@ test_breakpoint()
 	msgs+=("$@")
     }
     _Dbg_adjust_filename() {
-	print $*
+	print -- $*
     }
     _Dbg_expand_filename() {
-	print $*
+	print -- $*
     }
 
     typeset -a msgs
