@@ -81,7 +81,6 @@ _Dbg_do_break() {
 # delete brkpt(s) at given file:line numbers. If no file is given
 # use the current file.
 _Dbg_do_clear_brkpt() {
-  # set -x
   typeset -r n=${1:-$_curline}
 
   typeset filename

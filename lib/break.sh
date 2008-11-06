@@ -228,6 +228,7 @@ _Dbg_unset_brkpt() {
     fullname=$(_Dbg_expand_filename $filename)
 
 
+    # FIXME: combine with _Dbg_unset_brkpt
     typeset -a linenos
     eval "linenos=(${_Dbg_brkpt_file2linenos[$fullname]})"
     typeset -a brkpt_nos

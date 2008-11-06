@@ -145,16 +145,16 @@ _Dbg_hook_breakpoint_hit() {
     if [[ -r $full_filename ]] ; then 
 	_Dbg_file2canonic[$filename]="$fullname"
     fi
+    # FIXME: combine with _Dbg_unset_brkpt
     typeset -a linenos
-    linenos=${_Dbg_brkpt_file2linenos[$full_filename]}
-    typeset -i try_lineno
-    typeset -i i=-1
+    eval "linenos=(${_Dbg_brkpt_file2linenos[$fullname]})"
+    typeset -a brkpt_nos
+    eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$fullname]})"
+    typeset -i i
     # Check breakpoints within full_filename
-    for try_lineno in $linenos ; do 
-	((i++))
-	if (( try_lineno == lineno )) ; then
+    for ((i=0; i < ${#linenos[@]}; i++)); do 
+	if (( linenos[i] == lineno )) ; then
 	    # Got a match, but is the breakpoint enabled? 
-	    typeset -a brkpt_nos; brkpt_nos=(${_Dbg_brkpt_file2brkpt[$full_filename]})
 	    (( _Dbg_brkpt_num = brkpt_nos[i] ))
 	    if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )) ; then
 		return 0
