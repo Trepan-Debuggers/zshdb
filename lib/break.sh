@@ -226,8 +226,7 @@ _Dbg_unset_brkpt() {
     typeset    fullname
     fullname=$(_Dbg_expand_filename "$filename")
 
-
-    # FIXME: combine with _Dbg_unset_brkpt
+    # FIXME: combine with _Dbg_hook_breakpoint_hit
     typeset -a linenos
     eval "linenos=(${_Dbg_brkpt_file2linenos[$fullname]})"
     typeset -a brkpt_nos
@@ -304,7 +303,7 @@ _Dbg_enable_disable_brkpt() {
   typeset -i i=$3
   if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
     if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
-      _Dbg_errmsg "Breakpoint entry $i already $en_dis, so nothing done."
+      _Dbg_errmsg "Breakpoint entry $i already ${en_dis}, so nothing done."
       return 1
     else
       _Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
