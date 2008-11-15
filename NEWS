@@ -1,0 +1,10 @@
+Version 0.02
+2008-11-17
+
+- Fix bugs: in breakpoints, "info args", "show version" and --version 
+
+Version 0.01
+2008-10-27
+
+First public release
+

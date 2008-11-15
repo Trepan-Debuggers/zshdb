@@ -1,3 +1,1280 @@
+2008-11-15  R. Bernstein <rocky@gnu.org>
+
+	* command/continue.sh, command/where.sh, lib/fns.sh: Sync with
+	kshdb.
+
+2008-11-15  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, command/disable.sh, command/edit.sh,
+	command/examine.sh, command/help.sh, configure.ac: Synch up with
+	bashdb. Get ready for release.
+
+2008-11-08  R. Bernstein <rocky@gnu.org>
+
+	* lib/break.sh: Sync with bashdb.
+
+2008-11-06  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2008-11-06  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh: Fix "info args" bug
+
+2008-11-06  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, command/continue.sh, lib/break.sh, lib/hook.sh: 
+	Minor tweaks. Synch with kshdb.
+
+2008-11-06  R. Bernstein <rocky@gnu.org>
+
+	* lib/break.sh, test/unit/test-break.sh.in: Minor tweaks
+
+2008-11-06  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac: Hey, we're in 0.02 territory now.
+
+2008-11-06  R. Bernstein <rocky@gnu.org>
+
+	* lib/break.sh, test/unit/test-break.sh.in: More breakpoint tests
+	added; more breakpoint bugs fixed
+
+2008-11-05  R. Bernstein <rocky@gnu.org>
+
+	* lib/break.sh, test/data/enable.right, test/unit/test-break.sh.in: 
+	More tests of breakpoint code, more bugs found.
+
+2008-11-04  R. Bernstein <rocky@gnu.org>
+
+	* lib/break.sh, test/unit/test-break.sh.in: More break set/unset
+	tests
+
+2008-11-04  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, dbg-opts.sh, lib/break.sh, test/unit/.gitignore,
+	test/unit/Makefile.am, test/unit/test-break.sh.in: Bugs in clearing
+	breakpoint by file/line. Add a breakpoint unit test.
+
+2008-11-02  R. Bernstein <rocky@gnu.org>
+
+	* emacs/zshdb.el, lib/break.sh: Add more parameter checking; journal
+	more. Mostly minor changes.
+
+2008-10-30  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh: Minor comment typo
+
+2008-10-30  R. Bernstein <rocky@gnu.org>
+
+	* test/data/frame.right: Line number plox
+
+2008-10-30  R. Bernstein <rocky@gnu.org>
+
+	* command/show.sh, configure.ac, dbg-opts.sh, dbg-pre.sh,
+	test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-pre.sh.in, zshdb.in: Fix bugs in --version and "show
+	version"
+
+2008-10-27  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac: Release 0.01
+
+2008-10-25  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am: Create distribution tar.bz2 as well as tar.gz
+
+2008-10-21  R. Bernstein <rocky@gnu.org>
+
+	* test/zsh/ok4zshdb.sh: Use dev2
+
+2008-10-20  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2008-10-18  R. Bernstein <rocky@sanchez.(none)>
+
+	* dbg-pre.sh: bashdb sync
+
+2008-10-18  R. Bernstein <rocky@sanchez.(none)>
+
+	* configure.ac: Correct Emacs disabling
+
+2008-10-17  R. Bernstein <rocky@sanchez.(none)>
+
+	* test/example/Makefile.am: Add restart files
+
+2008-10-17  R. Bernstein <rocky@sanchez.(none)>
+
+	* test/data/Makefile.am: Add restart files
+
+2008-10-15  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am: Make more like kshdb and bashdb.
+
+2008-10-14  R. Bernstein <rocky@sanchez.(none)>
+
+	* test/unit/test-fns.sh.in: Reinstate a double-quote test
+
+2008-10-14  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac: Require Emacs 22 or better
+
+2008-10-14  R. Bernstein <rocky@gnu.org>
+
+	* dbg-pre.sh, test/data/restart.cmd, test/data/restart.right,
+	test/data/restart2.cmd, test/example/restart.sh,
+	test/integration/Makefile.am, test/integration/test-restart: Add
+	restart regression test.
+
+2008-10-13  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh: print -> echo
+
+2008-10-13  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh, test/data/lopts.right: Usage typo.
+
+2008-10-13  R. Bernstein <rocky@gnu.org>
+
+	* test/data/frame.right: Sync up
+
+2008-10-13  R. Bernstein <rocky@gnu.org>
+
+	I hate failed merges
+
+2008-10-13  R. Bernstein <rocky@gnu.org>
+
+	* test/data/frame.right, zshdb.in: Sync with other debuggers
+
+2008-10-13  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh, lib/hook.sh, test/data/frame.right,
+	test/data/lopts.right, zshdb.in: Add --command or -c option.
+
+2008-10-10  R. Bernstein <rocky@gnu.org>
+
+	* test/data/frame.right, test/unit/shunit2,
+	test/unit/test-filecache.sh.in, test/zsh/ok4zshdb.sh: Bump zsh
+	verseion test. Update shunit2 to latest code. Add unit test for
+	_Dbg_check_line.
+
+2008-10-10  R. Bernstein <rocky@gnu.org>
+
+	* lib/break.sh, test/data/frame.right: Synch with kshdb - minor
+	changes.
+
+2008-10-09  R. Bernstein <rocky@gnu.org>
+
+	* lib/fns.sh, test/data/frame.right: Fix list bug when frames are
+	moved.
+
+2008-10-09  R. Bernstein <rocky@gnu.org>
+
+	* lib/fns.sh: Minor changes
+
+2008-10-09  R. Bernstein <rocky@gnu.org>
+
+	* command/list.sh, lib/break.sh, lib/filecache.sh, lib/fns.sh,
+	test/data/list.right, zshdb.in: Remove temporary default testing.sh
+	script. Some other minor changes.
+
+2008-10-09  R. Bernstein <rocky@gnu.org>
+
+	* command/tracefn.sh, lib/fns.sh, test/unit/test-fns.sh.in: Lame
+	attempt at tracing aliases.
+
+2008-10-08  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2008-10-08  R. Bernstein <rocky@gnu.org>
+
+	* README: Update README
+
+2008-10-08  R. Bernstein <rocky@gnu.org>
+
+	* command/eval.sh, command/info.sh, lib/info.sh: Small "info var"
+	bugs.
+
+2008-10-08  R. Bernstein <rocky@gnu.org>
+
+	* lib/processor.sh, test/data/Makefile.am, test/data/frame.right,
+	test/data/subshell.cmd, test/data/subshell.right,
+	test/example/Makefile.am, test/example/subshell.sh,
+	test/integration/Makefile.am, test/integration/test-subshell: Add
+	subshell test. Fix bug in saving commands on history only after
+	subshell return.
+
+2008-10-02  R. Bernstein <rocky@gnu.org>
+
+	* lib/filecache.sh, lib/help.sh, lib/save-restore.sh: Code sync with
+	kshdb
+
+2008-10-02  R. Bernstein <rocky@gnu.org>
+
+	* test/data/frame.right: Administrivia
+
+2008-10-02  R. Bernstein <rocky@gnu.org>
+
+	* command/set.sh, test/example/hanoi.sh.in: Small bugfixes
+
+2008-10-01  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh: Better handling of erroneous options.
+
+2008-10-01  R. Bernstein <rocky@gnu.org>
+
+	* command/run.sh, dbg-opts.sh, dbg-pre.sh: Add exports to some
+	global debugger variables that need it
+
+2008-10-01  R. Bernstein <rocky@gnu.org>
+
+	* command/quit.sh, command/return.sh, lib/dbg-call.sh, lib/hook.sh,
+	lib/processor.sh, zshdb.in: Document quit and return commands
+	better. Small cleanups.
+
+2008-10-01  R. Bernstein <rocky@gnu.org>
+
+	* test/data/frame.right: Administrivia - the cost of doing tests
+	this way.
+
+2008-10-01  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2008-10-01  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/return.sh, lib/hook.sh,
+	lib/journal.sh, lib/processor.sh, lib/save-restore.sh,
+	test/data/frame.right, zshdb.in: Add gdb-like "return" statement.
+	Deal with history slightly better. Other small bug fixes and tweaks.
+
+
+2008-09-30  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh, dbg-pre.sh, zshdb.in: Cross debugger fixes and other
+	small things
+
+2008-09-30  R. Bernstein <rocky@gnu.org>
+
+	* lib/processor.sh, test/example/subshell.sh: Fix bug in not
+	exporting file descriptor used in eval/print output. Thanks to Peter
+	Stephenson for focusing my attention on the problem
+
+2008-09-29  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am, dbg-opts.sh: Minor changes.
+
+2008-09-29  R. Bernstein <rocky@gnu.org>
+
+	* test/unit/test-dbg-opts.sh.in: Test of no options.
+
+2008-09-29  R. Bernstein <rocky@gnu.org>
+
+	* AUTHORS, Makefile.am, THANKS, configure.ac, dbg-main.sh,
+	dbg-opts.sh, dbg-pre.sh, getopt-test.sh, getopts_long.sh,
+	test/unit/.gitignore, test/unit/Makefile.am, test/unit/shunit2,
+	test/unit/test-columns.sh.in, test/unit/test-dbg-opts.sh.in: Convert
+	options processing to getopts_long by Stéphane Chazelas. Thanks
+	Stéphane!
+
+2008-09-28  R. Bernstein <rocky@gnu.org>
+
+	* command/eval.sh, configure.ac, lib/processor.sh: Minor small bug
+	fixes and tweaks.
+
+2008-09-27  R. Bernstein <rocky@gnu.org>
+
+	* test/example/hanoi.sh.in, test/integration/test-frame,
+	test/integration/test-opts: Skip some integration tests when
+	building outside of source.
+
+2008-09-27  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, test/integration/test-opts,
+	test/unit/shunit2, test/unit/test-filecache.sh.in: Fixes for build
+	outside of source tree.
+
+2008-09-27  R. Bernstein <rocky@gnu.org>
+
+	* test/unit/shunit2, test/unit/test-filecache.sh.in: Start to add
+	descriptions to asserts. Update shunit2.
+
+2008-09-26  R. Bernstein <rocky@gnu.org>
+
+	* test/unit/test-alias.sh.in, test/unit/test-columns.sh.in,
+	test/unit/test-file.sh.in, test/unit/test-filecache.sh.in,
+	test/unit/test-fns.sh.in, test/unit/test-frame.sh.in,
+	test/unit/test-journal.sh.in, test/unit/test-run.sh.in,
+	test/unit/test-save-restore.sh.in, test/unit/test-sort.sh.in: 
+	Facilitate build outside of source tree as per observation of Clint
+	Adams.
+
+2008-09-26  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac: Remove test for long options processing; zshdb uses
+	zparseopt. Thanks to Clint Adams.
+
+2008-09-26  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am, configure.ac, dbg-trace.sh.in, lib/hook.sh: Don't run
+	Emacs testing if no Emacs (Clint Adams). Remove stray debugging
+	print.
+
+2008-09-26  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh, test/example/subshell.sh: Start subshell testing.
+
+2008-09-25  R. Bernstein <rocky@gnu.org>
+
+	* lib/help.sh: Add "show commands" to help show and tweak text a
+	little.
+
+2008-09-25  R. Bernstein <rocky@gnu.org>
+
+	* test/data/lopts.right: Clean up help text
+
+2008-09-25  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh: Clean up help text.
+
+2008-09-25  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, test/zsh/Makefile.am, test/zsh/ok4zshdb.sh,
+	test/zsh/ok4zshdb2.sh, test/zsh/ok4zshdb3.sh: More stringent zsh
+	test and correct --with-zsh option.
+
+2008-09-25  R. Bernstein <rocky@gnu.org>
+
+	* lib/list.sh: Edit of wrong file.
+
+2008-09-25  R. Bernstein <rocky@gnu.org>
+
+	* command/list.sh, lib/list.sh, lib/processor.sh,
+	test/data/list.cmd, test/data/list.right,
+	test/integration/test-setshow: Small "list" command fixes.
+
+2008-09-25  R. Bernstein <rocky@gnu.org>
+
+	* command/list.sh, lib/frame.sh, lib/list.sh, lib/processor.sh,
+	test/data/Makefile.am, test/data/list.cmd, test/data/list.right,
+	test/integration/Makefile.am, test/integration/test-list: Work on
+	list command and add integration test.
+
+2008-09-24  R. Bernstein <rocky@gnu.org>
+
+	* command/quit.sh, command/run.sh, lib/hook.sh, lib/save-restore.sh: 
+	Regularize variables names.
+
+2008-09-24  R. Bernstein <rocky@gnu.org>
+
+	* command/quit.sh, command/run.sh, lib/hook.sh, lib/save-restore.sh: 
+	Work on quit and restart in the face of being inside a subshell.
+
+2008-09-24  R. Bernstein <rocky@gnu.org>
+
+	* command/eval.sh, lib/journal.sh, lib/msg.sh, lib/processor.sh,
+	lib/save-restore.sh, test/unit/test-fns.sh.in,
+	test/unit/test-save-restore.sh.in, zshdb.in: Get journaled values
+	back into parent shells. eval sets return code properly and we
+	output errors to debugger terminal
+
+2008-09-24  R. Bernstein <rocky@gnu.org>
+
+	* lib/gdb.sh, lib/msg.sh: Debugger output should go to debugger file
+	descriptor output not debugged program output. Not perfect here, but
+	more correct.
+
+2008-09-24  R. Bernstein <rocky@gnu.org>
+
+	* command/set.sh, dbg-opts.sh, lib/processor.sh,
+	test/data/setshow.right: Work on "annotate" mode.
+
+2008-09-24  R. Bernstein <rocky@gnu.org>
+
+	* lib/fns.sh: Simplify (and is probably more correct)
+
+2008-09-23  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, command/show.sh, lib/info.sh: More minor changes
+
+
+2008-09-23  R. Bernstein <rocky@gnu.org>
+
+	* lib/gdb.sh, lib/help.sh: Minor changes
+
+2008-09-22  R. Bernstein <rocky@gnu.org>
+
+	* command/set.sh, dbg-trace.sh.in, lib/frame.sh, lib/gdb.sh,
+	lib/hist.sh, lib/hook.sh, lib/processor.sh, lib/save-restore.sh,
+	test/data/frame.right, zshdb.in: Go back to non-interactive from the
+	start. Reduce debugger global/local pollution.
+
+2008-09-22  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/info.sh, command/show.sh, lib/fns.sh,
+	lib/list.sh, lib/processor.sh: Small changes
+
+2008-09-22  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh: DRY.
+
+2008-09-22  R. Bernstein <rocky@gnu.org>
+
+	* command/show.sh, lib/list.sh, test/data/setshow.right: Minor
+	changes.
+
+2008-09-21  R. Bernstein <rocky@gnu.org>
+
+	* command/set.sh, command/show.sh, lib/hist.sh: Work on saving
+	history to a file.
+
+2008-09-21  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, command/list.sh, dbg-main.sh, dbg-opts.sh,
+	lib/list.sh, lib/processor.sh, test/integration/check-common.sh.in,
+	test/integration/lopts.tests, test/integration/sopts.tests: .zshdbrc
+	works now (with one bug). Move option variables to _Dbg_ space. Add
+	--no-init to tests
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* lib/save-restore.sh, test/data/Makefile.am,
+	test/data/bug-ksharrays.cmd, test/data/bug-ksharrays.right,
+	test/example/Makefile.am, test/example/bug-ksharrays.sh,
+	test/integration/Makefile.am, test/integration/test-bug-ksharrays: 
+	Bug in restoring ksharray option inside debugger "eval".
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh: DRY
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* command/show.sh, lib/Makefile.am, lib/columns.sh, lib/list.sh,
+	test/unit/test-columns.sh.in: Fix bug in columnize. Remove hoakiness
+	in working around that bug.
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, command/list.sh, lib/columns.sh, lib/fns.sh,
+	lib/hist.sh, lib/hook.sh, lib/info.sh, lib/list.sh,
+	lib/save-restore.sh: Add lots of "info var" attributes and place
+	"info fun" under that. More with "info source"
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* command/show.sh, dbg-main.sh, lib/hist.sh, lib/hook.sh,
+	lib/processor.sh, test/data/setshow.right, zshdb.in: Bang on
+	debugger history.
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* lib/filecache.sh, lib/fns.sh: Add patterns "info functions"
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* lib/filecache.sh: DRY filecache.sh code
+
+2008-09-20  R. Bernstein <rocky@gnu.org>
+
+	* lib/filecache.sh: Take into account last line w/o carriage return
+
+
+2008-09-19  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, command/list.sh, command/tracefn.sh,
+	dbg-opts.sh, lib/fns.sh, lib/info.sh: Add "info functions" via
+	"typeset -fp". Redo trace via va "typeset -ft".
+
+2008-09-19  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh, test/integration/test-examine,
+	test/unit/test-filecache.sh.in: More of the same. emulation
+	save/restore. A testing bug fixed.
+
+2008-09-19  R. Bernstein <rocky@gnu.org>
+
+	* lib/frame.sh, lib/hook.sh: Attempt again to deal with breakage
+	caused by emulation. I don't understand what's going on but this
+	seems to help.
+
+2008-09-19  R. Bernstein <rocky@gnu.org>
+
+	* lib/frame.sh: ksharrays seems to get unset. Punt for now.
+
+2008-09-19  R. Bernstein <rocky@gnu.org>
+
+	* lib/filecache.sh, test/data/brkpt1.right,
+	test/unit/test-filecache.sh.in: Read in blank lines in file
+	correctly. Thanks to Peter Stephenson and Bart Schaefer.
+
+2008-09-19  R. Bernstein <rocky@gnu.org>
+
+	* command/list.sh, lib/frame.sh, lib/hook.sh, lib/list.sh,
+	test/unit/test-journal.sh.in: Variable name consistency
+
+2008-09-18  R. Bernstein <rocky@gnu.org>
+
+	* command/list.sh, lib/filecache.sh, lib/frame.sh, lib/list.sh,
+	lib/processor.sh, test/unit/test-filecache.sh.in,
+	test/unit/test-frame.sh.in: Remove some bugs in the "list" command.
+
+
+2008-09-18  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/list.sh, lib/Makefile.am,
+	lib/filecache.sh, lib/list.sh, lib/processor.sh: Start "list"
+	command.
+
+2008-09-18  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, dbg-main.sh, lib/Makefile.am, lib/filecache.sh,
+	lib/hist.sh, lib/processor.sh, test/data/brkpt1.cmd,
+	test/data/brkpt1.right, test/unit/test-filecache.sh.in: Save file
+	lines. Therefore we now check if breakpoint line numbers are beyond
+	the end of file. Thanks to Bart Schaefer.
+
+2008-09-17  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, command/set.sh, command/show.sh, dbg-main.sh,
+	lib/file.sh, lib/filecache.sh, lib/hook.sh, lib/save-restore.sh,
+	test/data/frame.right, test/data/setshow.right: "info files" shows
+	list of files seen. Some work towards saving history. Generalize
+	.zshdbrc vi _Dbg_debugger_name.
+
+2008-09-17  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, lib/file.sh, lib/filecache.sh,
+	lib/save-restore.sh, zshdb.in: Bugs: in setting cwd which changes
+	unqualified file names (but that had its own additional bug);
+	setting condition (not used yet even if it is a bug). Use newer PS4
+	%x:%I which has bugs of its own which I need to report.
+
+2008-09-17  R. Bernstein <rocky@gnu.org>
+
+	* lib/save-restore.sh: Minor cleanup.
+
+2008-09-17  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh, lib/save-restore.sh,
+	test/unit/test-save-restore.sh.in: save/restore environment cleanup.
+
+
+2008-09-17  R. Bernstein <rocky@gnu.org>
+
+	* command/show.sh, lib/fns.sh, lib/frame.sh, lib/hook.sh,
+	lib/processor.sh, lib/save-restore.sh,
+	test/unit/test-save-restore.sh.in: Need to save options to "set" as
+	well as "unset". Some slight cleanup here as well.
+
+2008-09-16  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh, lib/save-restore.sh, test/data/Makefile.am,
+	test/data/examine.cmd, test/data/examine.right,
+	test/example/Makefile.am, test/example/exam.sh,
+	test/integration/Makefile.am, test/integration/test-examine: Yet
+	another option save/restore bug quashed (for now). Add "examine"
+	command integration test.
+
+2008-09-16  R. Bernstein <rocky@gnu.org>
+
+	* test/integration/check-common.sh.in,
+	test/integration/sopts.tests, test/unit/test-columns.sh.in,
+	test/unit/test-file.sh.in, test/unit/test-filecache.sh.in,
+	test/unit/test-frame.sh.in, test/unit/test-journal.sh.in,
+	test/unit/test-save-restore.sh.in, test/unit/test-sort.sh.in: Change
+	internal PS4 setting to %x:%I.
+
+2008-09-16  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh, lib/save-restore.sh: Possibly more towards a correct
+	hook to save/restore ksharrays and opts.
+
+2008-09-16  R. Bernstein <rocky@gnu.org>
+
+	* command/examine.sh, test/data/frame.right, test/data/lopts.right,
+	test/integration/Makefile.am, test/integration/test-opts,
+	test/integration/test-setshow, zshdb.in: Misc bugs and tweaks.
+	zshdb.in: start out with initial zsh defaults. examine.sh: fake
+	variables better. test/integration: correct test testing; add "test"
+	and "test-integraiton" targets"
+
+2008-09-15  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh, lib/save-restore.sh, test/unit/Makefile.am,
+	test/unit/test-save-restore.sh.in: Fix bugs in saving and restoring
+	the user settings (more) properly.
+
+2008-09-15  R. Bernstein <rocky@gnu.org>
+
+	* test/data/Makefile.am, test/data/tbreak.cmd,
+	test/data/tbreak.right, test/integration/Makefile.am,
+	test/integration/test-tbreak: Add temporary break and integration
+	test.
+
+2008-09-15  R. Bernstein <rocky@gnu.org>
+
+	* lib/fns.sh: Use return code on declare -p. Thanks Peter!
+
+2008-09-14  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/examine.sh, lib/fns.sh: Small
+	"examine" bug fixes.
+
+2008-09-13  R. Bernstein <rocky@gnu.org>
+
+	* command/examine.sh, lib/fns.sh, lib/processor.sh,
+	test/data/setshow.right, test/unit/test-fns.sh.in: Add examine
+	command and defined function. Needs a little more work in edge
+	casess though.
+
+2008-09-13  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, command/continue.sh, lib/break.sh, lib/hook.sh,
+	lib/processor.sh: Add one-time breakpoint tbreak and handle one-time
+	on "continue" as well.
+
+2008-09-13  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh: Clean up hook code: add common routine, remove hacky
+	cleanup2.
+
+2008-09-12  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, lib/break.sh, lib/hook.sh,
+	test/data/Makefile.am, test/data/delete.right,
+	test/data/enable.cmd, test/data/enable.right,
+	test/integration/Makefile.am, test/integration/test-enable: 
+	Integration test added for enable and disable. Bugs found and fixed.
+
+
+2008-09-12  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, lib/break.sh, lib/hook.sh,
+	test/data/delete.right: Enable/disable now do something. (Tests
+	needed) Show breakpoint number before stopping and counts in "info
+	break".
+
+2008-09-11  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/disable.sh, command/enable.sh,
+	lib/break.sh, lib/gdb.sh, lib/hook.sh, lib/processor.sh,
+	lib/save-restore.sh: Add enable/disable commands. More facist about
+	setting needed zsh options.
+
+2008-09-11  R. Bernstein <rocky@gnu.org>
+
+	* lib/filecache.sh, lib/frame.sh, lib/gdb.sh: Some bug fixing or bug
+	avoidance.
+
+2008-09-11  R. Bernstein <rocky@gnu.org>
+
+	* command/source.sh, lib/gdb.sh, lib/processor.sh,
+	lib/save-restore.sh: Better way to make use of command reading and
+	testing for interactive terminals . Thanks to Bart Schaefer.
+
+2008-09-11  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2008-09-11  R. Bernstein <rocky@gnu.org>
+
+	* command/source.sh, lib/processor.sh: Use vared for more flexible
+	debugger command handling and editing.
+
+2008-09-10  R. Bernstein <rocky@gnu.org>
+
+	* test/data/Makefile.am, test/data/delete.cmd,
+	test/data/delete.right, test/example/stepping.sh,
+	test/integration/Makefile.am, test/integration/test-delete: delete
+	(breakpoint) integration test.
+
+2008-09-10  R. Bernstein <rocky@gnu.org>
+
+	* command/delete.sh, lib/break.sh, lib/msg.sh, lib/processor.sh,
+	test/data/brkpt1.right, test/data/lopts.right,
+	test/data/sopts.right: Add delete (breakpoint) command.
+
+2008-09-09  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, command/info.sh, lib/fns.sh, lib/frame.sh,
+	lib/processor.sh, test/data/Makefile.am, test/data/brkpt1.cmd,
+	test/data/brkpt1.right, test/example/Makefile.am,
+	test/example/dbg-test1.sh, test/example/dbg-test1.sub,
+	test/integration/Makefile.am, test/integration/check-common.sh.in,
+	test/integration/test-brkpt1: First breakpoint regression test for
+	the meager code we have. Lots of little bug fixes and more idiomatic
+	usage.
+
+2008-09-09  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, command/show.sh, configure.ac, lib/Makefile.am,
+	lib/sort.sh, test/data/setshow.cmd, test/data/setshow.right,
+	test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-sort.sh.in: Columnize info and show subcommand lists
+	on error output. Add list sorting routine.
+
+2008-09-08  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/help.sh, command/info.sh,
+	command/run.sh, lib/Makefile.am, lib/help.sh, lib/info.sh,
+	lib/processor.sh: Start "info" command.
+
+2008-09-08  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, lib/break.sh, lib/journal.sh, test/unit/.gitignore,
+	test/unit/Makefile.am, test/unit/test-frame.sh.in,
+	test/unit/test-journal.sh.in, test/unit/test-save-restore.sh.in: Add
+	a basic journal test.
+
+2008-09-06  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, command/continue.sh, dbg-pre.sh, lib/file.sh,
+	lib/frame.sh, lib/journal.sh, test/unit/test-file.sh.in,
+	test/unit/test-filecache.sh.in: Add full-blown continue command. A
+	number of other small bug fixes.
+
+2008-09-06  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/set.sh, command/show.sh, lib/gdb.sh,
+	lib/help.sh, lib/journal.sh, test/data/setshow.cmd,
+	test/data/setshow.right: Add command to set and show line width
+	(set/show width). Some other minor fixes.
+
+2008-09-05  R. Bernstein <rocky@gnu.org>
+
+	* README, command/run.sh, dbg-opts.sh, dbg-pre.sh, lib/fns.sh,
+	lib/hook.sh, lib/journal.sh, lib/processor.sh,
+	test/data/setshow.right, test/integration/Makefile.am,
+	test/unit/shunit2, test/unit/test-file.sh.in,
+	test/unit/test-filecache.sh.in, test/unit/test-fns.sh.in,
+	testing.sh: Use ZSH subshell in journaling and the prompt display.
+
+2008-09-05  R. Bernstein <rocky@gnu.org>
+
+	* lib/gdb.sh, lib/hook.sh, test/data/bug-args.right,
+	test/data/bug-errexit.right, test/data/bugIFS.right,
+	test/data/frame.right, test/data/lopts.right, test/data/next.right,
+	test/data/setshow.right, test/data/skip.right,
+	test/data/sopts.right, test/data/step.right: Print command via
+	ZSH_DEBUG_CMD with location. Thanks yet again to Peter Stephenson.
+
+2008-09-05  R. Bernstein <rocky@gnu.org>
+
+	* test/data/Makefile.am, test/example/Makefile.am,
+	test/integration/Makefile.am: More administrivia: make "make dist"
+	work.
+
+2008-09-05  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am: Administrivia
+
+2008-09-05  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, command/set.sh, getopt-test.sh, lib/break.sh,
+	lib/filecache.sh, lib/frame.sh, lib/hook.sh: Used by configure to
+	see if getopt works
+
+2008-09-04  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, lib/Makefile.am: Administrivia.
+
+2008-09-04  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, configure.ac, lib/break.sh, lib/file.sh,
+	lib/filecache.sh, lib/gdb.sh, lib/msg.sh, lib/processor.sh,
+	test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-file.sh.in, test/unit/test-filecache.sh.in: More
+	progress towards adding breakpoints. More code towards gathering
+	file information. Still need code in processor.sh to check/stop at
+	breakpoints and code to read in file lines.
+
+2008-09-04  R. Bernstein <rocky@gnu.org>
+
+	* test/data/Makefile.am, test/data/skip.cmd, test/data/skip.right,
+	test/integration/Makefile.am, test/integration/test-skip: Add skip
+	integration test.
+
+2008-09-03  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, lib/file.sh, lib/fns.sh, lib/processor.sh,
+	test/data/frame.right, test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-file.sh.in, zshdb.in: Fill in more of the file
+	routines. Much more work is needed.
+
+2008-09-02  R. Bernstein <rocky@gnu.org>
+
+	I hate failed merges
+
+2008-09-02  R. Bernstein <rocky@gnu.org>
+
+	* command/tracefn.sh, lib/columns.sh, lib/gdb.sh,
+	test/data/bug-errexit.right, test/data/frame.right,
+	test/data/next.right, test/unit/test-frame.sh.in: Better stack
+	traces thanks to changes in zsh by Peter Stephenson. Some zshdb bugs
+	in this area fixed.
+
+2008-09-02  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/show.sh, lib/columns.sh,
+	test/unit/test-columns.sh.in: Columnize "show aliases"
+
+2008-08-31  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, dbg-main.sh, dbg-pre.sh, dbg-trace.sh.in,
+	lib/frame.sh, lib/processor.sh, test/data/frame.right,
+	test/zsh/ok4zshdb.sh, zshdb.in: Make more portable across shells.
+	Check zsh version. Some small code reorganization.
+
+2008-08-30  R. Bernstein <rocky@gnu.org>
+
+	* lib/Makefile.am: Include columns.sh when installing and making
+	distribution.
+
+2008-08-30  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/stepping.sh, configure.ac,
+	lib/columns.sh, lib/help.sh, lib/hook.sh, test/example/Makefile.am,
+	test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-columns.sh.in: Better handling of column output.
+	Administrivia.
+
+2008-08-30  R. Bernstein <rocky@gnu.org>
+
+	* test/data/next.cmd, test/data/next.right,
+	test/example/nexting.sh, test/integration/test-next: Add integration
+	test for "next", "n+", "n-"
+
+2008-08-30  R. Bernstein <rocky@gnu.org>
+
+	* test/integration/Makefile.am: Add integration test for next
+
+2008-08-30  R. Bernstein <rocky@gnu.org>
+
+	* README, command/stepping.sh:  Revise README for what's up. Remove a debug statement.
+
+2008-08-30  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/stepping.sh, lib/alias.sh,
+	lib/dbg-call.sh, lib/frame.sh, lib/hook.sh, lib/processor.sh,
+	lib/save-restore.sh, test/data/Makefile.am,
+	test/integration/Makefile.am, zshdb.in: Add next, next-, next+
+	commands: stepping over functions. Reduce verbosity on set -x
+	tracing.
+
+2008-08-29  R. Bernstein <rocky@gnu.org>
+
+	* test/data/bug-errexit.cmd, test/data/bug-errexit.right,
+	test/example/bug-errexit.sh, test/integration/test-bug-errexit: Add
+	integration test for "set -o errexit" and "set -u".
+
+2008-08-28  R. Bernstein <rocky@gnu.org>
+
+	* command/continue.sh, lib/processor.sh: entering debugger loop
+	kills prior step ignore counts
+
+2008-08-28  R. Bernstein <rocky@gnu.org>
+
+	* test/example/stepping.sh: Small things
+
+2008-08-27  R. Bernstein <rocky@gnu.org>
+
+	* command/stepping.sh, lib/hook.sh: Minor
+
+2008-08-27  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2008-08-27  R. Bernstein <rocky@gnu.org>
+
+	* command/stepping.sh, lib/processor.sh: DRY step integration test
+
+2008-08-27  R. Bernstein <rocky@gnu.org>
+
+	* test/data/step.cmd, test/data/step.right,
+	test/example/stepping.sh, test/integration/Makefile.am,
+	test/integration/test-step: Add step, step+, step- and set/show
+	force integration test.
+
+2008-08-27  R. Bernstein <rocky@gnu.org>
+
+	* test/integration/Makefile.am: setshow.tests no longer needed
+
+2008-08-27  R. Bernstein <rocky@gnu.org>
+
+	* test/integration/check-common.sh.in,
+	test/integration/test-bug-args, test/integration/test-bugIFS,
+	test/integration/test-frame, test/integration/test-setshow: Dry
+	regression tests
+
+2008-08-27  R. Bernstein <rocky@gnu.org>
+
+	* test/integration/setshow.tests: Dry integration tests more.
+
+2008-08-26  R. Bernstein <rocky@gnu.org>
+
+	* command/stepping.sh: Typo
+
+2008-08-26  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh, test/data/frame.cmd, test/data/frame.right,
+	test/data/setshow.right: Correct regression tests and make
+	test-frame less debugger specific.
+
+2008-08-26  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2008-08-26  R. Bernstein <rocky@gnu.org>
+
+	* command/stepping.sh: I hate conflicted merges
+
+2008-08-26  R. Bernstein <rocky@gnu.org>
+
+	* command/set.sh, command/show.sh, command/stepping.sh, dbg-pre.sh,
+	lib/frame.sh, lib/help.sh, lib/hook.sh, lib/processor.sh, zshdb.in: 
+	Start "set/show force" step+ and step-. Frame regression test is
+	broken which probably means this is broken.
+
+2008-08-26  R. Bernstein <rocky@gnu.org>
+
+	* command/run.sh, lib/run.sh: Bang on restart a bit.
+
+2008-08-25  R. Bernstein <rocky@gnu.org>
+
+	* lib/frame.sh, test/data/frame.right: Reset frame position every
+	time debugger is entered.
+
+2008-08-24  R. Bernstein <rocky@gnu.org>
+
+	* command/alias.sh, command/continue.sh, command/edit.sh,
+	command/frame.sh, command/quit.sh, command/run.sh,
+	command/source.sh, dbg-main.sh, dbg-opts.sh, dbg-trace.sh.in,
+	lib/processor.sh, test/data/bug-args.right, test/data/bugIFS.right,
+	test/data/frame.right, test/data/lopts.right,
+	test/data/setshow.right, test/data/sopts.right: Remove bogusity in
+	handling stacked input descriptors. Bang on help text some more.
+
+2008-08-23  R. Bernstein <rocky@gnu.org>
+
+	* test/data/bug-args.right, test/data/frame.right,
+	test/example/bug-args.sh, test/example/hanoi.sh.in: Small stuff
+
+2008-08-23  R. Bernstein <rocky@gnu.org>
+
+	* README, command/eval.sh, test/integration/check-common.sh.in: 
+	Minor changes.
+
+2008-08-23  R. Bernstein <rocky@gnu.org>
+
+	* .gitignore, Makefile.am, configure.ac, dbg-trace.sh.in,
+	emacs/.gitignore, emacs/Makefile.am, emacs/dbg-test.el.in,
+	emacs/zshdb-test.el.in, test/example/settrace.sh, zshdb-trace.in: 
+	Infrstructure more generic and common with other *shdb debuggers
+
+2008-08-23  R. Bernstein <rocky@gnu.org>
+
+	* lib/Makefile.am, lib/hook.sh, lib/processor.sh, lib/sig.sh: sig.sh
+	-> hook.sh.
+
+2008-08-23  R. Bernstein <rocky@gnu.org>
+
+	* .gitignore, command/show.sh, configure.ac, lib/dbg-call.sh,
+	lib/frame.sh, lib/help.sh, lib/save-restore.sh,
+	test/data/frame.right, test/data/settrace.cmd,
+	test/data/settrace.right, test/example/settrace.sh,
+	test/unit/test-save-restore.sh.in, zshdb-trace.in, zshdb.in: Add
+	ability to hard-code calls to the debugger from inside a script:
+	source zshdb-trace and call _Dbg_debugger.
+
+2008-08-23  R. Bernstein <rocky@gnu.org>
+
+	* command/stepping.sh, lib/sig.sh: Remove some of my bugs in
+	handling skip.
+
+2008-08-22  R. Bernstein <rocky@gnu.org>
+
+	* command/stepping.sh, lib/frame.sh, lib/processor.sh, lib/sig.sh,
+	test/data/frame.cmd, test/data/frame.right,
+	test/example/hanoi.sh.in, test/unit/test-fns.sh.in,
+	test/unit/test-frame.sh.in, zshdb.in: Add skip command. This time,
+	for sure! Add stack saving routine.
+
+2008-08-22  R. Bernstein <rocky@gnu.org>
+
+	* test/integration/Makefile.am, test/integration/test-frame: Add an
+	integration test for frame motion. Yay!
+
+2008-08-22  R. Bernstein <rocky@gnu.org>
+
+	* command/set.sh, configure.ac, dbg-opts.sh, lib/gdb.sh,
+	lib/processor.sh, lib/sig.sh, test/data/frame.cmd,
+	test/data/frame.right, test/data/setshow.right,
+	test/example/.gitignore, test/example/Makefile.am,
+	test/example/hanoi.sh.in, test/integration/check-common.sh.in,
+	test/integration/test-frame, test/unit/.gitignore,
+	test/unit/test-alias.sh.in, test/unit/test-frame.sh.in: Handle "set
+	linetrace on/off". Closer to having frame integration test working.
+
+
+2008-08-22  R. Bernstein <rocky@gnu.org>
+
+	* lib/frame.sh, test/unit/test-frame.sh.in: Small potatoes
+
+2008-08-21  R. Bernstein <rocky@gnu.org>
+
+	* command/frame.sh, command/help.sh, configure.ac, lib/frame.sh,
+	lib/sig.sh, test/unit/Makefile.am: More stringent checking of frame.
+	More bugs found. Show aliases on command help (this time, for sure!)
+
+
+2008-08-21  R. Bernstein <rocky@gnu.org>
+
+	* lib/gdb.sh: Another stack frame bug. It's really time to port over
+	some unit tests...
+
+2008-08-21  R. Bernstein <rocky@gnu.org>
+
+	* command/frame.sh: Update help
+
+2008-08-21  R. Bernstein <rocky@gnu.org>
+
+	* command/where.sh, lib/frame.sh: Fix frame adjustment. We're now
+	using zero origin.
+
+2008-08-21  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh: Comment annotate for now.
+
+2008-08-21  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/stepping.sh, lib/alias.sh,
+	lib/processor.sh, lib/save-restore.sh, test/unit/test-alias.sh.in,
+	testing.sh, zshdb.in: Show aliases in help for a command.
+
+2008-08-20  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/show.sh, lib/help.sh: More compatible
+	with kshdb
+
+2008-08-20  R. Bernstein <rocky@gnu.org>
+
+	* AUTHORS, README, command/alias.sh, command/help.sh,
+	command/set.sh, command/show.sh, command/stepping.sh, dbg-opts.sh,
+	lib/help.sh, lib/msg.sh, lib/processor.sh, lib/sig.sh,
+	test/data/Makefile.am, test/data/bug-args.cmd,
+	test/data/bug-args.right, test/data/bugIFS.cmd,
+	test/data/bugIFS.right, test/data/lopts.right, test/data/quit.cmd,
+	test/data/setshow.cmd, test/data/setshow.right,
+	test/data/sopts.right, test/example/dbg-test2.sh,
+	test/integration/Makefile.am, test/integration/setshow.tests,
+	test/integration/test-setshow: Add more set/show things and an
+	integration test for these.
+
+2008-08-20  R. Bernstein <rocky@gnu.org>
+
+	* lib/Makefile.am: Add file to make "make install work"
+
+2008-08-20  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/alias.sh, command/edit.sh,
+	command/frame.sh, command/help.sh, command/set.sh, command/show.sh,
+	command/source.sh, lib/help.sh, lib/processor.sh: Add set and show
+	commands. Check parameter counts on more functions.
+
+2008-08-19  R. Bernstein <rocky@gnu.org>
+
+	* command/alias.sh, command/help.sh, lib/alias.sh, lib/help.sh,
+	test/.gitignore, test/data/lopts.right, test/data/quit.cmd,
+	test/data/sopts.right, test/example/dbg-test1.sh,
+	test/integration/Makefile.am, test/integration/check-common.sh.in,
+	test/integration/lopts.tests, test/integration/sopts.tests,
+	test/integration/test-opts: Add option integration test. Remove some
+	zshisms
+
+2008-08-19  R. Bernstein <rocky@gnu.org>
+
+	* test/unit/test-alias.sh.in, test/unit/test-save-restore.sh.in,
+	testing.sh: More stringent alias and save/restore unit tests.
+	testing.sh has an example of something which changes when
+	shwordsplit is used.
+
+2008-08-18  R. Bernstein <rocky@gnu.org>
+
+	* command/continue.sh, command/edit.sh, command/frame.sh,
+	command/help.sh, command/run.sh, lib/fns.sh, lib/frame.sh,
+	lib/gdb.sh, lib/processor.sh, lib/run.sh, lib/save-restore.sh: 
+	_Dbg_adjust_frame -> _Dbg_frame_adjust aliases for more commands.
+	Add some linespec routines _Dbg_frame_line -> _Dbg_frame_lineno.
+
+2008-08-18  R. Bernstein <rocky@gnu.org>
+
+	* command/edit.sh: Add edit command which pulls in some linespec
+	stuff and adds _Dbg_frame_file and _Dbg_frame_line. Regularize names
+	a little adjust_frame -> frame_adjust. We now save and restore
+	shwordsplit. Be better about checkin parameters.
+
+2008-08-17  R. Bernstein <rocky@gnu.org>
+
+	* command/frame.sh, command/run.sh, command/stepping.sh,
+	dbg-main.sh, dbg-pre.sh, lib/processor.sh: More bashdb/kshdb
+	alignment.
+
+2008-08-16  R. Bernstein <rocky@gnu.org>
+
+	* command/source.sh: local->typeset.
+
+2008-08-16  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, test/integration/check-common.sh.in,
+	test/unit/test-alias.sh.in, test/unit/test-fns.sh.in,
+	test/unit/test-run.sh.in, zshdb.in: ZSH_PROG -> SH_PROG
+
+2008-08-15  R. Bernstein <rocky@gnu.org>
+
+	* command/alias.sh, command/continue.sh, command/eval.sh,
+	command/frame.sh, command/help.sh, command/quit.sh, command/run.sh,
+	command/source.sh, command/stepping.sh, command/tracefn.sh,
+	command/where.sh, lib/help.sh, lib/processor.sh: More regularization
+	of function names add_help -> help_add. Use aliases in more
+	commands.
+
+2008-08-14  R. Bernstein <rocky@gnu.org>
+
+	* command/alias.sh, command/help.sh, command/quit.sh,
+	command/run.sh, command/stepping.sh, command/where.sh,
+	lib/alias.sh, lib/processor.sh, test/unit/test-alias.sh.in: 
+	Regularize alias command names add_alias -> alias_add, remove_alias
+	-> alias_remove, etc.
+
+2008-08-14  R. Bernstein <rocky@gnu.org>
+
+	* acinclude.m4, command/eval.sh, configure.ac: More zsh and ksh
+	compatible.
+
+2008-08-13  R. Bernstein <rocky@gnu.org>
+
+	* command/help.sh, command/stepping.sh, lib/alias.sh,
+	lib/processor.sh, lib/sig.sh, test/zsh/ok4zshdb.sh: Should work now
+	from current zsh without any additional patching. Turn 's', 'n', and
+	'next' to command aliases of step.
+
+2008-08-13  R. Bernstein <rocky@gnu.org>
+
+	* command/tracefn.sh: declare,  local => typeset for ksh
+	compatiblity.
+
+2008-08-12  R. Bernstein <rocky@gnu.org>
+
+	* lib/.gitignore, lib/save-restore.sh: Break off save/restore
+	routines
+
+2008-08-12  R. Bernstein <rocky@gnu.org>
+
+	* command/continue.sh, command/help.sh, command/quit.sh,
+	command/run.sh, command/source.sh, command/stepping.sh,
+	command/tracefn.sh, command/where.sh, lib/processor.sh,
+	test/integration/.gitignore: Tidy help text a little.
+
+2008-08-12  R. Bernstein <rocky@gnu.org>
+
+	* command/where.sh, lib/frame.sh, lib/gdb.sh, lib/processor.sh,
+	lib/sig.sh: Fix some stack-handling bugs and clean up code a little.
+
+
+2008-08-11  R. Bernstein <rocky@gnu.org>
+
+	* command/where.sh, lib/frame.sh: Slightly more bash and ksh
+	compatible.
+
+2008-08-11  R. Bernstein <rocky@gnu.org>
+
+	* command/where.sh, configure.ac, lib/.gitignore, lib/fns.sh,
+	lib/frame.sh, lib/gdb.sh, lib/set-d-vars.sh, test/unit/.gitignore,
+	test/unit/Makefile.am, test/unit/test-fns.sh.in,
+	test/unit/test-save-restore.sh.in, testing.sh, zshdb.in: Force bash-
+	and ksh-comptable indexing. Either way, we have to force a specific
+	ordering since it can change arbitrarily in the debugged program.
+
+2008-08-11  R. Bernstein <rocky@gnu.org>
+
+	* dbg-opts.sh, lib/Makefile.am, lib/fns.sh, lib/msg.sh, zshdb.in: 
+	Move message routines to its own file.
+
+2008-08-10  R. Bernstein <rocky@gnu.org>
+
+	* command/frame.sh, command/quit.sh, command/run.sh,
+	command/where.sh, configure.ac, lib/alias.sh, lib/frame.sh,
+	lib/processor.sh, lib/run.sh, test/unit/Makefile.am: Add help for
+	quit command and put it in the list of commands. local->typeset to
+	be more compatible with kshdb.
+
+2008-08-10  R. Bernstein <rocky@gnu.org>
+
+	* command/alias.sh, command/frame.sh, command/run.sh,
+	command/stepping.sh, command/where.sh, dbg-main.sh,
+	lib/Makefile.am, lib/alias.sh, lib/fns.sh, lib/frame.sh,
+	lib/gdb.sh, lib/help.sh, lib/processor.sh, lib/sig.sh, lib/stack.sh: 
+	add_help->_Dbg_add_help and a number of other small typos and
+	cleanups.
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac: I'm too clever for my own good. Use $srcdir for
+	$srcdir, not $ac_srcdir.
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* README, configure.ac, test/Makefile.am, test/zsh/.gitignore,
+	test/zsh/Makefile.am, test/zsh/README, test/zsh/ok4zshdb.sh,
+	test/zsh/ok4zshdb1.sh, test/zsh/ok4zshdb2.sh, test/zsh/trap-bug1.sh: 
+	Test for a zshdb-compatible zsh.
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am, command/Makefile.am, configure.ac, lib/Makefile.am,
+	test/Makefile.am, test/data/.gitignore, test/data/Makefile.am,
+	test/example/.gitignore, test/example/Makefile.am,
+	test/integration/Makefile.am, test/integration/check-common.sh.in,
+	test/integration/test-bug-args, test/integration/test-bugIFS,
+	test/unit/test-alias.sh.in, test/unit/test-fns.sh.in,
+	test/unit/test-run.sh.in: "make distcheck" now works.
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am, README, autogen.sh, command/stepping.sh,
+	dbg-opts.sh, lib/processor.sh, zshdb.in: Disable skip command. get
+	configured libdir set properly on zshdb start-up.
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* THANKS: Prepration for initial zsh-workers announcement.
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* .gitignore: The bane of version control
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* zshdb: zshdb is derived from zshdb.in
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* test/integration/test-bug-args: Add 2nd integration test. Argument
+	evaluation.
+
+2008-08-09  R. Bernstein <rocky@gnu.org>
+
+	* Makefile.am, configure.ac, test/data/bug-args.cmd,
+	test/data/bug-args.right, test/example/bug-args.sh,
+	test/integration/Makefile.am, test/integration/test-bugIFS: Add 2nd
+	integration test. Argument evaluation.
+
+2008-08-08  R. Bernstein <rocky@gnu.org>
+
+	* ChangeLog: .
+
 2008-08-08  R. Bernstein <rocky@gnu.org>
 
 	* command/eval.sh: We're not bash here.
