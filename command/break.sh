@@ -105,7 +105,7 @@ _Dbg_do_clear_brkpt() {
       fi
     fi
   else
-    _Dbg_file_not_read_in $filename
+    _Dbg_file_not_read_in "$filename"
   fi
 }
 

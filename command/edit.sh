@@ -39,7 +39,7 @@ _Dbg_do_edit() {
     _Dbg_frame_file
     ((0 != $?)) && return 3
     ((line_number<=0)) && return 4
-    full_filename=$_Dbg_frame_filename
+    full_filename="$_Dbg_frame_filename"
   else
     _Dbg_linespec_setup "$1"
   fi
