@@ -21,7 +21,10 @@
 # and absolute line positions, not function names and offset.
 
 _Dbg_help_add where \
-"where [n] 	- Stack trace of calling functions or source'd files."
+"where [N] -- Print a backtrace of calling functions and sourced files.
+
+The backtrace contains function names, arguments, line numbers, and
+files. If N is given, list only N calls."
 
 # Print a stack backtrace.  
 # $1 is the maximum number of entries to include.
@@ -36,18 +39,18 @@ _Dbg_do_backtrace() {
 
   # Loop which dumps out stack trace.
   for (( i=0 ; (( i < n && count > 0 )) ; i++ )) ; do 
-    prefix='##'
-    (( i == _Dbg_stack_pos)) && prefix='->'
+      typeset prefix='##'
+      (( i == _Dbg_stack_pos)) && prefix='->'
+      
+      prefix+="$i "
+      if ((i!=0)) ; then 
+	  prefix+="${_Dbg_func_stack[i-1]} called from"
+      else
+	  prefix+='in'
+      fi
 
-    prefix+="$i "
-    if ((i!=0)) ; then 
-	prefix+="${_Dbg_func_stack[i-1]} called from"
-    else
-	prefix+='in'
-    fi
-
-    _Dbg_print_frame "$i" "$prefix"
-    ((count--))
+      _Dbg_print_frame "$i" "$prefix"
+      ((count--))
   done
   return 0
 }

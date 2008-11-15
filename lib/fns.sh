@@ -1,4 +1,6 @@
 # -*- shell-script -*-
+# fns.sh - Debugger Utility Functions
+#
 #   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under

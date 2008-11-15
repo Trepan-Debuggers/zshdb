@@ -17,7 +17,6 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-
 _Dbg_help_add continue \
 'continue [LOC | - ] -- Continue script execution. 
 
@@ -35,21 +34,21 @@ function _Dbg_do_continue {
   typeset filename
   typeset -i line_number
   typeset full_filename
-
+  
   if [[ $1 == '-' ]] ; then
       _Dbg_restore_debug_trap=0
       return 0
   fi
 
   _Dbg_linespec_setup "$1"
-  
+
   if [[ -n "$full_filename" ]] ; then 
       if (( line_number ==  0 )) ; then 
 	  _Dbg_errmsg 'There is no line 0 to continue at.'
       else 
 	  _Dbg_check_line $line_number "$full_filename"
 	  (( $? == 0 )) && \
-	      _Dbg_set_brkpt "$full_filename" "$line_number" 1 1
+ 	      _Dbg_set_brkpt "$full_filename" "$line_number" 1 1
 	  return 0
       fi
   else
