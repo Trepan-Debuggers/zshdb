@@ -31,15 +31,14 @@ function _Dbg_is_tty {
 # Redirect input and output to tty. 
 function _Dbg_set_tty {
   if (( $# != 1 )) ; then
-    _Dbg_errmsg "Need a single tty parameter got $# args instead"
+    _Dbg_errmsg "Need a single tty parameter; got $# args instead."
     return 1
   fi
   typeset tty=$1
   if _Dbg_is_tty $1 ; then
-      # exec {_Dbg_fdi} < $tty
-      exec {_Dbg_fdi} > $tty
+      exec {_Dbg_fdi} <> $tty
       _Dbg_fd[-1]=$_Dbg_fdi
   else
-    _Dbg_errmsg "$1 is not reputed to be a tty."
+      _Dbg_errmsg "$1 is not reputed to be a tty."
   fi
 }
