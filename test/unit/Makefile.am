@@ -10,7 +10,8 @@ TESTS = test-alias.sh        \
 	test-pre.sh          \
 	test-run.sh          \
 	test-save-restore.sh \
-	test-sort.sh
+	test-sort.sh         \
+	test-tty.sh
 check_DATA = shunit2
 
 abs_srcdir=@abs_srcdir@
@@ -33,7 +34,8 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-pre.sh.in              \
 	test-run.sh.in              \
 	test-save-restore.sh.in     \
-	test-sort.sh.in
+	test-sort.sh.in             \
+	test-tty.sh.in
 
 test: check
 test-unit: check

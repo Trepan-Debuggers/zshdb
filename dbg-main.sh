@@ -33,7 +33,7 @@ unsetopt localtraps
 set -o DEBUG_BEFORE_CMD
 
 # Have we already specified where to read debugger input from?  
-if [ -n "$DBG_INPUT" ] ; then 
+if [[ -n "$DBG_INPUT" ]] ; then 
   _Dbg_do_source "$DBG_INPUT"
   _Dbg_no_init=1
 fi
@@ -48,3 +48,4 @@ if ((Dbg_history_save)) ; then
     history -ap "$_Dbg_histfile"
 fi
 
+[[ -n "$_Dbg_tty" ]] && _Dbg_do_set inferior-tty $_Dbg_tty

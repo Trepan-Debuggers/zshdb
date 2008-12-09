@@ -178,10 +178,13 @@ _Dbg_do_set() {
 	  _Dbg_write_journal_eval "_Dbg_history_length=$2"
           ;;
         *)
-	_Dbg_msg "\"save\", or \"size\" expected."
+	_Dbg_errmsg "\"save\", or \"size\" expected."
 	;;
       esac
       ;;
+    inferior-tty )
+	  _Dbg_set_tty $@
+	  ;;
     lin | line | linet | linetr | linetra | linetrac | linetrace )
       typeset onoff=${1:-'off'}
       case $onoff in 

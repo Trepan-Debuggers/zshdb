@@ -13,6 +13,7 @@ options:
                             Set the directory location of library helper file
     -c | --command STRING   Run STRING instead of a script file
     -n | --nx | --no-init   Don't run initialization files.
+    -t | --tty DEV          Run using device for your programs standard input and output
     -V | --version          Print the debugger version number.
     -x | --eval-command CMDFILE
                             Execute debugger commands from CMDFILE.

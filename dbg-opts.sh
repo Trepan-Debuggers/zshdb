@@ -33,6 +33,7 @@ options:
                             Set the directory location of library helper file: $_Dbg_main
     -c | --command STRING   Run STRING instead of a script file
     -n | --nx | --no-init   Don't run initialization files.
+    -t | --tty DEV          Run using device for your programs standard input and output
     -V | --version          Print the debugger version number.
     -x | --eval-command CMDFILE
                             Execute debugger commands from CMDFILE.
@@ -63,6 +64,7 @@ typeset -i _Dbg_linetrace=0
 typeset -i _Dbg_basename_only=0
 typeset -i _Dbg_o_nx=0
 typeset -i _Dbg_o_linetrace=0
+typeset    _Dbg_tty=''
 
 # $_Dbg_tmpdir could have been set by the top-level debugger script.
 [[ -z $_Dbg_tmpdir ]] && typeset _Dbg_tmpdir=/tmp
@@ -86,6 +88,7 @@ _Dbg_parse_options() {
 	nx       no_argument                 \
 	quiet    no_argument                 \
         tempdir  required_argument           \
+        tty      required_argument           \
 	version  no_argument                 \
 	'' "$@"
     do
@@ -105,6 +108,8 @@ _Dbg_parse_options() {
 		_Dbg_o_nx=1		;;
 	    q | quiet )
 		_Dbg_o_quiet=1		;;
+	    t | tty) 
+		_Dbg_tty=$OPTLARG	;;
 	    tempdir) 
 		_Dbg_tmpdir=$OPTLARG	;;
 	    x | eval-command )

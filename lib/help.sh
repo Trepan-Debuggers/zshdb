@@ -27,7 +27,7 @@ function _Dbg_help_add {
      return 0
 }
 
-typeset _Dbg_set_cmds='args annotate autoeval basename debugger force linetrace listsize prompt trace-commands width'
+typeset _Dbg_set_cmds='args annotate autoeval basename debugger force inferior-tty linetrace listsize prompt trace-commands width'
 
 _Dbg_help_set() {
 
@@ -91,6 +91,10 @@ Follow this command with any number of args, to be passed to the program."
       (( $_Dbg_edit )) && onoff='on.'
       _Dbg_msg \
 "${label}Set stepping forces a different line is" $onoff
+      ;;
+    inferior-tty )
+      [[ -n $label ]] && label='set inferior-tty     -- '
+      _Dbg_msg "${label}"
       ;;
     lin | line | linet | linetr | linetra | linetrac | linetrace )
       [[ -n $label ]] && label='set linetrace -- '

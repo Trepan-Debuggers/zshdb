@@ -122,5 +122,7 @@ AC_CONFIG_FILES([test/unit/test-save-restore.sh],
 		[chmod +x test/unit/test-save-restore.sh])
 AC_CONFIG_FILES([test/unit/test-sort.sh],
 		[chmod +x test/unit/test-sort.sh])
+AC_CONFIG_FILES([test/unit/test-tty.sh],
+		[chmod +x test/unit/test-tty.sh])
 
 AC_OUTPUT
