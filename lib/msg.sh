@@ -38,9 +38,9 @@ function _Dbg_msg {
 
 function _Dbg_msg_nocr {
     if [[ -t $_Dbg_fdi  ]] ; then
-	echo -n "$@" >&${_Dbg_fdi}
+	builtin echo -n "$@" >&${_Dbg_fdi}
     else
-	echo -n "$@"
+	builtin echo -n "$@"
     fi
 }
 
@@ -50,13 +50,13 @@ function _Dbg_printf {
   format=$1
   shift
   if (( _Dbg_logging )) ; then
-    printf "$format" "$@" >>$_Dbg_logfid
+    builtin printf "$format" "$@" >>$_Dbg_logfid
   fi
   if (( ! _Dbg_logging_redirect )) ; then
     if [[ -t $_Dbg_fdi ]] ; then
-      printf "$format" "$@" >&${_Dbg_fdi}
+      builtin printf "$format" "$@" >&${_Dbg_fdi}
     else
-      printf "$format" "$@"
+      builtin printf "$format" "$@"
     fi
   fi
   _Dbg_msg ''

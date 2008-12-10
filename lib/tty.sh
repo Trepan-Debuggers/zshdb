@@ -28,6 +28,9 @@ function _Dbg_is_tty {
     return 1
 }
 
+## 
+## zmodload zsh/clone
+
 # Redirect input and output to tty. 
 function _Dbg_set_tty {
   if (( $# != 1 )) ; then
@@ -36,7 +39,8 @@ function _Dbg_set_tty {
   fi
   typeset tty=$1
   if _Dbg_is_tty $1 ; then
-      exec {_Dbg_fdi} <> $tty
+      exec {_Dbg_fdi}<>$tty
+      ## clone $tty
       _Dbg_fd[-1]=$_Dbg_fdi
   else
       _Dbg_errmsg "$1 is not reputed to be a tty."
