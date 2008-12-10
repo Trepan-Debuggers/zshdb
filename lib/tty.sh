@@ -19,13 +19,19 @@
 
 # Directory search patch for unqualified file names
 
+zmodload -F zsh/stat b:zstat
+zstat -H _Dbg_TTY_DEVICE $TTY
+
 #
 # Return 1 if $1 is a tty else 0.
 #
 function _Dbg_is_tty {
     (( $# != 1 )) && return 1
-    [[ -r "$1" && -w "$1" ]] && return 0
-    return 1
+    [[ ! -r $1 ]] && return 1
+    # Thanks to Stéphane Chazelas for suggesting the following test:
+    typeset s
+    zstat -H s $1
+    (( s[device] == _Dbg_TTY_DEVICE[device] ))
 }
 
 ## 
