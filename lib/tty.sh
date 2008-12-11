@@ -19,23 +19,26 @@
 
 # Directory search patch for unqualified file names
 
-zmodload -F zsh/stat b:zstat
-zstat -H _Dbg_TTY_DEVICE $TTY
-
 #
 # Return 1 if $1 is a tty else 0.
 #
 function _Dbg_is_tty {
     (( $# != 1 )) && return 1
-    [[ ! -r $1 ]] && return 1
-    # Thanks to Stéphane Chazelas for suggesting the following test:
-    typeset s
-    zstat -H s $1
-    (( s[device] == _Dbg_TTY_DEVICE[device] ))
-}
+    [[ ! -r $1 ]] || [[ ! -w $1 ]] && return 1
+    typeset -i fd
+    typeset -i r=1
+    # Code courtesy of David Korn:
+    { 
+	if exec {fd}< $1 ; then
+	    if [[ -t $fd  ]] ; then 
+		r=0
+		exec {fd}<&-
+	    fi
+	fi;
+    } 2> /dev/null
 
-## 
-## zmodload zsh/clone
+    return $r
+}
 
 # Redirect input and output to tty. 
 function _Dbg_set_tty {
@@ -46,6 +49,7 @@ function _Dbg_set_tty {
   typeset tty=$1
   if _Dbg_is_tty $1 ; then
       exec {_Dbg_fdi}<>$tty
+      # Stéphane Chazelas also suggests considering
       ## clone $tty
       _Dbg_fd[-1]=$_Dbg_fdi
   else
