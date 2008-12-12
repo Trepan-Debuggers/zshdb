@@ -30,7 +30,11 @@ typeset _Dbg_last_printe=''    # expression on last print expression command
 
 # A list of debugger command input-file descriptors.
 # Duplicate standard input. Note we need to export it as well.
-typeset -ix _Dbg_fdi ; exec {_Dbg_fdi}<&0
+typeset -ix _Dbg_fdi ; 
+
+# For zsh, using this builtin parameter $TTY seems preferred over &0
+# because it will find/fake a terminal when &0 might not be one.
+exec {_Dbg_fdi}<$TTY
 
 # Save descriptor number
 typeset -a _Dbg_fd ; _Dbg_fd=("$_Dbg_fdi")
