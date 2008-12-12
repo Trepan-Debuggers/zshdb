@@ -38,9 +38,9 @@ function _Dbg_open_if_tty {
 	    if [[ -t $_Dbg_new_fd  ]] ; then 
 		r=0
 	    else
-		# zsh doesn't allow:
-		# exec {_Dbg_fd}<>&- 
 		exec {_Dbg_new_fd}<&- 
+		# In zsh the above also seems to do:
+		# exec {_Dbg_new_fd}>&- 
 		_Dbg_new_fd=-1
 	    fi
 	fi;
@@ -49,7 +49,7 @@ function _Dbg_open_if_tty {
     return $r
 }
 
-# Redirect input and output to tty. 
+# Redirect input and output to tty $1
 # Stéphane Chazelas also suggests considering
 ## clone $tty
 function _Dbg_set_tty {
