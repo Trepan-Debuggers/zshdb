@@ -38,9 +38,10 @@ function _Dbg_open_if_tty {
 	    if [[ -t $_Dbg_new_fd  ]] ; then 
 		r=0
 	    else
+		# Can't specify <> below like we did on the open
+		# above, but since there's one input/output file
+		# descriptor, in zsh both input and output are closed.
 		exec {_Dbg_new_fd}<&- 
-		# In zsh the above also seems to do:
-		# exec {_Dbg_new_fd}>&- 
 		_Dbg_new_fd=-1
 	    fi
 	fi;
