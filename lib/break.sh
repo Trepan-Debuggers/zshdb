@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 #
-#   Copyright (C) 2008 Rocky Bernstein  rocky@gnu.org
+#   Copyright (C) 2008, 2009 Rocky Bernstein  rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it
 #   under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ typeset -A _Dbg_brkpt_file2brkpt; _Dbg_brkpt_file2brkpt=()
 
 #========================= FUNCTIONS   ============================#
 
-_Dbg_save_breakpoints() {
+function _Dbg_save_breakpoints {
   typeset -p _Dbg_brkpt_line         >> $_Dbg_statefile
   typeset -p _Dbg_brkpt_file         >> $_Dbg_statefile 
   typeset -p _Dbg_brkpt_cond         >> $_Dbg_statefile 
@@ -144,7 +144,7 @@ function _Dbg_print_brkpt_count {
 }
 
 # Clear all breakpoints.
-_Dbg_clear_all_brkpt() {
+function _Dbg_clear_all_brkpt {
   _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_line=()"
@@ -204,7 +204,7 @@ _Dbg_set_brkpt() {
 
 # Internal routine to unset the actual breakpoint arrays.
 # 0 is returned if successful
-_Dbg_unset_brkpt_arrays() {
+function _Dbg_unset_brkpt_arrays {
     (( $# != 1 )) && return 1
     typeset -i del=$1
     _Dbg_write_journal_eval "_Dbg_brkpt_line[$del]=''"
@@ -219,7 +219,7 @@ _Dbg_unset_brkpt_arrays() {
 
 # Internal routine to delete the first found a breakpoint by file/line.
 # The number of breakpoints (0 or 1) is returned.
-_Dbg_unset_brkpt() {
+function _Dbg_unset_brkpt {
     (( $# != 2 )) && return 0
     typeset -r filename="$1"
     typeset -i lineno=$2
@@ -250,7 +250,7 @@ _Dbg_unset_brkpt() {
 
 # Routine to a delete breakpoint by entry number: $1.
 # Returns whether or not anything was deleted.
-_Dbg_delete_brkpt_entry() {
+function _Dbg_delete_brkpt_entry() {
     (( $# == 0 )) && return 0
     typeset -r  del="$1"
     typeset -i  i
@@ -296,7 +296,7 @@ _Dbg_delete_brkpt_entry() {
 }
 
 # Enable/disable breakpoint(s) by entry numbers.
-_Dbg_enable_disable_brkpt() {
+function _Dbg_enable_disable_brkpt() {
   (($# != 3)) && return 1
   typeset -i on=$1
   typeset en_dis=$2

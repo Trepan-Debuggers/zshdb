@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -343,7 +343,7 @@ _Dbg_onecmd() {
 		   ! _Dbg_do_eval $_Dbg_cmd $args && return -1
 	       fi
 	   else
-             _Dbg_msg "Undefined command: \"$_Dbg_cmd\". Try \"help\"." 
+             _Dbg_undefined_cmd $_Dbg_cmd
 	     return -1
 	   fi
 	  ;;
