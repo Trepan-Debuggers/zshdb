@@ -107,10 +107,10 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 
 _Dbg_libdir=$abs_top_srcdir
 set -- '-q'  # Don't need to show banner
-. $abs_top_srcdir/dbg-pre.sh
-. $abs_top_srcdir/lib/fns.sh
-. $abs_top_srcdir/lib/journal.sh
-. $abs_top_srcdir/lib/break.sh
+. ${abs_top_srcdir}dbg-pre.sh
+. ${abs_top_srcdir}lib/fns.sh
+. ${abs_top_srcdir}lib/journal.sh
+. ${abs_top_srcdir}lib/break.sh
 
 set -o shwordsplit
 SHUNIT_PARENT=$0

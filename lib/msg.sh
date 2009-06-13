@@ -25,19 +25,20 @@ function _Dbg_errmsg {
 # Print an error message without the ending carriage return
 function _Dbg_errmsg_no_cr {
     typeset -r prefix='**'
-    _Dbg_msg_no_cr "$prefix $@"
+    _Dbg_msg_nocr "$prefix $@"
 }
 
 function _Dbg_msg {
-    if [[ -t $_Dbg_fdi  ]] ; then
+    if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
 	builtin print -- "$@"  >&${_Dbg_fdi}
     else
 	builtin print -- "$@"
     fi
+    
 }
 
 function _Dbg_msg_nocr {
-    if [[ -t $_Dbg_fdi  ]] ; then
+    if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
 	builtin echo -n "$@" >&${_Dbg_fdi}
     else
 	builtin echo -n "$@"
@@ -53,7 +54,7 @@ function _Dbg_printf {
     builtin printf "$format" "$@" >>$_Dbg_logfid
   fi
   if (( ! _Dbg_logging_redirect )) ; then
-    if [[ -t $_Dbg_fdi ]] ; then
+    if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
       builtin printf "$format" "$@" >&${_Dbg_fdi}
     else
       builtin printf "$format" "$@"

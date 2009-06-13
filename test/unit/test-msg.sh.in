@@ -1,0 +1,43 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+PS4='(%x:%I): [%?] zsh+ 
+'
+setopt ksharrays
+
+# Test Dbg_msg, Dbg_printf, Dbg_printf_nocr, ...
+test_msg()
+{
+    typeset -i _Dbg_logging=0
+    typeset -i _Dbg_logging_redirect=0
+    typeset _Dbg_fdi=''
+    typeset msg=$(_Dbg_msg hi)
+    assertEquals 'hi' "$msg"
+    msg=$(_Dbg_msg_nocr hi)
+    assertEquals 'hi' "$msg"
+    msg=$(_Dbg_printf '%03d' 5)
+    assertEquals '005' "$msg"
+    msg=$(_Dbg_printf '%-3s' 'fo')
+    assertEquals 'fo ' "$msg"
+}
+
+test_undefined()
+{
+    typeset msg
+    msg=$(_Dbg_undefined_cmd foo bar)
+    assertEquals 'Undefined foo subcommand "bar". Try "help foo".' "$msg"
+    msg=$(_Dbg_undefined_cmd foo)
+    assertEquals 'Undefined command "foo". Try "help".' "$msg"
+}
+
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+. ${abs_top_srcdir}lib/msg.sh
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}
+

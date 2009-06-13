@@ -6,11 +6,13 @@
 /test-break.sh
 /test-columns.sh
 /test-dbg-opts.sh
+/test-examine.sh
 /test-file.sh
 /test-filecache.sh
 /test-fns.sh
 /test-frame.sh
 /test-journal.sh
+/test-msg.sh
 /test-pre.sh
 /test-run.sh
 /test-save-restore.sh
