@@ -1,0 +1,68 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+PS4='(%x:%I): [%?] zsh+ 
+'
+setopt ksharrays
+
+test_examine()
+{
+    typeset -i _Dbg_logging=0
+    typeset -i _Dbg_logging_redirect=0
+    typeset _Dbg_tty=''
+    typeset msg
+    typeset expect
+    # Integer property variable
+    typeset -i an_int=2
+    msg=$(_Dbg_do_examine an_int)
+    expect='typeset -i an_int=2'
+    assertEquals  "$expect" "$msg"
+
+    # String variable
+    typeset str_var='ho'
+    msg=$(_Dbg_do_examine str_var)
+    assertEquals "typeset str_var=ho" "$msg"
+
+    # Exported string variable
+    typeset -x exported_str_var='exported string'
+    expect=$(print -r "typeset -x exported_str_var='exported string'")
+    msg=$(_Dbg_do_examine exported_str_var)
+    assertEquals  "$expect" "$msg"
+
+    # Array variable
+    typeset -a an_array
+    an_array=(1 2 3)
+    expect='typeset -a an_array
+an_array=(1 2 3)'
+    msg=$(_Dbg_do_examine an_array)
+    assertEquals "$expect" "$msg"
+
+    # Expression involving variables
+    msg=$(_Dbg_do_examine Dbg_logging+5)
+    assertEquals '5' "$msg"
+    
+    # Expression involving a function
+    function a_function { :; }
+    msg=$(_Dbg_do_examine a_function)
+    assertEquals 'a_function () {
+	:
+}' "$msg"
+}
+
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+_Dbg_libdir=$abs_top_srcdir
+. ${abs_top_srcdir}lib/fns.sh
+. ${abs_top_srcdir}lib/msg.sh
+. ${abs_top_srcdir}lib/help.sh
+. ${abs_top_srcdir}lib/alias.sh
+. ${abs_top_srcdir}lib/save-restore.sh
+. ${abs_top_srcdir}command/examine.sh
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}
+

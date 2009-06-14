@@ -2,6 +2,7 @@ TESTS = test-alias.sh        \
 	test-break.sh        \
 	test-columns.sh      \
 	test-dbg-opts.sh     \
+	test-examine.sh      \
 	test-file.sh         \
 	test-filecache.sh    \
 	test-fns.sh          \
@@ -27,6 +28,7 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-break.sh.in            \
 	test-columns.sh.in          \
 	test-dbg-opts.sh.in         \
+	test-examine.sh.in          \
 	test-file.sh.in             \
 	test-filecache.sh.in        \
 	test-fns.sh.in              \

@@ -108,6 +108,8 @@ AC_CONFIG_FILES([test/unit/test-columns.sh],
                 [chmod +x test/unit/test-columns.sh])
 AC_CONFIG_FILES([test/unit/test-dbg-opts.sh], 
                 [chmod +x test/unit/test-dbg-opts.sh])
+AC_CONFIG_FILES([test/unit/test-examine.sh],   
+		[chmod +x test/unit/test-examine.sh])
 AC_CONFIG_FILES([test/unit/test-file.sh],
 	        [chmod +x test/unit/test-file.sh])
 AC_CONFIG_FILES([test/unit/test-filecache.sh],
