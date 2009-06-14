@@ -47,9 +47,10 @@ test_check_line()
     assertNotEquals "check_line with wrong number of args" '0' $?
     _Dbg_check_line a b c
     assertNotEquals "check_line with wrong number of args" '0' $?
+    _Dbg_readin "$shunit_file"
     _Dbg_check_line 10 $shunit_file
-    assertEquals "check_line with an in_range number" '0' $?
-    assertEquals "error queue empty so far" '0' ${#errmsg[@]}
+    assertEquals "check_line with an in_range number for $shunit_file" '0' $?
+    assertEquals "error queue empty so far for $shunit_file" '0' ${#errmsg[@]}
     _Dbg_check_line 10000 $shunit_file
     assertNotEquals "check_line with wrong number of args" '0' $?
     assertEquals "error message generated" '1' ${#errmsg[@]}
@@ -67,9 +68,9 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 
 _Dbg_libdir=$abs_top_srcdir
 set -- -q  # Don't need to show banner
-. $abs_top_srcdir/dbg-pre.sh
-. $abs_top_srcdir/lib/filecache.sh
-. $abs_top_srcdir/lib/file.sh
+. ${abs_top_srcdir}dbg-pre.sh
+. ${abs_top_srcdir}lib/filecache.sh
+. ${abs_top_srcdir}lib/file.sh
 
 set -o shwordsplit
 SHUNIT_PARENT=$0
