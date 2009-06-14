@@ -15,6 +15,49 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+# Called when a dangerous action is about to be done to make sure it's
+# okay. `prompt' is printed, and "yes", or "no" is solicited.  The
+# user response is returned in variable $_Dbg_response and $? is set
+# to 0.  _Dbg_response is set to 'error' and $? set to 1 on an error.
+# 
+_Dbg_confirm() {
+    if (( $# < 1 || $# > 2 )) ; then
+	_Dbg_response='error'
+	return 0
+    fi
+    _Dbg_confirm_prompt=$1
+    typeset _Dbg_confirm_default=${2:-'no'}
+    while ; ; do 
+	  if [[ -t $_Dbg_fdi ]]; then
+	      vared -e -h -p "$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
+	  else
+	      read "?$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
+	  fi
+
+	case "$_Dbg_response" in
+	    'y' | 'yes' | 'yeah' | 'ya' | 'ja' | 'si' | 'oui' | 'ok' | 'okay' )
+		_Dbg_response='y'
+		return 0
+		;;
+	    'n' | 'no' | 'nope' | 'nyet' | 'nein' | 'non' )
+		_Dbg_response='n'
+		return 0
+		;;
+	    *)
+		if [[ $_Dbg_response =~ '^[ \t]*$' ]] ; then
+		    set +x
+		    return 0
+		else
+		    _Dbg_msg "I don't understand \"$_Dbg_response\"."
+		    _Dbg_msg "Please try again entering 'yes' or 'no'."
+		    _Dbg_response=''
+		fi
+		;;
+	esac
+
+    done
+}
+
 # Add escapes to a string $1 so that when it is read back using
 # eval echo "$1" it is the same as echo $1.
 function _Dbg_errmsg {

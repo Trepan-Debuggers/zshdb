@@ -227,6 +227,12 @@ _Dbg_onecmd() {
 	info )
 	  _Dbg_do_info $args ;;
 
+	# Send signal (kill) to this process
+	kill )
+	  _Dbg_do_kill $args
+	  _Dbg_last_cmd='kill'
+	  ;;
+
 	# List line.
 	# print lines in file
 	list )
