@@ -48,4 +48,8 @@ if ((Dbg_history_save)) ; then
     history -ap "$_Dbg_histfile"
 fi
 
+if [[ -z "$_Dbg_tty" ]]; then 
+    _Dbg_tty=$(tty)
+    [[ $_Dbg_tty == 'not a tty' ]] && unset _Dbg_tty
+fi
 [[ -n "$_Dbg_tty" ]] && _Dbg_do_set inferior-tty $_Dbg_tty
