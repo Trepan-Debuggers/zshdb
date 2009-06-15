@@ -27,7 +27,7 @@ _Dbg_confirm() {
     fi
     _Dbg_confirm_prompt=$1
     typeset _Dbg_confirm_default=${2:-'no'}
-    while ; ; do 
+    while : ; do 
 	  if [[ -t $_Dbg_fdi ]]; then
 	      vared -e -h -p "$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
 	  else
