@@ -42,6 +42,10 @@ ARGS=''
 run_test_check() {
     short_script_name=${1:-$TEST_NAME}
     debugged_script="${top_srcdir}/test/example/${short_script_name}.sh"
+    if [[ -z "$srcdir" ]] ; then
+	print -r -- "You need to set srcdir before running this."
+	exit 10
+    fi
     (cd $srcdir && run_debugger $debugged_script 2>&1 >$TEST_FILE </dev/null)
     check_output $TEST_FILE $RIGHT_FILE
     # Return code tells testing mechanism whether passed or not.
