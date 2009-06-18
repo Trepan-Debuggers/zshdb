@@ -19,6 +19,7 @@ enable 10
 continue
 # Should get back to 6
 info break
+info program
 c
 info break
 quit
