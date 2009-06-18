@@ -115,7 +115,7 @@ typeset -x _Dbg_init_cwd=$PWD
 
 typeset -i _Dbg_running=1      # True we are not finished running the program
 
-typeset -i _Dbg_currentbp=0    # If nonzero, the breakpoint number that we 
+typeset -i _Dbg_brkpt_num=0    # If nonzero, the breakpoint number that we 
                                # are currently stopped at.
 
 # Sets whether or not to display command before executing it.

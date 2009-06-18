@@ -95,7 +95,7 @@ _Dbg_restore_user_vars() {
 
 _Dbg_set_to_return_from_debugger() {
    _Dbg_rc=${1:-0}
-   _Dbg_currentbp=0
+   _Dbg_brkpt_num=0
    _Dbg_stop_reason=''
   _Dbg_restore_user_vars
 }

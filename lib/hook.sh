@@ -80,7 +80,6 @@ function _Dbg_hook {
 
     # Check breakpoints.
     if ((_Dbg_brkpt_count > 0)) ; then 
-	typeset -i _Dbg_brkpt_num
 	if _Dbg_hook_breakpoint_hit ; then 
 	    if ((_Dbg_step_force)) ; then
 		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_filename"
