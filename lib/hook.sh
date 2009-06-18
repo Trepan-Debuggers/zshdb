@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -93,9 +93,9 @@ function _Dbg_hook {
 		_Dbg_stop_reason='at a breakpoint that has since been deleted'
 		_Dbg_delete_brkpt_entry $_Dbg_brkpt_num
 	    else
-		_Dbg_stop_reason='breakpoint reached'
+		_Dbg_stop_reason="at breakpoint $_Dbg_brkpt_num"
 	    fi
-	    _Dbg_hook_enter_debugger $_Dbg_stop_reason
+	    _Dbg_hook_enter_debugger "$_Dbg_stop_reason"
 	    return $?
 	fi
     fi
