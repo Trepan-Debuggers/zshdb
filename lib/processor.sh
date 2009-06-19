@@ -61,10 +61,18 @@ function _Dbg_process_commands {
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
 
       _Dbg_fdi=${_Dbg_fd[-1]}
-      # Set up prompt to show shell and subshell levels.
-      typeset _Dbg_greater='>'
-      typeset _Dbg_less='<'
       
+      # Set up prompt to show shell and subshell levels.
+      typeset _Dbg_greater=''
+      typeset _Dbg_less=''
+      typeset result  # Used by copies to return a value.
+
+      if _Dbg_copies '>' $_Dbg_DEBUGGER_LEVEL ; then
+	  _Dbg_greater=$result
+	  _Dbg_copies '<' $_Dbg_DEBUGGER_LEVEL
+      	  _Dbg_less=$result
+      fi
+
       if _Dbg_copies ')' $ZSH_SUBSHELL ; then
 	  _Dbg_greater="${result}${_Dbg_greater}"
 	  _Dbg_less="${_Dbg_less}${result//)/(}"
