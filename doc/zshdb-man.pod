@@ -77,7 +77,7 @@ Z<>
 
 =item -c I<command-string>
 
-Instead of specifying the name of a bash script file, one can give an
+Instead of specifying the name of a script file, one can give an
 execution string that is to be debugged. Use this option to do that.
 
 Z<>
