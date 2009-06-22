@@ -1,3 +1,129 @@
+2009-06-19  R. Bernstein <rocky@gnu.org>
+
+	* README: Revise as appropriate
+
+2009-06-19  rocky <rocky@sanchez.(none)>
+
+	* dbg-main.sh, lib/processor.sh: Add _Dbg_DEBUGGER_LEVEL in advance
+	of "debug" command.
+
+2009-06-18  rocky <rocky@sanchez.(none)>
+
+	* dbg-pre.sh: See previous commit
+
+2009-06-18  rocky <rocky@sanchez.(none)>
+
+	* command/info.sh, dbg-pre.sh, lib/hook.sh, lib/save-restore.sh: 
+	Clean up code with respect to setting current breakpoint number
+
+2009-06-18  rocky <rocky@sanchez.(none)>
+
+	* test/data/enable.cmd, test/data/enable.right: Add "info program"
+	check
+
+2009-06-18  rocky <rocky@sanchez.(none)>
+
+	* lib/hook.sh: More precise breakpoint reason in "info program"
+
+2009-06-15  rocky <rocky@sanchez.(none)>
+
+	* test/integration/check-common.sh.in: Make sure srcdir is set in
+	integration tests
+
+2009-06-15  rocky <rocky@sanchez.(none)>
+
+	* lib/msg.sh: Typo: while ; -> while :
+
+2009-06-14  rocky <rocky@sanchez.(none)>
+
+	* dbg-main.sh, dbg-opts.sh: Deal with tty weirdness. Probably this
+	won't be the last of it. Update copyright.
+
+2009-06-14  rocky <rocky@sanchez.(none)>
+
+	* command/kill.sh, lib/msg.sh, lib/processor.sh,
+	lib/save-restore.sh: Add debugger kill command. Add library routine
+	confirm() to prompt before doing dangerous commands like "kill".
+
+2009-06-14  rocky <rocky@sanchez.(none)>
+
+	* configure.ac, test/integration/Makefile.am,
+	test/integration/test-restart, test/unit/test-filecache.sh.in: In
+	0.03git territory now. Make "make distcheck" work.
+
+2009-06-13  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, test/unit/Makefile.am, test/unit/test-examine.sh.in: 
+	Add unit test for examine.
+
+2009-06-13  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, lib/msg.sh, test/unit/.gitignore,
+	test/unit/Makefile.am, test/unit/test-break.sh.in,
+	test/unit/test-msg.sh.in: Add test/unit/msg of lib/msg and fix bugs
+	in the latter. Other small bugs fixed and some alignment with kshdb.
+
+
+2009-06-11  R. Bernstein <rocky@gnu.org>
+
+	* lib/break.sh, lib/msg.sh, lib/processor.sh,
+	test/data/setshow.right: break.sh: Start using function form to
+	match ksh processor.sh, msg.sh: use common undefined-command
+	routine.
+
+2008-12-12  R. Bernstein <rocky@gnu.org>
+
+	* command/frame.sh, lib/help.sh: Update help for frame and set
+	inferior-tty
+
+2008-12-12  R. Bernstein <rocky@gnu.org>
+
+	* lib/tty.sh: Clarify use of redirection on open and close.
+
+2008-12-11  R. Bernstein <rocky@sanchez.(none)>
+
+	* command/source.sh, lib/tty.sh: Small changes
+
+2008-12-11  R. Bernstein <rocky@sanchez.(none)>
+
+	* lib/processor.sh, lib/tty.sh, test/unit/test-tty.sh.in: Yet
+	another iteration of dealing with inferior ttys.
+
+2008-12-11  R. Bernstein <rocky@gnu.org>
+
+	* lib/tty.sh: tty-testing code along the lines suggested by David
+	Korn.
+
+2008-12-10  R. Bernstein <rocky@gnu.org>
+
+	* lib/tty.sh, test/unit/test-tty.sh.in: Use the terminal test
+	suggested by Stéphane Chazelas
+
+2008-12-10  R. Bernstein <rocky@gnu.org>
+
+	* lib/msg.sh, lib/tty.sh: No space around <> to be ksh compatible
+
+2008-12-09  R. Bernstein <rocky@sanchez.(none)>
+
+	* lib/tty.sh: Possibly better for redirecting stdin/stdout
+
+2008-12-08  R. Bernstein <rocky@gnu.org>
+
+	* command/set.sh, configure.ac, dbg-main.sh, dbg-opts.sh,
+	lib/Makefile.am, lib/help.sh, lib/tty.sh, test/data/lopts.right,
+	test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-tty.sh.in: Stab at set-inferior-tty. Output
+	redirection is okay, but input redirection doesn't work.
+
+2008-11-17  R. Bernstein <rocky@gnu.org>
+
+	* .gitignore: Administrivia
+
+2008-11-15  R. Bernstein <rocky@gnu.org>
+
+	* ChangeLog, Makefile.am, NEWS: Makefile.am: create ChangeLog. More
+	preparation for 0.02 release.
+
 2008-11-15  R. Bernstein <rocky@gnu.org>
 
 	* command/continue.sh, command/where.sh, lib/fns.sh: Sync with

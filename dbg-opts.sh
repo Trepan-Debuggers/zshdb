@@ -34,6 +34,8 @@ options:
     -c | --command STRING   Run STRING instead of a script file
     -n | --nx | --no-init   Don't run initialization files.
     -t | --tty DEV          Run using device for your programs standard input and output
+    -T | --tempdir DIRECTORY 
+                            Use DIRECTORY to store temporary files in
     -V | --version          Print the debugger version number.
     -x | --eval-command CMDFILE
                             Execute debugger commands from CMDFILE.
@@ -76,7 +78,7 @@ _Dbg_parse_options() {
     typeset -i _Dbg_o_quiet=0
     typeset -i _Dbg_o_version=0
 
-    while getopts_long A:Bc:x:hL:nqTt:VX opt \
+    while getopts_long A:Bc:x:hL:nqTt:V opt  \
 	annotate required_argument           \
 	basename no_argument                 \
 	command  required_argument           \

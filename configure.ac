@@ -86,6 +86,7 @@ AM_CONDITIONAL(INSTALL_EMACS_LISP,
 AC_CONFIG_FILES([ \
 	Makefile \
 	command/Makefile \
+	doc/Makefile \
 	dbg-trace.sh \
 	emacs/Makefile \
 	emacs/dbg-test.el \

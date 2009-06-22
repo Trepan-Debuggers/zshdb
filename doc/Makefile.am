@@ -1,6 +1,8 @@
 EXT=1
 man1_MANS = zshdb.$(EXT)
 
+EXTRA_DIST = $(man1_MANS) zshdb-man.pod
+
 all: $(INFO_DEPS) $(man1_MANS) html 
 
 $(man1_MANS): zshdb-man.pod

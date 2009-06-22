@@ -1,4 +1,4 @@
-#!../../bash
+#!../../zsh
 # -*- shell-script -*-
 # Note: no CVS Id line since it would mess up regression testing.
 # This code is used for various debugger testing.

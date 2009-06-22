@@ -21,7 +21,7 @@ emacs = emacs
 else
 emacs =
 endif
-SUBDIRS = command $(emacs) lib test
+SUBDIRS = command doc $(emacs) lib test
 
 pkgdata_DATA =       \
 	dbg-pre.sh   \
