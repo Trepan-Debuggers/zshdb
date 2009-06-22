@@ -49,6 +49,18 @@ of 100.
 
 Z<>
 
+=item -A | --annotation I<level>
+
+Sets to output additional stack and status information which allows
+front-ends such as emacs to track what's going on without polling. 
+
+This is needed in for regression testing. Using this
+option is equivalent to issuing:
+
+  set annotation LEVEL
+
+inside the debugger.
+
 =item -B | --basename
 
 In places where a filename appears in debugger output give just the
@@ -61,7 +73,7 @@ inside the debugger.
 
 Z<>
 
-=item -n | nx
+=item -n | --nx | --no-init
 
 Normally the debugger will read debugger commands in C<~/.zshdbinit>
 if that file exists before accepting user interaction.
@@ -75,7 +87,7 @@ one's C<.zshdbinit> profile.
 
 Z<>
 
-=item -c I<command-string>
+=item -c | --command I<command-string>
 
 Instead of specifying the name of a script file, one can give an
 execution string that is to be debugged. Use this option to do that.
@@ -90,7 +102,7 @@ changeable copyright date in the regression-test matching.
 
 Z<>
 
-=item -x I<debugger-cmdfile>
+=item -x | --eval-command I<debugger-cmdfile>
 
 Run the debugger commands I<debugger-cmdfile> before accepting user
 input.  These commands are read however after any C<.zshdbinit>
