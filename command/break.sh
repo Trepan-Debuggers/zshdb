@@ -115,7 +115,7 @@ _Dbg_do_list_brkpt() {
     
   if (( $# != 0  )) ; then 
       typeset brkpt_num=''
-      if [[ $brkpt_num == [0-9]* ]] ; then
+      if [[ $brkpt_num != [0-9]* ]] ; then
 	  _Dbg_errmsg "Bad breakpoint number $brkpt_num."
       elif [[ -z ${_Dbg_brkpt_file[$brkpt_num]} ]] ; then
 	  _Dbg_errmsg "Breakpoint entry $brkpt_num is not set."
