@@ -14,9 +14,9 @@ Num Type       Disp Enb What
 2   breakpoint keep y   dbg-test1.sh:24
 	stop only if y
 +condition 23
-Breakpoint entry 23 is not set. Condition not changed.
+** condition: Breakpoint entry 23 is not set. Condition not changed.
 +condition 
-Argument required (breakpoint number).
+** condition: Argument required (breakpoint number).
 +info break
 Num Type       Disp Enb What
 1   breakpoint keep y   dbg-test1.sh:23
@@ -24,13 +24,13 @@ Num Type       Disp Enb What
 2   breakpoint keep y   dbg-test1.sh:24
 	stop only if y
 +condition x==1
-Bad breakpoint number: x==1
+** condition: Bad breakpoint number: x==1
 +condition 4 x==1
-Breakpoint entry 4 is not set. Condition not changed.
+** condition: Breakpoint entry 4 is not set. Condition not changed.
 +condition bad
-Bad breakpoint number: bad
+** condition: Bad breakpoint number: bad
 +condition 30 y==1
-Breakpoint entry 30 is not set. Condition not changed.
+** condition: Breakpoint entry 30 is not set. Condition not changed.
 +info break
 Num Type       Disp Enb What
 1   breakpoint keep y   dbg-test1.sh:23

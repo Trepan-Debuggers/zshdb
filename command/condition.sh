@@ -27,23 +27,22 @@ breakpoint N is reached."
 # $2 is a condition. If not given, set "unconditional" or 1.
 # returns 0 if success or 1 if fail.
 function _Dbg_do_condition {
-  # set -x
-  typeset -r n=$1
-  typeset condition="$@"
-  # set -xv
 
-  if [[ -z $n ]]; then
-    _Dbg_msg 'Argument required (breakpoint number).'
+  if (( $# < 1 )) ; then
+    _Dbg_errmsg 'condition: Argument required (breakpoint number).'
     return 1
   fi
 
+  typeset -r n=$1
+  shift
+  typeset condition="$@"
   if [[ $n != [0-9]* ]]; then
-    _Dbg_msg "Bad breakpoint number: $n"
+    _Dbg_errmsg "condition: Bad breakpoint number: $n"
     return 1
   fi
 
   if [[ -z ${_Dbg_brkpt_file[$n]} ]] ; then
-    _Dbg_msg "Breakpoint entry $n is not set. Condition not changed."
+    _Dbg_errmsg "condition: Breakpoint entry $n is not set. Condition not changed."
     return 1
   fi
   
