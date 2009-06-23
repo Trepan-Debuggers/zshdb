@@ -4,6 +4,7 @@ TESTS = \
 	test-bugIFS        \
 	test-bug-errexit   \
 	test-bug-ksharrays \
+	test-condition     \
 	test-delete        \
 	test-enable        \
 	test-examine       \

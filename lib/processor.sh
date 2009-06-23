@@ -163,6 +163,12 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd="break"
 	  ;;
 
+	# Breakpoint/Watchpoint Conditions
+	condition )
+	  _Dbg_do_condition $args
+	  _Dbg_last_cmd='condition'
+	  ;;
+
 # 	# Delete all breakpoints by line number.
 # 	clear )
 # 	  _Dbg_do_clear_brkpt $args

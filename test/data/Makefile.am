@@ -9,6 +9,8 @@ check_DATA = \
 	bug-ksharrays.right\
 	bugIFS.cmd         \
 	bugIFS.right       \
+	condition.cmd      \
+	condition.right    \
 	delete.cmd         \
 	delete.right       \
 	enable.cmd         \

@@ -115,7 +115,7 @@ _Dbg_enable_disable() {
     return 0
   fi
 
-  typeset to_go="$@"
+  typeset to_go; to_go="$@"
   typeset i
   for i in $to_go ; do 
       if [[ $i == [0-9]* ]] ; then
