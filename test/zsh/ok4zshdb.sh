@@ -1,4 +1,4 @@
-#!/usr/bin/zsh -f
+# !/usr/bin/zsh -f
 # Returns 0 if run with a zsh compatible with zshdb
 PS4='%(%x:%I): [%?]  
 '
