@@ -103,6 +103,46 @@ AC_CONFIG_FILES([ \
 AC_CONFIG_FILES([zshdb], [chmod +x DEBUGGER])
 AC_CONFIG_FILES([test/example/hanoi.sh], 
                 [chmod +x test/example/hanoi.sh])
+
+AC_CONFIG_FILES([test/integration/test-brkpt1], 
+                [chmod +x test/integration/test-brkpt1])
+AC_CONFIG_FILES([test/integration/test-bug-args], 
+                [chmod +x test/integration/test-bug-args])
+AC_CONFIG_FILES([test/integration/test-bug-errexit], 
+                [chmod +x test/integration/test-bug-errexit])
+AC_CONFIG_FILES([test/integration/test-bugIFS], 
+                [chmod +x test/integration/test-bugIFS])
+AC_CONFIG_FILES([test/integration/test-bug-ksharrays], 
+                [chmod +x test/integration/test-bug-ksharrays])
+AC_CONFIG_FILES([test/integration/test-condition], 
+                [chmod +x test/integration/test-condition])
+AC_CONFIG_FILES([test/integration/test-delete], 
+                [chmod +x test/integration/test-delete])
+AC_CONFIG_FILES([test/integration/test-enable], 
+                [chmod +x test/integration/test-enable])
+AC_CONFIG_FILES([test/integration/test-examine], 
+                [chmod +x test/integration/test-examine])
+AC_CONFIG_FILES([test/integration/test-frame], 
+                [chmod +x test/integration/test-frame])
+AC_CONFIG_FILES([test/integration/test-list], 
+                [chmod +x test/integration/test-list])
+AC_CONFIG_FILES([test/integration/test-next], 
+                [chmod +x test/integration/test-next])
+AC_CONFIG_FILES([test/integration/test-opts], 
+                [chmod +x test/integration/test-opts])
+AC_CONFIG_FILES([test/integration/test-restart], 
+                [chmod +x test/integration/test-restart])
+AC_CONFIG_FILES([test/integration/test-setshow], 
+                [chmod +x test/integration/test-setshow])
+AC_CONFIG_FILES([test/integration/test-skip], 
+                [chmod +x test/integration/test-skip])
+AC_CONFIG_FILES([test/integration/test-step], 
+                [chmod +x test/integration/test-step])
+AC_CONFIG_FILES([test/integration/test-subshell], 
+                [chmod +x test/integration/test-subshell])
+AC_CONFIG_FILES([test/integration/test-tbreak], 
+                [chmod +x test/integration/test-tbreak])
+
 AC_CONFIG_FILES([test/unit/test-alias.sh], [chmod +x test/unit/test-alias.sh])
 AC_CONFIG_FILES([test/unit/test-break.sh], [chmod +x test/unit/test-break.sh])
 AC_CONFIG_FILES([test/unit/test-columns.sh], 
