@@ -1,3 +1,46 @@
+2009-06-24  rocky <rocky@sanchez.(none)>
+
+	* test/zsh/ok4zshdb.sh: Remove (erroneous) Debian lintian error.
+
+2009-06-23  R. Bernstein <rocky@gnu.org>
+
+	* command/condition.sh, test/data/condition.right: Now that we added
+	condition, why not go over it to make it better (and more correct).
+
+
+2009-06-23  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/condition.sh, lib/break.sh,
+	lib/processor.sh, test/data/Makefile.am, test/data/brkpt1.cmd,
+	test/data/brkpt1.right, test/data/condition.cmd,
+	test/data/condition.right, test/data/lopts.right,
+	test/integration/Makefile.am, test/integration/test-condition: Add
+	"condition" command and integration test. Correct option output.
+
+2009-06-22  R. Bernstein <rocky@gnu.org>
+
+	* doc/zshdb-man.pod: Small doc changes.
+
+2009-06-22  R. Bernstein <rocky@gnu.org>
+
+	* doc/Makefile.am: Administrivia - More common and general wrt other
+	debuggers
+
+2009-06-22  R. Bernstein <rocky@gnu.org>
+
+	* doc/zshdb-man.pod: Minor doc change
+
+2009-06-22  R. Bernstein <rocky@gnu.org>
+
+	* ChangeLog, Makefile.am, configure.ac, dbg-opts.sh,
+	doc/.gitignore, doc/Makefile.am, test/example/dbg-test2.sh: Start
+	adding doc. In particular start with a manual page.
+
+2009-06-22  R. Bernstein <rocky@gnu.org>
+
+	* doc/.gitignore, doc/Makefile.am, doc/zshdb-man.pod: Start writing
+	documentation. In particular, a manual page.
+
 2009-06-19  R. Bernstein <rocky@gnu.org>
 
 	* README: Revise as appropriate
