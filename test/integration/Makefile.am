@@ -28,7 +28,8 @@ TESTS_ENVIRONMENT = \
   srcdir="$(abs_srcdir)" \
   builddir="$(abs_builddir)"
 
-EXTRA_DIST = $(TESTS) $(check_DATA) \
+SOURCES=$(patsubst %,%.in, $(TESTS))
+EXTRA_DIST = $(TESTS) $(check_DATA) $(SOURCES) \
 	check-common.sh.in \
 	lopts.tests        \
 	sopts.tests
