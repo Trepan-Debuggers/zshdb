@@ -1,7 +1,7 @@
 dnl Configure script for Shell debugger
 define(DEBUGGER, zshdb)
 define(POSIXSHELL, zsh)
-AC_INIT([zshdb],[0.03git],[rocky@gnu.org])
+AC_INIT([zshdb],[0.03],[rocky@gnu.org])
 AM_PATH_LISPDIR
 AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE([no-define])
