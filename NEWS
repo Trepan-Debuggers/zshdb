@@ -3,7 +3,7 @@ Version 0.03
 - add debugger "kill" command
 - add debugger "condition" command
 - add set-inferior tty and tty testing code changes
-- help doc improvements
+- add manual page; help doc improvements
 - more and better unit/integration tests
 
 Version 0.02
