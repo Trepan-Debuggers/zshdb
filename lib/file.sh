@@ -37,7 +37,7 @@ _Dbg_glob_filename() {
 _Dbg_adjust_filename() {
   typeset -r filename="$1"
   if (( _Dbg_annotate == 1 )) ; then
-    print -- $(_Dbg_resolve_expand_filename $filename)
+    print -- $(_Dbg_resolve_expand_filename "$filename")
   elif ((_Dbg_basename_only)) ; then
     print -- ${filename##*/}
   else
@@ -70,15 +70,15 @@ function _Dbg_resolve_expand_filename {
 
   if [[ ${find_file[0]} == '/' ]] ; then 
     # Absolute file name
-    full_find_file=$(_Dbg_expand_filename $find_file)
+    full_find_file=$(_Dbg_expand_filename "$find_file")
     print -- "$full_find_file"
     return 0
   elif [[ ${find_file[0]} == '.' ]] ; then
     # Relative file name
-    full_find_file=$(_Dbg_expand_filename ${_Dbg_init_cwd}/$find_file)
+    full_find_file=$(_Dbg_expand_filename "${_Dbg_init_cwd}/$find_file")
     if [[ -z "$full_find_file" ]] || [[ ! -r $full_find_file ]]; then
       # Try using cwd rather that Dbg_init_cwd
-      full_find_file=$(_Dbg_expand_filename $find_file)
+      full_find_file=$(_Dbg_expand_filename "$find_file")
     fi
     print -- "$full_find_file"
     return 0

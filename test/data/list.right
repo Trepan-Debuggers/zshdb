@@ -104,7 +104,7 @@ Aliases for list: l
 +list ../example/dbg-test1.sh:999
 ** Line 999 is too large. File dbg-test1.sh has only 34 lines.
 +list ./badfile:1
-** File badfile not found in read-in files.
+** File "badfile" not found in read-in files.
 ** See 'info files' for a list of known files and
 ** 'load' to read in a file.
 +######################################################### 

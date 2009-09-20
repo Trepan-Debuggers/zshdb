@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # filecache.sh - cache file information
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -57,7 +57,7 @@ _Dbg_check_line() {
 # Error message for file not read in
 function _Dbg_file_not_read_in {
     typeset -r filename=$(_Dbg_adjust_filename "$1")
-    _Dbg_errmsg "File $filename not found in read-in files."
+    _Dbg_errmsg "File \"$filename\" not found in read-in files."
     _Dbg_errmsg "See 'info files' for a list of known files and"
     _Dbg_errmsg "'load' to read in a file."
 }

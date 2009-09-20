@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -141,7 +141,7 @@ _Dbg_do_list_brkpt() {
     typeset -i i
 
     _Dbg_msg "Num Type       Disp Enb What"
-    for (( i=1; (( i <= _Dbg_brkpt_max )) ; i++ )) ; do
+    for (( i=1; i <= _Dbg_brkpt_max ; i++ )) ; do
       typeset source_file=${_Dbg_brkpt_file[$i]}
       if [[ -n ${_Dbg_brkpt_line[$i]} ]] ; then
 	source_file=$(_Dbg_adjust_filename "$source_file")

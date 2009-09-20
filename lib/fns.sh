@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # fns.sh - Debugger Utility Functions
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -103,6 +103,14 @@ _Dbg_is_alias() {
     return $?
 }
 
+# Print "on" or "off" depending on whether $1 is true (0) or false
+# (nonzero).
+function _Dbg_onoff {
+  typeset onoff='off.'
+  (( $1 != 0 )) && onoff='on.'
+  echo $onoff
+}
+
 # Set $? to $1 if supplied or the saved entry value of $?. 
 function _Dbg_set_dol_q {
   (( $# == 0 )) && return $_Dbg_debugged_exit_code
@@ -136,7 +144,7 @@ function _Dbg_linespec_setup {
     typeset -i is_function=${word[1]}
     line_number=${word[0]}
     full_filename=$filename
-    full_filename=$(_Dbg_is_file $filename)
+    full_filename=$(_Dbg_is_file "$filename")
 
 #   if (( is_function )) ; then
 #       if [[ -z $full_filename ]] ; then 
@@ -181,12 +189,4 @@ function _Dbg_parse_linespec {
       fi
       ;;
    esac
-}
-
-# Add escapes to a string $1 so that when it is read back via "$1"
-# it is the same as $1.
-function _Dbg_onoff {
-  typeset onoff='off.'
-  (( $1 != 0 )) && onoff='on.'
-  echo $onoff
 }
