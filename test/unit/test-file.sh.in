@@ -9,19 +9,39 @@ setopt ksharrays
 test_glob_filename()
 {
     typeset filename
+
     filename=''
     _Dbg_glob_filename $shunit_file
     assertEquals '0' $?
     filename=${filename##*/}  
     assertEquals 'shunit2' $filename
+
     _Dbg_glob_filename ./${srcdir}shunit?
     assertEquals '0' $?
     filename=${filename##*/}  
     assertEquals 'shunit2' $filename
+
+    _Dbg_glob_filename ./${srcdir}[a-s]h*nit?
+    assertEquals '0' $?
+    filename=${filename##*/}  
+    assertEquals 'shunit2' $filename
+
     _Dbg_glob_filename ${srcdir}abcdefg
     assertEquals '1' $?
     filename=${filename##*/}  
-    assertEquals 'abcdefg' $filename
+    assertEquals 'abcdefg' "$filename"
+
+    if [[ -r ~ ]] ; then
+	_Dbg_glob_filename '~'
+	assertEquals '0' $?
+	assertEquals ~ "$filename"
+    fi
+
+    _Dbg_glob_filename ${srcdir}'some embedded spaces'
+    assertEquals '1' $?
+    filename=${filename##*/}  
+    assertEquals 'some embedded spaces' "$filename"
+    
 }
 
 # Test _Dbg_adjust_filename
