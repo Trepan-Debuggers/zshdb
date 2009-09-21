@@ -37,7 +37,7 @@ _Dbg_fileinfo=()
 _Dbg_check_line() {
     (( $# != 2 )) && return 1
     typeset -i line_number=$1
-    typeset filename=$2
+    typeset filename="$2"
     typeset -i max_line
     max_line=$(_Dbg_get_maxline "$filename")
     if (( $? != 0 )) ; then
@@ -211,7 +211,7 @@ _Dbg_readin_if_new() {
 # 0 is returned if everything went ok.
 _Dbg_set_source_array_var() {
     (( $# != 1 )) && return 1
-    typeset filename=$1
+    typeset filename="$1"
     fullname=${_Dbg_file2canonic[$filename]}
     [[ -z $fullname ]] && return 2
     _Dbg_source_array_var=${_Dbg_filenames[$fullname]}

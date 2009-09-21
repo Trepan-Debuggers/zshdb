@@ -137,7 +137,7 @@ function _Dbg_linespec_setup {
     # FIXME when we have a filename with embedded blanks, we got trouble
     # because tokenization will split this into more tokens.
     # Possibly the right fix is to return via a dynamic variable.
-    word=($(_Dbg_parse_linespec "$linespec"))
+    _Dbg_parse_linespec "$linespec"
     if [[ ${#word[@]} == 0 ]] ; then
 	_Dbg_errmsg "Invalid line specification: $linespec"
 	return 1
@@ -161,20 +161,18 @@ function _Dbg_linespec_setup {
 #   int
 #   file:line
 #   function-num
-# Return triple (line,  is-function?, filename,)
+# Return triple (line,  is-function?, filename,) stored in array
+# "word" which the caller should have declared.
 # We return the filename last since that can have embedded blanks.
-
-# FIXME when we have a filename with embedded blanks, we got trouble
-# because tokenization will split this into more tokens.
-# Possibly the right fix is to return via a dynamic variable.
 function _Dbg_parse_linespec {
-  typeset linespec=$1
+  typeset linespec="$1"
   case "$linespec" in
 
     # line number only - use filename from last adjust_frame
     [0-9]* )	
-      echo "$linespec 0 ${_Dbg_frame_last_filename}"
-      ;;
+	  word=($linespec 0 "${_Dbg_frame_last_filename}")
+	  return 0
+	  ;;
     
     # file:line
     [^:][^:]*[:][0-9]* )
@@ -182,7 +180,8 @@ function _Dbg_parse_linespec {
       typeset line_word=${linespec##*:}
       typeset file_word=${linespec%${line_word}}
       file_word=${file_word%?}
-      echo "$line_word 0 $file_word"
+      word=("$line_word" 0 "$file_word")
+      return 0
       ;;
 
     # Function name or error
@@ -190,10 +189,10 @@ function _Dbg_parse_linespec {
       if _Dbg_is_function $linespec ${_Dbg_debug_debugger} ; then 
 	typeset -a word==( $(typeset -p +f $linespec) )
 	typeset -r fn=${word[1]%\(\)}
-	echo "${word[3]} 1 ${word[4]}"
-      else
-	echo ''
+	word=(${word[3]} 1 "${word[4]}")
+	return 0
       fi
       ;;
    esac
+  return 1
 }

@@ -178,7 +178,8 @@ _Dbg_set_brkpt() {
     _Dbg_brkpt_counts[$_Dbg_brkpt_max]=0
     _Dbg_brkpt_enable[$_Dbg_brkpt_max]=1
     
-    typeset dq_source_file=$(_Dbg_esc_dq "$source_file")
+    typeset dq_source_file
+    dq_source_file=$(_Dbg_esc_dq "$source_file")
     typeset dq_condition=$(_Dbg_esc_dq "$condition")
     _Dbg_write_journal "_Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno"
     _Dbg_write_journal "_Dbg_brkpt_file[$_Dbg_brkpt_max]=\"$dq_source_file\""
