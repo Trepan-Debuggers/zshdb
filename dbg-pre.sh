@@ -65,8 +65,8 @@ function _Dbg_expand_filename {
   typeset -r filename="$1"
 
   # Break out basename and dirname
-  typeset basename=${filename##*/}
-  typeset -x dirname=${filename%/*}
+  typeset basename="${filename##*/}"
+  typeset -x dirname="${filename%/*}"
 
   # No slash given in filename? Then use . for dirname
   [[ $dirname == $basename ]] && [[ $filename != '/' ]] && dirname='.'

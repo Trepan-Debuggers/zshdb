@@ -134,6 +134,9 @@ function _Dbg_linespec_setup {
     (($# != 1)) && return 2
     typeset linespec=$1
     typeset -a word
+    # FIXME when we have a filename with embedded blanks, we got trouble
+    # because tokenization will split this into more tokens.
+    # Possibly the right fix is to return via a dynamic variable.
     word=($(_Dbg_parse_linespec "$linespec"))
     if [[ ${#word[@]} == 0 ]] ; then
 	_Dbg_errmsg "Invalid line specification: $linespec"
@@ -160,6 +163,10 @@ function _Dbg_linespec_setup {
 #   function-num
 # Return triple (line,  is-function?, filename,)
 # We return the filename last since that can have embedded blanks.
+
+# FIXME when we have a filename with embedded blanks, we got trouble
+# because tokenization will split this into more tokens.
+# Possibly the right fix is to return via a dynamic variable.
 function _Dbg_parse_linespec {
   typeset linespec=$1
   case "$linespec" in

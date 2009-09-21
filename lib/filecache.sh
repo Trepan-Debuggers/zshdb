@@ -39,7 +39,7 @@ _Dbg_check_line() {
     typeset -i line_number=$1
     typeset filename=$2
     typeset -i max_line
-    max_line=$(_Dbg_get_maxline $filename)
+    max_line=$(_Dbg_get_maxline "$filename")
     if (( $? != 0 )) ; then
 	_Dbg_errmsg "internal error getting number of lines in $filename"
 	return 1
@@ -121,7 +121,7 @@ function _Dbg_is_file {
       fi
   elif [[ ${find_file[0]} == '.' ]] ; then
       # Relative file name
-      try_find_file=$(_Dbg_expand_filename ${_Dbg_init_cwd}/$find_file)
+      try_find_file=$(_Dbg_expand_filename "${_Dbg_init_cwd}/$find_file")
       # FIXME: turn into common subroutine
       if [[ -n ${_Dbg_filenames[$try_find_file]} ]] ; then
 	  print -- "$try_find_file"
@@ -172,7 +172,7 @@ function _Dbg_readin {
     if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
 	eval "${_Dbg_source_array_var}[0]=\"$Dbg_EXECUTION_STRING\""
     else 
-	fullname=$(_Dbg_resolve_expand_filename $filename)
+	fullname=$(_Dbg_resolve_expand_filename "$filename")
 	if [[ -r $fullname ]] ; then
 	    _Dbg_file2canonic[$filename]="$fullname"
 	    _Dbg_file2canonic[$fullname]="$fullname"
@@ -211,7 +211,7 @@ _Dbg_readin_if_new() {
 # 0 is returned if everything went ok.
 _Dbg_set_source_array_var() {
     (( $# != 1 )) && return 1
-    typeset filename="$1"
+    typeset filename=$1
     fullname=${_Dbg_file2canonic[$filename]}
     [[ -z $fullname ]] && return 2
     _Dbg_source_array_var=${_Dbg_filenames[$fullname]}

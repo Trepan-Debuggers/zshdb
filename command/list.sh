@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # list.sh - Some listing commands
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -72,7 +72,7 @@ _Dbg_do_list() {
 	    _Dbg_list "$full_filename" "$line_number" $count
 	return $?
     else
-	_Dbg_file_not_read_in $filename
+	_Dbg_file_not_read_in "$filename"
 	return 1
     fi
 }
