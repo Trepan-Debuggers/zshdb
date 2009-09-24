@@ -142,14 +142,13 @@ _Dbg_do_list_brkpt() {
 
     _Dbg_msg "Num Type       Disp Enb What"
     for (( i=1; i <= _Dbg_brkpt_max ; i++ )) ; do
-      typeset source_file
       source_file="${_Dbg_brkpt_file[$i]}"
       if [[ -n ${_Dbg_brkpt_line[$i]} ]] ; then
 	source_file=$(_Dbg_adjust_filename "$source_file")
-	_Dbg_printf "%-3d breakpoint %-4s %-3s %s:%s" $i \
+	_Dbg_printf "%-3d breakpoint %-4s %-3s %s:%d" $i \
 	  ${_Dbg_keep[${_Dbg_brkpt_onetime[$i]}]} \
 	  ${_Dbg_yn[${_Dbg_brkpt_enable[$i]}]} \
-	  "$source_file ${_Dbg_brkpt_line[$i]}"
+	  "$source_file" ${_Dbg_brkpt_line[$i]}
 	if [[ ${_Dbg_brkpt_cond[$i]} != '1' ]] ; then
 	  _Dbg_printf "\tstop only if %s" "${_Dbg_brkpt_cond[$i]}"
 	fi
