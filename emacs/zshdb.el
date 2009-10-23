@@ -495,9 +495,10 @@ below will appear.
   "A wrapper for `gud-gdb-complete-command'"
   (gud-gdb-complete-command command a b))
 
+(eval-when-compile
+ (require 'cl))
 (require 'comint)
 (require 'custom)
-(require 'cl)
 (require 'compile)
 (require 'shell)
 
@@ -872,7 +873,7 @@ at the beginning of the line.
             (setq target_buffer (cadr target))
             (setq target_fname (buffer-file-name target_buffer))
             (switch-to-buffer-other-window target_buffer)
-            (goto-line target_lineno)
+	    (goto-char (point-min)) (forward-line (1- target_lineno))
             (message "zshdbtrack: line %s, file %s" target_lineno target_fname)
             (zshdbtrack-overlay-arrow t)
             (pop-to-buffer origbuf t)
