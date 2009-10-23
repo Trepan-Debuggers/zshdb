@@ -1,6 +1,91 @@
+2009-09-24  rocky <rocky@gnu.org>
+
+	* command/break.sh: Misplaced quotes.
+
+2009-09-21  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, lib/break.sh, lib/filecache.sh, lib/fns.sh,
+	test/data/file with spaces.cmd, test/data/file with spaces.right,
+	test/example/file with spaces.sh,
+	test/integration/check-common.sh.in,
+	test/integration/test-file-with-spaces: Handling of files with
+	embedded blanks works better. More filename quoting in "info break"
+	Still one bug in _Dbg_glob_filename remains.
+
+2009-09-21  rocky <rocky@gnu.org>
+
+	* test/unit/test-file.sh.in: Some more (better?) file globbing tests
+
+
+2009-09-20  rocky <rocky@gnu.org>
+
+	* command/info.sh, command/list.sh, command/run.sh, dbg-pre.sh,
+	lib/filecache.sh, lib/fns.sh, zshdb.in: Better tolerance for files
+	with embedded blanks. Not perfect yet though. Need to redo
+	parse_linespec.
+
+2009-09-20  rocky <rocky@gnu.org>
+
+	* command/break.sh, lib/file.sh, lib/filecache.sh, lib/fns.sh,
+	lib/list.sh, test/data/list.right: Make sure to quote filenames in
+	argment passing so as to be able to handle files with embedded
+	blanks. Keep in sync with kshdb and bashdb.
+
+2009-08-21  R. Bernstein <rocky@gnu.org>
+
+	* NEWS, dbg-opts.sh: Small changes to dbg-opts to Keep in sync with
+	bashdb and kshdb
+
+2009-07-04  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac: Get ready for 0.03 release
+
+2009-07-04  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2009-06-30  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2009-06-30  rocky <rocky@sanchez.(none)>
+
+	* configure.ac, test/integration/Makefile.am,
+	test/integration/test-brkpt1.in, test/integration/test-bug-args.in,
+	test/integration/test-bug-errexit.in,
+	test/integration/test-bug-ksharrays.in,
+	test/integration/test-bugIFS.in,
+	test/integration/test-condition.in,
+	test/integration/test-delete.in, test/integration/test-enable.in,
+	test/integration/test-examine.in, test/integration/test-frame.in,
+	test/integration/test-list.in, test/integration/test-next.in,
+	test/integration/test-opts.in, test/integration/test-restart.in,
+	test/integration/test-setshow.in, test/integration/test-skip.in,
+	test/integration/test-step.in, test/integration/test-subshell.in,
+	test/integration/test-tbreak.in: Need to add name of shell into
+	integration tests. "make check" doesn't seem to have a provision for
+	this.
+
+2009-06-30  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2009-06-30  R. Bernstein <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2009-06-30  R. Bernstein <rocky@atwood.corp.ce-interactive.com>
+
+	* ChangeLog, NEWS: Remove in preparation for release on July 4th.
+
 2009-06-24  rocky <rocky@sanchez.(none)>
 
 	* test/zsh/ok4zshdb.sh: Remove (erroneous) Debian lintian error.
+
+2009-06-23  R. Bernstein <rocky@gnu.org>
+
+	* command/break.sh, lib/processor.sh: Wrong condition test for
+	breakpoint number parsing.
 
 2009-06-23  R. Bernstein <rocky@gnu.org>
 
