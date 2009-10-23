@@ -1,7 +1,10 @@
 Version 0.04
 2009-10-27
-- Better tolerance for files with embedded blanks. Make sure to quote parameters in argument passing.
-- Remove Emacs compile warning
+
+- Better tolerance for files with embedded blanks. Make sure to quote
+  parameters in argument passing.
+
+- Remove Emacs compile warnings
 
 Version 0.03
 2009-07-04
