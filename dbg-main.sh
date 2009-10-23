@@ -20,13 +20,13 @@
 . ${_Dbg_libdir}/dbg-pre.sh
 
 # All debugger lib code has to come before debugger command code.
-typeset file
-for file in ${_Dbg_libdir}/lib/*.sh ; do 
-    source $file
+typeset _Dbg_file
+for _Dbg_file in ${_Dbg_libdir}/lib/*.sh ; do 
+    source $_Dbg_file
 done
 
-for file in ${_Dbg_libdir}/command/*.sh ; do 
-    source $file
+for _Dbg_file in ${_Dbg_libdir}/command/*.sh ; do 
+    source $_Dbg_file
 done
 
 unsetopt localtraps
