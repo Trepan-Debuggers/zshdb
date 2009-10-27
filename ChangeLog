@@ -1,3 +1,22 @@
+2009-10-23  R. Bernstein <rocky@gnu.org>
+
+	* NEWS: NEWS preening
+
+2009-10-23  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2009-10-23  rocky <rocky@gnu.org>
+
+	* ChangeLog, NEWS, configure.ac, test/unit/test-file.sh.in: Get
+	ready for release
+
+2009-10-23  R. Bernstein <rocky@gnu.org>
+
+	* dbg-main.sh, emacs/zshdb.el: dbg-main.sh: Change another debugger
+	variable to be prefaced with _Dbg_ zshdb.el: Remove compile
+	warnings.
+
 2009-09-24  rocky <rocky@gnu.org>
 
 	* command/break.sh: Misplaced quotes.

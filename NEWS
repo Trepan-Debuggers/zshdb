@@ -1,8 +1,12 @@
 Version 0.04
-2009-10-27
+2009-10-27 Halala ngosuku lokuzalwa
 
 - Better tolerance for files with embedded blanks. Make sure to quote
   parameters in argument passing.
+
+- Add "set force", "step+", and "step-", "next+", and "next-" commands.
+
+- Preface more variable names with _Dbg_.
 
 - Remove Emacs compile warnings
 
