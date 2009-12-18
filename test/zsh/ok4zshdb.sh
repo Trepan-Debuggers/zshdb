@@ -35,8 +35,14 @@ debug_hook() { . ./ok4zshdb2.sh; }
 function get_processor {
     setopt ksharrays
     typeset -a cmd
-    cmd=( $(COLUMNS=3000 ps h -o command -p $$) )
-    ZSH_PROCESSOR=${cmd[0]}
+    cmd=( $(COLUMNS=3000 ps h -o comm -p $$) ) 2>/dev/null
+    if (( $? == 0 )); then
+        ZSH_PROCESSOR=${cmd[0]}
+    else
+        # Solaris doesn't have "h" on ps 
+	cmd=( $(COLUMNS=3000 ps -o args -p $$ | tail -1) ) 2>/dev/null
+        ZSH_PROCESSOR=${cmd[0]}
+    fi	
 }
 
 get_processor

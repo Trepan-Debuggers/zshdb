@@ -1,6 +1,6 @@
 #!/bin/zsh
 autoreconf -i && \
 autoconf && {
-  print "Running configure with $@"
-  ./configure $@
+  echo "Running configure with --enable-maintainer-mode $@"
+  ./configure --enable-maintainer-mode $@
 }
