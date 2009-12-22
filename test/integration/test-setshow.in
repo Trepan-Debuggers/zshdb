@@ -1,4 +1,4 @@
-#!/bin/zsh -f
+#!@SH_PROG@ -f
 # -*- shell-script -*-
 t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
 
@@ -9,8 +9,8 @@ ARGS='testarg1 testarg2'
 debugged_script="${top_srcdir}/test/example/dbg-test2.sh"
 (cd $srcdir && run_debugger $debugged_script 2>&1 >$TEST_FILE </dev/null)
 
-cat ${TEST_FILE} | sed -e "s:-x .*/data/setshow\.cmd .*/example/dbg-test2.sh:-x data/setshow.cmd example/dbg-test2.sh:" \
-| sed -e 's:record the command history is .*:record the command history is: ' \
+cat ${TEST_FILE} | @SED@ -e "s:-x .*/data/setshow\.cmd .*/example/dbg-test2.sh:-x data/setshow.cmd example/dbg-test2.sh:" \
+| @SED@ -e 's:record the command history is .*:record the command history is: ' \
 > ${TEST_FILTERED_FILE}
 check_output $TEST_FILTERED_FILE $RIGHT_FILE
 
