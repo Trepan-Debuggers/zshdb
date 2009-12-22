@@ -16,6 +16,10 @@ fi
 AC_SUBST(DIFF)
 AC_SUBST(DIFF_OPTS)
 
+# We need a GNU sed and the below allows us to use @SED@ in
+# the integration tests programs.
+AC_PROG_SED
+
 ## --with-zsh can be used to tell the zshdb script and the regression
 ## test which bash to run. It can be omitted too in which case we'll
 ## look for a zsh binary.

@@ -1,4 +1,4 @@
-#@SH_PROG@ -f
+#!@SH_PROG@ -f
 # -*- shell-script -*-
 PS4='(%x:%I): [%?] zsh+ 
 '

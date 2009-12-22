@@ -25,6 +25,8 @@ abs_srcdir=@abs_srcdir@
 abs_builddir=@abs_builddir@
 
 TESTS_ENVIRONMENT = \
+  SHELL=@SH_PROG@   \
+  SH=@SH_PROG@      \
   srcdir="$(abs_srcdir)" \
   builddir="$(abs_builddir)"
 

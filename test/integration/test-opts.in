@@ -1,4 +1,4 @@
-#!/bin/zsh -f
+#!@SH_PROG@ -f
 # -*- shell-script -*-
 # Test debugger options.
 
