@@ -38,7 +38,7 @@ If no location specification is given, use the current line.'
 _Dbg_do_break() {
 
   typeset -i is_temp=$1
-  shift
+  (( $# > 0 )) && shift
 
   typeset linespec
   if (( $# > 0 )) ; then 
@@ -46,7 +46,7 @@ _Dbg_do_break() {
   else
       _Dbg_frame_lineno; linespec=$_Dbg_frame_lineno
   fi
-  shift
+  (( $# > 0 )) && shift
 
   typeset condition=${1:-''}
   if [[ "$linespec" == 'if' ]]; then
