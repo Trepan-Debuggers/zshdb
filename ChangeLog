@@ -1,3 +1,67 @@
+2010-01-02  rocky <rocky@gnu.org>
+
+	* command/break.sh: Fix bug in running a simple "break" command.
+
+2010-01-02  rocky <rocky@gnu.org>
+
+	* test/integration/.gitignore, test/integration/test-bug-args,
+	test/integration/test-bug-errexit,
+	test/integration/test-bug-ksharrays, test/integration/test-bugIFS,
+	test/integration/test-condition, test/integration/test-delete,
+	test/integration/test-enable, test/integration/test-examine,
+	test/integration/test-frame, test/integration/test-list,
+	test/integration/test-next, test/integration/test-opts,
+	test/integration/test-restart, test/integration/test-setshow,
+	test/integration/test-skip, test/integration/test-step,
+	test/integration/test-subshell, test/integration/test-tbreak: 
+	command/break.sh: unnecessary guard test but keeps in sync with
+	kshdb. test/integration/test-*: these are auto generated.
+
+2009-12-22  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2009-12-22  rocky <rocky@gnu.org>
+
+	* configure.ac, test/integration/Makefile.am,
+	test/integration/check-common.sh.in, test/integration/test-brkpt1,
+	test/integration/test-brkpt1.in, test/integration/test-bug-args,
+	test/integration/test-bug-args.in,
+	test/integration/test-bug-errexit,
+	test/integration/test-bug-errexit.in,
+	test/integration/test-bug-ksharrays,
+	test/integration/test-bug-ksharrays.in,
+	test/integration/test-bugIFS, test/integration/test-bugIFS.in,
+	test/integration/test-condition,
+	test/integration/test-condition.in, test/integration/test-delete,
+	test/integration/test-delete.in, test/integration/test-enable,
+	test/integration/test-enable.in, test/integration/test-examine,
+	test/integration/test-examine.in, test/integration/test-frame,
+	test/integration/test-frame.in, test/integration/test-list,
+	test/integration/test-list.in, test/integration/test-next,
+	test/integration/test-next.in, test/integration/test-opts,
+	test/integration/test-opts.in, test/integration/test-restart,
+	test/integration/test-restart.in, test/integration/test-setshow,
+	test/integration/test-setshow.in, test/integration/test-skip,
+	test/integration/test-skip.in, test/integration/test-step,
+	test/integration/test-step.in, test/integration/test-subshell,
+	test/integration/test-subshell.in, test/integration/test-tbreak,
+	test/integration/test-tbreak.in: test/integration/*: Set zsh in
+	integration tests to the same zsh as the debugger uses.
+	configure.ac: test and use a GNU-like sed.
+
+2009-12-18  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of git@github.com:rocky/zshdb
+
+2009-12-18  Rocky Bernstein (VCDImager Developer) <rocky@login.(none)>
+
+	* autogen.sh, test/zsh/ok4zshdb.sh: Solairis configuration fixes
+
+2009-10-27  rocky <rocky@gnu.org>
+
+	* ChangeLog, NEWS, configure.ac: Get ready for release 0.04.
+
 2009-10-23  R. Bernstein <rocky@gnu.org>
 
 	* NEWS: NEWS preening
