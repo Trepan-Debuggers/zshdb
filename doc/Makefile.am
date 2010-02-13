@@ -8,4 +8,4 @@ all: $(INFO_DEPS) $(man1_MANS) html
 $(man1_MANS): @PACKAGE@-man.pod
 	pod2man --name=@PACKAGE@ --release=$(PACKAGE_VERSION) --section=$(EXT) $(srcdir)/@PACKAGE@-man.pod >$@
 
-MAINTAINERCLEANFILES = $(man1_MANS)
+MOSTLYCLEANFILES = $(man1_MANS)
