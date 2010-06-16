@@ -32,6 +32,8 @@ _Dbg_file2canonic=()
 typeset -A _Dbg_fileinfo
 _Dbg_fileinfo=()
 
+typeset _Dbg_bogus_file=' A really bogus file'
+
 # Check that line $2 is not greater than the number of lines in 
 # file $1
 _Dbg_check_line() {
@@ -169,7 +171,7 @@ function _Dbg_readin {
     next=${#_Dbg_filenames[@]}
     _Dbg_source_array_var="_Dbg_source_${next}"
 
-    if [[ -z $filename ]] || [[ $filename == _Dbg_bogus_file ]] ; then 
+    if [[ -z $filename ]] || [[ $filename == "$_Dbg_bogus_file" ]] ; then 
 	eval "${_Dbg_source_array_var}[0]=\"$Dbg_EXECUTION_STRING\""
     else 
 	fullname=$(_Dbg_resolve_expand_filename "$filename")
