@@ -36,14 +36,14 @@ _Dbg_list() {
 	filename=$_Dbg_frame_last_filename
     fi
 
-    if [[ $2 = '.' ]]; then
-	_Dbg_listline=$Dbg_frame_last_lineno
+    if [[ $2 == '.' ]]; then
+	_Dbg_listline=$_Dbg_frame_last_lineno
     elif [[ -n $2 ]] ; then
-      _Dbg_listline=$2
+	_Dbg_listline=$2
     else
 	_Dbg_listline=$_Dbg_frame_last_lineno
     fi
-    (( _Dbg_listline==0 )) && ((_Dbg_listline++))
+    (( _Dbg_listline==0 && _Dbg_listline++ ))
 
     typeset -i cnt
     cnt=${3:-$_Dbg_listsize}
@@ -83,6 +83,23 @@ _Dbg_list() {
     return 0
 }
 
+_Dbg_list_columns() {
+    typeset colsep='  '
+    (($# > 0 )) && { colsep="$1"; shift; }
+    if (($# > 0 )) && ; then 
+	msg=$1
+	shift
+    else
+	msg=_Dbg_msg
+    fi
+    (($# != 0)) && return 1
+    typeset -a columnized; columnize $_Dbg_linewidth "$colsep"
+    typeset -i i
+    for ((i=0; i<${#columnized[@]}; i++)) ; do 
+	$msg "  ${columnized[i]}"
+    done
+
+}
 _Dbg_list_locals() {
     typeset -a list
     list=(${(k)parameters[(R)*local*]})
@@ -105,22 +122,4 @@ _Dbg_list_typeset_attr() {
     typeset -i rc=$?
     (( $rc != 0 )) && return $rc
     _Dbg_list_columns
-}
-
-_Dbg_list_columns() {
-    typeset colsep='  '
-    (($# > 0 )) && { colsep="$1"; shift; }
-    if (($# > 0 )) && ; then 
-	msg=$1
-	shift
-    else
-	msg=_Dbg_msg
-    fi
-    (($# != 0)) && return 1
-    typeset -a columnized; columnize $_Dbg_linewidth "$colsep"
-    typeset -i i
-    for ((i=0; i<${#columnized[@]}; i++)) ; do 
-	$msg "  ${columnized[i]}"
-    done
-
 }

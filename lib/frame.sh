@@ -107,8 +107,8 @@ _Dbg_frame_lineno() {
     typeset -i pos=${1:-$_Dbg_stack_pos}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset -a split_result; _Dbg_split "$file_line" ':'
-    _Dbg_frame_lineno=${split_result[1]}
-    return $Dbg_frame_lineno
+    _Dbg_frame_last_lineno=${split_result[1]}
+    return $Dbg_frame_last_lineno
 }
 
 # Save stack frames in array _Dbg_frame_stack ignoring the 
