@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Things related to file handling.
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -22,16 +22,6 @@
 typeset -a _Dbg_dir
 _Dbg_dir=('\$cdir' '\$cwd' )
 
-# $1 contains the name you want to glob. return 0 if exists and is
-# readible or 1 if not. 
-# The result will be in variable $filename which is assumed to be 
-# local'd by the caller
-_Dbg_glob_filename() {
-  typeset cmd="filename=$(expr $1)"
-  eval $cmd
-  [[ -r $filename ]]
-}
-
 # Either fill out or strip filename as determined by "basename_only"
 # and annotate settings
 _Dbg_adjust_filename() {
@@ -43,6 +33,16 @@ _Dbg_adjust_filename() {
   else
     print -- $filename
   fi
+}
+
+# $1 contains the name you want to glob. return 0 if exists and is
+# readable or 1 if not. 
+# The result will be in variable $filename which is assumed to be 
+# local'd by the caller
+_Dbg_glob_filename() {
+  typeset cmd="filename=$(expr $1)"
+  eval $cmd
+  [[ -r $filename ]]
 }
 
 #
