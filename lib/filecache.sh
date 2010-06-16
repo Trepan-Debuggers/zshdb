@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # filecache.sh - cache file information
 #
-#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -209,7 +209,7 @@ _Dbg_readin_if_new() {
 }
 
 # Set _Dbg_source_array_var to the variable that contains file lines
-# for $1. Variable "fullname" will contain the exanded full filename for $1.
+# for $1. Variable "fullname" will contain the expanded full filename for $1.
 # 0 is returned if everything went ok.
 _Dbg_set_source_array_var() {
     (( $# != 1 )) && return 1
