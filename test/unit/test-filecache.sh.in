@@ -71,6 +71,7 @@ set -- -q  # Don't need to show banner
 . ${abs_top_srcdir}dbg-pre.sh
 . ${abs_top_srcdir}lib/filecache.sh
 . ${abs_top_srcdir}lib/file.sh
+. ${abs_top_srcdir}lib/msg.sh
 
 set -o shwordsplit
 SHUNIT_PARENT=$0
