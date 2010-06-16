@@ -298,21 +298,21 @@ function _Dbg_delete_brkpt_entry() {
 
 # Enable/disable breakpoint(s) by entry numbers.
 function _Dbg_enable_disable_brkpt() {
-  (($# != 3)) && return 1
-  typeset -i on=$1
-  typeset en_dis=$2
-  typeset -i i=$3
-  if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
-    if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
-      _Dbg_errmsg "Breakpoint entry $i already ${en_dis}, so nothing done."
-      return 1
+    (($# != 3)) && return 1
+    typeset -i on=$1
+    typeset en_dis=$2
+    typeset -i i=$3
+    if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
+	if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
+	    _Dbg_errmsg "Breakpoint entry $i already ${en_dis}, so nothing done."
+	    return 1
+	else
+	    _Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
+	    _Dbg_msg "Breakpoint entry $i $en_dis."
+	    return 0
+	fi
     else
-      _Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
-      _Dbg_msg "Breakpoint entry $i $en_dis."
-      return 0
+	_Dbg_errmsg "Breakpoint entry $i doesn't exist, so nothing done."
+	return 1
     fi
-  else
-    _Dbg_errmsg "Breakpoint entry $i doesn't exist, so nothing done."
-    return 1
-  fi
 }
