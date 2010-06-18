@@ -142,13 +142,13 @@ _Dbg_hook_breakpoint_hit() {
     lineno=${split_result[1]}
     full_filename=$(_Dbg_is_file $full_filename)
     if [[ -r $full_filename ]] ; then 
-	_Dbg_file2canonic[$filename]="$fullname"
+	_Dbg_file2canonic[$full_filename]="$full_filename"
     fi
     # FIXME: combine with _Dbg_unset_brkpt
     typeset -a linenos
-    eval "linenos=(${_Dbg_brkpt_file2linenos[$fullname]})"
+    eval "linenos=(${_Dbg_brkpt_file2linenos[$full_filename]})"
     typeset -a brkpt_nos
-    eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$fullname]})"
+    eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$full_filename]})"
     typeset -i i
     # Check breakpoints within full_filename
     for ((i=0; i < ${#linenos[@]}; i++)); do 
