@@ -138,11 +138,11 @@ _Dbg_hook_breakpoint_hit() {
     typeset file_line
     file_line=${funcfiletrace[1]}
     typeset -a split_result; _Dbg_split "$file_line" ':'
-    full_filename=${split_result[0]}
+    filename=${split_result[0]}
     lineno=${split_result[1]}
-    full_filename=$(_Dbg_is_file $full_filename)
+    full_filename=$(_Dbg_is_file $filename)
     if [[ -r $full_filename ]] ; then 
-	_Dbg_file2canonic[$full_filename]="$full_filename"
+	_Dbg_file2canonic[$filename]="$full_filename"
     fi
     # FIXME: combine with _Dbg_unset_brkpt
     typeset -a linenos
