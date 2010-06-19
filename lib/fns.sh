@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # fns.sh - Debugger Utility Functions
 #
-#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -165,34 +165,32 @@ function _Dbg_linespec_setup {
 # "word" which the caller should have declared.
 # We return the filename last since that can have embedded blanks.
 function _Dbg_parse_linespec {
-  typeset linespec="$1"
-  case "$linespec" in
-
-    # line number only - use filename from last adjust_frame
-    [0-9]* )	
-	  word=($linespec 0 "${_Dbg_frame_last_filename}")
-	  return 0
-	  ;;
-    
-    # file:line
-    [^:][^:]*[:][0-9]* )
-      # Split the POSIX way
-      typeset line_word=${linespec##*:}
-      typeset file_word=${linespec%${line_word}}
-      file_word=${file_word%?}
-      word=("$line_word" 0 "$file_word")
-      return 0
-      ;;
-
-    # Function name or error
-    * )
-      if _Dbg_is_function $linespec ${_Dbg_debug_debugger} ; then 
-	typeset -a word==( $(typeset -p +f $linespec) )
-	typeset -r fn=${word[1]%\(\)}
-	word=(${word[3]} 1 "${word[4]}")
-	return 0
-      fi
-      ;;
-   esac
+    typeset linespec="$1"
+    case "$linespec" in
+	
+	# line number only - use filename from last adjust_frame
+	[0-9]* )	
+	    word=($linespec 0 "${_Dbg_frame_last_filename}")
+	    return 0
+	    ;;
+	
+	# file:line
+	[^:][^:]*[:][0-9]* )
+	    # Split the POSIX way
+	    typeset line_word=${linespec##*:}
+	    typeset file_word=${linespec%${line_word}}
+	    file_word=${file_word%?}
+	    word=("$line_word" 0 "$file_word")
+	    return 0
+	    ;;
+	
+	# Function name or error
+	* )
+	    if _Dbg_is_function $linespec ${_Dbg_debug_debugger} ; then 
+		word=( '' 1 '')
+		return 0
+	    fi
+	    ;;
+    esac
   return 1
 }
