@@ -1,5 +1,6 @@
 pkgdatadir        = ${datadir}/@PACKAGE@/lib
 pkgdata_DATA =      	\
+	action.sh    	\
 	alias.sh    	\
 	break.sh    	\
 	columns.sh  	\
