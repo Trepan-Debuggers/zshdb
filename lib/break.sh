@@ -162,6 +162,7 @@ _Dbg_set_brkpt() {
     (( $# < 3 || $# > 4 )) && return 1
     typeset source_file
     source_file=$(_Dbg_expand_filename "$1")
+    $(_Dbg_is_int "$2") || return 1
     typeset -ir lineno=$2
     typeset -ir is_temp=$3
     typeset -r  condition=${4:-1}
@@ -170,7 +171,6 @@ _Dbg_set_brkpt() {
     ((_Dbg_brkpt_max++))
     ((_Dbg_brkpt_count++))
     
-
     _Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno
     _Dbg_brkpt_file[$_Dbg_brkpt_max]="$source_file"
     _Dbg_brkpt_cond[$_Dbg_brkpt_max]="$condition"
