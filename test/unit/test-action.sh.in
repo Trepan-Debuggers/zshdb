@@ -82,8 +82,16 @@ test_action()
     assertEquals "Action 2 set in file $shunit_file, line 6." "${msgs[-1]}" 
     assertEquals 1 $_Dbg_action_count
 
+    _Dbg_do_clear_action 1 2 3
+    assertNotEquals '0' "$?"
+
+    _Dbg_do_clear_action ${shunit_file} bogus
+    assertNotEquals '0' "$?"
+
+    msgs=(); errmsgs=()
     _Dbg_do_clear_action ${shunit_file}:6
     assertEquals 0 $_Dbg_action_count
+    assertEquals '1' "${#msgs[@]}"
 }
 
 # Make sure @top_builddir@ has a trailing slash

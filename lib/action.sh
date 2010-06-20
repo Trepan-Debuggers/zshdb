@@ -115,35 +115,35 @@ _Dbg_do_clear_all_actions() {
 }
 
 # delete actions(s) at given file:line numbers. If no file is given
-# use the current file.
+# use the current file. 0 is returned on success, nonzero on error.
 _Dbg_do_clear_action() {
-  typeset -r n=${1:-$_Dbg_frame_last_lineno}
-
-  typeset filename
-  typeset -i line_number
-  typeset full_filename
-
-  _Dbg_linespec_setup $n
-
-  if [[ -n $full_filename ]] ; then 
-    if (( $line_number ==  0 )) ; then 
-      _Dbg_msg "There is no line 0 to clear action at."
-    else 
-	_Dbg_check_line $line_number "$full_filename"
-	(( $? == 0 )) && \
-	    _Dbg_unset_action "$full_filename" "$line_number"
-	if [[ $? == 0 ]] ; then 
-	    _Dbg_msg "Removed action."
-	    return 0
+    (( $# > 1 )) && return 1
+    typeset -r n=${1:-$_Dbg_frame_last_lineno}
+    
+    typeset filename
+    typeset -i line_number
+    typeset full_filename
+    
+    _Dbg_linespec_setup $n
+    
+    if [[ -n $full_filename ]] ; then 
+	if (( $line_number ==  0 )) ; then 
+	    _Dbg_msg "There is no line 0 to clear action at."
 	else 
-	    _Dbg_errmsg "Didn't find any actions to remove at $n."
+	    _Dbg_check_line $line_number "$full_filename"
+	    (( $? == 0 )) && \
+		_Dbg_unset_action "$full_filename" "$line_number"
+	    if [[ $? == 0 ]] ; then 
+		_Dbg_msg "Removed action."
+		return 0
+	    else 
+		_Dbg_errmsg "Didn't find any actions to remove at $n."
+	    fi
 	fi
+    else
+	_Dbg_file_not_read_in $filename
     fi
-  else
-    _Dbg_file_not_read_in $filename
-  fi
-  return 1
-
+    return 1
 }
 
 # list actions
