@@ -207,9 +207,9 @@ _Dbg_set_action() {
 
 # Internal routine to delete a breakpoint by file/line.
 _Dbg_unset_action() {
-    (( $# != 2 )) && return 1
+    (( $# == 2 )) || return 1
     typeset -r  filename="$1"
-    $(_Dbg_is_int $2) || return 1
+    $(_Dbg_is_int "$2") || return 1
     typeset -i  lineno=$2
     typeset     fullname
     fullname=$(_Dbg_expand_filename "$filename")

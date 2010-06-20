@@ -52,7 +52,7 @@ test_is_function()
     assertTrue 'fn _function_test is system fn which we want; should report true' $? 
 }
 
-# Test _Dbg_is_integer
+# Test _Dbg_is_int
 test_is_integer()
 {
     _Dbg_is_int

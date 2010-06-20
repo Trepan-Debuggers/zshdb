@@ -221,8 +221,9 @@ function _Dbg_unset_brkpt_arrays {
 # Internal routine to delete the first found a breakpoint by file/line.
 # The number of breakpoints (0 or 1) is returned.
 function _Dbg_unset_brkpt {
-    (( $# != 2 )) && return 0
+    (( $# == 2 )) || return 0
     typeset -r filename="$1"
+    $(_Dbg_is_int "$2") || return 0
     typeset -i lineno=$2
     typeset    fullname
     fullname=$(_Dbg_expand_filename "$filename")
