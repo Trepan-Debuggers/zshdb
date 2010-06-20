@@ -129,19 +129,21 @@ _Dbg_do_clear_action() {
     if (( $line_number ==  0 )) ; then 
       _Dbg_msg "There is no line 0 to clear action at."
     else 
-      _Dbg_check_line $line_number "$full_filename"
-      (( $? == 0 )) && \
-	_Dbg_unset_action "$full_filename" "$line_number"
-      typeset -r found=$?
-      if [[ $found != 0 ]] ; then 
-	_Dbg_msg "Removed $found action(s)."
-      else 
-	_Dbg_msg "Didn't find any actions to remove at $n."
-      fi
+	_Dbg_check_line $line_number "$full_filename"
+	(( $? == 0 )) && \
+	    _Dbg_unset_action "$full_filename" "$line_number"
+	if [[ $? == 0 ]] ; then 
+	    _Dbg_msg "Removed action."
+	    return 0
+	else 
+	    _Dbg_errmsg "Didn't find any actions to remove at $n."
+	fi
     fi
   else
     _Dbg_file_not_read_in $filename
   fi
+  return 1
+
 }
 
 # list actions
@@ -189,10 +191,10 @@ _Dbg_set_action() {
     typeset dq_source_file=$(_Dbg_esc_dq "$source_file")
     typeset dq_stmt=$(_Dbg_esc_dq "stmt")
 
-    _Dbg_write_journal "_Dbg_action_line[$_Dbg_action_max]=$lineno"
-    _Dbg_write_journal "_Dbg_action_file[$_Dbg_action_max]=\"$dq_source_file\""
-    _Dbg_write_journal "_Dbg_action_stmt[$_Dbg_action_max]=\"$dq_stmt\""
-    _Dbg_write_journal "_Dbg_action_enable[$_Dbg_action_max]=1"
+    _Dbg_write_journal_eval "_Dbg_action_line[$_Dbg_action_max]=$lineno"
+    _Dbg_write_journal_eval "_Dbg_action_file[$_Dbg_action_max]=\"$dq_source_file\""
+    _Dbg_write_journal_eval "_Dbg_action_stmt[$_Dbg_action_max]=\"$dq_stmt\""
+    _Dbg_write_journal_eval "_Dbg_action_enable[$_Dbg_action_max]=1"
 
     # Add line number with a leading and trailing space. Delimiting the
     # number with space helps do a string search for the line number.
@@ -206,6 +208,8 @@ _Dbg_set_action() {
 }
 
 # Internal routine to delete a breakpoint by file/line.
+# 0 is returned if we were able to unset the action.
+# Nonzero is returned otherwize.
 _Dbg_unset_action() {
     (( $# == 2 )) || return 1
     typeset -r  filename="$1"
@@ -217,7 +221,7 @@ _Dbg_unset_action() {
     # FIXME: combine with something?
     typeset -a linenos
     eval "linenos=(${_Dbg_action_file2linenos[$fullname]})"
-    typeset -a brkpt_nos
+    typeset -a action_nos
     eval "action_nos=(${_Dbg_action_file2action[$fullname]})"
 
     typeset -i i
@@ -229,11 +233,11 @@ _Dbg_unset_action() {
 	    _Dbg_unset_action_arrays $action_num
 	    linenos[i]=()  # This is the zsh way to unset an array element
 	    _Dbg_action_file2linenos[$fullname]=${linenos[@]}
-	    return 1
+	    return 0
 	fi
     done
-    _Dbg_msg "No action found at $filename:$lineno"
-    return 0
+    _Dbg_errmsg "No action found in file ${filename}, line $lineno."
+    return 1
 }
 
 # Routine to a delete actions by entry numbers.
@@ -261,10 +265,10 @@ _Dbg_do_action_delete() {
 _Dbg_unset_action_arrays() {
     (( $# != 1 )) && return 1
     typeset -i del=$1
-    _Dbg_write_journal_eval "unset _Dbg_action_enable[$del]"
-    _Dbg_write_journal_eval "unset _Dbg_action_file[$del]"
-    _Dbg_write_journal_eval "unset _Dbg_action_line[$del]"
-    _Dbg_write_journal_eval "unset _Dbg_action_stmt[$del]"
+    _Dbg_write_journal_eval "_Dbg_action_enable[$del]=''"
+    _Dbg_write_journal_eval "_Dbg_action_file[$del]=''"
+    _Dbg_write_journal_eval "_Dbg_action_line[$del]=''"
+    _Dbg_write_journal_eval "_Dbg_action_stmt[$del]=''"
     ((_Dbg_action_count--))
     return 0
 }

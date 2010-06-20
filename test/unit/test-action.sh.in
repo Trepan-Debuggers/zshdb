@@ -22,6 +22,8 @@ test_action()
 	print -- $*
     }
 
+    _Dbg_readin "$shunit_file"
+
     typeset -a msgs
     msgs=()
 
@@ -42,61 +44,46 @@ test_action()
     assertEquals 1 $_Dbg_action_count
     msgs=()
 
-    # # Test parameter count checking for _Dbg_unset_action
-    # _Dbg_unset_action
-    # assertEquals '0' "$?"
-    # _Dbg_unset_action 1 2 3
-    # assertEquals '0' "$?"
-    # # Shouldn't find this breakpoint
-    # _Dbg_unset_action test.sh 6
-    # assertEquals '0' "$?"
-    # assertEquals 'No breakpoint found at test.sh:6' "${msgs[-1]}" 
+    # Test parameter count checking for _Dbg_unset_action
+    _Dbg_unset_action
+    assertNotEquals '0' "$?"
+    _Dbg_unset_action 1 2 3
+    assertNotEquals '0' "$?"
 
-    # assertEquals 1 $_Dbg_action_count
-    # msgs=()
-    # # This should work and remove a breakpoint
-    # _Dbg_unset_action test.sh 5
-    # assertEquals '1' "$?"
-    # assertEquals '0' "${#msgs[@]}"
-    # assertEquals 0 $_Dbg_action_count
+    _Dbg_unset_action test.sh foo
+    assertNotEquals '0' "$?"
 
-    # # This should not work since breakpoint has already been removed.
-    # _Dbg_unset_action test.sh 5
-    # assertEquals '0' "$?"
-    # assertEquals 'No breakpoint found at test.sh:5' "${msgs[-1]}"
+    # Shouldn't find this action
+    _Dbg_unset_action test.sh 6
+    rc=$?
 
-    # msgs=(); errmsgs=()
-    # # Enable/disable parameter checking
-    # _Dbg_enable_disable_action
-    # assertEquals '1' "$?"
+    assertNotEquals '0' "$rc"
+    assertEquals 'No action found in file test.sh, line 6.' "${errmsgs[-1]}" 
 
-    # # Enable a non-existent breakpoint
-    # msgs=()
-    # _Dbg_enable_disable_action 1 'enabled' 1
-    # assertEquals "Breakpoint entry 1 doesn't exist, so nothing done." "${errmsgs[-1]}" 
+    assertEquals 1 $_Dbg_action_count
 
-    # msgs=(); errmsgs=()
-    # # Add another breakpoint for testing
-    # _Dbg_set_action test.sh 6 1
-    # assertEquals 'One-time breakpoint 2 set in file test.sh, line 6.' "${msgs[-1]}" 
-    # assertEquals 1 $_Dbg_action_count
+    msgs=()
+    # This should work and remove an action
+    _Dbg_unset_action test.sh 5
+    assertEquals '0' "$?"
+    assertEquals '0' "${#msgs[@]}"
+    assertEquals 0 $_Dbg_action_count
 
-    # msgs=(); errmsgs=()
-    # _Dbg_enable_disable_action 1 'enabled' 2
-    # assertEquals 'Breakpoint entry 2 already enabled, so nothing done.' "${errmsgs[-1]}" 
+    # This should not work since breakpoint has already been removed.
+    _Dbg_unset_action test.sh 5
+    assertNotEquals '0' "$?"
+    assertEquals 'No action found in file test.sh, line 5.' "${errmsgs[-1]}"
 
-    # msgs=(); errmsgs=()
-    # _Dbg_enable_disable_action 0 'enabled' 2
-    # assertEquals 'Breakpoint entry 2 enabled.' "${msgs[-1]}" 
+    msgs=(); errmsgs=()
+    # Add another action for testing
+    _Dbg_set_action $shunit_file 6 x=1
+    assertEquals '0' "$?"
+    assertEquals '1' "${#msgs[@]}"
+    assertEquals "Action 2 set in file $shunit_file, line 6." "${msgs[-1]}" 
+    assertEquals 1 $_Dbg_action_count
 
-    # msgs=(); errmsgs=()
-    # _Dbg_enable_disable_action 1 'disabled' 2
-    # assertEquals '0' "$?"
-    # assertEquals 'Breakpoint entry 2 disabled.' "${msgs[-1]}" 
-
-    # assertEquals 1 $_Dbg_action_count
-    # _Dbg_clear_all_action
-    # assertEquals 0 $_Dbg_action_count
+    _Dbg_do_clear_action ${shunit_file}:6
+    assertEquals 0 $_Dbg_action_count
 }
 
 # Make sure @top_builddir@ has a trailing slash
@@ -112,6 +99,8 @@ _Dbg_libdir=$abs_top_srcdir
 set -- '-q'  # Don't need to show banner
 . ${abs_top_srcdir}dbg-pre.sh
 . ${abs_top_srcdir}lib/action.sh
+. ${abs_top_srcdir}lib/file.sh
+. ${abs_top_srcdir}lib/filecache.sh
 . ${abs_top_srcdir}lib/fns.sh
 . ${abs_top_srcdir}lib/journal.sh
 . ${abs_top_srcdir}lib/validate.sh
