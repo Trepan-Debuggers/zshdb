@@ -147,8 +147,9 @@ AC_CONFIG_FILES([test/integration/test-subshell],
 AC_CONFIG_FILES([test/integration/test-tbreak], 
                 [chmod +x test/integration/test-tbreak])
 
-AC_CONFIG_FILES([test/unit/test-alias.sh], [chmod +x test/unit/test-alias.sh])
-AC_CONFIG_FILES([test/unit/test-break.sh], [chmod +x test/unit/test-break.sh])
+AC_CONFIG_FILES([test/unit/test-action.sh], [chmod +x test/unit/test-action.sh])
+AC_CONFIG_FILES([test/unit/test-alias.sh],  [chmod +x test/unit/test-alias.sh])
+AC_CONFIG_FILES([test/unit/test-break.sh],  [chmod +x test/unit/test-break.sh])
 AC_CONFIG_FILES([test/unit/test-columns.sh], 
                 [chmod +x test/unit/test-columns.sh])
 AC_CONFIG_FILES([test/unit/test-dbg-opts.sh], 
@@ -173,5 +174,7 @@ AC_CONFIG_FILES([test/unit/test-sort.sh],
 		[chmod +x test/unit/test-sort.sh])
 AC_CONFIG_FILES([test/unit/test-tty.sh],
 		[chmod +x test/unit/test-tty.sh])
+AC_CONFIG_FILES([test/unit/test-validate.sh],
+		[chmod +x test/unit/test-validate.sh])
 
 AC_OUTPUT

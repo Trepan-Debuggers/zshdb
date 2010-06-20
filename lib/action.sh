@@ -165,14 +165,15 @@ _Dbg_list_action() {
   fi
 }
 
-# Internal routine to a set breakpoint unconditonally. 
+# Internal routine to a set action unconditonally. 
 
 _Dbg_set_action() {
+    (( $# != 3 )) && return 1
     typeset source_file
     source_file=$(_Dbg_expand_filename "$1")
 
     typeset -ir lineno=$2
-    typeset -r stmt=${3:-1}
+    typeset -r stmt=$3
 
     _Dbg_action_line[$_Dbg_action_max]=$lineno
     _Dbg_action_file[$_Dbg_action_max]="$source_file"
@@ -193,7 +194,7 @@ _Dbg_set_action() {
     _Dbg_brkpt_file2action[$source_file]+=" $_Dbg_action_max "
 
     source_file=$(_Dbg_adjust_filename "$source_file")
-    _Dbg_msg "Breakpoint $_Dbg_action_max set at ${source_file}:$lineno."
+    _Dbg_msg "Action $_Dbg_action_max set at ${source_file}:$lineno."
     ((_Dbg_action_max++))
     _Dbg_write_journal "_Dbg_action_max=$_Dbg_action_max"
     return 0
@@ -203,7 +204,7 @@ _Dbg_set_action() {
 _Dbg_unset_action() {
     typeset -r  filename="$1"
     typeset -ir lineno=$2
-    typeset    fullname
+    typeset     fullname
     fullname=$(_Dbg_expand_filename "$filename")
 
     # FIXME: combine with something?

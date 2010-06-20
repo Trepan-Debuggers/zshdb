@@ -2,6 +2,7 @@
 /.*~
 /Makefile
 /Makefile.in
+/test-action.sh
 /test-alias.sh
 /test-break.sh
 /test-columns.sh
@@ -18,3 +19,4 @@
 /test-save-restore.sh
 /test-sort.sh
 /test-tty.sh
+/test-validate.sh

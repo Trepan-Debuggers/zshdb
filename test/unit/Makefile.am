@@ -1,4 +1,6 @@
-TESTS = test-alias.sh        \
+TESTS = \
+	test-action.sh       \
+	test-alias.sh        \
 	test-break.sh        \
 	test-columns.sh      \
 	test-dbg-opts.sh     \
@@ -13,7 +15,9 @@ TESTS = test-alias.sh        \
 	test-run.sh          \
 	test-save-restore.sh \
 	test-sort.sh         \
-	test-tty.sh
+	test-tty.sh 	     \
+	test-validate.sh
+
 check_DATA = shunit2
 
 abs_srcdir=@abs_srcdir@
@@ -24,6 +28,7 @@ TESTS_ENVIRONMENT = \
   builddir="$(abs_builddir)"
 
 EXTRA_DIST = $(TESTS) $(check_DATA) \
+	test-action.sh.in           \
 	test-alias.sh.in            \
 	test-break.sh.in            \
 	test-columns.sh.in          \
@@ -39,7 +44,8 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-run.sh.in              \
 	test-save-restore.sh.in     \
 	test-sort.sh.in             \
-	test-tty.sh.in
+	test-tty.sh.in              \
+	test-validate.sh.in
 
 test: check
 test-unit: check

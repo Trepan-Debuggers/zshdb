@@ -76,33 +76,6 @@ _Dbg_get_typeset_attr() {
     eval $cmd
 }
 
-# _Dbg_is_function returns 0 if $1 is a function or nonzero otherwise. 
-# if $2 is nonzero, system functions, i.e. those whose name starts with
-# an underscore (_), are included in the search.
-_Dbg_is_function() {
-    # setopt ksharrays  # Done in _Dbg_debug_trap_handler
-    (( 0 == $# )) && return 1
-    typeset needed_fn=$1
-    typeset -i include_system=${2:-0}
-    [[ ${needed_fn[0,0]} == '_' ]] && ((!include_system)) && {
-	return 1
-    }
-    typeset fn
-    fn=$(declare -f $needed_fn 2>&1)
-    [[ -n "$fn" ]]
-    return $?
-}
-
-# _Dbg_is_alias returns 0 if $1 is an alias or nonzero otherwise. 
-_Dbg_is_alias() {
-    # setopt ksharrays  # Done in _Dbg_debug_trap_handler
-    (( 0 == $# )) && return 1
-    typeset needed_alias=$1
-    typeset al
-    al=$(alias $needed_alias 2>&1)
-    return $?
-}
-
 # Print "on" or "off" depending on whether $1 is true (0) or false
 # (nonzero).
 function _Dbg_onoff {

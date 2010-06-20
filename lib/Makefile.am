@@ -21,7 +21,8 @@ pkgdata_DATA =      	\
 	run.sh    	\
 	save-restore.sh	\
 	set-d-vars.sh   \
+	sort.sh 	\
 	tty.sh          \
-	sort.sh
+	validate.sh
 
 EXTRA_DIST = $(pkgdata_DATA)

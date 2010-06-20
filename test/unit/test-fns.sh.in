@@ -66,54 +66,6 @@ test_defined()
     assertTrue 'variable xxx should be defined' $? 
 }
 
-# Test _Dbg_is_alias
-test_is_alias()
-{
-    _Dbg_is_alias 
-    assertFalse 'No function given; is_alias should report false' $? 
-
-    typeset al
-    unalias testing_is_alias 2>/dev/null 
-    _Dbg_is_alias testing_is_alias
-    assertFalse 'testing_is_alias should not be defined' $? 
-
-    alias testing_is_alias=true
-    _Dbg_is_alias testing_is_alias
-    assertTrue 'test_is_alias should now be defined' "$?"
-    unalias testing_is_alias
-}
-
-# Test _Dbg_is_function
-test_is_function()
-{
-    _Dbg_is_function 
-    assertFalse 'No function given; is_function should report false' $? 
-
-    typeset fn
-    fn=$(declare -f function_test >/dev/null 2>&1)
-    [[ -n "$fn" ]] && unset -f function_test
-    _Dbg_is_function function_test
-    assertFalse 'function_test should not be defined' $? 
-
-    typeset -i function_test=1
-    _Dbg_is_function function_test
-    assertFalse 'test_function should still not be defined' "$?"
-
-    function_test() { :; }
-    _Dbg_is_function function_test
-    assertTrue 'test_function should now be defined' "$?"
-
-    function another_function_test { :; }
-    _Dbg_is_function another_function_test "$?"
-
-    _function_test() { :; }
-    _Dbg_is_function _function_test
-    assertFalse 'fn _function_test is system fn; is_function should report false' $? 
-
-    _Dbg_is_function _function_test 1 
-    assertTrue 'fn _function_test is system fn which we want; should report true' $? 
-}
-
 test_parse_linespec()
 {
     typeset word
@@ -182,6 +134,7 @@ set -- -q  # Don't need to show banner
 . $abs_top_srcdir/lib/frame.sh
 . $abs_top_srcdir/lib/journal.sh
 . $abs_top_srcdir/lib/save-restore.sh
+. $abs_top_srcdir/lib/validate.sh
 
 set -o shwordsplit
 SHUNIT_PARENT=$0
