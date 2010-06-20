@@ -96,21 +96,22 @@ _Dbg_do_action() {
 
 # clear all actions
 _Dbg_do_clear_all_actions() {
+    (( $# != 0 )) && return 1
 
-  typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
-  read $_Dbg_edit -p "Delete all actions? (y/n): " \
-    <&$_Dbg_input_desc 2>>$_Dbg_prompt_output
-
-  if [[ $REPLY != [Yy]* ]] ; then 
-    return 1
-  fi
-  _Dbg_write_journal_eval "_Dbg_action_enable=()"
-  _Dbg_write_journal_eval "_Dbg_action_line=()"
-  _Dbg_write_journal_eval "_Dbg_action_file=()"
-  _Dbg_write_journal_eval "_Dbg_action_stmt=()"
-  _Dbg_write_journal_eval "_Dbg_action_file2action=()"
-  _Dbg_write_journal_eval "_Dbg_action_file2linenos=()"
-  return 0
+    typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
+    read $_Dbg_edit -p "Delete all actions? (y/n): " \
+	<&$_Dbg_input_desc 2>>$_Dbg_prompt_output
+    
+    if [[ $REPLY != [Yy]* ]] ; then 
+	return 1
+    fi
+    _Dbg_write_journal_eval "_Dbg_action_enable=()"
+    _Dbg_write_journal_eval "_Dbg_action_line=()"
+    _Dbg_write_journal_eval "_Dbg_action_file=()"
+    _Dbg_write_journal_eval "_Dbg_action_stmt=()"
+    _Dbg_write_journal_eval "_Dbg_action_file2action=()"
+    _Dbg_write_journal_eval "_Dbg_action_file2linenos=()"
+    return 0
 }
 
 # delete actions(s) at given file:line numbers. If no file is given
@@ -172,8 +173,13 @@ _Dbg_set_action() {
     typeset source_file
     source_file=$(_Dbg_expand_filename "$1")
 
+    $(_Dbg_is_int $2) || return 1
     typeset -ir lineno=$2
     typeset -r stmt=$3
+
+    # Increment action_max here because we are 1-origin
+    ((_Dbg_action_max++))
+    ((_Dbg_action_count++))
 
     _Dbg_action_line[$_Dbg_action_max]=$lineno
     _Dbg_action_file[$_Dbg_action_max]="$source_file"
@@ -191,19 +197,20 @@ _Dbg_set_action() {
     # Add line number with a leading and trailing space. Delimiting the
     # number with space helps do a string search for the line number.
     _Dbg_action_file2linenos[$source_file]+=" $lineno "
-    _Dbg_brkpt_file2action[$source_file]+=" $_Dbg_action_max "
+    _Dbg_action_file2action[$source_file]+=" $_Dbg_action_max "
 
     source_file=$(_Dbg_adjust_filename "$source_file")
-    _Dbg_msg "Action $_Dbg_action_max set at ${source_file}:$lineno."
-    ((_Dbg_action_max++))
+    _Dbg_msg "Action $_Dbg_action_max set in file ${source_file}, line $lineno."
     _Dbg_write_journal "_Dbg_action_max=$_Dbg_action_max"
     return 0
 }
 
 # Internal routine to delete a breakpoint by file/line.
 _Dbg_unset_action() {
+    (( $# != 2 )) && return 1
     typeset -r  filename="$1"
-    typeset -ir lineno=$2
+    $(_Dbg_is_int $2) || return 1
+    typeset -i  lineno=$2
     typeset     fullname
     fullname=$(_Dbg_expand_filename "$filename")
 

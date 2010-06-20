@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!@SH_PROG@
 # -*- shell-script -*-
 
 PS4='(%x:%I): [%?] zsh+ 
@@ -31,86 +31,90 @@ test_action()
     _Dbg_set_action 1 2 3 4 5
     assertNotEquals '0' "$?"
 
+    _Dbg_set_action test.sh x=1 5
+    assertNotEquals '0' "$?"
+
     assertEquals 0 $_Dbg_action_count
 
-    # # This should work
-    # _Dbg_set_brkpt test.sh 5 0
-    # assertEquals 'Breakpoint 1 set in file test.sh, line 5.' "${msgs[-1]}" 
-    # assertEquals 1 $_Dbg_brkpt_count
-    # msgs=()
+    # This should work
+    _Dbg_set_action test.sh 5 x=1
+    assertEquals 'Action 1 set in file test.sh, line 5.' "${msgs[-1]}" 
+    assertEquals 1 $_Dbg_action_count
+    msgs=()
 
-    # # Test parameter count checking for _Dbg_unset_brkpt
-    # _Dbg_unset_brkpt
+    # # Test parameter count checking for _Dbg_unset_action
+    # _Dbg_unset_action
     # assertEquals '0' "$?"
-    # _Dbg_unset_brkpt 1 2 3
+    # _Dbg_unset_action 1 2 3
     # assertEquals '0' "$?"
     # # Shouldn't find this breakpoint
-    # _Dbg_unset_brkpt test.sh 6
+    # _Dbg_unset_action test.sh 6
     # assertEquals '0' "$?"
     # assertEquals 'No breakpoint found at test.sh:6' "${msgs[-1]}" 
 
-    # assertEquals 1 $_Dbg_brkpt_count
+    # assertEquals 1 $_Dbg_action_count
     # msgs=()
     # # This should work and remove a breakpoint
-    # _Dbg_unset_brkpt test.sh 5
+    # _Dbg_unset_action test.sh 5
     # assertEquals '1' "$?"
     # assertEquals '0' "${#msgs[@]}"
-    # assertEquals 0 $_Dbg_brkpt_count
+    # assertEquals 0 $_Dbg_action_count
 
     # # This should not work since breakpoint has already been removed.
-    # _Dbg_unset_brkpt test.sh 5
+    # _Dbg_unset_action test.sh 5
     # assertEquals '0' "$?"
     # assertEquals 'No breakpoint found at test.sh:5' "${msgs[-1]}"
 
     # msgs=(); errmsgs=()
     # # Enable/disable parameter checking
-    # _Dbg_enable_disable_brkpt
+    # _Dbg_enable_disable_action
     # assertEquals '1' "$?"
 
     # # Enable a non-existent breakpoint
     # msgs=()
-    # _Dbg_enable_disable_brkpt 1 'enabled' 1
+    # _Dbg_enable_disable_action 1 'enabled' 1
     # assertEquals "Breakpoint entry 1 doesn't exist, so nothing done." "${errmsgs[-1]}" 
 
     # msgs=(); errmsgs=()
     # # Add another breakpoint for testing
-    # _Dbg_set_brkpt test.sh 6 1
+    # _Dbg_set_action test.sh 6 1
     # assertEquals 'One-time breakpoint 2 set in file test.sh, line 6.' "${msgs[-1]}" 
-    # assertEquals 1 $_Dbg_brkpt_count
+    # assertEquals 1 $_Dbg_action_count
 
     # msgs=(); errmsgs=()
-    # _Dbg_enable_disable_brkpt 1 'enabled' 2
+    # _Dbg_enable_disable_action 1 'enabled' 2
     # assertEquals 'Breakpoint entry 2 already enabled, so nothing done.' "${errmsgs[-1]}" 
 
     # msgs=(); errmsgs=()
-    # _Dbg_enable_disable_brkpt 0 'enabled' 2
+    # _Dbg_enable_disable_action 0 'enabled' 2
     # assertEquals 'Breakpoint entry 2 enabled.' "${msgs[-1]}" 
 
     # msgs=(); errmsgs=()
-    # _Dbg_enable_disable_brkpt 1 'disabled' 2
+    # _Dbg_enable_disable_action 1 'disabled' 2
     # assertEquals '0' "$?"
     # assertEquals 'Breakpoint entry 2 disabled.' "${msgs[-1]}" 
 
-    # assertEquals 1 $_Dbg_brkpt_count
-    # _Dbg_clear_all_brkpt
-    # assertEquals 0 $_Dbg_brkpt_count
+    # assertEquals 1 $_Dbg_action_count
+    # _Dbg_clear_all_action
+    # assertEquals 0 $_Dbg_action_count
 }
 
-# Make sure ../.. has a trailing slash
-if [ '/src/external-vcs/zshdb' = '' ] ; then
+# Make sure @top_builddir@ has a trailing slash
+if [ '@abs_top_srcdir@' = '' ] ; then
   echo "Something is wrong abs_top_srcdir is not set."
  exit 1
 fi
 
-abs_top_srcdir=/src/external-vcs/zshdb
+abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 
 _Dbg_libdir=$abs_top_srcdir
 set -- '-q'  # Don't need to show banner
 . ${abs_top_srcdir}dbg-pre.sh
+. ${abs_top_srcdir}lib/action.sh
 . ${abs_top_srcdir}lib/fns.sh
 . ${abs_top_srcdir}lib/journal.sh
-. ${abs_top_srcdir}lib/action.sh
+. ${abs_top_srcdir}lib/validate.sh
 
 set -o shwordsplit
 SHUNIT_PARENT=$0
