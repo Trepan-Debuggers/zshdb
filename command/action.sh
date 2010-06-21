@@ -23,7 +23,7 @@ _Dbg_help_add action \
 Use "A" to remove all actions and "L" to get a list of the actions in
 effect.'
 
-# Add actions at given line number of the current file.  $1 is the
+# Add action at given line number of the current file.  $1 is the
 # line number or _Dbg_frame_last_lineno if omitted.  $2 is a
 # condition to test for whether to stop.
 _Dbg_do_action() {
@@ -63,6 +63,38 @@ _Dbg_do_action() {
 
 _Dbg_alias_add 'a' 'action'
 
+# delete action at given file:line number. If no file is given use the
+# current file. 0 is returned on success, nonzero on error.
+_Dbg_do_clear_action() {
+    (( $# > 1 )) && return 1
+    typeset -r n=${1:-$_Dbg_frame_last_lineno}
+    
+    typeset filename
+    typeset -i line_number
+    typeset full_filename
+    
+    _Dbg_linespec_setup $n
+    
+    if [[ -n $full_filename ]] ; then 
+	if (( $line_number ==  0 )) ; then 
+	    _Dbg_msg "There is no line 0 to clear action at."
+	else 
+	    _Dbg_check_line $line_number "$full_filename"
+	    (( $? == 0 )) && \
+		_Dbg_unset_action "$full_filename" "$line_number"
+	    if [[ $? == 0 ]] ; then 
+		_Dbg_msg "Removed action."
+		return 0
+	    else 
+		_Dbg_errmsg "Didn't find any actions to remove at $n."
+	    fi
+	fi
+    else
+	_Dbg_file_not_read_in $filename
+    fi
+    return 1
+}
+
 # Routine to a delete actions by entry numbers.
 _Dbg_do_action_delete() {
   typeset -r  to_go=$@
@@ -83,27 +115,7 @@ _Dbg_do_action_delete() {
   return $found
 }
 
-# clear all actions
-_Dbg_do_clear_all_actions() {
-    (( $# != 0 )) && return 1
-
-    typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
-    read $_Dbg_edit -p "Delete all actions? (y/n): " \
-	<&$_Dbg_input_desc 2>>$_Dbg_prompt_output
-    
-    if [[ $REPLY != [Yy]* ]] ; then 
-	return 1
-    fi
-    _Dbg_write_journal_eval "_Dbg_action_enable=()"
-    _Dbg_write_journal_eval "_Dbg_action_line=()"
-    _Dbg_write_journal_eval "_Dbg_action_file=()"
-    _Dbg_write_journal_eval "_Dbg_action_stmt=()"
-    _Dbg_write_journal_eval "_Dbg_action_file2action=()"
-    _Dbg_write_journal_eval "_Dbg_action_file2linenos=()"
-    return 0
-}
-
-# delete actions(s) at given file:line numbers. If no file is given
+# delete action at given file:line number. If no file is given
 # use the current file. 0 is returned on success, nonzero on error.
 _Dbg_do_clear_action() {
     (( $# > 1 )) && return 1
@@ -133,4 +145,24 @@ _Dbg_do_clear_action() {
 	_Dbg_file_not_read_in $filename
     fi
     return 1
+}
+
+# clear all actions
+_Dbg_do_clear_all_actions() {
+    (( $# != 0 )) && return 1
+
+    typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
+    read $_Dbg_edit -p "Delete all actions? (y/n): " \
+	<&$_Dbg_input_desc 2>>$_Dbg_prompt_output
+    
+    if [[ $REPLY != [Yy]* ]] ; then 
+	return 1
+    fi
+    _Dbg_write_journal_eval "_Dbg_action_enable=()"
+    _Dbg_write_journal_eval "_Dbg_action_line=()"
+    _Dbg_write_journal_eval "_Dbg_action_file=()"
+    _Dbg_write_journal_eval "_Dbg_action_stmt=()"
+    _Dbg_write_journal_eval "_Dbg_action_file2action=()"
+    _Dbg_write_journal_eval "_Dbg_action_file2linenos=()"
+    return 0
 }
