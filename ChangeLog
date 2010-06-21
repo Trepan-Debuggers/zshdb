@@ -1,3 +1,101 @@
+2010-06-20  rocky <rocky@gnu.org>
+
+	* command/Makefile.am, command/action.sh, command/alias.sh,
+	configure.ac, dbg-opts.sh, lib/action.sh, lib/hook.sh,
+	lib/processor.sh, test/data/action.cmd, test/data/action.right,
+	test/data/brkpt1.right, test/integration/.gitignore,
+	test/integration/Makefile.am, test/integration/test-action.in,
+	test/unit/test-action.sh.in: Actton command is now implemented sort
+	of as it is in bash.
+
+2010-06-20  rocky <rocky@gnu.org>
+
+	* lib/action.sh, test/unit/test-action.sh.in: Add function arg
+	validation on _Dbg_do_clear_action
+
+2010-06-20  rocky <rocky@gnu.org>
+
+	* lib/action.sh, test/unit/test-action.sh.in: More work on
+	implementing action. Much more work to go.
+
+2010-06-20  rocky <rocky@gnu.org>
+
+	* lib/break.sh: Add another use of _Dbg_is_int.
+
+2010-06-20  rocky <rocky@gnu.org>
+
+	* lib/action.sh, lib/break.sh, test/unit/test-break.sh.in,
+	test/unit/test-validate.sh.in: Small improvments like validiating in
+	params and comment fixes.
+
+2010-06-20  rocky <rocky@gnu.org>
+
+	* lib/action.sh, test/unit/test-action.sh.in: Bang more on action.
+	More bugs found, more tests added.
+
+2010-06-20  rocky <rocky@gnu.org>
+
+	* configure.ac, lib/Makefile.am, lib/action.sh, lib/fns.sh,
+	lib/validate.sh, test/unit/.gitignore, test/unit/Makefile.am,
+	test/unit/test-action.sh.in, test/unit/test-examine.sh.in,
+	test/unit/test-fns.sh.in, test/unit/test-validate.sh.in: input
+	validation routines split off from fns.sh. Start action testing.
+
+2010-06-19  rocky <rocky@gnu.org>
+
+	* lib/Makefile.am: One more file.
+
+2010-06-19  rocky <rocky@gnu.org>
+
+	* lib/action.sh, lib/fns.sh, test/unit/test-fns.sh.in: Start action.
+	test parse_linespec.
+
+2010-06-18  rocky <rocky@gnu.org>
+
+	* lib/hook.sh: filename vs. full_filename - this time for sure!
+
+2010-06-18  rocky <rocky@gnu.org>
+
+	* lib/hook.sh: Code inspection reveal what smells like a bug.
+	fullname -> full_filename and filename -> full_filename.
+
+2010-06-16  rocky <rocky@gnu.org>
+
+	* lib/frame.sh, lib/list.sh: Small changes to keep in sync with
+	bashdb and possible a bug fix due to a variable name typo.
+
+2010-06-16  rocky <rocky@gnu.org>
+
+	* lib/break.sh: Indentation style is default shell now
+
+2010-06-16  rocky <rocky@gnu.org>
+
+	* test/unit/test-filecache.sh.in: Load possibly used file in unit
+	test
+
+2010-06-16  rocky <rocky@gnu.org>
+
+	* lib/file.sh: Cosmetic changes
+
+2010-06-16  rocky <rocky@gnu.org>
+
+	* lib/filecache.sh: Comment spelling typo
+
+2010-06-16  rocky <rocky@gnu.org>
+
+	* lib/filecache.sh, test/integration/test-brkpt1: filecache.sh:
+	variable _Dbg_bogus_file was not initialized. test-brkpt1: file is
+	derived.
+
+2010-02-12  rocky <rocky@gnu.org>
+
+	* doc/Makefile.am: Perhaps a better clean target
+
+2010-02-12  rocky <rocky@gnu.org>
+
+	* ChangeLog, doc/Makefile.am, test/Makefile.am: make distcheck
+	(building outside of source tree) should now work.
+
 2010-01-02  rocky <rocky@gnu.org>
 
 	* command/break.sh: Fix bug in running a simple "break" command.
