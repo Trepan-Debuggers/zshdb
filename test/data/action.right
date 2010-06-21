@@ -3,9 +3,13 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 +set basename on
 +# Debugger test of action command
 +# 
-+# Try a simple action action...
++# Show actions
 +action 
 No actions have been set.
++# Delete actions when there are none
++A 
+** No actions to delete.
++# Try a simple action action...
 +action 23 x=60
 Action 1 set in file dbg-test1.sh, line 23.
 +L 

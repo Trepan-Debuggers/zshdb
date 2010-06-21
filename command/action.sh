@@ -151,13 +151,20 @@ _Dbg_do_clear_action() {
 _Dbg_do_clear_all_actions() {
     (( $# != 0 )) && return 1
 
-    typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
-    read $_Dbg_edit -p "Delete all actions? (y/n): " \
-	<&$_Dbg_input_desc 2>>$_Dbg_prompt_output
-    
-    if [[ $REPLY != [Yy]* ]] ; then 
+    if ((_Dbg_action_count == 0)); then
+	_Dbg_errmsg "No actions to delete."
 	return 1
     fi
+
+    typeset -l _Dbg_response
+    _Dbg_confirm "Delete all actions? (y/N): " 'N'
+
+    if [[ $_Dbg_response != 'y' ]] ; then 
+	_Dbg_msg "Delete not done - not confirmed."
+	return 1
+    fi
+    
+    _Dbg_write_journal_eval "_Dbg_action_count=0"
     _Dbg_write_journal_eval "_Dbg_action_enable=()"
     _Dbg_write_journal_eval "_Dbg_action_line=()"
     _Dbg_write_journal_eval "_Dbg_action_file=()"

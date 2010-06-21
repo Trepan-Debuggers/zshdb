@@ -56,7 +56,7 @@ function _Dbg_save_actions {
   typeset -p _Dbg_action_stmt         >> $_Dbg_statefile
   typeset -p _Dbg_action_max          >> $_Dbg_statefile
   typeset -p _Dbg_action_file2linenos >> $_Dbg_statefile
-  typeset -p _Dbg_action_file2brkpt   >> $_Dbg_statefile
+  typeset -p _Dbg_action_file2action  >> $_Dbg_statefile
 }
 
 # list actions
