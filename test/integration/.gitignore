@@ -4,11 +4,12 @@
 /Makefile.in
 /bugIFS.sh
 /check-common.sh
+/test-action
 /test-brkpt1
 /test-bug-args
 /test-bug-errexit
-/test-bugIFS
 /test-bug-ksharrays
+/test-bugIFS
 /test-condition
 /test-delete
 /test-enable

@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -152,6 +152,11 @@ _Dbg_onecmd() {
 	  # _Dbg_remove_history_item
 	  _Dbg_last_cmd="#"
 	  ;;
+
+	# Set action to be silently run when a line is hit
+	action )
+	  _Dbg_do_action $args 
+         ;;
 
 	alias )
 	  _Dbg_do_alias $@
@@ -352,7 +357,12 @@ _Dbg_onecmd() {
 	L )
 	  _Dbg_do_list_brkpt
 	  # _Dbg_list_watch
-	  # _Dbg_list_action
+	  _Dbg_list_action
+	  ;;
+
+	# Remove all actions
+	A )
+	  _Dbg_do_clear_all_actions $args
 	  ;;
 
 	* ) 

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
-#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -75,7 +75,14 @@ function _Dbg_hook {
 	    return 2 # 2 indicates skip statement.
 	fi
     fi
+
+    # FIXME: look for watchpoints
     
+    # Run applicable action statement
+    if ((_Dbg_action_count > 0)) ; then 
+	_Dbg_hook_action_hit
+    fi
+
     # Determine if we stop or not. 
 
     # Check breakpoints.
@@ -129,6 +136,40 @@ function _Dbg_hook {
     fi
     _Dbg_set_to_return_from_debugger
     return 0
+}
+
+_Dbg_hook_action_hit() {
+    typeset full_filenaname
+    typeset file_line
+    file_line=${funcfiletrace[1]}
+    typeset -a split_result; _Dbg_split "$file_line" ':'
+    filename=${split_result[0]}
+    lineno=${split_result[1]}
+    full_filename=$(_Dbg_is_file $filename)
+    if [[ -r $full_filename ]] ; then 
+	_Dbg_file2canonic[$filename]="$full_filename"
+    fi
+    # FIXME: combine with _Dbg_unset_action
+    typeset -a linenos
+    eval "linenos=(${_Dbg_action_file2linenos[$full_filename]})"
+    typeset -a brkpt_nos
+    eval "action_nos=(${_Dbg_action_file2action[$full_filename]})"
+
+    typeset -i _Dbg_i
+    # Check action within full_filename
+    for ((_Dbg_i=0; _Dbg_i < ${#linenos[@]}; _Dbg_i++)); do 
+	if (( linenos[_Dbg_i] == lineno )) ; then
+	    (( _Dbg_action_num = action_nos[_Dbg_i] ))
+	    stmt="${_Dbg_action_stmt[$_Dbg_action_num]}"
+  	    . ${_Dbg_libdir}/lib/set-d-vars.sh
+  	    eval "$stmt"
+	    # We've reset some variables like IFS and PS4 to make eval look
+	    # like they were before debugger entry - so reset them now.
+	    _Dbg_set_debugger_internal
+	    return 0
+	fi
+    done
+    return 1
 }
 
 # Return 0 if we are at a breakpoint position or 1 if not.

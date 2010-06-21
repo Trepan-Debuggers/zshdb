@@ -113,6 +113,10 @@ set -- '-q'  # Don't need to show banner
 . ${abs_top_srcdir}lib/journal.sh
 . ${abs_top_srcdir}lib/validate.sh
 
+. ${abs_top_srcdir}lib/alias.sh
+. ${abs_top_srcdir}lib/help.sh
+. ${abs_top_srcdir}command/action.sh
+
 set -o shwordsplit
 SHUNIT_PARENT=$0
 

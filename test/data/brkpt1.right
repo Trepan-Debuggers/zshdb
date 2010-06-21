@@ -20,6 +20,7 @@ Num Type       Disp Enb What
 +L 
 Num Type       Disp Enb What
 1   breakpoint keep y   dbg-test1.sh:22
+No actions have been set.
 +############################################################### 
 +#### Test display status...
 +delete 1

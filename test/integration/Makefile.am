@@ -1,4 +1,5 @@
 TESTS = \
+	test-action        \
 	test-brkpt1        \
 	test-bug-args      \
 	test-bugIFS        \

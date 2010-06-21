@@ -1,0 +1,27 @@
+(dbg-test1.sh:4):
+fn1 () { echo "fn1 here" x=5 fn3 }
++set basename on
++# Debugger test of action command
++# 
++# Try a simple action action...
++action 
+No actions have been set.
++action 23 x=60
+Action 1 set in file dbg-test1.sh, line 23.
++L 
+** No breakpoints have been set.
+Actions at following places:
+Num Enb Stmt               file:line
+1     1 x=60               dbg-test1.sh:23
++action 
+Actions at following places:
+Num Enb Stmt               file:line
+1     1 x=60               dbg-test1.sh:23
++continue 24
+One-time breakpoint 1 set in file dbg-test1.sh, line 24.
+Breakpoint 1 hit.
+(dbg-test1.sh:24):
+((x += i))
++eval echo "value of x is now $x"
+value of x is now 60
++quit 

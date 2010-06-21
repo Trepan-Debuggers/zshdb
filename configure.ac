@@ -108,6 +108,8 @@ AC_CONFIG_FILES([zshdb], [chmod +x DEBUGGER])
 AC_CONFIG_FILES([test/example/hanoi.sh], 
                 [chmod +x test/example/hanoi.sh])
 
+AC_CONFIG_FILES([test/integration/test-action], 
+                [chmod +x test/integration/test-action])
 AC_CONFIG_FILES([test/integration/test-brkpt1], 
                 [chmod +x test/integration/test-brkpt1])
 AC_CONFIG_FILES([test/integration/test-bug-args], 
