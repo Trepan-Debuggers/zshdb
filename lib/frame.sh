@@ -34,7 +34,7 @@ typeset -i _Dbg_frame_last_lineno=0
 
 #======================== FUNCTIONS  ============================#
 
-_Dbg_frame_adjust() {
+function _Dbg_frame_adjust {
   (($# != 2)) && return -1
 
   typeset -li count="$1"
