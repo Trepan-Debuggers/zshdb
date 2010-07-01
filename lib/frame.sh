@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 # frame.sh - Call Stack routines
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -37,13 +37,13 @@ typeset -i _Dbg_frame_last_lineno=0
 _Dbg_frame_adjust() {
   (($# != 2)) && return -1
 
-  local -i count="$1"
-  local -i signum="$2"
+  typeset -li count="$1"
+  typeset -li signum="$2"
 
-  local -i retval
+  typeset -li retval
   _Dbg_frame_int_setup $count || return 2
 
-  local -i pos
+  typeset -li pos
   if (( signum==0 )) ; then
     if (( count < 0 )) ; then
       ((pos=${#_Dbg_frame_stack[@]}+count))
