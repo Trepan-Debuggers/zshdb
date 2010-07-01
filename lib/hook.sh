@@ -48,7 +48,7 @@ function _Dbg_hook {
     typeset -i _Dbg_debugged_exit_code=$1
     shift
 
-    # Place to save values of $1, $2, etc.
+    # Populate _Dbg_arg with $1, $2, etc.
     typeset -a _Dbg_arg
     _Dbg_arg=($@)   # Does this require shword split off? 
 
@@ -78,16 +78,27 @@ function _Dbg_hook {
 
     # FIXME: look for watchpoints
     
+    typeset full_filename
+    typeset file_line
+    file_line=${funcfiletrace[0]}
+    typeset -a split_result; _Dbg_split "$file_line" ':'
+    filename=${split_result[0]}
+    lineno=${split_result[1]}
+    full_filename=$(_Dbg_is_file $filename)
+    if [[ -r $full_filename ]] ; then 
+	_Dbg_file2canonic[$filename]="$full_filename"
+    fi
+
     # Run applicable action statement
     if ((_Dbg_action_count > 0)) ; then 
-	_Dbg_hook_action_hit
+	_Dbg_hook_action_hit "$full_filename"
     fi
 
     # Determine if we stop or not. 
 
     # Check breakpoints.
     if ((_Dbg_brkpt_count > 0)) ; then 
-	if _Dbg_hook_breakpoint_hit ; then 
+	if _Dbg_hook_breakpoint_hit "$full_filename"; then 
 	    if ((_Dbg_step_force)) ; then
 		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_filename"
 		typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
@@ -139,20 +150,20 @@ function _Dbg_hook {
 }
 
 _Dbg_hook_action_hit() {
-    typeset full_filenaname
+    typeset full_filename="$1"  
+    typeset lineno=$_Dbg_frame_last_lineno # NOT USED. FIXME
+    # FIXME remove below
     typeset file_line
     file_line=${funcfiletrace[1]}
     typeset -a split_result; _Dbg_split "$file_line" ':'
     filename=${split_result[0]}
+    typeset lineno=$_Dbg_frame_last_lineno
     lineno=${split_result[1]}
-    full_filename=$(_Dbg_is_file $filename)
-    if [[ -r $full_filename ]] ; then 
-	_Dbg_file2canonic[$filename]="$full_filename"
-    fi
+
     # FIXME: combine with _Dbg_unset_action
     typeset -a linenos
     eval "linenos=(${_Dbg_action_file2linenos[$full_filename]})"
-    typeset -a brkpt_nos
+    typeset -a action_nos
     eval "action_nos=(${_Dbg_action_file2action[$full_filename]})"
 
     typeset -i _Dbg_i
@@ -175,16 +186,15 @@ _Dbg_hook_action_hit() {
 # Return 0 if we are at a breakpoint position or 1 if not.
 # Sets _Dbg_brkpt_num to the breakpoint number found.
 _Dbg_hook_breakpoint_hit() {
-    typeset full_filenaname
+    typeset full_filename="$1"
+    typeset lineno=$_Dbg_frame_last_lineno # NOT USED. FIXME
+    # FIXME remove below
     typeset file_line
     file_line=${funcfiletrace[1]}
     typeset -a split_result; _Dbg_split "$file_line" ':'
     filename=${split_result[0]}
     lineno=${split_result[1]}
-    full_filename=$(_Dbg_is_file $filename)
-    if [[ -r $full_filename ]] ; then 
-	_Dbg_file2canonic[$filename]="$full_filename"
-    fi
+
     # FIXME: combine with _Dbg_unset_brkpt
     typeset -a linenos
     eval "linenos=(${_Dbg_brkpt_file2linenos[$full_filename]})"

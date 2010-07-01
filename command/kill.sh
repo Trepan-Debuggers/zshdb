@@ -29,26 +29,26 @@ The signal is sent to process \$\$ (which is $$ right now).
 Also similar is the \"signal\" command."
 
 function _Dbg_do_kill {
-  if (($# > 1)); then
-      _Dbg_errmsg "Got $# parameters, but need 0 or 1."
-      return 1
-  fi
-  typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
-  typeset signal='-9'
-  (($# == 1)) && signal="$1"
-
-  if [[ ${signal[0]} != '-' ]] ; then
-      _Dbg_errmsg "Kill signal ($signal} should start with a '-'"
-      return 1
-  fi
-
-  typeset -l _Dbg_response
-  _Dbg_confirm "Send kill signal ${signal} which may terminate the debugger? (y/N): " 'N'
-
-  if [[ $_Dbg_response = 'y' ]] ; then 
-      kill $signal $$
-  else
-      _Dbg_msg "Kill not done - not confirmed."
-  fi
-  return 0
+    if (($# > 1)); then
+	_Dbg_errmsg "Got $# parameters, but need 0 or 1."
+	return 1
+    fi
+    typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
+    typeset signal='-9'
+    (($# == 1)) && signal="$1"
+    
+    if [[ ${signal[0]} != '-' ]] ; then
+	_Dbg_errmsg "Kill signal ($signal} should start with a '-'"
+	return 1
+    fi
+    
+    typeset -l _Dbg_response
+    _Dbg_confirm "Send kill signal ${signal} which may terminate the debugger? (y/N): " 'N'
+    
+    if [[ $_Dbg_response = 'y' ]] ; then 
+	kill $signal $$
+    else
+	_Dbg_msg "Kill not done - not confirmed."
+    fi
+    return 0
 }

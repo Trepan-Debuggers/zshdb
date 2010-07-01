@@ -56,8 +56,7 @@ function _Dbg_save_actions {
   typeset -p _Dbg_action_stmt         >> $_Dbg_statefile
   typeset -p _Dbg_action_max          >> $_Dbg_statefile
   typeset -p _Dbg_action_file2linenos >> $_Dbg_statefile
-  typeset -p _Dbg_action_file2brkpt   >> $_Dbg_statefile
-
+  typeset -p _Dbg_action_file2action  >> $_Dbg_statefile
 }
 
 # list actions
@@ -102,13 +101,14 @@ _Dbg_set_action() {
     _Dbg_action_stmt[$_Dbg_action_max]="$stmt"
     _Dbg_action_enable[$_Dbg_action_max]=1
     
+    typeset dq_source_file
     typeset dq_source_file=$(_Dbg_esc_dq "$source_file")
     typeset dq_stmt=$(_Dbg_esc_dq "$stmt")
 
-    _Dbg_write_journal_eval "_Dbg_action_line[$_Dbg_action_max]=$lineno"
-    _Dbg_write_journal_eval "_Dbg_action_file[$_Dbg_action_max]=\"$dq_source_file\""
-    _Dbg_write_journal_eval "_Dbg_action_stmt[$_Dbg_action_max]=\"$dq_stmt\""
-    _Dbg_write_journal_eval "_Dbg_action_enable[$_Dbg_action_max]=1"
+    _Dbg_write_journal "_Dbg_action_line[$_Dbg_action_max]=$lineno"
+    _Dbg_write_journal "_Dbg_action_file[$_Dbg_action_max]=\"$dq_source_file\""
+    _Dbg_write_journal "_Dbg_action_stmt[$_Dbg_action_max]=\"$dq_stmt\""
+    _Dbg_write_journal "_Dbg_action_enable[$_Dbg_action_max]=1"
 
     # Add line number with a leading and trailing space. Delimiting the
     # number with space helps do a string search for the line number.
@@ -121,7 +121,7 @@ _Dbg_set_action() {
     return 0
 }
 
-# Internal routine to delete a breakpoint by file/line.
+# Internal routine to delete an action by file/line.
 # 0 is returned if we were able to unset the action.
 # Nonzero is returned otherwize.
 _Dbg_unset_action() {
@@ -141,7 +141,7 @@ _Dbg_unset_action() {
     typeset -i i
     for ((i=0; i < ${#linenos[@]}; i++)); do 
 	if (( linenos[i] == lineno )) ; then
-	    # Got a match, find breakpoint entry number
+	    # Got a match, find actino entry number
 	    typeset -i action_num
 	    (( action_num = action_nos[i] ))
 	    _Dbg_unset_action_arrays $action_num
@@ -154,7 +154,7 @@ _Dbg_unset_action() {
     return 1
 }
 
-# Internal routine to unset the actual breakpoint arrays
+# Internal routine to unset the actual action arrays
 # 0 is returned if successful
 _Dbg_unset_action_arrays() {
     (( $# != 1 )) && return 1
