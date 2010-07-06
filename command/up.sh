@@ -35,7 +35,6 @@ function _Dbg_do_up {
   _Dbg_not_running && return 1
   typeset -il count=${1:-1}
   _Dbg_frame_adjust $count +1
-  _Dbg_print_location
   return 0
 }
 

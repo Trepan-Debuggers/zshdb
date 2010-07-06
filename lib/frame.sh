@@ -68,6 +68,7 @@ function _Dbg_frame_adjust {
   _Dbg_frame_last_lineno=${split_result[1]}
   ((_Dbg_stack_pos = pos))
   _Dbg_listline=-1
+  _Dbg_print_location
 }
 
 # Return the frame file for stack $1 or _Dbg_stack_pos if $1 

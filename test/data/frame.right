@@ -27,13 +27,11 @@ if (( $tracing )) then _Dbg_linetrace=1 fi
 +# Try moving past the end
 +down 2
 ** Would be beyond bottom-most (most recent) entry.
-(hanoi.sh:41):
 +where 5-3
 ##0 in file `hanoi.sh' at line 8
 ->1 init called from file `hanoi.sh' at line 41
 +up 3
 ** Would be beyond top-most (least recent) entry.
-(hanoi.sh:41):
 +# Try some negative numbers
 +# should be the same as up
 +down -1
