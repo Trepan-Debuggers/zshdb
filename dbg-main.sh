@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -34,12 +34,12 @@ set -o DEBUG_BEFORE_CMD
 
 # Have we already specified where to read debugger input from?  
 if [[ -n "$DBG_INPUT" ]] ; then 
-  _Dbg_do_source "$DBG_INPUT"
-  _Dbg_no_init=1
+    _Dbg_do_source "$DBG_INPUT"
+    _Dbg_no_init=1
 fi
 
 # Run the user's debugger startup file
-typeset _Dbg_startup_cmdfile=${HOME:-.}/.${_Dbg_debugger_name}rc
+typeset _Dbg_startup_cmdfile=${HOME:-~}/.${_Dbg_debugger_name}rc
 if [[ -z $_Dbg_o_nx && -r $_Dbg_startup_cmdfile ]] ; then
     _Dbg_do_source $_Dbg_startup_cmdfile
 fi
@@ -47,7 +47,7 @@ fi
 # _Dbg_DEBUGGER_LEVEL is the number of times we are nested inside a debugger
 # by virtue of running "debug" for example.
 if [[ -z "${_Dbg_DEBUGGER_LEVEL}" ]] ; then
-  typeset -ix _Dbg_DEBUGGER_LEVEL=1
+    typeset -ix _Dbg_DEBUGGER_LEVEL=1
 fi
 
 if ((Dbg_history_save)) ; then  
