@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # show.sh - Show debugger settings
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -24,6 +24,11 @@ typeset _Dbg_show_command="auto"
 
 _Dbg_help_add show ''  # Help routine is elsewhere
 
+# Load in "show" subcommands
+for _Dbg_file in ${_Dbg_libdir}/command/show_sub/*.sh ; do 
+    source $_Dbg_file
+done
+
 _Dbg_do_show() {
   typeset show_cmd=$1
   typeset label=$2
@@ -41,16 +46,9 @@ _Dbg_do_show() {
 
   case $show_cmd in 
     al | ali | alia | alias | aliase | aliases )
-      unsetopt ksharrays
-      typeset -a list
-      list=()
-      for alias in ${(ki)_Dbg_aliases} ; do
-	 list+=("${alias}: ${_Dbg_aliases[$alias]}")
-      done
-      setopt ksharrays
-      _Dbg_list_columns '  |  '
-      return 0
-      ;;
+	  _Dbg_do_show_alias
+	  return $?
+	  ;;
     ar | arg | args )
       [[ -n $label ]] && label='args:     '
       _Dbg_msg \

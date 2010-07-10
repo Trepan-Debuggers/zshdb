@@ -90,6 +90,8 @@ AM_CONDITIONAL(INSTALL_EMACS_LISP,
 AC_CONFIG_FILES([ \
 	Makefile \
 	command/Makefile \
+	command/info_sub/Makefile \
+	command/show_sub/Makefile \
 	doc/Makefile \
 	dbg-trace.sh \
 	emacs/Makefile \

@@ -54,6 +54,8 @@ Num Type       Disp Enb What
 +info program
 Program stopped.
 It stopped at breakpoint 3.
+Next statement to be run is:
+p
 +continue 
 nexting.sh:6
 ===
