@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "show alias" debugger command
+# "show debugging" debugger command
 #
 #   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
 #
@@ -17,14 +17,12 @@
 #   with bashdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-_Dbg_do_show_alias() {
-    unsetopt ksharrays
-    typeset -a list
-    list=()
-    for alias in ${(ki)_Dbg_aliases} ; do
-	list+=("${alias}: ${_Dbg_aliases[$alias]}")
-    done
-    setopt ksharrays
-    _Dbg_list_columns '  |  '
+_Dbg_do_show_debugging() {
+    typeset onoff=${1:-'on'}
+    [[ -n $label ]] && label='debugger: '
+    typeset onoff="off."
+    (( $_Dbg_debug_debugger )) && onoff='on.'
+    _Dbg_msg \
+"${label}Allow debugging the debugger is" $onoff
     return 0
 }
