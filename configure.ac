@@ -36,7 +36,7 @@ if test "$SH_PROG" = no; then
   You might want to use the] --with-POSIXSHELL [option.])
 fi
 
-AC_MSG_CHECKING([Checking whether $SH_PROG is compatible with zshdb])
+AC_MSG_CHECKING([Checking whether $SH_PROG is compatible with DEBUGGER])
 if ! (cd ${srcdir}/test/zsh && $SH_PROG ./ok4zshdb.sh) ; then
   AC_MSG_RESULT([no dice :-(])
   AC_MSG_ERROR([You might want to retry with another POSIXSHELL using the --with-POSIXSHELL option.])
@@ -106,7 +106,7 @@ AC_CONFIG_FILES([ \
 	test/zsh/Makefile \
 	])
 
-AC_CONFIG_FILES([zshdb], [chmod +x DEBUGGER])
+AC_CONFIG_FILES(DEBUGGER, [chmod +x DEBUGGER])
 AC_CONFIG_FILES([test/example/hanoi.sh], 
                 [chmod +x test/example/hanoi.sh])
 
