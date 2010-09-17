@@ -1,3 +1,76 @@
+2010-07-10  rocky <rocky@gnu.org>
+
+	* command/show.sh, command/show_sub/.gitignore,
+	command/show_sub/Makefile.am, command/show_sub/alias.sh,
+	command/show_sub/copying.sh, command/show_sub/debugging.sh: Move
+	more "show" subcommands into a "show subcommand" directory.
+
+2010-07-10  rocky <rocky@gnu.org>
+
+	* command/Makefile.am, command/break.sh, command/info.sh,
+	command/info_sub/.gitignore, command/info_sub/Makefile.am,
+	command/info_sub/brkpts.sh, command/info_sub/files.sh,
+	command/info_sub/line.sh, command/info_sub/program.sh,
+	command/info_sub/source.sh, command/info_sub/variables.sh,
+	command/info_sub/warranty.sh, command/show.sh,
+	command/show_sub/.gitignore, command/show_sub/Makefile.am,
+	command/show_sub/alias.sh, configure.ac, lib/gdb.sh,
+	lib/processor.sh, test/data/enable.right: Move "info" subcommands
+	for into its own folder. Start the same with "show" subcommands.
+	"info program" now show command next up.
+
+2010-07-08  rocky <rocky@gnu.org>
+
+	* dbg-main.sh: use ~ for debugger startup of $HOME is not set.
+
+2010-07-06  R. Bernstein <rocky@gnu.org>
+
+	* command/down.sh, command/frame.sh, command/up.sh,
+	command/where.sh, lib/frame.sh, test/data/frame.right,
+	test/unit/test-frame.sh.in: DRY frame code to move common location
+	printing to adjust_frame.
+
+2010-07-06  R. Bernstein <rocky@gnu.org>
+
+	* command/Makefile.am, command/down.sh, command/frame.sh,
+	command/up.sh: Split off debugger "up" and "down" commands. Update
+	help text.
+
+2010-07-01  rocky <rocky@gnu.org>
+
+	* lib/frame.sh: Even better ksh conformance.
+
+2010-07-01  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of github.com:rocky/zshdb
+
+2010-07-01  rocky <rocky@gnu.org>
+
+	* lib/frame.sh: local -> typeset -l for better ksh conformity.
+
+2010-06-21  R. Bernstein <rocky@gnu.org>
+
+	* command/action.sh, command/kill.sh, lib/action.sh,
+	test/data/action.cmd, test/data/action.right: Fix prompt on deleting
+	all actions. Test it and better checks.
+
+2010-06-21  R. Bernstein <rocky@gnu.org>
+
+	* lib/hook.sh: Closer synchronization with bashdb.
+
+2010-06-21  R. Bernstein <rocky@gnu.org>
+
+	* command/action.sh, lib/action.sh, test/unit/test-action.sh.in: 
+	Small improvements and changes to keep in sync with bashdb.
+
+2010-06-20  R. Bernstein <rocky@gnu.org>
+
+	* NEWS: What's up
+
+2010-06-20  rocky <rocky@gnu.org>
+
+	* ChangeLog, configure.ac: Update version number
+
 2010-06-20  rocky <rocky@gnu.org>
 
 	* command/Makefile.am, command/action.sh, command/alias.sh,

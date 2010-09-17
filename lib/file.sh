@@ -22,6 +22,10 @@
 typeset -a _Dbg_dir
 _Dbg_dir=('\$cdir' '\$cwd' )
 
+# _Dbg_cdir is the directory in which the script is located.
+[[ -z ${_Dbg_cdir} ]] && typeset _Dbg_cdir=${_Dbg_source_file%/*}
+[[ -z ${_Dbg_cdir} ]] && typeset _Dbg_cdir=$(pwd)
+
 # Either fill out or strip filename as determined by "basename_only"
 # and annotate settings
 _Dbg_adjust_filename() {
@@ -53,7 +57,8 @@ _Dbg_glob_filename() {
 function _Dbg_resolve_expand_filename {
 
   if (( $# == 0 )) ; then
-    _Dbg_errmsg "Internal debug error: null file to find"
+    _Dbg_errmsg \
+	"Internal debug error _Dbg_resolve_expand_filename(): null file to find"
     echo ''
     return 1
   fi
