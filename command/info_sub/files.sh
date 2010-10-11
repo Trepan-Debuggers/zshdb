@@ -26,8 +26,8 @@ _Dbg_do_info_files() {
 	canonic_file="${_Dbg_file2canonic[$file]}"
 	if (( _Dbg_basename_only )) ; then 
 	    # Do the same with canonic_file ?
-	    file=${file##*/}
-	    canonic_file=${canonic_file##*/}
+	    file="${file##*/}"
+	    canonic_file="${canonic_file##*/}"
 	fi
 	_Dbg_msg "  ${file}: ${canonic_file}, $lines lines"
     done

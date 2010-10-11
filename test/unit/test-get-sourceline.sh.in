@@ -1,0 +1,57 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+PS4='(%x:%I): [%?] zsh+ 
+'
+
+setopt ksharrays
+
+this_script=$0
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+# Test _Dbg_get_source_line
+test_get_source_line()
+{
+    typeset source_line
+    _Dbg_get_source_line 2 $this_script
+    assertEquals '# -*- shell-script -*-' "$source_line"
+}
+
+# Test check_line
+# test should appear after tests which read in source.
+test_get_source_line_with_spaces() 
+{
+    _Dbg_frame_filename="${abs_top_srcdir}/test/example/dir with spaces/bug.sh"
+    # Can't figure out how to get this packaged with autoconf, so this
+    # will work with git only.
+    if [[ -f "$_Dbg_frame_filename" ]] ; then
+	_Dbg_get_source_line 2 "$_Dbg_frame_filename"
+	assertEquals 'x=1' "$source_line" 
+    else
+	echo "Skipping test due to autoconf problems"
+	assertEquals 'skipped' 'skipped'
+    fi
+}
+
+# Make sure @abs_top_srcdir@ has a trailing slash
+if [ '@abs_top_srcdir@' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+
+_Dbg_libdir=$abs_top_srcdir
+set -- -q  # Don't need to show banner
+. ${abs_top_srcdir}dbg-pre.sh
+. ${abs_top_srcdir}lib/filecache.sh
+. ${abs_top_srcdir}lib/file.sh
+. ${abs_top_srcdir}lib/fns.sh
+. ${abs_top_srcdir}lib/frame.sh
+. ${abs_top_srcdir}lib/msg.sh
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}
+

@@ -17,7 +17,7 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-zmodload -ap zsh/mapfile mapfile
+zmodload -ap zsh/mapfile mapfile &>/dev/null
 
 # Keys are the canonic expanded filename. _Dbg_filenames[filename] is
 # name of variable which contains text.
@@ -83,7 +83,7 @@ function _Dbg_get_maxline {
 # $source_line. The hope is that this has been declared "typeset" in the 
 # caller.
 
-# If $2 is omitted, # use _Dbg_frame_filename, if $1 is omitted use 
+# If $2 is omitted, use _Dbg_frame_file(), if $1 is omitted use 
 # _Dbg_frame_lineno. The return value is put in source_line.
 function _Dbg_get_source_line {
     typeset -i lineno
@@ -98,10 +98,10 @@ function _Dbg_get_source_line {
     if (( $# == 0 )) ; then
 	_Dbg_frame_file
     else
-	filename=$_Dbg_frame_filename
-	filename=$1
+	filename="$_Dbg_frame_filename"
+	filename="$1"
     fi
-  _Dbg_readin_if_new $filename
+  _Dbg_readin_if_new "$filename"
   eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
 }
 
@@ -205,7 +205,7 @@ _Dbg_readin_if_new() {
     typeset filename="$1"
     _Dbg_set_source_array_var "$filename"
     if [[ -z $fullname ]] ; then 
-	_Dbg_readin $filename
+	_Dbg_readin "$filename"
 	typeset rc=$?
 	(( $? != 0 )) && return $rc
 	[[ -z $fullname ]] && return 1

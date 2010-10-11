@@ -9,6 +9,7 @@ TESTS = \
 	test-filecache.sh    \
 	test-fns.sh          \
 	test-frame.sh        \
+        test-get-sourceline.sh \
 	test-journal.sh      \
 	test-msg.sh          \
 	test-pre.sh          \
@@ -38,6 +39,7 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-filecache.sh.in        \
 	test-fns.sh.in              \
 	test-frame.sh.in            \
+        test-get-sourceline.sh.in   \
 	test-journal.sh.in          \
 	test-msg.sh.in              \
 	test-pre.sh.in              \
