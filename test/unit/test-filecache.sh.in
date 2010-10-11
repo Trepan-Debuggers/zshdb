@@ -5,16 +5,6 @@ PS4='(%x:%I): [%?] zsh+
 
 setopt ksharrays
 
-this_script=$0
-
-# Test _Dbg_get_source_line
-test_get_source_line()
-{
-    typeset source_line
-    _Dbg_get_source_line 2 $this_script
-    assertEquals '# -*- shell-script -*-' "$source_line"
-}
-
 # Test readin and maxline
 test_readin_maxline()
 {

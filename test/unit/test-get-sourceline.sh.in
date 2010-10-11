@@ -21,7 +21,7 @@ test_get_source_line()
 # test should appear after tests which read in source.
 test_get_source_line_with_spaces() 
 {
-    _Dbg_frame_filename="${abs_top_srcdir}/test/example/dir with spaces/bug.sh"
+    _Dbg_frame_filename="${abs_top_srcdir}test/example/dir with spaces/bug.sh"
     # Can't figure out how to get this packaged with autoconf, so this
     # will work with git only.
     if [[ -f "$_Dbg_frame_filename" ]] ; then
