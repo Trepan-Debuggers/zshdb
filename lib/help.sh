@@ -72,8 +72,8 @@ Follow this command with any number of args, to be passed to the program."
       ;;
     autol | autoli | autolis | autolist )
       [[ -n $label ]] && label='set autolist  -- '
-      typeset -l onoff="off."
-      (( $_Dbg_autoeval != 0 )) && onoff='on.'
+      typeset -l onoff="on."
+      [[ -z ${_Dbg_cmdloop_hooks['list']} ]] && onoff='off.'
       _Dbg_msg \
 "${label}Run list command is ${onoff}"
       return 0
