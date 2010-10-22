@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # set.sh - debugger settings
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -67,7 +67,7 @@ _Dbg_do_set() {
       fi
       return 0
       ;;
-    au | aut | auto | autoe | autoev | autoeva | autoeval )
+    autoe | autoev | autoeva | autoeval )
       typeset onoff=${1:-'off'}
       case $onoff in 
 	on | 1 ) 
@@ -80,6 +80,22 @@ _Dbg_do_set() {
 	  _Dbg_msg "\"on\" or \"off\" expected."
 	  return 1
       esac
+      return 0
+      ;;
+    autol | autoli | autolis | autolist )
+      typeset onoff=${1:-'off'}
+      case $onoff in 
+	on | 1 ) 
+	  _Dbg_write_journal_eval "_Dbg_cmdloop_hooks[\"list\"]=_Dbg_do_list"
+	  ;;
+	off | 0 )
+	  _Dbg_write_journal_eval "unset '_Dbg_cmdloop_hooks[\"list\"]'"
+	  unset '_Dbg_cmdloop_hooks[\"list\"]'
+	  ;;
+	* )
+	  _Dbg_msg "\"on\" or \"off\" expected."
+	  return 1
+     esac
       return 0
       ;;
     b | ba | bas | base | basen | basena | basenam | basename )

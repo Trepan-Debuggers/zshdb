@@ -34,7 +34,7 @@ _Dbg_do_show() {
   typeset label=$2
 
   # Warranty, copying, directories, and aliases are omitted below.
-  typeset subcmds='annotate args autoeval basename debugger editing force listsize prompt trace-commands width'
+  typeset subcmds='annotate args autoeval autolist basename debugger editing force listsize prompt trace-commands width'
 
   if [[ -z $show_cmd ]] ; then 
       typeset thing
@@ -62,10 +62,18 @@ _Dbg_do_show() {
 "${label}Annotation_level is $_Dbg_annotate."
       return 0
       ;;
-    au | aut | auto | autoe | autoev | autoeva | autoeval )
+    autoe | autoev | autoeva | autoeval )
       [[ -n $label ]] && label='autoeval: '
       _Dbg_msg \
 "${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_autoeval)
+      return 0
+      ;;
+    autol | autoli | autolis | autolist )
+      [[ -n $label ]] && label='autolist: '
+      typeset -l onoff="on."
+      [[ -z ${_Dbg_cmdloop_hooks['list']} ]] && onoff='off.'
+      _Dbg_msg \
+"${label}Auto run of 'list' command is ${onoff}"
       return 0
       ;;
     b | ba | bas | base | basen | basena | basenam | basename )

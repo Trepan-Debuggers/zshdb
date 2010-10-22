@@ -269,8 +269,8 @@ of promoting the sharing and reuse of software generally.
 +show badcommand
 ** Unknown show subcommand: badcommand
 ** Show subcommands are:
-**   annotate  autoeval  debugger  force     prompt          width
-**   args      basename  editing   listsize  trace-commands
+**   annotate  autoeval  basename  editing  listsize  trace-commands
+**   args      autolist  debugger  force    prompt    width         
 +another-bad-command 
 Undefined command "another-bad-command". Try "help".
 +show 
@@ -278,6 +278,7 @@ annotate: Annotation_level is 0.
 args:     Argument list to give script when debugged program starts is:
        "testarg1 testarg2".
 autoeval: Evaluate unrecognized commands is off.
+autolist: Auto run of 'list' command is off.
 basename: Show short filenames (the basename) in debug output is on.
 debugger: Allow debugging the debugger is off.
 editing:  Editing of command lines as they are typed is off.

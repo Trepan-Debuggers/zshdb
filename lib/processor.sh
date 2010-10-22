@@ -18,6 +18,10 @@
 # Are we inside the middle of a "skip" command?
 typeset -i  _Dbg_inside_skip=0
 
+# Hooks that get run on each command loop
+typeset -A _Dbg_cmdloop_hooks
+## _Dbg_cmdloop_hooks['display']='_Dbg_eval_all_display'
+
 typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}%h${_Dbg_greater}'
 
 # The canonical name of last command run.
@@ -55,7 +59,13 @@ function _Dbg_process_commands {
   _Dbg_write_journal_eval "_Dbg_step_ignore=-1"
 
   # Evaluate all the display expressions
-  ## _Dbg_eval_all_display
+  typeset -l key
+
+  # Evaluate all hooks
+  for hook in ${_Dbg_cmdloop_hooks[@]} ; do
+      echo $hook
+      ${hook}
+  done
 
   # Loop over all pending open input file descriptors
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
