@@ -152,10 +152,8 @@ Follow this command with any number of args, to be passed to the program."
   esac
 }
 
-# typeset _Dbg_show_cmds="aliases annotate args autoeval basename debugger commands debugger directories linetrace listsize prompt trace-commands warranty"
-
 typeset _Dbg_show_cmds="aliases annotate args autoeval autolist basename commands 
-copying debugger force linetrace listsize prompt trace-commands warranty"
+copying directories debugger force linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
   typeset show_cmd=$1
@@ -216,7 +214,7 @@ _Dbg_help_show() {
       ;;
     di|dir|dire|direc|direct|directo|director|directori|directorie|directories)
       _Dbg_msg \
-'show directories -- Show if we are set to debug the debugger.'
+"show directories -- Show file directories searched for listing source."
       ;;
     force)
       _Dbg_msg \
