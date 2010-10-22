@@ -80,6 +80,7 @@ _Dbg_do_set() {
 	  _Dbg_msg "\"on\" or \"off\" expected."
 	  return 1
       esac
+      _Dbg_do_show 'autoeval'
       return 0
       ;;
     autol | autoli | autolis | autolist )
@@ -96,6 +97,7 @@ _Dbg_do_set() {
 	  _Dbg_msg "\"on\" or \"off\" expected."
 	  return 1
      esac
+      _Dbg_do_show 'autolist'
       return 0
       ;;
     b | ba | bas | base | basen | basena | basenam | basename )
@@ -111,6 +113,7 @@ _Dbg_do_set() {
 	  _Dbg_msg "\"on\" or \"off\" expected."
 	  return 1
       esac
+      _Dbg_do_show 'basename'
       return 0
       ;;
     d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
@@ -125,6 +128,8 @@ _Dbg_do_set() {
 	* )
 	  _Dbg_msg "\"on\" or \"off\" expected."
       esac
+      _Dbg_do_show 'debugging'
+      return 0
       ;;
     e | ed | edi | edit | editi | editin | editing )
       typeset onoff=${1:-'on'}
@@ -153,7 +158,7 @@ _Dbg_do_set() {
 	  return 1
       esac
       ;;
-    force )
+    force | dif | diff | differ | different )
       typeset onoff=${1:-'off'}
       case $onoff in 
 	on | 1 ) 
@@ -166,6 +171,7 @@ _Dbg_do_set() {
 	  _Dbg_msg "\"on\" or \"off\" expected."
 	  return 1
       esac
+      _Dbg_do_show 'different'
       return 0
       ;;
    hi|his|hist|histo|histor|history)

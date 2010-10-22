@@ -2,6 +2,7 @@
 for ((i=0; i<3; i++)) do print 1st loop $i done
 +# Make sure autostep is off for next text
 +set force off
+Show stepping forces a new line is off.
 +show force
 Show stepping forces a new line is off.
 +# Test that step+ skips multiple statements
@@ -12,6 +13,7 @@ Show stepping forces a new line is off.
 (stepping.sh:4):
 for ((i=0; i<3; i++)) do print 2nd loop $i done
 +set force on
+Show stepping forces a new line is on.
 +show force
 Show stepping forces a new line is on.
 +# Same thing - skip loop

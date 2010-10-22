@@ -71,7 +71,7 @@ _Dbg_do_show() {
     autol | autoli | autolis | autolist )
       [[ -n $label ]] && label='autolist: '
       typeset -l onoff="on."
-      [[ -z ${_Dbg_cmdloop_hooks['list']} ]] && onoff='off.'
+      [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
       _Dbg_msg \
 "${label}Auto run of 'list' command is ${onoff}"
       return 0
@@ -95,7 +95,7 @@ _Dbg_do_show() {
 	  _Dbg_do_show_debugging
 	  return $?
 	  ;;
-    di|dir|dire|direc|direct|directo|director|directori|directorie|directories)
+    dir|dire|direc|direct|directo|director|directori|directorie|directories)
       typeset list=${_Dbg_dir[0]}
       typeset -i n=${#_Dbg_dir[@]}
       typeset -i i
@@ -110,8 +110,8 @@ _Dbg_do_show() {
       _Dbg_do_show_editing
       return 0
       ;;
-    force )
-      [[ -n $label ]] && label='force: '
+    force | diff | differ | different )
+      [[ -n $label ]] && label='different: '
       _Dbg_msg \
 "${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_step_auto_force)
       return 0

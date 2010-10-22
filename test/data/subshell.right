@@ -20,6 +20,7 @@ typeset x=2
 y='line 4'
 +# Set inside a subshell
 +set autoeval on
+Evaluate unrecognized commands is on.
 +examine x
 typeset x='line 3'
 +fc -l

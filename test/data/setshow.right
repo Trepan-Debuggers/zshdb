@@ -282,7 +282,7 @@ autolist: Auto run of 'list' command is off.
 basename: Show short filenames (the basename) in debug output is on.
 debugger: Allow debugging the debugger is off.
 editing:  Editing of command lines as they are typed is off.
-force: Show stepping forces a new line is off.
+different: Show stepping forces a new line is off.
 listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:
        "$_Dbg_debugger_name${_Dbg_less}%h${_Dbg_greater}".
@@ -331,9 +331,11 @@ Line width is 40.
 +######################### 
 +#### Test 'autoeval'...
 +set autoeval on
+Evaluate unrecognized commands is on.
 +xx=1 ; declare -p xx
 typeset xx=1
 +set autoeval off
+Evaluate unrecognized commands is off.
 +xx=1 ; declare -p xx
 Undefined command "xx=1". Try "help".
 +quit 
