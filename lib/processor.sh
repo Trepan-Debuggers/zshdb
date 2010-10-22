@@ -63,7 +63,6 @@ function _Dbg_process_commands {
 
   # Evaluate all hooks
   for hook in ${_Dbg_cmdloop_hooks[@]} ; do
-      echo $hook
       ${hook}
   done
 

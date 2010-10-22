@@ -212,7 +212,7 @@ _Dbg_help_show() {
 'show debugger    -- Show if we are set to debug the debugger.'
       return 0
       ;;
-    di|dir|dire|direc|direct|directo|director|directori|directorie|directories)
+    dir|dire|direc|direct|directo|director|directori|directorie|directories)
       _Dbg_msg \
 "show directories -- Show file directories searched for listing source."
       ;;
