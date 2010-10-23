@@ -18,11 +18,7 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_do_show_debugging() {
-    typeset onoff=${1:-'on'}
-    [[ -n $label ]] && label='debugger: '
-    typeset onoff="off."
-    (( $_Dbg_set_debugging )) && onoff='on.'
-    _Dbg_msg \
-"${label}Allow debugging the debugger is" $onoff
+    label="$1"
+    _Dbg_show_onoff 'debugging' 'Allow debugging the debugger' "$label"
     return 0
 }

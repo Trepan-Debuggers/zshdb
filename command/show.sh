@@ -34,7 +34,7 @@ _Dbg_do_show() {
   typeset label=$2
 
   # Warranty, copying, directories, and aliases are omitted below.
-  typeset subcmds='annotate args autoeval autolist basename debugger editing force listsize prompt trace-commands width'
+  typeset subcmds='annotate args autoeval autolist basename debugging editing force listsize prompt trace-commands width'
 
   if [[ -z $show_cmd ]] ; then 
       typeset thing
@@ -70,7 +70,7 @@ _Dbg_do_show() {
       ;;
     autol | autoli | autolis | autolist )
       [[ -n $label ]] && label='autolist: '
-      typeset -l onoff="on."
+      typeset onoff="on."
       [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
       _Dbg_msg \
 "${label}Auto run of 'list' command is ${onoff}"
@@ -92,7 +92,8 @@ _Dbg_do_show() {
 	  return $?
       ;;
     de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-	  _Dbg_do_show_debugging
+	  [[ -n $label ]] && label='debugging: '
+	  _Dbg_do_show_debugging $label
 	  return $?
 	  ;;
     dir|dire|direc|direct|directo|director|directori|directorie|directories)

@@ -34,8 +34,8 @@ typeset _Dbg_set_trace_commands='off'
 _Dbg_help_add set ''  # Help routine is elsewhere
 
 _Dbg_do_set() {
-  typeset -l set_cmd=$1
-  typeset -l rc
+  typeset set_cmd=$1
+  typeset rc
   if [[ $set_cmd == '' ]] ; then
     _Dbg_msg "Argument required (expression to compute)."
     return;

@@ -29,6 +29,6 @@ least-recently-entered end.  So "frame -1" moves to the oldest frame.
 
 _Dbg_do_frame() {
   _Dbg_not_running && return 1
-  typeset -li pos=${1:-0}
+  typeset -i pos=${1:-0}
   _Dbg_frame_adjust $pos 0
 }

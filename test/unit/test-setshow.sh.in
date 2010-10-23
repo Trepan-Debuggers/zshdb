@@ -1,0 +1,42 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+PS4='(%x:%I): [%?] zsh+ 
+'
+
+setopt ksharrays
+
+typeset -a msgs
+_Dbg_msg() {
+    typeset -i last=${#msgs[@]}
+    msgs[$last]=$*
+}
+
+test_help_set_onoff()
+{
+    typeset -l onoff
+    onoff=('off.' 'on.')
+    typeset -l _Dbg_foo
+    for i in 0 1 ; do 
+	_Dbg_set_foo=$i
+	_Dbg_help_set_onoff "foo" "foo" "Set short xx"
+	assertEquals "set foo  -- set short xx is ${onoff[$i]}" "${msgs[$i]}" 
+    done
+}
+
+if [ '@abs_top_srcdir@' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+. ${abs_top_srcdir}lib/setshow.sh
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+# load shunit2
+srcdir=@srcdir@
+srcdir=${srcdir}/
+. ${srcdir}/shunit2
+
