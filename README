@@ -25,6 +25,19 @@ If you've got a suitable zsh installed, then
 To try on a real program such as perhaps /etc/zsh/zshrc:
   ./zshdb /etc/zsh/zshrc # substitute .../zshrc with your favorite zsh script
 
+To modify source code to call the debugger inside the program:
+   source path-to-zshdb/zshdb/dbg-trace.sh  
+   # work, work, work.
+
+   _Dbg_debugger
+   # start debugging here
+
+Above, the directory _path-to_zshdb_ should be replaced with the
+directory that dbg-trace.sh is located in. This can also be from the
+source code directory zshdb or from the directory dbg-trac.sh gets
+installed directory. The "souce" command needs to be done only once
+somewhere in the code prior to using _Dbg_debugger.
+
 If you are happy and "make test" above worked, install via:
   sudo make install
 
