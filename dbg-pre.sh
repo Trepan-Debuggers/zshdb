@@ -119,7 +119,7 @@ typeset -i _Dbg_brkpt_num=0    # If nonzero, the breakpoint number that we
                                # are currently stopped at.
 
 # Sets whether or not to display command before executing it.
-typeset _Dbg_trace_commands='off'
+typeset _Dbg_set_trace_commands='off'
 
 # Known normal IFS consisting of a space, tab and newline
 typeset -x _Dbg_space_IFS=' 	

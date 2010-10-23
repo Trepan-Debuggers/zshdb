@@ -24,7 +24,7 @@ _Dbg_do_info_files() {
 	typeset -i lines=$(_Dbg_get_maxline "$file")
 	typeset canonic_file
 	canonic_file="${_Dbg_file2canonic[$file]}"
-	if (( _Dbg_basename_only )) ; then 
+	if (( _Dbg_set_basename )) ; then 
 	    # Do the same with canonic_file ?
 	    file="${file##*/}"
 	    canonic_file="${canonic_file##*/}"

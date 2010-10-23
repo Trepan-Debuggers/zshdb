@@ -65,7 +65,7 @@ _Dbg_do_show() {
     autoe | autoev | autoeva | autoeval )
       [[ -n $label ]] && label='autoeval: '
       _Dbg_msg \
-"${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_autoeval)
+"${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
       return 0
       ;;
     autol | autoli | autolis | autolist )
@@ -79,7 +79,7 @@ _Dbg_do_show() {
     b | ba | bas | base | basen | basena | basenam | basename )
       [[ -n $label ]] && label='basename: '
       _Dbg_msg \
-"${label}Show short filenames (the basename) in debug output is" $(_Dbg_onoff $_Dbg_basename_only)
+"${label}Show short filenames (the basename) in debug output is" $(_Dbg_onoff $_Dbg_set_basename)
       return 0
       ;;
     com | comm | comma | comman | command | commands )
@@ -113,7 +113,7 @@ _Dbg_do_show() {
     force | diff | differ | different )
       [[ -n $label ]] && label='different: '
       _Dbg_msg \
-"${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_step_auto_force)
+"${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_set_different)
       return 0
       ;;
     hi|his|hist|histo|histor|history)
@@ -167,7 +167,7 @@ _Dbg_do_show() {
       [[ -n $label ]] && label='trace-commands: '
      _Dbg_msg \
 "${label}State of command tracing is" \
-      "$_Dbg_trace_commands."
+      "$_Dbg_set_trace_commands."
       return 0
       ;;
     v | ve | ver | vers | versi | versio | version )

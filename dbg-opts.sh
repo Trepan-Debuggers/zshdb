@@ -63,7 +63,7 @@ typeset -i _Dbg_annotate=0
 
 # Simulate set -x?
 typeset -i _Dbg_linetrace=0
-typeset -i _Dbg_basename_only=0
+typeset -i _Dbg_set_basename=0
 typeset -i _Dbg_o_nx=0
 typeset -i _Dbg_o_linetrace=0
 typeset    _Dbg_tty=''
@@ -98,7 +98,7 @@ _Dbg_parse_options() {
 	    A | annotate ) 
 		_Dbg_o_annotate=$OPTLARG;;
 	    B | basename )
-		_Dbg_basename_only=1  	;;
+		_Dbg_set_basename=1  	;;
 	    c | command )
 		_Dbg_EXECUTION_STRING="$OPTLARG" ;;
 	    h | help )
@@ -166,5 +166,5 @@ if [[ -n "$_Dbg_dbg_opts_test" ]] ; then
     _Dbg_parse_options "$@"
     typeset -p _Dbg_annotate
     typeset -p _Dbg_linetrace
-    typeset -p _Dbg_basename_only
+    typeset -p _Dbg_set_basename
 fi

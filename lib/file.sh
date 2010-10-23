@@ -32,7 +32,7 @@ _Dbg_adjust_filename() {
   typeset -r filename="$1"
   if (( _Dbg_annotate == 1 )) ; then
     print -- $(_Dbg_resolve_expand_filename "$filename")
-  elif ((_Dbg_basename_only)) ; then
+  elif ((_Dbg_set_basename)) ; then
     print -- ${filename##*/}
   else
     print -- $filename

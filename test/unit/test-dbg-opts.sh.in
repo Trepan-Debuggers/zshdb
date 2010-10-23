@@ -33,7 +33,7 @@ do_opts_test() {
 test_opts()
 {
     do_opts_test 'No opts (annotate, basename, linetrace)' \
-	'print "$_Dbg_annotate $_Dbg_basename_only $_Dbg_linetrace"' \
+	'print "$_Dbg_annotate $_Dbg_set_basename $_Dbg_linetrace"' \
 	'0 0 0'
 
     #                    Eval expression        value   options
@@ -44,11 +44,11 @@ test_opts()
     msg='Annotate default'
     do_opts_test "$msg" 'print $_Dbg_annotate'      0   --quiet
     msg='Short basename'
-    do_opts_test "$msg" 'print $_Dbg_basename_only' 1   -B --quiet
+    do_opts_test "$msg" 'print $_Dbg_set_basename'  1   -B --quiet
     msg='basename default'
-    do_opts_test "$msg" 'print $_Dbg_basename_only' 0   --quiet
+    do_opts_test "$msg" 'print $_Dbg_set_basename'  0   --quiet
     msg='Long basename'
-    do_opts_test "$msg" 'print $_Dbg_basename_only' 1   --quiet --basename
+    do_opts_test "$msg" 'print $_Dbg_set_basename'  1   --quiet --basename
     msg='Long --no-init'
     do_opts_test "$msg" 'print $_Dbg_o_nx'          1   --no-init  --quiet
     msg='--no-init default'

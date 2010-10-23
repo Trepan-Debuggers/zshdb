@@ -151,7 +151,7 @@ _Dbg_onecmd() {
     typeset _Dbg_cmd="$expanded_alias"
 
     # If "set trace-commands" is "on", echo the the command
-    if [[  $_Dbg_trace_commands == 'on' ]]  ; then
+    if [[  $_Dbg_set_trace_commands == 'on' ]]  ; then
       _Dbg_msg "+$_Dbg_cmd $args"
     fi
 
@@ -375,7 +375,7 @@ _Dbg_onecmd() {
 	  ;;
 
 	* ) 
-	   if (( _Dbg_autoeval )) ; then
+	   if (( _Dbg_set_autoeval )) ; then
 	       if [[ -t $_Dbg_fdi ]] ; then 
 		   ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 && return -1
 	       else

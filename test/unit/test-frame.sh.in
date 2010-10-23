@@ -10,7 +10,7 @@ test_frame()
 {
     _Dbg_frame_save_frames 0
     assertEquals 5 ${#_Dbg_frame_stack[@]}
-    _Dbg_basename_only=1
+    _Dbg_set_basename=1
     typeset _Dbg_frame_filename=''
     _Dbg_frame_file a b c
     assertNotEquals 0 "$?"

@@ -21,7 +21,7 @@ _Dbg_do_show_debugging() {
     typeset onoff=${1:-'on'}
     [[ -n $label ]] && label='debugger: '
     typeset onoff="off."
-    (( $_Dbg_debug_debugger )) && onoff='on.'
+    (( $_Dbg_set_debugging )) && onoff='on.'
     _Dbg_msg \
 "${label}Allow debugging the debugger is" $onoff
     return 0

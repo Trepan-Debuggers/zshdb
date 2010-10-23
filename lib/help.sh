@@ -28,7 +28,7 @@ function _Dbg_help_add {
 }
 
 typeset _Dbg_set_cmds="args annotate autoeval autolist basename debugger 
-force inferior-tty linetrace listsize prompt trace-commands width"
+different inferior-tty linetrace listsize prompt trace-commands width"
 
 _Dbg_help_set() {
 
@@ -44,111 +44,100 @@ _Dbg_help_set() {
   typeset label="$2"
 
   case $set_cmd in 
-    ar | arg | args )
-      [[ -n $label ]] && label='set args -- '
-      _Dbg_msg \
-"${label}Set argument list to give program being debugged when it is started.
-Follow this command with any number of args, to be passed to the program."
-      return 0
-      ;;
-    an | ann | anno | annot | annota | annotat | annotate )
-      if [[ -n $label ]] ; then 
-	label='set annotate  -- '
-      else
-	typeset post_label='
-0 == normal;     1 == fullname (for use when running under emacs).'
-      fi
-      _Dbg_msg \
-"${label}Set annotation level.$post_label"
-      return 0
-      ;;
-    autoe | autoev | autoeva | autoeval )
-      [[ -n $label ]] && label='set autoeval  -- '
-      typeset onoff="off."
-      (( $_Dbg_autoeval != 0 )) && onoff='on.'
-      _Dbg_msg \
-"${label}Evaluate unrecognized commands is" $onoff
-      return 0
-      ;;
-    autol | autoli | autolis | autolist )
-      [[ -n $label ]] && label='set autolist  -- '
-      typeset -l onoff="on."
-      [[ -z ${_Dbg_cmdloop_hooks['list']} ]] && onoff='off.'
-      _Dbg_msg \
-"${label}Run list command is ${onoff}"
-      return 0
-      ;;
-    b | ba | bas | base | basen | basena | basenam | basename )
-      [[ -n $label ]] && label='set basename  -- '
-      typeset onoff="off."
-      (( $_Dbg_basename_only != 0 )) && onoff='on.'
-      _Dbg_msg \
-"${label}Set short filenames (the basename) in debug output is" $onoff
-      return 0
-      ;;
-    d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-      typeset onoff=${1:-'on'}
-      [[ -n $label ]] && label='set debugger  -- '
-      (( $_Dbg_debug_debugger )) && onoff='on.'
-     _Dbg_msg \
-"${label}Set debugging the debugger is" $onoff
-      return 0
-      ;;
-    force )
-      [[ -n $label ]] && label='set force     -- '
-      typeset onoff="off."
-      (( $_Dbg_edit )) && onoff='on.'
-      _Dbg_msg \
-"${label}Set stepping forces a different line is" $onoff
-      ;;
-    inferior-tty )
-     [[ -n $label ]] && label='set inferior-tty -- '
-      _Dbg_msg "${label} set tty for input and output"
-      ;;
-    lin | line | linet | linetr | linetra | linetrac | linetrace )
-      [[ -n $label ]] && label='set linetrace -- '
-      typeset onoff='off.'
-      (( $_Dbg_linetrace )) && onoff='on.'
-     _Dbg_msg \
-"${label}Set tracing execution of lines before executed is" $onoff
-      if (( $_Dbg_linetrace )) ; then
+      ar | arg | args )
+	  [[ -n $label ]] && label='set args -- '
 	  _Dbg_msg \
-"set linetrace delay -- delay before executing a line is" $_Dbg_linetrace_delay
-      fi
-      return 0
-      ;;
-     lis | list | lists | listsi | listsiz | listsize )
-      [[ -n $label ]] && label='set listsize  -- '
-      _Dbg_msg \
-"${label}Set number of source lines $_Dbg_debugger_name will list by default."
-      ;;
-    p | pr | pro | prom | promp | prompt )
-      [[ -n $label ]] && label='set prompt    -- '
-      _Dbg_msg \
-"${label}${_Dbg_debugger_name}'s prompt is:\n" \
-"      \"$_Dbg_prompt_str\"."
-      return 0
-      ;;
-    sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
-      [[ -n $label ]] && label='set showcommand -- '
-      _Dbg_msg \
-"${label}Set showing the command to execute is $_Dbg_show_command."
-      return 0
-      ;;
-    t|tr|tra|trac|trace|trace-|tracec|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
-      [[ -n $label ]] && label='set trace-commands -- '
-      _Dbg_msg \
-"${label}Set showing debugger commands is $_Dbg_trace_commands."
-      return 0
-      ;;
-     w | wi | wid | widt | width )
-      [[ -n $label ]] && label='set width          -- '
-      _Dbg_msg \
-"${label}Set line length to use in output."
-      ;;
-    * )
-      _Dbg_msg \
-"There is no \"set $set_cmd\" command."
+	      "${label}Set argument list to give program being debugged when it is started.
+Follow this command with any number of args, to be passed to the program."
+	  return 0
+	  ;;
+      an | ann | anno | annot | annota | annotat | annotate )
+	  if [[ -n $label ]] ; then 
+	      label='set annotate  -- '
+	  else
+	      typeset post_label='
+0 == normal;     1 == fullname (for use when running under emacs).'
+	  fi
+	  _Dbg_msg \
+	      "${label}Set annotation level.$post_label"
+	  return 0
+	  ;;
+      autoe | autoev | autoeva | autoeval )
+	  _Dbg_help_set_onoff 'autoeval' 'autoeval' \
+	      "Evaluate unrecognized commands"
+	  return 0
+	  ;;
+      autol | autoli | autolis | autolist )
+	  [[ -n $label ]] && label='set autolist  -- '
+	  typeset -l onoff="on."
+	  [[ -z ${_Dbg_cmdloop_hooks['list']} ]] && onoff='off.'
+	  _Dbg_msg \
+	      "${label}Run list command is ${onoff}"
+	  return 0
+	  ;;
+      b | ba | bas | base | basen | basena | basenam | basename )
+	  _Dbg_help_set_onoff 'basename' 'basename' \
+	      "Set short filenames (the basename) in debug output"
+	  return 0
+	  ;;
+      deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
+	  _Dbg_help_set_onoff 'debugging' 'debugging' \
+	      "Set debugging the debugger"
+	  return 0
+	  ;;
+      force | dif | diff | differ | different )
+	  _Dbg_help_set_onoff 'different' 'different' \
+	      "Set stepping forces a different line"
+	  return 0
+	  ;;
+      inferior-tty )
+	  [[ -n $label ]] && label='set inferior-tty -- '
+	  _Dbg_msg "${label} set tty for input and output"
+	  ;;
+      lin | line | linet | linetr | linetra | linetrac | linetrace )
+	  [[ -n $label ]] && label='set linetrace -- '
+	  typeset onoff='off.'
+	  (( $_Dbg_linetrace )) && onoff='on.'
+	  _Dbg_msg \
+	      "${label}Set tracing execution of lines before executed is" $onoff
+	  if (( $_Dbg_linetrace )) ; then
+	      _Dbg_msg \
+		  "set linetrace delay -- delay before executing a line is" $_Dbg_linetrace_delay
+	  fi
+	  return 0
+	  ;;
+      lis | list | lists | listsi | listsiz | listsize )
+	  [[ -n $label ]] && label='set listsize  -- '
+	  _Dbg_msg \
+	      "${label}Set number of source lines $_Dbg_debugger_name will list by default."
+	  ;;
+      p | pr | pro | prom | promp | prompt )
+	  [[ -n $label ]] && label='set prompt    -- '
+	  _Dbg_msg \
+	      "${label}${_Dbg_debugger_name}'s prompt is:\n" \
+	      "      \"$_Dbg_prompt_str\"."
+	  return 0
+	  ;;
+      sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
+	  [[ -n $label ]] && label='set showcommand -- '
+	  _Dbg_msg \
+	      "${label}Set showing the command to execute is $_Dbg_show_command."
+	  return 0
+	  ;;
+      t|tr|tra|trac|trace|trace-|tracec|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
+	  [[ -n $label ]] && label='set trace-commands -- '
+	  _Dbg_msg \
+	      "${label}Set showing debugger commands is $_Dbg_set_trace_commands."
+	  return 0
+	  ;;
+      w | wi | wid | widt | width )
+	  [[ -n $label ]] && label='set width          -- '
+	  _Dbg_msg \
+	      "${label}Set line length to use in output."
+	  ;;
+      * )
+	  _Dbg_msg \
+	      "There is no \"set $set_cmd\" command."
   esac
 }
 
@@ -190,7 +179,6 @@ _Dbg_help_show() {
       ;;
     autol | autoli | autolis | autolist )
        _Dbg_msg \
-"show auotoeval   -- Show if we evaluate unrecognized commands"
 "show autolist    -- Run list before command loop?"
        return 0
        ;;
@@ -212,13 +200,13 @@ _Dbg_help_show() {
 'show debugger    -- Show if we are set to debug the debugger.'
       return 0
       ;;
+    different | force)
+      _Dbg_msg \
+'show different   -- Show if setting forces a different line.'
+      ;;
     dir|dire|direc|direct|directo|director|directori|directorie|directories)
       _Dbg_msg \
 "show directories -- Show file directories searched for listing source."
-      ;;
-    force)
-      _Dbg_msg \
-'show force       -- Show if setting forces a different line.'
       ;;
     lin | line | linet | linetr | linetra | linetrac | linetrace )
       _Dbg_msg \

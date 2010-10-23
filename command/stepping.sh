@@ -27,7 +27,7 @@ typeset -i _Dbg_step_force=0
 typeset -i _Dbg_return_level=-1
 
 # The default behavior of step_force. 
-typeset -i _Dbg_step_auto_force=0  
+typeset -i _Dbg_set_different=0  
 
 _Dbg_help_add skip \
 "skip [COUNT]	-- Skip (don't run) the next COUNT command(s).
@@ -105,7 +105,7 @@ _Dbg_do_step() {
   case "$_Dbg_last_next_step_cmd" in
       'step+' ) _Dbg_step_force=1 ;;
       'step-' ) _Dbg_step_force=0 ;;
-      'step'  ) _Dbg_step_force=$_Dbg_step_auto_force ;;
+      'step'  ) _Dbg_step_force=$_Dbg_set_different ;;
       * ) ;;
   esac
 
@@ -167,7 +167,7 @@ _Dbg_do_next() {
   case "$_Dbg_last_next_step_cmd" in
       'next+' ) _Dbg_step_force=1 ;;
       'next-' ) _Dbg_step_force=0 ;;
-      'next'  ) _Dbg_step_force=$_Dbg_step_auto_force ;;
+      'next'  ) _Dbg_step_force=$_Dbg_set_different ;;
       * ) ;;
   esac
 

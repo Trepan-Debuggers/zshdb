@@ -52,7 +52,7 @@ _Dbg_do_run() {
       :
   fi
 
-  if (( _Dbg_basename_only )) ; then 
+  if (( _Dbg_set_basename )) ; then 
     _Dbg_msg "Restarting with: $script_args"
   else
     _Dbg_msg "Restarting with: $exec_cmd"

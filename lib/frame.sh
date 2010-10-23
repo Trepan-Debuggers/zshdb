@@ -73,13 +73,13 @@ function _Dbg_frame_adjust {
 
 # Return the frame file for stack $1 or _Dbg_stack_pos if $1 
 # is omitted. If $2 is given, it indicates if we want the basename
-# only. Otherwise the $_Dbg_basename_only setting is used.
+# only. Otherwise the $_Dbg_set_basename setting is used.
 # 0 is returned if no error, nonzero means some sort of error.
 _Dbg_frame_file() {
     (($# > 2)) && return 2
     # FIXME check to see that $1 doesn't run off the end.
     typeset -i pos=${1:-$_Dbg_stack_pos}
-    typeset -i basename_only=${2:-$_Dbg_basename_only}
+    typeset -i basename_only=${2:-$_Dbg_set_basename}
     typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset -a split_result; _Dbg_split "$file_line" ':'
     _Dbg_frame_filename=${split_result[0]}

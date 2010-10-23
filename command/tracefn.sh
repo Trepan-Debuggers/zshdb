@@ -39,7 +39,7 @@ function _Dbg_do_trace_fn {
     fi
 
     typeset -ri clear_debug_trap=${2:-1}
-    _Dbg_is_function "$fn" $_Dbg_debug_debugger || {
+    _Dbg_is_function "$fn" $_Dbg_set_debugging || {
 	_Dbg_errmsg "_Dbg_do_trace_fn: \"$fn\" is not a function."
 	return 3
     }
@@ -78,7 +78,7 @@ function _Dbg_do_untrace_fn {
 	_Dbg_errmsg "untrace_fn: missing or invalid function name."
 	return 2
     fi
-    _Dbg_is_function "$fn" $_Dbg_debug_debugger || {
+    _Dbg_is_function "$fn" $_Dbg_set_debugging || {
 	_Dbg_errmsg "untrace_fn: function \"$fn\" is not a function."
 	return 3
     }

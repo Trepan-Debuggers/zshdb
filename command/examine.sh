@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # examine.sh: Examine debugger command.
 #
-#   Copyright (C) 2008 Rocky Bernstein  rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein  rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -32,7 +32,7 @@ function _Dbg_do_examine {
   elif _Dbg_defined $_Dbg_expr ; then
     _Dbg_result=$(typeset -p $_Dbg_expr)
     _Dbg_msg "$_Dbg_result"
-  elif _Dbg_is_function "$_Dbg_expr" $_Dbg_debug_debugger; then 
+  elif _Dbg_is_function "$_Dbg_expr" $_Dbg_set_debugging; then 
     _Dbg_result=$(typeset -f $_Dbg_expr)
     _Dbg_msg "$_Dbg_result"
   else 

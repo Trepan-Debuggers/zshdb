@@ -17,7 +17,7 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-typeset -i _Dbg_debug_debugger=0  # 1 if we are debugging the debugger
+typeset -i _Dbg_set_debugging=0  # 1 if we are debugging the debugger
 typeset    _Dbg_stop_reason=''    # The reason we are in the debugger.
 typeset -i _Dbg_rc=0
 
@@ -34,7 +34,7 @@ function _Dbg_hook {
     _Dbg_old_set_opts=$-  
 
     # Turn off line and variable trace listing.
-    ((!_Dbg_debug_debugger)) && set +x
+    ((!_Dbg_set_debugging)) && set +x
     set +v +u +e
 
     _Dbg_set_debugger_entry 'create_unsetopt'

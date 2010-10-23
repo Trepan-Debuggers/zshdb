@@ -32,7 +32,7 @@ function _Dbg_print_location {
     typeset -i line="${split_result[1]}"
     if [[ -n $filename ]] ; then 
 	_Dbg_readin "${filename}"
-	if ((_Dbg_basename_only)); then
+	if ((_Dbg_set_basename)); then
 	    filename=${filename##*/}
 	    file_line="${filename}:${line}"
 	fi
@@ -76,7 +76,7 @@ _Dbg_print_frame() {
     typeset filename
     filename="${split_result[0]}"
     typeset -i line="${split_result[1]}"
-    (( _Dbg_basename_only )) && filename=${filename##*/}
+    (( _Dbg_set_basename )) && filename=${filename##*/}
     _Dbg_msg "$prefix file \`$filename' at line $line"
 
 }
