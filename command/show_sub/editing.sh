@@ -18,6 +18,7 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_do_show_editing() {
+    typeset label="$1"
     [[ -n $label ]] && label='editing:  '
     _Dbg_msg_nocr \
 	"${label}Editing of command lines as they are typed is "
