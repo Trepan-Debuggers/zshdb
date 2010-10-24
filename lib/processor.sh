@@ -391,7 +391,7 @@ _Dbg_onecmd() {
 }
 
 _Dbg_preloop() {
-    if ((_Dbg_annotate)) ; then
+    if ((_Dbg_set_annotate)) ; then
 	_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
 	# _Dbg_annotation 'locals'      _Dbg_do_backtrace 3 
 	_Dbg_annotation 'stack'       _Dbg_do_backtrace 3 
@@ -399,7 +399,7 @@ _Dbg_preloop() {
 }
 
 _Dbg_postcmd() {
-    if ((_Dbg_annotate)) ; then
+    if ((_Dbg_set_annotate)) ; then
 	case $_Dbg_last_cmd in
             break | tbreak | disable | enable | condition | clear | delete ) 
 		_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints

@@ -88,22 +88,23 @@ AM_CONDITIONAL(INSTALL_EMACS_LISP,
 	       [test "x$lispdir" != "x" -a "x$EMACS" != "xno"])
 
 AC_CONFIG_FILES([ \
-	Makefile \
-	command/Makefile \
+	Makefile                  \
+	command/Makefile          \
 	command/info_sub/Makefile \
+	command/set_sub/Makefile  \
 	command/show_sub/Makefile \
-	doc/Makefile \
-	dbg-trace.sh \
-	emacs/Makefile \
-	emacs/dbg-test.el \
-	lib/Makefile \
-	test/Makefile \
-	test/data/Makefile \
-	test/example/Makefile \
+	doc/Makefile              \
+	dbg-trace.sh              \
+	emacs/Makefile            \
+	emacs/dbg-test.el         \
+	lib/Makefile              \
+	test/Makefile             \
+	test/data/Makefile        \
+	test/example/Makefile     \
 	test/integration/Makefile \
 	test/integration/check-common.sh \
-	test/unit/Makefile \
-	test/zsh/Makefile \
+	test/unit/Makefile        \
+	test/zsh/Makefile         \
 	])
 
 AC_CONFIG_FILES(DEBUGGER, [chmod +x DEBUGGER])

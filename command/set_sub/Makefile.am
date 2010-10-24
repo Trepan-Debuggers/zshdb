@@ -1,8 +1,7 @@
 pkgdatadir        = ${datadir}/@PACKAGE@/command/show_sub
 pkgdata_DATA =       	\
-	alias.sh     	\
-	copying.sh     	\
-	debugging.sh    \
+	annotating.sh  	\
+	editing.sh     	\
 	history.sh
 
 EXTRA_DIST = $(pkgdata_DATA)

@@ -59,7 +59,7 @@ _Dbg_orig_script_args=($@)
 typeset -ax _Dbg_script_args
 
 # Use gdb-style annotate?
-typeset -i _Dbg_annotate=0
+typeset -i _Dbg_set_annotate=0
 
 # Simulate set -x?
 typeset -i _Dbg_linetrace=0
@@ -142,11 +142,11 @@ welcome to change it and/or distribute copies of it under certain conditions.
 
     if [[ -n $_Dbg_o_annotate ]] ; then
 	if [[ ${_Dbg_o_annotate} == [0-9]* ]] ; then
-	    _Dbg_annotate=$_Dbg_o_annotate
-	    if (( _Dbg_annotate > 3 || _Dbg_annotate < 0)); then
-		print "Annotation level must be less between 0 and 3. Got: $_Dbg_annotate." >&2
+	    _Dbg_set_annotate=$_Dbg_o_annotate
+	    if (( _Dbg_set_annotate > 3 || _Dbg_set_annotate < 0)); then
+		print "Annotation level must be less between 0 and 3. Got: $_Dbg_set_annotate." >&2
 		print "Setting Annotation level to 0." >&2
-		_Dbg_annotate=0
+		_Dbg_set_annotate=0
 	    fi
 	else
 	    print "Annotate option should be an integer, got ${_Dbg_o_annotate}." >&2
@@ -164,7 +164,7 @@ if [[ -n "$_Dbg_dbg_opts_test" ]] ; then
     _Dbg_libdir='.'
     [[ -n $_Dbg_input ]] && typeset -p _Dbg_input
     _Dbg_parse_options "$@"
-    typeset -p _Dbg_annotate
+    typeset -p _Dbg_set_annotate
     typeset -p _Dbg_linetrace
     typeset -p _Dbg_set_basename
 fi

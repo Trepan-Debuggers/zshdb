@@ -3,19 +3,20 @@
 #
 #   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with This program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 # Sets whether or not to display command to be executed in debugger prompt.
 # If yes, always show. If auto, show only if the same line is to be run
@@ -59,7 +60,7 @@ _Dbg_do_show() {
 	an | ann | anno | annot | annota | annotat | annotate )
 	    [[ -n $label ]] && label='annotate: '
 	    _Dbg_msg \
-		"${label}Annotation_level is $_Dbg_annotate."
+		"${label}Annotation_level is $_Dbg_set_annotate."
             return 0
 	    ;;
 	autoe | autoev | autoeva | autoeval )
@@ -118,13 +119,8 @@ _Dbg_do_show() {
 	    return 0
 	    ;;
 	hi|his|hist|histo|histor|history)
-	    _Dbg_msg \
-		"filename: The filename in which to record the command history is:"
-	    _Dbg_msg "	$_Dbg_histfile"
-	    _Dbg_msg \
-		"save: Saving of history save is" $(_Dbg_onoff $_Dbg_history_save)
-	    _Dbg_msg \
-		"size: Debugger history size is $HISTSIZE, saving $SAVEHIST"
+	    _Dbg_do_show_history
+	    return $?
 	    ;;
 
 	lin | line | linet | linetr | linetra | linetrac | linetrace )

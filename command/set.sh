@@ -3,19 +3,20 @@
 #
 #   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with This program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 # Sets whether or not to display command to be executed in debugger prompt.
 # If yes, always show. If auto, show only if the same line is to be run
@@ -32,6 +33,11 @@ typeset -i _Dbg_listsize=10        # How many lines in a listing?
 typeset _Dbg_set_trace_commands='off'
 
 _Dbg_help_add set ''  # Help routine is elsewhere
+
+# Load in "show" subcommands
+for _Dbg_file in ${_Dbg_libdir}/command/set_sub/*.sh ; do 
+    source $_Dbg_file
+done
 
 _Dbg_do_set() {
   typeset set_cmd=$1
@@ -54,19 +60,8 @@ _Dbg_do_set() {
 	  done
 	  ;;
       an | ann | anno | annot | annota | annotat | annotate )
-	  if (( $# == 0 )) ; then
-	      _Dbg_msg "Argument required (an integer to set 'annotate' to.)."
-	  elif [[ $1 == [0-9]* ]] ; then 
-	      if (( $1 > 3 || $1 < 0)); then
-		  _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
-	      else
-		  _Dbg_write_journal_eval "_Dbg_annotate=$1"
-	      fi
-	  else
-	      _Dbg_msg "Integer argument expected; got: $1"
-	      return 1
-	  fi
-	  return 0
+	  _Dbg_do_set_annotate $@
+	  return $?
 	  ;;
       autoe | autoev | autoeva | autoeval )
 	  _Dbg_set_onoff "$1" 'autoeval'
@@ -94,69 +89,20 @@ _Dbg_do_set() {
 	  return $?
 	  ;;
       de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-	  _Dbg_set_onoff $1 'debugging'
+	  _Dbg_set_onoff "$1" 'debugging'
 	  return $?
 	  ;;
       e | ed | edi | edit | editi | editin | editing )
-	  typeset onoff=${1:-'on'}
-	  case $onoff in 
-	      e | em | ema | emac | emacs ) 
-		  _Dbg_edit='-e'
-		  _Dbg_edit_style='emacs'
-		  builtin bindkey -e 
-		  ;;
-	      on | 1 ) 
-		  _Dbg_edit='-e'
-		  _Dbg_edit_style='emacs'
-		  builtin bindkey -e
-		  ;;
-	      off | 0 )
-		  _Dbg_edit=''
-		  return 0
-		  ;;
-	      v | vi ) 
-		  _Dbg_edit='-e'
-		  _Dbg_edit_style='vi'
-		  builtin bindkey -v 
-		  ;;
-	      * )
-		  _Dbg_errmsg '"on", "off", "vi", or "emacs" expected.'
-		  return 1
-	  esac
+	  _Dbg_set_editing "$1"
+	  return $?
 	  ;;
       force | dif | diff | differ | different )
 	  _Dbg_set_onoff "$1" 'different'
 	  return $?
 	  ;;
       hi|his|hist|histo|histor|history)
-	  case $1 in 
-	      sa | sav | save )
-		  typeset onoff=${2:-'on'}
-		  case $onoff in 
-		      on | 1 ) 
-			  _Dbg_write_journal_eval "_Dbg_history_save=1"
-			  ;;
-		      off | 0 )
-			  _Dbg_write_journal_eval "_Dbg_history_save=0"
-			  ;;
-		      * )
-			  _Dbg_msg "\"on\" or \"off\" expected."
-			  ;;
-		  esac
-		  ;;
-	      si | siz | size )
-		  if [[ -z $2 ]] ; then
-		      _Dbg_msg "Argument required (integer to set it to.)."
-		  elif [[ $2 != [0-9]* ]] ; then 
-		      _Dbg_errmsg "Integer argument expected; got: $2"
-		      return 1
-		  fi
-		  _Dbg_write_journal_eval "_Dbg_history_length=$2"
-		  ;;
-              *)
-		  _Dbg_errmsg "\"save\", or \"size\" expected."
-		  ;;
-	  esac
+	  _Dbg_do_set_history "$1"
+	  return $?
 	  ;;
       inferior-tty )
 	  _Dbg_set_tty $@

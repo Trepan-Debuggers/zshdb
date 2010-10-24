@@ -49,7 +49,7 @@ test_glob_filename()
 test_adjust_filename()
 {
     typeset filename
-    _Dbg_annotate=0
+    _Dbg_set_annotate=0
     _Dbg_basename=0
     filename=$(_Dbg_adjust_filename abc)
     assertEquals 'abc' $filename
