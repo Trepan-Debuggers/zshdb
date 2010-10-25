@@ -7,6 +7,7 @@ pkgdata_DATA =       	\
 	history.sh	\
 	linetrace.sh	\
 	linewidth.sh	\
+	listsize.sh	\
 	showcommand.sh	\
 	trace-commands.sh
 

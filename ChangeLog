@@ -1,3 +1,33 @@
+2010-10-25  rocky <rocky@gnu.org>
+
+	* command/list.sh, command/set.sh, command/set_sub/Makefile.am,
+	command/set_sub/annotate.sh, command/set_sub/args.sh,
+	command/set_sub/autolist.sh, command/set_sub/history.sh,
+	command/set_sub/linetrace.sh, command/set_sub/linewidth.sh,
+	command/set_sub/listsize.sh, command/set_sub/showcommand.sh,
+	command/set_sub/trace-commands.sh, command/show.sh, lib/gdb.sh,
+	lib/list.sh, test/data/setshow.right: Move pretty much the rest of
+	the set subcommands to the set_sub directory. Go over code to be
+	more regular.
+
+2010-10-25  rocky <rocky@gnu.org>
+
+	* lib/filecache.sh: test-delete Was giving an warning in cygwin's
+	zsh. Fix that. Sync with bashdb.
+
+2010-10-24  rocky <rocky@gnu.org>
+
+	* NEWS: What's up.
+
+2010-10-24  rocky <rocky@gnu.org>
+
+	* command/set_sub/Makefile.am: Listed wrong subdirectory.
+
+2010-10-24  rocky <rocky@gnu.org>
+
+	* ChangeLog, command/show_sub/Makefile.am, lib/Makefile.am,
+	test/data/Makefile.am: More build administrivia.
+
 2010-10-24  rocky <rocky@gnu.org>
 
 	* ChangeLog, command/Makefile.am, command/set.sh,
