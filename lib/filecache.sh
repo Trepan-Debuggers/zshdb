@@ -3,18 +3,18 @@
 #
 #   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
 #   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
+#   with this program; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 zmodload -ap zsh/mapfile mapfile &>/dev/null
@@ -69,7 +69,7 @@ function _Dbg_file_not_read_in {
 function _Dbg_get_maxline {
     (( $# != 1 )) && return -1
     _Dbg_set_source_array_var "$1" || return $?
-    eval "typeset last_line=\${${_Dbg_source_array_var}[-1]}"
+    eval "typeset last_line; last_line=\${${_Dbg_source_array_var}[-1]}"
     # If the file had a final newline the last line of the data read in
     # is the empty string.  We want to count the last line whether or
     # not it had a newline.
@@ -204,7 +204,7 @@ _Dbg_readin_if_new() {
     (( $# != 1 )) && return 1
     typeset filename="$1"
     _Dbg_set_source_array_var "$filename"
-    if [[ -z $fullname ]] ; then 
+    if [[ -z "$fullname" ]] ; then 
 	_Dbg_readin "$filename"
 	typeset rc=$?
 	(( $? != 0 )) && return $rc
