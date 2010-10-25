@@ -110,6 +110,8 @@ AC_CONFIG_FILES([ \
 AC_CONFIG_FILES(DEBUGGER, [chmod +x DEBUGGER])
 AC_CONFIG_FILES([test/example/hanoi.sh], 
                 [chmod +x test/example/hanoi.sh])
+AC_CONFIG_FILES([test/example/restart.sh], 
+                [chmod +x test/example/restart.sh])
 
 AC_CONFIG_FILES([test/integration/test-action], 
                 [chmod +x test/integration/test-action])

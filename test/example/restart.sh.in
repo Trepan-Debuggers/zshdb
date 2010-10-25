@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!@SH_PROG@
 # For testing restart.
 
 x=1

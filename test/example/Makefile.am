@@ -14,4 +14,6 @@ check_DATA = \
 	stepping.sh      \
 	subshell.sh
 
-EXTRA_DIST = $(check_DATA)
+SOURCES=hanoi.sh.in restart.sh.in
+
+EXTRA_DIST = $(check_DATA) $(SOURCES)
