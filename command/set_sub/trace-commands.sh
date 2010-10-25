@@ -18,8 +18,11 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+# Sets whether or not to display command before executing it.
+typeset _Dbg_set_trace_commands='off'
+
 _Dbg_do_set_trace_commands() {
-    case $1 in 
+    case "$1" in 
 	1 )
 	    _Dbg_write_journal_eval "_Dbg_set_trace_commands=on"
 	    ;;

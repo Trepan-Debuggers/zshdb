@@ -21,7 +21,7 @@
 _Dbg_do_set_annotate() {
     if (( $# == 0 )) ; then
 	_Dbg_msg "Argument required (an integer to set 'annotate' to.)."
-    elif [[ $1 == [0-9]* ]] ; then 
+    elif [[ "$1" == [0-9]* ]] ; then 
 	if (( $1 > 3 || $1 < 0)); then
 	    _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
 	else

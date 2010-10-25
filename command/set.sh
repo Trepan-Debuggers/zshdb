@@ -28,9 +28,6 @@ typeset    _Dbg_linetrace_delay=1  # sleep after linetrace
 typeset -i _Dbg_set_autoeval=0     # Evaluate unrecognized commands?
 typeset -i _Dbg_set_listsize=10    # How many lines in a listing? 
 
-# Sets whether or not to display command before executing it.
-typeset _Dbg_set_trace_commands='off'
-
 _Dbg_help_add set ''  # Help routine is elsewhere
 
 # Load in "show" subcommands
@@ -84,7 +81,7 @@ _Dbg_do_set() {
 	  _Dbg_do_set_listsize $@
 	  ;;
       lo | log | logg | loggi | loggin | logging )
-	  _Dbg_cmd_set_logging $*
+	  _Dbg_cmd_set_logging $@
 	  ;;
       p | pr | pro | prom | promp | prompt )
 	  _Dbg_prompt_str="$1"

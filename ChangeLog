@@ -1,5 +1,10 @@
 2010-10-25  rocky <rocky@gnu.org>
 
+	* ChangeLog, command/set_sub/Makefile.am: Forgot to add a listsize
+	to distribution
+
+2010-10-25  rocky <rocky@gnu.org>
+
 	* command/list.sh, command/set.sh, command/set_sub/Makefile.am,
 	command/set_sub/annotate.sh, command/set_sub/args.sh,
 	command/set_sub/autolist.sh, command/set_sub/history.sh,

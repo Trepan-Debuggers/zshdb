@@ -18,11 +18,6 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-# Sets whether or not to display command to be executed in debugger prompt.
-# If yes, always show. If auto, show only if the same line is to be run
-# but the command is different.
-typeset _Dbg_show_command="auto"
-
 _Dbg_help_add show ''  # Help routine is elsewhere
 
 # Load in "show" subcommands
@@ -157,7 +152,7 @@ _Dbg_do_show() {
 	    [[ -n $label ]] && label='showcommand: '
 	    _Dbg_msg \
 		"${label}Show commands in debugger prompt is" \
-		"$_Dbg_show_command."
+		"$_Dbg_set_show_command."
 	    return 0
 	    ;;
 	t|tr|tra|trac|trace|trace-|tracec|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
