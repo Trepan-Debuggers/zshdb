@@ -21,6 +21,7 @@ pkgdata_DATA =      	\
 	run.sh    	\
 	save-restore.sh	\
 	set-d-vars.sh   \
+	setshow.sh      \
 	sort.sh 	\
 	tty.sh          \
 	validate.sh

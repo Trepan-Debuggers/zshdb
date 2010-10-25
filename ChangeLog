@@ -1,5 +1,10 @@
 2010-10-24  rocky <rocky@gnu.org>
 
+	* ChangeLog, command/Makefile.am, command/set.sh,
+	command/set_sub/Makefile.am: Build Administrivia.
+
+2010-10-24  rocky <rocky@gnu.org>
+
 	* command/set.sh, command/set_sub/.gitignore,
 	command/set_sub/Makefile.am, command/set_sub/annotate.sh,
 	command/set_sub/editing.sh, command/set_sub/history.sh,

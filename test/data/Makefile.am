@@ -1,4 +1,7 @@
 check_DATA = \
+	action.cmd         \
+	action.right       \
+	brkpt1.right       \
 	brkpt1.cmd         \
 	brkpt1.right       \
 	bug-args.cmd       \
