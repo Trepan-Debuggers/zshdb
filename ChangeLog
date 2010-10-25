@@ -1,3 +1,109 @@
+2010-10-24  rocky <rocky@gnu.org>
+
+	* command/set.sh, command/set_sub/.gitignore,
+	command/set_sub/Makefile.am, command/set_sub/annotate.sh,
+	command/set_sub/editing.sh, command/set_sub/history.sh,
+	command/show.sh, command/show_sub/Makefile.am,
+	command/show_sub/editing.sh, command/show_sub/history.sh,
+	configure.ac, dbg-opts.sh, lib/file.sh, lib/processor.sh,
+	test/unit/test-dbg-opts.sh.in, test/unit/test-file.sh.in: Move more
+	show subcommand code into a show-subcommand directory.
+
+2010-10-23  rocky <rocky@gnu.org>
+
+	* command/show.sh, command/show_sub/editing.sh, lib/setshow.sh: 
+	Synch with bashb. A couple of bugs found/fixed.
+
+2010-10-23  rocky <rocky@gnu.org>
+
+	* command/frame.sh, command/set.sh, command/show.sh,
+	command/show_sub/debugging.sh, command/where.sh, lib/setshow.sh,
+	test/data/setshow.right, test/unit/.gitignore,
+	test/unit/test-setshow.sh.in: More show DRY-ness. Forgot to add
+	lib/setshow and unit test for that previously.
+
+2010-10-23  rocky <rocky@gnu.org>
+
+	* command/examine.sh, command/info_sub/files.sh, command/run.sh,
+	command/set.sh, command/show.sh, command/show_sub/debugging.sh,
+	command/stepping.sh, command/tracefn.sh, configure.ac, dbg-opts.sh,
+	dbg-pre.sh, lib/file.sh, lib/filecache.sh, lib/fns.sh,
+	lib/frame.sh, lib/gdb.sh, lib/help.sh, lib/hook.sh,
+	lib/processor.sh, test/unit/Makefile.am,
+	test/unit/test-dbg-opts.sh.in, test/unit/test-file.sh.in,
+	test/unit/test-frame.sh.in: DRY set/show code and help of some of
+	these.
+
+2010-10-23  rocky <rocky@gnu.org>
+
+	* README: Update README to show how to change source code to call
+	the debugger
+
+2010-10-22  rocky <rocky@gnu.org>
+
+	* lib/help.sh, lib/processor.sh: Remove debug output on runnign
+	hook, and change min abbrev on "show directory" "show dir" because
+	we now have "show different".
+
+2010-10-22  rocky <rocky@gnu.org>
+
+	* command/set.sh, command/show.sh, test/data/action.right,
+	test/data/delete.right, test/data/next.right,
+	test/data/setshow.right, test/data/skip.right,
+	test/data/step.right, test/data/subshell.right: Echo show subcommand
+	after running an on/off set command.
+
+2010-10-22  rocky <rocky@gnu.org>
+
+	* lib/help.sh: A small "show autolist" bug fixed.
+
+2010-10-22  rocky <rocky@gnu.org>
+
+	* lib/help.sh: "show help" for directories was missing.
+
+2010-10-22  rocky <rocky@gnu.org>
+
+	* NEWS, command/set.sh, command/show.sh, lib/help.sh,
+	lib/processor.sh, test/data/setshow.right: Add set/show autolist.
+	Add more general cmdloop hook mechanism.
+
+2010-10-11  rocky <rocky@gnu.org>
+
+	* test/unit/test-filecache.sh.in,
+	test/unit/test-get-sourceline.sh.in: Small changes.
+
+2010-10-11  rocky <rocky@gnu.org>
+
+	* command/info_sub/files.sh, configure.ac, lib/filecache.sh,
+	test/example/dir with spaces/bug.sh, test/unit/.gitignore,
+	test/unit/Makefile.am, test/unit/test-filecache.sh.in,
+	test/unit/test-get-sourceline.sh.in: Make sure we can debug
+	filenames whose path has a space one of its directory names. That
+	was the case before but we've added a test and did made changes to
+	make more compatible with bash.  filecache.sh: silence zmodload
+	message.
+
+2010-09-16  rocky <rocky@gnu.org>
+
+	* ChangeLog, lib/file.sh, lib/filecache.sh: Set cdir properly.
+	More-specific internal-error messages. (Keeping in synch with
+	bashdb).
+
+2010-07-30  R. Bernstein <rocky@gnu.org>
+
+	* command/info.sh, command/info_sub/brkpts.sh,
+	command/info_sub/files.sh, command/info_sub/line.sh,
+	command/info_sub/program.sh, command/info_sub/source.sh,
+	command/info_sub/variables.sh, command/info_sub/warranty.sh,
+	command/show.sh, command/show_sub/alias.sh,
+	command/show_sub/copying.sh, command/show_sub/editing.sh: bashdb ->
+	zshdb
+
+2010-07-30  R. Bernstein <rocky@gnu.org>
+
+	* configure.ac, dbg-pre.sh: Smallish things to help keep in synch
+	with zshdb.
+
 2010-07-10  rocky <rocky@gnu.org>
 
 	* command/show.sh, command/show_sub/.gitignore,
