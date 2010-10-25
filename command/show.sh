@@ -138,7 +138,7 @@ _Dbg_do_show() {
 	    [[ -n $label ]] && label='listsize: '
 	    _Dbg_msg \
 		"${label}Number of source lines ${_Dbg_debugger_name} will list by default is" \
-		"$_Dbg_listsize."
+		"$_Dbg_set_listsize."
 	    return 0
 	    ;;
 
@@ -178,7 +178,7 @@ _Dbg_do_show() {
 	wi | wid | width )
 	    [[ -n $label ]] && label='width: '
 	    _Dbg_msg \
-		"${label}Line width is $_Dbg_linewidth."
+		"${label}Line width is $_Dbg_set_linewidth."
 	    return 0
 	    ;;
 	*)

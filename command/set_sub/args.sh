@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "set annotate" debugger command
+# "set args" debugger command
 #
 #   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
 #
@@ -18,18 +18,15 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_do_set_annotate() {
-    if (( $# == 0 )) ; then
-	_Dbg_msg "Argument required (an integer to set 'annotate' to.)."
-    elif [[ $1 == [0-9]* ]] ; then 
-	if (( $1 > 3 || $1 < 0)); then
-	    _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
-	else
-	    _Dbg_write_journal_eval "_Dbg_set_annotate=$1"
-	fi
-    else
-	_Dbg_errmsg "Integer argument expected; got: $1"
-	return 1
-    fi
+_Dbg_do_set_args() {
+    # We use the loop below rather than _Dbg_set_args="(@)" because
+    # we want to preserve embedded blanks in the arguments.
+    _Dbg_script_args=()
+    typeset -i i
+    typeset -i n=$#
+    for (( i=0; i<n ; i++ )) ; do
+	_Dbg_write_journal_eval "_Dbg_script_args[$i]=$1"
+	shift
+    done
     return 0
 }

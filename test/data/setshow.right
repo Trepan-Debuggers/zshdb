@@ -301,7 +301,7 @@ Undefined set subcommand "misspelled". Try "help set".
 +set listsize bad
 ** Integer argument expected; got: bad
 +set annotate bad
-Integer argument expected; got: bad
+** Integer argument expected; got: bad
 +set annotate 6
 Annotation level must be between 0 and 3. Got: 6.
 +show annotate

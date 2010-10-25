@@ -25,7 +25,7 @@ typeset _Dbg_last_search_pat
 typeset -i _Dbg_listline=-1
 
 # list $3 lines starting at line $2 of file $1. If $1 is '', use
-# $_cur_source_file value.  If $3 is ommited, print $_Dbg_listsize
+# $_cur_source_file value.  If $3 is ommited, print $_Dbg_set_listsize
 # lines. if $2 is omitted, use global variable $_curline.
 
 _Dbg_list() {
@@ -46,7 +46,7 @@ _Dbg_list() {
     (( _Dbg_listline==0 && _Dbg_listline++ ))
 
     typeset -i cnt
-    cnt=${3:-$_Dbg_listsize}
+    cnt=${3:-$_Dbg_set_listsize}
     typeset -i n
     n=$((_Dbg_listline+cnt-1))
 
@@ -93,7 +93,7 @@ _Dbg_list_columns() {
 	msg=_Dbg_msg
     fi
     (($# != 0)) && return 1
-    typeset -a columnized; columnize $_Dbg_linewidth "$colsep"
+    typeset -a columnized; columnize $_Dbg_set_linewidth "$colsep"
     typeset -i i
     for ((i=0; i<${#columnized[@]}; i++)) ; do 
 	$msg "  ${columnized[i]}"

@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "set annotate" debugger command
+# "set autolist" debugger command
 #
 #   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
 #
@@ -18,18 +18,20 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_do_set_annotate() {
-    if (( $# == 0 )) ; then
-	_Dbg_msg "Argument required (an integer to set 'annotate' to.)."
-    elif [[ $1 == [0-9]* ]] ; then 
-	if (( $1 > 3 || $1 < 0)); then
-	    _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
-	else
-	    _Dbg_write_journal_eval "_Dbg_set_annotate=$1"
-	fi
-    else
-	_Dbg_errmsg "Integer argument expected; got: $1"
-	return 1
-    fi
+_Dbg_do_set_autolist() {
+    typeset onoff=${1:-'off'}
+    case $onoff in 
+	on | 1 ) 
+	    _Dbg_write_journal_eval "_Dbg_cmdloop_hooks[\"list\"]=_Dbg_do_list"
+	    ;;
+	off | 0 )
+	    _Dbg_write_journal_eval "unset '_Dbg_cmdloop_hooks[\"list\"]'"
+	    unset '_Dbg_cmdloop_hooks[\"list\"]'
+	    ;;
+	* )
+	    _Dbg_errmsg "\"on\" or \"off\" expected."
+	    return 1
+    esac
+    _Dbg_do_show 'autolist'
     return 0
 }

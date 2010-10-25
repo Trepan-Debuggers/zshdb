@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "set annotate" debugger command
+# "set tracecommands" debugger command
 #
 #   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
 #
@@ -18,18 +18,20 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_do_set_annotate() {
-    if (( $# == 0 )) ; then
-	_Dbg_msg "Argument required (an integer to set 'annotate' to.)."
-    elif [[ $1 == [0-9]* ]] ; then 
-	if (( $1 > 3 || $1 < 0)); then
-	    _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
-	else
-	    _Dbg_write_journal_eval "_Dbg_set_annotate=$1"
-	fi
-    else
-	_Dbg_errmsg "Integer argument expected; got: $1"
-	return 1
-    fi
+_Dbg_do_set_trace_commands() {
+    case $1 in 
+	1 )
+	    _Dbg_write_journal_eval "_Dbg_set_trace_commands=on"
+	    ;;
+	0 )
+	    _Dbg_write_journal_eval "_Dbg_set_trace_commands=off"
+	    ;;
+	on | off )
+	    _Dbg_write_journal_eval "_Dbg_set_trace_commands=$1"
+	    ;;
+	* )
+	    _Dbg_errmsg "\"on\", \"off\" expected."
+	    return 1
+    esac
     return 0
 }

@@ -41,16 +41,16 @@ _Dbg_do_list() {
 	first_arg="$1"
 	shift
     fi
-    typeset count=${1:-$_Dbg_listsize}
+    typeset count=${1:-$_Dbg_set_listsize}
 
     if [[ $first_arg == '.' ]] ; then
 	first_arg=$_Dbg_frame_last_lineno
     elif [[ $first_arg == '-' ]] ; then
 	typeset -i start_line
 	if ((_Dbg_listline < 0 )) ; then
-	    ((start_line=_Dbg_frame_last_lineno-_Dbg_listsize))
+	    ((start_line=_Dbg_frame_last_lineno-_Dbg_set_listsize))
 	else
-	    ((start_line=_Dbg_listline-2*_Dbg_listsize))
+	    ((start_line=_Dbg_listline-2*_Dbg_set_listsize))
 	fi
 	if (( start_line <= 0 )) ; then
 	    ((count=count+start_line-1))

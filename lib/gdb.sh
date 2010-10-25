@@ -45,7 +45,7 @@ function _Dbg_print_location {
 }
 
 function _Dbg_print_command {
-    typeset -i width; ((width=_Dbg_linewidth-6))
+    typeset -i width; ((width=_Dbg_set_linewidth-6))
     if (( ${#ZSH_DEBUG_CMD} > width )) ; then
 	_Dbg_msg "${ZSH_DEBUG_CMD[0,$width]} ..."
     else

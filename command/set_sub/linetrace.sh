@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "set history" debugger command
+# "set linetrace" debugger command
 #
 #   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
 #
@@ -18,36 +18,42 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_do_set_history() {
-    case "$1" in 
-	sa | sav | save )
+_Dbg_do_set_linetrace() {
+    typeset onoff=${1:-'off'}
+    case $onoff in 
+	on | 1 ) 
+	    _Dbg_write_journal_eval "_Dbg_linetrace=1"
+	    ;;
+	off | 0 )
+	    _Dbg_write_journal_eval "_Dbg_linetrace=0"
+	    ;;
+	d | de | del | dela | delay )
+	    if [[ $2 != [0-9]* ]] ; then 
+		_Dbg_errmsg "Bad integer parameter: $2"
+		return 1
+	    fi
+	    eval "$_resteglob"
+	    _Dbg_write_journal_eval "_Dbg_linetrace_delay=$2"
+	    ;;
+	e | ex | exp | expa | expan | expand )
 	    typeset onoff=${2:-'on'}
 	    case $onoff in 
 		on | 1 ) 
-		    _Dbg_write_journal_eval "_Dbg_history_save=1"
+		    _Dbg_write_journal_eval "_Dbg_linetrace_expand=1"
 		    ;;
-		      off | 0 )
-		    _Dbg_write_journal_eval "_Dbg_history_save=0"
+		off | 0 )
+		    _Dbg_write_journal_eval "_Dbg_linetrace_expand=0"
 		    ;;
 		* )
-		    _Dbg_errmsg "\"on\" or \"off\" expected."
+		    _Dbg_errmsg "\"expand\", \"on\" or \"off\" expected."
 		    return 1
 		    ;;
 	    esac
 	    ;;
-	si | siz | size )
-	    if [[ -z $2 ]] ; then
-		_Dbg_errmsg "Argument required (integer to set it to.)."
-	    elif [[ $2 != [0-9]* ]] ; then 
-		_Dbg_errmsg "Integer argument expected; got: $2"
-		return 1
-	    fi
-	    _Dbg_write_journal_eval "_Dbg_history_length=$2"
-	    ;;
-        *)
-	    _Dbg_errmsg "\"save\", or \"size\" expected."
+	
+	* )
+	    _Dbg_msg "\"expand\", \"on\" or \"off\" expected."
 	    return 1
-	    ;;
     esac
     return 0
 }
