@@ -7,6 +7,7 @@ Version 0.05
 - "Set force" depricated. Use "set different".
 - Code reorganization to support subcommands (set/show/info) and allow
   for growth
+- Other bug fixes
 
 Version 0.04
 2009-10-27 Halala ngosuku lokuzalwa
@@ -27,6 +28,7 @@ Version 0.03
 - add set-inferior tty and tty testing code changes
 - add manual page; help doc improvements
 - more and better unit/integration tests
+- works on Solaris
 
 Version 0.02
 2008-11-17
