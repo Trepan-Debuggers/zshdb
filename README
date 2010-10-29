@@ -73,12 +73,11 @@ done with zsh support.
 
 3.b) Setting $0
 
-3.c) lots of other stuff including...
+3.c) other stuff including...
 
-  display expressions, signal handling, 
+  signal handling, 
   debugger commands:
      debug
-     condition
      file
      handle
      history
