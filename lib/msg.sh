@@ -90,20 +90,25 @@ function _Dbg_msg_nocr {
 
 # print message to output device
 function _Dbg_printf {
-  typeset format
-  format=$1
-  shift
-  if (( _Dbg_logging )) ; then
-    builtin printf "$format" "$@" >>$_Dbg_logfid
-  fi
-  if (( ! _Dbg_logging_redirect )) ; then
-    if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
-      builtin printf "$format" "$@" >&${_Dbg_fdi}
-    else
-      builtin printf "$format" "$@"
+    _Dbg_printf_nocr "$@"
+    _Dbg_msg ''
+}
+
+# print message to output device
+function _Dbg_printf_nocr {
+    typeset format
+    format=$1
+    shift
+    if (( _Dbg_logging )) ; then
+	builtin printf "$format" "$@" >>$_Dbg_logfid
     fi
-  fi
-  _Dbg_msg ''
+    if (( ! _Dbg_logging_redirect )) ; then
+	if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
+	    builtin printf "$format" "$@" >&${_Dbg_fdi}
+	else
+	    builtin printf "$format" "$@"
+	fi
+    fi
 }
 
 # Common funnel for "Undefined command" message

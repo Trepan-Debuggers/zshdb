@@ -20,7 +20,7 @@ typeset -i  _Dbg_inside_skip=0
 
 # Hooks that get run on each command loop
 typeset -A _Dbg_cmdloop_hooks
-## _Dbg_cmdloop_hooks['display']='_Dbg_eval_all_display'
+_Dbg_cmdloop_hooks['display']='_Dbg_eval_all_display'
 
 typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}%h${_Dbg_greater}'
 
@@ -212,6 +212,11 @@ _Dbg_onecmd() {
 	  _Dbg_last_cmd='disable'
 	  ;;
 
+	# Display expression
+	disp | displ | displa| display )
+	  _Dbg_do_display $args
+	  ;;
+
 	# Move call stack down
 	down )
 	  _Dbg_do_down $@
@@ -343,6 +348,11 @@ _Dbg_onecmd() {
 	up )
 	  _Dbg_do_up $args
 	  _Dbg_last_cmd='up'
+	  ;;
+
+	# Undisplay display-number
+	und | undi | undis | undisp | undispl | undispla | undisplay )
+	  _Dbg_do_undisplay $args
 	  ;;
 
 	# Remove a function trace

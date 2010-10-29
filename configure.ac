@@ -1,7 +1,7 @@
 dnl Configure script for Shell debugger
 define(DEBUGGER, zshdb)
 define(POSIXSHELL, zsh)
-AC_INIT([zshdb],[0.05],[rocky@gnu.org])
+AC_INIT([zshdb],[0.06.git],[rocky@gnu.org])
 AM_PATH_LISPDIR
 AM_MAINTAINER_MODE
 AM_INIT_AUTOMAKE([no-define])
@@ -129,6 +129,8 @@ AC_CONFIG_FILES([test/integration/test-condition],
                 [chmod +x test/integration/test-condition])
 AC_CONFIG_FILES([test/integration/test-delete], 
                 [chmod +x test/integration/test-delete])
+AC_CONFIG_FILES([test/integration/test-display], 
+                [chmod +x test/integration/test-display])
 AC_CONFIG_FILES([test/integration/test-enable], 
                 [chmod +x test/integration/test-enable])
 AC_CONFIG_FILES([test/integration/test-examine], 

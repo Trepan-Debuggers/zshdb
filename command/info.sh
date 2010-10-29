@@ -46,15 +46,15 @@ _Dbg_do_info() {
 	  b | br | bre | brea | 'break' | breakp | breakpo | breakpoints )
 	      #      b | br | bre | brea | 'break' | breakp | breakpo | breakpoints | \
 	      #      w | wa | wat | watc | 'watch' | watchp | watchpo | watchpoints )
-	      _Dbg_do_info_brkpts $*
-	      #	_Dbg_list_watch $*
+	      _Dbg_do_info_brkpts $@
+	      #	_Dbg_list_watch $@
 	      return 0
 	      ;;
 	  
-	  #       d | di | dis| disp | displ | displa | display )
-	  # 	_Dbg_do_list_display $*
-	  # 	return
-	  # 	;;
+	  d | di | dis| disp | displ | displa | display )
+	      _Dbg_do_info_display $@
+	      return
+	      ;;
 	  
           file| files )
 	      _Dbg_do_info_files
@@ -83,7 +83,7 @@ _Dbg_do_info() {
 	      ;;
 	  
 	  st | sta | stac | stack )
-	      _Dbg_do_backtrace 1 $*
+	      _Dbg_do_backtrace 1 $@
 	      return $?
 	      ;;
 	  
@@ -93,7 +93,7 @@ _Dbg_do_info() {
 	  # 	;;
 	  
 	  v | va | var | vari | varia | variab | variabl | variable | variables )
-	      _Dbg_do_info_variables $*
+	      _Dbg_do_info_variables $@
 	      return $?
 	      ;;
 	  
