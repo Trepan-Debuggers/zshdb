@@ -16,12 +16,7 @@
 
 AUTOMAKE_OPTIONS = dist-bzip2
 
-if INSTALL_EMACS_LISP
-emacs = emacs
-else
-emacs =
-endif
-SUBDIRS = command doc $(emacs) lib test
+SUBDIRS = command doc lib test
 
 pkgdata_DATA =       \
 	dbg-pre.sh   \

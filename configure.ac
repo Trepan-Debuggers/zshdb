@@ -71,22 +71,6 @@ AM_MISSING_PROG(GIT2CL, git2cl, $missing_dir)
 AC_PROG_LN_S
 AC_PATH_PROG(RM, rm, true)
 
-AC_PATH_PROG(EMACS, emacs, no)
-if test x$EMACS != xno ; then
-  $EMACS -batch -q -no-site-file -eval \
-  '(if (<= emacs-major-version 21)
-     (progn
-       (error "You need GNU Emacs 22 or better for GNU Emacs support.")
-       (kill-emacs 1)
-     ))'
-  if test $? -ne 0 ; then
-    EMACS=no
-  fi
-fi
-
-AM_CONDITIONAL(INSTALL_EMACS_LISP, 
-	       [test "x$lispdir" != "x" -a "x$EMACS" != "xno"])
-
 AC_CONFIG_FILES([ \
 	Makefile                  \
 	command/Makefile          \
@@ -95,8 +79,6 @@ AC_CONFIG_FILES([ \
 	command/show_sub/Makefile \
 	doc/Makefile              \
 	dbg-trace.sh              \
-	emacs/Makefile            \
-	emacs/dbg-test.el         \
 	lib/Makefile              \
 	test/Makefile             \
 	test/data/Makefile        \
