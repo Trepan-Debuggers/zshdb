@@ -4,6 +4,7 @@ pkgdata_DATA =      	\
 	alias.sh    	\
 	break.sh    	\
 	columns.sh  	\
+	display.sh  	\
 	dbg-call.sh  	\
 	file.sh  	\
 	filecache.sh  	\
