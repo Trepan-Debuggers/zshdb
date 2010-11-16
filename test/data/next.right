@@ -12,7 +12,7 @@ Show stepping forces a new line is off.
 setopt ksharrays
 +where 1
 ->0 in file `nexting.sh' at line 4
-+next 
++n 
 (nexting.sh:5):
 p
 +where 1
@@ -29,20 +29,10 @@ p
 +next 
 nexting.sh:6
 ===
-(nexting.sh:6):
-x=6
-+where 1
-->0 in file `nexting.sh' at line 6
-+next 
 (nexting.sh:7):
 p
 +where 1
 ->0 in file `nexting.sh' at line 7
-+# Now check with set force on
-+set force on
-Show stepping forces a new line is on.
-+show force
-Show stepping forces a new line is on.
 +next 
 nexting.sh:7
 ===
@@ -50,20 +40,19 @@ nexting.sh:7
 p
 +where 1
 ->0 in file `nexting.sh' at line 8
-+# Override force
-+next- 
++# Now check with set force on
++set force on
+Show stepping forces a new line is on.
++show force
+Show stepping forces a new line is on.
++next 
 nexting.sh:8
 ===
-(nexting.sh:8):
-x=8
-+where 1
-->0 in file `nexting.sh' at line 8
-+next- 
 (nexting.sh:9):
 p
 +where 1
 ->0 in file `nexting.sh' at line 9
-+# A null command should use the last next
++# Override force
 +next- 
 nexting.sh:9
 ===
@@ -71,25 +60,36 @@ nexting.sh:9
 x=9
 +where 1
 ->0 in file `nexting.sh' at line 9
-+next- 
++n- 
 (nexting.sh:10):
 p
-+next 
++where 1
+->0 in file `nexting.sh' at line 10
++# A null command should use the last next
++n- 
 nexting.sh:10
 ===
+(nexting.sh:10):
+x=10
++where 1
+->0 in file `nexting.sh' at line 10
++n- 
 (nexting.sh:11):
 p
++next 
+nexting.sh:11
+===
+(nexting.sh:11):
+x=11
 +where 1
 ->0 in file `nexting.sh' at line 11
 +# Try a null command the other way
-+next+ 
-nexting.sh:11
-===
++n+ 
 (nexting.sh:12):
 p
 +where 1
 ->0 in file `nexting.sh' at line 12
-+next+ 
++n+ 
 nexting.sh:12
 ===
 (nexting.sh:13):

@@ -30,7 +30,7 @@ function _Dbg_do_condition {
 
   if (( $# < 1 )) ; then
     _Dbg_errmsg 'condition: Argument required (breakpoint number).'
-    return 1
+    return 0
   fi
 
   typeset -r n=$1
@@ -38,12 +38,12 @@ function _Dbg_do_condition {
   typeset condition="$@"
   if [[ $n != [0-9]* ]]; then
     _Dbg_errmsg "condition: Bad breakpoint number: $n"
-    return 1
+    return 0
   fi
 
   if [[ -z ${_Dbg_brkpt_file[$n]} ]] ; then
     _Dbg_errmsg "condition: Breakpoint entry $n is not set. Condition not changed."
-    return 1
+    return 0
   fi
   
   if [[ -z $condition ]] ; then
@@ -51,5 +51,6 @@ function _Dbg_do_condition {
     _Dbg_msg "Breakpoint $n now unconditional."
   fi
   _Dbg_brkpt_cond[$n]="$condition"
-  return 0
+  _Dbg_last_cmd='condition'
+  return 1
 }

@@ -65,16 +65,16 @@ _Dbg_do_list() {
     
     _Dbg_linespec_setup $first_arg
     
+    _Dbg_last_cmd='list'
     if [[ -n $full_filename ]] ; then 
 	(( $line_number ==  0 )) && line_number=1
 	_Dbg_check_line $line_number "$full_filename"
 	(( $? == 0 )) && \
 	    _Dbg_list "$full_filename" "$line_number" $count
-	return $?
     else
 	_Dbg_file_not_read_in "$filename"
-	return 1
     fi
+    return 0
 }
 
 # _Dbg_do_list_globals() {

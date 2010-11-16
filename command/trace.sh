@@ -1,20 +1,21 @@
 # -*- shell-script -*-
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 # Wrap "set -x .. set +x" around a call to function $1.
 # Normally we also save and restrore any trap DEBUG functions. However
@@ -26,9 +27,9 @@
 _Dbg_help_add trace \
 'trace FUNCTION | alias ALIAS -- set xtrace tracing when FUNCTION is called'
 
-function _Dbg_do_trace_fn {
+function _Dbg_do_trace {
     if (($# == 0)) ; then
-	_Dbg_errmsg "trace_fn: missing function name."
+	_Dbg_errmsg "_Dbg_do_trace: missing function name."
 	return 2
     fi
     typeset fn=$1
@@ -40,7 +41,7 @@ function _Dbg_do_trace_fn {
 
     typeset -ri clear_debug_trap=${2:-1}
     _Dbg_is_function "$fn" $_Dbg_set_debugging || {
-	_Dbg_errmsg "_Dbg_do_trace_fn: \"$fn\" is not a function."
+	_Dbg_errmsg "_Dbg_do_trace: \"$fn\" is not a function."
 	return 3
     }
     cmd=old_$(typeset -f -- "$fn") || {
@@ -72,14 +73,14 @@ _Dbg_help_add untrace \
 
 # Undo wrapping fn
 # $? is 0 if successful.
-function _Dbg_do_untrace_fn {
+function _Dbg_do_untrace {
     typeset -r fn=$1
     if [[ -z $fn ]] ; then
-	_Dbg_errmsg "untrace_fn: missing or invalid function name."
+	_Dbg_errmsg "untrace: missing or invalid function name."
 	return 2
     fi
     _Dbg_is_function "$fn" $_Dbg_set_debugging || {
-	_Dbg_errmsg "untrace_fn: function \"$fn\" is not a function."
+	_Dbg_errmsg "untrace: function \"$fn\" is not a function."
 	return 3
     }
     typeset +ft $fn

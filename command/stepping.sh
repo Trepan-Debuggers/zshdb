@@ -1,21 +1,22 @@
 # -*- shell-script -*-
 # stepping.cmd - gdb-like "step" and "skip" debugger commands
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 # Number of statements to skip before entering the debugger if greater than 0
 typeset -i _Dbg_skip_ignore=0
@@ -36,12 +37,17 @@ If COUNT is given, stepping occurs that many times before
 stopping. Otherwise COUNT is one. COUNT an be an arithmetic
 expression. See also \"next\" and \"step\"."
 
+_Dbg_do_skip() {
+    _Dbg_do_skip_internal $@ && return 2
+}
+
 # Return 0 if we should skip. Nonzero if there was an error.
 # $1 is an optional additional count.
-_Dbg_do_skip() {
+_Dbg_do_skip_internal() {
 
   _Dbg_not_running && return 1
 
+  _Dbg_last_cmd='skip'
   typeset count=${1:-1}
 
   if [[ $count == [0-9]* ]] ; then
@@ -79,7 +85,7 @@ _Dbg_help_add 'step+' \
 In contrast to \"step\", we ensure that the file and line position is
 different from the last one just stopped at.
 
-See also \"step-\" and \"set force\"."
+See also \"step-\" and \"set force\"."  0
 
 _Dbg_help_add 'step-' \
 "step- -- Single step a statement without the \`step force' setting.
@@ -87,7 +93,7 @@ _Dbg_help_add 'step-' \
 Set step force may have been set on. step- ensures we turn that off for
 this command. 
 
-See also \"step\" and \"set force\"."
+See also \"step\" and \"set force\"." 0
 
 # Step command
 # $1 is command step+, step-, or step
@@ -96,16 +102,16 @@ _Dbg_do_step() {
 
   _Dbg_not_running && return 1
 
-  _Dbg_last_cmd="$1"
-  _Dbg_last_next_step_cmd="$1"; shift
+  _Dbg_last_cmd="$_Dbg_cmd"
+  _Dbg_last_next_step_cmd="$_Dbg_cmd"
   _Dbg_last_next_step_args="$@"
 
   typeset count=${1:-1}
 
-  case "$_Dbg_last_next_step_cmd" in
-      'step+' ) _Dbg_step_force=1 ;;
-      'step-' ) _Dbg_step_force=0 ;;
-      'step'  ) _Dbg_step_force=$_Dbg_set_different ;;
+  case "${_Dbg_last_next_step_cmd[-1,-1]}" in
+      '+' ) _Dbg_step_force=1 ;;
+      '-' ) _Dbg_step_force=0 ;;
+      ''  ) _Dbg_step_force=$_Dbg_set_different ;;
       * ) ;;
   esac
 
@@ -141,7 +147,7 @@ _Dbg_help_add 'next+' \
 In contrast to \"next\", we ensure that the file and line position is
 different from the last one just stopped at.
 
-See also \"next-\", \"next\" and \"set force\"."
+See also \"next-\", \"next\" and \"set force\"." 0
 
 _Dbg_help_add 'next-' \
 "next- -- Next stepping a statement without the \`set force' setting.
@@ -149,7 +155,7 @@ _Dbg_help_add 'next-' \
 Set step force may have been set on. step- ensures we turn that off for
 this command. 
 
-See also \"next+\", \"next\" and \"set force\"."
+See also \"next+\", \"next\" and \"set force\"." 0
 
 # Next command
 # $1 is command next+, next-, or next
@@ -158,16 +164,16 @@ _Dbg_do_next() {
 
   _Dbg_not_running && return 1
 
-  _Dbg_last_cmd="$1"
-  _Dbg_last_next_step_cmd="$1"; shift
+  _Dbg_last_cmd="$_Dbg_cmd"
+  _Dbg_last_next_step_cmd="$_Dbg_cmd"
   _Dbg_last_next_step_args="$@"
 
   typeset count=${1:-1}
 
-  case "$_Dbg_last_next_step_cmd" in
-      'next+' ) _Dbg_step_force=1 ;;
-      'next-' ) _Dbg_step_force=0 ;;
-      'next'  ) _Dbg_step_force=$_Dbg_set_different ;;
+  case "${_Dbg_last_next_step_cmd[-1,-1]}" in
+      '+' ) _Dbg_step_force=1 ;;
+      '-' ) _Dbg_step_force=0 ;;
+      ''  ) _Dbg_step_force=$_Dbg_set_different ;;
       * ) ;;
   esac
 
@@ -185,9 +191,9 @@ _Dbg_do_next() {
   return 1
 }
 
-_Dbg_alias_add 'n' next
-_Dbg_alias_add 'n+' 'next+'
-_Dbg_alias_add 'n-' 'next-'
-_Dbg_alias_add 's' step
-_Dbg_alias_add 's+' 'step+'
-_Dbg_alias_add 's-' 'step-'
+for cmd in step next ; do 
+    alias=$cmd[1,1]
+    _Dbg_alias_add $alias $cmd
+    _Dbg_alias_add ${alias}+ ${cmd}
+    _Dbg_alias_add ${alias}- ${cmd}
+done

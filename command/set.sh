@@ -30,18 +30,24 @@ typeset -i _Dbg_set_listsize=10    # How many lines in a listing?
 
 _Dbg_help_add set ''  # Help routine is elsewhere
 
-# Load in "show" subcommands
+# Load in "set" subcommands
 for _Dbg_file in ${_Dbg_libdir}/command/set_sub/*.sh ; do 
     source $_Dbg_file
 done
 
 _Dbg_do_set() {
+    _Dbg_do_set_internal $@
+    return 0
+}
+
+_Dbg_do_set_internal() {
   typeset set_cmd=$1
   typeset rc
   if [[ $set_cmd == '' ]] ; then
     _Dbg_msg "Argument required (expression to compute)."
     return;
   fi
+  _Dbg_last_cmd='set'
   shift
   case $set_cmd in 
       ar | arg | args )

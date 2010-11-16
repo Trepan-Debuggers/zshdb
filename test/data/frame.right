@@ -8,7 +8,7 @@ init () { if (( $tracing )) then _Dbg_linetrace=1 fi }
 +# How about after a frame command?
 +frame 0
 (hanoi.sh:6):
-+where 1
++bt 1
 ->0 in file `hanoi.sh' at line 6
 +where 1
 ->0 in file `hanoi.sh' at line 6
@@ -20,7 +20,7 @@ if (( $tracing )) then _Dbg_linetrace=1 fi
 ->0 in file `hanoi.sh' at line 8
 ##1 init called from file `hanoi.sh' at line 41
 +# How about after moving?
-+up 
++u 
 (hanoi.sh:41):
 +where 1
 ##0 in file `hanoi.sh' at line 8
@@ -36,7 +36,7 @@ if (( $tracing )) then _Dbg_linetrace=1 fi
 +# should be the same as up
 +down -1
 (zshdb:121):
-+where 2
++T 2
 ##0 in file `hanoi.sh' at line 8
 ##1 init called from file `hanoi.sh' at line 41
 +# Should go to next-to-least-recent frame
@@ -64,7 +64,7 @@ typeset -r a=$2
 +# Most recent stack entry
 +frame +0
 (hanoi.sh:16):
-+where 3
++backtrace 3
 ->0 in file `hanoi.sh' at line 16
 ##1 hanoi called from file `hanoi.sh' at line 21
 ##2 hanoi called from file `hanoi.sh' at line 42

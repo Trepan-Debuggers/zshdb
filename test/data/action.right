@@ -5,24 +5,24 @@ Show short filenames (the basename) in debug output is on.
 +# Debugger test of action command
 +# 
 +# Show actions
-+action 
++a 
 No actions have been set.
 +# Delete actions when there are none
 +A 
 ** No actions to delete.
 +# Try a simple action action...
-+action 23 x=60
++a 23 x=60
 Action 1 set in file dbg-test1.sh, line 23.
 +L 
 ** No breakpoints have been set.
 Actions at following places:
 Num Enb Stmt               file:line
 1     1 x=60               dbg-test1.sh:23
-+action 
++a 
 Actions at following places:
 Num Enb Stmt               file:line
 1     1 x=60               dbg-test1.sh:23
-+continue 24
++cont 24
 One-time breakpoint 1 set in file dbg-test1.sh, line 24.
 Breakpoint 1 hit.
 (dbg-test1.sh:24):

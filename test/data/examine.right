@@ -1,18 +1,18 @@
 (exam.sh:3):
 unsetopt ksharrays
 +# Examine with blanks
-+examine 
++x 
 
-+examine 
++x 
 
 +# Examine constant expressions
-+examine 1+30
++x 1+30
 31
-+examine '2*4+10/2'
++x '2*4+10/2'
 13
-+examine '(2*4+10)/2'
++x '(2*4+10)/2'
 9
-+examine "1<<4"
++x "1<<4"
 16
 +# Set up some values
 +continue 10
@@ -20,21 +20,21 @@ One-time breakpoint 1 set in file exam.sh, line 10.
 Breakpoint 1 hit.
 (exam.sh:10):
 unset string
-+examine ary
++x ary
 typeset -ar ary
 ary=(10 100 100)
-+examine string
++x string
 typeset string='a string'
-+examine xstring
++x xstring
 typeset -x xstring='an exported string'
-+examine fn
++x fn
 fn () {
 	print "a function"
 }
-+examine z
++x z
 typeset z=1
-+examine $ary[1]
++x $ary[1]
 10
-+examine $ary[1]+3
++x $ary[1]+3
 13
 +quit 

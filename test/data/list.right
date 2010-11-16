@@ -26,7 +26,7 @@ Aliases for list: l
  12:        echo "$name here"
  13:        x=6
 +### Should list next sets of lines
-+list 
++l 
  14:    }    
  15:    
  16:    fn3() {
@@ -37,7 +37,7 @@ Aliases for list: l
  21:    x=22
  22:    y=23
  23:    for i in 0 1 3 ; do
-+list 
++l 
  24:      ((x += i))
  25:    done
  26:    x=27
@@ -48,10 +48,10 @@ Aliases for list: l
  31:    fn1;
  32:    fn3 33
  33:    source ./dbg-test1.sub
-+list 
++l 
  34:    exit 0
 +### Original set and then beginning
-+list .
++l .
   4: => fn1() {
   5:        echo "fn1 here"
   6:        x=5
@@ -123,7 +123,7 @@ Aliases for list: l
 Number of source lines zshdb will list by default is 10.
 +### Setting listsize to 3...
 +set listsize 3
-+list 10
++l 10
  10:    fn2() {
  11:        name="fn2"
  12:        echo "$name here"
@@ -135,7 +135,7 @@ Number of source lines zshdb will list by default is 10.
 +set listsize 4
 +show listsize
 Number of source lines zshdb will list by default is 4.
-+list 10
++l 10
  10:    fn2() {
  11:        name="fn2"
  12:        echo "$name here"

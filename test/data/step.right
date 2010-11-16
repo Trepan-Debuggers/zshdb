@@ -27,12 +27,12 @@ for ((i=0; i<3; i++)) do print 3rd loop $i done
 +step- 
 (stepping.sh:5):
 print 3rd loop $i
-+step- 
++s- 
 3rd loop 0
 (stepping.sh:5):
 print 3rd loop $i
 +# A null command should use the last step
-+step- 
++s- 
 3rd loop 1
 (stepping.sh:5):
 print 3rd loop $i
@@ -41,13 +41,13 @@ print 3rd loop $i
 (stepping.sh:6):
 for ((i=0; i<3; i++)) do print 4th loop $i done
 +# Try a null command the other way
-+step+ 
++s+ 
 4th loop 0
 4th loop 1
 4th loop 2
 (stepping.sh:7):
 for ((i=0; i<3; i++)) do print 5th loop $i done
-+step+ 
++s+ 
 5th loop 0
 5th loop 1
 5th loop 2

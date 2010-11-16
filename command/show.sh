@@ -26,6 +26,11 @@ for _Dbg_file in ${_Dbg_libdir}/command/show_sub/*.sh ; do
 done
 
 _Dbg_do_show() {
+    _Dbg_do_show_internal $@
+    return 0
+}
+
+_Dbg_do_show_internal() {
     typeset show_cmd=$1
     typeset label=$2
 

@@ -1,29 +1,29 @@
 (bug-args.sh:2):
 echo First parm is: $1
 +# Debugger test to see that parameter handling of $1, $2, etc is correct.
-+print $#
++p $#
 0
-+print $5
++p $5
 
 +step 2
 First parm is:
 (bug-args.sh:4):
 shift 2
 +# There should now be 5 args set and $5 should have a value
-+print $#
++p $#
 5
-+print $3
++p $3
 c
-+print $5
++p $5
 e
 +step 
 (bug-args.sh:6):
 exit 0
 +# There should now be 3 args set and $5 should not have a value
-+print $#
++p $#
 3
-+print $3
++p $3
 e
-+print $5
++p $5
 
 +quit 
