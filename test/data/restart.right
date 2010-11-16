@@ -14,5 +14,5 @@ cd /
 y=2
 +break 7
 Breakpoint 1 set in file restart.sh, line 7.
-+restart -B -q -L ... restart.sh
++run -B -q -L ... restart.sh
 Restarting with ... restart.sh
