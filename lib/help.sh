@@ -29,10 +29,10 @@ typeset -A _Dbg_debugger_commands
 
 # Add help text $2 for command $1
 function _Dbg_help_add {
-    add_help=${3:-1}
+    add_command=${3:-1}
     (($# != 2)) && (($# != 3))  && return 1
     _Dbg_command_help[$1]="$2"
-    (( $add_help )) && _Dbg_debugger_commands[$1]="_Dbg_do_$1"
+    (( $add_command )) && _Dbg_debugger_commands[$1]="_Dbg_do_$1"
     return 0
 }
 
