@@ -35,13 +35,13 @@ set -o DEBUG_BEFORE_CMD
 # Have we already specified where to read debugger input from?  
 if [[ -n "$DBG_INPUT" ]] ; then 
     _Dbg_do_source "$DBG_INPUT"
-    _Dbg_no_init=1
+    _Dbg_no_nx=1
 fi
 
 # Run the user's debugger startup file
 typeset _Dbg_startup_cmdfile=${HOME:-~}/.${_Dbg_debugger_name}rc
-if [[ -z $_Dbg_o_nx && -r $_Dbg_startup_cmdfile ]] ; then
-    _Dbg_do_source $_Dbg_startup_cmdfile
+if (( 0 == _Dbg_o_nx)) && [[ -r "$_Dbg_startup_cmdfile" ]] ; then
+    _Dbg_do_source "$_Dbg_startup_cmdfile"
 fi
 
 # _Dbg_DEBUGGER_LEVEL is the number of times we are nested inside a debugger
