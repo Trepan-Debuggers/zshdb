@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -44,8 +44,8 @@ _Dbg_do_break() {
 }
 
 # Add breakpoint(s) at given line number of the current file.  $1 is
-# the line number or _curline if omitted.  $2 is a condition to test
-# for whether to stop.
+# the line number or _Dbg_frame_lineno if omitted.  $2 is a condition
+# to test for whether to stop.
 _Dbg_do_break_common() {
 
   typeset -i is_temp=$1
@@ -94,7 +94,7 @@ _Dbg_do_break_common() {
 # delete brkpt(s) at given file:line numbers. If no file is given
 # use the current file.
 _Dbg_do_clear_brkpt() {
-  typeset -r n=${1:-$_curline}
+  typeset -r n=${1:-$_Dbg_frame_lineno}
 
   typeset filename
   typeset -i line_number

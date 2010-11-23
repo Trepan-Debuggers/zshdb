@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# where.cmd - gdb-like "where" debugger command
+# gdb-like "backtrace" debugger command
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -14,7 +14,7 @@
 #   General Public License for more details.
 #   
 #   You should have received a copy of the GNU General Public License
-#   along with This program; see the file COPYING.  If not, write to
+#   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 

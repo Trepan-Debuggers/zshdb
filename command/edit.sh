@@ -30,7 +30,7 @@ Assumes the editor positions at a file using options +linenumber filename."
 _Dbg_do_edit() {
   if (($# > 2)) ; then 
       _Dbg_errmsg "got $# parameters, but need 0 or 1."
-      return 2
+      return 0
   fi
   typeset editor=${EDITOR:-ex}
   typeset -i line_number
@@ -38,8 +38,8 @@ _Dbg_do_edit() {
     _Dbg_frame_lineno
     line_number=$?
     _Dbg_frame_file
-    ((0 != $?)) && return 3
-    ((line_number<=0)) && return 4
+    ((0 != $?)) && return 0
+    ((line_number<=0)) && return 0
     full_filename="$_Dbg_frame_filename"
   else
     _Dbg_linespec_setup "$1"
@@ -49,6 +49,7 @@ _Dbg_do_edit() {
   fi
   $editor +$line_number $full_filename
   _Dbg_last_cmd='edit'
+  return 0
 }
 
 _Dbg_alias_add 'ed' 'edit'

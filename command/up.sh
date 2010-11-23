@@ -1,8 +1,8 @@
 # -*- shell-script -*-
-# up.sh - gdb-like "up" debugger command
+# gdb-like "up" debugger command
 #
 #   Copyright (C) 2010 Rocky Bernstein
-#   rocky@gnu.org
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,8 +19,6 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-# Move default values down $1 or one in the stack. 
-
 # Move default values up $1 or one in the stack. 
 _Dbg_help_add up \
 'up [COUNT] 
@@ -34,9 +32,9 @@ See also "down" and "frame".'
 
 function _Dbg_do_up {
   _Dbg_not_running && return 1
-  typeset -il count=${1:-1}
+  typeset -i count=${1:-1}
   _Dbg_frame_adjust $count +1
-  _Dbg_last_cmd='up'
+  ((0 == $?)) && _Dbg_last_cmd='up'
   return 0
 }
 
