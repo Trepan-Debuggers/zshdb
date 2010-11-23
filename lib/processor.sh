@@ -139,7 +139,7 @@ _Dbg_onecmd() {
 
     # setopt shwordsplit ksharrays  # Done in _Dbg_debug_trap_handler
     typeset full_cmd
-    full_cmd="$*"
+    full_cmd=$@
     typeset args
     set -- $*
     if (( $# == 0 )) ; then

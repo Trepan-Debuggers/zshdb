@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 # help.sh - Debugger Help Routines
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -245,4 +245,3 @@ _Dbg_help_show() {
     "Undefined show command: \"$show_cmd\".  Try \"help show\"."
   esac
 }
-
