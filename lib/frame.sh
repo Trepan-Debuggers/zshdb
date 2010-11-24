@@ -1,20 +1,21 @@
 # -*- shell-script -*-
 # frame.sh - Call Stack routines
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein <rocky@gnu.org>
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 #================ VARIABLE INITIALIZATIONS ====================#
 
@@ -37,13 +38,13 @@ typeset -i _Dbg_frame_last_lineno=0
 function _Dbg_frame_adjust {
   (($# != 2)) && return -1
 
-  typeset -li count="$1"
-  typeset -li signum="$2"
+  typeset -i count="$1"
+  typeset -i signum="$2"
 
-  typeset -li retval
+  typeset -i retval
   _Dbg_frame_int_setup $count || return 2
-
-  typeset -li pos
+  
+  typeset -i pos
   if (( signum==0 )) ; then
     if (( count < 0 )) ; then
       ((pos=${#_Dbg_frame_stack[@]}+count))
@@ -54,7 +55,7 @@ function _Dbg_frame_adjust {
     ((pos=_Dbg_stack_pos+(count*signum)))
   fi
 
-  if (( $pos < 0 )) ; then 
+  if (( pos < 0 )) ; then 
     _Dbg_errmsg 'Would be beyond bottom-most (most recent) entry.'
     return 1
   elif (( pos >= ${#_Dbg_frame_stack[@]} )) ; then 
@@ -66,8 +67,8 @@ function _Dbg_frame_adjust {
   typeset -a split_result; _Dbg_split "$file_line" ':'
   _Dbg_frame_last_filename=${split_result[0]}
   _Dbg_frame_last_lineno=${split_result[1]}
+  _Dbg_listline=$_Dbg_frame_last_lineno
   ((_Dbg_stack_pos = pos))
-  _Dbg_listline=-1
   _Dbg_print_location
 }
 

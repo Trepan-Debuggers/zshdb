@@ -1,32 +1,35 @@
 # -*- shell-script -*-
-# list.sh - Bourne Again Shell Debugger list/search commands
-#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
+# debugger source-code listing routines
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein <rocky@gnu.org>
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 # List search commands/routines
 
 # Last search pattern used.
 typeset _Dbg_last_search_pat
 
-# current line to be listed
-typeset -i _Dbg_listline=-1
+# The current line to be listed. A 0 value indicates we should set
+# from _Dbg_frame_last_lineno
+typeset -i _Dbg_listline=0
 
 # list $3 lines starting at line $2 of file $1. If $1 is '', use
-# $_cur_source_file value.  If $3 is ommited, print $_Dbg_set_listsize
-# lines. if $2 is omitted, use global variable $_curline.
+# $_Dbg_frame_last_filename value.  If $3 is ommited, print $_Dbg_set_listsize
+# lines. if $2 is omitted, use global variable $_Dbg_frame_last_lineno.
 
 _Dbg_list() {
     typeset filename
@@ -40,7 +43,7 @@ _Dbg_list() {
 	_Dbg_listline=$_Dbg_frame_last_lineno
     elif [[ -n $2 ]] ; then
 	_Dbg_listline=$2
-    else
+    elif (( 0 == _Dbg_listline )) ; then
 	_Dbg_listline=$_Dbg_frame_last_lineno
     fi
     (( _Dbg_listline==0 && _Dbg_listline++ ))
