@@ -9,7 +9,7 @@ debugged_script="$top_srcdir/test/example/restart.sh"
 
 (cd $srcdir && run_debugger $debugged_script 2>&1 >$TEST_FILE </dev/null)
 
-cat ${TEST_FILE} | sed -e "s|run -B -q -L.*restart.sh|run -B -q -L ... restart.sh|" | sed -e "s|Restarting with.*restart.sh|Restarting with ... restart.sh|" >${TEST_FILTERED_FILE}
+cat ${TEST_FILE} | sed -e "s|restart -B -q -L.*restart.sh|restart -B -q -L ... restart.sh|" | sed -e "s|Restarting with.*restart.sh|Restarting with ... restart.sh|" >${TEST_FILTERED_FILE}
 
 check_output $TEST_FILTERED_FILE $RIGHT_FILE
 rc=$?

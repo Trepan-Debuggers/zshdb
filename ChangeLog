@@ -1,3 +1,99 @@
+2010-11-23  rocky <rocky@gnu.org>
+
+	* dbg-main.sh: More --no-init bugs found/fixed.
+
+2010-11-23  rocky <rocky@gnu.org>
+
+	* lib/help.sh: Uuse more accurate variable name.
+
+2010-11-23  rocky <rocky@gnu.org>
+
+	* command/backtrace.sh, command/break.sh, command/continue.sh,
+	command/down.sh, command/edit.sh, command/help.sh, command/up.sh: 
+	edit.sh: fix return codes. rest: sync with bashdb.
+
+2010-11-22  rocky <rocky@gnu.org>
+
+	* lib/help.sh, lib/processor.sh, test/data/restart.right: Better
+	sync with bashdb.
+
+2010-11-16  rocky <rocky@gnu.org>
+
+	* test/data/restart.right: Adjust test case for recent changes
+
+2010-11-16  rocky <rocky@gnu.org>
+
+	* command/Makefile.am, command/alias.sh, command/backtrace.sh,
+	command/break.sh, command/condition.sh, command/continue.sh,
+	command/delete.sh, command/disable.sh, command/down.sh,
+	command/edit.sh, command/enable.sh, command/eval.sh,
+	command/examine.sh, command/frame.sh, command/help.sh,
+	command/info.sh, command/kill.sh, command/list.sh, command/quit.sh,
+	command/return.sh, command/run.sh, command/set.sh, command/show.sh,
+	command/source.sh, command/stepping.sh, command/trace.sh,
+	command/up.sh, lib/alias.sh, lib/help.sh, lib/processor.sh,
+	test/data/action.right, test/data/bug-args.right,
+	test/data/bug-ksharrays.right, test/data/bugIFS.right,
+	test/data/enable.right, test/data/examine.right,
+	test/data/frame.right, test/data/list.right, test/data/next.right,
+	test/data/restart.right, test/data/step.right,
+	test/data/subshell.right: Make command selection simpler and more
+	dynamic using an associate array of commands rather than a case
+	statement with fixed strings
+
+2010-11-14  rocky <rocky@gnu.org>
+
+	* command/backtrace.sh, command/trace.sh, command/tracefn.sh,
+	command/where.sh: Simplify, shorten and generalize command-selection
+	code using an associative array for command selection rather than a
+	case statement.
+
+2010-10-31  rocky <rocky@gnu.org>
+
+	* Makefile.am, configure.ac, emacs/.gitignore, emacs/Makefile.am,
+	emacs/dbg-test.el.in, emacs/elk-test.el, emacs/zshdb.el: Remove
+	emacs code. If you want run from Emacs, please use emacs-dbgr. See
+	http://github.com/rocky/emacs-dbgr
+
+2010-10-31  rocky <rocky@gnu.org>
+
+	* lib/Makefile.am: Administrivia: Forgot to add lib/display.sh
+
+2010-10-29  rocky <rocky@gnu.org>
+
+	* README: We've got more done now.
+
+2010-10-29  rocky <rocky@gnu.org>
+
+	* command/display.sh, command/info.sh, command/info_sub/display.sh,
+	command/undisplay.sh, configure.ac, lib/display.sh, lib/msg.sh,
+	lib/processor.sh, test/data/Makefile.am, test/data/display.cmd,
+	test/data/display.right, test/integration/.gitignore,
+	test/integration/test-display.in: Add display expressions. Debugger
+	cmmands "display", "undisplay" and "info display".
+
+2010-10-27  rocky <rocky@gnu.org>
+
+	* configure.ac: Update version in prepration for release.
+
+2010-10-26  rocky <rocky@gnu.org>
+
+	* NEWS: What's up
+
+2010-10-25  rocky <rocky@gnu.org>
+
+	* configure.ac, test/example/Makefile.am, test/example/restart.sh,
+	test/example/restart.sh.in, test/integration/test-opts.in: Gaurd
+	against building when zsh is in a funny place and names something
+	other than a plain "zsh".
+
+2010-10-25  rocky <rocky@gnu.org>
+
+	* ChangeLog, command/set.sh, command/set_sub/annotate.sh,
+	command/set_sub/showcommand.sh, command/set_sub/trace-commands.sh,
+	command/show.sh: Sync with bashdb. Variable names more regular and
+	small stuff like that.
+
 2010-10-25  rocky <rocky@gnu.org>
 
 	* ChangeLog, command/set_sub/Makefile.am: Forgot to add a listsize
