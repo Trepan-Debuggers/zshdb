@@ -38,7 +38,6 @@ typeset _Dbg_orig_0=$0
 typeset _Dbg_pname=${0##*/}  
 
 ## Stuff set by autoconf/configure ###
-typeset prefix=@prefix@
 typeset _Dbg_libdir=@PKGDATADIR@
 ###
 
