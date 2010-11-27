@@ -1,3 +1,10 @@
+Version 0.06
+- Debugger "list" command carries on where we last left off. 
+- Reorganized command-processing code to simplify it, make it more dynamic,
+  and allow for better expansion increasing DRYness. As a result
+  some short abbreviations of commands have been dropped. Use "alias" 
+  to add back any that you want.
+
 Version 0.05
 2010-10-27
 
@@ -7,6 +14,8 @@ Version 0.05
 - "Set force" depricated. Use "set different".
 - Code reorganization to support subcommands (set/show/info) and allow
   for growth
+- Emacs lisp code has been removed. Please multi-debugger code from
+  http://github.com/rocky/emacs-dbgr instead.
 - Other bug fixes
 
 Version 0.04

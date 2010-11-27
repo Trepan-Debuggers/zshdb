@@ -1,3 +1,26 @@
+2010-11-26  rocky <rocky@gnu.org>
+
+	* test/data/frame.right: zshdb.in: one more extraneous line removed.
+
+
+2010-11-26  rocky <rocky@gnu.org>
+
+	* zshdb.in: zshdb.in: one more extraneous line removed.
+
+2010-11-26  rocky <rocky@gnu.org>
+
+	* zshdb.in: Go over and comment better.
+
+2010-11-24  rocky <rocky@gnu.org>
+
+	* lib/frame.sh, lib/list.sh, lib/save-restore.sh: list now  lists
+	where it last left off. Keep in sync with bashdb.
+
+2010-11-23  rocky <rocky@gnu.org>
+
+	* ChangeLog, configure.ac, test/integration/test-restart.in: Make
+	"distcheck work". configure.ac: remove emacs lispdir check
+
 2010-11-23  rocky <rocky@gnu.org>
 
 	* dbg-main.sh: More --no-init bugs found/fixed.
