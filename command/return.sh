@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # return command.
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein  rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein  <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -30,7 +30,6 @@ $?. See also "finish", "quit", and "run."
 typeset -i _Dbg_return_rc=0
 
 _Dbg_do_return() {
-    set -x
     rc=${1:-0}
 
     if [[ $_Dbg_return_rc == [0-9]* ]] ; then
