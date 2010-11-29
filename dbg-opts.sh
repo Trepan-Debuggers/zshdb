@@ -1,21 +1,22 @@
 # -*- shell-script -*-
-# dbg-opts.sh - zshdb command options processing. The bane of programming.
+# dbg-opts.sh - debugger command options processing. The bane of programming.
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein <rocky@gnu.org>
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 _Dbg_usage() {
   printf "Usage: 
@@ -129,8 +130,9 @@ _Dbg_parse_options() {
     if (( _Dbg_o_version )) ; then
 	_Dbg_do_show_version
 	exit 0
-    elif (( ! _Dbg_o_quiet )); then 
-	echo "$_Dbg_shell_name Shell Debugger, release $_Dbg_release"
+    elif (( ! _Dbg_o_quiet )) && [[ -n $_Dbg_shell_name ]] && \
+	[[ -n $_Dbg_release ]] ; then 
+	echo "$_Dbg_debugger_name debugger, release $_Dbg_release"
 	printf '
 Copyright 2008, 2009, 2010 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
@@ -144,13 +146,13 @@ welcome to change it and/or distribute copies of it under certain conditions.
 	if [[ ${_Dbg_o_annotate} == [0-9]* ]] ; then
 	    _Dbg_set_annotate=$_Dbg_o_annotate
 	    if (( _Dbg_set_annotate > 3 || _Dbg_set_annotate < 0)); then
-		print "Annotation level must be less between 0 and 3. Got: $_Dbg_set_annotate." >&2
-		print "Setting Annotation level to 0." >&2
+		echo "Annotation level must be less between 0 and 3. Got: $_Dbg_set_annotate." >&2
+		echo "Setting Annotation level to 0." >&2
 		_Dbg_set_annotate=0
 	    fi
 	else
-	    print "Annotate option should be an integer, got ${_Dbg_o_annotate}." >&2
-	    print "Setting annotation level to 0." >&2
+	    echo "Annotate option should be an integer, got ${_Dbg_o_annotate}." >&2
+	    echo "Setting annotation level to 0." >&2
 	fi
     fi
     unset _Dbg_o_annotate _Dbg_o_version _Dbg_o_quiet
