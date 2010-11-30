@@ -52,6 +52,8 @@ run_test_check() {
     RIGHT_FILTERED_FILE="/tmp/${short_test_name}-filtered.right"
 
     debugged_script="${top_srcdir}/test/example/${short_script_name}.sh"
+    [[ ! -r $debugged_script ]] && \
+	debugged_script="${top_builddir}/test/example/${short_script_name}.sh"
     if [[ -z "$srcdir" ]] ; then
 	print -r -- "You need to set srcdir before running this."
 	exit 10
