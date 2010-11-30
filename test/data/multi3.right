@@ -1,0 +1,16 @@
+(multi.sh:5):
+x=1
++set showcommand on
++# Test step inside multi-statement line...
++cont 14
+One-time breakpoint 1 set in file multi.sh, line 14.
+ho
+Breakpoint 1 hit.
+(multi.sh:14):
+( builtin cd . x=`builtin echo *` ( builtin echo "ho" ) )
++step 
+(multi.sh:14):
+builtin cd .
++p $ZSH_SUBSHELL
+1
++quit 0 56

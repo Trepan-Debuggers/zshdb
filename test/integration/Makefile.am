@@ -11,6 +11,7 @@ TESTS = \
 	test-examine       \
 	test-frame         \
 	test-list          \
+	test-multi         \
 	test-next          \
 	test-opts          \
 	test-restart       \

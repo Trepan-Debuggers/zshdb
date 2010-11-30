@@ -9,6 +9,7 @@ check_DATA = \
 	bugIFS.sh        \
 	exam.sh          \
 	hanoi.sh         \
+	multi.sh         \
 	nexting.sh       \
 	restart.sh       \
 	stepping.sh      \

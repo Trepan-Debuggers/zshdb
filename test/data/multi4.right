@@ -1,0 +1,22 @@
+(multi.sh:6):
+6:	x=1; y=2; z=3
++set showcommand on
++print "Test step inside multi-statement line..."
+Test step inside multi-statement line...
++cont 15
+One-time breakpoint 1 set in file multi.sh, line 15.
+ho
+(multi.sh:15):
+15:	(builtin cd  . ; x=`builtin echo *`; (builtin echo "ho") )
+builtin cd .
++step 
+(multi.sh:15):
+15:	(builtin cd  . ; x=`builtin echo *`; (builtin echo "ho") )
+x=`builtin echo *`
++step 
+(multi.sh:15):
+15:	(builtin cd  . ; x=`builtin echo *`; (builtin echo "ho") )
+builtin echo "ho"
++p $ZSH_SUBSHELL
+2
++quit 0 2

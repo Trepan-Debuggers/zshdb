@@ -29,7 +29,8 @@ run_debugger() {
   set -o shwordsplit
   typeset debugged_script="$1"
   typeset dbg_opts=${2:-"-L ${top_srcdir} -B -q --no-init"}
-  typeset cmdfile=${3:-"${top_srcdir}/test/data/${TEST_NAME}.cmd"}
+  [[ -z $short_test_name ]] && short_test_name=$TEST_NAME
+  typeset cmdfile=${3:-"${top_srcdir}/test/data/${short_test_name}.cmd"}
   $SH -- ${top_builddir}/@PACKAGE@ $dbg_opts -x "$cmdfile" "$debugged_script" $ARGS
 }
 
@@ -61,5 +62,5 @@ run_test_check() {
     (cd $srcdir && run_debugger "$debugged_script" 2>&1 >"$TEST_FILE" </dev/null)
     check_output "$TEST_FILE" "$RIGHT_FILE"
     # Return code tells testing mechanism whether passed or not.
-    exit $?
+    return $?
 }

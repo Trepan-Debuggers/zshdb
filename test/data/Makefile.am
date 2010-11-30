@@ -26,6 +26,12 @@ check_DATA = \
 	frame.right        \
 	list.cmd           \
 	list.right         \
+	multi1.cmd         \
+	multi1.right       \
+	multi2.cmd         \
+	multi2.right       \
+	multi3.cmd         \
+	multi3.right       \
 	lopts.right        \
 	next.cmd           \
 	next.right         \

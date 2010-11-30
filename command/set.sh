@@ -93,7 +93,7 @@ _Dbg_do_set_internal() {
 	  _Dbg_prompt_str="$1"
 	  ;;
       sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
-	  _Dbg_set_showcommand $@
+	  _Dbg_do_set_showcommand $@
 	  ;;
       t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
 	  _Dbg_do_set_trace_commands $@
