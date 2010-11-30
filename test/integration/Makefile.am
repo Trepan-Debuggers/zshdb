@@ -32,7 +32,29 @@ TESTS_ENVIRONMENT = \
   srcdir="$(abs_srcdir)" \
   builddir="$(abs_builddir)"
 
-SOURCES=$(patsubst %,%.in, $(TESTS))
+SOURCES=check-common.sh.in \
+	test-action.in \
+	test-brkpt1.in \
+	test-bug-args.in \
+	test-bug-errexit.in \
+	test-bugIFS.in \
+	test-bug-ksharrays.in \
+	test-condition.in \
+	test-delete.in \
+	test-display.in \
+	test-enable.in \
+	test-examine.in \
+	test-frame.in \
+	test-list.in \
+	test-next.in \
+	test-opts.in \
+	test-restart.in \
+	test-setshow.in \
+	test-skip.in \
+	test-step.in \
+	test-subshell.in \
+	test-tbreak.in
+
 EXTRA_DIST = $(TESTS) $(check_DATA) $(SOURCES) \
 	check-common.sh.in \
 	lopts.tests        \

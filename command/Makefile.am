@@ -18,6 +18,7 @@ pkgdata_DATA =       \
 	help.sh      \
 	info.sh      \
 	list.sh      \
+	kill.sh      \
 	quit.sh      \
 	return.sh    \
 	run.sh       \

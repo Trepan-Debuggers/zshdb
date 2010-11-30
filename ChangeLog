@@ -1,3 +1,25 @@
+2010-11-30  rocky <rocky@gnu.org>
+
+	* command/set.sh, test/data/Makefile.am, test/data/multi1.cmd,
+	test/data/multi1.right, test/data/multi2.cmd,
+	test/data/multi2.right, test/data/multi3.cmd,
+	test/data/multi3.right, test/data/multi4.right,
+	test/example/Makefile.am, test/example/multi.sh,
+	test/integration/Makefile.am, test/integration/check-common.sh.in,
+	test/integration/test-multi: Add subshell test from bashdb.
+
+2010-11-30  rocky <rocky@gnu.org>
+
+	* test/integration/check-common.sh.in: Administivia: Allow more
+	possibilities for building outside of source dir. Sync with bashdb.
+
+
+2010-11-30  rocky <rocky@gnu.org>
+
+	* ChangeLog, configure.ac, test/integration/check-common.sh.in: 
+	check-common.sh.in: generalize a little more. configure.ac:
+	.git.tar.{bz2,gz} -> .dev.tar.{bz2}
+
 2010-11-29  rocky <rocky@gnu.org>
 
 	* command/list.sh, dbg-opts.sh, lib/list.sh, test/data/frame.right,
