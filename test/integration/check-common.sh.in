@@ -4,13 +4,13 @@ PS4='(%x:%I): [%?] zsh+
 '
 setopt shwordsplit ksharrays
 
-if [ -z "$SH" ] ; then 
-  SH=@SH_PROG@
-fi
+export srcdir=@abs_srcdir@
+[ -z "$SH" ] && export SH=@SH_PROG@
 
 export top_builddir=@abs_top_builddir@
 export top_srcdir=@abs_top_srcdir@
-export srcdir=@abs_srcdir@
+export abs_top_srcdir=@abs_top_srcdir@
+export host_os=@host_os@
 
 check_output() {
   typeset testfile="$1"
@@ -18,7 +18,7 @@ check_output() {
   # Bourne sh
   # set -o noglob
 
-  @DIFF@ @DIFF_OPTS@ $testfile $rightfile && rm -f $testfile
+  @DIFF@ @DIFF_OPTS@ "$testfile" "$rightfile" && rm -f "$testfile"
   return $?
 }
 
@@ -33,14 +33,24 @@ run_debugger() {
   $SH -- ${top_builddir}/@PACKAGE@ $dbg_opts -x "$cmdfile" "$debugged_script" $ARGS
 }
 
+ARGS=''
+
+# Some tests-* scripts use the below
 TEST_FILE="${top_builddir}/test/integration/${TEST_NAME}.check"
 RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}.right"
 TEST_FILTERED_FILE="/tmp/${TEST_NAME}-filtered.check"
 RIGHT_FILTERED_FILE="/tmp/${TEST_NAME}-filtered.right"
-ARGS=''
 
 run_test_check() {
     short_script_name=${1:-$TEST_NAME}
+    short_test_name=${2:-$TEST_NAME}
+
+    # Reassign variables to allow overrides via the above parameters
+    TEST_FILE="${top_builddir}/test/integration/${short_test_name}.check"
+    RIGHT_FILE="${top_srcdir}/test/data/${short_test_name}.right"
+    TEST_FILTERED_FILE="/tmp/${short_test_name}-filtered.check"
+    RIGHT_FILTERED_FILE="/tmp/${short_test_name}-filtered.right"
+
     debugged_script="${top_srcdir}/test/example/${short_script_name}.sh"
     if [[ -z "$srcdir" ]] ; then
 	print -r -- "You need to set srcdir before running this."

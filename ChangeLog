@@ -1,3 +1,27 @@
+2010-11-29  rocky <rocky@gnu.org>
+
+	* command/list.sh, dbg-opts.sh, lib/list.sh, test/data/frame.right,
+	zshdb.in: Adjust columns in "help *" for initial blanks in list.
+	Sync with bashdb.
+
+2010-11-27  rocky <rocky@gnu.org>
+
+	* test/data/frame.right, zshdb.in: Erroneously had removed @prefix@
+	needed by @PACKAGEDATADIR@ in zshdb.in
+
+2010-11-27  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of github.com:rocky/zshdb
+
+2010-11-27  rocky <rocky@gnu.org>
+
+	* ChangeLog, NEWS: What's up
+
+2010-11-26  rocky <rocky@gnu.org>
+
+	* command/return.sh, dbg-main.sh: dbg-main.sh: Combine two for
+	loops. return.sh: remove set -x
+
 2010-11-26  rocky <rocky@gnu.org>
 
 	* test/data/frame.right: zshdb.in: one more extraneous line removed.
