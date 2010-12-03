@@ -114,6 +114,10 @@ typeset _Dbg_cdir=${_Dbg_source_file%/*}
 if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then 
     fc -ap $_Dbg_histfile $_Dbg_history_length $_Dbg_history_length
 fi
+
+## Skip for now
+## _Dbg_init_default_traps
+
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
 

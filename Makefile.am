@@ -41,6 +41,9 @@ check-unit: test-unit
 test-unit:
 	cd test/unit && make check
 
+test-integration:
+	cd test/integration && make check
+
 phony = check test-unit check-unit
 
 if MAINTAINER_MODE

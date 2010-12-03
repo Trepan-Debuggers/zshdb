@@ -44,7 +44,7 @@ function _Dbg_open_if_tty {
 		exec {_Dbg_new_fd}<&- 
 		_Dbg_new_fd=-1
 	    fi
-	fi;
+	fi
     } 2> /dev/null
 
     return $r

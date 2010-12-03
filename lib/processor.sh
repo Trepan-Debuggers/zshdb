@@ -1,5 +1,7 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
+# dbg-processor.sh - Top-level debugger commands
+#
+#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -36,16 +38,15 @@ typeset last_next_step_cmd='s' # Default is step.
 typeset _Dbg_last_print=''     # expression on last print command
 typeset _Dbg_last_printe=''    # expression on last print expression command
 
+# To keep us from recursively calling vared.
+typeset -i _Dbg_in_vared=0
+
 # A list of debugger command input-file descriptors.
 # Duplicate standard input. Note we need to export it as well.
 typeset -ix _Dbg_fdi ; 
 
-# For zsh, using this builtin parameter $TTY seems preferred over &0
-# because it will find/fake a terminal when &0 might not be one.
-exec {_Dbg_fdi}<$TTY
-
 # Save descriptor number
-typeset -a _Dbg_fd ; _Dbg_fd=("$_Dbg_fdi")
+typeset -a _Dbg_fd ; _Dbg_fd=()
 
 # A list of source'd command files. If the entry is '', then we are 
 # interactive.
@@ -97,10 +98,15 @@ function _Dbg_process_commands {
       # typeset _Dbg_cmd 
       typeset line=''
       while : ; do
-	  if [[ -t $_Dbg_fdi ]]; then
+	  if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
+	      _Dbg_in_vared=1
 	      vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
+	      _Dbg_in_vared=0
 	  else
-	      read "?$_Dbg_prompt" line <&${_Dbg_fdi} || break
+	      if ((1 == _Dbg_in_vared)) ; then
+		  _Dbg_msg "Unable to echo characters in input below"
+	      fi
+	      read -u ${_Dbg_fdi} "?$_Dbg_prompt" line || break
 	  fi
           _Dbg_onecmd "$line"
           typeset -i rc=$?
