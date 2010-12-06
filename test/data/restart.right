@@ -1,10 +1,7 @@
 (restart.sh:4):
 x=1
 +# Test Restart command
-+list 
-  1:    #!/usr/bin/zsh
-  2:    # For testing restart.
-  3:    
++list> 
   4: => x=1
   5:    cd /
   6:    y=2

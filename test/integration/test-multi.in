@@ -1,0 +1,15 @@
+#!@SH_PROG@ -f
+# -*- shell-script -*-
+t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
+
+[ -z "$builddir" ] && builddir=$PWD
+. ${builddir}/check-common.sh
+
+for SUBTEST in multi1 multi2 multi3 ; do
+    run_test_check $TEST_NAME $SUBTEST
+    rc=$?
+    [[ $rc != 0 ]] && exit $rc
+done
+
+# Return code tells testing mechanism whether passed or not.
+exit 0

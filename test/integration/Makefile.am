@@ -46,6 +46,7 @@ SOURCES=check-common.sh.in \
 	test-examine.in \
 	test-frame.in \
 	test-list.in \
+	test-multi.in \
 	test-next.in \
 	test-opts.in \
 	test-restart.in \

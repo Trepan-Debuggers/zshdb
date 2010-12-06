@@ -120,6 +120,8 @@ AC_CONFIG_FILES([test/integration/test-frame],
                 [chmod +x test/integration/test-frame])
 AC_CONFIG_FILES([test/integration/test-list], 
                 [chmod +x test/integration/test-list])
+AC_CONFIG_FILES([test/integration/test-multi], 
+                [chmod +x test/integration/test-multi])
 AC_CONFIG_FILES([test/integration/test-next], 
                 [chmod +x test/integration/test-next])
 AC_CONFIG_FILES([test/integration/test-opts], 

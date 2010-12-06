@@ -1,6 +1,6 @@
 set trace-commands on
 # Test Restart command
-list
+list>
 step
 step
 break 7
