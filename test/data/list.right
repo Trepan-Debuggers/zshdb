@@ -3,18 +3,26 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 +# Test of debugger 'list' command
 +# 
 +help l
-list [LOC|.|-] [COUNT] -- List COUNT lines of a script starting from LOC
+list[>] [LOC|.|-] [COUNT] -- List COUNT lines of a script centered around LOC
 
-START is the starting location or dot (.) for current file and
+LOC is the starting location or dot (.) for current file and
 line. Subsequent list commands continue from the last line
 listed. Frame switching however resets the line to dot.
 
 If COUNT is omitted, use the setting LISTSIZE. Use "set listsize" to 
 change this setting.
 
-Aliases for list: l
+By default aliases "l>" and "list>" are set to list. In this case and
+more generally when the alias ends in ">", rather than center lines
+around LOC that will be used as the starting point.
+
+
+Aliases for list: l>, l, list>
 +### List default location
 +list 
+  1:    #!/bin/zsh -f
+  2:    # This code is used for various debugger testing.
+  3:    
   4: => fn1() {
   5:        echo "fn1 here"
   6:        x=5
@@ -22,11 +30,11 @@ Aliases for list: l
   8:    }    
   9:    
  10:    fn2() {
++### Should list next sets of lines
++l 
  11:        name="fn2"
  12:        echo "$name here"
  13:        x=6
-+### Should list next sets of lines
-+l 
  14:    }    
  15:    
  16:    fn3() {
@@ -34,10 +42,10 @@ Aliases for list: l
  18:        x=$1
  19:    }    
  20:    
++l 
  21:    x=22
  22:    y=23
  23:    for i in 0 1 3 ; do
-+l 
  24:      ((x += i))
  25:    done
  26:    x=27
@@ -45,13 +53,16 @@ Aliases for list: l
  28:    x=29
  29:    echo $(fn3 30)
  30:    fn3 31
++l 
  31:    fn1;
  32:    fn3 33
  33:    source ./dbg-test1.sub
-+l 
  34:    exit 0
 +### Original set and then beginning
 +l .
+  1:    #!/bin/zsh -f
+  2:    # This code is used for various debugger testing.
+  3:    
   4: => fn1() {
   5:        echo "fn1 here"
   6:        x=5
@@ -59,18 +70,12 @@ Aliases for list: l
   8:    }    
   9:    
  10:    fn2() {
- 11:        name="fn2"
- 12:        echo "$name here"
- 13:        x=6
 +list -
-  1:    #!/bin/zsh -f
-  2:    # This code is used for various debugger testing.
-  3:    
 +# 
 +# Should not see anything since we are out of bounds
 +# 
 +list 999
-** Line 999 is too large. File dbg-test1.sh has only 34 lines.
+** Line 994 is too large. File dbg-test1.sh has only 34 lines.
 +######################################################### 
 +### 'list file:line' and canonicalization of filenames...
 +list ../example/dbg-test1.sh:1
@@ -85,24 +90,29 @@ Aliases for list: l
   9:    
  10:    fn2() {
 +list ../example/dbg-test1.sh:20
+ 15:    
+ 16:    fn3() {
+ 17:        name="fn3"
+ 18:        x=$1
+ 19:    }    
  20:    
  21:    x=22
  22:    y=23
  23:    for i in 0 1 3 ; do
  24:      ((x += i))
++list ../example/dbg-test1.sh:30
  25:    done
  26:    x=27
  27:    y=b
  28:    x=29
  29:    echo $(fn3 30)
-+list ../example/dbg-test1.sh:30
  30:    fn3 31
  31:    fn1;
  32:    fn3 33
  33:    source ./dbg-test1.sub
  34:    exit 0
 +list ../example/dbg-test1.sh:999
-** Line 999 is too large. File dbg-test1.sh has only 34 lines.
+** Line 994 is too large. File dbg-test1.sh has only 34 lines.
 +list ./badfile:1
 ** File "badfile" not found in read-in files.
 ** See 'info files' for a list of known files and
@@ -115,8 +125,29 @@ Aliases for list: l
 +######################################################### 
 +### Testing window command..."
 +## window
-+### Testing '.'
-+# l .
++### Testing '.' and list>
++l .
+  1:    #!/bin/zsh -f
+  2:    # This code is used for various debugger testing.
+  3:    
+  4: => fn1() {
+  5:        echo "fn1 here"
+  6:        x=5
+  7:        fn3
+  8:    }    
+  9:    
+ 10:    fn2() {
++list> .
+  4: => fn1() {
+  5:        echo "fn1 here"
+  6:        x=5
+  7:        fn3
+  8:    }    
+  9:    
+ 10:    fn2() {
+ 11:        name="fn2"
+ 12:        echo "$name here"
+ 13:        x=6
 +# 
 +### Testing set/show listsize
 +show listsize
@@ -124,9 +155,9 @@ Number of source lines zshdb will list by default is 10.
 +### Setting listsize to 3...
 +set listsize 3
 +l 10
+  9:    
  10:    fn2() {
  11:        name="fn2"
- 12:        echo "$name here"
 +### Window command...
 +## w
 +## p "- command..."
@@ -136,10 +167,10 @@ Number of source lines zshdb will list by default is 10.
 +show listsize
 Number of source lines zshdb will list by default is 4.
 +l 10
+  8:    }    
+  9:    
  10:    fn2() {
  11:        name="fn2"
- 12:        echo "$name here"
- 13:        x=6
 +### Window command...
 +## w
 +### '-' command...

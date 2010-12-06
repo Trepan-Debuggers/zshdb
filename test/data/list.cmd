@@ -30,8 +30,9 @@ set trace-commands on
 #########################################################
 ### Testing window command..."
 ## window 
-###  Testing '.'
-# l . 
+###  Testing '.' and list>
+l . 
+list> .
 # 
 ###  Testing set/show listsize
 show listsize

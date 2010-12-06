@@ -19,24 +19,32 @@
 #   MA 02111 USA.
 
 _Dbg_help_add list \
-'list [LOC|.|-] [COUNT] -- List COUNT lines of a script starting from LOC
+'list[>] [LOC|.|-] [COUNT] -- List COUNT lines of a script centered around LOC
 
-START is the starting location or dot (.) for current file and
+LOC is the starting location or dot (.) for current file and
 line. Subsequent list commands continue from the last line
 listed. Frame switching however resets the line to dot.
 
 If COUNT is omitted, use the setting LISTSIZE. Use "set listsize" to 
-change this setting.'
+change this setting.
+
+By default aliases "l>" and "list>" are set to list. In this case and
+more generally when the alias ends in ">", rather than center lines
+around LOC that will be used as the starting point.
+'
 
 # l [start|.|-] [cnt] List cnt lines from line start.
 
 _Dbg_do_list() {
     typeset first_arg
+    typeset -i adjust_line=1
+    [[ ${_Dbg_cmd[-1,-1]} == '>' ]] && adjust_line=0
     if (( $# == 0 )) ; then
 	if ((_Dbg_listline < 0 )) ; then
 	    first_arg='.'
 	else
 	    first_arg=$_Dbg_listline
+	    adjust_line=0
 	fi
     else
 	first_arg="$1"
@@ -68,7 +76,10 @@ _Dbg_do_list() {
     
     _Dbg_last_cmd='list'
     if [[ -n $full_filename ]] ; then 
-	(( $line_number ==  0 )) && line_number=1
+	if ((1 == adjust_line)); then
+	    ((line_number -= count/2))
+	fi
+	(( $line_number <=  0 )) && line_number=1
 	_Dbg_check_line $line_number "$full_filename"
 	(( $? == 0 )) && \
 	    _Dbg_list "$full_filename" "$line_number" $count
@@ -110,3 +121,5 @@ _Dbg_do_list_typeset_attr() {
 }
 
 _Dbg_alias_add l list
+_Dbg_alias_add 'l>' list
+_Dbg_alias_add 'list>' list

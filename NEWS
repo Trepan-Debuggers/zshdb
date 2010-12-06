@@ -1,5 +1,8 @@
 Version 0.06
-- Debugger "list" command carries on where we last left off. 
+2010-12-10
+
+- Debugger "list" command carries on where we last left off. By default
+  it centers around the selected line. Use list> to force starting at the line.
 - Reorganized command-processing code to simplify it, make it more dynamic,
   and allow for better expansion increasing DRYness. As a result
   some short abbreviations of commands have been dropped. Use "alias" 
