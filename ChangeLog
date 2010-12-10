@@ -1,5 +1,12 @@
 2010-12-06  rocky <rocky@gnu.org>
 
+	* ChangeLog, configure.ac, test/data/restart.cmd,
+	test/data/restart.right, test/data/restart2.cmd,
+	test/integration/.gitignore, test/integration/Makefile.am,
+	test/integration/test-multi.in: Make testing work more generally.
+
+2010-12-06  rocky <rocky@gnu.org>
+
 	* NEWS, command/list.sh, test/data/frame.right, test/data/list.cmd,
 	test/data/list.right, test/data/restart.right: Center list lines by
 	default. Add list> and l> aliases to change the default.
