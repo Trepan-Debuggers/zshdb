@@ -2,19 +2,20 @@
 #
 #   Copyright (C) 2008, 2009 Rocky Bernstein  rocky@gnu.org
 #
-#   zshdb is free software; you can redistribute it and/or modify it
-#   under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2, or (at your
-#   option) any later version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 #================ VARIABLE INITIALIZATIONS ====================#
 
@@ -57,7 +58,7 @@ typeset -A _Dbg_brkpt_file2linenos; _Dbg_brkpt_file2linenos=()
 
 # Maps a resolved filename to a list of breakpoint entries.
 typeset -A _Dbg_brkpt_file2brkpt; _Dbg_brkpt_file2brkpt=()
- 
+
 # Note: we loop over possibly sparse arrays with _Dbg_brkpt_max by adding one
 # and testing for an entry. Could add yet another array to list only 
 # used indices. Zsh is kind of primitive.

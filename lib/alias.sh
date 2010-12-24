@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -37,6 +37,7 @@ _Dbg_alias_remove() {
 _Dbg_alias_expand() {
     (( $# != 1 )) && return 1
     expanded_alias="$1"
+    [[ -z "$1" ]] && return 0
     [[ -n ${_Dbg_aliases[$1]} ]] && expanded_alias=${_Dbg_aliases[$1]}
     return 0
 }
