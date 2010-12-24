@@ -188,7 +188,8 @@ _Dbg_do_next() {
   _Dbg_write_journal_eval "_Dbg_return_level=${#_Dbg_frame_stack[@]}"
   _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
   _Dbg_write_journal "_Dbg_step_force=$_Dbg_step_force"
-  return 1
+  _Dbg_continue_rc=0
+  return 0
 }
 
 for cmd in step next ; do 

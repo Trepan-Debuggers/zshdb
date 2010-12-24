@@ -31,14 +31,18 @@ function _Dbg_do_continue {
 
   _Dbg_not_running && return 0
 
-  (( $# == 0 )) && return 1
+  if (( $# == 0 )) ; then
+      _Dbg_continue_rc=0
+      return 0
+  fi
   typeset filename
   typeset -i line_number
   typeset full_filename
   
   if [[ $1 == '-' ]] ; then
       _Dbg_restore_debug_trap=0
-      return 1
+      _Dbg_continue_rc=0
+      return 0
   fi
 
   _Dbg_linespec_setup "$1"
@@ -52,7 +56,8 @@ function _Dbg_do_continue {
 	  _Dbg_check_line $line_number "$full_filename"
 	  (( $? == 0 )) && \
  	      _Dbg_set_brkpt "$full_filename" "$line_number" 1 1
-	  return 1
+	  _Dbg_continue_rc=0
+	  return 0
       fi
   else
       _Dbg_file_not_read_in "$filename"

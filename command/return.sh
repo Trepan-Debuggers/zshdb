@@ -41,6 +41,8 @@ _Dbg_do_return() {
     fi
     
     _Dbg_write_journal_eval "_Dbg_step_ignore=1"
-    return 255
+    _Dbg_last_cmd='return'
+    _Dbg_continue_rc 255
+    return 0
 }
 

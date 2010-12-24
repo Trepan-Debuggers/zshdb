@@ -60,6 +60,7 @@ typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 # in the debugger, we prefer to preface these with _Dbg_.
 function _Dbg_process_commands {
 
+  _Dbg_continue_rc=-1  # Don't continue exectuion unless told to do so.
   # Nuke any prior step-ignore counts
   _Dbg_write_journal_eval "_Dbg_step_ignore=-1"
 
@@ -111,6 +112,7 @@ function _Dbg_process_commands {
           _Dbg_onecmd "$line"
           typeset -i rc=$?
           _Dbg_postcmd
+	  ((_Dbg_continue_rc >= 0)) && return $_Dbg_continue_rc
 	  if [[ -n $line ]] && (( rc >= 0 )) ; then
 	      _Dbg_write_journal "((\$ZSH_SUBSHELL < $ZSH_SUBSHELL)) && print -s -- \"$line\""
 	      print -s -- "$line"
