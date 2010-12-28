@@ -60,7 +60,7 @@ typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 # in the debugger, we prefer to preface these with _Dbg_.
 function _Dbg_process_commands {
 
-  _Dbg_continue_rc=-1  # Don't continue exectuion unless told to do so.
+  _Dbg_continue_rc=-1  # Don't continue execution unless told to do so.
   # Nuke any prior step-ignore counts
   _Dbg_write_journal_eval "_Dbg_step_ignore=-1"
 
