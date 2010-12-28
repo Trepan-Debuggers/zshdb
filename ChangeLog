@@ -1,3 +1,18 @@
+2010-12-24  rocky <rocky@gnu.org>
+
+	* .gitignore, lib/action.sh, lib/alias.sh, lib/break.sh: Synchronize
+	with bashdb
+
+2010-12-24  rocky <rocky@gnu.org>
+
+	* command/continue.sh, command/return.sh, command/stepping.sh,
+	lib/processor.sh: Start using _Dbg_continue_rc to signal continuing
+	execution
+
+2010-12-10  rocky <rocky@gnu.org>
+
+	* ChangeLog, NEWS, configure.ac: Giant Madagascar Day release
+
 2010-12-06  rocky <rocky@gnu.org>
 
 	* ChangeLog, configure.ac, test/data/restart.cmd,
