@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # debugger source-code listing routines
 #
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2010, 2011
+#    Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -101,7 +102,7 @@ _Dbg_list_columns() {
 	((linewidth=$1-2)); 
 	shift
     else
-	((linewidth=$_Dbg_set_linewidth-2))
+	((linewidth=_Dbg_set_linewidth-2))
     fi
     (($# != 0)) && return 1
     typeset -a columnized; columnize $linewidth "$colsep"
@@ -115,7 +116,7 @@ _Dbg_list_locals() {
     typeset -a list
     list=(${(k)parameters[(R)*local*]})
     typeset -i rc=$?
-    (( $rc != 0 )) && return $rc
+    (( rc != 0 )) && return $rc
     _Dbg_list_columns
 }
 
@@ -123,7 +124,7 @@ _Dbg_list_globals() {
     typeset -a list
     list=(${(k)parameters[(R)^*local*]})
     typeset -i rc=$?
-    (( $rc != 0 )) && return $rc
+    (( rc != 0 )) && return $rc
     _Dbg_list_columns
 }
 
@@ -131,6 +132,6 @@ _Dbg_list_typeset_attr() {
     typeset -a list
     list=( $(_Dbg_get_typeset_attr '+p' $*) )
     typeset -i rc=$?
-    (( $rc != 0 )) && return $rc
+    (( rc != 0 )) && return $rc
     _Dbg_list_columns
 }

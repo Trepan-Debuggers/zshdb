@@ -90,7 +90,7 @@ _Dbg_set_action() {
     source_file=$(_Dbg_expand_filename "$1")
 
     $(_Dbg_is_int $2) || return 1
-    typeset -ir lineno=$2
+    typeset -ri lineno=$2
     typeset -r stmt=$3
 
     # Increment action_max here because we are 1-origin

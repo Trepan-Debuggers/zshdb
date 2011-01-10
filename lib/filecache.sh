@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # filecache.sh - cache file information
 #
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010, 2011 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -17,7 +18,7 @@
 #   with this program; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-zmodload -ap zsh/mapfile mapfile &>/dev/null
+zmodload -ap zsh/mapfile mapfile &> /dev/null
 
 # Keys are the canonic expanded filename. _Dbg_filenames[filename] is
 # name of variable which contains text.
@@ -47,7 +48,7 @@ _Dbg_check_line() {
 	return 1
     fi
 
-    if (( $line_number >  max_line )) ; then 
+    if (( line_number >  max_line )) ; then 
 	(( _Dbg_set_basename )) && filename=${filename##*/}
 	_Dbg_errmsg "Line $line_number is too large." \
 	    "File $filename has only $max_line lines."

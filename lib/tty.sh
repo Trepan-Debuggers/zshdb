@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Things related to tty
 #
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -34,7 +34,7 @@ function _Dbg_open_if_tty {
     typeset -i r=1
     # Code modelled off of code from David Korn:
     { 
-	if exec {_Dbg_new_fd}<>$1 ; then
+	if exec {_Dbg_new_fd} <> $1 ; then
 	    if [[ -t $_Dbg_new_fd  ]] ; then 
 		r=0
 	    else

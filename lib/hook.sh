@@ -1,21 +1,23 @@
 # -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010, 2011 
+#   Rocky Bernstein <rocky@gnu.org>
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 typeset -i _Dbg_set_debugging=0  # 1 if we are debugging the debugger
 typeset    _Dbg_stop_reason=''    # The reason we are in the debugger.
@@ -106,7 +108,7 @@ function _Dbg_hook {
 	    _Dbg_frame_save_frames 1
 	    ((_Dbg_brkpt_counts[_Dbg_brkpt_num]++))
 	    _Dbg_msg "Breakpoint $_Dbg_brkpt_num hit."
-	    if (( ${_Dbg_brkpt_onetime[_Dbg_brkpt_num]} == 1 )) ; then
+	    if (( _Dbg_brkpt_onetime[_Dbg_brkpt_num] == 1 )) ; then
 		_Dbg_stop_reason='at a breakpoint that has since been deleted'
 		_Dbg_delete_brkpt_entry $_Dbg_brkpt_num
 	    else

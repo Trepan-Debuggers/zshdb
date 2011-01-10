@@ -1,6 +1,7 @@
 # -*- shell-script -*-
+# break.sh - Debugger Break and Watch routines
 #
-#   Copyright (C) 2008, 2009 Rocky Bernstein  rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -164,8 +165,8 @@ _Dbg_set_brkpt() {
     typeset source_file
     source_file=$(_Dbg_expand_filename "$1")
     $(_Dbg_is_int "$2") || return 1
-    typeset -ir lineno=$2
-    typeset -ir is_temp=$3
+    typeset -ri lineno=$2
+    typeset -ri is_temp=$3
     typeset -r  condition=${4:-1}
     
     # Increment brkpt_max here because we are 1-origin
@@ -195,7 +196,7 @@ _Dbg_set_brkpt() {
     _Dbg_brkpt_file2brkpt[$source_file]+=" $_Dbg_brkpt_max "
     
     source_file=$(_Dbg_adjust_filename "$source_file")
-    if (( $is_temp == 0 )) ; then 
+    if (( is_temp == 0 )) ; then 
 	_Dbg_msg "Breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
     else 
 	_Dbg_msg "One-time breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
@@ -253,7 +254,7 @@ function _Dbg_unset_brkpt {
 
 # Routine to a delete breakpoint by entry number: $1.
 # Returns whether or not anything was deleted.
-function _Dbg_delete_brkpt_entry() {
+function _Dbg_delete_brkpt_entry {
     (( $# == 0 )) && return 0
     typeset -r  del="$1"
     typeset -i  i
@@ -274,7 +275,7 @@ function _Dbg_delete_brkpt_entry() {
     for try in ${_Dbg_brkpt_file2linenos[$source_file]} ; do 
 	((i++))
 	if (( brkpt_nos[i] == del )) ; then
-	    if (( try != $lineno )) ; then
+	    if (( try != lineno )) ; then
 		_Dbg_errmsg 'internal brkpt structure inconsistency'
 		return 0
 	    fi
@@ -299,7 +300,7 @@ function _Dbg_delete_brkpt_entry() {
 }
 
 # Enable/disable breakpoint(s) by entry numbers.
-function _Dbg_enable_disable_brkpt() {
+function _Dbg_enable_disable_brkpt {
     (($# != 3)) && return 1
     typeset -i on=$1
     typeset en_dis=$2

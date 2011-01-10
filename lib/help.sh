@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 # help.sh - Debugger Help Routines
-#   Copyright (C) 2008, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -32,7 +32,7 @@ function _Dbg_help_add {
     add_command=${3:-1}
     (($# != 2)) && (($# != 3))  && return 1
     _Dbg_command_help[$1]="$2"
-    (( $add_command )) && _Dbg_debugger_commands[$1]="_Dbg_do_$1"
+    (( add_command )) && _Dbg_debugger_commands[$1]="_Dbg_do_$1"
     return 0
 }
 
@@ -106,10 +106,10 @@ Follow this command with any number of args, to be passed to the program."
       lin | line | linet | linetr | linetra | linetrac | linetrace )
 	  [[ -n $label ]] && label='set linetrace -- '
 	  typeset onoff='off.'
-	  (( $_Dbg_linetrace )) && onoff='on.'
+	  (( _Dbg_linetrace )) && onoff='on.'
 	  _Dbg_msg \
 	      "${label}Set tracing execution of lines before executed is" $onoff
-	  if (( $_Dbg_linetrace )) ; then
+	  if (( _Dbg_linetrace )) ; then
 	      _Dbg_msg \
 		  "set linetrace delay -- delay before executing a line is" $_Dbg_linetrace_delay
 	  fi

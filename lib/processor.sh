@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # dbg-processor.sh - Top-level debugger commands
 #
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2010, 2011
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -43,7 +44,7 @@ typeset -i _Dbg_in_vared=0
 
 # A list of debugger command input-file descriptors.
 # Duplicate standard input. Note we need to export it as well.
-typeset -ix _Dbg_fdi ; 
+typeset -xi _Dbg_fdi ; 
 
 # Save descriptor number
 typeset -a _Dbg_fd ; _Dbg_fd=()

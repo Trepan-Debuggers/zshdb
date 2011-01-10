@@ -1,21 +1,22 @@
 # -*- shell-script -*-
 # fns.sh - Debugger Utility Functions
 #
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
 
 typeset -a _Dbg_yn
 _Dbg_yn=("n" "y")         
@@ -26,7 +27,7 @@ function _Dbg_copies {
     result=''
     (( $# < 2 )) && return 1
     typeset -r string="$1"
-    typeset -i count=$2 || return 2;
+    typeset -i count=$2 || return 2
     (( count > 0 )) || return 3
     result=$(builtin printf "%${count}s" ' ')
     typeset cmd
@@ -35,6 +36,7 @@ function _Dbg_copies {
     return 0
 }
 
+# _Dbg_defined returns 0 if $1 is a defined variable or 1 otherwise. 
 _Dbg_defined() {
     (( 0 == $# )) && return 1
     output=$(typeset -p "$1" 2>&1)
@@ -86,8 +88,7 @@ function _Dbg_onoff {
 
 # Set $? to $1 if supplied or the saved entry value of $?. 
 function _Dbg_set_dol_q {
-  (( $# == 0 )) && return $_Dbg_debugged_exit_code
-  return $1
+  return ${1:-$_Dbg_debugged_exit_code}
 }
 
 # Split string $1 into an array using delimitor $2 to split on
