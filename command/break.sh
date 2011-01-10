@@ -103,7 +103,7 @@ _Dbg_do_clear_brkpt() {
   _Dbg_linespec_setup $n
 
   if [[ -n $full_filename ]] ; then 
-    if (( $line_number ==  0 )) ; then 
+    if (( line_number ==  0 )) ; then 
       _Dbg_msg "There is no line 0 to clear."
     else 
       _Dbg_check_line $line_number "$full_filename"

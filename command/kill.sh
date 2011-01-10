@@ -1,8 +1,8 @@
 # -*- shell-script -*-
 # gdb-like "kill" debugger command
 #
-#   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008, 2009, 2010
-#   Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008, 2009, 2010,
+#   2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -49,7 +49,7 @@ _Dbg_do_kill() {
     typeset _Dbg_response
     _Dbg_confirm "Send kill signal ${signal} which may terminate the debugger? (y/N): " 'N'
     
-    if [[ $_Dbg_response = 'y' ]] ; then 
+    if [[ $_Dbg_response == [yY] ]] ; then 
 	kill $signal $$
     else
 	_Dbg_msg "Kill not done - not confirmed."

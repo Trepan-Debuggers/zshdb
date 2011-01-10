@@ -193,7 +193,7 @@ _Dbg_do_next() {
 }
 
 for cmd in step next ; do 
-    alias=$cmd[1,1]
+    alias=${cmd[1,1]}
     _Dbg_alias_add $alias $cmd
     _Dbg_alias_add ${alias}+ ${cmd}
     _Dbg_alias_add ${alias}- ${cmd}

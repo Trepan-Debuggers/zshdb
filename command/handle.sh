@@ -1,8 +1,8 @@
 # -*- shell-script -*-
 # handle.sh - gdb-like "handle" debugger command
 #
-#   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008, 2010 
-#   Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008, 2010,
+#   2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -49,16 +49,16 @@ _Dbg_do_handle() {
     if [[ $sig == [0-9]*([0-9]) ]]; then
 	signame=$(_Dbg_signum2name $sig)
 	typeset -i rc=$?
-	if (( $rc == 0 )) ; then
+	if (( rc == 0 )) ; then
 	    typeset -i check_num
-	    check_num=`builtin kill -l $signame`
+	    check_num=$(builtin kill -l $signame)
 	    rc=$?
-	    if (($rc == 0)) ; then
-		(( $check_num != $sig )) && rc=1
+	    if ((rc == 0)) ; then
+		(( check_num != sig )) && rc=1
 	    fi
 	fi
 
-	if (( $rc != 0 )) ; then
+	if (( rc != 0 )) ; then
 	    _Dbg_errmsg "Bad signal number: $sig"
 	    # return 2
 	    return 0

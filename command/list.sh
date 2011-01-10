@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # list.sh - Some listing commands
 #
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2010, 2011 
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -79,7 +80,7 @@ _Dbg_do_list() {
 	if ((1 == adjust_line)); then
 	    ((line_number -= count/2))
 	fi
-	(( $line_number <=  0 )) && line_number=1
+	(( line_number <=  0 )) && line_number=1
 	_Dbg_check_line $line_number "$full_filename"
 	(( $? == 0 )) && \
 	    _Dbg_list "$full_filename" "$line_number" $count
@@ -115,7 +116,7 @@ _Dbg_do_list_typeset_attr() {
     typeset -a list
     list=( $(_Dbg_get_typeset_attr "$attr" $*) )
     typeset -i rc=$?
-    (( $rc != 0 )) && return $rc
+    (( rc != 0 )) && return $rc
     _Dbg_list_columns
     return $?
 }
