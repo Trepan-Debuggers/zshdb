@@ -114,5 +114,5 @@ _Dbg_save_state() {
 #   echo "rm $_Dbg_statefile" >> $_Dbg_statefile
 #   export DBG_RESTART_FILE="$_Dbg_statefile"
 #   _Dbg_write_journal "export DBG_RESTART_FILE=\"$_Dbg_statefile\""
-
+    :
 }

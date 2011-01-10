@@ -1,3 +1,25 @@
+2011-01-10  rocky <rocky@gnu.org>
+
+	* command/action.sh, command/break.sh, command/examine.sh,
+	command/handle.sh, command/kill.sh, command/list.sh,
+	command/show.sh, command/stepping.sh: Remove lint warnings courtesy
+	of ksh -n and zsh -n
+
+2011-01-10  rocky <rocky@gnu.org>
+
+	* lib/action.sh, lib/break.sh, lib/filecache.sh, lib/fns.sh,
+	lib/frame.sh, lib/help.sh, lib/hook.sh, lib/list.sh,
+	lib/processor.sh, lib/setshow.sh, lib/sig.sh, lib/tty.sh: Remove
+	lint warnings courtesy of ksh -n
+
+2010-12-28  rocky <rocky@gnu.org>
+
+	* lib/processor.sh: Small spelling typo in comment
+
+2010-12-28  rocky <rocky@gnu.org>
+
+	* ChangeLog, configure.ac: Bump release number
+
 2010-12-24  rocky <rocky@gnu.org>
 
 	* .gitignore, lib/action.sh, lib/alias.sh, lib/break.sh: Synchronize
@@ -56,7 +78,6 @@
 	* test/integration/check-common.sh.in: Administivia: Allow more
 	possibilities for building outside of source dir. Sync with bashdb.
 
-
 2010-11-30  rocky <rocky@gnu.org>
 
 	* ChangeLog, configure.ac, test/integration/check-common.sh.in: 
@@ -76,11 +97,8 @@
 
 2010-11-27  rocky <rocky@gnu.org>
 
-	Merge branch 'master' of github.com:rocky/zshdb
-
-2010-11-27  rocky <rocky@gnu.org>
-
-	* ChangeLog, NEWS: What's up
+	* : commit 6be62015ab7c011e307c987af21f2d7d266a0029 Author: rocky
+	<rocky@gnu.org> Date:   Sat Nov 27 17:58:51 2010 -0500
 
 2010-11-26  rocky <rocky@gnu.org>
 
@@ -90,7 +108,6 @@
 2010-11-26  rocky <rocky@gnu.org>
 
 	* test/data/frame.right: zshdb.in: one more extraneous line removed.
-
 
 2010-11-26  rocky <rocky@gnu.org>
 
@@ -164,7 +181,7 @@
 
 	* Makefile.am, configure.ac, emacs/.gitignore, emacs/Makefile.am,
 	emacs/dbg-test.el.in, emacs/elk-test.el, emacs/zshdb.el: Remove
-	emacs code. If you want run from Emacs, please use emacs-dbgr. See
+	emacs code. If you want run from Emacs, please use emacs-dbgr.  See
 	http://github.com/rocky/emacs-dbgr
 
 2010-10-31  rocky <rocky@gnu.org>
@@ -220,7 +237,7 @@
 	command/set_sub/listsize.sh, command/set_sub/showcommand.sh,
 	command/set_sub/trace-commands.sh, command/show.sh, lib/gdb.sh,
 	lib/list.sh, test/data/setshow.right: Move pretty much the rest of
-	the set subcommands to the set_sub directory. Go over code to be
+	the set subcommands to the set_sub directory.  Go over code to be
 	more regular.
 
 2010-10-25  rocky <rocky@gnu.org>
@@ -328,8 +345,7 @@
 	test/unit/test-get-sourceline.sh.in: Make sure we can debug
 	filenames whose path has a space one of its directory names. That
 	was the case before but we've added a test and did made changes to
-	make more compatible with bash.  filecache.sh: silence zmodload
-	message.
+	make more compatible with bash.  filecache.sh: silence zmodload message.
 
 2010-09-16  rocky <rocky@gnu.org>
 
@@ -396,11 +412,8 @@
 
 2010-07-01  rocky <rocky@gnu.org>
 
-	Merge branch 'master' of github.com:rocky/zshdb
-
-2010-07-01  rocky <rocky@gnu.org>
-
-	* lib/frame.sh: local -> typeset -l for better ksh conformity.
+	* : commit f77d1d642186cfca51d7272777bd1e66f2e8559a Author: rocky
+	<rocky@gnu.org> Date:   Thu Jul 1 00:53:19 2010 -0400
 
 2010-06-21  R. Bernstein <rocky@gnu.org>
 
@@ -511,7 +524,7 @@
 2010-06-16  rocky <rocky@gnu.org>
 
 	* lib/filecache.sh, test/integration/test-brkpt1: filecache.sh:
-	variable _Dbg_bogus_file was not initialized. test-brkpt1: file is
+	variable _Dbg_bogus_file was not initialized.  test-brkpt1: file is
 	derived.
 
 2010-02-12  rocky <rocky@gnu.org>
@@ -540,48 +553,18 @@
 	test/integration/test-skip, test/integration/test-step,
 	test/integration/test-subshell, test/integration/test-tbreak: 
 	command/break.sh: unnecessary guard test but keeps in sync with
-	kshdb. test/integration/test-*: these are auto generated.
+	kshdb.  test/integration/test-*: these are auto generated.
 
 2009-12-22  rocky <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2009-12-22  rocky <rocky@gnu.org>
-
-	* configure.ac, test/integration/Makefile.am,
-	test/integration/check-common.sh.in, test/integration/test-brkpt1,
-	test/integration/test-brkpt1.in, test/integration/test-bug-args,
-	test/integration/test-bug-args.in,
-	test/integration/test-bug-errexit,
-	test/integration/test-bug-errexit.in,
-	test/integration/test-bug-ksharrays,
-	test/integration/test-bug-ksharrays.in,
-	test/integration/test-bugIFS, test/integration/test-bugIFS.in,
-	test/integration/test-condition,
-	test/integration/test-condition.in, test/integration/test-delete,
-	test/integration/test-delete.in, test/integration/test-enable,
-	test/integration/test-enable.in, test/integration/test-examine,
-	test/integration/test-examine.in, test/integration/test-frame,
-	test/integration/test-frame.in, test/integration/test-list,
-	test/integration/test-list.in, test/integration/test-next,
-	test/integration/test-next.in, test/integration/test-opts,
-	test/integration/test-opts.in, test/integration/test-restart,
-	test/integration/test-restart.in, test/integration/test-setshow,
-	test/integration/test-setshow.in, test/integration/test-skip,
-	test/integration/test-skip.in, test/integration/test-step,
-	test/integration/test-step.in, test/integration/test-subshell,
-	test/integration/test-subshell.in, test/integration/test-tbreak,
-	test/integration/test-tbreak.in: test/integration/*: Set zsh in
-	integration tests to the same zsh as the debugger uses.
-	configure.ac: test and use a GNU-like sed.
+	* : commit 51bf2104f0a4d5d39dbb0dab63ab2f07f5c47521 Author: rocky
+	<rocky@gnu.org> Date:   Tue Dec 22 13:09:45 2009 +0100
 
 2009-12-18  rocky <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2009-12-18  Rocky Bernstein (VCDImager Developer) <rocky@login.(none)>
-
-	* autogen.sh, test/zsh/ok4zshdb.sh: Solairis configuration fixes
+	* : commit 417ee0a3cd5392cfcd41f9d109af4f3ef49e2b9b Author: Rocky
+	Bernstein (VCDImager Developer) <rocky@login.(none)> Date:   Fri Dec
+	18 23:44:28 2009 +0100
 
 2009-10-27  rocky <rocky@gnu.org>
 
@@ -593,12 +576,8 @@
 
 2009-10-23  rocky <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2009-10-23  rocky <rocky@gnu.org>
-
-	* ChangeLog, NEWS, configure.ac, test/unit/test-file.sh.in: Get
-	ready for release
+	* : commit 12071f882c391dda96787dfc85fa90f09e5e43c0 Author: rocky
+	<rocky@gnu.org> Date:   Fri Oct 23 13:12:01 2009 -0400
 
 2009-10-23  R. Bernstein <rocky@gnu.org>
 
@@ -624,12 +603,11 @@
 
 	* test/unit/test-file.sh.in: Some more (better?) file globbing tests
 
-
 2009-09-20  rocky <rocky@gnu.org>
 
 	* command/info.sh, command/list.sh, command/run.sh, dbg-pre.sh,
 	lib/filecache.sh, lib/fns.sh, zshdb.in: Better tolerance for files
-	with embedded blanks. Not perfect yet though. Need to redo
+	with embedded blanks. Not perfect yet though.  Need to redo
 	parse_linespec.
 
 2009-09-20  rocky <rocky@gnu.org>
@@ -650,11 +628,9 @@
 
 2009-07-04  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2009-06-30  rocky <rocky@gnu.org>
-
-	Merge branch 'master' of git@github.com:rocky/zshdb
+	* : commit 827a95a17d7c1c95d7a6dcb64bae6fd394550c10 Merge: 58bd4e2
+	fbabb4e Author: rocky <rocky@gnu.org> Date:   Tue Jun 30 22:45:49
+	2009 -0400
 
 2009-06-30  rocky <rocky@sanchez.(none)>
 
@@ -676,11 +652,9 @@
 
 2009-06-30  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2009-06-30  R. Bernstein <rocky@gnu.org>
-
-	Merge branch 'master' of git@github.com:rocky/zshdb
+	* : commit 7a005d3f607e79ff0883c679bed5e416ecc7a615 Merge: 6a53924
+	8c19920 Author: R. Bernstein <rocky@gnu.org> Date:   Tue Jun 30
+	10:38:16 2009 -0400
 
 2009-06-30  R. Bernstein <rocky@atwood.corp.ce-interactive.com>
 
@@ -699,7 +673,6 @@
 
 	* command/condition.sh, test/data/condition.right: Now that we added
 	condition, why not go over it to make it better (and more correct).
-
 
 2009-06-23  R. Bernstein <rocky@gnu.org>
 
@@ -799,7 +772,6 @@
 	test/unit/test-msg.sh.in: Add test/unit/msg of lib/msg and fix bugs
 	in the latter. Other small bugs fixed and some alignment with kshdb.
 
-
 2009-06-11  R. Bernstein <rocky@gnu.org>
 
 	* lib/break.sh, lib/msg.sh, lib/processor.sh,
@@ -877,11 +849,8 @@
 
 2008-11-06  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2008-11-06  R. Bernstein <rocky@gnu.org>
-
-	* command/info.sh: Fix "info args" bug
+	* : commit 694574abe5fbcd4d60717ec0f2f1655868ce10ba Author: R.
+	Bernstein <rocky@gnu.org> Date:   Thu Nov 6 12:36:23 2008 -0500
 
 2008-11-06  R. Bernstein <rocky@gnu.org>
 
@@ -951,11 +920,9 @@
 
 2008-10-20  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2008-10-18  R. Bernstein <rocky@sanchez.(none)>
-
-	* dbg-pre.sh: bashdb sync
+	* : commit 3443a3d0e318cce080cda8cd3d86e0cde8971736 Author: R.
+	Bernstein <rocky@sanchez.(none)> Date:   Sat Oct 18 13:03:59 2008
+	-0400
 
 2008-10-18  R. Bernstein <rocky@sanchez.(none)>
 
@@ -1002,11 +969,7 @@
 
 2008-10-13  R. Bernstein <rocky@gnu.org>
 
-	I hate failed merges
-
-2008-10-13  R. Bernstein <rocky@gnu.org>
-
-	* test/data/frame.right, zshdb.in: Sync with other debuggers
+	* : I hate failed merges
 
 2008-10-13  R. Bernstein <rocky@gnu.org>
 
@@ -1047,11 +1010,8 @@
 
 2008-10-08  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2008-10-08  R. Bernstein <rocky@gnu.org>
-
-	* README: Update README
+	* : commit 1087d1e535e05237cc92f71a8b76cf5bdf6dc35a Author: R.
+	Bernstein <rocky@gnu.org> Date:   Wed Oct 8 21:16:56 2008 -0400
 
 2008-10-08  R. Bernstein <rocky@gnu.org>
 
@@ -1102,15 +1062,8 @@
 
 2008-10-01  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2008-10-01  R. Bernstein <rocky@gnu.org>
-
-	* command/Makefile.am, command/return.sh, lib/hook.sh,
-	lib/journal.sh, lib/processor.sh, lib/save-restore.sh,
-	test/data/frame.right, zshdb.in: Add gdb-like "return" statement.
-	Deal with history slightly better. Other small bug fixes and tweaks.
-
+	* : commit a6383c2924b3bc577a6c9cce4db110ea76b243ad Author: R.
+	Bernstein <rocky@gnu.org> Date:   Wed Oct 1 11:38:07 2008 -0400
 
 2008-09-30  R. Bernstein <rocky@gnu.org>
 
@@ -1260,7 +1213,6 @@
 
 	* command/info.sh, command/show.sh, lib/info.sh: More minor changes
 
-
 2008-09-23  R. Bernstein <rocky@gnu.org>
 
 	* lib/gdb.sh, lib/help.sh: Minor changes
@@ -1342,7 +1294,6 @@
 
 	* lib/filecache.sh: Take into account last line w/o carriage return
 
-
 2008-09-19  R. Bernstein <rocky@gnu.org>
 
 	* command/info.sh, command/list.sh, command/tracefn.sh,
@@ -1382,7 +1333,6 @@
 	lib/processor.sh, test/unit/test-filecache.sh.in,
 	test/unit/test-frame.sh.in: Remove some bugs in the "list" command.
 
-
 2008-09-18  R. Bernstein <rocky@gnu.org>
 
 	* command/Makefile.am, command/list.sh, lib/Makefile.am,
@@ -1395,14 +1345,14 @@
 	lib/hist.sh, lib/processor.sh, test/data/brkpt1.cmd,
 	test/data/brkpt1.right, test/unit/test-filecache.sh.in: Save file
 	lines. Therefore we now check if breakpoint line numbers are beyond
-	the end of file. Thanks to Bart Schaefer.
+	the end of file.  Thanks to Bart Schaefer.
 
 2008-09-17  R. Bernstein <rocky@gnu.org>
 
 	* command/info.sh, command/set.sh, command/show.sh, dbg-main.sh,
 	lib/file.sh, lib/filecache.sh, lib/hook.sh, lib/save-restore.sh,
 	test/data/frame.right, test/data/setshow.right: "info files" shows
-	list of files seen. Some work towards saving history. Generalize
+	list of files seen. Some work towards saving history.  Generalize
 	.zshdbrc vi _Dbg_debugger_name.
 
 2008-09-17  R. Bernstein <rocky@gnu.org>
@@ -1421,7 +1371,6 @@
 
 	* lib/hook.sh, lib/save-restore.sh,
 	test/unit/test-save-restore.sh.in: save/restore environment cleanup.
-
 
 2008-09-17  R. Bernstein <rocky@gnu.org>
 
@@ -1457,10 +1406,9 @@
 
 	* command/examine.sh, test/data/frame.right, test/data/lopts.right,
 	test/integration/Makefile.am, test/integration/test-opts,
-	test/integration/test-setshow, zshdb.in: Misc bugs and tweaks.
-	zshdb.in: start out with initial zsh defaults. examine.sh: fake
-	variables better. test/integration: correct test testing; add "test"
-	and "test-integraiton" targets"
+	test/integration/test-setshow, zshdb.in: Misc bugs and tweaks.  zshdb.in: start out with initial zsh defaults.  examine.sh: fake
+	variables better.  test/integration: correct test testing; add
+	"test" and "test-integraiton" targets"
 
 2008-09-15  R. Bernstein <rocky@gnu.org>
 
@@ -1510,7 +1458,6 @@
 	test/integration/Makefile.am, test/integration/test-enable: 
 	Integration test added for enable and disable. Bugs found and fixed.
 
-
 2008-09-12  R. Bernstein <rocky@gnu.org>
 
 	* command/break.sh, lib/break.sh, lib/hook.sh,
@@ -1538,12 +1485,8 @@
 
 2008-09-11  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2008-09-11  R. Bernstein <rocky@gnu.org>
-
-	* command/source.sh, lib/processor.sh: Use vared for more flexible
-	debugger command handling and editing.
+	* : commit d9fb9f829caa8545d55e181e1ebf3588846a25b5 Author: R.
+	Bernstein <rocky@gnu.org> Date:   Thu Sep 11 08:52:55 2008 -0400
 
 2008-09-10  R. Bernstein <rocky@gnu.org>
 
@@ -1602,7 +1545,7 @@
 	* command/help.sh, command/set.sh, command/show.sh, lib/gdb.sh,
 	lib/help.sh, lib/journal.sh, test/data/setshow.cmd,
 	test/data/setshow.right: Add command to set and show line width
-	(set/show width). Some other minor fixes.
+	(set/show width).  Some other minor fixes.
 
 2008-09-05  R. Bernstein <rocky@gnu.org>
 
@@ -1649,7 +1592,7 @@
 	test/unit/.gitignore, test/unit/Makefile.am,
 	test/unit/test-file.sh.in, test/unit/test-filecache.sh.in: More
 	progress towards adding breakpoints. More code towards gathering
-	file information. Still need code in processor.sh to check/stop at
+	file information.  Still need code in processor.sh to check/stop at
 	breakpoints and code to read in file lines.
 
 2008-09-04  R. Bernstein <rocky@gnu.org>
@@ -1667,15 +1610,7 @@
 
 2008-09-02  R. Bernstein <rocky@gnu.org>
 
-	I hate failed merges
-
-2008-09-02  R. Bernstein <rocky@gnu.org>
-
-	* command/tracefn.sh, lib/columns.sh, lib/gdb.sh,
-	test/data/bug-errexit.right, test/data/frame.right,
-	test/data/next.right, test/unit/test-frame.sh.in: Better stack
-	traces thanks to changes in zsh by Peter Stephenson. Some zshdb bugs
-	in this area fixed.
+	* : I hate failed merges
 
 2008-09-02  R. Bernstein <rocky@gnu.org>
 
@@ -1722,7 +1657,7 @@
 	lib/dbg-call.sh, lib/frame.sh, lib/hook.sh, lib/processor.sh,
 	lib/save-restore.sh, test/data/Makefile.am,
 	test/integration/Makefile.am, zshdb.in: Add next, next-, next+
-	commands: stepping over functions. Reduce verbosity on set -x
+	commands: stepping over functions.  Reduce verbosity on set -x
 	tracing.
 
 2008-08-29  R. Bernstein <rocky@gnu.org>
@@ -1746,11 +1681,8 @@
 
 2008-08-27  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2008-08-27  R. Bernstein <rocky@gnu.org>
-
-	* command/stepping.sh, lib/processor.sh: DRY step integration test
+	* : commit 25c9f909f5b242e4ce0ca3bdc70e53cab7301560 Author: R.
+	Bernstein <rocky@gnu.org> Date:   Wed Aug 27 21:38:01 2008 -0400
 
 2008-08-27  R. Bernstein <rocky@gnu.org>
 
@@ -1786,11 +1718,8 @@
 
 2008-08-26  R. Bernstein <rocky@gnu.org>
 
-	Merge branch 'master' of git@github.com:rocky/zshdb
-
-2008-08-26  R. Bernstein <rocky@gnu.org>
-
-	* command/stepping.sh: I hate conflicted merges
+	* : commit 62e4ab1cdb8cb420008a8c925a4fecdae2bf15ad Author: R.
+	Bernstein <rocky@gnu.org> Date:   Tue Aug 26 11:25:36 2008 -0400
 
 2008-08-26  R. Bernstein <rocky@gnu.org>
 
@@ -1879,7 +1808,6 @@
 	test/unit/test-alias.sh.in, test/unit/test-frame.sh.in: Handle "set
 	linetrace on/off". Closer to having frame integration test working.
 
-
 2008-08-22  R. Bernstein <rocky@gnu.org>
 
 	* lib/frame.sh, test/unit/test-frame.sh.in: Small potatoes
@@ -1889,7 +1817,6 @@
 	* command/frame.sh, command/help.sh, configure.ac, lib/frame.sh,
 	lib/sig.sh, test/unit/Makefile.am: More stringent checking of frame.
 	More bugs found. Show aliases on command help (this time, for sure!)
-
 
 2008-08-21  R. Bernstein <rocky@gnu.org>
 
@@ -1974,7 +1901,7 @@
 
 	* command/edit.sh: Add edit command which pulls in some linespec
 	stuff and adds _Dbg_frame_file and _Dbg_frame_line. Regularize names
-	a little adjust_frame -> frame_adjust. We now save and restore
+	a little adjust_frame -> frame_adjust.  We now save and restore
 	shwordsplit. Be better about checkin parameters.
 
 2008-08-17  R. Bernstein <rocky@gnu.org>
@@ -2019,8 +1946,8 @@
 
 	* command/help.sh, command/stepping.sh, lib/alias.sh,
 	lib/processor.sh, lib/sig.sh, test/zsh/ok4zshdb.sh: Should work now
-	from current zsh without any additional patching. Turn 's', 'n', and
-	'next' to command aliases of step.
+	from current zsh without any additional patching.  Turn 's', 'n',
+	and 'next' to command aliases of step.
 
 2008-08-13  R. Bernstein <rocky@gnu.org>
 
@@ -2043,7 +1970,6 @@
 
 	* command/where.sh, lib/frame.sh, lib/gdb.sh, lib/processor.sh,
 	lib/sig.sh: Fix some stack-handling bugs and clean up code a little.
-
 
 2008-08-11  R. Bernstein <rocky@gnu.org>
 
@@ -2069,7 +1995,7 @@
 	* command/frame.sh, command/quit.sh, command/run.sh,
 	command/where.sh, configure.ac, lib/alias.sh, lib/frame.sh,
 	lib/processor.sh, lib/run.sh, test/unit/Makefile.am: Add help for
-	quit command and put it in the list of commands. local->typeset to
+	quit command and put it in the list of commands.  local->typeset to
 	be more compatible with kshdb.
 
 2008-08-10  R. Bernstein <rocky@gnu.org>
@@ -2216,7 +2142,7 @@
 	lib/stack.inc, lib/stack.sh, main.inc, opts.inc,
 	test/unit/.gitignore, test/unit/test-alias.sh.in,
 	test/unit/test-fns.sh.in, test/unit/test-run.sh.in, zshdb, zshdb.in: 
-	Work usage help and add -x --command option. remove .cmd and .inc
+	Work usage help and add -x --command option.  remove .cmd and .inc
 	prefixes in favor of the more normal .sh
 
 2008-08-06  R. Bernstein <rocky@sanchez.(none)>
@@ -2227,9 +2153,8 @@
 	lib/alias.inc, lib/processor.inc, lib/run.inc,
 	test/unit/.gitignore, test/unit/Makefile.am,
 	test/unit/test-alias.sh.in, test/unit/test-fns.sh.in, zshdb,
-	zshdb.in: Get "source" command running!  add_alias ->
-	_Dbg_add_alias; same with remove_alias. More _Dbg_not_running tests.
-	A number of other cleanups too.
+	zshdb.in: Get "source" command running! add_alias -> _Dbg_add_alias; same with remove_alias. More
+	_Dbg_not_running tests. A number of other cleanups too.
 
 2008-08-06  R. Bernstein <rocky@sanchez.(none)>
 
@@ -2255,7 +2180,7 @@
 	test/unit/test-alias.sh.in, test/unit/test-fns.sh,
 	test/unit/test-fns.sh.in, zshdb, zshdb.in: Figure out list of
 	commands from help message. This means we can now combine small
-	related commands. Add substitutions via autoconf.
+	related commands.  Add substitutions via autoconf.
 
 2008-08-05  R. Bernstein <rocky@sanchez.(none)>
 
@@ -2378,8 +2303,8 @@
 	command/where.cmd, dbg-processor.inc, dbg-set-d-vars.inc,
 	dbg-sig.inc, emacs/elk-test.el, emacs/zshdb-test.el.in,
 	emacs/zshdb.el, testing.sh, zshtrace.sh: Attempt full substitution
-	in print and eval. Add alias command. Add alias for "bt". Add emacs.
-
+	in print and eval. Add alias command.  Add alias for "bt". Add
+	emacs.
 
 2008-07-30  R. Bernstein <rocky@sanchez.(none)>
 
