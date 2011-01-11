@@ -33,7 +33,7 @@ do_opts_test() {
 test_opts()
 {
     do_opts_test 'No opts (annotate, basename, linetrace)' \
-	'print "$_Dbg_set_annotate $_Dbg_set_basename $_Dbg_linetrace"' \
+	'print "$_Dbg_set_annotate $_Dbg_set_basename $_Dbg_set_linetrace"' \
 	'0 0 0'
 
     #                    Eval expression        value   options

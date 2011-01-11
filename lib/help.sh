@@ -106,10 +106,10 @@ Follow this command with any number of args, to be passed to the program."
       lin | line | linet | linetr | linetra | linetrac | linetrace )
 	  [[ -n $label ]] && label='set linetrace -- '
 	  typeset onoff='off.'
-	  (( _Dbg_linetrace )) && onoff='on.'
+	  (( _Dbg_set_linetrace )) && onoff='on.'
 	  _Dbg_msg \
 	      "${label}Set tracing execution of lines before executed is" $onoff
-	  if (( _Dbg_linetrace )) ; then
+	  if (( _Dbg_set_linetrace )) ; then
 	      _Dbg_msg \
 		  "set linetrace delay -- delay before executing a line is" $_Dbg_linetrace_delay
 	  fi

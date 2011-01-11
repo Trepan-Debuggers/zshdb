@@ -220,7 +220,7 @@ function _Dbg_unset_brkpt_arrays {
     return 0
 }
 
-# Internal routine to delete the first found a breakpoint by file/line.
+# Internal routine to delete the first breakpoint found by file/line.
 # The number of breakpoints (0 or 1) is returned.
 function _Dbg_unset_brkpt {
     (( $# == 2 )) || return 0

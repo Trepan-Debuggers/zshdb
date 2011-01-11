@@ -127,7 +127,7 @@ _Dbg_do_show_internal() {
 	lin | line | linet | linetr | linetra | linetrac | linetrace )
 	    [[ -n $label ]] && label='line tracing: '
 	    typeset onoff="off."
-	    (( _Dbg_linetrace != 0 )) && onoff='on.'
+	    (( _Dbg_set_linetrace != 0 )) && onoff='on.'
 	    _Dbg_msg \
 		"${label}Show line tracing is" $onoff
 	    _Dbg_msg \

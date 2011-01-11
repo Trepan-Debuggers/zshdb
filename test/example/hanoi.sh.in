@@ -6,7 +6,7 @@
 init() {
   # We want to test _Dbg_set_trace inside a call
   if (( $tracing )) ; then
-    _Dbg_linetrace=1
+    _Dbg_set_linetrace=1
   fi
 }
 
@@ -41,6 +41,6 @@ fi
 init
 hanoi $max 'a' 'b' 'c'
 if (( $tracing )) ; then
-  _Dbg_linetrace=0
+  _Dbg_set_linetrace=0
   _Dbg_QUIT_ON_QUIT=1
 fi

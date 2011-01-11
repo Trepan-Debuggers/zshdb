@@ -139,7 +139,7 @@ function _Dbg_hook {
 	return $?
 
     fi
-    if ((_Dbg_linetrace)) ; then 
+    if ((_Dbg_set_linetrace)) ; then 
 	if ((_Dbg_linetrace_delay)) ; then
 	    sleep $_Dbg_linetrace_delay
 	fi
