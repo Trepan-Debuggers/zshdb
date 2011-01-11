@@ -16,7 +16,7 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-# Stuff common to zshdb and zshdb-trace. Include the rest of options
+# Stuff common to zshdb and dbg-trace. Include the rest of options
 # processing. Also includes things which have to come before other includes
 . ${_Dbg_libdir}/dbg-pre.sh
 
