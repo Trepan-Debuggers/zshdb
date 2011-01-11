@@ -31,7 +31,6 @@ typeset -i _Dbg_listline=0
 # list $3 lines starting at line $2 of file $1. If $1 is '', use
 # $_Dbg_frame_last_filename value.  If $3 is ommited, print $_Dbg_set_listsize
 # lines. if $2 is omitted, use global variable $_Dbg_frame_last_lineno.
-
 _Dbg_list() {
     typeset filename
     if (( $# > 0 )) ; then
