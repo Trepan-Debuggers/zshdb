@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # dbg-opts.sh - debugger command options processing. The bane of programming.
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -52,12 +52,12 @@ _Dbg_show_version() {
 }
 
 # Script arguments before adulteration by _Dbg_parse_opts
-typeset -ax _Dbg_orig_script_args
+typeset -xa _Dbg_orig_script_args
 _Dbg_orig_script_args=($@)
 
 # The following globals are set by _Dbg_parse_opts. Any values set are 
 # the default values.
-typeset -ax _Dbg_script_args
+typeset -xa _Dbg_script_args
 
 # Use gdb-style annotate?
 typeset -i _Dbg_set_annotate=0

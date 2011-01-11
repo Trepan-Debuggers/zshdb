@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -44,7 +44,7 @@ fi
 # _Dbg_DEBUGGER_LEVEL is the number of times we are nested inside a debugger
 # by virtue of running "debug" for example.
 if [[ -z "${_Dbg_DEBUGGER_LEVEL}" ]] ; then
-    typeset -ix _Dbg_DEBUGGER_LEVEL=1
+    typeset -xi _Dbg_DEBUGGER_LEVEL=1
 fi
 
 if ((Dbg_history_save)) ; then  
