@@ -29,7 +29,7 @@ If LOC is given, a temporary breakpoint is set at the location.'
 
 function _Dbg_do_continue {
 
-  _Dbg_not_running && return 0
+  _Dbg_not_running && return 3
 
   if (( $# == 0 )) ; then
       _Dbg_continue_rc=0
@@ -51,7 +51,7 @@ function _Dbg_do_continue {
   if [[ -n "$full_filename" ]] ; then 
       if (( line_number ==  0 )) ; then 
 	  _Dbg_errmsg 'There is no line 0 to continue at.'
-	  return 0
+	  return 1
       else 
 	  _Dbg_check_line $line_number "$full_filename"
 	  (( $? == 0 )) && \
@@ -61,8 +61,8 @@ function _Dbg_do_continue {
       fi
   else
       _Dbg_file_not_read_in "$filename"
+      return 2
   fi
-  return 0
 }
 
 _Dbg_alias_add 'c' 'continue'

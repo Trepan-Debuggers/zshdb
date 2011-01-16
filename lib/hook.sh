@@ -30,7 +30,7 @@ typeset -i _Dbg_program_exit_code=0
 
 # This is the main hook routine that gets called before every statement.
 # It's the function called via trap DEBUG.
-function _Dbg_hook {
+function _Dbg_trap_handler {
 
     # Save old set options before destroying them
     _Dbg_old_set_opts=$-  
