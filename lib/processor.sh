@@ -65,7 +65,6 @@ function _Dbg_process_commands {
   # Nuke any prior step-ignore counts
   _Dbg_write_journal_eval "_Dbg_step_ignore=-1"
 
-  # Evaluate all the display expressions
   typeset -l key
 
   # Evaluate all hooks
