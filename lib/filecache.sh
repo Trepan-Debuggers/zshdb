@@ -194,7 +194,6 @@ function _Dbg_readin {
     else 
 	fullname=$(_Dbg_resolve_expand_filename "$filename")
 	if [[ -r $fullname ]] ; then
-	    _Dbg_file2canonic[$filename]="$fullname"
 	    _Dbg_file2canonic[$fullname]="$fullname"
 	    eval "$_Dbg_source_array_var=( \"\${(f@)mapfile[$fullname]}\" )"
 	    if (( _Dbg_set_highlight )) ; then
