@@ -20,20 +20,22 @@
 
 zmodload -ap zsh/mapfile mapfile &> /dev/null
 
+typeset _Dbg_bogus_file=' A really bogus file'
+
 # Keys are the canonic expanded filename. _Dbg_filenames[filename] is
 # name of variable which contains text.
 typeset -A _Dbg_filenames
-_Dbg_filenames=()
 
 # Maps a name into its canonic form which can then be looked up in filenames
 typeset -A _Dbg_file2canonic
-_Dbg_file2canonic=()
 
 # Information about a file.
 typeset -A _Dbg_fileinfo
-_Dbg_fileinfo=()
 
-typeset _Dbg_bogus_file=' A really bogus file'
+_Dbg_filecache_reset() {
+    _Dbg_filenames=()
+}
+_Dbg_filecache_reset
 
 # Check that line $2 is not greater than the number of lines in 
 # file $1
@@ -104,6 +106,11 @@ function _Dbg_get_source_line {
     fi
   _Dbg_readin_if_new "$filename"
   eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
+  if (( _Dbg_set_highlight )) ; then
+      eval "source_line=\${$_Dbg_highlight_array_var[lineno]}"
+  else
+      eval "source_line=\${$_Dbg_source_array_var[lineno]}"
+  fi
 }
 
 # _Dbg_is_file echoes the full filename if $1 is a filename found in files
@@ -177,6 +184,9 @@ function _Dbg_readin {
     typeset -i next;
     next=${#_Dbg_filenames[@]}
     _Dbg_source_array_var="_Dbg_source_${next}"
+    if (( _Dbg_set_highlight )) ; then
+	_Dbg_highlight_array_var="_Dbg_highlight_${next}"
+    fi
 
     if [[ -z $filename ]] || [[ $filename == "$_Dbg_bogus_file" ]] ; then 
 	eval "${_Dbg_source_array_var}[0]=\"$Dbg_EXECUTION_STRING\""
@@ -186,6 +196,12 @@ function _Dbg_readin {
 	    _Dbg_file2canonic[$filename]="$fullname"
 	    _Dbg_file2canonic[$fullname]="$fullname"
 	    eval "$_Dbg_source_array_var=( \"\${(f@)mapfile[$fullname]}\" )"
+	    if (( _Dbg_set_highlight )) ; then
+		tempfile="/tmp/pygment-$$.txt"
+		pygmentize -l bash "$fullname" > $tempfile 2>/dev/null
+		cmd="$_Dbg_highlight_array_var=( \"\${(f@)mapfile[$tempfile]}\" )"
+		eval  $cmd
+	    fi
 	else
 	    return 1
 	fi

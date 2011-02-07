@@ -46,9 +46,16 @@ function _Dbg_print_location {
 
 function _Dbg_print_command {
     typeset -i width; ((width=_Dbg_set_linewidth-6))
-    if (( ${#ZSH_DEBUG_CMD} > width )) ; then
+    if (( ${#ZSH_DEBUG_CMD} > width && !_Dbg_set_highlight )) ; then
 	_Dbg_msg "${ZSH_DEBUG_CMD[0,$width]} ..."
     else
+	if ((_Dbg_set_highlight)) ; then
+	    line=$(echo "$ZSH_DEBUG_CMD" | pygmentize -l bash 2>/dev/null)
+	    if (( $? == 0 )) ; then
+		_Dbg_msg "$line"
+		return 0
+	    fi
+	fi
 	_Dbg_msg $ZSH_DEBUG_CMD
     fi
 }
