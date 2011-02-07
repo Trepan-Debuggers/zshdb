@@ -49,7 +49,7 @@ _Dbg_do_show_internal() {
 	return 0
     elif [[ -n ${_Dbg_debugger_show_commands[$show_cmd]} ]] ; then
 	${_Dbg_debugger_show_commands[$show_cmd]} $label "$@"
-	return 0
+	return $?
     fi
 
     case $show_cmd in 

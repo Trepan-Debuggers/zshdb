@@ -18,6 +18,9 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+_Dbg_help_add_sub set showcommand \
+'showing the command to execute' 1 
+
 # Sets whether or not to display command to be executed in debugger prompt.
 # If yes, always show. If auto, show only if the same line is to be run
 # but the command is different.

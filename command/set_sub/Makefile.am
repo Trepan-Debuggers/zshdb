@@ -6,9 +6,9 @@ pkgdata_DATA =       	\
 	editing.sh     	\
 	history.sh	\
 	linetrace.sh	\
-	linewidth.sh	\
 	listsize.sh	\
 	showcommand.sh	\
-	trace-commands.sh
+	trace-commands.sh \
+	width.sh
 
 EXTRA_DIST = $(pkgdata_DATA)

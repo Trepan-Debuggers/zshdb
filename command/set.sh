@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # set.sh - debugger settings
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -24,6 +24,9 @@
 typeset -i _Dbg_set_linewidth; _Dbg_set_linewidth=${COLUMNS:-80} 
 typeset -i _Dbg_linetrace_expand=0 # expand variables in linetrace output
 typeset    _Dbg_linetrace_delay=1  # sleep after linetrace
+
+typeset -A _Dbg_debugger_set_commands
+typeset -A _Dbg_command_help_set
 
 typeset -i _Dbg_set_autoeval=0     # Evaluate unrecognized commands?
 typeset -i _Dbg_set_listsize=10    # How many lines in a listing? 
@@ -49,18 +52,15 @@ _Dbg_do_set_internal() {
   fi
   _Dbg_last_cmd='set'
   shift
+
+  if [[ -n ${_Dbg_debugger_set_commands[$set_cmd]} ]] ; then
+      ${_Dbg_debugger_set_commands[$set_cmd]} $label "$@"
+      return $?
+  fi
+
   case $set_cmd in 
-      ar | arg | args )
-	  _Dbg_do_set_args $@
-	  ;;
-      an | ann | anno | annot | annota | annotat | annotate )
-	  _Dbg_do_set_annotate $@
-	  ;;
       autoe | autoev | autoeva | autoeval )
 	  _Dbg_set_onoff "$1" 'autoeval'
-	  ;;
-      autol | autoli | autolis | autolist )
-	  _Dbg_do_set_autolist $@
 	  ;;
       b | ba | bas | base | basen | basena | basenam | basename )
 	  _Dbg_set_onoff "$1" 'basename'
@@ -68,23 +68,11 @@ _Dbg_do_set_internal() {
       de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
 	  _Dbg_set_onoff "$1" 'debugging'
 	  ;;
-      e | ed | edi | edit | editi | editin | editing )
-	  _Dbg_do_set_editing $@
-	  ;;
       force | dif | diff | differ | different )
 	  _Dbg_set_onoff "$1" 'different'
 	  ;;
-      hi|his|hist|histo|histor|history)
-	  _Dbg_do_set_history $@
-	  ;;
       inferior-tty )
 	  _Dbg_set_tty $@
-	  ;;
-      lin | line | linet | linetr | linetra | linetrac | linetrace )
-	  _Dbg_do_set_linetrace $@
-	  ;;
-      li | lis | list | lists | listsi | listsiz | listsize )
-	  _Dbg_do_set_listsize $@
 	  ;;
       lo | log | logg | loggi | loggin | logging )
 	  _Dbg_cmd_set_logging $@
@@ -92,14 +80,8 @@ _Dbg_do_set_internal() {
       p | pr | pro | prom | promp | prompt )
 	  _Dbg_prompt_str="$1"
 	  ;;
-      sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
-	  _Dbg_do_set_showcommand $@
-	  ;;
       t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
 	  _Dbg_do_set_trace_commands $@
-	  ;;
-      w | wi | wid | width )
-	  _Dbg_do_set_linewidth "$1"
 	  ;;
       *)
 	  _Dbg_undefined_cmd "set" "$set_cmd"

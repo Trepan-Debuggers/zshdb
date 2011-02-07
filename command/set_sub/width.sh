@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "set linewidth" debugger command
+# "set width" debugger command
 #
-#   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,7 +18,10 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_do_set_linewidth() {
+_Dbg_help_add_sub set width \
+'maximum width of lines' 1
+
+_Dbg_do_set_width() {
     if [[ $1 == [0-9]* ]] ; then 
 	_Dbg_write_journal_eval "_Dbg_set_linewidth=$1"
     else

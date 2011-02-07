@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set listsize" debugger command
 #
-#   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -17,6 +17,9 @@
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
+
+_Dbg_help_add_sub set listsize \
+'number of source lines debugger will list by default' 1
 
 _Dbg_do_set_listsize() {
     if [[ $1 == [0-9]* ]] ; then 
