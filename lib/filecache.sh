@@ -34,6 +34,8 @@ typeset -A _Dbg_fileinfo
 
 _Dbg_filecache_reset() {
     _Dbg_filenames=()
+    _Dbg_fileinfo=()
+    _Dbg_file2canonic=()
 }
 _Dbg_filecache_reset
 
@@ -105,11 +107,10 @@ function _Dbg_get_source_line {
 	filename="$1"
     fi
   _Dbg_readin_if_new "$filename"
-  eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
   if (( _Dbg_set_highlight )) ; then
-      eval "source_line=\${$_Dbg_highlight_array_var[lineno]}"
+      eval "source_line=\${$_Dbg_highlight_array_var[lineno-1]}"
   else
-      eval "source_line=\${$_Dbg_source_array_var[lineno]}"
+      eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
   fi
 }
 
