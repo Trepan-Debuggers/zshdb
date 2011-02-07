@@ -45,8 +45,8 @@ _Dbg_adjust_filename() {
 # local'd by the caller
 _Dbg_glob_filename() {
   typeset cmd="filename=$(expr $1)"
-  eval $cmd
-  [[ -r $filename ]]
+  eval "$cmd"
+  [[ -r "$filename" ]]
 }
 
 #

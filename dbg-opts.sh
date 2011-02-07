@@ -30,6 +30,9 @@ options:
     -A | --annotate  LEVEL  Set the annotation level.
     -B | --basename         Show basename only on source file listings. 
                             (Needed in regression tests)
+    --highlight | --no-highlight 
+                            Use or don't use ANSI terminal sequences for syntax
+                            highlight
     -L | --library DIRECTORY
                             Set the directory location of library helper file: $_Dbg_main
     -c | --command STRING   Run STRING instead of a script file
@@ -65,6 +68,7 @@ typeset -i _Dbg_set_annotate=0
 # Simulate set -x?
 typeset -i _Dbg_set_linetrace=0
 typeset -i _Dbg_set_basename=0
+typeset -i _Dbg_set_highlight=0
 typeset -i _Dbg_o_nx=0
 typeset -i _Dbg_o_linetrace=0
 typeset    _Dbg_tty=''
@@ -79,20 +83,22 @@ _Dbg_parse_options() {
     typeset -i _Dbg_o_quiet=0
     typeset -i _Dbg_o_version=0
 
-    while getopts_long A:Bc:x:hL:nqTt:V opt  \
-	annotate required_argument           \
-	basename no_argument                 \
-	command  required_argument           \
-	eval-command required_argument       \
-	cmdfile  required_argument           \
-    	help     no_argument                 \
-	library  required_argument           \
-	no-init  no_argument                 \
-	nx       no_argument                 \
-	quiet    no_argument                 \
-        tempdir  required_argument           \
-        tty      required_argument           \
-	version  no_argument                 \
+    while getopts_long A:Bc:x:hL:nqTt:V opt      \
+	annotate required_argument               \
+	basename no_argument                     \
+	command  required_argument               \
+	eval-command required_argument           \
+	cmdfile      required_argument           \
+    	help         no_argument                 \
+    	highlight    no_argument                 \
+	library      required_argument           \
+	no-highlight no_argument                 \
+	no-init      no_argument                 \
+	nx           no_argument                 \
+	quiet        no_argument                 \
+        tempdir      required_argument           \
+        tty          required_argument           \
+	version      no_argument                 \
 	'' "$@"
     do
 	case "$opt" in 
@@ -104,6 +110,10 @@ _Dbg_parse_options() {
 		_Dbg_EXECUTION_STRING="$OPTLARG" ;;
 	    h | help )
 		_Dbg_usage		;;
+	    highlight )
+		_Dbg_set_highlight=1  	;;
+	    no-highlight )
+		_Dbg_set_highlight=0  	;;
 	    L | library ) 		;;
 	    V | version )
 		_Dbg_o_version=1	;;

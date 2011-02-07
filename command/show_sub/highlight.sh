@@ -21,8 +21,6 @@
 _Dbg_help_add_sub show highlight \
 "Show syntax highlight of listings" 1
 
-typeset -i _Dbg_set_highlight=0
-
 _Dbg_do_show_highlight() {
     typeset label="$1"
     [[ -n $label ]] && label='highlight: '
