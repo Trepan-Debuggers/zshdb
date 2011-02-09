@@ -24,6 +24,7 @@ pkgdata_DATA =      	\
 	set-d-vars.sh   \
 	setshow.sh      \
 	sort.sh 	\
+	term-highlight.py \
 	tty.sh          \
 	validate.sh
 
