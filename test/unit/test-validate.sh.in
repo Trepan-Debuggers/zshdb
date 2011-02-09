@@ -61,12 +61,24 @@ test_is_integer()
     for arg in a a1 '-+-' ; do
 	_Dbg_is_int $arg
 	assertFalse "$arg is not an integer; is_int should report false" $? 
+	_Dbg_is_signed_int $arg
+	assertFalse "$arg is not a signed integer; is_int should report false" $? 
     done
 
     for arg in 0 123 9999999 ; do
 	_Dbg_is_int $arg
-	assertTrue "$arg is not an integer; is_int should report true" $? 
+	assertTrue "$arg is an integer; is_int should report true" $? 
+	_Dbg_is_signed_int $arg
+	assertTrue "$arg is a signed integer; is_int should report true" $? 
     done
+
+    for arg in +0 -123 ; do
+	_Dbg_is_signed_int $arg
+	assertTrue "$arg is not a signed integer; is_int should report true" $? 
+	_Dbg_is_int $arg
+	assertFalse "$arg is not an integer; is_int should report true" $? 
+    done
+
 }
 
 # Make sure @abs_top_srcdir@ has a trailing slash

@@ -24,9 +24,9 @@ test_undefined()
 {
     typeset msg
     msg=$(_Dbg_undefined_cmd foo bar)
-    assertEquals 'Undefined foo subcommand "bar". Try "help foo".' "$msg"
+    assertEquals '** Undefined foo subcommand "bar". Try "help foo".' "$msg"
     msg=$(_Dbg_undefined_cmd foo)
-    assertEquals 'Undefined command "foo". Try "help".' "$msg"
+    assertEquals '** Undefined command "foo". Try "help".' "$msg"
 }
 
 abs_top_srcdir=@abs_top_srcdir@

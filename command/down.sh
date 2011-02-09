@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "down" debugger command
 #
-#   Copyright (C) 2010 Rocky Bernstein
+#   Copyright (C) 2010, 2011 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -33,10 +33,16 @@ If COUNT is omitted, use 1. COUNT can be any arithmetic expression.
 See also "up" and "frame".'
 
 function _Dbg_do_down {
-  _Dbg_not_running && return 1
-  typeset -i count=${1:-1}
-  _Dbg_frame_adjust $count -1
-  ((0 == $?)) && _Dbg_last_cmd='down'
-  return 0
+    _Dbg_not_running && return 1
+    typeset count=${1:-1}
+    _Dbg_is_signed_int $count 
+    if (( 0 == $? )) ; then
+	_Dbg_frame_adjust $count -1
+	typeset -i rc=$?
+    else
+	_Dbg_errmsg "Expecting an integer; got $count"
+	typeset -i rc=2
+    fi
+    return 0
 }
 

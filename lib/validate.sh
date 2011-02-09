@@ -53,3 +53,13 @@ _Dbg_is_int() {
 	return 1
     fi
 }
+
+# _Dbg_is_signed_int returns 0 if $1 is an integer or nonzero otherwise. 
+_Dbg_is_signed_int() {
+    (( 1 == $# )) || return 1
+    if [[ $1 == [0-9]* ]] || [[ $1 == [+-][0-9]* ]] ; then
+	return 0
+    else
+	return 1
+    fi
+}

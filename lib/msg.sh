@@ -16,6 +16,7 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+_Dbg_ansi_term_bold="[1m"
 _Dbg_ansi_term_italic="[3m"
 _Dbg_ansi_term_normal="[0m"
 
@@ -67,7 +68,7 @@ _Dbg_confirm() {
 function _Dbg_errmsg {
     typeset -r prefix='**'
     if (( _Dbg_set_highlight )) ; then
-	_Dbg_msg "$prefix ${_Dbg_ansi_term_italic}$@${_Dbg_ansi_term_normal}"
+	_Dbg_msg "$prefix ${_Dbg_ansi_term_underline}$@${_Dbg_ansi_term_normal}"
     else
 	_Dbg_msg "$prefix $@"
     fi
@@ -119,12 +120,21 @@ function _Dbg_printf_nocr {
     fi
 }
 
+# print message to output device
+function _Dbg_section {
+    if (( _Dbg_set_highlight )) ; then
+	_Dbg_msg "$prefix ${_Dbg_ansi_term_bold}$@${_Dbg_ansi_term_normal}"
+    else
+	_Dbg_msg "$prefix $@"
+    fi
+}
+
 # Common funnel for "Undefined command" message
 _Dbg_undefined_cmd() {
     if (( $# == 2 )) ; then
-	_Dbg_msg "Undefined $1 subcommand \"$2\". Try \"help $1\"."
+	_Dbg_errmsg "Undefined $1 subcommand \"$2\". Try \"help $1\"."
     else
-	_Dbg_msg "Undefined command \"$1\". Try \"help\"."
+	_Dbg_errmsg "Undefined command \"$1\". Try \"help\"."
     fi
 }
 
