@@ -197,10 +197,13 @@ function _Dbg_readin {
 	    _Dbg_file2canonic[$fullname]="$fullname"
 	    eval "$_Dbg_source_array_var=( \"\${(f@)mapfile[$fullname]}\" )"
 	    if (( _Dbg_set_highlight )) ; then
-		tempfile="/tmp/pygment-$$.txt"
-		pygmentize -l bash "$fullname" > $tempfile 2>/dev/null
-		cmd="$_Dbg_highlight_array_var=( \"\${(f@)mapfile[$tempfile]}\" )"
-		eval  $cmd
+		highlight_cmd="${_Dbg_libdir}/lib/term-highlight.py $fullname"
+		tempfile=$($highlight_cmd 2>/dev/null)
+		if (( 0  == $? )) ; then 
+		    eval "$_Dbg_highlight_array_var=( \"\${(f@)mapfile[$tempfile]}\" )"
+		fi
+		[[ -r $tempfile ]] && rm $tempfile 
+		    
 	    fi
 	else
 	    return 1

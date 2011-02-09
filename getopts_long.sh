@@ -2,7 +2,7 @@
 # 
 # getopts_long -- POSIX shell getopts with GNU-style long option support
 #
-# Copyright 2005-2008 Stephane Chazelas <stephane_chazelas@yahoo.fr>
+# Copyright 2005-2009 Stephane Chazelas <stephane_chazelas@yahoo.fr>
 # 
 # Permission to use, copy, modify, distribute, and sell this software and
 # its documentation for any purpose is hereby granted without fee, provided
@@ -12,6 +12,15 @@
 # software for any purpose.  It is provided "as is" without express or
 # implied warranty.
 
+# History:
+# 2005 ?? - 1.0
+#   first version
+# 2009-08-12 - 1.1
+#   thanks to ujqm8360@netwtc.net for helping fix a few bugs:
+#     - -ab x where -b accepts arguments wasn't handled properly. Also,
+#       $OPTLIND wasn't set properly (at least not the same way as most
+#       getopts implementation do).
+#     - The handling of ambiguous long options was incorrect.
 
 getopts_long() {
   # args: shortopts, var, [name, type]*, "", "$@"
@@ -83,6 +92,8 @@ getopts_long() {
   # Differences with the POSIX getopts:
   #  - if an error is detected during the parsing of command line
   #    arguments, the error message is stored in the $OPTLERR variable
+  #    and if the first character of optstring is ':', ':' is returned in
+  #    any case.
   #  - in the single-letter option specification, if a letter is
   #    followed by 2 colons ("::"), then the option can have an optional
   #    argument as in GNU getopt(3). In that case, the argument must
@@ -111,7 +122,7 @@ getopts_long() {
   #    - bash 2.0.3 on Solaris 2.8
   #    - dash 0.5.2 on Linux
   #    - bash 2.05b (patch level 0) on Linux
-  #    - ksh93p and ksh93q on Linux
+  #    - ksh93p and ksh93q on Linux (ksh93t+ crashes)
   #
   #  It is known to fail with those non-POSIX compliant shells:
   #    - /bin/sh on Solaris
@@ -153,7 +164,7 @@ getopts_long() {
   unset OPTLERR OPTLARG || :
 
   case "$OPTLIND" in
-    "" | 0 | 1 | *[!0-9]*)
+    "" | 0 | *[!0-9]*)
       # First time in the loop. Initialise the parameters.
       OPTLIND=1
       OPTLPENDING=
@@ -235,6 +246,7 @@ getopts_long() {
 	return 1
 	;;
       --*)
+        OPTLIND=$(($OPTLIND + 1))
         ;;
       -?*)
         OPTLPENDING="${1#-}"
@@ -244,7 +256,6 @@ getopts_long() {
         return 1
 	;;
     esac
-    OPTLIND=$(($OPTLIND + 1))
   fi
 
   if [ -n "$OPTLPENDING" ]; then
@@ -255,6 +266,9 @@ getopts_long() {
     unset OPTLARG
 
     # $1 = current option = ${$2+1}, $3 = $@
+
+    [ -n "$OPTLPENDING" ] ||
+      OPTLIND=$(($OPTLIND + 1))
 
     case "$1" in
       [-:])
@@ -279,6 +293,7 @@ getopts_long() {
 	      # take the argument from $OPTLPENDING if any
 	      OPTLARG="$OPTLPENDING"
 	      OPTLPENDING=
+	      OPTLIND=$(($OPTLIND + 1))
 	    fi
 	    ;;
 
@@ -288,6 +303,7 @@ getopts_long() {
 	      OPTLARG="$OPTLPENDING"
 	      eval "$4=\"\$1\""
 	      OPTLPENDING=
+	      OPTLIND=$(($OPTLIND + 1))
 	    else
 	      # take the argument from the next argument
 	      if [ "$(($2 + 2))" -gt "$#" ]; then
@@ -353,7 +369,7 @@ getopts_long() {
       case "$1" in
 	"${3%%=*}"*)
 	  if [ -n "$OPTLPENDING" ]; then
-	    [ "$OPTLPENDING" = AMBIGUOUS ] || eval '[ "${'"$(($OPTLPENDING + 2))"'}" = "$1" ]' ||
+	    [ "$OPTLPENDING" = AMBIGUOUS ] || eval '[ "${'"$(($OPTLPENDING + 1))"'}" = "$1" ]' ||
 	      OPTLPENDING=AMBIGUOUS
 	      # there was another different option matching the current
 	      # option. The eval thing is in case one option is provided
@@ -470,7 +486,7 @@ getopts_long() {
 }
 
 # testing code
-if [ -n "$_Dbg_getopts_long_test" ]; then
+if [ -n "$test_getopts_long" ]; then
 test_getopts_long() {
   expected="$1" had=
   shift
@@ -479,9 +495,9 @@ test_getopts_long() {
   while err="$(set +x;getopts_long "$@" 2>&1 > /dev/null)"
     getopts_long "$@" 2> /dev/null; do
     eval "opt=\"\$$2\""
-    had="$had|$opt@${OPTLARG-unset}@${OPTLERR-unset}@$err"
+    had="$had|$opt@${OPTLARG-unset}@${OPTLIND-unset}@${OPTLERR-unset}@$err"
   done
-  had="$had|$OPTLIND|$err"
+  had="$had|${OPTLIND-unset}|$err"
 
   if [ "$had" = "$expected" ]; then
     echo PASS
@@ -498,31 +514,33 @@ done << \EOF
 : a
 |1|getopts_long: long option specifications must end in an empty argument
 :a opt "" -a
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 :a opt "" -a b
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 :a opt "" -a -a
-|a@unset@unset@|a@unset@unset@|3|
+|a@unset@2@unset@|a@unset@3@unset@|3|
 :a opt "" -ab
-|a@unset@unset@|:@b@bad option: `-b'@|2|
+|a@unset@1@unset@|:@b@2@bad option: `-b'@|2|
 :a: opt "" -ab
-|a@b@unset@|2|
+|a@b@2@unset@|2|
 :a: opt "" -a b
-|a@b@unset@|3|
+|a@b@3@unset@|3|
 :a: opt "" -a -a
-|a@-a@unset@|3|
+|a@-a@3@unset@|3|
 :a: opt "" -a
-|:@a@option `-a' requires an argument@|2|
+|:@a@2@option `-a' requires an argument@|2|
 :a:: opt "" -a
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 :a:: opt "" -ab
-|a@b@unset@|2|
+|a@b@2@unset@|2|
 :a:: opt "" -a b
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
+:ab: opt "" -ab c
+|a@unset@1@unset@|b@c@3@unset@|3|
 :a:: opt "" -a -a
-|a@unset@unset@|a@unset@unset@|3|
+|a@unset@2@unset@|a@unset@3@unset@|3|
 :a:: opt "" -:a:
-|:@:@bad option: `-:'@|a@:@unset@|2|
+|:@:@1@bad option: `-:'@|a@:@2@unset@|2|
 := opt ""
 |1|
 :: opt ""
@@ -530,73 +548,77 @@ done << \EOF
 : opt ""
 |1|
 :a:a opt "" -a
-|:@a@option `-a' requires an argument@|2|
+|:@a@2@option `-a' requires an argument@|2|
 :a::a opt "" -a
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 :ab:c:: opt "" -abc -cba -bac
-|a@unset@unset@|b@c@unset@|c@ba@unset@|b@ac@unset@|4|
+|a@unset@1@unset@|b@c@2@unset@|c@ba@3@unset@|b@ac@4@unset@|4|
 : opt abc 0 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 : opt abc no_argument "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 : opt abc no_argument "" --abc=foo
-|:@abc@option `--abc' doesn't allow an argument@|2|
+|:@abc@2@option `--abc' doesn't allow an argument@|2|
 : opt abc no_argument "" --abc foo
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 : opt abc 1 "" --abc=foo
-|abc@foo@unset@|2|
+|abc@foo@2@unset@|2|
 : opt abc required_argument "" --abc foo
-|abc@foo@unset@|3|
+|abc@foo@3@unset@|3|
 : opt abc required_argument "" --abc=
-|abc@@unset@|2|
+|abc@@2@unset@|2|
 : opt abc required_argument "" --abc
-|:@abc@option `--abc' requires an argument@|2|
+|:@abc@2@option `--abc' requires an argument@|2|
 : opt abc 2 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 : opt abc optional_argument "" --abc=
-|abc@@unset@|2|
+|abc@@2@unset@|2|
 : opt abc optional_argument "" --abc=foo
-|abc@foo@unset@|2|
+|abc@foo@2@unset@|2|
 : opt abc optional_argument "" --abc --abc
-|abc@unset@unset@|abc@unset@unset@|3|
+|abc@unset@2@unset@|abc@unset@3@unset@|3|
 : opt abc 0 abcd 0 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 : opt abc 0 abd 0 "" --ab
-|:@ab@option `--ab' is ambiguous@|2|
+|:@ab@2@option `--ab' is ambiguous@|2|
 : opt abc 0 abcd 0 "" --ab
-|:@ab@option `--ab' is ambiguous@|2|
+|:@ab@2@option `--ab' is ambiguous@|2|
+: opt abc 0 abc 1 "" --ab
+|abc@unset@2@unset@|2|
 : opt abc 0 abc 1 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
+: opt abc 0 abc 1 "" --ab
+|abc@unset@2@unset@|2|
 : opt abc 0 acd 0 "" --ab
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 :abc:d:e::f:: opt ab 0 ac 1 bc 2 cd 1 cde 2 "" -abcdef -a -f -c --a --a= --b=foo -fg
-|a@unset@unset@|b@unset@unset@|c@def@unset@|a@unset@unset@|f@unset@unset@|c@--a@unset@|:@a@option `--a' is ambiguous@|bc@foo@unset@|f@g@unset@|9|
+|a@unset@1@unset@|b@unset@1@unset@|c@def@2@unset@|a@unset@3@unset@|f@unset@4@unset@|c@--a@6@unset@|:@a@7@option `--a' is ambiguous@|bc@foo@8@unset@|f@g@9@unset@|9|
 a opt "" -a
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 a opt "" -a b
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 a opt "" -a -a
-|a@unset@unset@|a@unset@unset@|3|
+|a@unset@2@unset@|a@unset@3@unset@|3|
 a opt "" -ab
-|a@unset@unset@|?@unset@bad option: `-b'@bad option: `-b'|2|
+|a@unset@1@unset@|?@unset@2@bad option: `-b'@bad option: `-b'|2|
 a: opt "" -ab
-|a@b@unset@|2|
+|a@b@2@unset@|2|
 a: opt "" -a b
-|a@b@unset@|3|
+|a@b@3@unset@|3|
 a: opt "" -a -a
-|a@-a@unset@|3|
+|a@-a@3@unset@|3|
 a: opt "" -a
-|?@unset@option `-a' requires an argument@option `-a' requires an argument|2|
+|?@unset@2@option `-a' requires an argument@option `-a' requires an argument|2|
 a:: opt "" -a
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 a:: opt "" -ab
-|a@b@unset@|2|
+|a@b@2@unset@|2|
 a:: opt "" -a b
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 a:: opt "" -a -a
-|a@unset@unset@|a@unset@unset@|3|
+|a@unset@2@unset@|a@unset@3@unset@|3|
 a:: opt "" -:a:
-|?@unset@bad option: `-:'@bad option: `-:'|a@:@unset@|2|
+|?@unset@1@bad option: `-:'@bad option: `-:'|a@:@2@unset@|2|
 = opt ""
 |1|
 : opt ""
@@ -604,47 +626,51 @@ a:: opt "" -:a:
 '' opt ""
 |1|
 a:a opt "" -a
-|?@unset@option `-a' requires an argument@option `-a' requires an argument|2|
+|?@unset@2@option `-a' requires an argument@option `-a' requires an argument|2|
 a::a opt "" -a
-|a@unset@unset@|2|
+|a@unset@2@unset@|2|
 ab:c:: opt "" -abc -cba -bac
-|a@unset@unset@|b@c@unset@|c@ba@unset@|b@ac@unset@|4|
+|a@unset@1@unset@|b@c@2@unset@|c@ba@3@unset@|b@ac@4@unset@|4|
 '' opt abc 0 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 '' opt abc no_argument "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 '' opt abc no_argument "" --abc=foo
-|?@unset@option `--abc' doesn't allow an argument@option `--abc' doesn't allow an argument|2|
+|?@unset@2@option `--abc' doesn't allow an argument@option `--abc' doesn't allow an argument|2|
 '' opt abc no_argument "" --abc foo
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 '' opt abc 1 "" --abc=foo
-|abc@foo@unset@|2|
+|abc@foo@2@unset@|2|
 '' opt abc required_argument "" --abc foo
-|abc@foo@unset@|3|
+|abc@foo@3@unset@|3|
 '' opt abc required_argument "" --abc=
-|abc@@unset@|2|
+|abc@@2@unset@|2|
 '' opt abc required_argument "" --abc
-|?@unset@option `--abc' requires an argument@option `--abc' requires an argument|2|
+|?@unset@2@option `--abc' requires an argument@option `--abc' requires an argument|2|
 '' opt abc 2 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 '' opt abc optional_argument "" --abc=
-|abc@@unset@|2|
+|abc@@2@unset@|2|
 '' opt abc optional_argument "" --abc=foo
-|abc@foo@unset@|2|
+|abc@foo@2@unset@|2|
 '' opt abc optional_argument "" --abc --abc
-|abc@unset@unset@|abc@unset@unset@|3|
+|abc@unset@2@unset@|abc@unset@3@unset@|3|
 '' opt abc 0 abcd 0 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 '' opt abc 0 abd 0 "" --ab
-|?@unset@option `--ab' is ambiguous@option `--ab' is ambiguous|2|
+|?@unset@2@option `--ab' is ambiguous@option `--ab' is ambiguous|2|
 '' opt abc 0 abcd 0 "" --ab
-|?@unset@option `--ab' is ambiguous@option `--ab' is ambiguous|2|
+|?@unset@2@option `--ab' is ambiguous@option `--ab' is ambiguous|2|
+'' opt abc 0 abc 1 "" --ab
+|abc@unset@2@unset@|2|
 '' opt abc 0 abc 1 "" --abc
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
+'' opt abc 0 abc 1 "" --ab
+|abc@unset@2@unset@|2|
 '' opt abc 0 acd 0 "" --ab
-|abc@unset@unset@|2|
+|abc@unset@2@unset@|2|
 abc:d:e::f:: opt ab 0 ac 1 bc 2 cd 1 cde 2 "" -abcdef -a -f -c --a --a= --b=foo -fg
-|a@unset@unset@|b@unset@unset@|c@def@unset@|a@unset@unset@|f@unset@unset@|c@--a@unset@|?@unset@option `--a' is ambiguous@option `--a' is ambiguous|bc@foo@unset@|f@g@unset@|9|
+|a@unset@1@unset@|b@unset@1@unset@|c@def@2@unset@|a@unset@3@unset@|f@unset@4@unset@|c@--a@6@unset@|?@unset@7@option `--a' is ambiguous@option `--a' is ambiguous|bc@foo@8@unset@|f@g@9@unset@|9|
 : '' '' a
 |1|getopts_long: invalid variable name: `'
 : 1a ''
@@ -652,11 +678,11 @@ abc:d:e::f:: opt ab 0 ac 1 bc 2 cd 1 cde 2 "" -abcdef -a -f -c --a --a= --b=foo 
 - a
 |1|getopts_long: invalid option specification: `-'
 :a::a:abcd o ab 1 abc 1 abd 1 abe 1 abc 2 '' -aa --ab 1 --abc
-|a@a@unset@|ab@1@unset@|:@abc@option `--abc' requires an argument@|5|
+|a@a@2@unset@|ab@1@4@unset@|:@abc@5@option `--abc' requires an argument@|5|
 :
 |1|getopts_long: not enough arguments
 '\[$' o -- 0 ' ' 1 '#' required_argument '' '-\\\[$' --\ =a --\#=\$\$
-|\@unset@unset@|\@unset@unset@|\@unset@unset@|[@unset@unset@|$@unset@unset@| @a@unset@|#@$$@unset@|4|
+|\@unset@1@unset@|\@unset@1@unset@|\@unset@1@unset@|[@unset@1@unset@|$@unset@2@unset@| @a@3@unset@|#@$$@4@unset@|4|
 : o a 1 b 2 c
 |1|getopts_long: long option specifications must end in an empty argument
 : o a 1 b 2
@@ -664,12 +690,12 @@ abc:d:e::f:: opt ab 0 ac 1 bc 2 cd 1 cde 2 "" -abcdef -a -f -c --a --a= --b=foo 
 : o a 1 b 2 c 3 '' --c
 |1|getopts_long: invalid long option type: `3'
 ":  " o "  " 1 '' "-  " "--  =1"
-| @unset@unset@| @unset@unset@|  @1@unset@|3|
+| @unset@1@unset@| @unset@2@unset@|  @1@3@unset@|3|
 : o a 1 '' --c
-|:@c@bad option: `--c'@|2|
+|:@c@2@bad option: `--c'@|2|
 : o a 1 '' --c=foo
-|:@c@bad option: `--c'@|2|
+|:@c@2@bad option: `--c'@|2|
 : o ab 1 ac 1 ad 1 a 1 '' --a=1
-|a@1@unset@|2|
+|a@1@2@unset@|2|
 EOF
 fi

@@ -1,19 +1,23 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
 #
-#   zshdb is free software; you can redistribute it and/or modify it under
-#   the terms of the GNU General Public License as published by the Free
-#   Software Foundation; either version 2, or (at your option) any later
-#   version.
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2, or
+#   (at your option) any later version.
 #
-#   zshdb is distributed in the hope that it will be useful, but WITHOUT ANY
-#   WARRANTY; without even the implied warranty of MERCHANTABILITY or
-#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-#   for more details.
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.
 #   
-#   You should have received a copy of the GNU General Public License along
-#   with zshdb; see the file COPYING.  If not, write to the Free Software
-#   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+#   You should have received a copy of the GNU General Public License
+#   along with this program; see the file COPYING.  If not, write to
+#   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
+#   MA 02111 USA.
+
+_Dbg_ansi_term_italic="[3m"
+_Dbg_ansi_term_normal="[0m"
 
 # Called when a dangerous action is about to be done to make sure it's
 # okay. `prompt' is printed, and "yes", or "no" is solicited.  The
@@ -62,7 +66,11 @@ _Dbg_confirm() {
 # eval echo "$1" it is the same as echo $1.
 function _Dbg_errmsg {
     typeset -r prefix='**'
-    _Dbg_msg "$prefix $@"
+    if (( _Dbg_set_highlight )) ; then
+	_Dbg_msg "$prefix ${_Dbg_ansi_term_italic}$@${_Dbg_ansi_term_normal}"
+    else
+	_Dbg_msg "$prefix $@"
+    fi
 }
 
 # Print an error message without the ending carriage return

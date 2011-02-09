@@ -50,7 +50,8 @@ function _Dbg_print_command {
 	_Dbg_msg "${ZSH_DEBUG_CMD[0,$width]} ..."
     else
 	if ((_Dbg_set_highlight)) ; then
-	    line=$(echo "$ZSH_DEBUG_CMD" | pygmentize -l bash 2>/dev/null)
+	    filter="${_Dbg_libdir}/lib/term-highlight.py"
+	    line=$(echo "$ZSH_DEBUG_CMD" | $filter 2>/dev/null)
 	    if (( $? == 0 )) ; then
 		_Dbg_msg "$line"
 		return 0
