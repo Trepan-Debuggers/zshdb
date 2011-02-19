@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Eval and Print commands.
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -22,14 +22,24 @@
 typeset _Dbg_evalfile=$(_Dbg_tempname eval)
 
 _Dbg_help_add eval \
-'eval CMD -- Run eval on CMD.
+'eval CMD 
+eval 
 
-CMD is a string sent to special shell builtin eval. See also print.'
+In the first form CMD is a string CMD is a string sent to special
+shell builtin eval. 
+
+In the second form, use evaluate the current source line text
+
+See also print.'
 
 _Dbg_do_eval() {
 
    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
-   print "$@" >> $_Dbg_evalfile
+   if (( $# == 0 )) ; then
+       print "$ZSH_DEBUG_CMD" >> $_Dbg_evalfile
+   else
+       print "$@" >> $_Dbg_evalfile
+   fi
    print '_Dbg_rc=$?' >> $_Dbg_evalfile
    typeset -i _Dbg_rc
    if [[ -t $_Dbg_fdi  ]] ; then
@@ -46,7 +56,7 @@ _Dbg_do_eval() {
   return $_Dbg_rc
 }
 
-_Dbg_alias_add 'e' 'eval'
+_Dbg_alias_add 'ev' 'eval'
 
 # The arguments in the last "print" command.
 typeset _Dbg_last_print_args=''
