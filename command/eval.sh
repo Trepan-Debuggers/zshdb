@@ -30,12 +30,13 @@ shell builtin eval.
 
 In the second form, use evaluate the current source line text
 
-See also print.'
+See also "print" and "set autoeval".'
 
 _Dbg_do_eval() {
 
    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
    if (( $# == 0 )) ; then
+       _Dbg_msg "eval: ${_Dbg_source_line}"
        print "$ZSH_DEBUG_CMD" >> $_Dbg_evalfile
    else
        print "$@" >> $_Dbg_evalfile

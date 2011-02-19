@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # quit.sh - gdb-like "quit" debugger command
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -72,4 +72,5 @@ function _Dbg_do_quit {
     exit $return_code
 }
 _Dbg_alias_add q quit
+_Dbg_alias_add q! quit
 _Dbg_alias_add exit quit
