@@ -1,0 +1,60 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+
+PS4='(%x:%I): [%?] zsh+ 
+'
+setopt ksharrays
+
+test_eval_subst()
+{
+    # Set up necessary vars
+    typeset extracted
+    typeset -a texts
+    texts=(
+	'if (( x == 0 )); then'
+	'if (( y == 0 )) ; then'
+	'if (( z == 1 ))'
+	'return something'
+	'elif [[ $x = test1 ]] && [ $? -eq 0 ] ; then'
+	'while [[ $x = test2 ]] && [ $? -eq 0 ] ; do'
+	'while [[ $x = test3 ]] && [ $? -eq 0 ]'
+    )
+    
+    expected=(
+	'(( x == 0 ))'
+	'(( y == 0 )) '
+	'(( z == 1 ))'
+	'something'
+	'[[ $x = test1 ]] && [ $? -eq 0 ] '
+	'[[ $x = test2 ]] && [ $? -eq 0 ] '
+	'[[ $x = test3 ]] && [ $? -eq 0 ]'
+    )
+    typeset -i i
+    for (( i=0 ; i<${#expected}; i++ )) ; do
+	_Dbg_eval_extract_condition "${texts[i]}"
+	assertEquals "${expected[i]}" "$extracted"
+    done
+}
+
+# Make sure @top_builddir@ has a trailing slash
+if [ '@abs_top_srcdir@' = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+srcdir=@srcdir@
+srcdir=${srcdir%%/}/
+
+_Dbg_libdir=$abs_top_srcdir
+set -- -q  # Don't need to show banner
+. $abs_top_srcdir/lib/fns.sh
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}

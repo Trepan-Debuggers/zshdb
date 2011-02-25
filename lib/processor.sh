@@ -158,6 +158,8 @@ _Dbg_onecmd() {
 	shift
 	args=$@
     fi
+    typeset _Dbg_orig_cmd;
+    _Dbg_orig_cmd=$_Dbg_cmd
     typeset expanded_alias; _Dbg_alias_expand $_Dbg_cmd
 
     # If "set trace-commands" is "on", echo the the command

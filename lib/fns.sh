@@ -53,6 +53,29 @@ function _Dbg_esc_dq {
   builtin printf "%q\n" "$1"
 }
 
+# Removes "[el]if" .. "; then" or "while" .. "; do" or "return .."
+# leaving resumably the expression part.  This fuction is called by
+# the eval?  command where we want to evaluate the expression part in
+# a source line of code
+_Dbg_eval_extract_condition()
+{
+    orig="$1"
+    extracted=$(echo "$orig" | sed -e's/^\(\s*if\|elif\)\s\s*//')
+    if [[ "$extracted" != "$orig" ]] ; then
+	extracted=$(echo "$extracted" | sed -e's/;\s*then\(\s\s*$\|$\)//')
+    else
+	set +xv
+	extracted=$(echo "$orig" | sed -e's/^\s*return\s\s*/echo /')
+	if [[ "$extracted" == "$orig" ]] ; then
+	    extracted=$(echo "$orig" | sed -e's/^\s*while\s*//')
+	    if [[ "$extracted" != "$orig" ]] ; then
+		extracted=$(echo "$extracted" | sed -e's/;\s*do\(\s\s*$\|$\)//')
+	    fi
+	fi
+	set -xv
+    fi
+}
+
 # _Dbg_get_typeset_attr echoes a list of all of the functions matching
 # optional pattern if $1 is nonzero, include debugger functions,
 # i.e. those whose name starts with an underscore (_Dbg), are included in

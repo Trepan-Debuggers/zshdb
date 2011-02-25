@@ -93,15 +93,16 @@ function _Dbg_get_maxline {
 function _Dbg_get_source_line {
     typeset -i lineno
     if (( $# == 0 )); then
-	Dbg_frame_lineno
-	lineno=$Dbg_frame_lineno
+	_Dbg_frame_lineno
+	lineno=$_Dbg_frame_last_lineno
     else
 	lineno=$1
 	shift
     fi
     typeset filename
+    _Dbg_frame_file
     if (( $# == 0 )) ; then
-	_Dbg_frame_file
+	filename="$_Dbg_frame_filename"
     else
 	filename="$_Dbg_frame_filename"
 	filename="$1"

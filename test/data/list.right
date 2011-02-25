@@ -17,7 +17,7 @@ more generally when the alias ends in ">", rather than center lines
 around LOC that will be used as the starting point.
 
 
-Aliases for list: l>, l, list>
+Aliases for list: l>, list>, l
 +### List default location
 +list 
   1:    #!/bin/zsh -f

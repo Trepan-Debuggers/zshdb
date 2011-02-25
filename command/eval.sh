@@ -36,8 +36,29 @@ _Dbg_do_eval() {
 
    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
    if (( $# == 0 )) ; then
-       _Dbg_msg "eval: ${_Dbg_source_line}"
-       print "$ZSH_DEBUG_CMD" >> $_Dbg_evalfile
+       # FIXME: add parameter to get unhighlighted line, or 
+       # always save a copy of that in _Dbg_sget_source_line
+       typeset source_line
+       _Dbg_get_source_line
+       typeset source_line_save="$source_line"
+       typeset highlight_save=$_Dbg_set_highlight
+       _Dbg_set_highlight=0
+       _Dbg_get_source_line
+
+       # Were we called via ? as the suffix? 
+       typeset suffix
+       suffix=${_Dbg_orig_cmd[-1,-1]}
+       if [[ '?' == "$suffix" ]] ; then
+	   typeset extracted
+	   _Dbg_eval_extract_condition "$source_line"
+	   _Dbg_source_line="$extracted"
+	   source_line_save="$extracted"
+       fi
+
+       print "$_Dbg_source_line" >> $_Dbg_evalfile
+       _Dbg_msg "eval: ${source_line_save}"
+       _Dbg_source_line="$source_line_save"
+       _Dbg_set_highlight=$_Dbg_highlight_save
    else
        print "$@" >> $_Dbg_evalfile
    fi
@@ -50,14 +71,17 @@ _Dbg_do_eval() {
        _Dbg_set_dol_q $_Dbg_debugged_exit_code
        . $_Dbg_evalfile
    fi
+  ## _Dbg_msg "\$? is $_Dbg_rc"
   # We've reset some variables like IFS and PS4 to make eval look
   # like they were before debugger entry - so reset them now.
   _Dbg_set_debugger_internal
   _Dbg_last_cmd='eval'
-  return $_Dbg_rc
+  return 0
 }
 
+_Dbg_alias_add 'eval?' 'eval'
 _Dbg_alias_add 'ev' 'eval'
+_Dbg_alias_add 'ev?' 'eval'
 
 # The arguments in the last "print" command.
 typeset _Dbg_last_print_args=''
