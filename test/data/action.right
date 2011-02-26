@@ -29,4 +29,5 @@ Breakpoint 1 hit.
 ((x += i))
 +eval echo "value of x is now $x"
 value of x is now 60
+$? is 0
 +quit 

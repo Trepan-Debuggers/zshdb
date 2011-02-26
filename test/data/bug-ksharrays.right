@@ -7,6 +7,7 @@ setopt ksharrays sh_word_split
 +# Show we don't have ksharrays set
 +eval setopt
 norcs
+$? is 0
 +# Now move past set ksharrays
 +n 
 (bug-ksharrays.sh:5):
@@ -16,4 +17,5 @@ x=1
 ksharrays
 norcs
 shwordsplit
+$? is 0
 +quit 

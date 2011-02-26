@@ -11,6 +11,6 @@ Breakpoint 1 hit.
 +step 
 (multi.sh:14):
 builtin cd .
-+p $ZSH_SUBSHELL
++pr $ZSH_SUBSHELL
 1
 +quit 0 56

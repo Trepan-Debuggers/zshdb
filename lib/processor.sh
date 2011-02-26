@@ -215,9 +215,13 @@ _Dbg_onecmd() {
 	* ) 
 	   if (( _Dbg_set_autoeval )) ; then
 	       if [[ -t $_Dbg_fdi ]] ; then 
-		   ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 && return -1
+		   if ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 ; then
+		       return -1
+		   fi
 	       else
-		   ! _Dbg_do_eval $_Dbg_cmd $args && return -1
+		   if ! _Dbg_do_eval $_Dbg_cmd $args ; then 
+		       return -1
+		   fi
 	       fi
 	   else
              _Dbg_undefined_cmd $_Dbg_cmd

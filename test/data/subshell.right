@@ -36,6 +36,7 @@ typeset x='line 3'
    10  # Set inside a subshell
    11  set autoeval on
    12  examine x
+$? is 0
 +s 
 (subshell.sh:6):
 ( x=$(print line 7) y='line 8' )
@@ -64,6 +65,7 @@ Evaluate unrecognized commands is on.
    16  print $ZSH_SUBSHELL
    17  # See that debugger settings and history are preserved
    18  show autoeval
+$? is 0
 +s 3
 (subshell.sh:8):
 y='line 8'

@@ -334,6 +334,7 @@ Line width is 40.
 Evaluate unrecognized commands is on.
 +xx=1 ; declare -p xx
 typeset xx=1
+$? is 0
 +set autoeval off
 Evaluate unrecognized commands is off.
 +xx=1 ; declare -p xx

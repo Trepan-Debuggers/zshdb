@@ -32,6 +32,8 @@ In the second form, use evaluate the current source line text
 
 See also "print" and "set autoeval".'
 
+typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=1
+
 _Dbg_do_eval() {
 
    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
@@ -71,7 +73,7 @@ _Dbg_do_eval() {
        _Dbg_set_dol_q $_Dbg_debugged_exit_code
        . $_Dbg_evalfile
    fi
-  ## _Dbg_msg "\$? is $_Dbg_rc"
+  (( _Dbg_show_eval_rc )) && _Dbg_msg "\$? is $_Dbg_rc"
   # We've reset some variables like IFS and PS4 to make eval look
   # like they were before debugger entry - so reset them now.
   _Dbg_set_debugger_internal
@@ -96,8 +98,9 @@ _Dbg_do_print() {
   typeset _Dbg_expr=${@:-"$_Dbg_last_print_args"}
   typeset dq_expr
   dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
+  typeset -i _Dbg_show_eval_rc=0
   _Dbg_do_eval _Dbg_msg "$_Dbg_expr"
   _Dbg_last_cmd='print'
 }
 
-_Dbg_alias_add 'p' 'print'
+_Dbg_alias_add 'pr' 'print'

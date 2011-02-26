@@ -67,6 +67,7 @@ _Dbg_eval_all_display() {
     if [ -n "${_Dbg_disp_exp[$i]}" ] \
       && [[ ${_Dbg_disp_enable[i]} != 0 ]] ; then
       _Dbg_printf_nocr "%2d: %s = " $i "${_Dbg_disp_exp[i]}"
+      typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=0
       _Dbg_do_eval "_Dbg_msg ${_Dbg_disp_exp[i]}"
     fi
   done

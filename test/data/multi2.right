@@ -12,6 +12,6 @@ z=3
 (multi.sh:6):
 builtin cd .
 +#### Should now be inside a subshell. Test from here...
-+p $ZSH_SUBSHELL
++pr $ZSH_SUBSHELL
 1
 +quit 0 2

@@ -3,6 +3,6 @@ set showcommand on
 # Test step inside multi-statement line...
 cont 14
 step
-p $ZSH_SUBSHELL
+pr $ZSH_SUBSHELL
 quit 0 56
 quit

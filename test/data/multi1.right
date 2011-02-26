@@ -1,12 +1,12 @@
 (multi.sh:5):
 x=1
 +### Test step inside multi-statement line...
-+p $ZSH_SUBSHELL
++pr $ZSH_SUBSHELL
 0
 +step 4
 (multi.sh:6):
 builtin cd .
 +### Should now be inside a subshell...
-+p $ZSH_SUBSHELL
++pr $ZSH_SUBSHELL
 1
 +quit 
