@@ -24,11 +24,17 @@ typeset _Dbg_evalfile=$(_Dbg_tempname eval)
 _Dbg_help_add eval \
 'eval CMD 
 eval 
+eval?
 
 In the first form CMD is a string CMD is a string sent to special
 shell builtin eval. 
 
-In the second form, use evaluate the current source line text
+In the second form, use evaluate the current source line text. 
+
+Often one is stopped at the line of the first part of an "if", "elif"
+"return" or "while" compount statement and what you want to eval is
+just the expression portion.  For this, use eval?. Actually, any alias
+that ends in ? which is aliased to eval will do thie same thing.
 
 See also "print" and "set autoeval".'
 
@@ -92,7 +98,13 @@ _Dbg_help_add print \
 'print EXPRESSION -- Print EXPRESSION.
 
 EXPRESSION is a string like you would put in a print statement.
-See also eval.'
+See also eval.
+
+The difference between eval and print. Suppose cmd has the value "ls".
+
+print $cmd # prints "ls"
+eval $cmd  # runs an ls command
+'
 
 _Dbg_do_print() {
   typeset _Dbg_expr=${@:-"$_Dbg_last_print_args"}
