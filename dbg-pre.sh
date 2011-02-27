@@ -96,7 +96,7 @@ function _Dbg_expand_filename {
 # Create temporary file based on $1
 # file $1
 _Dbg_tempname() {
-  echo "$_Dbg_tmpdir/${_Dbg_debugger_name}$1$$"
+  echo "$_Dbg_tmpdir/${_Dbg_debugger_name}_$1_$$"
 }
 
 # Process command-line options
