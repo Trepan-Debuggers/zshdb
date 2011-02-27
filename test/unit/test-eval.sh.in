@@ -24,7 +24,7 @@ test_eval_subst()
 	'(( x == 0 ))'
 	'(( y == 0 )) '
 	'(( z == 1 ))'
-	'something'
+	'echo something'
 	'[[ $x = test1 ]] && [ $? -eq 0 ] '
 	'[[ $x = test2 ]] && [ $? -eq 0 ] '
 	'[[ $x = test3 ]] && [ $? -eq 0 ]'
