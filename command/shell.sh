@@ -96,7 +96,7 @@ _Dbg_do_shell() {
     if (($# != 0)); then
 	_Dbg_parse_shell_cmd_options $@
 	(( $? != 0 )) && return
-	typeset -p o_fns o_vars
+	IFS='' typeset -p o_fns o_vars
     fi
 
     typeset -i _Dbg_rc
@@ -105,11 +105,13 @@ _Dbg_do_shell() {
 
     if ((o_vars)) ; then 
 	# Save existing variables
-	typeset _Dbg_var
-	typeset _Dbg_grep_cmd
-	typeset -p | grep '^typeset' | grep -v '^typeset -ar' \
-           | grep -v '^typeset -i10 -r' | grep -v '^typeset -r -=' \
-	   | grep -v '^typeset IFS' >> $_Dbg_shell_temp_profile
+	typeset -a lines; lines=()
+	typeset -a newlines
+	_Dbg_get_all_variables
+	_Dbg_filter_typeset
+	for line in ${newlines[@]} ; do 
+	    echo ${line} >> $_Dbg_shell_temp_profile
+	done
 	## echo 'save_var() { typeset -p $1 >>${_Dbg_journal} 2>/dev/null; }' >> $_Dbg_shell_temp_profile
     fi
 
@@ -117,12 +119,12 @@ _Dbg_do_shell() {
 	typeset -pf >> $_Dbg_shell_temp_profile
     fi
 
-    echo 'PS1="#{_Dbg_debugger_name} $ "' >>$_Dbg_shell_temp_profile
+    echo "PS1='${_Dbg_debugger_name} $ '" >>$_Dbg_shell_temp_profile
 
     export ZDOTDIR=$_Dbg_tmpdir
-    $shell $shell_opts
+    $shell -o TYPESET_SILENT $shell_opts
     rc=$?
-    rm -f $_Dbg_shell_temp_profile 2>&1 >/dev/null
+    ## rm -f $_Dbg_shell_temp_profile 2>&1 >/dev/null
     # . $_Dbg_journal
     _Dbg_print_location_and_command
 }

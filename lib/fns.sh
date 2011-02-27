@@ -114,7 +114,7 @@ function _Dbg_set_dol_q {
   return ${1:-$_Dbg_debugged_exit_code}
 }
 
-# Split string $1 into an array using delimitor $2 to split on
+# Split string $1 into an array using delimiter $2 to split on
 # The result is put in variable split_result
 function _Dbg_split {
     local string="$1"
