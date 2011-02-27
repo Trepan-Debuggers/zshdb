@@ -1,0 +1,57 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+PS4='(%x:%I): [%?] zsh+ 
+'
+
+setopt ksharrays
+
+test_lib_filter_typeset()
+{
+    typeset -a lines
+    typeset -a newlines
+    # FIXME: should be able to add:
+    #  "typeset -ar @"
+    lines=(
+	"@=()"
+	"typeset -ar funcstack"
+	"typeset CDPATH=''" 
+	"typeset -ar '*'"
+	"*=()"
+	"typeset -i10 -r '#'=0"
+	"typeset -i10 -r TTYIDLE=0"
+	"typeset -i10 -x COLUMNS=80"
+    )
+    expected=(
+	"typeset -p funcstack 2>/dev/null 1>&2 || typeset -ar funcstack"
+	"typeset CDPATH=''" 
+	"typeset -p TTYIDLE 2>/dev/null 1>&2 || typeset -i10 -r TTYIDLE=0"
+	"typeset -i10 -x COLUMNS=80"
+    )
+    _Dbg_filter_typeset
+    typeset -i i=0
+    for ((i=0; i<${#newlines[@]}; i++)); do
+	assertEquals "${expected[i]}" "${newlines[i]}"
+    done
+    assertEquals "${#newlines[@]}" "${#expected[@]}"
+}
+
+if [ @abs_top_srcdir@ = '' ] ; then
+  echo "Something is wrong abs_top_srcdir is not set."
+ exit 1
+fi
+
+# Make sure @top_abs_srcdir@ has a trailing slash
+abs_top_srcdir=@abs_top_srcdir@
+abs_top_srcdir=${abs_top_srcdir%%/}/
+
+_Dbg_libdir=$abs_top_srcdir
+set -- -q  # Don't need to show banner
+. ${abs_top_srcdir}lib/shell.sh
+
+set -o shwordsplit
+SHUNIT_PARENT=$0
+
+# load shunit2
+shunit_file=${abs_top_srcdir}test/unit/shunit2
+. ${shunit_file}
+

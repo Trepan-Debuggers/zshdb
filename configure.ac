@@ -160,6 +160,8 @@ AC_CONFIG_FILES([test/unit/test-fns.sh],   [chmod +x test/unit/test-fns.sh])
 AC_CONFIG_FILES([test/unit/test-frame.sh], [chmod +x test/unit/test-frame.sh])
 AC_CONFIG_FILES([test/unit/test-journal.sh],
 	        [chmod +x test/unit/test-journal.sh])
+AC_CONFIG_FILES([test/unit/test-lib-shell.sh],
+	        [chmod +x test/unit/test-lib-shell.sh])
 AC_CONFIG_FILES([test/unit/test-msg.sh],
 	        [chmod +x test/unit/test-msg.sh])
 AC_CONFIG_FILES([test/unit/test-pre.sh],   [chmod +x test/unit/test-pre.sh])

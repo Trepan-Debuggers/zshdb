@@ -12,6 +12,7 @@ TESTS = \
 	test-frame.sh        \
         test-get-sourceline.sh \
 	test-journal.sh      \
+        test-lib-shell.sh    \
 	test-msg.sh          \
 	test-pre.sh          \
 	test-run.sh          \
@@ -44,6 +45,7 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-frame.sh.in            \
         test-get-sourceline.sh.in   \
 	test-journal.sh.in          \
+        test-lib-shell.sh.in        \
 	test-msg.sh.in              \
 	test-pre.sh.in              \
 	test-run.sh.in              \
