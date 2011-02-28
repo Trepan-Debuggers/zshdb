@@ -18,8 +18,7 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-typeset -a _Dbg_yn
-_Dbg_yn=("n" "y")         
+typeset -a _Dbg_yn; _Dbg_yn=("n" "y")         
 
 # Return $2 copies of $1. If successful, $? is 0 and the return value
 # is in result.  Otherwise $? is 1 and result ''
@@ -39,7 +38,7 @@ function _Dbg_copies {
 # _Dbg_defined returns 0 if $1 is a defined variable or 1 otherwise. 
 _Dbg_defined() {
     (( 0 == $# )) && return 1
-    output=$(typeset -p "$1" 2>&1)
+    typeset -p "$1" &>/dev/null
     if [[ $? != 0 ]] ; then 
 	return 1
     else
@@ -109,7 +108,7 @@ _Dbg_get_typeset_attr() {
 function _Dbg_onoff {
   typeset onoff='off.'
   (( $1 != 0 )) && onoff='on.'
-  echo $onoff
+  builtin echo $onoff
 }
 
 # Set $? to $1 if supplied or the saved entry value of $?. 
