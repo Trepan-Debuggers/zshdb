@@ -17,88 +17,96 @@
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
-_Dbg_get_all_variables() {
-    IFS=$'\n' lines=($(typeset -p))
+
+zmodload -ap zsh/parameter parameters
+_Dbg_shell_variable_names() {
+    echo ${(k@)parameters}
 }
 
-# Get variable name from word. This is the part before the =.
-# For example: typeset CDPATH='' -> CDPATH
-_Dbg_get_typeset_varname() {
-    token=$1
-    if [[ $token =~ ^(.*)= ]] ; then
-	varname=${match[0]}
-    else
-	varname=$token
-    fi
+_Dbg_shell_variable_typeset() {
+    local var=$1
+    case ${parameters[$var]} in
+	*export* )
+	    return 2
+	    ;;
+	*special* )
+	    return 3
+	    ;;
+	# This must come before local and *
+	*readonly*) 
+	    return 1
+	    ;;
+	*local* | *)
+	    return 0
+	    ;;
+    esac
+    return 3
 }
 
-_Dbg_filter_typeset() {
-    typeset -i i=0
-    typeset -i k=-1
-    typeset -i n=${#lines[@]}
-    typeset -i skip_next=0
-    typeset -i is_array=0
-    typeset varname
-    typeset -a words
-    for ((i=0; i<n; i++)) ; do
-	IFS=' ' read -A words <<< ${lines[i]}
-	if [[ ${words[0]} == 'typeset' ]] ; then
-	    is_array=0
-	    skip_next=0
-	    # Handle typeset declarations
-	    typeset -i j
-	    for ((j=1; j<n ; j++)); do
-		if [[ ${words[j]} =~ ^-.*a ]] ; then
-		    is_array=1
-		fi
-		if [[ ${words[j]} =~ ^-.*r ]] ; then
-		    break
-		elif [[ ! ${words[j]} =~ ^- ]] ; then
-		    _Dbg_get_typeset_varname ${words[j]}
-		    ((j=n))
-		fi
-	    done
-	    if ((j < n )); then
-		# Add guard around read-only variables
-		_Dbg_get_typeset_varname ${words[j+1]}
-		# Check to see that varname is a legitimate name
-		if [[ $varname =~ ^[A-Za-z_] ]] ; then
-		    newlines[k++]="typeset -p ${varname} 2>/dev/null 1>&2 || ${lines[i]}"
-		else
-		    ((is_array)) && skip_next=1
-		fi
-		continue
-	    else
-		# Check to see that varname is a legitimate name
-		if [[ ! $varname =~ ^[A-Za-z_] ]] ; then
-		    # Nope, so don't save the line
-		    continue
-		fi
-	    fi
-	fi
-	((!skip_next)) && newlines[k++]=${lines[i]}
-	skip_next=0
+_Dbg_shell_append_typesets() {
+    [[ -z $_Dbg_var_names ]] && _Dbg_var_names=(${(k@)parameters[@]})
+    local _Dbg_profile
+    _Dbg_profile=${1:-$_Dbg_shell_temp_profile}
+    local _Dbg_set_debugging
+    _Dbg_set_debugging=${2:-1}
+
+    typeset -A exclude_list
+    typeset var_set_cmd
+    exclude_list[exclude_list]=1
+    for var_name in ${_Dbg_var_names[@]}; do
+	[[ -z $var_name ]] && continue
+	((_Dbg_set_debugging)) && [[ $var_name =~ ^_Dbg_ ]] && continue
+	((exclude_list[var_name])) && continue
+	_Dbg_shell_variable_typeset "$var_name"
+	case $? in 
+	    0)
+		typeset -p $var_name >> $_Dbg_profile 2>/dev/null
+		;;
+	    1)
+		echo "typeset -p ${var_name} 2>/dev/null 1>&2 || $(typeset -p $var_name)" >> $_Dbg_profile 2>/dev/null
+		;;
+	    *)
+		;;
+	esac
     done
 }
 
+# setopt ksharrays
+# _Dbg_set_debugging=1
+# _Dbg_shell_temp_profile='/tmp/test-profile'
+# rm $_Dbg_shell_temp_profile
+# typeset -a _Dbg_var_names
+# # _Dbg_var_names=(AMAZON_ACCESS_KEY_ID ! '#' '$' '*' - 0 '?' @)
+# _Dbg_shell_append_typesets /tmp/test-profile 1
 
-# print_lines() {
-#     typeset -i i=0
-#     for line in "$@" ; do 
-# 	print $line
+
+# test_var_names() {
+#     local testing
+#     typeset -r read_only='abc'
+#     typeset -i foo=0
+#     for var in PATH foo testing CDPATH read_only ; do
+# 	$(_Dbg_shell_variable_typeset $var)
+# 	rc=$?
+# 	if ((0 == $rc)) ; then
+# 	    typeset -p $var
+# 	elif ((1 == $rc)) ; then
+# 	    print "readonly"
+# 	    typeset -p $var
+# 	fi
 #     done
-#     echo '-------------------------------'
 # }
 
-# typeset -a lines
-# typeset -a newlines
-# lines=(
-#     "typeset -ar funcstack"
-#     "typeset CDPATH=''" 
-#     "typeset -i10 -r '#'=0"
-#     "typeset -i10 -r TTYIDLE=0"
-#     "typeset -i10 -x COLUMNS=80"
-# )
-# print_lines ${lines[@]}
-# _Dbg_filter_typeset
-# print_lines ${newlines[@]}
+# test_var_names
+
+# test_it() {
+#     for param type in "${(kv@)parameters}" ; do
+# 	case $type in
+# 	    *special*)
+# 		echo $param $type ${parameters[$param]}
+# 		continue
+# 		;;
+# 	esac
+#     done
+# }
+
+# test_it

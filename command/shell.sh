@@ -103,21 +103,10 @@ _Dbg_do_shell() {
 
     echo '# debugger shell profile' > $_Dbg_shell_temp_profile
 
-    if ((o_vars)) ; then 
-	# Save existing variables
-	typeset -a lines; lines=()
-	typeset -a newlines
-	_Dbg_get_all_variables
-	_Dbg_filter_typeset
-	for line in ${newlines[@]} ; do 
-	    echo ${line} >> $_Dbg_shell_temp_profile
-	done
-	## echo 'save_var() { typeset -p $1 >>${_Dbg_journal} 2>/dev/null; }' >> $_Dbg_shell_temp_profile
-    fi
+    ((o_vars)) && _Dbg_shell_append_typesets
+    ((o_fns)) && typeset -pf >> $_Dbg_shell_temp_profile
 
-    if ((o_fns)) ; then 
-	typeset -pf >> $_Dbg_shell_temp_profile
-    fi
+    ## echo 'save_var() { typeset -p $1 >>${_Dbg_journal} 2>/dev/null; }' >> $_Dbg_shell_temp_profile
 
     echo "PS1='${_Dbg_debugger_name} $ '" >>$_Dbg_shell_temp_profile
 

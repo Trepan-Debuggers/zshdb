@@ -5,34 +5,23 @@ PS4='(%x:%I): [%?] zsh+
 
 setopt ksharrays
 
-test_lib_filter_typeset()
-{
-    typeset -a lines
-    typeset -a newlines
-    # FIXME: should be able to add:
-    #  "typeset -ar @"
-    lines=(
-	"@=()"
-	"typeset -ar funcstack"
-	"typeset CDPATH=''" 
-	"typeset -ar '*'"
-	"*=()"
-	"typeset -i10 -r '#'=0"
-	"typeset -i10 -r TTYIDLE=0"
-	"typeset -i10 -x COLUMNS=80"
-    )
-    expected=(
-	"typeset -p funcstack 2>/dev/null 1>&2 || typeset -ar funcstack"
-	"typeset CDPATH=''" 
-	"typeset -p TTYIDLE 2>/dev/null 1>&2 || typeset -i10 -r TTYIDLE=0"
-	"typeset -i10 -x COLUMNS=80"
-    )
-    _Dbg_filter_typeset
+test_lib_filter_typeset() {
+    local testing
+    typeset -r read_only='abc'
     typeset -i i=0
-    for ((i=0; i<${#newlines[@]}; i++)); do
-	assertEquals "${expected[i]}" "${newlines[i]}"
+    z=(a b c)
+    test_expect=('PATH' 10 'i' 0 'read_only' 1 'testing' 0 'CDPATH' 10 'z' 0)
+    for ((i=0; i<${#test_expect[@]}; i+=2)) ; do 
+	expected_rc=${test_expect[i+1]}
+	var_set_cmd=$(_Dbg_shell_variable_typeset ${test_expect[i]})
+	rc=$?
+	if ((expected_rc <= 1)); then
+	    assertEquals $expected_rc $rc
+	else
+	    assertTrue 0
+	fi
     done
-    assertEquals "${#newlines[@]}" "${#expected[@]}"
+
 }
 
 if [ @abs_top_srcdir@ = '' ] ; then
