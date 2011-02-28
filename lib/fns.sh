@@ -64,15 +64,18 @@ _Dbg_eval_extract_condition()
     if [[ "$extracted" != "$orig" ]] ; then
 	extracted=$(echo "$extracted" | sed -e's/;\s*then\(\s\s*$\|$\)//')
     else
-	set +xv
 	extracted=$(echo "$orig" | sed -e's/^\s*return\s\s*/echo /')
 	if [[ "$extracted" == "$orig" ]] ; then
+	    extracted=$(echo "$orig" | sed -e's/^\s*case\s*/echo /')
+	    if [[ "$extracted" != "$orig" ]] ; then
+		extracted=$(echo "$extracted" | sed -e's/\s\s*in\s*$//')
+	    fi
+	else
 	    extracted=$(echo "$orig" | sed -e's/^\s*while\s*//')
 	    if [[ "$extracted" != "$orig" ]] ; then
 		extracted=$(echo "$extracted" | sed -e's/;\s*do\(\s\s*$\|$\)//')
 	    fi
 	fi
-	set -xv
     fi
 }
 
