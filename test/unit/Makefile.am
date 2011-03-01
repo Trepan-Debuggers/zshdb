@@ -57,3 +57,5 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 
 test: check
 test-unit: check
+
+MOSTLYCLEANFILES = *.orig *.rej

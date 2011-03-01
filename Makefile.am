@@ -30,6 +30,8 @@ bin_SCRIPTS = zshdb
 
 EXTRA_DIST = $(pkgdata_DATA) THANKS
 
+MOSTLYCLEANFILES = *.orig *.rej
+
 # cvs2cl
 MAINTAINERCLEANFILES = ChangeLog
 

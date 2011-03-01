@@ -32,3 +32,5 @@ pkgdata_DATA =       \
 	trace.sh
 
 EXTRA_DIST = $(pkgdata_DATA)
+
+MOSTLYCLEANFILES = *.orig *.rej
