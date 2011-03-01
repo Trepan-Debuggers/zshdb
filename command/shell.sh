@@ -19,6 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_shell_temp_profile="$_Dbg_tmpdir/.zshenv"
+_Dbg_restore_info="$_Dbg_tmpdir/zshdb_restore_$$"
 
 _Dbg_help_add shell \
 "shell [options]
@@ -45,19 +46,18 @@ these by nature defeate reading on saved functions and variables.
 The shell that used is taken from the shell used to build the debugger 
 which is: $_Dbg_shell_name. Use --shell to a different compatible shell.
 
-Variables set or changed in the shell do not persist after the shell
-is left to to back to the debugger or debugged program.
-"
+By default, variables set or changed in the shell do not persist after
+the shell is left to to back to the debugger or debugged program.  
 
-# FIXME: add this behavior
-# By default variables set or changed in the SHELL are not saved after
-# exit of the shell and back to the debugger or debugged program. 
-# If you want
-# to save the values of individual variables created or changed, use function
-# save_var and pass in the name of the variable. For example
-# 
-# my_var='abc'
-# save_var my_var
+However you can tag variables to persist by running the function 
+'save_vars' which takes a list of variable names. You can run this
+as many times as you want with as many variable names as you want.
+
+For example:
+  save_vars PROFILE PARSER
+marks variable PROFILE and PARSER to be examined and their values used
+in the trap EXIT of the shell.
+"
 
 _Dbg_parse_shell_cmd_options() {
     OPTLIND='' 
@@ -104,16 +104,23 @@ _Dbg_do_shell() {
     echo '# debugger shell profile' > $_Dbg_shell_temp_profile
 
     ((o_vars)) && _Dbg_shell_append_typesets
-    ((o_fns)) && typeset -pf >> $_Dbg_shell_temp_profile
 
-    ## echo 'save_var() { typeset -p $1 >>${_Dbg_journal} 2>/dev/null; }' >> $_Dbg_shell_temp_profile
+    # Add where file to allow us to restore info and
+    # Routine use can call to mark which variables should persist
+    typeset -p _Dbg_restore_info >> $_Dbg_shell_temp_profile
+    echo "source ${_Dbg_libdir}/data/shell.sh" >> $_Dbg_shell_temp_profile
+
+    ((o_fns)) && typeset -pf >> $_Dbg_shell_temp_profile
 
     echo "PS1='${_Dbg_debugger_name} $ '" >>$_Dbg_shell_temp_profile
 
     export ZDOTDIR=$_Dbg_tmpdir
     $shell -o TYPESET_SILENT $shell_opts
     rc=$?
-    ## rm -f $_Dbg_shell_temp_profile 2>&1 >/dev/null
-    # . $_Dbg_journal
+    rm -f $_Dbg_shell_temp_profile 2>&1 >/dev/null
+    if [[ -r $_Dbg_restore_info ]] ; then
+	 . $_Dbg_restore_info
+	 rm $_Dbg_restore_info
+    fi
     _Dbg_print_location_and_command
 }

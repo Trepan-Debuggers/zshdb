@@ -64,8 +64,8 @@ _Dbg_eval_extract_condition()
 	extracted=$(echo "$extracted" | sed -e's/;\s*then\(\s\s*$\|$\)//')
     else
 	extracted=$(echo "$orig" | sed -e's/^\s*return\s\s*/echo /')
-	if [[ "$extracted" == "$orig" ]] ; then
-	    extracted=$(echo "$orig" | sed -e's/^\s*case\s*/echo /')
+	if [[ "$extracted" != "$orig" ]] ; then
+	    extracted=$(echo "$orig" | sed -e's/^\s*return\s*/echo /')
 	    if [[ "$extracted" != "$orig" ]] ; then
 		extracted=$(echo "$extracted" | sed -e's/\s\s*in\s*$//')
 	    fi

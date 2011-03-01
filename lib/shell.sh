@@ -60,53 +60,13 @@ _Dbg_shell_append_typesets() {
 	_Dbg_shell_variable_typeset "$var_name"
 	case $? in 
 	    0)
-		typeset -p $var_name >> $_Dbg_profile 2>/dev/null
+		typeset -p $var_name 2>/dev/null
 		;;
 	    1)
-		echo "typeset -p ${var_name} 2>/dev/null 1>&2 || $(typeset -p $var_name)" >> $_Dbg_profile 2>/dev/null
+		print "typeset -p ${var_name} 2>/dev/null 1>&2 || $(typeset -p $var_name)" 2>/dev/null
 		;;
 	    *)
 		;;
 	esac
-    done
+    done >>$_Dbg_profile
 }
-
-# setopt ksharrays
-# _Dbg_set_debugging=1
-# _Dbg_shell_temp_profile='/tmp/test-profile'
-# rm $_Dbg_shell_temp_profile
-# typeset -a _Dbg_var_names
-# # _Dbg_var_names=(AMAZON_ACCESS_KEY_ID ! '#' '$' '*' - 0 '?' @)
-# _Dbg_shell_append_typesets /tmp/test-profile 1
-
-
-# test_var_names() {
-#     local testing
-#     typeset -r read_only='abc'
-#     typeset -i foo=0
-#     for var in PATH foo testing CDPATH read_only ; do
-# 	$(_Dbg_shell_variable_typeset $var)
-# 	rc=$?
-# 	if ((0 == $rc)) ; then
-# 	    typeset -p $var
-# 	elif ((1 == $rc)) ; then
-# 	    print "readonly"
-# 	    typeset -p $var
-# 	fi
-#     done
-# }
-
-# test_var_names
-
-# test_it() {
-#     for param type in "${(kv@)parameters}" ; do
-# 	case $type in
-# 	    *special*)
-# 		echo $param $type ${parameters[$param]}
-# 		continue
-# 		;;
-# 	esac
-#     done
-# }
-
-# test_it

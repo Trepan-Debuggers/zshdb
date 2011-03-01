@@ -76,6 +76,7 @@ AC_CONFIG_FILES([ \
 	command/info_sub/Makefile \
 	command/set_sub/Makefile  \
 	command/show_sub/Makefile \
+	data/Makefile             \
 	doc/Makefile              \
 	dbg-trace.sh              \
 	lib/Makefile              \
