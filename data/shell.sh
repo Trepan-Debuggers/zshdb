@@ -22,7 +22,7 @@ trap '_Dbg_write_saved_vars' EXIT
 typeset -a _Dbg_save_vars
 
 # _Dbg_tmpdir='/tmp'
-# _Dbg_restore_info="$_Dbg_tmpdir/zshdb_restore_$$"
+# _Dbg_restore_info="${_Dbg_tmpdir}/${_Dbg_debugger_name}_restore_$$"
 typeset -a _Dbg_save_vars; _Dbg_save_vars=()
 
 # User level routine which should be called to mark which 
@@ -32,8 +32,9 @@ save_vars() {
 }
 
 _Dbg_write_saved_vars() {
-    local param
+    typeset param
     for param in "${_Dbg_save_vars[@]}" ; do 
+	# FIXME chould check if var is an assoc array.
 	case $parameters[$param] in
 	    *assoc*)
             print -- "$param=( ${(P@kvqq)param} )";;
