@@ -23,7 +23,7 @@
 
 # Display data structures
 typeset -a  _Dbg_disp_exp; _Dbg_display_exp=() # Watchpoint expressions
-typeset -ai _Dbg_disp_enable; _Dbg_display_enable=() # 1/0 if enabled or not
+typeset -ia _Dbg_disp_enable; _Dbg_display_enable=() # 1/0 if enabled or not
 typeset -i  _Dbg_disp_max=0     # Needed because we can't figure out what
                                 # the max index is and arrays can be sparse
 
