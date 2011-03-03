@@ -19,7 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_shell_temp_profile="$_Dbg_tmpdir/.zshenv"
-_Dbg_restore_info="$_Dbg_tmpdir/zshdb_restore_$$"
+_Dbg_restore_info="${_Dbg_tmpdir}/${_Dbg_debugger_name}_restore_$$"
 
 _Dbg_help_add shell \
 "shell [options]
@@ -70,9 +70,9 @@ _Dbg_parse_shell_cmd_options() {
     do
 	case "$opt" in 
 	    F | no-fns ) 
-		o_fns=0;;
+		_Dbg_o_fns=0;;
 	    V | no-vars )
-		o_vars=0;;
+		_Dbg_o_vars=0;;
 	    shell )
 		shell=$OPTARG;;
 	    norc | posix | restricted | login | l | noediting | noprofile )
@@ -88,29 +88,28 @@ _Dbg_parse_shell_cmd_options() {
 
 
 _Dbg_do_shell() {
-    typeset -i o_fns;  o_fns=1
-    typeset -i o_vars; o_vars=1
+    typeset -i _Dbg_o_fns;  _Dbg_o_fns=1
+    typeset -i _Dbg_o_vars; _Dbg_o_vars=1
     typeset shell_opts=''
     typeset  shell=$_Dbg_shell
 		
     if (($# != 0)); then
 	_Dbg_parse_shell_cmd_options $@
 	(( $? != 0 )) && return
-	IFS='' typeset -p o_fns o_vars
     fi
 
     typeset -i _Dbg_rc
 
     echo '# debugger shell profile' > $_Dbg_shell_temp_profile
 
-    ((o_vars)) && _Dbg_shell_append_typesets
+    ((_Dbg_o_vars)) && _Dbg_shell_append_typesets
 
     # Add where file to allow us to restore info and
     # Routine use can call to mark which variables should persist
     typeset -p _Dbg_restore_info >> $_Dbg_shell_temp_profile
     echo "source ${_Dbg_libdir}/data/shell.sh" >> $_Dbg_shell_temp_profile
 
-    ((o_fns)) && typeset -pf >> $_Dbg_shell_temp_profile
+    ((_Dbg_o_fns))  && _Dbg_shell_append_typesets
 
     echo "PS1='${_Dbg_debugger_name} $ '" >>$_Dbg_shell_temp_profile
 
@@ -124,3 +123,5 @@ _Dbg_do_shell() {
     fi
     _Dbg_print_location_and_command
 }
+
+_Dbg_alias_add sh shell

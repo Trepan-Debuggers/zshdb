@@ -70,3 +70,14 @@ _Dbg_shell_append_typesets() {
 	esac
     done >>$_Dbg_profile
 }
+
+_Dbg_shell_append_fn_typesets() {
+    typeset -a words 
+    typeset -pf | while read -a words ; do 
+	[[ declare != ${words[0]} ]] && continue
+	fn_name=${words[2]%%=*}
+	((0 == _Dbg_set_debugging)) && [[ $fn_name =~ ^_Dbg_ ]] && continue	
+	flags=${words[1]}
+	echo $(typeset -pf ${fn_name} 2>/dev/null)
+    done >>$_Dbg_shell_temp_profile
+}
