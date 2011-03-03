@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info display" debugger command
 #
-#   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -21,7 +21,7 @@
 # List display command(s)
 _Dbg_do_info_display() {
   if [ ${#_Dbg_disp_exp[@]} != 0 ]; then
-    local i=0 j
+    typeset i=0
     _Dbg_msg "Auto-display statements now in effect:"
     _Dbg_msg "Num Enb Expression          "
     for (( i=0; i < _Dbg_disp_max; i++ )) ; do
