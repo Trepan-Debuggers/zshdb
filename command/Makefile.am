@@ -9,6 +9,7 @@ pkgdata_DATA =       \
 	continue.sh  \
 	delete.sh    \
 	disable.sh   \
+	display.sh   \
 	down.sh      \
 	edit.sh      \
 	enable.sh    \
@@ -28,6 +29,7 @@ pkgdata_DATA =       \
 	show.sh      \
 	source.sh    \
 	stepping.sh  \
+	undisplay.sh \
 	up.sh        \
 	trace.sh
 
