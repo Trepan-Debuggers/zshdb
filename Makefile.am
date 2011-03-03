@@ -33,8 +33,6 @@ MOSTLYCLEANFILES = *.orig *.rej
 
 EXTRA_DIST = $(pkgdata_DATA) THANKS
 
-MAINTAINERCLEANFILES = ChangeLog
-
 # Unit testing
 check-unit: test-unit
 
