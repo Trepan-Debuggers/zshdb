@@ -41,12 +41,9 @@ _Dbg_write_journal_var() {
 }
 
 _Dbg_write_journal_avar() {
-  typeset decl_str=$(declare -p $1)
-  typeset -a decl_a
-  decl_a=($decl_str)
-  typeset -a decl_a2
-  decl_a2=${decl_a[@]:2}
-  _Dbg_write_journal ${decl_a2[@]}
+  if (( ZSH_SUBSHELL != 0 )) ; then
+    typeset -p $1 | grep -v ^typeset >> ${_Dbg_journal} 2>/dev/null
+  fi
 }
 
 # Append a command into journal file. But we only need to do

@@ -41,7 +41,7 @@ _Dbg_show_onoff() {
     typeset msg="$2"
     typeset label="$3"
     [[ -n $label ]] && label="${cmd}: "
-    typeset -l onoff='off'
+    typeset onoff='off'
     typeset -l value
     eval "value=\$_Dbg_set_${cmd}"
     (( value )) && onoff='on.'
@@ -59,7 +59,7 @@ _Dbg_help_set_onoff() {
     eval_cmd="variable_value=\${_Dbg_set_$cmd}"
     eval $eval_cmd
     [[ -n $label ]] && label="set $cmd  -- "
-    typeset -l onoff="off."
+    typeset onoff="off."
     (( variable_value != 0 )) && onoff='on.'
     _Dbg_msg \
 	"${label}${msg} is" $onoff

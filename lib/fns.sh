@@ -35,15 +35,10 @@ function _Dbg_copies {
     return 0
 }
 
-# _Dbg_defined returns 0 if $1 is a defined variable or 1 otherwise. 
+# _Dbg_defined returns 0 if $1 is a defined variable or nonzero otherwise. 
 _Dbg_defined() {
     (( 0 == $# )) && return 1
     typeset -p "$1" &>/dev/null
-    if [[ $? != 0 ]] ; then 
-	return 1
-    else
-	return 0
-    fi
 }
 
 # Add escapes to a string $1 so that when it is read back using

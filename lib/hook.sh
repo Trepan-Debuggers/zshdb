@@ -59,6 +59,10 @@ function _Dbg_trap_handler {
 	    (_Dbg_return_level >= 0 && 
 	     ${#funcfiletrace[@]} > _Dbg_return_level) ))
 
+    if [[ -r $_Dbg_journal  ]] ; then
+	_Dbg_source_journal
+    fi
+
     # if in step mode, decrement counter
     if ((_Dbg_step_ignore > 0)) ; then 
 	if ((! _Dbg_skipping_fn )) ; then

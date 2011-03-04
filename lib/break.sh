@@ -189,11 +189,15 @@ _Dbg_set_brkpt() {
     _Dbg_write_journal "_Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp"
     _Dbg_write_journal "_Dbg_brkpt_counts[$_Dbg_brkpt_max]=0"
     _Dbg_write_journal "_Dbg_brkpt_enable[$_Dbg_brkpt_max]=1"
+    _Dbg_write_journal "_Dbg_brkpt_count=${_Dbg_brkpt_count}"
     
     # Add line number with a leading and trailing space. Delimiting the
     # number with space helps do a string search for the line number.
     _Dbg_brkpt_file2linenos[$source_file]+=" $lineno "
     _Dbg_brkpt_file2brkpt[$source_file]+=" $_Dbg_brkpt_max "
+
+    _Dbg_write_journal_avar _Dbg_brkpt_file2linenos
+    _Dbg_write_journal_avar _Dbg_brkpt_file2brkpt
     
     source_file=$(_Dbg_adjust_filename "$source_file")
     if (( is_temp == 0 )) ; then 
