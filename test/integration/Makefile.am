@@ -9,6 +9,7 @@ TESTS = \
 	test-delete        \
 	test-enable        \
 	test-examine       \
+	test-export        \
 	test-frame         \
 	test-list          \
 	test-multi         \
