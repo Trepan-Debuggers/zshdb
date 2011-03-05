@@ -22,6 +22,8 @@ check_DATA = \
 	enable.right       \
 	examine.right      \
 	examine.cmd        \
+	export.right       \
+	export.cmd         \
 	frame.cmd          \
 	frame.right        \
 	list.cmd           \
