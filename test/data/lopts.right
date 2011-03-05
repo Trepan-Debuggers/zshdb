@@ -12,7 +12,10 @@ options:
     --highlight | --no-highlight 
                             Use or don't use ANSI terminal sequences for syntax
                             highlight
-      -L | --library DIRECTORY
+    --init-file FILE        Source script file FILE. Similar to bash's 
+                            corresponding option. This option can be given 
+                            several times with different files.
+    -L | --library DIRECTORY
                             Set the directory location of library helper file
     -c | --command STRING   Run STRING instead of a script file
     -n | --nx | --no-init   Don't run initialization files.

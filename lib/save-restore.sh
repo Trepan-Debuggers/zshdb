@@ -117,3 +117,18 @@ _Dbg_save_state() {
 #   _Dbg_write_journal "export DBG_RESTART_FILE=\"$_Dbg_statefile\""
     :
 }
+
+_Dbg_restore_state() {
+    typeset statefile=$1
+   . $1
+ }
+
+# Things we do when coming back from a nested shell.
+# "shell", and "debug" create nested shells.
+_Dbg_restore_from_nested_shell() {
+    rm -f $_Dbg_shell_temp_profile 2>&1 >/dev/null
+    if [[ -r $_Dbg_restore_info ]] ; then
+	. $_Dbg_restore_info
+	rm $_Dbg_restore_info
+    fi
+}

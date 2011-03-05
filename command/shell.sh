@@ -76,7 +76,7 @@ _Dbg_parse_shell_cmd_options() {
 	    shell )
 		shell=$OPTARG;;
 	    norc | posix | restricted | login | l | noediting | noprofile )
-		shell_opts+="--$opt"
+		_Dbg_shell_opts+="--$opt"
 		;;
 	    * ) 
 		return 1
@@ -90,7 +90,7 @@ _Dbg_parse_shell_cmd_options() {
 _Dbg_do_shell() {
     typeset -i _Dbg_o_fns;  _Dbg_o_fns=1
     typeset -i _Dbg_o_vars; _Dbg_o_vars=1
-    typeset shell_opts=''
+    typeset _Dbg_shell_opts=''
     typeset  shell=$_Dbg_shell
 		
     if (($# != 0)); then
@@ -99,29 +99,17 @@ _Dbg_do_shell() {
     fi
 
     typeset -i _Dbg_rc
+    _Dbg_shell_new_shell_profile $_Dbg_o_vars _$Dbg_o_fns
 
-    echo '# debugger shell profile' > $_Dbg_shell_temp_profile
-
-    ((_Dbg_o_vars)) && _Dbg_shell_append_typesets
-
-    # Add where file to allow us to restore info and
-    # Routine use can call to mark which variables should persist
-    typeset -p _Dbg_restore_info >> $_Dbg_shell_temp_profile
-    echo "source ${_Dbg_libdir}/data/shell.sh" >> $_Dbg_shell_temp_profile
-
-    ((_Dbg_o_fns))  && _Dbg_shell_append_typesets
-
+    # Set prompt in new shell
     echo "PS1='${_Dbg_debugger_name} $ '" >>$_Dbg_shell_temp_profile
 
     export ZDOTDIR=$_Dbg_tmpdir
     $shell -o TYPESET_SILENT $shell_opts
     rc=$?
-    rm -f $_Dbg_shell_temp_profile 2>&1 >/dev/null
-    if [[ -r $_Dbg_restore_info ]] ; then
-	 . $_Dbg_restore_info
-	 rm $_Dbg_restore_info
-    fi
-    _Dbg_print_location_and_command
+    _Dbg_restore_from_nested_shell
+    # FIXME: put in _Dbg_restore_from_nested_shell
+    (( 1 == _Dbg_running )) && _Dbg_print_location_and_command
 }
 
 _Dbg_alias_add sh shell

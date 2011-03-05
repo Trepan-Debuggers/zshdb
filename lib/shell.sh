@@ -81,3 +81,20 @@ _Dbg_shell_append_fn_typesets() {
 	echo $(typeset -pf ${fn_name} 2>/dev/null)
     done >>$_Dbg_shell_temp_profile
 }
+
+_Dbg_shell_new_shell_profile() {
+    typeset -i _Dbg_o_vars; _Dbg_o_vars=${1:-1}
+    typeset -i _Dbg_o_fns;  _Dbg_o_fns=${2:-1}
+
+    echo '# debugger shell profile' > $_Dbg_shell_temp_profile
+
+    ((_Dbg_o_vars)) && _Dbg_shell_append_typesets
+
+    # Add where file to allow us to restore info and
+    # Routine use can call to mark which variables should persist
+    typeset -p _Dbg_restore_info >> $_Dbg_shell_temp_profile
+    echo "source ${_Dbg_libdir}/data/shell.sh" >> $_Dbg_shell_temp_profile
+
+    ((_Dbg_o_fns))  && _Dbg_shell_append_fn_typesets
+
+}

@@ -56,3 +56,13 @@ if [[ -z "$_Dbg_tty" ]]; then
     [[ $_Dbg_tty == 'not a tty' ]] && unset _Dbg_tty
 fi
 [[ -n "$_Dbg_tty" ]] && _Dbg_do_set inferior-tty $_Dbg_tty
+
+for source_file in ${_Dbg_o_init_files[@]} "$DBG_RESTART_FILE";  do
+    if [[ -n "$source_file" ]] ; then
+	if [[ -r "$source_file" ]] && [[ -f "$source_file" ]] ; then
+	    source $source_file
+	else
+	    _Dbg_errmsg "Unable to read shell script: ${source_file}"
+	fi
+    fi
+done
