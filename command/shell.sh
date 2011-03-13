@@ -18,7 +18,6 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_shell_temp_profile="$_Dbg_tmpdir/.zshenv"
 _Dbg_restore_info="${_Dbg_tmpdir}/${_Dbg_debugger_name}_restore_$$"
 
 _Dbg_help_add shell \
