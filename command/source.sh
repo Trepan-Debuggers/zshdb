@@ -1,7 +1,8 @@
 # -*- shell-script -*-
-# source command.
+# gdb-like "source" command.
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2002, 2003, 2004, 2006, 2008, 2010 
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -26,23 +27,22 @@ _Dbg_help_add source \
 'source FILE -- Run debugger commands in FILE.'
 
 _Dbg_do_source() {
-  if (( $# == 0 )) ; then
-    _Dbg_errmsg 'Need to give a filename for the "source" command.'
-    return 1
-  fi
-
-  _Dbg_last_cmd='source'
-  typeset filename
-  _Dbg_glob_filename "$1"
-  if [[ -r $filename ]] || [[ "$filename" == '/dev/stdin' ]] ; then
-      # Redirect std input to new file and save new descriptor number
-      exec {_Dbg_fdi}< $filename
-      # Save descriptor number and assocated file name.
-      _Dbg_fd+=($_Dbg_fdi)
-      _Dbg_cmdfile+=("$filename")
-  else
-    _Dbg_errmsg "Source file $filename is not readable."
-    return 3
-  fi
-  return 0
+    if (( $# == 0 )) ; then
+	_Dbg_errmsg 'Need to give a filename for the "source" command.'
+	return 1
+    fi
+    
+    typeset filename
+    _Dbg_glob_filename "$1"
+    if [[ -r $filename ]] || [[ "$filename" == '/dev/stdin' ]] ; then
+	# Redirect std input to new file and save new descriptor number
+	exec {_Dbg_fdi}< $filename
+	# Save descriptor number and assocated file name.
+	_Dbg_fd+=($_Dbg_fdi)
+	_Dbg_cmdfile+=("$filename")
+    else
+	_Dbg_errmsg "Source file \"$filename\" is not readable."
+	return 3
+    fi
+    return 0
 }
