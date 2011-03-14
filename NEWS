@@ -11,6 +11,7 @@ Version 0.10 - Ides of March
   inside the interactive shell)
 - ability to save values from inside a subshell to the outer shell
   (debugger command "export")
+- add debugger "display" and "undisplay" commands
 - add --init-file (akin to same option in bash) to have bash code
   sourced
 

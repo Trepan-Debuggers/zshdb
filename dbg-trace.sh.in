@@ -32,7 +32,7 @@ typeset _Dbg_shell='@SH_PROG@'
 # Equivalent to 
 typeset _Dbg_shell_name=${_Dbg_shell##*/}
 
-typeset -a _Dbg_script_args=("$@")
+typeset -a _Dbg_script_args; _Dbg_script_args=("$@")
 
 # Original $0. Note we can't set this in an include.
 typeset _Dbg_orig_0=$0

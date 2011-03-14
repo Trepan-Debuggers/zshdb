@@ -103,9 +103,7 @@ _Dbg_do_shell() {
 
     # Set prompt in new shell
     echo "PS1='${_Dbg_debugger_name} $ '" >>$_Dbg_shell_temp_profile
-
-    export ZDOTDIR=$_Dbg_tmpdir
-    $shell -o TYPESET_SILENT $shell_opts
+    ZDOTDIR=$_Dbg_tmpdir $shell -o TYPESET_SILENT $shell_opts
     rc=$?
     _Dbg_restore_from_nested_shell
     # FIXME: put in _Dbg_restore_from_nested_shell

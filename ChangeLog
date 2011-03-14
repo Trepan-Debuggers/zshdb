@@ -1,3 +1,225 @@
+2011-03-13  rocky <rocky@gnu.org>
+
+	* command/eval.sh, lib/help.sh: Regularize indentation and sync with
+	kshdb.
+
+2011-03-05  rocky <rocky@gnu.org>
+
+	* lib/hook.sh: More agressive rm of evalfile
+
+2011-03-05  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of github.com:rocky/zshdb
+
+2011-03-05  rocky <rocky@gnu.org>
+
+	* NEWS, command/shell.sh, dbg-main.sh, dbg-opts.sh,
+	lib/save-restore.sh, lib/shell.sh, test/data/lopts.right: Add
+	--init-file option to read shell script file. Akin to bash's
+	-init-file option.
+
+2011-03-05  rocky <rocky@gnu.org>
+
+	* dbg-opts.sh: Update copyright date
+
+2011-03-04  rocky <rocky@gnu.org>
+
+	* command/Makefile.am, command/export.sh, configure.ac,
+	lib/break.sh, lib/fns.sh, lib/hook.sh, lib/journal.sh,
+	lib/setshow.sh, lib/validate.sh, test/data/Makefile.am,
+	test/data/export.cmd, test/data/export.right,
+	test/integration/.gitignore, test/integration/test-export.in: Fix
+	bug in setting breakpoint in subshell; Add export command
+
+2011-03-04  rocky <rocky@gnu.org>
+
+	* test/integration/Makefile.am: Fix bug in setting breakpoint in
+	subshell; Add export command
+
+2011-03-03  rocky <rocky@gnu.org>
+
+	* command/info_sub/brkpts.sh: Better sync with kshdb and bashdb.
+	Still a little off in breakpoints.
+
+2011-03-03  rocky <rocky@gnu.org>
+
+	* command/display.sh, command/info.sh, command/info_sub/display.sh: 
+	Sync with kshdb.
+
+2011-03-02  rocky <rocky@gnu.org>
+
+	* lib/display.sh: Sync with kshdb
+
+2011-03-02  rocky <rocky@gnu.org>
+
+	* Makefile.am: Administrivia
+
+2011-03-02  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of github.com:rocky/zshdb
+
+2011-03-02  rocky <rocky@gnu.org>
+
+	* AUTHORS, command/Makefile.am: Forgot to install display and
+	undisplay
+
+2011-03-01  rocky <rocky@gnu.org>
+
+	* Makefile.am, command/shell.sh, data/shell.sh, lib/shell.sh: Sync
+	with bashdb
+
+2011-02-28  rocky <rocky@gnu.org>
+
+	* Makefile.am, command/Makefile.am, data/Makefile.am,
+	lib/Makefile.am, test/Makefile.am, test/unit/Makefile.am: 
+	'clean'target should remove patch' *.{orig,rej}
+
+2011-02-28  rocky <rocky@gnu.org>
+
+	* Makefile.am, command/shell.sh, configure.ac, data/.gitignore,
+	data/Makefile.am, data/shell.sh, lib/fns.sh, lib/shell.sh,
+	test/unit/.gitignore: Add ability to save variables inside nested
+	shell. Suggestion for code which doesn't use eval (but is very
+	zsh-specific) suggested by Bart Schaefer.
+
+2011-02-28  rocky <rocky@gnu.org>
+
+	* lib/fns.sh: Sync with bashdb
+
+2011-02-28  rocky <rocky@gnu.org>
+
+	* command/eval.sh, lib/fns.sh: in "eval?" extract expression in
+	"case", and echo that.
+
+2011-02-27  rocky <rocky@gnu.org>
+
+	* command/shell.sh, lib/shell.sh, test/unit/test-lib-shell.sh.in: 
+	Revise how exports work to be more reliable. Thanks to Bart Schaefer
+	for the suggestion and pointer to the parameter module
+
+2011-02-27  rocky <rocky@gnu.org>
+
+	* test/data/frame.right, test/unit/test-eval.sh.in: Correct unit
+	tests expectations
+
+2011-02-27  rocky <rocky@gnu.org>
+
+	* configure.ac, test/unit/Makefile.am,
+	test/unit/test-lib-shell.sh.in: Add unit test for recent shell lib
+	stuff
+
+2011-02-27  rocky <rocky@gnu.org>
+
+	* command/Makefile.am, command/shell.sh, lib/Makefile.am,
+	lib/fns.sh, lib/shell.sh: Add more proper filtering of typeset -p
+	for debugger shell command.
+
+2011-02-27  rocky <rocky@gnu.org>
+
+	* dbg-pre.sh: A separator in the tempfiles looks a little nicer
+
+2011-02-26  rocky <rocky@gnu.org>
+
+	* command/shell.sh: Start shell command.
+
+2011-02-25  rocky <rocky@gnu.org>
+
+	* command/eval.sh, zshdb.in: Update eval help
+
+2011-02-25  rocky <rocky@gnu.org>
+
+	* command/eval.sh, lib/display.sh, lib/processor.sh,
+	test/data/action.right, test/data/bug-args.cmd,
+	test/data/bug-args.right, test/data/bug-ksharrays.right,
+	test/data/bugIFS.cmd, test/data/bugIFS.right, test/data/multi1.cmd,
+	test/data/multi1.right, test/data/multi2.cmd,
+	test/data/multi2.right, test/data/multi3.cmd,
+	test/data/multi3.right, test/data/setshow.right,
+	test/data/subshell.right: Show return code in eval. "pr" is an alias
+	for "print" no longer "p". This matches current Ruby abbreviations.
+
+
+2011-02-25  rocky <rocky@gnu.org>
+
+	* command/eval.sh, configure.ac, lib/filecache.sh, lib/fns.sh,
+	lib/processor.sh, test/data/list.right, test/unit/Makefile.am,
+	test/unit/test-eval.sh.in: Add eval?
+
+2011-02-19  rocky <rocky@gnu.org>
+
+	* command/eval.sh, command/quit.sh: Add q! alias for quit. Show eval
+	source text and note set autoeval in help
+
+2011-02-19  rocky <rocky@gnu.org>
+
+	* command/eval.sh: eval command with no args eval's the current
+	source line. YAY!
+
+2011-02-09  rocky <rocky@gnu.org>
+
+	* command/down.sh, command/frame.sh, command/up.sh,
+	lib/Makefile.am, lib/filecache.sh, lib/msg.sh, lib/validate.sh,
+	test/data/setshow.right, test/unit/test-msg.sh.in,
+	test/unit/test-validate.sh.in: Parameter checkin on up/down/frame.
+	chmod +x for Python highlight program. Sync with bashdb.
+
+2011-02-09  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of github.com:rocky/zshdb
+
+2011-02-09  rocky <rocky@gnu.org>
+
+	* lib/Makefile.am: Add highlight wrapper to install/distribution
+
+2011-02-09  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of github.com:rocky/zshdb
+
+2011-02-09  rocky <rocky@gnu.org>
+
+	* lib/filecache.sh, lib/gdb.sh, lib/term-highlight.py: Customize
+	colors for source terminal output. Start to work towards making this
+	more customizable
+
+2011-02-07  rocky <rocky@gnu.org>
+
+	* lib/filecache.sh: Remove duplicate statement.
+
+2011-02-07  rocky <rocky@gnu.org>
+
+	* command/show_sub/highlight.sh, dbg-opts.sh, getopts_long.sh,
+	lib/file.sh, lib/msg.sh, test/data/lopts.right: Add --highlight and
+	--no-highlight options. Update getopts_long.sh
+
+2011-02-07  rocky <rocky@gnu.org>
+
+	* lib/filecache.sh: Got off by one in source line trying merge bash
+	temp pygmentize code
+
+2011-02-07  rocky <rocky@gnu.org>
+
+	* command/set_sub/highlight.sh, command/show_sub/highlight.sh,
+	lib/filecache.sh, lib/gdb.sh: Add syntax highlighting via pygmentize
+
+
+2011-02-06  rocky <rocky@gnu.org>
+
+	* command/set.sh, command/set_sub/Makefile.am,
+	command/set_sub/annotate.sh, command/set_sub/args.sh,
+	command/set_sub/autolist.sh, command/set_sub/editing.sh,
+	command/set_sub/history.sh, command/set_sub/linewidth.sh,
+	command/set_sub/listsize.sh, command/set_sub/showcommand.sh,
+	command/set_sub/width.sh, command/show.sh: Move subcommand dispatch
+	into hash in set commands. Add help although not used yet.
+
+2011-02-06  rocky <rocky@gnu.org>
+
+	* ChangeLog, command/show.sh, command/show_sub/alias.sh,
+	command/show_sub/copying.sh, command/show_sub/debugging.sh,
+	command/show_sub/editing.sh, lib/help.sh: Start dynamic subcommands
+	handling via associative arrays like we did for commands. Sync with
+	bashdb
+
 2011-01-16  rocky <rocky@gnu.org>
 
 	* command/continue.sh, dbg-trace.sh.in, lib/dbg-call.sh,

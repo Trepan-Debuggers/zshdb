@@ -20,8 +20,9 @@ pkgdata_DATA =        \
 	handle.sh     \
 	help.sh       \
 	info.sh       \
-	list.sh       \
 	kill.sh       \
+	list.sh       \
+	next.sh       \
 	quit.sh       \
 	return.sh     \
 	run.sh        \

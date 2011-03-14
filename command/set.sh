@@ -39,12 +39,12 @@ for _Dbg_file in ${_Dbg_libdir}/command/set_sub/*.sh ; do
 done
 
 _Dbg_do_set() {
-    _Dbg_do_set_internal $@
+    _Dbg_do_set_internal "$@"
     return 0
 }
 
 _Dbg_do_set_internal() {
-  typeset set_cmd=$1
+  typeset set_cmd="$1"
   typeset rc
   if [[ $set_cmd == '' ]] ; then
     _Dbg_msg "Argument required (expression to compute)."
@@ -72,7 +72,7 @@ _Dbg_do_set_internal() {
 	  _Dbg_set_onoff "$1" 'different'
 	  ;;
       inferior-tty )
-	  _Dbg_set_tty $@
+	  _Dbg_set_tty "$@"
 	  ;;
       lo | log | logg | loggi | loggin | logging )
 	  _Dbg_cmd_set_logging $@

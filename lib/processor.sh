@@ -156,7 +156,7 @@ _Dbg_onecmd() {
     else
 	_Dbg_cmd=$1
 	shift
-	args=$@
+	args="$@"
     fi
     typeset _Dbg_orig_cmd;
     _Dbg_orig_cmd=$_Dbg_cmd
