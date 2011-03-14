@@ -18,13 +18,15 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+_Dbg_shell_temp_profile="$_Dbg_tmpdir/.zshenv"
+
 zmodload -ap zsh/parameter parameters
 _Dbg_shell_variable_names() {
     echo ${(k@)parameters}
 }
 
 _Dbg_shell_variable_typeset() {
-    local var=$1
+    typeset var=$1
     case ${parameters[$var]} in
 	*export* )
 	    return 2
