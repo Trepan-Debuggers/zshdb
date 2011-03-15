@@ -47,29 +47,28 @@ function _Dbg_esc_dq {
   builtin printf "%q\n" "$1"
 }
 
+# We go through the array indirection below because bash (but not ksh)
+# gives syntax errors when this is put in place.
+typeset -a _Dbg_eval_re;
+_Dbg_eval_re=(
+    '^[ \t]*(if|elif)[ \t]+([^;]*)((;[ \t]*then?)?|$)'
+    '^[ \t]*return[ \t]+(.*)$'
+    '^[ \t]*while[ \t]+([^;]*)((;[ \t]*do?)?|$)'
+)
+
 # Removes "[el]if" .. "; then" or "while" .. "; do" or "return .."
-# leaving resumably the expression part.  This fuction is called by
+# leaving resumably the expression part.  This function is called by
 # the eval?  command where we want to evaluate the expression part in
 # a source line of code
 _Dbg_eval_extract_condition()
 {
     orig="$1"
-    extracted=$(echo "$orig" | sed -e's/^\(\s*if\|elif\)\s\s*//')
-    if [[ "$extracted" != "$orig" ]] ; then
-	extracted=$(echo "$extracted" | sed -e's/;\s*then\(\s\s*$\|$\)//')
-    else
-	extracted=$(echo "$orig" | sed -e's/^\s*return\s\s*/echo /')
-	if [[ "$extracted" != "$orig" ]] ; then
-	    extracted=$(echo "$orig" | sed -e's/^\s*return\s*/echo /')
-	    if [[ "$extracted" != "$orig" ]] ; then
-		extracted=$(echo "$extracted" | sed -e's/\s\s*in\s*$//')
-	    fi
-	else
-	    extracted=$(echo "$orig" | sed -e's/^\s*while\s*//')
-	    if [[ "$extracted" != "$orig" ]] ; then
-		extracted=$(echo "$extracted" | sed -e's/;\s*do\(\s\s*$\|$\)//')
-	    fi
-	fi
+    if [[ $orig =~ ${_Dbg_eval_re[0]} ]] ; then
+	extracted=${BASH_REMATCH[2]}
+    elif [[ $orig =~ ${_Dbg_eval_re[1]} ]] ; then
+	extracted="echo ${BASH_REMATCH[1]}"
+    elif [[ $orig =~ ${_Dbg_eval_re[2]} ]] ; then
+	extracted=${BASH_REMATCH[1]}
     fi
 }
 

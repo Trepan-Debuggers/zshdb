@@ -3,7 +3,7 @@
 
 PS4='(%x:%I): [%?] zsh+ 
 '
-setopt ksharrays
+setopt ksharrays bashrematch rematchpcre
 
 test_eval_subst()
 {
@@ -30,7 +30,7 @@ test_eval_subst()
 	'[[ $x = test3 ]] && [ $? -eq 0 ]'
     )
     typeset -i i
-    for (( i=0 ; i<${#expected}; i++ )) ; do
+    for (( i=0 ; i<${#expected[@]}; i++ )) ; do
 	_Dbg_eval_extract_condition "${texts[i]}"
 	assertEquals "$extracted" "${expected[i]}"
     done

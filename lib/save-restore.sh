@@ -21,7 +21,7 @@
 # Options which are set inside the debugger
 [[ -z $_Dbg_debugger_set_opts ]] && \
   typeset -r _Dbg_debugger_set_opts=\
-'extendedhistory extendedglob shwordsplit ksharrays histignoredups zle rematchpcre'
+'extendedhistory extendedglob shwordsplit ksharrays histignoredups zle rematchpcre bashrematch'
 
 # Options which are unset inside the debugger
 [[ -z $_Dbg_debugger_unset_opts ]] && \
@@ -82,7 +82,7 @@ _Dbg_set_debugger_internal() {
   IFS="$_Dbg_space_IFS"
   PS4='(%x:%I): %? $_Dbg_debugger_name
 '
-  setopt ksharrays shwordsplit norcs
+  setopt ksharrays shwordsplit norcs bashrematch
   unsetopt $_Dbg_debugger_unset_opts
 }
 
