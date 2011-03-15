@@ -4,6 +4,7 @@ pkgdata_DATA =       	\
 	copying.sh     	\
 	debugging.sh    \
 	editing.sh      \
+	highlight.sh    \
 	history.sh
 
 EXTRA_DIST = $(pkgdata_DATA)

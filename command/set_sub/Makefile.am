@@ -5,6 +5,7 @@ pkgdata_DATA =       	\
 	args.sh  	\
 	editing.sh     	\
 	history.sh	\
+	highlight.sh	\
 	linetrace.sh	\
 	listsize.sh	\
 	showcommand.sh	\
