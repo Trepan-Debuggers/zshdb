@@ -48,7 +48,6 @@ _Dbg_do_eval() {
        # FIXME: add parameter to get unhighlighted line, or 
        # always save a copy of that in _Dbg_sget_source_line
        typeset source_line
-       _Dbg_get_source_line
        typeset source_line_save="$source_line"
        typeset highlight_save=$_Dbg_set_highlight
        _Dbg_set_highlight=0
@@ -57,15 +56,26 @@ _Dbg_do_eval() {
        # Were we called via ? as the suffix? 
        typeset suffix
        suffix=${_Dbg_orig_cmd[-1,-1]}
+       
+       # ZSH_DEBUG_CMD is preferable to _Dbg_source_line in that we
+       # know is a complete statement. But to determine if it is a
+       # compound statement like "if .. ; then .. fi we'd prefer just
+       # to go with the line shown and pehraps use eval? to shorten
+       # that.  The heuristic we use to determine a compound statement
+       # is just whether the the length of text of the the current is less
+       # than the length of the full command in ZSH_DEBUG_CMD
+       if (( ${#source_line} > ${#ZSH_DEBUG_CMD} )) ; then
+	   source_line=$ZSH_DEBUG_CMD
+       fi
        if [[ '?' == "$suffix" ]] ; then
 	   typeset extracted
 	   _Dbg_eval_extract_condition "$source_line"
-	   _Dbg_source_line="$extracted"
+	   source_line="$extracted"
 	   source_line_save="$extracted"
        fi
 
-       print "$_Dbg_source_line" >> $_Dbg_evalfile
-       _Dbg_msg "eval: ${source_line_save}"
+       print "$source_line" >> $_Dbg_evalfile
+       _Dbg_msg "eval: ${source_line}"
        _Dbg_source_line="$source_line_save"
        _Dbg_set_highlight=$_Dbg_highlight_save
    else
