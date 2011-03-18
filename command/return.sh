@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -33,13 +33,13 @@ _Dbg_do_return() {
     rc=${1:-0}
 
     if [[ $_Dbg_return_rc == [0-9]* ]] ; then
-	_Dbg_return_rc=$rc
+        _Dbg_return_rc=$rc
     else
-	_Dbg_errmsg "Argument ($rc) should be a number or nothing."
-	_Dbg_skip_ignore=0
-	return 0
+        _Dbg_errmsg "Argument ($rc) should be a number or nothing."
+        _Dbg_skip_ignore=0
+        return 0
     fi
-    
+
     _Dbg_write_journal_eval "_Dbg_step_ignore=1"
     _Dbg_last_cmd='return'
     _Dbg_continue_rc 255

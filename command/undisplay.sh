@@ -13,7 +13,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this Program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -33,20 +33,20 @@ See also 'display' and 'info display'."
 
 _Dbg_do_undisplay() {
     typeset -i del
-    
+
     if (( 0 == $# )) ; then
-	_Dbg_errmsg 'You need to pass in some display numbers.'
-	return 1
+        _Dbg_errmsg 'You need to pass in some display numbers.'
+        return 1
     fi
-    
-    for del in $@ ; do 
-	if [ -n "${_Dbg_disp_exp[$del]}" ] ; then
-	    _Dbg_write_journal_eval "_Dbg_disp_exp[$del]=''"
-	    _Dbg_write_journal_eval "_Dbg_disp_enable[$del]=''"
-	    _Dbg_msg "Display entry $del unset."
-	else
-	    _Dbg_msg "Display entry $del doesn't exist, so nothing done."
-	fi
+
+    for del in $@ ; do
+        if [ -n "${_Dbg_disp_exp[$del]}" ] ; then
+            _Dbg_write_journal_eval "_Dbg_disp_exp[$del]=''"
+            _Dbg_write_journal_eval "_Dbg_disp_enable[$del]=''"
+            _Dbg_msg "Display entry $del unset."
+        else
+            _Dbg_msg "Display entry $del doesn't exist, so nothing done."
+        fi
     done
     return 0
 }

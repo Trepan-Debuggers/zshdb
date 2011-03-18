@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -24,16 +24,16 @@ _Dbg_help_add_sub set annotate \
 
 _Dbg_do_set_annotate() {
     if (( $# == 0 )) ; then
-	_Dbg_msg "Argument required (an integer to set 'annotate' to.)."
-    elif [[ "$1" == [0-9]* ]] ; then 
-	if (( $1 > 3 || $1 < 0)); then
-	    _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
-	else
-	    _Dbg_write_journal_eval "_Dbg_set_annotate=$1"
-	fi
+        _Dbg_msg "Argument required (an integer to set 'annotate' to.)."
+    elif [[ "$1" == [0-9]* ]] ; then
+        if (( $1 > 3 || $1 < 0)); then
+            _Dbg_msg "Annotation level must be between 0 and 3. Got: ${1}."
+        else
+            _Dbg_write_journal_eval "_Dbg_set_annotate=$1"
+        fi
     else
-	_Dbg_errmsg "Integer argument expected; got: $1"
-	return 1
+        _Dbg_errmsg "Integer argument expected; got: $1"
+        return 1
     fi
     return 0
 }

@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -20,40 +20,40 @@
 
 _Dbg_do_set_linetrace() {
     typeset onoff=${1:-'off'}
-    case $onoff in 
-	on | 1 ) 
-	    _Dbg_write_journal_eval "_Dbg_set_linetrace=1"
-	    ;;
-	off | 0 )
-	    _Dbg_write_journal_eval "_Dbg_set_linetrace=0"
-	    ;;
-	d | de | del | dela | delay )
-	    if [[ $2 != [0-9]* ]] ; then 
-		_Dbg_errmsg "Bad integer parameter: $2"
-		return 1
-	    fi
-	    eval "$_resteglob"
-	    _Dbg_write_journal_eval "_Dbg_linetrace_delay=$2"
-	    ;;
-	e | ex | exp | expa | expan | expand )
-	    typeset onoff=${2:-'on'}
-	    case $onoff in 
-		on | 1 ) 
-		    _Dbg_write_journal_eval "_Dbg_linetrace_expand=1"
-		    ;;
-		off | 0 )
-		    _Dbg_write_journal_eval "_Dbg_linetrace_expand=0"
-		    ;;
-		* )
-		    _Dbg_errmsg "\"expand\", \"on\" or \"off\" expected."
-		    return 1
-		    ;;
-	    esac
-	    ;;
-	
-	* )
-	    _Dbg_msg "\"expand\", \"on\" or \"off\" expected."
-	    return 1
+    case $onoff in
+        on | 1 )
+            _Dbg_write_journal_eval "_Dbg_set_linetrace=1"
+            ;;
+        off | 0 )
+            _Dbg_write_journal_eval "_Dbg_set_linetrace=0"
+            ;;
+        d | de | del | dela | delay )
+            if [[ $2 != [0-9]* ]] ; then
+                _Dbg_errmsg "Bad integer parameter: $2"
+                return 1
+            fi
+            eval "$_resteglob"
+            _Dbg_write_journal_eval "_Dbg_linetrace_delay=$2"
+            ;;
+        e | ex | exp | expa | expan | expand )
+            typeset onoff=${2:-'on'}
+            case $onoff in
+                on | 1 )
+                    _Dbg_write_journal_eval "_Dbg_linetrace_expand=1"
+                    ;;
+                off | 0 )
+                    _Dbg_write_journal_eval "_Dbg_linetrace_expand=0"
+                    ;;
+                * )
+                    _Dbg_errmsg "\"expand\", \"on\" or \"off\" expected."
+                    return 1
+                    ;;
+            esac
+            ;;
+
+        * )
+            _Dbg_msg "\"expand\", \"on\" or \"off\" expected."
+            return 1
     esac
     return 0
 }

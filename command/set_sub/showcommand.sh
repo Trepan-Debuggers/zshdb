@@ -12,14 +12,14 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
 _Dbg_help_add_sub set showcommand \
-'showing the command to execute' 1 
+'showing the command to execute' 1
 
 # Sets whether or not to display command to be executed in debugger prompt.
 # If yes, always show. If auto, show only if the same line is to be run
@@ -27,18 +27,18 @@ _Dbg_help_add_sub set showcommand \
 typeset _Dbg_set_show_command="auto"
 
 _Dbg_do_set_showcommand() {
-    case "$1" in 
-	1 )
-	    _Dbg_write_journal_eval "_Dbg_set_show_command=on"
-	    ;;
-	0 )
-	    _Dbg_write_journal_eval "_Dbg_set_show_command=off"
-	    ;;
-	on | off | auto )
-	    _Dbg_write_journal_eval "_Dbg_set_show_command=$1"
-	    ;;
-	* )
-	    _Dbg_errmsg "\"on\", \"off\" or \"auto\" expected."
+    case "$1" in
+        1 )
+            _Dbg_write_journal_eval "_Dbg_set_show_command=on"
+            ;;
+        0 )
+            _Dbg_write_journal_eval "_Dbg_set_show_command=off"
+            ;;
+        on | off | auto )
+            _Dbg_write_journal_eval "_Dbg_set_show_command=$1"
+            ;;
+        * )
+            _Dbg_errmsg "\"on\", \"off\" or \"auto\" expected."
     esac
     return 0
 }

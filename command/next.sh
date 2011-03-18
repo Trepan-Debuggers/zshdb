@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -29,7 +29,7 @@ If COUNT is given, stepping occurs that many times before
 stopping. Otherwise COUNT is one. COUNT an be an arithmetic
 expression.
 
-Functions and source'd files are not traced. This is in contrast to 
+Functions and source'd files are not traced. This is in contrast to
 \"step\". See also \"skip\"." 1
 
 # Next command

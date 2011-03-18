@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -34,13 +34,13 @@ function _Dbg_do_quit {
     typeset -i desired_quit_levels=${2:-0}
 
     if [[ $desired_quit_levels != [0-9]* ]] ; then
-	_Dbg_errmsg "Argument ($desired_quit_levels) should be a number or nothing."
-	return 0
+        _Dbg_errmsg "Argument ($desired_quit_levels) should be a number or nothing."
+        return 0
     fi
 
     if (( desired_quit_levels == 0 \
-	|| desired_quit_levels > ZSH_SUBSHELL+1)) ; then
-	((desired_quit_levels=ZSH_SUBSHELL+1))
+        || desired_quit_levels > ZSH_SUBSHELL+1)) ; then
+        ((desired_quit_levels=ZSH_SUBSHELL+1))
     fi
 
     ((_Dbg_QUIT_LEVELS+=desired_quit_levels))
@@ -53,17 +53,17 @@ function _Dbg_do_quit {
     _Dbg_write_journal "_Dbg_QUIT_LEVELS=$_Dbg_QUIT_LEVELS"
     _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
 
-    # Reset signal handlers to their default but only if 
+    # Reset signal handlers to their default but only if
     # we are not in a subshell.
     if (( ZSH_SUBSHELL == 0 )) ; then
-	
-	# If we were told to restart from deep down, restart instead of quit.
-	if [ -n "$_Dbg_RESTART_COMMAND" ] ; then 
-	    _Dbg_erase_journals
-	    _Dbg_save_state
-	    exec $_Dbg_RESTART_COMMAND
-	fi
-	_Dbg_cleanup
+
+        # If we were told to restart from deep down, restart instead of quit.
+        if [ -n "$_Dbg_RESTART_COMMAND" ] ; then
+            _Dbg_erase_journals
+            _Dbg_save_state
+            exec $_Dbg_RESTART_COMMAND
+        fi
+        _Dbg_cleanup
 
     fi
 

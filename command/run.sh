@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -28,14 +28,14 @@ _Dbg_do_run() {
 
   typeset script_args
   typeset exec_cmd
-  if (( $# == 0 )) ; then 
+  if (( $# == 0 )) ; then
       script_args=${_Dbg_script_args[@]}
       typeset SH_RUN_CMDLINE; _Dbg_run_cmdline
       if [[ -n $SH_RUN_CMDLINE ]] ; then
-	  exec_cmd="$SH_RUN_CMDLINE";
+          exec_cmd="$SH_RUN_CMDLINE";
       else
-	  exec_cmd="$_Dbg_script_file"
-	  [[ -n $script_args ]] && exec_cmd+=" $script_args"
+          exec_cmd="$_Dbg_script_file"
+          [[ -n $script_args ]] && exec_cmd+=" $script_args"
       fi
   else
       exec_cmd="$_Dbg_script_file"
@@ -53,7 +53,7 @@ _Dbg_do_run() {
       :
   fi
 
-  if (( _Dbg_set_basename )) ; then 
+  if (( _Dbg_set_basename )) ; then
     _Dbg_msg "Restarting with: $script_args"
   else
     _Dbg_msg "Restarting with: $exec_cmd"
@@ -63,7 +63,7 @@ _Dbg_do_run() {
   # first before we restart. The strategy is to write into persistent
   # storage the restart command, and issue a "quit." The quit should
   # discover the restart at the last minute and issue the restart.
-  if (( ZSH_SUBSHELL > 0 )) ; then 
+  if (( ZSH_SUBSHELL > 0 )) ; then
     _Dbg_msg "Note you are in a subshell. We will need to leave that first."
     _Dbg_write_journal "_Dbg_RESTART_COMMAND=\"$exec_cmd\""
     _Dbg_do_quit 0

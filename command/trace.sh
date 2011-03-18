@@ -11,7 +11,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -29,23 +29,23 @@ _Dbg_help_add trace \
 
 function _Dbg_do_trace {
     if (($# == 0)) ; then
-	_Dbg_errmsg "_Dbg_do_trace: missing function name."
-	return 2
+        _Dbg_errmsg "_Dbg_do_trace: missing function name."
+        return 2
     fi
     typeset fn=$1
     if [[ $fn == 'alias' ]]; then
-	shift
-	_Dbg_do_trace_alias "$@"
-	return $?
+        shift
+        _Dbg_do_trace_alias "$@"
+        return $?
     fi
 
     typeset -ri clear_debug_trap=${2:-1}
     _Dbg_is_function "$fn" $_Dbg_set_debugging || {
-	_Dbg_errmsg "_Dbg_do_trace: \"$fn\" is not a function."
-	return 3
+        _Dbg_errmsg "_Dbg_do_trace: \"$fn\" is not a function."
+        return 3
     }
     cmd=old_$(typeset -f -- "$fn") || {
-	return 4
+        return 4
     }
     typeset -ft $fn
     return 0
@@ -53,17 +53,17 @@ function _Dbg_do_trace {
 
 function _Dbg_do_trace_alias {
     if (($# == 0)) ; then
-	_Dbg_errmsg "_Dbg_do_trace_alias: missing alias name."
-	return 2
+        _Dbg_errmsg "_Dbg_do_trace_alias: missing alias name."
+        return 2
     fi
     typeset al=$1
     if _Dbg_is_alias "$al" ; then
-	alias_body=$(alias $1)
-	alias_body="set -x; $alias_body; set +x"
-	alias ${al}=${alias_body}
+        alias_body=$(alias $1)
+        alias_body="set -x; $alias_body; set +x"
+        alias ${al}=${alias_body}
     else
-	_Dbg_errmsg "_Dbg_do_trace_alias: \"$al\" is not an alias."
-	return 3
+        _Dbg_errmsg "_Dbg_do_trace_alias: \"$al\" is not an alias."
+        return 3
     fi
     return 0
 }
@@ -76,12 +76,12 @@ _Dbg_help_add untrace \
 function _Dbg_do_untrace {
     typeset -r fn=$1
     if [[ -z $fn ]] ; then
-	_Dbg_errmsg "untrace: missing or invalid function name."
-	return 2
+        _Dbg_errmsg "untrace: missing or invalid function name."
+        return 2
     fi
     _Dbg_is_function "$fn" $_Dbg_set_debugging || {
-	_Dbg_errmsg "untrace: function \"$fn\" is not a function."
-	return 3
+        _Dbg_errmsg "untrace: function \"$fn\" is not a function."
+        return 3
     }
     typeset +ft $fn
     return 0

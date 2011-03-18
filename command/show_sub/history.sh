@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -20,11 +20,11 @@
 
 _Dbg_do_show_history() {
     _Dbg_msg \
-	"filename: The filename in which to record the command history is:"
+        "filename: The filename in which to record the command history is:"
     _Dbg_msg "	$_Dbg_histfile"
     _Dbg_msg \
-	"save: Saving of history save is" $(_Dbg_onoff $_Dbg_history_save)
+        "save: Saving of history save is" $(_Dbg_onoff $_Dbg_history_save)
     _Dbg_msg \
-	"size: Debugger history size is $HISTSIZE, saving $SAVEHIST"
+        "size: Debugger history size is $HISTSIZE, saving $SAVEHIST"
     return 0
 }

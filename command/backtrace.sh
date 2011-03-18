@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -27,7 +27,7 @@ _Dbg_help_add backtrace \
 The backtrace contains function names, arguments, line numbers, and
 files. If N is given, list only N calls."
 
-# Print a stack backtrace.  
+# Print a stack backtrace.
 # $1 is the maximum number of entries to include.
 _Dbg_do_backtrace() {
 
@@ -39,15 +39,15 @@ _Dbg_do_backtrace() {
   typeset -i i
 
   # Loop which dumps out stack trace.
-  for (( i=0 ; (( i < n && count > 0 )) ; i++ )) ; do 
+  for (( i=0 ; (( i < n && count > 0 )) ; i++ )) ; do
       typeset prefix='##'
       (( i == _Dbg_stack_pos)) && prefix='->'
-      
+
       prefix+="$i "
-      if ((i!=0)) ; then 
-	  prefix+="${_Dbg_func_stack[i-1]} called from"
+      if ((i!=0)) ; then
+          prefix+="${_Dbg_func_stack[i-1]} called from"
       else
-	  prefix+='in'
+          prefix+='in'
       fi
 
       _Dbg_print_frame "$i" "$prefix"

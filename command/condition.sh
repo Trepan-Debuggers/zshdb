@@ -12,7 +12,7 @@
 #   WARRANTY; without even the implied warranty of MERCHANTABILITY or
 #   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
 #   for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
@@ -20,7 +20,7 @@
 _Dbg_help_add condition \
 "condition N COND	-- Break only if COND is true in breakpoint number N.
 
-N is an integer and COND is an expression to be evaluated whenever 
+N is an integer and COND is an expression to be evaluated whenever
 breakpoint N is reached."
 
 # Set a condition for a given breakpoint $1 is a breakpoint number
@@ -45,7 +45,7 @@ function _Dbg_do_condition {
     _Dbg_errmsg "condition: Breakpoint entry $n is not set. Condition not changed."
     return 0
   fi
-  
+
   if [[ -z $condition ]] ; then
     condition=1
     _Dbg_msg "Breakpoint $n now unconditional."

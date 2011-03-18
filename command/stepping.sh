@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -21,14 +21,14 @@
 # Number of statements to skip before entering the debugger if greater than 0
 typeset -i _Dbg_skip_ignore=0
 
-# 1 if we need to ensure we stop on a different line? 
-typeset -i _Dbg_step_force=0  
+# 1 if we need to ensure we stop on a different line?
+typeset -i _Dbg_step_force=0
 
 # if positive, the frame level we want to stop at next
 typeset -i _Dbg_return_level=-1
 
-# The default behavior of step_force. 
-typeset -i _Dbg_set_different=0  
+# The default behavior of step_force.
+typeset -i _Dbg_set_different=0
 
 _Dbg_help_add skip \
 "skip [COUNT]	-- Skip (don't run) the next COUNT command(s).
@@ -75,7 +75,7 @@ stopping. Otherwise COUNT is one. COUNT an be an arithmetic
 expression.
 
 In contrast to \"next\", functions and source\'d files are stepped
-into. 
+into.
 
 See also \"next\", \"skip\", \"step-\" \"step+\", and \"set force\"."
 
@@ -91,7 +91,7 @@ _Dbg_help_add 'step-' \
 "step- -- Single step a statement without the \`step force' setting.
 
 Set step force may have been set on. step- ensures we turn that off for
-this command. 
+this command.
 
 See also \"step\" and \"set force\"." 0
 
@@ -137,7 +137,7 @@ stopping. Otherwise COUNT is one. COUNT an be an arithmetic
 expression.
 
 In contrast to \"step\", functions and source\'d files are not stepped
-into. 
+into.
 
 See also \"step\" \"skip\", \"next-\" \"next+\", and \"set force\"."
 
@@ -153,7 +153,7 @@ _Dbg_help_add 'next-' \
 "next- -- Next stepping a statement without the \`set force' setting.
 
 Set step force may have been set on. step- ensures we turn that off for
-this command. 
+this command.
 
 See also \"next+\", \"next\" and \"set force\"." 0
 
@@ -192,7 +192,7 @@ _Dbg_do_next() {
   return 0
 }
 
-for cmd in step next ; do 
+for cmd in step next ; do
     alias=${cmd[1,1]}
     _Dbg_alias_add $alias $cmd
     _Dbg_alias_add ${alias}+ ${cmd}

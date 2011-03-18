@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -22,14 +22,14 @@
 typeset _Dbg_evalfile=$(_Dbg_tempname eval)
 
 _Dbg_help_add eval \
-'eval CMD 
-eval 
+'eval CMD
+eval
 eval?
 
 In the first form CMD is a string CMD is a string sent to special
-shell builtin eval. 
+shell builtin eval.
 
-In the second form, use evaluate the current source line text. 
+In the second form, use evaluate the current source line text.
 
 Often one is stopped at the line of the first part of an "if", "elif",
 "case", "return" or "while" compound statement and what you want to
@@ -42,53 +42,53 @@ See also "print" and "set autoeval".'
 typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=1
 
 _Dbg_do_eval() {
-    
+
     print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
     if (( $# == 0 )) ; then
-	# FIXME: add parameter to get unhighlighted line, or 
-	# always save a copy of that in _Dbg_sget_source_line
-	typeset source_line
-	typeset highlight_save=$_Dbg_set_highlight
-	_Dbg_set_highlight=0
-	_Dbg_get_source_line
-	typeset source_line_save="$source_line"
-	
-	# Were we called via ? as the suffix? 
-	typeset suffix
-	suffix=${_Dbg_orig_cmd[-1,-1]}
-	
-	# ZSH_DEBUG_CMD is preferable to _Dbg_source_line in that we
-	# know is a complete statement. But to determine if it is a
-	# compound statement like "if .. ; then .. fi we'd prefer just
-	# to go with the line shown and pehraps use eval? to shorten
-	# that.  The heuristic we use to determine a compound statement
-	# is just whether the the length of text of the the current is less
-	# than the length of the full command in ZSH_DEBUG_CMD
-	if (( ${#source_line} > ${#ZSH_DEBUG_CMD} )) ; then
-	    source_line=$ZSH_DEBUG_CMD
-	fi
-	if [[ '?' == "$suffix" ]] ; then
-	    typeset extracted
-	    _Dbg_eval_extract_condition "$source_line"
-	    source_line="$extracted"
-	    source_line_save="$extracted"
-	fi
-	
-	print "$source_line" >> $_Dbg_evalfile
-	_Dbg_msg "eval: ${source_line}"
-	_Dbg_source_line="$source_line_save"
-	_Dbg_set_highlight=$_Dbg_highlight_save
+        # FIXME: add parameter to get unhighlighted line, or
+        # always save a copy of that in _Dbg_sget_source_line
+        typeset source_line
+        typeset highlight_save=$_Dbg_set_highlight
+        _Dbg_set_highlight=0
+        _Dbg_get_source_line
+        typeset source_line_save="$source_line"
+
+        # Were we called via ? as the suffix?
+        typeset suffix
+        suffix=${_Dbg_orig_cmd[-1,-1]}
+
+        # ZSH_DEBUG_CMD is preferable to _Dbg_source_line in that we
+        # know is a complete statement. But to determine if it is a
+        # compound statement like "if .. ; then .. fi we'd prefer just
+        # to go with the line shown and pehraps use eval? to shorten
+        # that.  The heuristic we use to determine a compound statement
+        # is just whether the the length of text of the the current is less
+        # than the length of the full command in ZSH_DEBUG_CMD
+        if (( ${#source_line} > ${#ZSH_DEBUG_CMD} )) ; then
+            source_line=$ZSH_DEBUG_CMD
+        fi
+        if [[ '?' == "$suffix" ]] ; then
+            typeset extracted
+            _Dbg_eval_extract_condition "$source_line"
+            source_line="$extracted"
+            source_line_save="$extracted"
+        fi
+
+        print "$source_line" >> $_Dbg_evalfile
+        _Dbg_msg "eval: ${source_line}"
+        _Dbg_source_line="$source_line_save"
+        _Dbg_set_highlight=$_Dbg_highlight_save
     else
-	print "$@" >> $_Dbg_evalfile
+        print "$@" >> $_Dbg_evalfile
     fi
     print '_Dbg_rc=$?' >> $_Dbg_evalfile
     typeset -i _Dbg_rc
     if [[ -t $_Dbg_fdi  ]] ; then
-	_Dbg_set_dol_q $_Dbg_debugged_exit_code
-	. $_Dbg_evalfile >&${_Dbg_fdi}
+        _Dbg_set_dol_q $_Dbg_debugged_exit_code
+        . $_Dbg_evalfile >&${_Dbg_fdi}
     else
-	_Dbg_set_dol_q $_Dbg_debugged_exit_code
-	. $_Dbg_evalfile
+        _Dbg_set_dol_q $_Dbg_debugged_exit_code
+        . $_Dbg_evalfile
     fi
     (( _Dbg_show_eval_rc )) && _Dbg_msg "\$? is $_Dbg_rc"
     # We've reset some variables like IFS and PS4 to make eval look

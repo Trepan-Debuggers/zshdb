@@ -12,7 +12,7 @@
 #   WARRANTY; without even the implied warranty of MERCHANTABILITY or
 #   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
 #   for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -25,11 +25,11 @@ _Dbg_do_show_highlight() {
     typeset label="$1"
     [[ -n $label ]] && label='highlight: '
     _Dbg_msg_nocr \
-	"${label}Syntax highlight in source listings is "
-    if [[ -z $_Dbg_set_highlight ]] ; then 
-	_Dbg_msg 'off.'
+        "${label}Syntax highlight in source listings is "
+    if [[ -z $_Dbg_set_highlight ]] ; then
+        _Dbg_msg 'off.'
     else
-	_Dbg_msg 'on.'
+        _Dbg_msg 'on.'
     fi
     return 0
 }

@@ -10,7 +10,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -41,15 +41,15 @@ _Dbg_do_export() {
   fi
 
   typeset var_name
-  for var_name in  $@ ; do 
+  for var_name in  $@ ; do
       _Dbg_defined $var_name
       if (( $? == 0 )) ; then
-	  typeset val
-	  typeset val_cmd="val=\${$var_name}"
-	  eval "$val_cmd"
-	  _Dbg_write_journal "${var_name}=${val}" 
+          typeset val
+          typeset val_cmd="val=\${$var_name}"
+          eval "$val_cmd"
+          _Dbg_write_journal "${var_name}=${val}"
       else
-	  _Dbg_errmsg "name: $var_name is not known to be a variable."
+          _Dbg_errmsg "name: $var_name is not known to be a variable."
       fi
   done
   return 0

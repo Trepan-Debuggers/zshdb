@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -22,11 +22,11 @@ _Dbg_help_add_sub set listsize \
 'number of source lines debugger will list by default' 1
 
 _Dbg_do_set_listsize() {
-    if [[ $1 == [0-9]* ]] ; then 
-	_Dbg_write_journal_eval "_Dbg_set_listsize=$1"
+    if [[ $1 == [0-9]* ]] ; then
+        _Dbg_write_journal_eval "_Dbg_set_listsize=$1"
     else
-	_Dbg_errmsg "Integer argument expected; got: $1"
-	return 1
+        _Dbg_errmsg "Integer argument expected; got: $1"
+        return 1
     fi
     return 0
 }
