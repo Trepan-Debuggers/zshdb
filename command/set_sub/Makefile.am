@@ -1,3 +1,5 @@
+MOSTLYCLEANFILES = *.orig *.rej
+
 pkgdatadir        = ${datadir}/@PACKAGE@/command/set_sub
 pkgdata_DATA =       	\
 	annotate.sh  	\
