@@ -10,13 +10,14 @@ s
 # Set inside a subshell
 set autoeval on
 examine x
-fc -l
+# fc -l
 s 
 x x
 print $ZSH_SUBSHELL
 # See that debugger settings and history are preserved
+# DISABLED because we are not in an interactive tty
 show autoeval
-fc -l
+# fc -l
 s 3
 x x
 print $ZSH_SUBSHELL

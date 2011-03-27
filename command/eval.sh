@@ -118,13 +118,14 @@ eval $cmd  # runs an ls command
 '
 
 _Dbg_do_print() {
-    typeset _Dbg_expr=${@:-"$_Dbg_last_print_args"}
+    typeset _Dbg_expr; _Dbg_expr=${@:-"$_Dbg_last_print_args"}
     typeset dq_expr; dq_expr=$(_Dbg_esc_dq "$_Dbg_expr")
     typeset -i _Dbg_show_eval_rc=0
     _Dbg_do_eval _Dbg_msg "$_Dbg_expr"
     typeset -i rc=$?
     _Dbg_last_print_args="$dq_expr"
-    return $rc
+    return 0
+    # return $rc
 }
 
 _Dbg_alias_add 'pr' 'print'

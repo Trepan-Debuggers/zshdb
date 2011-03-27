@@ -35,7 +35,15 @@ if [[ -n "$DBG_INPUT" ]] ; then
     _Dbg_no_nx=1
 fi
 
-# Run the user's debugger startup file
+if [[ -z "$_Dbg_tty" ]]; then 
+    _Dbg_tty=$(tty)
+    [[ $_Dbg_tty == 'not a tty' ]] && unset _Dbg_tty
+fi
+[[ -n "$_Dbg_tty" ]] && _Dbg_do_set inferior-tty $_Dbg_tty
+
+# Run the user's debugger startup file. This has to come
+# *after* setting up the tty since _Dbg_do_set inferior-tty 
+# smashes the current tty.
 typeset _Dbg_startup_cmdfile=${HOME:-~}/.${_Dbg_debugger_name}rc
 if (( 0 == _Dbg_o_nx)) && [[ -r "$_Dbg_startup_cmdfile" ]] ; then
     _Dbg_do_source "$_Dbg_startup_cmdfile"
@@ -50,12 +58,6 @@ fi
 if ((Dbg_history_save)) ; then  
     history -ap "$_Dbg_histfile"
 fi
-
-if [[ -z "$_Dbg_tty" ]]; then 
-    _Dbg_tty=$(tty)
-    [[ $_Dbg_tty == 'not a tty' ]] && unset _Dbg_tty
-fi
-[[ -n "$_Dbg_tty" ]] && _Dbg_do_set inferior-tty $_Dbg_tty
 
 for source_file in ${_Dbg_o_init_files[@]} "$DBG_RESTART_FILE";  do
     if [[ -n "$source_file" ]] ; then

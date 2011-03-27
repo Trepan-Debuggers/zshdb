@@ -23,20 +23,7 @@ y='line 4'
 Evaluate unrecognized commands is on.
 +examine x
 typeset x='line 3'
-+fc -l
-    1  set trace-commands on
-    2  # Test of debugging through a subshell
-    3  x x
-    4  step
-    5  examine x
-    6  s
-    7  print $ZSH_SUBSHELL
-    8  examine x
-    9  s
-   10  # Set inside a subshell
-   11  set autoeval on
-   12  examine x
-$? is 0
++# fc -l
 +s 
 (subshell.sh:6):
 ( x=$(print line 7) y='line 8' )
@@ -45,27 +32,10 @@ typeset x=2
 +print $ZSH_SUBSHELL
 0
 +# See that debugger settings and history are preserved
++# DISABLED because we are not in an interactive tty
 +show autoeval
 Evaluate unrecognized commands is on.
-+fc -l
-    2  # Test of debugging through a subshell
-    3  x x
-    4  step
-    5  examine x
-    6  s
-    7  print 0
-    8  examine x
-    9  s
-   10  # Set inside a subshell
-   11  set autoeval on
-   12  examine x
-   13  fc -l
-   14  s
-   15  x x
-   16  print $ZSH_SUBSHELL
-   17  # See that debugger settings and history are preserved
-   18  show autoeval
-$? is 0
++# fc -l
 +s 3
 (subshell.sh:8):
 y='line 8'

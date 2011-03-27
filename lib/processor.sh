@@ -80,14 +80,18 @@ function _Dbg_process_commands {
       # Set up prompt to show shell and subshell levels.
       typeset _Dbg_greater=''
       typeset _Dbg_less=''
-      typeset result  # Used by copies to return a value.
+
+      # Used by copies to return a value. /dev/null because zsh prints
+      # a definition if it has been defined before? So why not
+      # needed for _Dbg_less and _Dbg_greater ? 
+      typeset result 1>/dev/null
 
       if _Dbg_copies '>' $_Dbg_DEBUGGER_LEVEL ; then
 	  _Dbg_greater=$result
 	  _Dbg_copies '<' $_Dbg_DEBUGGER_LEVEL
       	  _Dbg_less=$result
       fi
-
+      
       if _Dbg_copies ')' $ZSH_SUBSHELL ; then
 	  _Dbg_greater="${result}${_Dbg_greater}"
 	  _Dbg_less="${_Dbg_less}${result//)/(}"
@@ -107,13 +111,18 @@ function _Dbg_process_commands {
 	      if ((1 == _Dbg_in_vared)) ; then
 		  _Dbg_msg "Unable to echo characters in input below"
 	      fi
-	      read -u ${_Dbg_fdi} "?$_Dbg_prompt" line || break
+	      if [[ -z ${_Dbg_cmdfile[-1]} ]] ; then
+		  read -u ${_Dbg_fdi} "?$_Dbg_prompt" line || break
+	      else
+		  read -u ${_Dbg_fdi}  line || break
+	      fi
 	  fi
           _Dbg_onecmd "$line"
           typeset -i rc=$?
           _Dbg_postcmd
 	  ((_Dbg_continue_rc >= 0)) && return $_Dbg_continue_rc
-	  if [[ -n $line ]] && (( rc >= 0 )) ; then
+	  if [[ -n $line ]] && (( rc >= 0 )) && \
+	      [[ -z ${_Dbg_cmdfile[-1]} ]]; then
 	      _Dbg_write_journal "((\$ZSH_SUBSHELL < $ZSH_SUBSHELL)) && print -s -- \"$line\""
 	      print -s -- "$line"
 	  fi
@@ -121,7 +130,7 @@ function _Dbg_process_commands {
 	  
 	  line=''
       done # read "?$_Dbg_prompt" ...
-      
+
       _Dbg_fd[-1]=()  # Remove last element
       (( ${#_Dbg_fd[@]} <= 0 )) && break
   done
@@ -174,10 +183,10 @@ _Dbg_onecmd() {
 
     # The below are command names that are just a little irregular
     case $_Dbg_cmd in
-	# Comment line
 	[#]* ) 
-	  # _Dbg_remove_history_item
 	  _Dbg_last_cmd="#"
+	  # _Dbg_remove_history_item
+	  return -1 # don't put in history.
 	  ;;
 
 	# single-step ignoring functions
