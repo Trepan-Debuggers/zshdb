@@ -48,8 +48,13 @@ _Dbg_do_kill() {
 
     typeset _Dbg_response
     _Dbg_confirm "Send kill signal ${signal} which may terminate the debugger? (y/N): " 'N'
-
-    if [[ $_Dbg_response == [yY] ]] ; then
+    
+    if [[ $_Dbg_response == [yY] ]] ; then 
+        case $signal in
+            -9 | -SEGV )
+                _Dbg_cleanup2
+                ;;
+        esac
         kill $signal $$
     else
         _Dbg_msg "Kill not done - not confirmed."
