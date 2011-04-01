@@ -18,6 +18,9 @@ test_eval_subst()
 	'elif [[ $x = test1 ]] && [ $? -eq 0 ] ; then'
 	'while [[ $x = test2 ]] && [ $? -eq 0 ] ; do'
 	'while [[ $x = test3 ]] && [ $? -eq 0 ]'
+	'x=10'
+	'array[1]=20'
+	'__fn__+=30'
     )
     
     expected=(
@@ -28,6 +31,9 @@ test_eval_subst()
 	'[[ $x = test1 ]] && [ $? -eq 0 ] '
 	'[[ $x = test2 ]] && [ $? -eq 0 ] '
 	'[[ $x = test3 ]] && [ $? -eq 0 ]'
+	'10'
+	'20'
+	'30'
     )
     typeset -i i
     for (( i=0 ; i<${#expected[@]}; i++ )) ; do

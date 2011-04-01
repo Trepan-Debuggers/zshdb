@@ -54,6 +54,7 @@ _Dbg_eval_re=(
     '^[ \t]*(if|elif)[ \t]+([^;]*)((;[ \t]*then?)?|$)'
     '^[ \t]*return[ \t]+(.*)$'
     '^[ \t]*while[ \t]+([^;]*)((;[ \t]*do?)?|$)'
+    '^[ \t]*[A-Za-z_][A-Za-z_0-9\[\]]*[-+]?=(.*|$)'
 )
 
 # Removes "[el]if" .. "; then" or "while" .. "; do" or "return .."
@@ -68,6 +69,8 @@ _Dbg_eval_extract_condition()
     elif [[ $orig =~ ${_Dbg_eval_re[1]} ]] ; then
 	extracted="echo ${BASH_REMATCH[1]}"
     elif [[ $orig =~ ${_Dbg_eval_re[2]} ]] ; then
+	extracted=${BASH_REMATCH[1]}
+    elif [[ $orig =~ ${_Dbg_eval_re[3]} ]] ; then
 	extracted=${BASH_REMATCH[1]}
     else
 	extracted=$orig

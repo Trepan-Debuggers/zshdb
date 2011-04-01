@@ -31,11 +31,11 @@ shell builtin eval.
 
 In the second form, use evaluate the current source line text.
 
-Often one is stopped at the line of the first part of an "if", "elif",
-"case", "return" or "while" compound statement and what you want to
-eval is just the expression portion.  For this, use eval?. Actually,
-any alias that ends in ? which is aliased to eval will do thie same
-thing.
+Often when one is stopped at the line of the first part of an "if",
+"elif", "case", "return", "while" compound statement or an assignment
+statement, one wants to eval is just the expression portion.  For
+this, use eval?. Actually, any alias that ends in ? which is aliased
+to eval will do thie same thing.
 
 See also "print" and "set autoeval".'
 
