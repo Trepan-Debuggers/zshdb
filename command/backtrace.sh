@@ -40,17 +40,7 @@ _Dbg_do_backtrace() {
 
   # Loop which dumps out stack trace.
   for (( i=0 ; (( i < n && count > 0 )) ; i++ )) ; do
-      typeset prefix='##'
-      (( i == _Dbg_stack_pos)) && prefix='->'
-
-      prefix+="$i "
-      if ((i!=0)) ; then
-          prefix+="${_Dbg_func_stack[i-1]} called from"
-      else
-          prefix+='in'
-      fi
-
-      _Dbg_print_frame "$i" "$prefix"
+      _Dbg_print_frame $i
       ((count--))
   done
   return 0

@@ -69,6 +69,7 @@ function _Dbg_frame_adjust {
   _Dbg_frame_last_lineno=${split_result[1]}
   _Dbg_listline=$_Dbg_frame_last_lineno
   ((_Dbg_stack_pos = pos))
+  _Dbg_print_frame $pos
   _Dbg_print_location
 }
 

@@ -70,16 +70,26 @@ function _Dbg_print_location_and_command {
 # Print position $1 of stack frame (from global _Dbg_frame_stack)
 # Prefix the entry with $2 if that's set.
 _Dbg_print_frame() {
-    if (($# > 2)); then 
+    if (($# > 1)); then 
       _Dbg_errmsg "got $# parameters, but need 0 or 1."
       return -1
     fi
+    typeset -i pos; pos=${1:-$_Dbg_stack_pos}
 
-    typeset -i pos=${1:-$_Dbg_stack_pos}
+    typeset prefix='##'
+    (( pos == _Dbg_stack_pos)) && prefix='->'
+    
+    prefix+="$pos "
+    if ((pos!=0)) ; then
+	typeset fn_or_file; fn_or_file="${_Dbg_func_stack[$pos-1]}"
+	(( _Dbg_set_basename )) && fn_or_file=${fn_or_file##*/}	
+        prefix+="$fn_or_file called from"
+    else
+        prefix+='in'
+    fi
+    
     typeset file_line
     file_line="${_Dbg_frame_stack[$pos]}"
-    typeset prefix
-    prefix=${2:-''}
 
     typeset -a split_result; _Dbg_split "$file_line" ':'
     typeset filename
