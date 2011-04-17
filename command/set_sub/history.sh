@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set history" debugger command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -27,10 +27,10 @@ _Dbg_do_set_history() {
             typeset onoff=${2:-'on'}
             case $onoff in
                 on | 1 )
-                    _Dbg_write_journal_eval "_Dbg_history_save=1"
+                    _Dbg_write_journal_eval "_Dbg_set_history=1"
                     ;;
-                      off | 0 )
-                    _Dbg_write_journal_eval "_Dbg_history_save=0"
+                off | 0 )
+                    _Dbg_write_journal_eval "_Dbg_set_history=0"
                     ;;
                 * )
                     _Dbg_errmsg "\"on\" or \"off\" expected."

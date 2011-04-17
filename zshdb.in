@@ -112,7 +112,7 @@ _Dbg_source_file=$(_Dbg_expand_filename "$_Dbg_script_file")
 # Directory in which the script is located
 typeset _Dbg_cdir=${_Dbg_source_file%/*}
 
-if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then 
+if ((_Dbg_set_history)) && [[ -r $_Dbg_histfile ]] ; then 
     fc -ap $_Dbg_histfile $_Dbg_history_length $_Dbg_history_length
 fi
 

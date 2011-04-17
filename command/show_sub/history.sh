@@ -23,7 +23,7 @@ _Dbg_do_show_history() {
         "filename: The filename in which to record the command history is:"
     _Dbg_msg "	$_Dbg_histfile"
     _Dbg_msg \
-        "save: Saving of history save is" $(_Dbg_onoff $_Dbg_history_save)
+        "save: Saving of history save is" $(_Dbg_onoff $_Dbg_set_history)
     _Dbg_msg \
         "size: Debugger history size is $HISTSIZE, saving $SAVEHIST"
     return 0

@@ -26,9 +26,9 @@ will be the exit return code. If SHELL-LEVELS then up to that many
 nested shells are quit. However to be effective, the last of those
 shells should have been run under the debugger.
 
-See also "finish", "return" and "restart".'
+See also "finish", "return" and "run".'
 
-function _Dbg_do_quit {
+_Dbg_do_quit() {
     typeset -i return_code=${1:-$_Dbg_program_exit_code}
 
     typeset -i desired_quit_levels=${2:-0}
@@ -53,7 +53,7 @@ function _Dbg_do_quit {
     _Dbg_write_journal "_Dbg_QUIT_LEVELS=$_Dbg_QUIT_LEVELS"
     _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
 
-    # Reset signal handlers to their default but only if
+    # Reset signal handlers to their default but only if 
     # we are not in a subshell.
     if (( ZSH_SUBSHELL == 0 )) ; then
 
@@ -63,11 +63,12 @@ function _Dbg_do_quit {
             _Dbg_save_state
             exec $_Dbg_RESTART_COMMAND
         fi
+        
+        _Dbg_msg "${_Dbg_debugger_name}: That's all, folks..."
         _Dbg_cleanup
-
+        _Dbg_history_write
     fi
 
-    _Dbg_last_cmd='quit'
     # And just when you thought we'd never get around to it...
     exit $return_code
 }
