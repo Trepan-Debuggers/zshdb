@@ -14,3 +14,4 @@ builtin cd .
 +pr $ZSH_SUBSHELL
 1
 +quit 0 56
+zshdb: That's all, folks...

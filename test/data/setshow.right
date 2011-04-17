@@ -340,3 +340,4 @@ Evaluate unrecognized commands is off.
 +xx=1 ; declare -p xx
 ** Undefined command "xx=1". Try "help".
 +quit 
+zshdb: That's all, folks...

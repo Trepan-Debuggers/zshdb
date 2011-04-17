@@ -15,3 +15,4 @@ for ((i=0; i<3; i++)) do print 4th loop $i done
 +where 1
 ->0 in file `stepping.sh' at line 6
 +quit 
+zshdb: That's all, folks...

@@ -178,3 +178,4 @@ Number of source lines zshdb will list by default is 4.
 +#<-This comment doesn't have a space after
 +#the initial `#'
 +quit 
+zshdb: That's all, folks...

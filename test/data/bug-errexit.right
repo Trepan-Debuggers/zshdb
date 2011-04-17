@@ -11,3 +11,4 @@ print one
 +where 1
 ->0 in file `bug-errexit.sh' at line 6
 +quit 
+zshdb: That's all, folks...

@@ -31,3 +31,4 @@ Breakpoint 1 hit.
 value of x is now 60
 $? is 0
 +quit 
+zshdb: That's all, folks...

@@ -45,3 +45,4 @@ typeset x='line 7'
 1
 +# A quit inside a nested subshell.
 +quit 
+zshdb: That's all, folks...

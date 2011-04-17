@@ -38,3 +38,4 @@ Num Type       Disp Enb What
 2   breakpoint keep y   dbg-test1.sh:24
 	stop only if y
 +quit 
+zshdb: That's all, folks...

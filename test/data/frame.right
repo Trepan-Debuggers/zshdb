@@ -78,3 +78,4 @@ typeset -r a=$2
 ->2 hanoi called from file `hanoi.sh' at line 42
 (hanoi.sh:42):
 +quit 
+zshdb: That's all, folks...

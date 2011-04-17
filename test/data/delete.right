@@ -71,3 +71,4 @@ for ((i=0; i<3; i++)) do print 5th loop $i done
 +where 1
 ->0 in file `stepping.sh' at line 7
 +quit 
+zshdb: That's all, folks...

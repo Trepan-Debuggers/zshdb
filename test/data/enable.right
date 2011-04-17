@@ -70,3 +70,4 @@ Num Type       Disp Enb What
 3   breakpoint keep y   nexting.sh:6
     breakpoint already hit 2 times
 +quit 
+zshdb: That's all, folks...

@@ -54,3 +54,4 @@ for ((i=0; i<3; i++)) do print 5th loop $i done
 (stepping.sh:8):
 for ((i=0; i<3; i++)) do print 6th loop $i done
 +quit 
+zshdb: That's all, folks...

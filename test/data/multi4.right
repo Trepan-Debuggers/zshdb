@@ -20,3 +20,4 @@ builtin echo "ho"
 +p $ZSH_SUBSHELL
 2
 +quit 0 2
+zshdb: That's all, folks...

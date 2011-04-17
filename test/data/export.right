@@ -31,3 +31,4 @@ x=10
 +x x
 typeset x=30
 +quit 
+zshdb: That's all, folks...

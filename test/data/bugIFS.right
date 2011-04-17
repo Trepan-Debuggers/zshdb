@@ -9,3 +9,4 @@ PS4='foo'
 +pr "+$IFS+"
 +.+
 +quit 
+zshdb: That's all, folks...
