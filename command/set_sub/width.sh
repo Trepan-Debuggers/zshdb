@@ -19,7 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub set width \
-'maximum width of lines' 1
+'Set maximum width of lines' 1
 
 _Dbg_do_set_width() {
     if [[ $1 == [0-9]* ]] ; then

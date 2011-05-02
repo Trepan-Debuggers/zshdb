@@ -19,7 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub set history \
-'Record command history' 1
+'Set record command history' 1
 
 _Dbg_do_set_history() {
     case "$1" in

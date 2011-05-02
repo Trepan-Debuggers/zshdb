@@ -59,15 +59,6 @@ _Dbg_do_set_internal() {
   fi
 
   case $set_cmd in
-      autoe | autoev | autoeva | autoeval )
-          _Dbg_set_onoff "$1" 'autoeval'
-          ;;
-      b | ba | bas | base | basen | basena | basenam | basename )
-          _Dbg_set_onoff "$1" 'basename'
-          ;;
-      de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-          _Dbg_set_onoff "$1" 'debugging'
-          ;;
       force | dif | diff | differ | different )
           _Dbg_set_onoff "$1" 'different'
           ;;
@@ -76,9 +67,6 @@ _Dbg_do_set_internal() {
           ;;
       lo | log | logg | loggi | loggin | logging )
           _Dbg_cmd_set_logging $@
-          ;;
-      p | pr | pro | prom | promp | prompt )
-          _Dbg_prompt_str="$1"
           ;;
       t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
           _Dbg_do_set_trace_commands $@

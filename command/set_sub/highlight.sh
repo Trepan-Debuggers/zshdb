@@ -19,7 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub set highlight \
-'Syntax highlighting of source listings' 1
+'Set syntax highlighting of source listings' 1
 
 _Dbg_do_set_highlight() {
     if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then

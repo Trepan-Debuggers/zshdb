@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "set trace-commands" debugger command
+# "set autoeval" debugger command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,27 +18,10 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-# Sets whether or not to display command before executing it.
-typeset _Dbg_set_trace_commands='off'
+_Dbg_help_add_sub set autoeval \
+'Evaluate unrecognized commands' 1
 
-# Handled special because of the dash in the command name.
-# _Dbg_help_add_sub set trace-commands \
-# 'Set showing debugger commands' 1
-
-_Dbg_do_set_trace_commands() {
-    case "$1" in
-        1 )
-            _Dbg_write_journal_eval "_Dbg_set_trace_commands=on"
-            ;;
-        0 )
-            _Dbg_write_journal_eval "_Dbg_set_trace_commands=off"
-            ;;
-        on | off )
-            _Dbg_write_journal_eval "_Dbg_set_trace_commands=$1"
-            ;;
-        * )
-            _Dbg_errmsg "\"on\", \"off\" expected."
-            return 1
-    esac
+_Dbg_do_set_autoeval() {
+    _Dbg_set_onoff "$1" 'autoeval'
     return $?
 }
