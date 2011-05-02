@@ -36,20 +36,19 @@ _Dbg_do_complete() {
 	up undisplay watche version window 
 	A x L M R S T We )
 
-    # set -x
-    local -a args=($*)
+    typeset -a args; arg=($@)
     _Dbg_matches=()
     if (( ${#args[@]} == 2 )) ; then
       _Dbg_subcmd_complete ${args[0]} ${args[1]}
     elif (( ${#args[@]} == 1 )) ; then 
+	_Dbg_msg "complete command not completed yet."
 	# FIXME: figure out zsh's equivalent for:
 	# eval "builtin compgen -W \"${_Dbg_commands[@]}\" ${args[0]}"
 	:
     fi  
-    local -i i
+    typeset -i i
     for (( i=0;  i < ${#_Dbg_matches[@]}  ; i++ )) ; do 
       _Dbg_msg ${_Dbg_matches[$i]}
     done
-    # set +x
 }
 
