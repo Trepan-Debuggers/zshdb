@@ -36,7 +36,7 @@ _Dbg_do_complete() {
 	up undisplay watche version window 
 	A x L M R S T We )
 
-    typeset -a args; arg=($@)
+    typeset -a args; args=($@)
     _Dbg_matches=()
     if (( ${#args[@]} == 2 )) ; then
       _Dbg_subcmd_complete ${args[0]} ${args[1]}
