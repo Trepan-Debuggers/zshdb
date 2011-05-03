@@ -7,9 +7,9 @@ PS4='(%x:%I): [%?] zsh+
 test_cmd_complete()
 {
     output=$(_Dbg_do_complete c)
-    assertEquals 'complete
+    assertEquals 'continue
 condition
-continue' "$output"
+complete' "$output"
 }
 
 if [ '@abs_top_srcdir@' = '' ] ; then

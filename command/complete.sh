@@ -39,7 +39,7 @@ Show command completion strings for PREFIX-STR
 ## bashcompinit
 ## zmodload -ap zsh/parameter parameters
 
-select_words() {
+_compgen_opt_words() {
     typeset -a words
     eval "words=( $1 )"
     local find
@@ -51,7 +51,7 @@ select_words() {
 	    results+=( $try )
 	fi
     done
-    results=( "${(ko)results[@]}" )
+    results=( "${(k)results[@]}" )
 }
 
 compgen() {
@@ -139,10 +139,10 @@ compgen() {
       ;;
       G)
         setopt nullglob
-	select_words "${~OPTARG}" "${@[-1]}"
+        results+=( ${~OPTARG} )
 	unsetopt nullglob
       ;;
-      W) select_words "$OPTARG" "${@[-1]}"
+      W) _compgen_opt_words "$OPTARG" "${@[-1]}"
       ;;
       C) results+=( $(eval $OPTARG) ) ;;
       P) prefix="$OPTARG" ;;
