@@ -40,18 +40,11 @@ Show command completion strings for PREFIX-STR
 ## zmodload -ap zsh/parameter parameters
 
 _compgen_opt_words() {
-    typeset -a words
-    eval "words=( $1 )"
-    local find
-    find=$2
-    local try
-    find=${@[-1]}
-    for try in ${words[@]} ; do 
-	if [[ $try =~ "^$find" ]] ; then 
-	    results+=( $try )
-	fi
-    done
-    results=( "${(k)results[@]}" )
+ typeset -a words
+ words=( ${~=1} )
+ local find try
+ find=$2
+ results=(${(M)words[@]:#$find*})
 }
 
 compgen() {
