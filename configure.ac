@@ -147,6 +147,8 @@ AC_CONFIG_FILES([test/unit/test-alias.sh],  [chmod +x test/unit/test-alias.sh])
 AC_CONFIG_FILES([test/unit/test-break.sh],  [chmod +x test/unit/test-break.sh])
 AC_CONFIG_FILES([test/unit/test-columns.sh], 
                 [chmod +x test/unit/test-columns.sh])
+AC_CONFIG_FILES([test/unit/test-cmd-complete.sh], 
+                [chmod +x test/unit/test-cmd-complete.sh])
 AC_CONFIG_FILES([test/unit/test-dbg-opts.sh], 
                 [chmod +x test/unit/test-dbg-opts.sh])
 AC_CONFIG_FILES([test/unit/test-eval.sh],   
