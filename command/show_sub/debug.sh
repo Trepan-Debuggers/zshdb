@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "show debugging" debugger command
+# "show debug" debugger command
 #
 #   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
@@ -17,11 +17,11 @@
 #   with bashdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-_Dbg_help_add_sub show debugging \
+_Dbg_help_add_sub show debug \
 "Show if we are set to debug the debugger." 1
 
-_Dbg_do_show_debugging() {
-    [[ -n $label ]] && label='debugging: '
-    _Dbg_show_onoff 'debugging' 'Allow debugging the debugger' "$label"
+_Dbg_do_show_debug() {
+    [[ -n $label ]] && label='debug: '
+    _Dbg_show_onoff 'debug' 'Allow debugging the debugger' "$label"
     return 0
 }

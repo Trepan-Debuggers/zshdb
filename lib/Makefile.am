@@ -1,5 +1,5 @@
 pkgdatadir   = ${datadir}/@PACKAGE@/lib
-pkgdata_DATA = $(wildcard *.sh)
+pkgdata_DATA = $(wildcard *.sh) term-highlight.py
 
 install-data-hook: 
 	chmod +x $(DESTDIR)$(pkgdatadir)/term-highlight.py

@@ -99,8 +99,8 @@ Follow this command with any number of args, to be passed to the program."
                 "Set short filenames (the basename) in debug output"
             return 0
             ;;
-        deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
-            _Dbg_help_set_onoff 'debugging' 'debugging' \
+        deb|debu|debug )
+            _Dbg_help_set_onoff 'debug' 'debug' \
                 "Set debugging the debugger"
             return 0
             ;;
@@ -206,7 +206,7 @@ Follow this command with any number of args, to be passed to the program."
 }
 
 typeset _Dbg_show_cmds="aliases annotate args autoeval autolist basename commands 
-copying directories debugging force linetrace listsize prompt trace-commands warranty"
+copying directories debug force linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
     typeset show_cmd=$1
@@ -259,9 +259,9 @@ _Dbg_help_show() {
             _Dbg_msg \
                 'show copying     -- Conditions for redistributing copies of debugger.'
             ;;
-        d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
+        d|de|deb|debu|debug )
             _Dbg_msg \
-                'show debugging   -- Show if we are set to debug the debugger.'
+                'show debug       -- Show if we are set to debug the debugger.'
             return 0
             ;;
         different | force)

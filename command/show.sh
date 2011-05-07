@@ -39,7 +39,7 @@ _Dbg_do_show_internal() {
     typeset label=$2
 
     # Warranty, copying, directories, and aliases are omitted below.
-    typeset subcmds='annotate args autoeval autolist basename debugging editing force listsize prompt trace-commands width'
+    typeset subcmds='annotate args autoeval autolist basename debug editing force listsize prompt trace-commands width'
 
     if [[ -z $show_cmd ]] ; then
         typeset thing

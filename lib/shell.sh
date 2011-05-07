@@ -49,15 +49,15 @@ _Dbg_shell_append_typesets() {
     [[ -z $_Dbg_var_names ]] && _Dbg_var_names=(${(k@)parameters[@]})
     local _Dbg_profile
     _Dbg_profile=${1:-$_Dbg_shell_temp_profile}
-    local _Dbg_set_debugging
-    _Dbg_set_debugging=${2:-1}
+    typeset _Dbg_set_debug
+    _Dbg_set_debug=${2:-1}
 
     typeset -A exclude_list
     typeset var_set_cmd
     exclude_list[exclude_list]=1
     for var_name in ${_Dbg_var_names[@]}; do
 	[[ -z $var_name ]] && continue
-	((_Dbg_set_debugging)) && [[ $var_name =~ ^_Dbg_ ]] && continue
+	((_Dbg_set_debug)) && [[ $var_name =~ ^_Dbg_ ]] && continue
 	((exclude_list[var_name])) && continue
 	_Dbg_shell_variable_typeset "$var_name"
 	case $? in 
@@ -78,7 +78,7 @@ _Dbg_shell_append_fn_typesets() {
     typeset -pf | while read -a words ; do 
 	[[ declare != ${words[0]} ]] && continue
 	fn_name=${words[2]%%=*}
-	((0 == _Dbg_set_debugging)) && [[ $fn_name =~ ^_Dbg_ ]] && continue	
+	((0 == _Dbg_set_debug)) && [[ $fn_name =~ ^_Dbg_ ]] && continue	
 	flags=${words[1]}
 	echo $(typeset -pf ${fn_name} 2>/dev/null)
     done >>$_Dbg_shell_temp_profile
