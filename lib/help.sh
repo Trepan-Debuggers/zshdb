@@ -272,6 +272,10 @@ _Dbg_help_show() {
             _Dbg_msg \
                 "show directories -- Show file directories searched for listing source."
             ;;
+        editing )
+            _Dbg_msg \
+                "$label Show editing of command lines and edit style."
+            ;;
         lin | line | linet | linetr | linetra | linetrac | linetrace )
             _Dbg_msg \
                 'show linetrace   -- Show whether to trace lines before execution.'

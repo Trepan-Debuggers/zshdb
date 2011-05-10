@@ -28,6 +28,7 @@ _Dbg_info_subcmds=( breakpoints display files line program source stack variable
 for _Dbg_file in ${_Dbg_libdir}/command/info_sub/*.sh ; do
     source $_Dbg_file
 done
+_Dbg_complete_level_1_data[info]=$(echo ${(kM)_Dbg_debugger_info_commands})
 
 _Dbg_do_info() {
 

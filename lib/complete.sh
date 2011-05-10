@@ -52,6 +52,15 @@ _Dbg_subcmd_complete() {
 _Dbg_complete_level_0() {
     if ((1 == CURRENT)) ; then
 	compadd -- ${(ki)_Dbg_debugger_commands[@]} ${(ki)_Dbg_aliases[@]}
+    elif ((2 == CURRENT)) ; then
+	_Dbg_complete_level_1 ${words[0]}
+    fi
+}
+
+typeset -A _Dbg_complete_level_1_data
+_Dbg_complete_level_1() {
+    if [[ -n ${_Dbg_complete_level_1_data[$1]} ]] ; then
+	compadd -- ${_Dbg_complete_level_1_data[$1]}
     fi
 }
 

@@ -31,7 +31,7 @@ _Dbg_do_show_editing() {
     else
         _Dbg_msg 'on.'
         _Dbg_msg \
-            "${label}Edit style is $_Dbg_edit_style."
+            "  Edit style is $_Dbg_edit_style."
     fi
     return 0
 }

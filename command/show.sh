@@ -28,6 +28,7 @@ _Dbg_help_add show ''  # Help routine is elsewhere
 for _Dbg_file in ${_Dbg_libdir}/command/show_sub/*.sh ; do
     source $_Dbg_file
 done
+_Dbg_complete_level_1_data[show]=$(echo ${(kM)_Dbg_debugger_show_commands})
 
 _Dbg_do_show() {
     _Dbg_do_show_internal $@

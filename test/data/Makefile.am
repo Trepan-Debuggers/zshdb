@@ -54,3 +54,5 @@ check_DATA = \
 	quit.cmd
 
 EXTRA_DIST = $(check_DATA)
+
+MOSTLYCLEANFILES = *.orig *.rej

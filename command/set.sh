@@ -37,6 +37,7 @@ _Dbg_help_add set ''  # Help routine is elsewhere
 for _Dbg_file in ${_Dbg_libdir}/command/set_sub/*.sh ; do
     source $_Dbg_file
 done
+_Dbg_complete_level_1_data[set]=$(echo ${(kM)_Dbg_debugger_set_commands})
 
 _Dbg_do_set() {
     _Dbg_do_set_internal "$@"
