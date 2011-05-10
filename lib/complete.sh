@@ -49,6 +49,16 @@ _Dbg_subcmd_complete() {
     # return _Dbg_matches
 }
 
+_Dbg_complete_level_0() {
+    if ((1 == CURRENT)) ; then
+	compadd -- ${(ki)_Dbg_debugger_commands[@]} ${(ki)_Dbg_aliases[@]}
+    fi
+}
+
+zle -C zshdb_complete menu-expand-or-complete _Dbg_complete_level_0
+# zle -C zshdb_complete list-choices _Dbg_complete_level_0
+bindkey '^i' zshdb_complete
+
 #;;; Local Variables: ***
 #;;; mode:shell-script ***
 #;;; End: ***
