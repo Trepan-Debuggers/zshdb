@@ -18,11 +18,9 @@
 #   MA 02111 USA.
 
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    # source ../init/require.sh 
-    # FIXME: require loses scope for typeset -A...
-    source ../lib/help.sh
-    source ../lib/alias.sh
-    setopt ksharrays
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
+    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
 fi
 
 _Dbg_help_add complete \

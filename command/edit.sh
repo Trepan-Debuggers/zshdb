@@ -21,7 +21,9 @@
 #================ VARIABLE INITIALIZATIONS ====================#
 
 _Dbg_help_add edit \
-"edit [LOCATION] -- Edit specified file at LOCATION.
+"edit [LOCATION]
+
+Edit specified file at LOCATION.
 
 If LOCATION is not given, use the current location.
 Uses EDITOR environment variable contents as editor (or ex as default).

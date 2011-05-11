@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add quit \
-'quit [EXIT-CODE [SHELL-LEVELS]] -- Quit the debugger.
+'quit [EXIT-CODE [SHELL-LEVELS]]
+
+Quit the debugger.
 
 The program being debugged is aborted.  If EXIT-CODE is given that
 will be the exit return code. If SHELL-LEVELS then up to that many

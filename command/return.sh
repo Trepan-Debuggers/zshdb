@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add return \
-'return [RETURN-VALUE] -- Force an immediate return from a function.
+'return [RETURN-VALUE]
+
+Force an immediate return from a function.
 
 The remainder of function will not be executed. If RETURN-VALUE is given,
 it should be an integer and will be the return value passed back as

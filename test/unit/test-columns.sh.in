@@ -49,7 +49,7 @@ abs_top_srcdir=@abs_top_srcdir@
 # Make sure @top_srcdir@ has a trailing slash
 abs_top_srcdir=${abs_top_srcdir%%/}/
 
-. $abs_top_srcdir/lib/columns.sh
+. $abs_top_srcdir/lib/columnize.sh
 
 set -o shwordsplit
 SHUNIT_PARENT=$0

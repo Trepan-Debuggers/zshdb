@@ -18,7 +18,9 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add condition \
-"condition N COND	-- Break only if COND is true in breakpoint number N.
+"condition N COND
+
+Break only if COND is true in breakpoint number N.
 
 N is an integer and COND is an expression to be evaluated whenever
 breakpoint N is reached."

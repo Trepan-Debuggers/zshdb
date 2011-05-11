@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add action \
-'action LINESPEC COMMAND -- run COMMAND when LINESPEC is hit
+'action LINESPEC COMMAND
+
+Run COMMAND when LINESPEC is hit
 
 Use "A" to remove all actions and "L" to get a list of the actions in
 effect.'

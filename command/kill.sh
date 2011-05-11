@@ -20,7 +20,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add kill \
-"kill [SIGNAL] -- Kill execution of program being debugged.
+"kill [SIGNAL]
+
+Kill execution of program being debugged.
 
 If given, SIGNAL should be start with a '-', .e.g. -KILL or -9, and that
 signal is used in the kill command. On \*nix systems the

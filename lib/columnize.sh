@@ -106,7 +106,7 @@ columnize() {
     done
 }
 
-if [[ $0 == *columnize.sh ]] ; then 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 #if : ; then
     print_columns() {
 	setopt ksharrays sh_word_split

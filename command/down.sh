@@ -19,9 +19,13 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-# Move default values down $1 or one in the stack.
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
+    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+fi
 
-# Move default values up $1 or one in the stack.
+# Move default values down $1 or one in the stack.
 _Dbg_help_add down \
 'down [COUNT]
 
@@ -46,3 +50,11 @@ function _Dbg_do_down {
     return 0
 }
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    for _Dbg_file in  help msg sort columnize ; do 
+	source ${top_dir}/lib/${_Dbg_file}.sh
+    done
+    source ${top_dir}/command/help.sh
+    _Dbg_args='down'
+    _Dbg_do_help down
+fi

@@ -17,7 +17,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add break \
-'break [LOCSPEC] -- Set a breakpoint at LOCSPEC.
+'break [LOCSPEC]
+
+Set a breakpoint at LOCSPEC.
 
 If no location specification is given, use the current line.
 

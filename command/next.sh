@@ -23,7 +23,9 @@
 # but the command is different.
 
 _Dbg_help_add next \
-"next [COUNT]	-- Single step an statement skipping functions.
+"next [COUNT]
+
+Single step an statement skipping functions.
 
 If COUNT is given, stepping occurs that many times before
 stopping. Otherwise COUNT is one. COUNT an be an arithmetic
