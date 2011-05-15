@@ -20,7 +20,7 @@ test_msg()
     assertEquals 'fo ' "$msg"
 }
 
-test_undefined()
+test_msg_undefined()
 {
     typeset msg
     msg=$(_Dbg_undefined_cmd foo bar)
@@ -39,5 +39,8 @@ SHUNIT_PARENT=$0
 
 # load shunit2
 shunit_file=${abs_top_srcdir}test/unit/shunit2
-. ${shunit_file}
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${shunit_file}
+fi
+
 

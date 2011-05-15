@@ -19,7 +19,7 @@
 
 # Sets variable _Dbg_$2 to value $1 and then runs _Dbg_do_show $2.
 _Dbg_set_onoff() {
-    typeset -l onoff=${1:-'off'}
+    typeset onoff=${1:-'off'}
     typeset -l cmdname=$2
     case $onoff in 
 	on | 1 ) 

@@ -31,11 +31,12 @@ _shunit_fatal() { echo "shunit2:FATAL $@" >&2; exit ${SHUNIT_ERROR}; }
 
 # specific shell checks
 if [ -n "${ZSH_VERSION:-}" ]; then
+  set -o shwordsplit
   setopt |grep "^shwordsplit$" >/dev/null
   if [ $? -ne ${SHUNIT_TRUE} ]; then
     _shunit_fatal 'zsh shwordsplit option is required for proper operation'
   fi
-  if [ -z "${SHUNIT_PARENT:-}" ]; then
+  if [ -z "${SHUNIT_PARENT:-}" ] && [ $# -eq 0 ] ; then
     _shunit_fatal "zsh does not pass \$0 through properly. please declare \
 \"SHUNIT_PARENT=\$0\" before calling shUnit2"
   fi
@@ -814,10 +815,10 @@ _shunit_generateReport()
       -o ${__shunit_testSuccess} -eq ${SHUNIT_FALSE} ] \
           && _shunit_ok_=${SHUNIT_FALSE}
 
-  echo
   if [ -z $__shunit_terse ]  ; then 
       _shunit_assert_stat=" $__shunit_assertsTotal assert(s): $__shunit_assertsPassed passed, $__shunit_assertsFailed failed, $__shunit_assertsSkipped skipped."
   else
+      echo
       _shunit_assert_stat=''
   fi
   if [ ${__shunit_testsTotal} -ne 1 ]; then
@@ -843,7 +844,6 @@ _shunit_generateReport()
     _shunit_msg_="${_shunit_msg_})"
   fi
 
-  echo
   echo ${_shunit_msg_}
   __shunit_reportGenerated=${SHUNIT_TRUE}
 
@@ -979,20 +979,34 @@ _shunit_extractTestFunctions()
   unset _shunit_regex_ _shunit_script_
 }
 
+_shunit_runTests()
+{
+  # execute the oneTimeSetUp function (if it exists)
+  oneTimeSetUp
+    
+  # execute the suite function defined in the parent test script
+  # deprecated as of 2.1.0
+  suite
+
+  # if no suite function was defined, dynamically build a list of functions
+  if [ -z "${__shunit_suite}" ]; then
+    shunit_funcs_=`_shunit_extractTestFunctions "${__shunit_script}"`
+    for shunit_func_ in ${shunit_funcs_}; do
+      suite_addTest ${shunit_func_}
+    done
+  fi
+  unset shunit_func_ shunit_funcs_
+
+  # execute the tests
+  _shunit_execSuite
+
+  # execute the oneTimeTearDown function (if it exists)
+  oneTimeTearDown
+}
+
 #------------------------------------------------------------------------------
 # main
 #
-
-# determine the operating mode
-if [ $# -eq 0 ]; then
-  __shunit_script=${__SHUNIT_PARENT}
-  __shunit_mode=${__SHUNIT_MODE_SOURCED}
-else
-  __shunit_script=$1
-  [ -r "${__shunit_script}" ] || \
-      _shunit_fatal "unable to read from ${__shunit_script}"
-  __shunit_mode=${__SHUNIT_MODE_STANDALONE}
-fi
 
 # create a temporary storage location
 __shunit_tmpDir=`_shunit_mktempDir`
@@ -1017,32 +1031,21 @@ PATH="${__shunit_tmpDir}:${PATH}"
 noexec 2>/dev/null || _shunit_fatal \
     'please declare TMPDIR with path on partition with exec permission'
 
-# we must manually source the tests in standalone mode
-if [ "${__shunit_mode}" = "${__SHUNIT_MODE_STANDALONE}" ]; then
-  . "`_shunit_prepForSourcing \"${__shunit_script}\"`"
-fi
-
-# execute the oneTimeSetUp function (if it exists)
-oneTimeSetUp
-
-# execute the suite function defined in the parent test script
-# deprecated as of 2.1.0
-suite
-
-# if no suite function was defined, dynamically build a list of functions
-if [ -z "${__shunit_suite}" ]; then
-  shunit_funcs_=`_shunit_extractTestFunctions "${__shunit_script}"`
-  for shunit_func_ in ${shunit_funcs_}; do
-    suite_addTest ${shunit_func_}
+# determine the operating mode
+if [ $# -eq 0 ]; then
+  __shunit_script=${__SHUNIT_PARENT}
+  __shunit_mode=${__SHUNIT_MODE_SOURCED}
+  _shunit_runTests
+else
+  __shunit_mode=${__SHUNIT_MODE_STANDALONE}
+  for __shunit_script in $@ ; do
+    __shunit_suite=''
+    [ -r "${__shunit_script}" ] || \
+	_shunit_fatal "unable to read from ${__shunit_script}"
+    . "`_shunit_prepForSourcing \"${__shunit_script}\"`"
+    _shunit_runTests
   done
 fi
-unset shunit_func_ shunit_funcs_
-
-# execute the tests
-_shunit_execSuite
-
-# execute the oneTimeTearDown function (if it exists)
-oneTimeTearDown
 
 # generate the report
 _shunit_generateReport

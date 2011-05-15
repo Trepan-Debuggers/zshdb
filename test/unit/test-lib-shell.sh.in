@@ -5,7 +5,7 @@ PS4='(%x:%I): [%?] zsh+
 
 setopt ksharrays
 
-test_lib_filter_typeset() {
+test_lib_shell_filter_typeset() {
     local testing
     typeset -r read_only='abc'
     typeset -i i=0
@@ -43,5 +43,7 @@ SHUNIT_PARENT=$0
 
 # load shunit2
 shunit_file=${abs_top_srcdir}test/unit/shunit2
-. ${shunit_file}
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${shunit_file}
+fi
 

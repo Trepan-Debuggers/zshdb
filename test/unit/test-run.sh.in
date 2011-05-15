@@ -1,7 +1,7 @@
 #!@SH_PROG@
 # -*- shell-script -*-
 
-test_not_running()
+test_run_not_running()
 {
     typeset -a errs=()
     _Dbg_errmsg() { errs+=("$1"); }
@@ -25,6 +25,6 @@ SHUNIT_PARENT=$0
 
 # load shunit2
 shunit_file=${abs_top_srcdir}test/unit/shunit2
-. ${shunit_file}
-
-
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${shunit_file}
+fi

@@ -30,7 +30,7 @@ do_opts_test() {
     assertEquals "$assert_msg" "$expected_value" "$(eval $expected_eval)"
 }
 
-test_opts()
+test_dbg_opts()
 {
     do_opts_test 'No opts (annotate, basename, linetrace)' \
 	'print "$_Dbg_set_annotate $_Dbg_set_basename $_Dbg_set_linetrace"' \
@@ -73,6 +73,6 @@ SHUNIT_PARENT=$0
 
 # load shunit2
 shunit_file=${abs_top_srcdir}test/unit/shunit2
-. ${shunit_file}
-
-
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${shunit_file}
+fi

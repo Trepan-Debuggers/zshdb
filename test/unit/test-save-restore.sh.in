@@ -3,7 +3,7 @@
 PS4='(%x:%I): [%?] zsh+ 
 '
 
-test_is_unsetopt()
+test_save_restore_is_unsetopt()
 {
     _Dbg_is_unsetopt shwordsplit
     assertFalse 'shwordsplit should be set' $? 
@@ -15,7 +15,7 @@ test_is_unsetopt()
     assertFalse 'ksharrays should not be set' $? 
 }
 
-test_create_unsetopt()
+test_save_restore_create_unsetopt()
 {
     _Dbg_restore_unsetopt='foo'
     _Dbg_restore_setopt='bar'
@@ -112,4 +112,6 @@ SHUNIT_PARENT=$0
 
 # load shunit2
 shunit_file=${abs_top_srcdir}test/unit/shunit2
-. ${shunit_file}
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${shunit_file}
+fi

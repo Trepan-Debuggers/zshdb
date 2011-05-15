@@ -6,7 +6,7 @@ PS4='(%x:%I): [%?] zsh+
 setopt ksharrays
 
 # Test readin and maxline
-test_readin_maxline()
+test_filecache_readin_maxline()
 {
     typeset filename
     shu=$(_Dbg_resolve_expand_filename $shunit_file)
@@ -25,7 +25,7 @@ test_readin_maxline()
 
 # Test check_line
 # test should appear after tests which read in source.
-test_check_line() 
+test_filecache_check_line() 
 {
     _Dbg_errmsg() {
 	errmsg+=("$1")
@@ -69,5 +69,7 @@ SHUNIT_PARENT=$0
 
 # load shunit2
 shunit_file=${abs_top_srcdir}test/unit/shunit2
-. ${shunit_file}
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${shunit_file}
+fi
 

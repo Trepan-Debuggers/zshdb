@@ -5,17 +5,18 @@ PS4='(%x:%I): [%?] zsh+
 
 setopt ksharrays
 
-typeset -a msgs
+typeset -a msgs; msgs=()
+
 _Dbg_msg() {
     typeset -i last=${#msgs[@]}
     msgs[$last]=$*
 }
 
-test_help_set_onoff()
+test_setshow_help_set_onoff()
 {
-    typeset -l onoff
+    typeset onoff
     onoff=('off.' 'on.')
-    typeset -l _Dbg_foo
+    typeset _Dbg_foo
     for i in 0 1 ; do 
 	_Dbg_set_foo=$i
 	_Dbg_help_set_onoff "foo" "foo" "Set short xx"
@@ -38,5 +39,6 @@ SHUNIT_PARENT=$0
 # load shunit2
 srcdir=@srcdir@
 srcdir=${srcdir}/
-. ${srcdir}/shunit2
-
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${srcdir}/shunit2
+fi

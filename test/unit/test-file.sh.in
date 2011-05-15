@@ -6,7 +6,7 @@ PS4='(%x:%I): [%?] zsh+
 setopt ksharrays
 
 # Test _Dbg_glob_filename
-test_glob_filename()
+test_file_glob_filename()
 {
     typeset filename
 
@@ -46,7 +46,7 @@ test_glob_filename()
 }
 
 # Test _Dbg_adjust_filename
-test_adjust_filename()
+test_file_adjust_filename()
 {
     typeset filename
     _Dbg_set_annotate=0
@@ -61,7 +61,7 @@ test_adjust_filename()
 }
 
 # Test _Dbg_glob_filename
-test_resolve_expand_filename()
+test_file_resolve_expand_filename()
 {
     filename=$(_Dbg_resolve_expand_filename /)
     assertEquals '0' $?
@@ -93,5 +93,7 @@ srcdir=${srcdir%%/}/
 
 # load shunit2
 shunit_file=${abs_top_srcdir}test/unit/shunit2
-. ${shunit_file}
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${shunit_file}
+fi
 

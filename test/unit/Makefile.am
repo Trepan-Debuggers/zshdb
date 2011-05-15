@@ -1,25 +1,27 @@
+COMBINED_TESTS= \
+	test-action.sh         \
+	test-break.sh          \
+	test-cmd-complete.sh   \
+	test-columns.sh        \
+	test-dbg-opts.sh       \
+	test-eval.sh           \
+	test-examine.sh        \
+	test-file.sh           \
+	test-filecache.sh      \
+	test-fns.sh            \
+	test-get-sourceline.sh \
+	test-journal.sh        \
+	test-lib-shell.sh      \
+	test-msg.sh            \
+	test-pre.sh            \
+	test-run.sh            \
+	test-tty.sh
+
 TESTS = \
-	test-action.sh       \
 	test-alias.sh        \
-	test-break.sh        \
-	test-columns.sh      \
-	test-dbg-opts.sh     \
-	test-examine.sh      \
-	test-eval.sh         \
-	test-file.sh         \
-	test-filecache.sh    \
-	test-fns.sh          \
-	test-frame.sh        \
-        test-get-sourceline.sh \
-	test-journal.sh      \
-        test-lib-shell.sh    \
-	test-msg.sh          \
-	test-pre.sh          \
-	test-run.sh          \
 	test-save-restore.sh \
 	test-setshow.sh      \
 	test-sort.sh         \
-	test-tty.sh 	     \
 	test-validate.sh
 
 check_DATA = shunit2
@@ -31,7 +33,7 @@ TESTS_ENVIRONMENT = \
   srcdir="$(abs_srcdir)" \
   builddir="$(abs_builddir)"
 
-EXTRA_DIST = $(TESTS) $(check_DATA) \
+EXTRA_DIST = $(COMBINED_TESTS) $(SINGLE_TESTS) $(check_DATA) \
 	test-action.sh.in           \
 	test-alias.sh.in            \
 	test-break.sh.in            \
@@ -55,7 +57,11 @@ EXTRA_DIST = $(TESTS) $(check_DATA) \
 	test-tty.sh.in              \
 	test-validate.sh.in
 
+check: combined_tests check-am
 test: check
 test-unit: check
+
+combined_tests: $(COMBINED_TESTS)
+	$(SH_PROG) $(abs_srcdir)/shunit2 $(COMBINED_TESTS)
 
 MOSTLYCLEANFILES = *.orig *.rej

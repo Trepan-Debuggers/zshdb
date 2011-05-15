@@ -9,7 +9,7 @@ do_test()
     assertEquals "$file1" "$file2"
 
 }
-test_expand_filename()
+test_pre_expand_filename()
 {
     do_test test-pre ./test-pre
     do_test "$PWD/" "${PWD}/."
@@ -18,7 +18,7 @@ test_expand_filename()
     do_test "$file1" ~
 }
 
-test_do_show_version()
+test_pre_do_show_version()
 {
     # Name we refer to ourselves by
     typeset _Dbg_debugger_name='@PACKAGE@'
@@ -46,5 +46,7 @@ set -o shwordsplit
 SHUNIT_PARENT=$0
 
 # load shunit2
-. ${abs_top_srcdir}/test/unit/shunit2
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    . ${abs_top_srcdir}/test/unit/shunit2
+fi
 
