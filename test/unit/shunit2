@@ -815,11 +815,15 @@ _shunit_generateReport()
           && _shunit_ok_=${SHUNIT_FALSE}
 
   echo
-  if [ ${__shunit_testsTotal} -eq 1 ]; then
-    echo "Ran ${__shunit_testsTotal} test."
+  if [ -z $__shunit_terse ]  ; then 
+      _shunit_assert_stat=" $__shunit_assertsTotal assert(s): $__shunit_assertsPassed passed, $__shunit_assertsFailed failed, $__shunit_assertsSkipped skipped."
   else
-    echo "Ran ${__shunit_testsTotal} tests."
+      _shunit_assert_stat=''
   fi
+  if [ ${__shunit_testsTotal} -ne 1 ]; then
+      plural='s'
+  fi
+  echo "Ran ${__shunit_testsTotal} test${plural}.${_shunit_assert_stat}"
 
   _shunit_failures_=''
   _shunit_skipped_=''
@@ -843,7 +847,7 @@ _shunit_generateReport()
   echo ${_shunit_msg_}
   __shunit_reportGenerated=${SHUNIT_TRUE}
 
-  unset _shunit_failures_ _shunit_msg_ _shunit_ok_ _shunit_skipped_
+  unset _shunit_failures_ _shunit_msg_ _shunit_ok_ _shunit_skipped_ _shunit_assert_stat
 }
 
 # Test for whether a function should be skipped.
