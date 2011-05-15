@@ -135,6 +135,7 @@ set -- -q  # Don't need to show banner
 . $abs_top_srcdir/lib/journal.sh
 . $abs_top_srcdir/lib/save-restore.sh
 . $abs_top_srcdir/lib/validate.sh
+set -- # reset $# so shunit2 doesn't get confused.
 
 set -o shwordsplit
 SHUNIT_PARENT=$0

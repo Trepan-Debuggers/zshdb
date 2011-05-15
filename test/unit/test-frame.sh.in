@@ -69,6 +69,7 @@ set -- '-q'  # Don't need to show banner
 . $abs_top_srcdir/lib/msg.sh
 . $abs_top_srcdir/lib/run.sh
 . $abs_top_srcdir/lib/frame.sh
+set -- # reset $# so shunit2 doesn't get confused.
 
 set -o shwordsplit
 SHUNIT_PARENT=$0

@@ -36,6 +36,7 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 _Dbg_libdir=$abs_top_srcdir
 set -- -q  # Don't need to show banner
 . ${abs_top_srcdir}lib/shell.sh
+set -- # reset $# so shunit2 doesn't get confused.
 
 set -o shwordsplit
 SHUNIT_PARENT=$0
