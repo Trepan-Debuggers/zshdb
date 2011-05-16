@@ -9,6 +9,7 @@ COMBINED_TESTS= \
 	test-file.sh           \
 	test-filecache.sh      \
 	test-fns.sh            \
+	test-frame.sh          \
 	test-get-sourceline.sh \
 	test-journal.sh        \
 	test-lib-shell.sh      \
