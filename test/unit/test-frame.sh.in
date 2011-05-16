@@ -22,7 +22,7 @@ test_frame_adjust()
 	errmsg+=("$1")
     }
     _Dbg_msg() {
-	rmsg+=("$@")
+	msg+=("$@")
     }
     _Dbg_running=1
     typeset -a errmsg; errmsg=()
@@ -31,8 +31,10 @@ test_frame_adjust()
 
     # Test frame_adjust parameter checking
     _Dbg_frame_adjust a
+    assertNotEquals "Invalid frame_adjust 'a'" 0 "$?"
+
     _Dbg_frame_adjust
-    assertNotEquals 0 "$?"
+    assertNotEquals 'no adjust parameter' 0 "$?"
 
     # Test absolute positioning - ok values (0..3)
     for i in 0 1 2 3 -1 -2 -3; do
