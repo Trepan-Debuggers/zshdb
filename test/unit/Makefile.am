@@ -34,35 +34,15 @@ TESTS_ENVIRONMENT = \
   srcdir="$(abs_srcdir)" \
   builddir="$(abs_builddir)"
 
-EXTRA_DIST = helper.sh $(COMBINED_TESTS) $(SINGLE_TESTS) $(check_DATA) \
-	test-action.sh.in           \
-	test-alias.sh.in            \
-	test-break.sh.in            \
-	test-columns.sh.in          \
-	test-dbg-opts.sh.in         \
-	test-eval.sh.in             \
-	test-examine.sh.in          \
-	test-file.sh.in             \
-	test-filecache.sh.in        \
-	test-fns.sh.in              \
-	test-frame.sh.in            \
-        test-get-sourceline.sh.in   \
-	test-journal.sh.in          \
-        test-lib-shell.sh.in        \
-	test-msg.sh.in              \
-	test-pre.sh.in              \
-	test-run.sh.in              \
-	test-save-restore.sh.in     \
-	test-setshow.sh.in          \
-	test-sort.sh.in             \
-	test-tty.sh.in              \
-	test-validate.sh.in
+TESTS_SOURCES = $(TESTS:=.in)
 
-check: combined_tests check-am
+EXTRA_DIST = helper.sh $(COMBINED_TESTS) $(TESTS) shunit2 $(TEST_SOURCES)
+
+check: combined-tests check-am
 test: check
 test-unit: check
 
-combined_tests: $(COMBINED_TESTS)
+combined-tests: $(COMBINED_TESTS)
 	$(SH_PROG) $(abs_srcdir)/shunit2 $(COMBINED_TESTS)
 
 MOSTLYCLEANFILES = *.orig *.rej
