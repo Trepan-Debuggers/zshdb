@@ -41,24 +41,17 @@ test_eval_subst()
     done
 }
 
-# Make sure @top_builddir@ has a trailing slash
 if [ '@abs_top_srcdir@' = '' ] ; then
   echo "Something is wrong abs_top_srcdir is not set."
  exit 1
 fi
 
 abs_top_srcdir=@abs_top_srcdir@
+# Make sure $abs_top_builddir has a trailing slash
 abs_top_srcdir=${abs_top_srcdir%%/}/
 . ${abs_top_srcdir}test/unit/helper.sh
-
-srcdir=@srcdir@
-srcdir=${srcdir%%/}/
-
-_Dbg_libdir=$abs_top_srcdir
-set -- -q  # Don't need to show banner
 . $abs_top_srcdir/lib/fns.sh
 set -- # reset $# so shunit2 doesn't get confused.
-
 SHUNIT_PARENT=$0
 
 [[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}
