@@ -32,9 +32,4 @@ set -- # reset $# so shunit2 doesn't get confused.
 
 SHUNIT_PARENT=$0
 
-# load shunit2
-srcdir=@srcdir@
-srcdir=${srcdir}/
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    . ${srcdir}/shunit2
-fi
+[[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}

@@ -37,13 +37,9 @@ abs_top_srcdir=@abs_top_srcdir@
 
 # Make sure @abs_top_srcdir@ has a trailing slash
 abs_top_srcdir=${abs_top_srcdir%%/}/
-
-. $abs_top_srcdir/lib/tty.sh
 . ${abs_top_srcdir}test/unit/helper.sh
+. $abs_top_srcdir/lib/tty.sh
 
 SHUNIT_PARENT=$0
 
-# load shunit2
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    . ${shunit_file}
-fi
+[[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}

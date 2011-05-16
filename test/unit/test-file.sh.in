@@ -85,8 +85,4 @@ SHUNIT_PARENT=$0
 srcdir=@srcdir@
 srcdir=${srcdir%%/}/
 
-# load shunit2
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    . ${shunit_file}
-fi
-
+[[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}

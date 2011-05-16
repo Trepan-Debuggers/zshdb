@@ -1,8 +1,5 @@
 #!@SH_PROG@
 # -*- shell-script -*-
-
-PS4='(%x:%I): [%?] zsh+ 
-'
 setopt ksharrays bashrematch rematchpcre
 
 test_eval_subst()
@@ -52,6 +49,7 @@ fi
 
 abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
+. ${abs_top_srcdir}test/unit/helper.sh
 
 srcdir=@srcdir@
 srcdir=${srcdir%%/}/
@@ -61,11 +59,6 @@ set -- -q  # Don't need to show banner
 . $abs_top_srcdir/lib/fns.sh
 set -- # reset $# so shunit2 doesn't get confused.
 
-set -o shwordsplit
 SHUNIT_PARENT=$0
 
-# load shunit2
-shunit_file=${abs_top_srcdir}test/unit/shunit2
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    . ${shunit_file}
-fi
+[[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}

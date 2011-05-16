@@ -30,22 +30,20 @@ test_alias()
     assertEquals 'up' $expanded_alias
 }
 
-# Make sure @top_builddir@ has a trailing slash
 if [ '@abs_top_srcdir@' = '' ] ; then
   echo "Something is wrong abs_top_srcdir is not set."
  exit 1
 fi
 abs_top_srcdir=@abs_top_srcdir@
+# Make sure @top_srcdir@ has a trailing slash
 abs_top_srcdir=${abs_top_srcdir%%/}/
 . ${abs_top_srcdir}test/unit/helper.sh
-
 . $abs_top_srcdir/lib/alias.sh
 . $abs_top_srcdir/lib/help.sh
 . $abs_top_srcdir/lib/run.sh
 . $abs_top_srcdir/command/alias.sh
-set --
+set -- # reset $# so shunit2 doesn't get confused.
 
 SHUNIT_PARENT=$0
 
-# load shunit2
-. ${shunit_file}
+[[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}

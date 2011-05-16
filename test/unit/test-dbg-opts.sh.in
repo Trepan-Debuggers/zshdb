@@ -68,8 +68,4 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 
 SHUNIT_PARENT=$0
 
-# load shunit2
-shunit_file=${abs_top_srcdir}test/unit/shunit2
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    . ${shunit_file}
-fi
+[[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}
