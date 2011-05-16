@@ -1,8 +1,5 @@
 #!@SH_PROG@
 # -*- shell-script -*-
-PS4='(%x:%I): [%?] zsh+ 
-'
-setopt ksharrays
 test_columnized()
 {
     do_one() {
@@ -48,14 +45,13 @@ fi
 abs_top_srcdir=@abs_top_srcdir@
 # Make sure @top_srcdir@ has a trailing slash
 abs_top_srcdir=${abs_top_srcdir%%/}/
+. ${abs_top_srcdir}test/unit/helper.sh
 
 . $abs_top_srcdir/lib/columnize.sh
 
-set -o shwordsplit
 SHUNIT_PARENT=$0
 
 # load shunit2
-shunit_file=${abs_top_srcdir}test/unit/shunit2
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     . ${shunit_file}
 fi

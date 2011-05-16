@@ -1,7 +1,5 @@
 #!@SH_PROG@
 # -*- shell-script -*-
-PS4='(%x:%I): [%?] zsh+ 
-'
 
 # Test command completion
 test_cmd_complete()
@@ -19,6 +17,7 @@ fi
 abs_top_srcdir=@abs_top_srcdir@
 # Make sure @abs_top_srcr@ has a trailing slash
 abs_top_srcdir=${abs_top_srcdir%%/}/
+. ${abs_top_srcdir}test/unit/helper.sh
 
 . ${abs_top_srcdir}lib/help.sh
 . ${abs_top_srcdir}lib/alias.sh
@@ -28,7 +27,6 @@ for _Dbg_file in ${abs_top_srcdir}command/c*.sh ; do
     source $_Dbg_file
 done
 
-set -o shwordsplit
 SHUNIT_PARENT=$0
 
 # load shunit2

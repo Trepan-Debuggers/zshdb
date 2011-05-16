@@ -1,10 +1,6 @@
 #!@SH_PROG@
 # -*- shell-script -*-
 
-PS4='(%x:%I): [%?] zsh+ 
-'
-setopt ksharrays
-
 # Test breakpoint set, unset, enable, disable, clear
 test_breakpoint()
 {
@@ -104,9 +100,8 @@ fi
 
 abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
+. ${abs_top_srcdir}test/unit/helper.sh
 
-_Dbg_libdir=$abs_top_srcdir
-set -- '-q'  # Don't need to show banner
 . ${abs_top_srcdir}dbg-pre.sh
 . ${abs_top_srcdir}lib/fns.sh
 . ${abs_top_srcdir}lib/journal.sh
@@ -114,14 +109,12 @@ set -- '-q'  # Don't need to show banner
 . ${abs_top_srcdir}lib/validate.sh
 set -- # reset $# so shunit2 doesn't get confused.
 
-set -o shwordsplit
 SHUNIT_PARENT=$0
 
 srcdir=.
 srcdir=${srcdir%%/}/
 
 # load shunit2
-shunit_file=${abs_top_srcdir}test/unit/shunit2
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     . ${shunit_file}
 fi

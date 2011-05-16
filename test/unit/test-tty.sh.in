@@ -1,9 +1,5 @@
 #!@SH_PROG@
 # -*- shell-script -*-
-PS4='(%x:%I): [%?] zsh+ 
-'
-setopt ksharrays
-
 test_tty()
 {
     typeset -i _Dbg_new_fd
@@ -43,12 +39,11 @@ abs_top_srcdir=@abs_top_srcdir@
 abs_top_srcdir=${abs_top_srcdir%%/}/
 
 . $abs_top_srcdir/lib/tty.sh
+. ${abs_top_srcdir}test/unit/helper.sh
 
-set -o shwordsplit
 SHUNIT_PARENT=$0
 
 # load shunit2
-shunit_file=${abs_top_srcdir}test/unit/shunit2
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     . ${shunit_file}
 fi

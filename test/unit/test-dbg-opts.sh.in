@@ -1,7 +1,5 @@
 #!@SH_PROG@
 # -*- shell-script -*-
-PS4='(%x:%I): [%?] zsh+ 
-'
 
 traceAssertEquals() {
     first="$1"
@@ -66,9 +64,8 @@ fi
 abs_top_srcdir=@abs_top_srcdir@
 # Make sure @top_srcdir@ has a trailing slash
 abs_top_srcdir=${abs_top_srcdir%%/}/
-_Dbg_libdir=$abs_top_srcdir
+. ${abs_top_srcdir}test/unit/helper.sh
 
-set -o shwordsplit
 SHUNIT_PARENT=$0
 
 # load shunit2

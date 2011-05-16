@@ -34,7 +34,7 @@ TESTS_ENVIRONMENT = \
   srcdir="$(abs_srcdir)" \
   builddir="$(abs_builddir)"
 
-EXTRA_DIST = $(COMBINED_TESTS) $(SINGLE_TESTS) $(check_DATA) \
+EXTRA_DIST = helper.sh $(COMBINED_TESTS) $(SINGLE_TESTS) $(check_DATA) \
 	test-action.sh.in           \
 	test-alias.sh.in            \
 	test-break.sh.in            \
