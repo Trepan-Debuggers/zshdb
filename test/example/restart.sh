@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/opt/csw/bin/zsh
 # For testing restart.
 
 x=1

@@ -116,7 +116,12 @@ _Dbg_parse_options() {
 	    h | help )
 		_Dbg_usage		;;
 	    highlight )
-		_Dbg_set_highlight=1  	;;
+		if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
+		    _Dbg_set_highlight=1
+		else
+		    print "Can't run pygmentize. --highight forced off" >&2
+		fi
+		;;
 	    no-highlight )
 		_Dbg_set_highlight=0  	;;
 	    init-file )

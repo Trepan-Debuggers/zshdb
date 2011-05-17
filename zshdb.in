@@ -55,7 +55,7 @@ zparseopts -a libdir -E L: -library:
 if (( ${#libdir} > 0 )) ; then
     typeset -a lib_opts; eval "lib_opts=($libdir)"
     if [[ ! -d ${lib_opts[2]} ]] ; then
-	print "${lib_opts[2]} is not a directory"
+	print "${lib_opts[2]} is not a directory" >&2
 	exit 1
     fi
     _Dbg_libdir=${lib_opts[2]}
