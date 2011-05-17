@@ -61,7 +61,7 @@ _Dbg_do_help() {
                         ;;
                     * )
                           _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
-                          return 1 ;;
+                          return 0 ;;
                 esac
             fi
         fi

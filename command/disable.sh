@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # disable.sh - gdb-like "disable" debugger command
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,10 +19,18 @@
 #   MA 02111 USA.
 
 _Dbg_help_add disable \
-'disable {n}...	-- Disable breakpoint entry/entries.'
+'disable BPNUM1 [BPNUM2 ...]
+
+Disable breakpoint BPNUM.
+
+See also "enable" and "info break".'
 
 # Disable breakpoint(s)/watchpoint(s) by entry number(s).
 _Dbg_do_disable() {
-    _Dbg_last_cmd='disable'
-  _Dbg_enable_disable 0 'disabled' $@
+    if (($# == 0)) ; then
+	_Dbg_errmsg 'Expecting breakpoint/watchpoint numbers. Got none.'
+	return 0
+    fi
+    _Dbg_enable_disable 0 'disabled' $@
+    return 0
 }
