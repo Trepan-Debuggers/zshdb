@@ -33,18 +33,18 @@ _Dbg_complete_level_1_data[info]=$(echo ${(kM)_Dbg_debugger_info_commands})
 _Dbg_do_info() {
 
   if (($# > 0)) ; then
-      typeset info_cmd=$1
+      typeset subcmd=$1
       shift
-      case $info_cmd in
-# 	  a | ar | arg | args )
+      case $subcmd in
+#         a | ar | arg | args )
 #               _Dbg_do_info_args 3
-# 	      return 0
-# 	      ;;
+#             return 0
+#             ;;
           b | br | bre | brea | 'break' | breakp | breakpo | breakpoints )
               #      b | br | bre | brea | 'break' | breakp | breakpo | breakpoints | \
               #      w | wa | wat | watc | 'watch' | watchp | watchpo | watchpoints )
               _Dbg_do_info_brkpts $@
-              #	_Dbg_list_watch $@
+              # _Dbg_list_watch $@
               return 0
               ;;
 
@@ -62,7 +62,7 @@ _Dbg_do_info() {
           #           si | sig | sign | signa | signal | signals )
           #         _Dbg_info_signals
           #         return
-          # 	;;
+          #     ;;
 
           l | li | lin | line )
               _Dbg_do_info_line
@@ -85,9 +85,9 @@ _Dbg_do_info() {
               ;;
 
           #       te | ter | term | termi | termin | termina | terminal | tt | tty )
-          # 	_Dbg_msg "tty: $_Dbg_tty"
-          # 	return;
-          # 	;;
+          #     _Dbg_msg "tty: $_Dbg_tty"
+          #     return;
+          #     ;;
 
           v | va | var | vari | varia | variab | variabl | variable | variables )
               _Dbg_do_info_variables $@
@@ -99,7 +99,7 @@ _Dbg_do_info() {
               return 0
               ;;
           *)
-              _Dbg_errmsg "Unknown info subcommand: $info_cmd"
+              _Dbg_errmsg "Unknown info subcommand: $subcmd"
               msg=_Dbg_errmsg
       esac
   else
@@ -111,4 +111,4 @@ _Dbg_do_info() {
   return 1
 }
 
-_Dbg_alias_add 'i' info
+_Dbg_alias_add i info

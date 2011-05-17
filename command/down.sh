@@ -50,9 +50,10 @@ function _Dbg_do_down {
     return 0
 }
 
+# Demo it
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     for _Dbg_file in  help msg sort columnize ; do 
-	source ${top_dir}/lib/${_Dbg_file}.sh
+        source ${top_dir}/lib/${_Dbg_file}.sh
     done
     source ${top_dir}/command/help.sh
     _Dbg_args='down'

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # continue.sh - gdb-like "continue" debugger command
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add continue \
-'continue [LOC | - ] -- Continue script execution.
+'continue [LOC | - ]
+
+Continue script execution.
 
 If not LOC or - is given, continue until the next breakpoint or the end
 of program is reached.  If - is given, then debugging will be turned off

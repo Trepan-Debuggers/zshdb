@@ -1,3 +1,14 @@
+Version 0.08 - Ides of March 
+2011-3-18
+
+- add some limited tab completion
+- Remove hard-wiring of "info", "set", and "show" commands.
+- expand help text for various commands
+- "set debugging" is not "set debug" to match gdb
+- unit tests are faster and have less white space but more useful information
+- eval? evaluates the RHS of an assignment statement
+- bug fixes 
+
 Version 0.07 - Ides of March 
 2011-3-15
 

@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# examine.sh: Examine debugger command.
+# "Examine" debugger command.
 #
 #   Copyright (C) 2008, 2010, 2011
 #   Rocky Bernstein <rocky@gnu.org>
@@ -34,7 +34,7 @@ Single variables and arithmetic expressions do not need leading $ for
 their value is to be substituted. However if neither these, variables
 need $ to have their value substituted.
 
-See also \"eval and pr\"."
+See also \"eval\" and \"pr\"."
 
 function _Dbg_do_examine {
   typeset _Dbg_expr; _Dbg_expr=${@:-"$_Dbg_last_x_args"}

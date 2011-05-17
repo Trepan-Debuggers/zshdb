@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# gdb-like "next" (step over) commmand.
+# gdb-like "next" (step through) commmand.
 #
 #   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
 #
