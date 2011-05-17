@@ -15,6 +15,9 @@ fi
 AC_SUBST(DIFF)
 AC_SUBST(DIFF_OPTS)
 
+CMDLINE_INVOKED='0 == ${#funcfiletrace[@]}'
+AC_SUBST(CMDLINE_INVOKED)
+
 # We need a GNU sed and the below allows us to use @SED@ in
 # the integration tests programs.
 AC_PROG_SED
