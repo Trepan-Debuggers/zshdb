@@ -1,5 +1,5 @@
-Version 0.08 - Ides of March 
-2011-3-18
+Version 0.08
+2011-4-18
 
 - add some limited tab completion
 - Remove hard-wiring of "info", "set", and "show" commands.
