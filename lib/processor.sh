@@ -64,6 +64,7 @@ function _Dbg_process_commands {
   _Dbg_continue_rc=-1  # Don't continue execution unless told to do so.
   # Nuke any prior step-ignore counts
   _Dbg_write_journal_eval "_Dbg_step_ignore=-1"
+  _Dbg_hi_last_stop=-1
 
   typeset -l key
 
@@ -71,6 +72,7 @@ function _Dbg_process_commands {
   for hook in ${_Dbg_cmdloop_hooks[@]} ; do
       ${hook}
   done
+
 
   # Loop over all pending open input file descriptors
   while (( ${#_Dbg_fd[@]} > 0 )) ; do

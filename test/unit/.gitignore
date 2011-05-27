@@ -8,7 +8,6 @@
 /test-cmd-complete.sh
 /test-columns.sh
 /test-dbg-opts.sh
-/test-lib.eval.sh
 /test-examine.sh
 /test-file.sh
 /test-filecache.sh
@@ -16,7 +15,9 @@
 /test-frame.sh
 /test-get-sourceline.sh
 /test-journal.sh
+/test-lib-eval.sh
 /test-lib-shell.sh
+/test-lib.eval.sh
 /test-msg.sh
 /test-pre.sh
 /test-run.sh

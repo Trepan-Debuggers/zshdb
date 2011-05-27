@@ -4,7 +4,7 @@ COMBINED_TESTS= \
 	test-cmd-complete.sh   \
 	test-columns.sh        \
 	test-dbg-opts.sh       \
-	test-eval.sh           \
+	test-lib-eval.sh       \
 	test-examine.sh        \
 	test-file.sh           \
 	test-filecache.sh      \

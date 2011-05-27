@@ -17,10 +17,12 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+typeset -i _Dbg_hi_last_stop=-1
+
 typeset -i _Dbg_history_length=${HISTSIZE:-256}  # gdb's default value
 typeset -i _Dbg_set_history=1
 
-# SAVEHIST=30  # what zsh uses by default on save
+SAVEHIST=30  # what zsh uses by default on save
 _Dbg_histfile=${ZDOTDIR:-$HOME}/.${_Dbg_debugger_name}_hist
 
 _Dbg_history_read() {

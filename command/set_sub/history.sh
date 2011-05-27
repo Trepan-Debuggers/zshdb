@@ -18,8 +18,8 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_help_add_sub set history \
-'Set to record command history' 1
+## _Dbg_help_add_sub set history \
+## 'Set to record command history' 1
 
 _Dbg_do_set_history() {
     case "$1" in

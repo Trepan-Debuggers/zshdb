@@ -22,6 +22,11 @@
 typeset -A _Dbg_debugger_show_commands
 typeset -A _Dbg_command_help_show
 
+# subcommands whose current values are not shown in a "show" list . 
+# These are things like alias, warranty, or copying.
+# They are available if asked for explicitly, e.g. "show copying"
+typeset -A _Dbg_show_nolist
+
 _Dbg_help_add show ''  # Help routine is elsewhere
 
 # Load in "show" subcommands
@@ -49,7 +54,8 @@ _Dbg_do_show_internal() {
         done
         return 0
     elif [[ -n ${_Dbg_debugger_show_commands[$show_cmd]} ]] ; then
-        ${_Dbg_debugger_show_commands[$show_cmd]} $label "$@"
+	[[ -n ${_Dbg_show_nolist[$thing]} ]] || \
+            ${_Dbg_debugger_show_commands[$show_cmd]} $label "$@"
         return $?
     fi
 
@@ -87,11 +93,11 @@ _Dbg_do_show_internal() {
                 "${label}Show short filenames (the basename) in debug output is" $(_Dbg_onoff $_Dbg_set_basename)
             return 0
             ;;
-        com | comm | comma | comman | command | commands )
-            shift # shift off "commands"
-            _Dbg_history_list $*
-            return $?
-            ;;
+        # com | comm | comma | comman | command | commands )
+        #     shift # shift off "commands"
+        #     _Dbg_history_list $*
+        #     return $?
+        #     ;;
         dir|dire|direc|direct|directo|director|directori|directorie|directories)
             typeset list=${_Dbg_dir[0]}
             typeset -i n=${#_Dbg_dir[@]}
@@ -109,10 +115,10 @@ _Dbg_do_show_internal() {
                 "${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_set_different)
             return 0
             ;;
-        hi|his|hist|histo|histor|history)
-            _Dbg_do_show_history
-            return $?
-            ;;
+        # hi|his|hist|histo|histor|history)
+        #     _Dbg_do_show_history
+        #     return $?
+        #     ;;
 
         lin | line | linet | linetr | linetra | linetrac | linetrace )
             [[ -n $label ]] && label='line tracing: '
