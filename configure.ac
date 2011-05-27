@@ -154,8 +154,6 @@ AC_CONFIG_FILES([test/unit/test-cmd-complete.sh],
                 [chmod +x test/unit/test-cmd-complete.sh])
 AC_CONFIG_FILES([test/unit/test-dbg-opts.sh], 
                 [chmod +x test/unit/test-dbg-opts.sh])
-AC_CONFIG_FILES([test/unit/test-eval.sh],   
-		[chmod +x test/unit/test-eval.sh])
 AC_CONFIG_FILES([test/unit/test-examine.sh],   
 		[chmod +x test/unit/test-examine.sh])
 AC_CONFIG_FILES([test/unit/test-file.sh],
@@ -168,6 +166,8 @@ AC_CONFIG_FILES([test/unit/test-fns.sh],   [chmod +x test/unit/test-fns.sh])
 AC_CONFIG_FILES([test/unit/test-frame.sh], [chmod +x test/unit/test-frame.sh])
 AC_CONFIG_FILES([test/unit/test-journal.sh],
 	        [chmod +x test/unit/test-journal.sh])
+AC_CONFIG_FILES([test/unit/test-lib-eval.sh],   
+		[chmod +x test/unit/test-lib-eval.sh])
 AC_CONFIG_FILES([test/unit/test-lib-shell.sh],
 	        [chmod +x test/unit/test-lib-shell.sh])
 AC_CONFIG_FILES([test/unit/test-msg.sh],
