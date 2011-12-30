@@ -33,12 +33,16 @@ MOSTLYCLEANFILES = *.orig *.rej
 
 EXTRA_DIST = $(pkgdata_DATA) THANKS
 
+# Unit and Integration testing
+test: check
+
 # Unit testing
 check-unit: test-unit
 
 test-unit:
 	cd test/unit && make check
 
+# Integration testing
 test-integration:
 	cd test/integration && make check
 
@@ -52,3 +56,5 @@ ChangeLog:
 ACLOCAL_AMFLAGS=-I .
 
 endif
+
+.PHONY: test
