@@ -4,7 +4,7 @@ This is a port and cleanup of my bash debugger bashdb
 
 The command syntax generally follows that of the GNU debugger gdb.
 
-However this debugger depends on a number bug fixes and of debugging
+However this debugger depends on a number of bug fixes and of debugging
 support features that are neither part of the POSIX 1003.1 standard
 and are not in current "stable" zsh releases. In particular, the
 "functrace" function should always report filenames and absolute line
@@ -35,7 +35,7 @@ To modify source code to call the debugger inside the program:
 Above, the directory _path-to_zshdb_ should be replaced with the
 directory that dbg-trace.sh is located in. This can also be from the
 source code directory zshdb or from the directory dbg-trac.sh gets
-installed directory. The "souce" command needs to be done only once
+installed directory. The "source" command needs to be done only once
 somewhere in the code prior to using _Dbg_debugger.
 
 If you are happy and "make test" above worked, install via:
@@ -48,7 +48,7 @@ See INSTALL for generic configure installation instructions.
 
 2. WHAT'S HERE, WHAT'S NOT and WHY NOT
 
-What's missing falls into a two categories:
+What's missing falls into two categories:
 
   * Stuff that can be ported in a straightforward way from bashdb
   * Stuff that needs additional zsh support
@@ -67,7 +67,7 @@ get a list of commands and some help for each.
 
 3.a) Showing frame arguments
 
-This can done with or without support from zsh, albeit faster with
+This can be done with or without support from zsh, albeit faster with
 help from zsh. Changing scope when changing frames however has to be
 done with zsh support.
 
