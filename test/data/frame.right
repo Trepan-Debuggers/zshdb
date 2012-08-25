@@ -21,7 +21,7 @@ if (( $tracing )) then _Dbg_set_linetrace=1 fi
 ->0 in file `hanoi.sh' at line 8
 ##1 init called from file `hanoi.sh' at line 41
 +# How about after moving?
-+u 
++up 
 ->1 init called from file `hanoi.sh' at line 41
 (hanoi.sh:41):
 +where 1

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "down" debugger command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein
+#   Copyright (C) 2010-2012 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or

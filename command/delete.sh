@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # delete.sh - gdb-like "delete" debugger command
 #
-#   Copyright (C) 2008, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2012 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -53,3 +53,6 @@ _Dbg_do_delete_internal() {
   (( tot_found != 0 )) && _Dbg_msg "Removed $tot_found breakpoint(s)."
   return $tot_found
 }
+
+_Dbg_alias_add 'd' delete
+

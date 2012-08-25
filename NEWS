@@ -1,3 +1,6 @@
+- Incompatible change: make more like gdb. 'u' is no longer up and 'd'
+  is 'delete' not 'down'
+
 Version 0.08
 2011-4-18
 

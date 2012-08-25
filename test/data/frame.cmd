@@ -11,7 +11,7 @@ where 1
 step 7
 where 2
 # How about after moving?
-u
+up
 where 1
 # Try moving past the end
 down 2
