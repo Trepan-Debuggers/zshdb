@@ -1,11 +1,11 @@
 #!@SH_PROG@
 # -*- shell-script -*-
-# Test _Dbg_glob_filename
+# Test journaling routines
 test_journal()
 {
     typeset -i var
     # Start off with a clean slate
-    _Dbg_erase_journals 
+    _Dbg_erase_journals
     [[ ! -f $_Dbg_journal ]]
     assertEquals 0 "$?"
 

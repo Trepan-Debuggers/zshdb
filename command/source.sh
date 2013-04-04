@@ -35,7 +35,7 @@ _Dbg_do_source() {
     fi
 
     typeset filename
-    _Dbg_glob_filename "$1"
+    _Dbg_tilde_expand_filename "$1"
     if [[ -r $filename ]] || [[ "$filename" == '/dev/stdin' ]] ; then
         # Redirect std input to new file and save new descriptor number
         exec {_Dbg_fdi}< $filename
