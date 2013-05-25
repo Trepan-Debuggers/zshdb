@@ -45,4 +45,6 @@ test-unit: check
 combined-tests: $(COMBINED_TESTS)
 	$(SH_PROG) $(abs_srcdir)/shunit2 $(COMBINED_TESTS)
 
+check-short: $(COMBINED_TESTS)
+	@$(SH_PROG) $(abs_srcdir)/shunit2 $(COMBINED_TESTS) | grep -v ^make
 MOSTLYCLEANFILES = *.orig *.rej

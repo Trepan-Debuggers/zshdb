@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info program" debugger command
 #
-#   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2013 Rocky Bernstein <rocky@gnu.org>
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -49,7 +49,7 @@ _Dbg_do_info_brkpts() {
   if (( _Dbg_brkpt_count > 0 )); then
       typeset -i i
 
-      _Dbg_msg "Num Type       Disp Enb What"
+      _Dbg_section "Num Type       Disp Enb What"
       for (( i=1; i <= _Dbg_brkpt_max ; i++ )) ; do
           source_file="${_Dbg_brkpt_file[$i]}"
       if [[ -n ${_Dbg_brkpt_line[$i]} ]] ; then

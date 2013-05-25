@@ -9,7 +9,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -41,6 +41,13 @@ check-unit: test-unit
 
 test-unit:
 	cd test/unit && make check
+
+# Unit testing
+check-unit-short: test-unit-short
+
+test-unit-short:
+	@cd test/unit && make check | grep -v ^make
+
 
 # Integration testing
 test-integration:

@@ -10,7 +10,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -24,7 +24,7 @@ _Dbg_ansi_term_normal="[0m"
 # okay. `prompt' is printed, and "yes", or "no" is solicited.  The
 # user response is returned in variable $_Dbg_response and $? is set
 # to 0.  _Dbg_response is set to 'error' and $? set to 1 on an error.
-# 
+#
 _Dbg_confirm() {
     if (( $# < 1 || $# > 2 )) ; then
 	_Dbg_response='error'
@@ -32,7 +32,7 @@ _Dbg_confirm() {
     fi
     _Dbg_confirm_prompt=$1
     typeset _Dbg_confirm_default=${2:-'no'}
-    while : ; do 
+    while : ; do
 	  if [[ -t $_Dbg_fdi ]]; then
 	      vared -e -h -p "$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
 	  else
@@ -86,7 +86,7 @@ function _Dbg_msg {
     else
 	builtin print -- "$@"
     fi
-    
+
 }
 
 function _Dbg_msg_nocr {
@@ -123,9 +123,9 @@ function _Dbg_printf_nocr {
 # print message to output device
 function _Dbg_section {
     if (( _Dbg_set_highlight )) ; then
-	_Dbg_msg "$prefix ${_Dbg_ansi_term_bold}$@${_Dbg_ansi_term_normal}"
+	_Dbg_msg "${_Dbg_ansi_term_bold}$@${_Dbg_ansi_term_normal}"
     else
-	_Dbg_msg "$prefix $@"
+	_Dbg_msg "$@"
     fi
 }
 
@@ -137,4 +137,3 @@ _Dbg_undefined_cmd() {
 	_Dbg_errmsg "Undefined command \"$1\". Try \"help\"."
     fi
 }
-

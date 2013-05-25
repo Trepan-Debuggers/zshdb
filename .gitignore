@@ -13,6 +13,7 @@
 /dbg-trace.sh
 /install-sh
 /missing
+/tmp
 /zshdb
 COPYING
 INSTALL
