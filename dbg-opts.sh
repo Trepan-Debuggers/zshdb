@@ -44,6 +44,7 @@ options:
     -T | --tempdir DIRECTORY 
                             Use DIRECTORY to store temporary files in
     -V | --version          Print the debugger version number.
+    -X | --trace            Set line tracing similar to set -x
     -x | --eval-command CMDFILE
                             Execute debugger commands from CMDFILE.
 "
@@ -74,7 +75,6 @@ typeset -i _Dbg_set_basename=0
 typeset -i _Dbg_set_highlight=0
 typeset -a _Dbg_o_init_files; _Dbg_o_init_files=()
 typeset -i _Dbg_o_nx=0
-typeset -i _Dbg_o_linetrace=0
 typeset    _Dbg_tty=''
 
 # $_Dbg_tmpdir could have been set by the top-level debugger script.
@@ -142,6 +142,8 @@ _Dbg_parse_options() {
 		_Dbg_tmpdir=$OPTLARG	;;
 	    x | eval-command )
 		DBG_INPUT=$OPTLARG	;;
+	    X | trace ) 
+		_Dbg_set_linetrace=1        ;;
 	    '?' )  # Path taken on a bad option
 		echo  >&2 'Use -h or --help to see options.'
 		exit 2                  ;;

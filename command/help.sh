@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # help.sh - gdb-like "help" debugger command
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2013 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,8 +18,25 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
+    for file in help alias ; do source $top_dir/lib/${file}.sh; done
+fi
+
 _Dbg_help_add help \
 'help	-- Print list of commands.'
+
+# help_text="
+# **help** [*command*]
+#
+# Without argument, print the list of available debugger commands.
+#
+# When an argument is given, it is first checked to see if it is command
+# name or alias.
+# "
+#
+#_Dbg_help_add help "$help_text"
 
 typeset -i _Dbg_help_cols=8
 _Dbg_do_help() {
@@ -27,7 +44,7 @@ _Dbg_do_help() {
     # Treat "help *" the same as help
     ((1 == $#)) && [[ "$1" == '*' ]] && shift
     if ((0 == $#)) ; then
-        _Dbg_msg 'Available commands:'
+        _Dbg_section 'Available commands:'
         typeset -a commands
         unsetopt ksharrays
         commands=(${(ki)_Dbg_command_help})
@@ -42,7 +59,12 @@ _Dbg_do_help() {
     else
         typeset dbg_cmd="$1"
         if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
-             _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
+	    help_text="${_Dbg_command_help[$dbg_cmd]}"
+	    # if (( _Dbg_set_highlight )) ; then
+	    # 	highlight_cmd="${_Dbg_libdir}/lib/rstext.py -w $_Dbg_set_linewidth \"$help_text(gs/\n/\\n/)\""
+	    # 	help_text=$($highlight_cmd 2>/dev/null)
+	    # fi
+	    _Dbg_msg "$help_text"
         else
             typeset expanded_alias; _Dbg_alias_expand $dbg_cmd
             dbg_cmd="$expanded_alias"

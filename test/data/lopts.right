@@ -23,6 +23,7 @@ options:
     -T | --tempdir DIRECTORY 
                             Use DIRECTORY to store temporary files in
     -V | --version          Print the debugger version number.
+    -X | --trace            Set line tracing similar to set -x
     -x | --eval-command CMDFILE
                             Execute debugger commands from CMDFILE.
 (dbg-test1.sh:4):
