@@ -1,0 +1,3 @@
+language: zsh
+# Make configure script, run it and then run the tests
+script: autoconf && zsh ./configure && make check
