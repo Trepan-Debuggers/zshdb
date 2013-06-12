@@ -1,3 +1,8 @@
 language: zsh
-# Make configure script, run it and then run the tests
+
+install:
+  # Install zsh.
+  - "sudo apt-get install zsh"
+
+# run the tests
 script: zsh ./autogen.sh && make check
