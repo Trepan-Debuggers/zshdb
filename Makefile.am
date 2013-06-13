@@ -31,7 +31,7 @@ bin_SCRIPTS = zshdb
 
 MOSTLYCLEANFILES = *.orig *.rej
 
-EXTRA_DIST = $(pkgdata_DATA) THANKS
+EXTRA_DIST = $(pkgdata_DATA) THANKS README.md
 
 # Unit and Integration testing
 test: check
