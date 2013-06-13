@@ -45,6 +45,7 @@ To modify source code to call the debugger inside the program:
 
     _Dbg_debugger
     # start debugging here
+```
 
 Above, the directory *path-to_zshdb* should be replaced with the
 directory that `dbg-trace.sh` is located in. This can also be from the
