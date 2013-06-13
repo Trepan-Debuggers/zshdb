@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rocky/zshdb.png)](https://travis-ci.org/rocky/[zshdb])
+[![Build Status](https://travis-ci.org/rocky/zshdb.png)](https://travis-ci.org/rocky/zshdb)
 
 Introduction
 ============
