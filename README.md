@@ -118,7 +118,7 @@ What may need more work and support from zsh
 Stopping points that can be used for breakpoint
 
 Author
-============
+------
 
 Rocky Bernstein <rocky@gnu.org> <br>
 [![endorse](https://api.coderwall.com/rocky/endorsecount.png)](https://coderwall.com/rocky)
