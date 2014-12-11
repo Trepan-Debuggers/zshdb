@@ -6,6 +6,8 @@ check_DATA = \
 	brkpt1.right       \
 	bug-args.cmd       \
 	bug-args.right     \
+	bug-delete.cmd     \
+	bug-delete.right   \
 	bug-errexit.cmd    \
 	bug-errexit.right  \
 	bug-ksharrays.cmd  \

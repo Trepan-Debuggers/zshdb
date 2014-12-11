@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # debugger command options processing. The bane of programming.
 #
-#   Copyright (C) 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -12,14 +12,14 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
 _Dbg_usage() {
-  printf "Usage: 
+  printf "Usage:
    ${_Dbg_pname} [OPTIONS] <script_file>
 
 Runs $_Dbg_shell_name <script_file> under a debugger.
@@ -28,20 +28,20 @@ options:
     -h | --help             Print this help.
     -q | --quiet            Do not print introductory and quiet messages.
     -A | --annotate  LEVEL  Set the annotation level.
-    -B | --basename         Show basename only on source file listings. 
+    -B | --basename         Show basename only on source file listings.
                             (Needed in regression tests)
-    --highlight | --no-highlight 
+    --highlight | --no-highlight
                             Use or don't use ANSI terminal sequences for syntax
                             highlight
-    --init-file FILE        Source script file FILE. Similar to bash's 
-                            corresponding option. This option can be given 
+    --init-file FILE        Source script file FILE. Similar to bash's
+                            corresponding option. This option can be given
                             several times with different files.
     -L | --library DIRECTORY
                             Set the directory location of library helper file: $_Dbg_main
     -c | --command STRING   Run STRING instead of a script file
     -n | --nx | --no-init   Don't run initialization files.
     -t | --tty DEV          Run using device for your programs standard input and output
-    -T | --tempdir DIRECTORY 
+    -T | --tempdir DIRECTORY
                             Use DIRECTORY to store temporary files in
     -V | --version          Print the debugger version number.
     -X | --trace            Set line tracing similar to set -x
@@ -62,7 +62,7 @@ _Dbg_show_version() {
 typeset -xa _Dbg_orig_script_args
 _Dbg_orig_script_args=($@)
 
-# The following globals are set by _Dbg_parse_opts. Any values set are 
+# The following globals are set by _Dbg_parse_opts. Any values set are
 # the default values.
 typeset -xa _Dbg_script_args
 
@@ -106,8 +106,8 @@ _Dbg_parse_options() {
 	version      no_argument                 \
 	'' "$@"
     do
-	case "$opt" in 
-	    A | annotate ) 
+	case "$opt" in
+	    A | annotate )
 		_Dbg_o_annotate=$OPTLARG;;
 	    B | basename )
 		_Dbg_set_basename=1  	;;
@@ -126,7 +126,7 @@ _Dbg_parse_options() {
 		_Dbg_set_highlight=0  	;;
 	    init-file )
 		set -x
-		_Dbg_o_init_files+="$OPTLARG"	
+		_Dbg_o_init_files+="$OPTLARG"
 		set +x
 		;;
 	    L | library ) 		;;
@@ -136,18 +136,18 @@ _Dbg_parse_options() {
 		_Dbg_o_nx=1		;;
 	    q | quiet )
 		_Dbg_o_quiet=1		;;
-	    t | tty) 
+	    t | tty)
 		_Dbg_tty=$OPTLARG	;;
-	    tempdir) 
+	    tempdir)
 		_Dbg_tmpdir=$OPTLARG	;;
 	    x | eval-command )
 		DBG_INPUT=$OPTLARG	;;
-	    X | trace ) 
+	    X | trace )
 		_Dbg_set_linetrace=1        ;;
 	    '?' )  # Path taken on a bad option
 		echo  >&2 'Use -h or --help to see options.'
 		exit 2                  ;;
-	    * ) 
+	    * )
 		echo "Unknown option $opt. Use -h or --help to see options." >&2
 		exit 2		;;
 	esac
@@ -158,10 +158,10 @@ _Dbg_parse_options() {
 	_Dbg_do_show_version
 	exit 0
     elif (( ! _Dbg_o_quiet )) && [[ -n $_Dbg_shell_name ]] && \
-	[[ -n $_Dbg_release ]] ; then 
+	[[ -n $_Dbg_release ]] ; then
 	echo "$_Dbg_shell_name debugger, $_Dbg_debugger_name, release $_Dbg_release"
 	printf '
-Copyright 2008, 2009, 2010, 2011 Rocky Bernstein
+Copyright 2008-2011, 2014 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
 welcome to change it and/or distribute copies of it under certain conditions.
 
@@ -187,7 +187,7 @@ welcome to change it and/or distribute copies of it under certain conditions.
 }
 
 
-# Stand-alone Testing. 
+# Stand-alone Testing.
 if [[ -n "$_Dbg_dbg_opts_test" ]] ; then
     OPTLIND=1
     _Dbg_libdir='.'

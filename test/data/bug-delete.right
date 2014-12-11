@@ -1,0 +1,30 @@
+(bug-delete.sh:2):
+echo line 2
++# Test bug we had where clearing a break on one line
++# was disabling a break on the next one
++# 
++ 
++break 3
+Breakpoint 1 set in file bug-delete.sh, line 3.
++break 5
+Breakpoint 2 set in file bug-delete.sh, line 5.
++break 7
+Breakpoint 3 set in file bug-delete.sh, line 7.
++delete 2
+Removed 1 breakpoint(s).
++continue 
+line 2
+Breakpoint 1 hit.
+(bug-delete.sh:3):
+echo line 3
++continue 
+line 3
+line 4
+line 5
+line 6
+Breakpoint 3 hit.
+(bug-delete.sh:7):
+echo line 7
++# Should have stopped at line 7 above
++quit 
+zshdb: That's all, folks...

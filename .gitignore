@@ -15,6 +15,9 @@
 /missing
 /tmp
 /zshdb
+/test/integration/*.log
+/test/*/*.log
+/test/*/*.trs
 COPYING
 INSTALL
 README

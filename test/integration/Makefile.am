@@ -2,6 +2,7 @@ TESTS = \
 	test-action        \
 	test-brkpt1        \
 	test-bug-args      \
+	test-bug-delete	   \
 	test-bugIFS        \
 	test-bug-errexit   \
 	test-bug-ksharrays \

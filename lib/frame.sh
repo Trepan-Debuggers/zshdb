@@ -11,7 +11,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -43,7 +43,7 @@ function _Dbg_frame_adjust {
 
   typeset -i retval
   _Dbg_frame_int_setup $count || return 2
-  
+
   typeset -i pos
   if (( signum==0 )) ; then
     if (( count < 0 )) ; then
@@ -55,10 +55,10 @@ function _Dbg_frame_adjust {
     ((pos=_Dbg_stack_pos+(count*signum)))
   fi
 
-  if (( pos < 0 )) ; then 
+  if (( pos < 0 )) ; then
     _Dbg_errmsg 'Would be beyond bottom-most (most recent) entry.'
     return 1
-  elif (( pos >= ${#_Dbg_frame_stack[@]} )) ; then 
+  elif (( pos >= ${#_Dbg_frame_stack[@]} )) ; then
     _Dbg_errmsg 'Would be beyond top-most (least recent) entry.'
     return 1
   fi
@@ -73,10 +73,11 @@ function _Dbg_frame_adjust {
   _Dbg_print_location
 }
 
-# Return the frame file for stack $1 or _Dbg_stack_pos if $1 
-# is omitted. If $2 is given, it indicates if we want the basename
-# only. Otherwise the $_Dbg_set_basename setting is used.
-# 0 is returned if no error, nonzero means some sort of error.
+# Set $_Dbg_frame_filename to be frame file for the call stack at
+# given position $1 or _Dbg_stack_pos if $1 is omitted. If $2 is
+# given, it indicates if we want the basename only. Otherwise the
+# $_Dbg_set_basename setting is used.  0 is returned if no error,
+# nonzero means some sort of error.
 _Dbg_frame_file() {
     (($# > 2)) && return 2
     # FIXME check to see that $1 doesn't run off the end.
@@ -95,7 +96,7 @@ _Dbg_frame_int_setup() {
 
   _Dbg_not_running && return 1
   setopt EXTENDED_GLOB
-  if [[ $1 != '' && $1 != ([-+]|)([0-9])## ]] ; then 
+  if [[ $1 != '' && $1 != ([-+]|)([0-9])## ]] ; then
       _Dbg_errmsg "Bad integer parameter: $1"
       # Reset EXTENDED_GLOB
       return 1
@@ -114,8 +115,8 @@ _Dbg_frame_lineno() {
     return $Dbg_frame_last_lineno
 }
 
-# Save stack frames in array _Dbg_frame_stack ignoring the 
-# first (most recent) $1 of these. We assume "setopt ksharrarrys" 
+# Save stack frames in array _Dbg_frame_stack ignoring the
+# first (most recent) $1 of these. We assume "setopt ksharrarrys"
 # (origin 0) has beeen set previously.
 _Dbg_frame_save_frames() {
     # setopt ksharrays  # Done in _Dbg_debug_trap_handler
@@ -132,7 +133,7 @@ _Dbg_frame_save_frames() {
 
     # Remove our function name. Shouldn't need to do,
     # but there have been bugs.
-    (( ${#_Dbg_func_stack[@]} > 1 )) && shift _Dbg_func_stack 
+    (( ${#_Dbg_func_stack[@]} > 1 )) && shift _Dbg_func_stack
 
     # Set stack position to the most recent entry.
     _Dbg_stack_pos=0

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # break.sh - Debugger Break and Watch routines
 #
-#   Copyright (C) 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -21,10 +21,10 @@
 #================ VARIABLE INITIALIZATIONS ====================#
 
 typeset -a _Dbg_keep
-_Dbg_keep=('keep' 'del')  
+_Dbg_keep=('keep' 'del')
 
 # Note: we loop over possibly sparse arrays with _Dbg_brkpt_max by adding one
-# and testing for an entry. Could add yet another array to list only 
+# and testing for an entry. Could add yet another array to list only
 # used indices. Zsh is kind of primitive.
 
 # Breakpoint data structures
@@ -52,7 +52,7 @@ typeset -a  _Dbg_brkpt_cond; _Dbg_brkpt_cond=()
 
 # Needed because we can't figure out what the max index is and arrays
 # can be sparse.
-typeset -i  _Dbg_brkpt_max=0 
+typeset -i  _Dbg_brkpt_max=0
 
 # Maps a resolved filename to a list of beakpoint line numbers in that file
 typeset -A _Dbg_brkpt_file2linenos; _Dbg_brkpt_file2linenos=()
@@ -61,16 +61,16 @@ typeset -A _Dbg_brkpt_file2linenos; _Dbg_brkpt_file2linenos=()
 typeset -A _Dbg_brkpt_file2brkpt; _Dbg_brkpt_file2brkpt=()
 
 # Note: we loop over possibly sparse arrays with _Dbg_brkpt_max by adding one
-# and testing for an entry. Could add yet another array to list only 
+# and testing for an entry. Could add yet another array to list only
 # used indices. Zsh is kind of primitive.
 
 #========================= FUNCTIONS   ============================#
 
 function _Dbg_save_breakpoints {
   typeset -p _Dbg_brkpt_line         >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_file         >> $_Dbg_statefile 
-  typeset -p _Dbg_brkpt_cond         >> $_Dbg_statefile 
-  typeset -p _Dbg_brkpt_counts       >> $_Dbg_statefile 
+  typeset -p _Dbg_brkpt_file         >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_cond         >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_counts       >> $_Dbg_statefile
   typeset -p _Dbg_brkpt_enable       >> $_Dbg_statefile
   typeset -p _Dbg_brkpt_onetime      >> $_Dbg_statefile
   typeset -p _Dbg_brkpt_max          >> $_Dbg_statefile
@@ -95,7 +95,7 @@ _Dbg_enable_disable() {
     shift
     typeset to_go="$@"
     typeset i
-    for i in $to_go ; do 
+    for i in $to_go ; do
       if [[ $i == [0-9]* ]] ; then
 	  _Dbg_enable_disable_display $on $en_dis $i
       else
@@ -107,7 +107,7 @@ _Dbg_enable_disable() {
     shift
     typeset to_go="$@"
     typeset i
-    for i in $to_go ; do 
+    for i in $to_go ; do
       if [[ $i == [0-9]* ]] ; then
 	  _Dbg_enable_disable_action $on $en_dis $i
       else
@@ -119,7 +119,7 @@ _Dbg_enable_disable() {
 
   typeset to_go; to_go="$@"
   typeset i
-  for i in $to_go ; do 
+  for i in $to_go ; do
       if [[ $i == [0-9]* ]] ; then
           _Dbg_enable_disable_brkpt $on $en_dis $i
       # elsif # Check for watch-pat
@@ -131,13 +131,13 @@ _Dbg_enable_disable() {
   return 0
 }
 
-# Print a message regarding how many times we've encounterd
+# Print a message regarding how many times we've encountered
 # breakpoint number $1 if the number of times is greater than 0.
 # Uses global array _Dbg_brkpt_counts.
 function _Dbg_print_brkpt_count {
   typeset -i i; i=$1
   if (( _Dbg_brkpt_counts[i] != 0 )) ; then
-    if (( _Dbg_brkpt_counts[i] == 1 )) ; then 
+    if (( _Dbg_brkpt_counts[i] == 1 )) ; then
       _Dbg_printf '    breakpoint already hit 1 time'
     else
       _Dbg_printf "    breakpoint already hit %d times" ${_Dbg_brkpt_counts[$i]}
@@ -145,7 +145,9 @@ function _Dbg_print_brkpt_count {
   fi
 }
 
-# Clear all breakpoints.
+#======================== BREAKPOINTS  ============================#
+
+# clear all brkpts
 function _Dbg_clear_all_brkpt {
   _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos=()"
   _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt=()"
@@ -158,7 +160,7 @@ function _Dbg_clear_all_brkpt {
   _Dbg_write_journal_eval "_Dbg_brkpt_count=0"
 }
 
-# Internal routine to a set breakpoint unconditonally. 
+# Internal routine to a set breakpoint unconditonally.
 
 _Dbg_set_brkpt() {
     (( $# < 3 || $# > 4 )) && return 1
@@ -168,18 +170,18 @@ _Dbg_set_brkpt() {
     typeset -ri lineno=$2
     typeset -ri is_temp=$3
     typeset -r  condition=${4:-1}
-    
+
     # Increment brkpt_max here because we are 1-origin
     ((_Dbg_brkpt_max++))
     ((_Dbg_brkpt_count++))
-    
+
     _Dbg_brkpt_line[$_Dbg_brkpt_max]=$lineno
     _Dbg_brkpt_file[$_Dbg_brkpt_max]="$source_file"
     _Dbg_brkpt_cond[$_Dbg_brkpt_max]="$condition"
     _Dbg_brkpt_onetime[$_Dbg_brkpt_max]=$is_temp
     _Dbg_brkpt_counts[$_Dbg_brkpt_max]=0
     _Dbg_brkpt_enable[$_Dbg_brkpt_max]=1
-    
+
     typeset dq_source_file
     dq_source_file=$(_Dbg_esc_dq "$source_file")
     typeset dq_condition=$(_Dbg_esc_dq "$condition")
@@ -190,7 +192,7 @@ _Dbg_set_brkpt() {
     _Dbg_write_journal "_Dbg_brkpt_counts[$_Dbg_brkpt_max]=0"
     _Dbg_write_journal "_Dbg_brkpt_enable[$_Dbg_brkpt_max]=1"
     _Dbg_write_journal "_Dbg_brkpt_count=${_Dbg_brkpt_count}"
-    
+
     # Add line number with a leading and trailing space. Delimiting the
     # number with space helps do a string search for the line number.
     _Dbg_brkpt_file2linenos[$source_file]+=" $lineno "
@@ -198,11 +200,11 @@ _Dbg_set_brkpt() {
 
     _Dbg_write_journal_avar _Dbg_brkpt_file2linenos
     _Dbg_write_journal_avar _Dbg_brkpt_file2brkpt
-    
+
     source_file=$(_Dbg_adjust_filename "$source_file")
-    if (( is_temp == 0 )) ; then 
+    if (( is_temp == 0 )) ; then
 	_Dbg_msg "Breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
-    else 
+    else
 	_Dbg_msg "One-time breakpoint $_Dbg_brkpt_max set in file ${source_file}, line $lineno."
     fi
     _Dbg_write_journal "_Dbg_brkpt_max=$_Dbg_brkpt_max"
@@ -224,7 +226,7 @@ function _Dbg_unset_brkpt_arrays {
     return 0
 }
 
-# Internal routine to delete the first breakpoint found by file/line.
+# Internal routine to delete a breakpoint by file/line.
 # The number of breakpoints (0 or 1) is returned.
 function _Dbg_unset_brkpt {
     (( $# == 2 )) || return 0
@@ -241,7 +243,7 @@ function _Dbg_unset_brkpt {
     eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$fullname]})"
 
     typeset -i i
-    for ((i=0; i < ${#linenos[@]}; i++)); do 
+    for ((i=0; i < ${#linenos[@]}; i++)); do
 	if (( linenos[i] == lineno )) ; then
 	    # Got a match, find breakpoint entry number
 	    typeset -i brkpt_num
@@ -249,6 +251,10 @@ function _Dbg_unset_brkpt {
 	    _Dbg_unset_brkpt_arrays $brkpt_num
 	    linenos[i]=()  # This is the zsh way to unset an array element
 	    _Dbg_brkpt_file2linenos[$fullname]=${linenos[@]}
+	    typeset -a brkpt_nos
+	    eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$filename]})"
+	    brkpt_nos[i]=()
+	    _Dbg_brkpt_file2brkpt[$filename]=${brkpt_nos[@]}
 	    return 1
 	fi
     done
@@ -263,20 +269,20 @@ function _Dbg_delete_brkpt_entry {
     typeset -r  del="$1"
     typeset -i  i
     typeset -i  found=0
-    
+
     if [[ -z ${_Dbg_brkpt_file[$del]} ]] ; then
 	_Dbg_errmsg "No breakpoint number $del."
 	return 0
     fi
     typeset    source_file=${_Dbg_brkpt_file[$del]}
     typeset -i lineno=${_Dbg_brkpt_line[$del]}
-    typeset -i try 
-    typeset -a new_lineno_val; new_lineno_val=()
-    typeset -a new_brkpt_nos; new_brkpt_nos=()
+    typeset -i try
+    typeset new_lineno_val
+    typeset new_brkpt_nos
     typeset -i i=-1
     typeset -a brkpt_nos
     brkpt_nos=(${_Dbg_brkpt_file2brkpt[$source_file]})
-    for try in ${_Dbg_brkpt_file2linenos[$source_file]} ; do 
+    for try in ${_Dbg_brkpt_file2linenos[$source_file]} ; do
 	((i++))
 	if (( brkpt_nos[i] == del )) ; then
 	    if (( try != lineno )) ; then
@@ -286,20 +292,20 @@ function _Dbg_delete_brkpt_entry {
 	    _Dbg_unset_brkpt_arrays $del
 	    ((found++))
 	else
-	    new_lineno_val+=$try
-	    new_brkpt_nos+=${brkpt_nos[$i]}
+	    new_lineno_val+=" $try"
+	    new_brkpt_nos+=" ${brkpt_nos[$i]}"
 	fi
     done
     if (( found > 0 )) ; then
-	if (( ${#new_lineno_val[@]} == 0 )) ; then 
+	if (( ${#new_lineno_val[@]} == 0 )) ; then
 	    _Dbg_write_journal_eval "unset '_Dbg_brkpt_file2linenos[$source_file]'"
 	    _Dbg_write_journal_eval "unset '_Dbg_brkpt_file2brkpt[$source_file]'"
 	else
-	    _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos[$source_file]=${new_lineno_val}"
-	    _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt[$source_file]=${new_brkpt_nos}"
+	    _Dbg_write_journal_eval "_Dbg_brkpt_file2linenos[$source_file]=\"${new_lineno_val}\""
+	    _Dbg_write_journal_eval "_Dbg_brkpt_file2brkpt[$source_file]=\"${new_brkpt_nos}\""
 	fi
     fi
-    
+
     return $found
 }
 
