@@ -1,14 +1,8 @@
 [![Build Status](https://travis-ci.org/rocky/zshdb.png)](https://travis-ci.org/rocky/zshdb)
 
-Introduction
-============
-
 This is a port of my bash debugger [bashdb](http://bashdb.sf.net).
 
 The command syntax generally follows that of the GNU debugger *gdb*.
-
-Setup
------
 
 To get the code, install git and run in a zsh shell:
 
@@ -61,9 +55,6 @@ and uninstall with:
 See INSTALL for generic configure installation instructions.
 
 See the [wiki](https://github.com/rocky/zshdb/wiki) for more information.
-
-Author
-------
 
 Rocky Bernstein <rocky@gnu.org> <br>
 [![endorse](https://api.coderwall.com/rocky/endorsecount.png)](https://coderwall.com/rocky)
