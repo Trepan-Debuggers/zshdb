@@ -1,5 +1,6 @@
 check_DATA = \
 	bug-args.sh      \
+	bug-delete.sh    \
 	bug-errexit.sh   \
 	bug-ksharrays.sh \
 	bugIFS.sh        \

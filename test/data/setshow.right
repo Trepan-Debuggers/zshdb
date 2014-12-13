@@ -6,15 +6,15 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 +# show warranty
 +show copying
 
-		    GNU GENERAL PUBLIC LICENSE
-		       Version 2, June 1991
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 2, June 1991
 
  Copyright (C) 1989, 1991 Free Software Foundation, Inc.
                        59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
-			    Preamble
+                            Preamble
 
   The licenses for most software are designed to take away your
 freedom to share and change it.  By contrast, the GNU General Public
@@ -64,7 +64,7 @@ patent must be licensed for everyone's free use or not licensed at all.
   The precise terms and conditions for copying, distribution and
 modification follow.
 
-		    GNU GENERAL PUBLIC LICENSE
+                    GNU GENERAL PUBLIC LICENSE
    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
   0. This License applies to any program or other work which contains
@@ -281,7 +281,8 @@ autoeval: Evaluate unrecognized commands is off.
 autolist: Auto run of 'list' command is off.
 basename: Show short filenames (the basename) in debug output is on.
 debug: Allow debugging the debugger is off
-editing:  Editing of command lines as they are typed is off.
+editing:  Editing of command lines as they are typed is on.
+  Edit style is emacs.
 different: Show stepping forces a new line is off.
 listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:

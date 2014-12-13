@@ -4,5 +4,4 @@ t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
 
 [[ -z "$builddir" ]] && export builddir=$PWD
 . ${builddir}/check-common.sh
-[[ -z "$builddir" ]] && builddir=$PWD
-run_test_check $TEST_NAME $TEST_NAME $debugged_script
+run_test_check

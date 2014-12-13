@@ -1,3 +1,138 @@
+2014-12-12  rocky <rocky@gnu.org>
+
+	* README.md: Even shorter
+
+2014-12-12  rocky <rocky@gnu.org>
+
+	* README.md: Shorten README.md
+
+2014-12-12  rocky <rocky@gnu.org>
+
+	* : commit 9653c3f78058fcf62427fb15d0a420482971f155 Author: rocky
+	<rocky@gnu.org> Date:   Thu Dec 11 12:33:33 2014 -0500
+
+2013-06-14  rocky <rocky@gnu.org>
+
+	* README.md: Ouch - that's too loud.
+
+2013-06-14  rocky <rocky@gnu.org>
+
+	* README.md: Add coderwall endorse
+
+2013-06-13  rocky <rocky@gnu.org>
+
+	* README.md: Build status link update again
+
+2013-06-13  rocky <rocky@gnu.org>
+
+	* README.md: Correct travis png link. How was it working before?
+
+2013-06-12  rocky <rocky@gnu.org>
+
+	* autogen.sh: Fix up autogen.sh - 2nd take
+
+2013-06-12  rocky <rocky@gnu.org>
+
+	* .gitignore, autogen.sh: Make README be a copy of README.md in
+	autogen.sh to make configure happy
+
+2013-06-12  rocky <rocky@gnu.org>
+
+	* README.md: Markdown syntax typo
+
+2013-06-12  rocky <rocky@gnu.org>
+
+	* Makefile.am, README, README.md: Convert README to markdown
+
+2013-06-12  rocky <rocky@gnu.org>
+
+	* .travis.yml: Try again for travis
+
+2013-06-12  rocky <rocky@gnu.org>
+
+	* .travis.yml: travis.yml: try with autogen.sh
+
+2013-06-12  rocky <rocky@gnu.org>
+
+	* .travis.yml: Try out travis
+
+2013-05-28  rocky <rocky@gnu.org>
+
+	* : commit bd17842a9ca3c1d3405a7d76f4afb936b3076b60 Author: rocky
+	<rocky@gnu.org> Date:   Tue May 28 04:10:39 2013 -0400
+
+2013-05-25  rocky <rocky@gnu.org>
+
+	* .gitignore, Makefile.am, command/help.sh,
+	command/info_sub/brkpts.sh, dbg-opts.sh, lib/msg.sh, lib/rstext.py,
+	test/data/lopts.right, test/unit/Makefile.am: msg.sh: fix bug in
+	sectioning command. Use more sectioning commands dbg-opts.sh: add
+	--trace option lib/rstext.py: in support of RSt help.
+
+2013-04-04  rocky <rocky@gnu.org>
+
+	* : commit 4f271de6e03ea2df13aa4eea69095d58ed1e0ca3 Author: rocky
+	<rocky@gnu.org> Date:   Thu Apr 4 11:55:05 2013 -0400
+
+2013-04-04  rocky <rocky@gnu.org>
+
+	* lib/display.sh: Initialization typo.
+
+2012-08-25  rocky <rocky@gnu.org>
+
+	* NEWS, command/delete.sh, command/down.sh, command/up.sh,
+	test/data/frame.cmd, test/data/frame.right: Follow gdb better. alias
+	'u' for 'up' removed.
+
+2012-03-09  R. Bernstein <rocky.bernstein@gmail.com>
+
+	* : Merge pull request #2 from Erkan-Yilmaz/master lang. fixes
+
+2011-12-30  rocky <rocky@gnu.org>
+
+	* Makefile.am: Add "test" target - issue #1
+
+2011-05-27  rocky <rocky@gnu.org>
+
+	* command/set_sub/history.sh, command/show.sh,
+	command/show_sub/commands.sh, command/show_sub/warranty.sh,
+	lib/hist.sh, lib/processor.sh, test/unit/.gitignore,
+	test/unit/Makefile.am: Remove traces of set/show/ history/commands
+	until this works.
+
+2011-05-27  rocky <rocky@gnu.org>
+
+	* configure.ac, test/unit/.gitignore, test/unit/test-eval.sh.in,
+	test/unit/test-fns.sh.in, test/unit/test-lib-eval.sh.in: 
+	Administrivia: test-eval.sh.in -> test-lib-eval.sh.in. test-fns.sh:
+	Remove extra slash in sourcing files
+
+2011-05-18  rocky <rocky@gnu.org>
+
+	* NEWS: Update NEWS
+
+2011-05-17  rocky <rocky@gnu.org>
+
+	* test/example/.gitignore: See above.
+
+2011-05-17  rocky <rocky@gnu.org>
+
+	* test/example/restart.sh, test/integration/test-multi: Remove a
+	couple of derived files
+
+2011-05-17  rocky <rocky@gnu.org>
+
+	* dbg-opts.sh, test/example/restart.sh,
+	test/integration/test-multi, zshdb.in: Test for pygmentize with
+	--highlight. zshdb.in - one more error output to stderr
+
+2011-05-17  rocky <rocky@gnu.org>
+
+	* ChangeLog, NEWS, command/continue.sh, command/delete.sh,
+	command/down.sh, command/examine.sh, command/info.sh,
+	command/next.sh, command/up.sh, configure.ac: Untabify some files.
+	Sync with bashdb. Get ready for release 0.08.
+
 2011-05-17  rocky <rocky@gnu.org>
 
 	* : commit f6df1a85946bd77688ac470758ad14bb202cf5fc Author: rocky

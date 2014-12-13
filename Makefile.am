@@ -57,7 +57,11 @@ MAINTAINERCLEANFILES = ChangeLog
 
 if MAINTAINER_MODE
 
-ChangeLog:
+#: Remove change log: ChangeLog
+rmChangeLog:
+	rm ChangeLog || true
+
+ChangeLog: rmChangeLog
 	git log --pretty --numstat --summary | $(GIT2CL) > $@
 
 ACLOCAL_AMFLAGS=-I .

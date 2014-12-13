@@ -1,4 +1,4 @@
-PS4='(%x:%I): [%?] zsh+ 
+PS4='(%x:%I): [%?] zsh+
 '
 setopt ksharrays
 set -o shwordsplit
@@ -7,4 +7,4 @@ _Dbg_libdir=$abs_top_srcdir
 shunit_file=${abs_top_srcdir}test/unit/shunit2
 
 # Don't need to show banner
-set -- '-q'  
+set -- '-q'

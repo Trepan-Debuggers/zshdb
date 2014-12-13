@@ -1,6 +1,6 @@
 #!@SH_PROG@
 # -*- shell-script -*-
-PS4='(%x:%I): [%?] zsh+ 
+PS4='(%x:%I): [%?] zsh+
 '
 
 setopt ksharrays
@@ -19,14 +19,14 @@ test_get_source_line()
 
 # Test check_line
 # test should appear after tests which read in source.
-test_get_source_line_with_spaces() 
+test_get_source_line_with_spaces()
 {
     _Dbg_frame_filename="${abs_top_srcdir}test/example/dir with spaces/bug.sh"
     # Can't figure out how to get this packaged with autoconf, so this
     # will work with git only.
     if [[ -f "$_Dbg_frame_filename" ]] ; then
 	_Dbg_get_source_line 2 "$_Dbg_frame_filename"
-	assertEquals 'x=1' "$source_line" 
+	assertEquals 'x=1' "$source_line"
     else
 	echo "Skipping test due to autoconf problems"
 	assertEquals 'skipped' 'skipped'
@@ -47,6 +47,7 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 . ${abs_top_srcdir}lib/fns.sh
 . ${abs_top_srcdir}lib/frame.sh
 . ${abs_top_srcdir}lib/msg.sh
+_Dbg_set_highlight=0
 set -- # reset $# so shunit2 doesn't get confused.
 
 SHUNIT_PARENT=$0

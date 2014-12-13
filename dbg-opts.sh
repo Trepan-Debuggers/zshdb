@@ -71,11 +71,24 @@ typeset -i _Dbg_set_annotate=0
 
 # Simulate set -x?
 typeset -i _Dbg_set_linetrace=0
+
 typeset -i _Dbg_set_basename=0
-typeset -i _Dbg_set_highlight=0
+typeset -i _Dbg_set_highlight  # Initialized below
 typeset -a _Dbg_o_init_files; _Dbg_o_init_files=()
 typeset -i _Dbg_o_nx=0
 typeset    _Dbg_tty=''
+
+typeset _Dbg_edit='-e'
+typeset _Dbg_edit_style='emacs'
+builtin bindkey -e
+
+# If we can do highlighting, do it.
+if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
+    _Dbg_set_highlight=1
+else
+    _Dbg_set_highlight=0
+fi
+
 
 # $_Dbg_tmpdir could have been set by the top-level debugger script.
 [[ -z $_Dbg_tmpdir ]] && typeset _Dbg_tmpdir=/tmp
