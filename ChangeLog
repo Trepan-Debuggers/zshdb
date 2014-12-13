@@ -1,5 +1,9 @@
 2014-12-12  rocky <rocky@gnu.org>
 
+	* ChangeLog, NEWS: Wrong date in NEWS. Release 0.9
+
+2014-12-12  rocky <rocky@gnu.org>
+
 	* ChangeLog, Makefile.am, make-check-filter.rb,
 	test/integration/check-common.sh.in: Makefile.am: use remake comment
 	targets. Add check-short target check-common.sh.in: split typeset

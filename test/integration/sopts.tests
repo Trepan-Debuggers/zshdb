@@ -1,6 +1,6 @@
 #!/bin/zsh -f
 # -*- shell-script -*-
-PS4='(%x:%I): [%?] zsh+ 
+PS4='(%x:%I): [%?] zsh+
 '
 set -o shwordsplit
 
@@ -13,4 +13,4 @@ quitcmd="${top_srcdir}/test/data/quit.cmd"
 contcmd="${top_srcdir}/test/data/quit.cmd"
 debugged_script="${top_srcdir}/test/example/dbg-test1.sh"
 
-$SH ${top_builddir}/zshdb -B --no-init -q -L $top_builddir -x $contcmd $debugged_script
+$SH ${top_builddir}/zshdb -B --no-init --no-highlight -q -L $top_builddir -x $contcmd $debugged_script

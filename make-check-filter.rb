@@ -9,9 +9,12 @@ pats = ["^(?:Loading",
         '\(cd \.\.',
         "make -C",
         "Test-Unit",
-        "config.status",
-        "`flet'",
+        "^config.status",
+        '^shunit2: ',
+        '^##<<+$',
+        '^##>>+$',
         '\s*$',
+        '`.+\' is up to date.$',
         '##[<>]+$'
        ].join('|') + ')'
 # puts pats

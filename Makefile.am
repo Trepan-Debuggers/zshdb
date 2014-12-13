@@ -72,6 +72,7 @@ if MAINTAINER_MODE
 rmChangeLog:
 	rm ChangeLog || true
 
+#: Create ChangeLog from version control
 ChangeLog: rmChangeLog
 	git log --pretty --numstat --summary | $(GIT2CL) > $@
 
