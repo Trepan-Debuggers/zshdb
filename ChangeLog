@@ -1,5 +1,16 @@
 2014-12-12  rocky <rocky@gnu.org>
 
+	* ChangeLog, Makefile.am, NEWS, configure.ac, dbg-opts.sh,
+	test/data/setshow.right, test/example/Makefile.am,
+	test/integration/check-common.sh.in,
+	test/integration/test-bug-delete, test/unit/helper.sh,
+	test/unit/test-get-sourceline.sh.in, test/unit/test-msg.sh.in,
+	test/unit/test-pre.sh.in: Fix bug in delete command. Change default
+	options for "set highlight" and "set editing".  Get ready for 0.9
+	release.
+
+2014-12-12  rocky <rocky@gnu.org>
+
 	* README.md: Even shorter
 
 2014-12-12  rocky <rocky@gnu.org>

@@ -1,4 +1,4 @@
-#   Copyright (C) 2008, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -14,6 +14,9 @@
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
+
+RUBY   ?= ruby
+GIT2CL ?= git2cl
 
 AUTOMAKE_OPTIONS = dist-bzip2
 
@@ -31,25 +34,33 @@ bin_SCRIPTS = zshdb
 
 MOSTLYCLEANFILES = *.orig *.rej
 
-EXTRA_DIST = $(pkgdata_DATA) THANKS README.md
+EXTRA_DIST = $(pkgdata_DATA) THANKS README.md make-check-filter.rb
 
-# Unit and Integration testing
+#: Run all tests without bloated output
+check-short:
+	$(MAKE) check 2>&1  | $(RUBY) make-check-filter.rb
+
+#: Run all tests without and show just the failure lines
+check-terse:
+	$(MAKE) check 2>&1  | $(RUBY) make-check-filter.rb | grep failure
+
+#: Unit and Integration testing
 test: check
 
-# Unit testing
+#: Unit testing
 check-unit: test-unit
 
 test-unit:
 	cd test/unit && make check
 
-# Unit testing
+#: Unit testing
 check-unit-short: test-unit-short
 
 test-unit-short:
 	@cd test/unit && make check | grep -v ^make
 
 
-# Integration testing
+#: Integration testing
 test-integration:
 	cd test/integration && make check
 
