@@ -1,5 +1,5 @@
 Version 0.9
-2014-10-12 Late Gecko
+2014-12-12 Late Gecko
 
 Note there are some incompatible changes in behavior. Some changes or
 follow gdb more closly, others make the default settings useful.

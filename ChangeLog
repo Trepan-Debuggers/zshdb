@@ -1,5 +1,12 @@
 2014-12-12  rocky <rocky@gnu.org>
 
+	* ChangeLog, Makefile.am, make-check-filter.rb,
+	test/integration/check-common.sh.in: Makefile.am: use remake comment
+	targets. Add check-short target check-common.sh.in: split typeset
+	and assignment which makes it work on a Solaris environment
+
+2014-12-12  rocky <rocky@gnu.org>
+
 	* ChangeLog, Makefile.am, NEWS, configure.ac, dbg-opts.sh,
 	test/data/setshow.right, test/example/Makefile.am,
 	test/integration/check-common.sh.in,
