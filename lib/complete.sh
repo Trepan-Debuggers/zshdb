@@ -62,10 +62,14 @@ _Dbg_complete_level_1() {
     if [[ -n ${_Dbg_complete_level_1_data[$1]} ]] ; then
 	typeset completion
 	completion=${_Dbg_complete_level_1_data[$1]}
-	if [[ ${completion[0,0]} == '!' ]] ; then
-	    completion=$(${completion[1,-1]})
-	    # completion=$ZSH_DEBUG_CMD
-	    compadd -Q -- "$completion"
+	if [[ ${completion[0,1]} == '-Q' ]] ; then
+	    opt=${completion[0,1]}
+	    completion=$(${completion[2,-1]})
+	    compadd $opt -- "$completion"
+	elif [[ ${completion[0,1]} == '-a' ]] ; then
+	    typeset -a array
+	    array=($(${completion[2,-1]}))
+	    compadd -- ${array[@]}
 	else
 	    compadd -- ${_Dbg_complete_level_1_data[$1]}
 	fi

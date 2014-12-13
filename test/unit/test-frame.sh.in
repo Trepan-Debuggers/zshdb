@@ -11,10 +11,22 @@ test_frame()
     _Dbg_frame_file a b c
     assertNotEquals 0 "$?"
     _Dbg_frame_filename=''
-    _Dbg_frame_file 
+    _Dbg_frame_file
     assertEquals 0 "$?"
     assertEquals 'test-frame.sh' "$_Dbg_frame_filename"
 }
+
+test_frame_indices() {
+    _Dbg_frame_stack=("one" "two" "three")
+    got=$(_Dbg_frame_indices)
+    expect='-3 -2 -1 0 1 2'
+    assertEquals "$expect" "$got"
+    _Dbg_frame_stack=("one")
+    got=$(_Dbg_frame_indices)
+    expect='-1 0'
+    assertEquals "$expect" "$got"
+}
+
 
 test_frame_adjust()
 {
@@ -27,7 +39,6 @@ test_frame_adjust()
     _Dbg_running=1
     typeset -a errmsg; errmsg=()
     _Dbg_frame_save_frames 0
-    assertEquals 5 ${#_Dbg_frame_stack[@]}
 
     # Test frame_adjust parameter checking
     _Dbg_frame_adjust a
@@ -43,7 +54,7 @@ test_frame_adjust()
     done
 
     # Test invalid values
-    for pair in '5 0' '5 -1' '4 +1' '-6 0'; do 
+    for pair in '6 0' '6 -1' '5 +1' '-7 0'; do
 	unset errmsg; errmsg=()
 	unset msg; msg=()
 	local _Dbg_stack_pos=2  # Bug if typeset is used.

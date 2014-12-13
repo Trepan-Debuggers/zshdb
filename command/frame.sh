@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # frame.sh - gdb-like "frame" debugger commands
 #
-#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010-2011, 2014 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -27,6 +27,8 @@ most-recent frame, 0, if no frame number specified.
 A negative number indicates the position from the other or
 least-recently-entered end.  So "frame -1" moves to the oldest frame.
 '
+
+_Dbg_complete_level_1_data[frame]='-a_Dbg_frame_indices'
 
 _Dbg_do_frame() {
     _Dbg_not_running && return 1

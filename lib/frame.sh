@@ -35,6 +35,18 @@ typeset -i _Dbg_frame_last_lineno=0
 
 #======================== FUNCTIONS  ============================#
 
+# Used in frame-number completion
+_Dbg_frame_indices() {
+    typeset list=''
+    typeset -i i
+    typeset -i j=-1
+    for ((i=0; i < ${#_Dbg_frame_stack[@]}; i++)); do
+	list="$j $list${i} "
+	((j--))
+    done
+    echo $list
+}
+
 function _Dbg_frame_adjust {
   (($# != 2)) && return -1
 

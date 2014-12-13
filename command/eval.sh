@@ -30,7 +30,7 @@ _Dbg_complete_eval() {
     echo $ZSH_DEBUG_CMD
 }
 
-_Dbg_complete_level_1_data[eval]='!_Dbg_complete_eval'
+_Dbg_complete_level_1_data[eval]='-Q_Dbg_complete_eval'
 
 _Dbg_help_add eval \
 'eval CMD
