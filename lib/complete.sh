@@ -20,7 +20,7 @@
 
 typeset -a _Dbg_matches; _Dbg_matches=()
 
-# Print a list of completions in global variable _Dbg_matches 
+# Print a list of completions in global variable _Dbg_matches
 # for 'subcmd' that start with 'text'.
 # We get the list of completions from _Dbg._*subcmd*_cmds.
 # If no completion, we return the empty list.
@@ -29,7 +29,7 @@ _Dbg_subcmd_complete() {
     text=$2
     _Dbg_matches=()
     typeset list=''
-    if [[ $subcmd == 'set' ]] ; then 
+    if [[ $subcmd == 'set' ]] ; then
 	# Newer style
 	list=${!_Dbg_command_help_set[@]}
     else
@@ -40,8 +40,8 @@ _Dbg_subcmd_complete() {
     local -i last=0
     for word in $list ; do
         # See if $word contains $text at the beginning. We use the string
-        # strip operatior '#' and check that some part of $word was stripped 
-        if [[ ${word#$text} != $word ]] ; then 
+        # strip operatior '#' and check that some part of $word was stripped
+        if [[ ${word#$text} != $word ]] ; then
             _Dbg_matches[$last]="$subcmd $word"
             ((last++))
         fi
@@ -60,7 +60,15 @@ _Dbg_complete_level_0() {
 typeset -A _Dbg_complete_level_1_data
 _Dbg_complete_level_1() {
     if [[ -n ${_Dbg_complete_level_1_data[$1]} ]] ; then
-	compadd -- ${_Dbg_complete_level_1_data[$1]}
+	typeset completion
+	completion=${_Dbg_complete_level_1_data[$1]}
+	if [[ ${completion[0,0]} == '!' ]] ; then
+	    completion=$(${completion[1,-1]})
+	    # completion=$ZSH_DEBUG_CMD
+	    compadd -Q -- "$completion"
+	else
+	    compadd -- ${_Dbg_complete_level_1_data[$1]}
+	fi
     fi
 }
 

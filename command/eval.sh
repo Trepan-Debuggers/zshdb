@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # Eval and Print commands.
 #
-#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2011, 2014 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -20,6 +21,16 @@
 
 # temp file for internal eval'd commands
 typeset _Dbg_evalfile=$(_Dbg_tempname eval)
+
+# _Dbg_complete_level_1_data[eval?]=\
+#   '\$(typeset extracted; \
+#     _Dbg_eval_extract_condition "$_Dbg_source_line"; echo $extracted)'
+
+_Dbg_complete_eval() {
+    echo $ZSH_DEBUG_CMD
+}
+
+_Dbg_complete_level_1_data[eval]='!_Dbg_complete_eval'
 
 _Dbg_help_add eval \
 'eval CMD
