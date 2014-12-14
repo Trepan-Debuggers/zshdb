@@ -2,7 +2,8 @@
 
 This is a port of my bash debugger [bashdb](http://bashdb.sf.net).
 
-The command syntax generally follows that of the GNU debugger *gdb*.
+The command syntax generally follows that of the trepanning debuggers
+and, more generally, GNU debugger *gdb*.
 
 To get the code, install git and run in a zsh shell:
 
