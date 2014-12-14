@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_complete_level_2_data
 fi
 
-_Dbg_complete_level_2_data[linetrace]='on off delay expand'
+_Dbg_complete_level_2_data[set_linetrace]='on off delay expand'
 
 _Dbg_do_set_linetrace() {
     typeset onoff=${1:-'off'}

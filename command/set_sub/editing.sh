@@ -21,7 +21,7 @@
 _Dbg_help_add_sub set editing \
 'Readline editing of command lines' 1
 
-_Dbg_complete_level_2_data[editing]='emacs on off vi'
+_Dbg_complete_level_2_data[set_editing]='emacs on off vi'
 
 _Dbg_do_set_editing() {
     typeset onoff=${1:-'on'}

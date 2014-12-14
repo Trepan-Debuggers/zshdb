@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_complete_level_2_data
 fi
 
-_Dbg_complete_level_2_data[debug]='on off'
+_Dbg_complete_level_2_data[set_debug]='on off'
 
 _Dbg_help_add_sub set debug \
 'Set debug the debugger' 1

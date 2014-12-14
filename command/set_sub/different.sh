@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_complete_level_2_data
 fi
 
-_Dbg_complete_level_2_data[different]='on off'
+_Dbg_complete_level_2_data[set_different]='on off'
 
 _Dbg_help_add_sub set different \
 'Set to stop at a different line' 1

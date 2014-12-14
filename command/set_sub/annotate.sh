@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_complete_level_2_data
 fi
 
-_Dbg_complete_level_2_data[annotate]='0 1'
+_Dbg_complete_level_2_data[set_annotate]='0 1'
 
 _Dbg_help_add_sub set annotate \
 'Set annotation level.

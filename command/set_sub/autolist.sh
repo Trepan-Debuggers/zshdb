@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_complete_level_2_data
 fi
 
-_Dbg_complete_level_2_data[autolist]='on off'
+_Dbg_complete_level_2_data[set_autolist]='on off'
 
 _Dbg_help_add_sub set autolist \
 'Run list command automatically every time the debugger enters' 1

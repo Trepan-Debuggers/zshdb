@@ -217,7 +217,7 @@ _Dbg_onecmd() {
 
 	# List all breakpoints and actions.
 	L )
-	  _Dbg_do_info_brkpts
+	  _Dbg_do_info_breakpoints
 	  # _Dbg_list_watch
 	  _Dbg_list_action
 	  ;;

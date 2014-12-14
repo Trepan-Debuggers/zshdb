@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info files" debugger command
 #
-#   Copyright (C) 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -16,6 +16,12 @@
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
+
+_Dbg_help_add_sub info files \
+'info files
+
+show a list of files that have been read in and properties regarding them.
+' 1
 
 _Dbg_do_info_files() {
     _Dbg_msg "Source files which we have recorded info about:"

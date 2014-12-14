@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info display" debugger command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,20 +18,25 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+_Dbg_help_add_sub info display 'info display
+
+Show all display expressions
+' 1
+
 # List display command(s)
 _Dbg_do_info_display() {
-  if [ ${#_Dbg_disp_exp[@]} != 0 ]; then
-    typeset i=0
-    _Dbg_msg "Auto-display statements now in effect:"
-    _Dbg_msg "Num Enb Expression          "
-    for (( i=0; i < _Dbg_disp_max; i++ )) ; do
-      if [ -n "${_Dbg_disp_exp[$i]}" ] ;then
-        _Dbg_printf '%-3d %3d %s' \
-          $i ${_Dbg_disp_enable[$i]} "${_Dbg_disp_exp[$i]}"
-      fi
-    done
-  else
-    _Dbg_msg "No display expressions have been set."
-  fi
-  return 0
+    if [ ${#_Dbg_disp_exp[@]} != 0 ]; then
+	typeset i=0
+	_Dbg_msg "Auto-display statements now in effect:"
+	_Dbg_msg "Num Enb Expression          "
+	for (( i=0; i < _Dbg_disp_max; i++ )) ; do
+	    if [ -n "${_Dbg_disp_exp[$i]}" ] ;then
+		_Dbg_printf '%-3d %3d %s' \
+		    $i ${_Dbg_disp_enable[$i]} "${_Dbg_disp_exp[$i]}"
+	    fi
+	done
+    else
+	_Dbg_msg "No display expressions have been set."
+    fi
+    return 0
 }

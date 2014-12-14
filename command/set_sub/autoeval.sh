@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_complete_level_2_data
 fi
 
-_Dbg_complete_level_2_data[autoeval]='on off'
+_Dbg_complete_level_2_data[set_autoeval]='on off'
 
 _Dbg_help_add_sub set autoeval \
 'Evaluate unrecognized commands' 1

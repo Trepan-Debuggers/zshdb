@@ -3,22 +3,22 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 +set basename on
 Show short filenames (the basename) in debug output is on.
 +# Debugger test of action command
-+# 
++#
 +# Show actions
-+a 
++a
 No actions have been set.
 +# Delete actions when there are none
-+A 
++A
 ** No actions to delete.
 +# Try a simple action action...
 +a 23 x=60
 Action 1 set in file dbg-test1.sh, line 23.
-+L 
-** No breakpoints have been set.
++L
+No breakpoints have been set.
 Actions at following places:
 Num Enb Stmt               file:line
 1     1 x=60               dbg-test1.sh:23
-+a 
++a
 Actions at following places:
 Num Enb Stmt               file:line
 1     1 x=60               dbg-test1.sh:23
@@ -30,5 +30,5 @@ Breakpoint 1 hit.
 +eval echo "value of x is now $x"
 value of x is now 60
 $? is 0
-+quit 
++quit
 zshdb: That's all, folks...

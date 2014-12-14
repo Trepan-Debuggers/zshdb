@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_complete_level_2_data
 fi
 
-_Dbg_complete_level_2_data[highlight]='on off reset'
+_Dbg_complete_level_2_data[set_highlight]='on off reset'
 
 _Dbg_help_add_sub set highlight \
 'Set terminal highlighting' 1

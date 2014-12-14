@@ -45,36 +45,36 @@ _Dbg_do_set() {
 }
 
 _Dbg_do_set_internal() {
-  typeset set_cmd="$1"
-  typeset rc
-  if [[ $set_cmd == '' ]] ; then
-    _Dbg_msg "Argument required (expression to compute)."
-    return;
-  fi
-  _Dbg_last_cmd='set'
-  shift
+    typeset set_cmd="$1"
+    typeset rc
+    if [[ $set_cmd == '' ]] ; then
+	_Dbg_msg "Argument required (expression to compute)."
+	return;
+    fi
+    _Dbg_last_cmd='set'
+    shift
 
-  if [[ -n ${_Dbg_debugger_set_commands[$set_cmd]} ]] ; then
-      ${_Dbg_debugger_set_commands[$set_cmd]} $label "$@"
-      return $?
-  fi
+    if [[ -n ${_Dbg_debugger_set_commands[$set_cmd]} ]] ; then
+	${_Dbg_debugger_set_commands[$set_cmd]} $label "$@"
+	return $?
+    fi
 
-  case $set_cmd in
-      force | dif | diff | differ | different )
-          _Dbg_set_onoff "$1" 'different'
-          ;;
-      inferior-tty )
-          _Dbg_set_tty "$@"
-          ;;
-      lo | log | logg | loggi | loggin | logging )
-          _Dbg_cmd_set_logging $@
-          ;;
-      t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
-          _Dbg_do_set_trace_commands $@
-          ;;
-      *)
-          _Dbg_undefined_cmd "set" "$set_cmd"
-          return 1
-  esac
-  return $?
+    case $set_cmd in
+	force | dif | diff | differ | different )
+            _Dbg_set_onoff "$1" 'different'
+            ;;
+	inferior-tty )
+            _Dbg_set_tty "$@"
+            ;;
+	lo | log | logg | loggi | loggin | logging )
+            _Dbg_cmd_set_logging $@
+            ;;
+	t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
+            _Dbg_do_set_trace_commands $@
+            ;;
+	*)
+            _Dbg_undefined_cmd "set" "$set_cmd"
+            return 1
+    esac
+    return $?
 }
