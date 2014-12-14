@@ -18,6 +18,17 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && top_dir='../..' || top_dir=${dirname}/../..
+    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+    typeset -A _Dbg_command_help_set
+    typeset -A _Dbg_debugger_set_commands
+    typeset -A _Dbg_complete_level_2_data
+fi
+
+_Dbg_complete_level_2_data[autolist]='on off'
+
 _Dbg_help_add_sub set autolist \
 'Run list command automatically every time the debugger enters' 1
 

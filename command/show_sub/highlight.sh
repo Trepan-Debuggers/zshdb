@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "show highlight" debugger command
 #
-#   Copyright (C) 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,17 +19,17 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub show highlight \
-"Show syntax highlight of listings" 1
+"Show teriminal highlighting" 1
 
 _Dbg_do_show_highlight() {
     typeset label="$1"
     [[ -n $label ]] && label='highlight: '
     _Dbg_msg_nocr \
-        "${label}Syntax highlight in source listings is "
-    if [[ -z $_Dbg_set_highlight ]] ; then
-        _Dbg_msg 'off.'
-    else
+        "${label}Terminal highlighting is "
+    if (( _Dbg_set_highlight )) ; then
         _Dbg_msg 'on.'
+    else
+        _Dbg_msg 'off.'
     fi
     return 0
 }

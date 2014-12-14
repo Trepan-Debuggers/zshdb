@@ -18,6 +18,12 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
+    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+fi
+
 _Dbg_help_add frame \
 'frame [FRAME-NUMBER].
 
@@ -28,7 +34,8 @@ A negative number indicates the position from the other or
 least-recently-entered end.  So "frame -1" moves to the oldest frame.
 '
 
-_Dbg_complete_level_1_data[frame]='-a_Dbg_frame_indices'
+typeset -A _Dbg_complete_level_1_data
+_Dbg_complete_level_1_data[frame]='-a_Dbg_frame_complete 0'
 
 _Dbg_do_frame() {
     _Dbg_not_running && return 1

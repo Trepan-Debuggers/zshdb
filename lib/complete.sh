@@ -54,6 +54,8 @@ _Dbg_complete_level_0() {
 	compadd -- ${(ki)_Dbg_debugger_commands[@]} ${(ki)_Dbg_aliases[@]}
     elif ((2 == CURRENT)) ; then
 	_Dbg_complete_level_1 ${words[0]}
+    elif ((3 == CURRENT)) ; then
+	_Dbg_complete_level_2 ${words[1]}
     fi
 }
 
@@ -69,9 +71,32 @@ _Dbg_complete_level_1() {
 	elif [[ ${completion[0,1]} == '-a' ]] ; then
 	    typeset -a array
 	    array=($(${completion[2,-1]}))
+	    # FIXME: compadd below sorts elements in array. That is
+	    # not what I want.
 	    compadd -- ${array[@]}
 	else
 	    compadd -- ${_Dbg_complete_level_1_data[$1]}
+	fi
+    fi
+}
+
+typeset -A _Dbg_complete_level_2_data
+_Dbg_complete_level_2() {
+    if [[ -n ${_Dbg_complete_level_2_data[$1]} ]] ; then
+	typeset completion
+	completion=${_Dbg_complete_level_2_data[$1]}
+	if [[ ${completion[0,1]} == '-Q' ]] ; then
+	    opt=${completion[0,1]}
+	    completion=$(${completion[2,-1]})
+	    compadd $opt -- "$completion"
+	elif [[ ${completion[0,1]} == '-a' ]] ; then
+	    typeset -a array
+	    array=($(${completion[2,-1]}))
+	    # FIXME: compadd below sorts elements in array. That is
+	    # not what I want.
+	    compadd -- ${array[@]}
+	else
+	    compadd -- ${_Dbg_complete_level_2_data[$1]}
 	fi
     fi
 }

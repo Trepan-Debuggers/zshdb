@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "up" debugger command
 #
-#   Copyright (C) 2010-2012 Rocky Bernstein
+#   Copyright (C) 2010-2012, 2014 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -36,6 +36,9 @@ If COUNT is omitted, use 1. COUNT can be any arithmetic expression.
 
 See also "down" and "frame".'
 
+typeset -A _Dbg_complete_level_1_data
+_Dbg_complete_level_1_data[up]='-a_Dbg_frame_complete 1'
+
 function _Dbg_do_up {
   _Dbg_not_running && return 1
   typeset -i count=${1:-1}
@@ -46,7 +49,7 @@ function _Dbg_do_up {
 
 # Demo it
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    for _Dbg_file in  help msg sort columnize ; do 
+    for _Dbg_file in  help msg sort columnize ; do
         source ${top_dir}/lib/${_Dbg_file}.sh
     done
     source ${top_dir}/command/help.sh

@@ -35,15 +35,52 @@ typeset -i _Dbg_frame_last_lineno=0
 
 #======================== FUNCTIONS  ============================#
 
-# Used in frame-number completion
-_Dbg_frame_indices() {
-    typeset list=''
-    typeset -i i
-    typeset -i j=-1
-    for ((i=0; i < ${#_Dbg_frame_stack[@]}; i++)); do
-	list="$j $list${i} "
-	((j--))
+_Dbg_frame_low_high() {
+    typeset -i direction=${1:-1}
+    typeset -i stack_size; stack_size=${#Dbg_frame_stack[@]}
+    if (( direction == 0 )) ; then
+        ((low=-stack_size))
+        ((high=stack_size-1))
+    elif (( direction < 0 )) ; then
+	((low=-stack_size + 1 + Dbg_stack_pos))
+	((high=Dbg_stack_pos))
+    else
+	((low=Dbg_stack_pos))
+	((high=stack_size -1 - Dbg_stack_pos))
+    fi
+}
+
+# The following two routines are used in frame-number completion. I
+# basically translated them from Ruby's trepan frame routines.
+_Dbg_frame_low_high() {
+    typeset -i direction=${1:-1}
+    typeset -i stack_size; stack_size=${#_Dbg_frame_stack[@]}
+    if (( direction == 0 )) ; then
+        ((low=-stack_size))
+        ((high=stack_size-1))
+    elif (( direction < 0 )) ; then
+	((low=-stack_size + 1 + _Dbg_stack_pos))
+	((high=_Dbg_stack_pos))
+    else
+	((low=_Dbg_stack_pos))
+	((high=stack_size -1 - _Dbg_stack_pos))
+    fi
+}
+
+_Dbg_frame_complete() {
+    typeset -i direction=${1:-1}
+    typeset -i low
+    typeset -i high
+    _Dbg_frame_low_high $direction
+    typeset list
+    # list in most useful order 1, 2... -n..0
+    for ((i=1; i <= high; i++)); do
+	list="$list${i} "
     done
+    for ((i=low; i < 0; i++)); do
+	list="$list${i} "
+    done
+    list="${list}0"
     echo $list
 }
 

@@ -5,7 +5,8 @@ typeset -a _Dbg_frame_stack; _Dbg_frame_stack=()
 test_frame()
 {
     _Dbg_frame_save_frames 0
-    assertEquals 5 ${#_Dbg_frame_stack[@]}
+    ((bool=${#_Dbg_frame_stack[@]} >= 5))
+    assertEquals  "Frame size large enough" 1 $bool
     _Dbg_set_basename=1
     typeset _Dbg_frame_filename=''
     _Dbg_frame_file a b c
@@ -16,17 +17,39 @@ test_frame()
     assertEquals 'test-frame.sh' "$_Dbg_frame_filename"
 }
 
-test_frame_indices() {
+test_frame_complete() {
     _Dbg_frame_stack=("one" "two" "three")
-    got=$(_Dbg_frame_indices)
-    expect='-3 -2 -1 0 1 2'
-    assertEquals "$expect" "$got"
-    _Dbg_frame_stack=("one")
-    got=$(_Dbg_frame_indices)
-    expect='-1 0'
-    assertEquals "$expect" "$got"
-}
+    _Dbg_stack_pos=0
+    got=$(_Dbg_frame_complete 0)
+    expect='1 2 -3 -2 -1 0'
+    assertEquals 'frame complete' "$expect" "$got"
 
+    got=$(_Dbg_frame_complete 1)
+    expect='1 2 0'
+    assertEquals 'up complete' "$expect" "$got"
+
+    _Dbg_stack_pos=1
+    got=$(_Dbg_frame_complete 1)
+    expect='1 0'
+    assertEquals 'up complete' "$expect" "$got"
+
+    got=$(_Dbg_frame_complete -1)
+    expect='1 -1 0'
+    assertEquals 'down complete' "$expect" "$got"
+
+    _Dbg_stack_pos=0
+    _Dbg_frame_stack=("one")
+    got=$(_Dbg_frame_complete 0)
+    expect='-1 0'
+    assertEquals 'frame complete - 1 item' "$expect" "$got"
+
+    got=$(_Dbg_frame_complete 1)
+    expect='0'
+    assertEquals 'frame up complete - 1 item' "$expect" "$got"
+
+    got=$(_Dbg_frame_complete -1)
+    assertEquals 'frame down complete - 1 item' "$expect" "$got"
+}
 
 test_frame_adjust()
 {

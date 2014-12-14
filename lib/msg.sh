@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2009, 2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,6 +18,7 @@
 
 _Dbg_ansi_term_bold="[1m"
 _Dbg_ansi_term_italic="[3m"
+_Dbg_ansi_term_underline="[4m"
 _Dbg_ansi_term_normal="[0m"
 
 # Called when a dangerous action is about to be done to make sure it's

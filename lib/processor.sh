@@ -13,7 +13,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -32,7 +32,7 @@ typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}%h${_Dbg_greater}'
 typeset _Dbg_last_cmd=''
 
 # Command currently under consideration, without any alias expansion.
-typeset _Dbg_cmd='' 
+typeset _Dbg_cmd=''
 
 typeset last_next_step_cmd='s' # Default is step.
 
@@ -44,17 +44,17 @@ typeset -i _Dbg_in_vared=0
 
 # A list of debugger command input-file descriptors.
 # Duplicate standard input. Note we need to export it as well.
-typeset -xi _Dbg_fdi ; 
+typeset -xi _Dbg_fdi ;
 
 # Save descriptor number
 typeset -a _Dbg_fd ; _Dbg_fd=()
 
-# A list of source'd command files. If the entry is '', then we are 
+# A list of source'd command files. If the entry is '', then we are
 # interactive.
 typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 
 # The main debugger command reading loop.
-# 
+#
 # Note: We have to be careful here in naming "local" variables. In contrast
 # to other places in the debugger, because of the read/eval loop, they are
 # in fact seen by those using the debugger. So in contrast to other "local"s
@@ -78,14 +78,14 @@ function _Dbg_process_commands {
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
 
       _Dbg_fdi=${_Dbg_fd[-1]}
-      
+
       # Set up prompt to show shell and subshell levels.
       typeset _Dbg_greater=''
       typeset _Dbg_less=''
 
       # Used by copies to return a value. /dev/null because zsh prints
       # a definition if it has been defined before? So why not
-      # needed for _Dbg_less and _Dbg_greater ? 
+      # needed for _Dbg_less and _Dbg_greater ?
       typeset result 1>/dev/null
 
       if _Dbg_copies '>' $_Dbg_DEBUGGER_LEVEL ; then
@@ -93,16 +93,20 @@ function _Dbg_process_commands {
 	  _Dbg_copies '<' $_Dbg_DEBUGGER_LEVEL
       	  _Dbg_less=$result
       fi
-      
+
       if _Dbg_copies ')' $ZSH_SUBSHELL ; then
 	  _Dbg_greater="${result}${_Dbg_greater}"
 	  _Dbg_less="${_Dbg_less}${result//)/(}"
       fi
-      
+
       # typeset _Dbg_prompt
-      eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
+      if ((_Dbg_set_highlight)) ; then
+	      eval "_Dbg_prompt=\"${_Dbg_ansi_term_underline}$_Dbg_prompt_str${_Dbg_ansi_term_normal} \"" 2>/dev/null
+      else
+	  eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
+      fi
       _Dbg_preloop
-      # typeset _Dbg_cmd 
+      # typeset _Dbg_cmd
       typeset line=''
       while : ; do
 	  if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
@@ -129,7 +133,7 @@ function _Dbg_process_commands {
 	      print -s -- "$line"
 	  fi
           (( rc > 0 )) && return $rc
-	  
+
 	  line=''
       done # read "?$_Dbg_prompt" ...
 
@@ -153,7 +157,7 @@ _Dbg_annotation() {
 
 # Run a single command
 # Parameters: _Dbg_cmd and args
-# 
+#
 _Dbg_onecmd() {
 
     # setopt shwordsplit ksharrays  # Done in _Dbg_debug_trap_handler
@@ -185,7 +189,7 @@ _Dbg_onecmd() {
 
     # The below are command names that are just a little irregular
     case $_Dbg_cmd in
-	[#]* ) 
+	[#]* )
 	  _Dbg_last_cmd="#"
 	  # _Dbg_remove_history_item
 	  return -1 # don't put in history.
@@ -197,7 +201,7 @@ _Dbg_onecmd() {
 	  return $?
 	  ;;
 
-	# single-step 
+	# single-step
 	'step+' | 'step-' )
 	  _Dbg_do_step $@
 	  return $?
@@ -205,8 +209,8 @@ _Dbg_onecmd() {
 
 	'' )
 	  # Redo last_cmd
-	  if [[ -n $_Dbg_last_cmd ]] ; then 
-	      _Dbg_cmd=$_Dbg_last_cmd 
+	  if [[ -n $_Dbg_last_cmd ]] ; then
+	      _Dbg_cmd=$_Dbg_last_cmd
 	      _Dbg_redo=1
 	  fi
 	  ;;
@@ -223,14 +227,14 @@ _Dbg_onecmd() {
 	  _Dbg_do_clear_all_actions $args
 	  ;;
 
-	* ) 
+	* )
 	   if (( _Dbg_set_autoeval )) ; then
-	       if [[ -t $_Dbg_fdi ]] ; then 
+	       if [[ -t $_Dbg_fdi ]] ; then
 		   if ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 ; then
 		       return -1
 		   fi
 	       else
-		   if ! _Dbg_do_eval $_Dbg_cmd $args ; then 
+		   if ! _Dbg_do_eval $_Dbg_cmd $args ; then
 		       return -1
 		   fi
 	       fi
@@ -246,18 +250,18 @@ _Dbg_onecmd() {
 _Dbg_preloop() {
     if ((_Dbg_set_annotate)) ; then
 	_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
-	# _Dbg_annotation 'locals'      _Dbg_do_backtrace 3 
-	_Dbg_annotation 'stack'       _Dbg_do_backtrace 3 
+	# _Dbg_annotation 'locals'      _Dbg_do_backtrace 3
+	_Dbg_annotation 'stack'       _Dbg_do_backtrace 3
     fi
 }
 
 _Dbg_postcmd() {
     if ((_Dbg_set_annotate)) ; then
 	case $_Dbg_last_cmd in
-            break | tbreak | disable | enable | condition | clear | delete ) 
+            break | tbreak | disable | enable | condition | clear | delete )
 		_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
 		;;
-	    up | down | frame ) 
+	    up | down | frame )
 		_Dbg_annotation 'stack' _Dbg_do_backtrace 3
 		;;
 	    * )
