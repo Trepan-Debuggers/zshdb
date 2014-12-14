@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # help.sh - gdb-like "help" debugger command
 #
-#   Copyright (C) 2008, 2010, 2013 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2013, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -24,8 +24,27 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     for file in help alias ; do source $top_dir/lib/${file}.sh; done
 fi
 
+_Dbg_help_command_complete() {
+    unsetopt ksharrays
+    echo ${(ki)_Dbg_command_help}
+    setopt ksharrays
+}
+
 _Dbg_help_add help \
-'help	-- Print list of commands.'
+'help [COMMAND [SUBCOMMAND ..]]
+
+If no arguments are given, print a list of command names.
+With a command name give help for that command. For many commands
+you can get further detailed help by listing the subcommand name.
+
+Examples:
+
+help
+help up
+help set
+help set args'
+
+_Dbg_complete_level_1_data[help]='-a_Dbg_help_command_complete'
 
 # help_text="
 # **help** [*command*]

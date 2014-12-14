@@ -18,10 +18,19 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && top_dir='../..' || top_dir=${dirname}/../..
+    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+    typeset -A _Dbg_command_help_set
+    typeset -A _Dbg_debugger_set_commands
+fi
+
+typeset -A _Dbg_complete_level_2_data
+_Dbg_complete_level_2_data[set_editing]='emacs on off vi'
+
 _Dbg_help_add_sub set editing \
 'Readline editing of command lines' 1
-
-_Dbg_complete_level_2_data[set_editing]='emacs on off vi'
 
 _Dbg_do_set_editing() {
     typeset onoff=${1:-'on'}

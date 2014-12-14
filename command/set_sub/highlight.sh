@@ -24,13 +24,23 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
     typeset -A _Dbg_command_help_set
     typeset -A _Dbg_debugger_set_commands
-    typeset -A _Dbg_complete_level_2_data
 fi
 
+typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_highlight]='on off reset'
 
 _Dbg_help_add_sub set highlight \
-'Set terminal highlighting' 1
+'
+set highlight [on|off|reset]
+
+Set using terminal highlight.
+
+Use "reset" to set highlighting on and force a redo of syntax
+highlighting of already cached files. This may be needed if the
+debugger was started without syntax highlighting initially.
+
+See also: show highlight.
+' 1
 
 _Dbg_do_set_highlight() {
     if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then

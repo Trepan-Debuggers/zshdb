@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # show.sh - Show debugger settings
 #
-#   Copyright (C) 2008, 2010, 2011
+#   Copyright (C) 2008, 2010-2011, 2014
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -19,10 +19,17 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && _Dbg_libdir='..' || _Dbg_libdir=${dirname}/..
+    for lib_file in help alias ; do source $_Dbg_libdir/lib/${lib_file}.sh; done
+    typeset -A _Dbg_complete_level_1_data
+fi
+
 typeset -A _Dbg_debugger_show_commands
 typeset -A _Dbg_command_help_show
 
-# subcommands whose current values are not shown in a "show" list . 
+# subcommands whose current values are not shown in a "show" list .
 # These are things like alias, warranty, or copying.
 # They are available if asked for explicitly, e.g. "show copying"
 typeset -A _Dbg_show_nolist

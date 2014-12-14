@@ -24,9 +24,9 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
     typeset -A _Dbg_command_help_set
     typeset -A _Dbg_debugger_set_commands
-    typeset -A _Dbg_complete_level_2_data
 fi
 
+typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_linetrace]='on off delay expand'
 
 _Dbg_do_set_linetrace() {
