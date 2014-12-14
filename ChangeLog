@@ -1,3 +1,63 @@
+2014-12-14  rocky <rocky@gnu.org>
+
+	* command/info.sh, command/info_sub/Makefile.am,
+	command/info_sub/breakpoints.sh, command/info_sub/brkpts.sh,
+	command/info_sub/display.sh, command/info_sub/files.sh,
+	command/info_sub/line.sh, command/info_sub/program.sh,
+	command/info_sub/source.sh, command/info_sub/variables.sh,
+	command/info_sub/warranty.sh, command/set.sh,
+	command/set_sub/annotate.sh, command/set_sub/autoeval.sh,
+	command/set_sub/autolist.sh, command/set_sub/basename.sh,
+	command/set_sub/debug.sh, command/set_sub/different.sh,
+	command/set_sub/editing.sh, command/set_sub/highlight.sh,
+	command/set_sub/linetrace.sh, command/set_sub/showcommand.sh,
+	lib/complete.sh, lib/processor.sh, test/data/action.right,
+	test/data/brkpt1.cmd, test/data/brkpt1.right,
+	test/data/condition.cmd, test/data/condition.right,
+	test/data/delete.cmd, test/data/delete.right, test/data/enable.cmd,
+	test/data/enable.right, test/data/tbreak.cmd,
+	test/data/tbreak.right: Command completion of "info" subcommands.
+	Make info subcommand handling more programmatic like "set" and"
+	show" commands.
+
+2014-12-13  rocky <rocky@gnu.org>
+
+	* README.md: Put in a plug for trepanning
+
+2014-12-13  rocky <rocky@gnu.org>
+
+	* command/down.sh, command/frame.sh, command/set_sub/annotate.sh,
+	command/set_sub/autoeval.sh, command/set_sub/autolist.sh,
+	command/set_sub/basename.sh, command/set_sub/debug.sh,
+	command/set_sub/different.sh, command/set_sub/editing.sh,
+	command/set_sub/highlight.sh, command/set_sub/linetrace.sh,
+	command/set_sub/trace-commands.sh, command/show_sub/highlight.sh,
+	command/up.sh, lib/complete.sh, lib/frame.sh, lib/msg.sh,
+	lib/processor.sh, test/unit/test-frame.sh.in: Add frame number
+	completion on up, down, frame. Start 2nd level completion of set
+	commands, e.g. set basename, set editing, set highlight.  Add
+	terminal underline attribute.  Use highlight setting to figure out
+	whether to underline prompt.  Docstring for set/show highlight
+	mentions terminal now instead of source-code listing.
+
+2014-12-13  rocky <rocky@gnu.org>
+
+	* command/eval.sh, command/frame.sh, lib/complete.sh, lib/frame.sh,
+	test/unit/test-frame.sh.in: "frame" command now has frame-number
+	completion
+
+2014-12-13  rocky <rocky@gnu.org>
+
+	* command/eval.sh, configure.ac, lib/complete.sh: Command completion
+	for eval. Next version will be 0.91
+
+2014-12-13  rocky <rocky@gnu.org>
+
+	* ChangeLog, Makefile.am, configure.ac, make-check-filter.rb,
+	test/integration/lopts.tests, test/integration/sopts.tests: 
+	*opts.tests: make sure we use --no-highlight sync
+	make-chekc-filter.rb with that used in bashdb Bump version to dev.
+
 2014-12-12  rocky <rocky@gnu.org>
 
 	* ChangeLog, NEWS: Wrong date in NEWS. Release 0.9

@@ -11,7 +11,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -21,7 +21,7 @@
 typeset -A _Dbg_command_help
 export _Dbg_command_help
 
-# List of debugger commands. 
+# List of debugger commands.
 # FIXME: for now we are attaching this to _Dbg_help_add which
 # is whe this is here. After moving somewhere more appropriate, relocate
 # the definition.
@@ -49,7 +49,8 @@ function _Dbg_help_add_sub {
 
 _Dbg_help_set() {
 
-    if (( $# == 0 )) ; then 
+    typeset subcmd
+    if (( $# == 0 )) ; then
         typeset -a list
         list=(${(ki)_Dbg_command_help_set[@]})
         sort_list 0 ${#list[@]}-1
@@ -59,10 +60,19 @@ _Dbg_help_set() {
         return 0
     fi
 
-    typeset set_cmd="$1"
+    subcmd="$1"
     typeset label="$2"
-    
-    case $set_cmd in 
+
+    if [[ -n "${_Dbg_command_help_set[$subcmd]}" ]] ; then
+        if [[ -z $label ]] ; then
+            _Dbg_msg "${_Dbg_command_help_set[$subcmd]}"
+            return 0
+        else
+            label=$(builtin printf "set %-12s-- " $subcmd)
+        fi
+    fi
+
+    case $subcmd in
         ar | arg | args )
             [[ -n $label ]] && label='set args      -- '
             _Dbg_msg \
@@ -71,7 +81,7 @@ Follow this command with any number of args, to be passed to the program."
             return 0
             ;;
         an | ann | anno | annot | annota | annotat | annotate )
-            if [[ -n $label ]] ; then 
+            if [[ -n $label ]] ; then
                 label='set annotate  -- '
             else
                 typeset post_label='
@@ -113,7 +123,7 @@ Follow this command with any number of args, to be passed to the program."
             [[ -n $label ]] && label='set editing   -- '
             _Dbg_msg_nocr \
                 "${label}Set editing of command lines as they are typed is "
-            if [[ -z $_Dbg_edit ]] ; then 
+            if [[ -z $_Dbg_edit ]] ; then
                 _Dbg_msg 'off.'
             else
                 _Dbg_msg 'on.'
@@ -124,7 +134,7 @@ Follow this command with any number of args, to be passed to the program."
             [[ -n $label ]] && label='set highlight -- '
             _Dbg_msg_nocr \
                 "${label}Set syntax highlighting of source listings is "
-            if [[ -z $_Dbg_edit ]] ; then 
+            if [[ -z $_Dbg_edit ]] ; then
                 _Dbg_msg 'off.'
             else
                 _Dbg_msg 'on.'
@@ -135,7 +145,7 @@ Follow this command with any number of args, to be passed to the program."
             [[ -n $label ]] && label='set history   -- '
             _Dbg_msg_nocr \
                 "${label}Set record command history is "
-            if [[ -z $_Dbg_set_edit ]] ; then 
+            if [[ -z $_Dbg_set_edit ]] ; then
                 _Dbg_msg 'off.'
             else
                 _Dbg_msg 'on.'
@@ -145,7 +155,7 @@ Follow this command with any number of args, to be passed to the program."
             eval "$_seteglob"
             if [[ -z $2 ]] ; then
                 _Dbg_errmsg "Argument required (integer to set it to.)."
-            elif [[ $2 != $int_pat ]] ; then 
+            elif [[ $2 != $int_pat ]] ; then
                 _Dbg_errmsg "Integer argument expected; got: $2"
                 eval "$_resteglob"
                 return 1
@@ -201,25 +211,38 @@ Follow this command with any number of args, to be passed to the program."
             ;;
         * )
             _Dbg_msg \
-                "There is no \"set $set_cmd\" command."
+                "There is no \"set $subcmd\" command."
     esac
 }
 
-typeset _Dbg_show_cmds="aliases annotate args autoeval autolist basename commands 
+typeset _Dbg_show_cmds="aliases annotate args autoeval autolist basename commands
 copying directories debug force linetrace listsize prompt trace-commands warranty"
 
 _Dbg_help_show() {
-    typeset show_cmd=$1
-    
-    if [[ -z $show_cmd ]] ; then 
-        typeset thing
-        for thing in $_Dbg_show_cmds ; do 
-            _Dbg_help_show $thing 1
+    if (( $# == 0 )) ; then
+        typeset -a list
+        list=("${!_Dbg_command_help_show[@]}")
+        sort_list 0 ${#list[@]}-1
+        typeset subcmd
+        for subcmd in ${list[@]}; do
+            [[ $subcmd != 'version' ]] && _Dbg_help_show $subcmd 1
         done
-        return
+        return 0
     fi
-    
-    case $show_cmd in 
+
+    typeset subcmd=$1
+    typeset label="$2"
+
+    if [[ -n "${_Dbg_command_help_show[$subcmd]}" ]] ; then
+        if [[ -z $label ]] ; then
+            _Dbg_msg "${_Dbg_command_help_show[$subcmd]}"
+            return 0
+        else
+            label=$(builtin printf "show %-12s-- " $subcmd)
+        fi
+    fi
+
+    case $subcmd in
         al | ali | alia | alias | aliase | aliases )
             _Dbg_msg \
                 'show aliases     -- Show list of aliases currently in effect.'
@@ -227,7 +250,7 @@ _Dbg_help_show() {
             ;;
         ar | arg | args )
             _Dbg_msg \
-                'show args        -- Show argument list to give program being debugged when it 
+                'show args        -- Show argument list to give program being debugged when it
                     is started.'
             return 0
             ;;
@@ -301,6 +324,6 @@ _Dbg_help_show() {
             ;;
         * )
             _Dbg_msg \
-                "Undefined show command: \"$show_cmd\".  Try \"help show\"."
+                "Undefined show command: \"$subcmd\".  Try \"help show\"."
     esac
 }

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set autolist" debugger command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -24,9 +24,9 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
     typeset -A _Dbg_command_help_set
     typeset -A _Dbg_debugger_set_commands
-    typeset -A _Dbg_complete_level_2_data
 fi
 
+typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_autolist]='on off'
 
 _Dbg_help_add_sub set autolist \

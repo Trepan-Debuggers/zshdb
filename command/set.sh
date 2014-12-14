@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # set.sh - debugger settings
 #
-#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -21,6 +21,14 @@
 # If yes, always show. If auto, show only if the same line is to be run
 # but the command is different.
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && _Dbg_libdir='..' || _Dbg_libdir=${dirname}/..
+    for lib_file in help alias ; do source $_Dbg_libdir/lib/${lib_file}.sh; done
+    typeset -A _Dbg_complete_level_1_data
+fi
+
+typeset -A _Dbg_debugger_info_commands
 typeset -i _Dbg_set_linewidth; _Dbg_set_linewidth=${COLUMNS:-80}
 typeset -i _Dbg_linetrace_expand=0 # expand variables in linetrace output
 typeset    _Dbg_linetrace_delay=1  # sleep after linetrace
