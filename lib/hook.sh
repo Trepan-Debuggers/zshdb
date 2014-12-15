@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
-#   Copyright (C) 2008, 2009, 2010, 2011 
+#   Copyright (C) 2008, 2009, 2010, 2011
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -13,7 +13,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -33,18 +33,18 @@ typeset -i _Dbg_program_exit_code=0
 function _Dbg_trap_handler {
 
     # Save old set options before destroying them
-    _Dbg_old_set_opts=$-  
+    _Dbg_old_set_opts=$-
 
     # Turn off line and variable trace listing.
     ((!_Dbg_set_debug)) && set +x
     set +v +u +e
 
     _Dbg_set_debugger_entry 'create_unsetopt'
-    # If some options are set (like localtraps?) then 
+    # If some options are set (like localtraps?) then
     # some of the above doesn't work. So repeat some of it.
     setopt ksharrays shwordsplit norcs
     unsetopt $_Dbg_debugger_unset_opts
-    
+
     trap '_Dbg_hook_error_handler' ERR
 
     typeset -i _Dbg_debugged_exit_code=$1
@@ -52,11 +52,11 @@ function _Dbg_trap_handler {
 
     # Populate _Dbg_arg with $1, $2, etc.
     typeset -a _Dbg_arg
-    _Dbg_arg=($@)   # Does this require shword split off? 
+    _Dbg_arg=($@)   # Does this require shword split off?
 
     typeset -i _Dbg_skipping_fn
     ((_Dbg_skipping_fn =
-	    (_Dbg_return_level >= 0 && 
+	    (_Dbg_return_level >= 0 &&
 	     ${#funcfiletrace[@]} > _Dbg_return_level) ))
 
     if [[ -r $_Dbg_journal  ]] ; then
@@ -64,7 +64,7 @@ function _Dbg_trap_handler {
     fi
 
     # if in step mode, decrement counter
-    if ((_Dbg_step_ignore > 0)) ; then 
+    if ((_Dbg_step_ignore > 0)) ; then
 	if ((! _Dbg_skipping_fn )) ; then
 	    ((_Dbg_step_ignore--))
 	    _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
@@ -83,7 +83,7 @@ function _Dbg_trap_handler {
     fi
 
     # FIXME: look for watchpoints
-    
+
     typeset full_filename
     typeset file_line
     file_line=${funcfiletrace[0]}
@@ -91,20 +91,20 @@ function _Dbg_trap_handler {
     filename=${split_result[0]}
     lineno=${split_result[1]}
     full_filename=$(_Dbg_is_file $filename)
-    if [[ -r $full_filename ]] ; then 
+    if [[ -r $full_filename ]] ; then
 	_Dbg_file2canonic[$filename]="$full_filename"
     fi
 
     # Run applicable action statement
-    if ((_Dbg_action_count > 0)) ; then 
+    if ((_Dbg_action_count > 0)) ; then
 	_Dbg_hook_action_hit "$full_filename"
     fi
 
-    # Determine if we stop or not. 
+    # Determine if we stop or not.
 
     # Check breakpoints.
-    if ((_Dbg_brkpt_count > 0)) ; then 
-	if _Dbg_hook_breakpoint_hit "$full_filename"; then 
+    if ((_Dbg_brkpt_count > 0)) ; then
+	if _Dbg_hook_breakpoint_hit "$full_filename"; then
 	    if ((_Dbg_step_force)) ; then
 		typeset _Dbg_frame_previous_file="$_Dbg_frame_last_filename"
 		typeset -i _Dbg_frame_previous_lineno="$_Dbg_frame_last_lineno"
@@ -143,7 +143,7 @@ function _Dbg_trap_handler {
 	return $?
 
     fi
-    if ((_Dbg_set_linetrace)) ; then 
+    if ((_Dbg_set_linetrace)) ; then
 	if ((_Dbg_linetrace_delay)) ; then
 	    sleep $_Dbg_linetrace_delay
 	fi
@@ -156,7 +156,7 @@ function _Dbg_trap_handler {
 }
 
 _Dbg_hook_action_hit() {
-    typeset full_filename="$1"  
+    typeset full_filename="$1"
     typeset lineno=$_Dbg_frame_last_lineno # NOT USED. FIXME
     # FIXME remove below
     typeset file_line
@@ -174,7 +174,7 @@ _Dbg_hook_action_hit() {
 
     typeset -i _Dbg_i
     # Check action within full_filename
-    for ((_Dbg_i=0; _Dbg_i < ${#linenos[@]}; _Dbg_i++)); do 
+    for ((_Dbg_i=0; _Dbg_i < ${#linenos[@]}; _Dbg_i++)); do
 	if (( linenos[_Dbg_i] == lineno )) ; then
 	    (( _Dbg_action_num = action_nos[_Dbg_i] ))
 	    stmt="${_Dbg_action_stmt[$_Dbg_action_num]}"
@@ -208,9 +208,9 @@ _Dbg_hook_breakpoint_hit() {
     eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$full_filename]})"
     typeset -i i
     # Check breakpoints within full_filename
-    for ((i=0; i < ${#linenos[@]}; i++)); do 
+    for ((i=0; i < ${#linenos[@]}; i++)); do
 	if (( linenos[i] == lineno )) ; then
-	    # Got a match, but is the breakpoint enabled? 
+	    # Got a match, but is the breakpoint enabled?
 	    (( _Dbg_brkpt_num = brkpt_nos[i] ))
 	    if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )) ; then
 		return 0
@@ -231,7 +231,9 @@ _Dbg_hook_enter_debugger() {
 
 # Cleanup routine: erase temp files before exiting.
 _Dbg_cleanup() {
-    setopt | grep interactive 2>&1 >/dev/null && _Dbg_history_write
+    if setopt | grep interactive 2>&1 >/dev/null ; then
+	_Dbg_history_write
+    fi
     [[ -f $_Dbg_evalfile ]] && rm -f $_Dbg_evalfile 2>/dev/null
     set +u
     if [[ -n $_Dbg_EXECUTION_STRING ]] && [[ -r $_Dbg_script_file ]] ; then
@@ -239,10 +241,10 @@ _Dbg_cleanup() {
     fi
     _Dbg_erase_journals || true  # ignore return code for now
     _Dbg_restore_user_vars
-  
+
 }
 
-# Follows bashdb which reports: 
+# Follows bashdb which reports:
 # Somehow we can't put this in _Dbg_cleanup and have it work.
 # I am not sure why.
 _Dbg_cleanup2() {

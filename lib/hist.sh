@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # hist.sh - Bourne Again Shell Debugger history routines
 #
-#   Copyright (C) 2008, 2011 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2011, 2014 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -26,15 +26,28 @@ SAVEHIST=30  # what zsh uses by default on save
 _Dbg_histfile=${ZDOTDIR:-$HOME}/.${_Dbg_debugger_name}_hist
 
 _Dbg_history_read() {
-    if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then 
-	fc -R $_Dbg_histfile 
+    if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then
+	fc -R $_Dbg_histfile
     fi
 }
 
 # Save history file
 _Dbg_history_write() {
-    (( _Dbg_history_length > 0 && _Dbg_set_history)) \
-	&& fc -WI $_Dbg_histfile
+    if (( _Dbg_history_length > 0 && _Dbg_set_history)) ; then
+	# The following "fc" command doesn't work and I, rocky, don't
+	# have the patients to deal with arcane zsh-isms to want to
+	# make it work.
+	## fc -WI $_Dbg_histfile
+	cat /dev/null >$_Dbg_histfile
+	typeset line
+	typeset -a buffer
+	fc -l | while read -r line >/dev/null; do
+	    IFS=' ' read -A buffer <<< $line >/dev/null 2>&1
+	    buffer[1]=()
+	    print -- "${buffer[@]}" >> $_Dbg_histfile;
+	    buffer=()
+	done
+    fi
 }
 
 # Show history via fc -l
@@ -45,4 +58,3 @@ _Dbg_history_list() {
     fc -l $@ 2>/dev/null
     return $?
 }
-

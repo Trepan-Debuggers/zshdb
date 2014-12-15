@@ -60,6 +60,14 @@ _Dbg_complete_level_0() {
 
 # Interactive completion for level_1. This is completion for debugger
 # command arguments like "frame", "help" and so on.
+
+# TODO: There is a way to give provide a custom help for a specific
+# kind of completion expected (frame number, file name, breakpoint
+# number...), which is can be supplied completion help, ^Xh is
+# entered. This is called a "tag group" and below we have a "frame"
+# group. We haven't added the description for it, because too many of
+# the zsh-specific things I, rocky, can't figure it out. If
+# someone else wants do add, by all means, please do.
 typeset -A _Dbg_complete_level_1_data
 _Dbg_complete_level_1() {
     if [[ -n ${_Dbg_complete_level_1_data[$1]} ]] ; then
