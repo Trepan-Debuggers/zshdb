@@ -1,18 +1,24 @@
 2014-12-15  rocky <rocky@gnu.org>
 
-	* NEWS, command/show.sh, command/show_sub/basename.sh, dbg-main.sh,
-	dbg-opts.sh, dbg-pre.sh, lib/complete.sh, lib/help.sh,
-	lib/processor.sh, lib/setshow.sh, test/data/action.right,
-	test/data/next.right, test/data/setshow.right: processor.sh: Add
-	last command to history unless it was empty or there was an error
-	show.sh help.sh: Remove more vestages of the older help system
-	lib/complete.sh: comment how completion works
+	* : commit 03cdd913fcd58243bddbf7c08dad045830df37b6 Author: rocky
+	<rocky@gnu.org> Date:   Mon Dec 15 10:40:52 2014 -0500
 
 2014-12-15  rocky <rocky@gnu.org>
 
 	* ChangeLog, command/down.sh, command/frame.sh, command/up.sh,
 	lib/complete.sh: Allow frame number values to come out in the order
 	they were given.  Thanks go to Bart Schaefer for showing the way.
+
+2014-12-14  rocky <rocky@gnu.org>
+
+	* ChangeLog, command/help.sh, command/set.sh,
+	command/set_sub/annotate.sh, command/set_sub/autoeval.sh,
+	command/set_sub/autolist.sh, command/set_sub/basename.sh,
+	command/set_sub/debug.sh, command/set_sub/different.sh,
+	command/set_sub/editing.sh, command/set_sub/highlight.sh,
+	command/set_sub/linetrace.sh, command/set_sub/listsize.sh,
+	command/set_sub/trace-commands.sh, command/show.sh, lib/help.sh: Add
+	help completion. Allow subcommand to be run standalone
 
 2014-12-14  rocky <rocky@gnu.org>
 
