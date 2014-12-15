@@ -1,7 +1,7 @@
 (nexting.sh:3):
 p () { print ${funcfiletrace[0]##*/} print '===' }
 +set basename on
-Show short filenames (the basename) in debug output is on.
+Show short filenames is on.
 +# Make sure autostep is off for next text
 +set force off
 Show stepping forces a new line is off.

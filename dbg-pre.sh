@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # dbg-pre.sh - Code common to zshdb and zshdb-trace that has to run first
 #
-#   Copyright (C) 2008, 2009, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008-2010, 2014 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -130,3 +130,4 @@ typeset -x _Dbg_space_IFS='
 # debugger script to not stop in remaining debugger statements before
 # the sourcing the script to be debugged.
 typeset -i _Dbg_step_ignore=1
+[[ -n $_Dbg_histfile ]] && fc -p ${_Dbg_histfile}

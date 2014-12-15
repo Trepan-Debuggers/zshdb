@@ -62,7 +62,7 @@ _Dbg_do_show_internal() {
         return 0
     elif [[ -n ${_Dbg_debugger_show_commands[$show_cmd]} ]] ; then
 	[[ -n ${_Dbg_show_nolist[$thing]} ]] || \
-            ${_Dbg_debugger_show_commands[$show_cmd]} $label "$@"
+            ${_Dbg_debugger_show_commands[$show_cmd]} $label
         return $?
     fi
 

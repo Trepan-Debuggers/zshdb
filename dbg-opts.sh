@@ -77,6 +77,9 @@ typeset -i _Dbg_set_highlight  # Initialized below
 typeset -a _Dbg_o_init_files; _Dbg_o_init_files=()
 typeset -i _Dbg_o_nx=0
 typeset    _Dbg_tty=''
+typeset -i _Dbg_history_save=1
+typeset -i _Dbg_history_length=100
+typeset    _Dbg_histfile=$(echo ~/.zshdb_hist)
 
 typeset _Dbg_edit='-e'
 typeset _Dbg_edit_style='emacs'
@@ -88,7 +91,6 @@ if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
 else
     _Dbg_set_highlight=0
 fi
-
 
 # $_Dbg_tmpdir could have been set by the top-level debugger script.
 [[ -z $_Dbg_tmpdir ]] && typeset _Dbg_tmpdir=/tmp
@@ -138,9 +140,7 @@ _Dbg_parse_options() {
 	    no-highlight )
 		_Dbg_set_highlight=0  	;;
 	    init-file )
-		set -x
 		_Dbg_o_init_files+="$OPTLARG"
-		set +x
 		;;
 	    L | library ) 		;;
 	    V | version )

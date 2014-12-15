@@ -1,8 +1,14 @@
 Version 0.9
+
+- 2st level completion of "set" and "show" and "info" commands
+- frame order on completion respected
+- add underline attribute and use it for errors and debugger prompt
+
+Version 0.9
 2014-12-12 Late Gecko
 
 Note there are some incompatible changes in behavior. Some changes or
-follow gdb more closly, others make the default settings useful.
+follow gdb more closely, others make the default settings useful.
 
 - 'u' is no longer up and 'd' is 'delete' not 'down'
 - set highlight on by default now.
@@ -37,7 +43,7 @@ Version 0.07 - Ides of March
 - ability to save values from inside a subshell to the outer shell
   (debugger command "export")
 - add debugger "display" and "undisplay" commands
-- add --init-file (akin to same option in bash) to have bash code
+- add --init-file (akin to same option in bash) to have zsh code
   sourced
 
 Version 0.06 "Giant Madagascar Day"

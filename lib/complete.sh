@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# complete.sh - gdb-like command completion handling
+# complete.sh  - command completion handling
 #
 #   Copyright (C) 2006, 2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
@@ -20,6 +20,7 @@
 
 typeset -a _Dbg_matches; _Dbg_matches=()
 
+# gdb style "complete" command completion.
 # Print a list of completions in global variable _Dbg_matches
 # for 'subcmd' that start with 'text'.
 # We get the list of completions from _Dbg._*subcmd*_cmds.
@@ -29,14 +30,8 @@ _Dbg_subcmd_complete() {
     text=$2
     _Dbg_matches=()
     typeset list=''
-    if [[ $subcmd == 'set' ]] ; then
-	# Newer style
-	list=${!_Dbg_command_help_set[@]}
-    else
-	# FIXME: Older style - eventually update these.
-	cmd="list=\$_Dbg_${subcmd}_cmds"
-	eval $cmd
-    fi
+    cmd="list=\${(k)_Dbg_debugger_${subcmd}_commands[@]}"
+    eval $cmd
     local -i last=0
     for word in $list ; do
         # See if $word contains $text at the beginning. We use the string
@@ -49,6 +44,10 @@ _Dbg_subcmd_complete() {
     # return _Dbg_matches
 }
 
+# Interactive completion. level_0 is top-level matching which for the
+# the debugger are commands and aliases. The below routine also splits
+# out subcommands and sub-sub commands and calls the appropriate
+# completion routines
 _Dbg_complete_level_0() {
     if ((1 == CURRENT)) ; then
 	compadd -- ${(ki)_Dbg_debugger_commands[@]} ${(ki)_Dbg_aliases[@]}
@@ -59,6 +58,8 @@ _Dbg_complete_level_0() {
     fi
 }
 
+# Interactive completion for level_1. This is completion for debugger
+# command arguments like "frame", "help" and so on.
 typeset -A _Dbg_complete_level_1_data
 _Dbg_complete_level_1() {
     if [[ -n ${_Dbg_complete_level_1_data[$1]} ]] ; then
@@ -82,6 +83,9 @@ _Dbg_complete_level_1() {
     fi
 }
 
+# Interactive completion for level_2. This is completion for debugger
+# subcommand arguments like "set basename", "info breakpoints" and so
+# on.
 typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2() {
     if [[ -n ${_Dbg_complete_level_2_data[$1]} ]] ; then

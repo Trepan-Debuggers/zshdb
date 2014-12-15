@@ -127,11 +127,22 @@ function _Dbg_process_commands {
           typeset -i rc=$?
           _Dbg_postcmd
 	  ((_Dbg_continue_rc >= 0)) && return $_Dbg_continue_rc
-	  if [[ -n $line ]] && (( rc >= 0 )) && \
-	      [[ -z ${_Dbg_cmdfile[-1]} ]]; then
-	      _Dbg_write_journal "((\$ZSH_SUBSHELL < $ZSH_SUBSHELL)) && print -s -- \"$line\""
-	      print -s -- "$line"
+
+	  # Add $line to the debugger history file unless there was an
+	  # error or the line was empty. Command "print -s" is what
+	  # does this. Obvious, right?
+	  if [[ -n $line ]] && (( rc >= 0 )) ; then
+	      if [[ -z ${_Dbg_cmdfile[-1]} ]]; then
+		  _Dbg_write_journal "((\$ZSH_SUBSHELL < $ZSH_SUBSHELL)) && print -s -- \"$line\""
+		  print -s -- "$line"
+	      else
+		  print -s -- "$line" > /dev/null
+	      fi
+	      if ((_Dbg_history_save)) && [[ -n $_Dbg_histfile ]]; then
+		  fc -W ${_Dbg_histfile} ${_Dbg_history_length}
+	      fi
 	  fi
+
           (( rc > 0 )) && return $rc
 
 	  line=''
