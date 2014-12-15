@@ -35,7 +35,7 @@ least-recently-entered end.  So "frame -1" moves to the oldest frame.
 '
 
 typeset -A _Dbg_complete_level_1_data
-_Dbg_complete_level_1_data[frame]='-a_Dbg_frame_complete 0'
+_Dbg_complete_level_1_data[frame]='-f_Dbg_frame_complete 0'
 
 _Dbg_do_frame() {
     _Dbg_not_running && return 1

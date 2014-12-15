@@ -68,11 +68,13 @@ _Dbg_complete_level_1() {
 	    opt=${completion[0,1]}
 	    completion=$(${completion[2,-1]})
 	    compadd $opt -- "$completion"
+	elif [[ ${completion[0,1]} == '-f' ]] ; then
+	    typeset -a array
+	    array=($(${completion[2,-1]}))
+	    compadd -V frame ${array[@]}
 	elif [[ ${completion[0,1]} == '-a' ]] ; then
 	    typeset -a array
 	    array=($(${completion[2,-1]}))
-	    # FIXME: compadd below sorts elements in array. That is
-	    # not what I want.
 	    compadd -- ${array[@]}
 	else
 	    compadd -- ${_Dbg_complete_level_1_data[$1]}
@@ -92,8 +94,6 @@ _Dbg_complete_level_2() {
 	elif [[ ${completion[0,1]} == '-a' ]] ; then
 	    typeset -a array
 	    array=($(${completion[2,-1]}))
-	    # FIXME: compadd below sorts elements in array. That is
-	    # not what I want.
 	    compadd -- ${array[@]}
 	else
 	    compadd -- ${_Dbg_complete_level_2_data[$1]}

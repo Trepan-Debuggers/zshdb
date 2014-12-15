@@ -37,7 +37,7 @@ If COUNT is omitted, use 1. COUNT can be any arithmetic expression.
 See also "down" and "frame".'
 
 typeset -A _Dbg_complete_level_1_data
-_Dbg_complete_level_1_data[up]='-a_Dbg_frame_complete 1'
+_Dbg_complete_level_1_data[up]='-f_Dbg_frame_complete 1'
 
 function _Dbg_do_up {
   _Dbg_not_running && return 1

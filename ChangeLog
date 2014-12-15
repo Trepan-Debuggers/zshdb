@@ -1,5 +1,16 @@
 2014-12-14  rocky <rocky@gnu.org>
 
+	* ChangeLog, command/help.sh, command/set.sh,
+	command/set_sub/annotate.sh, command/set_sub/autoeval.sh,
+	command/set_sub/autolist.sh, command/set_sub/basename.sh,
+	command/set_sub/debug.sh, command/set_sub/different.sh,
+	command/set_sub/editing.sh, command/set_sub/highlight.sh,
+	command/set_sub/linetrace.sh, command/set_sub/listsize.sh,
+	command/set_sub/trace-commands.sh, command/show.sh, lib/help.sh: Add
+	help completion. Allow subcommand to be run standalone
+
+2014-12-14  rocky <rocky@gnu.org>
+
 	* command/info.sh, command/info_sub/Makefile.am,
 	command/info_sub/breakpoints.sh, command/info_sub/brkpts.sh,
 	command/info_sub/display.sh, command/info_sub/files.sh,
