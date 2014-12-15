@@ -1,3 +1,19 @@
+2014-12-15  rocky <rocky@gnu.org>
+
+	* NEWS, command/show.sh, command/show_sub/basename.sh, dbg-main.sh,
+	dbg-opts.sh, dbg-pre.sh, lib/complete.sh, lib/help.sh,
+	lib/processor.sh, lib/setshow.sh, test/data/action.right,
+	test/data/next.right, test/data/setshow.right: processor.sh: Add
+	last command to history unless it was empty or there was an error
+	show.sh help.sh: Remove more vestages of the older help system
+	lib/complete.sh: comment how completion works
+
+2014-12-15  rocky <rocky@gnu.org>
+
+	* ChangeLog, command/down.sh, command/frame.sh, command/up.sh,
+	lib/complete.sh: Allow frame number values to come out in the order
+	they were given.  Thanks go to Bart Schaefer for showing the way.
+
 2014-12-14  rocky <rocky@gnu.org>
 
 	* ChangeLog, command/help.sh, command/set.sh,

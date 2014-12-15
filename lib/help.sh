@@ -80,6 +80,70 @@ _Dbg_help_set() {
 Follow this command with any number of args, to be passed to the program."
             return 0
             ;;
+<<<<<<< HEAD
+=======
+        an | ann | anno | annot | annota | annotat | annotate )
+            if [[ -n $label ]] ; then
+                label='set annotate  -- '
+            else
+                typeset post_label='
+0 == normal;     1 == fullname (for use when running under emacs).'
+            fi
+            _Dbg_msg \
+                "${label}Set annotation level.$post_label"
+            return 0
+            ;;
+        autoe | autoev | autoeva | autoeval )
+            _Dbg_help_set_onoff 'autoeval' 'autoeval' \
+                "Evaluate unrecognized commands"
+            return 0
+            ;;
+        autol | autoli | autolis | autolist )
+            [[ -n $label ]] && label='set autolist  -- '
+            typeset -l onoff="on."
+            [[ -z ${_Dbg_cmdloop_hooks['list']} ]] && onoff='off.'
+            _Dbg_msg \
+                "${label}Run list command is ${onoff}"
+            return 0
+            ;;
+        b | ba | bas | base | basen | basena | basenam | basename )
+            _Dbg_help_set_onoff 'basename' 'basename' \
+                "Set short filenames (the basename) in debug output"
+            return 0
+            ;;
+        deb|debu|debug )
+            _Dbg_help_set_onoff 'debug' 'debug' \
+                "Set debugging the debugger"
+            return 0
+            ;;
+        force | dif | diff | differ | different )
+            _Dbg_help_set_onoff 'different' 'different' \
+                "Set stepping forces a different line"
+            return 0
+            ;;
+        e | ed | edi | edit | editi | editin | editing )
+            [[ -n $label ]] && label='set editing   -- '
+            _Dbg_msg_nocr \
+                "${label}Set editing of command lines as they are typed is "
+            if [[ -z $_Dbg_edit ]] ; then
+                _Dbg_msg 'off.'
+            else
+                _Dbg_msg 'on.'
+            fi
+            return 0
+            ;;
+        high | highl | highlight )
+            [[ -n $label ]] && label='set highlight -- '
+            _Dbg_msg_nocr \
+                "${label}Set syntax highlighting of source listings is "
+            if [[ -z $_Dbg_edit ]] ; then
+                _Dbg_msg 'off.'
+            else
+                _Dbg_msg 'on.'
+            fi
+            return 0
+            ;;
+>>>>>>> 10f8e6d5ddcdac316f4969112a55062ef9e7e303
         his | hist | history )
             [[ -n $label ]] && label='set history   -- '
             _Dbg_msg_nocr \
@@ -90,6 +154,22 @@ Follow this command with any number of args, to be passed to the program."
                 _Dbg_msg 'on.'
             fi
             ;;
+<<<<<<< HEAD
+=======
+        si | siz | size )
+            eval "$_seteglob"
+            if [[ -z $2 ]] ; then
+                _Dbg_errmsg "Argument required (integer to set it to.)."
+            elif [[ $2 != $int_pat ]] ; then
+                _Dbg_errmsg "Integer argument expected; got: $2"
+                eval "$_resteglob"
+                return 1
+            fi
+            eval "$_resteglob"
+            _Dbg_write_journal_eval "_Dbg_history_length=$2"
+            return 0
+            ;;
+>>>>>>> 10f8e6d5ddcdac316f4969112a55062ef9e7e303
         inferior-tty )
             [[ -n $label ]] && label='set inferior-tty -- '
             _Dbg_msg "${label} set tty for input and output"
@@ -133,6 +213,19 @@ _Dbg_help_show() {
     if [[ -n "${_Dbg_command_help_show[$subcmd]}" ]] ; then
         if [[ -z $label ]] ; then
             _Dbg_msg "${_Dbg_command_help_show[$subcmd]}"
+<<<<<<< HEAD
+=======
+            return 0
+        else
+            label=$(builtin printf "show %-12s-- " $subcmd)
+        fi
+    fi
+
+    case $subcmd in
+        al | ali | alia | alias | aliase | aliases )
+            _Dbg_msg \
+                'show aliases     -- Show list of aliases currently in effect.'
+>>>>>>> 10f8e6d5ddcdac316f4969112a55062ef9e7e303
             return 0
         else
             label=$(builtin printf "show %-12s-- " $subcmd)
@@ -195,6 +288,7 @@ _Dbg_help_show() {
         * )
             _Dbg_msg \
                 "Undefined show command: \"$subcmd\".  Try \"help show\"."
+<<<<<<< HEAD
     esac
 }
 
@@ -227,5 +321,7 @@ _Dbg_help_info() {
         * )
             _Dbg_msg \
                 "There is no \"set $subcmd\" command."
+=======
+>>>>>>> 10f8e6d5ddcdac316f4969112a55062ef9e7e303
     esac
 }
