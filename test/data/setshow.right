@@ -273,6 +273,7 @@ of promoting the sharing and reuse of software generally.
 **   args      autolist  debug     force    listsize  trace-commands
 +another-bad-command 
 ** Undefined command "another-bad-command". Try "help".
++set history size 10
 +show 
 annotate: Annotation_level is 0.
 args:     Argument list to give script when debugged program starts is:
@@ -287,7 +288,7 @@ different: Show stepping forces a new line is off.
 filename: The filename in which to record the command history is:
 	/home/rocky/.zshdb_hist
 save: Saving of history save is on.
-size: Debugger history size is 1000
+size: Debugger history size is 10
 listsize: Number of source lines zshdb will list by default is 10.
 prompt:   zshdb's prompt is:
        "$_Dbg_debugger_name${_Dbg_less}$_Dbg_cmd_num${_Dbg_greater}".
@@ -319,8 +320,6 @@ Annotation_level is 1.
 +set width 40
 +show width
 Line width is 40.
-+# set history size
-+# set history size 10
 +# show history
 +# show history save
 +# set history save off
