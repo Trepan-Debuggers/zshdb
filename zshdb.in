@@ -1,4 +1,4 @@
-#!@SH_PROG@ --interactive
+#!@SH_PROG@ -f
 # -*- shell-script -*-
 # Top-level debugger program. This program may be initially invoked.
 #

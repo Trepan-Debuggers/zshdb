@@ -44,7 +44,7 @@ _Dbg_complete_level_1_data[show]=$(echo ${(kM)_Dbg_debugger_show_commands})
 
 _Dbg_do_show() {
     _Dbg_do_show_internal $@
-    return 0
+    return $?
 }
 
 _Dbg_do_show_internal() {
@@ -52,7 +52,7 @@ _Dbg_do_show_internal() {
     typeset label=$2
 
     # Warranty, copying, directories, and aliases are omitted below.
-    typeset subcmds='annotate args autoeval autolist basename debug editing force listsize prompt trace-commands width'
+    typeset subcmds='annotate args autoeval autolist basename debug editing force history listsize prompt trace-commands width'
 
     if [[ -z $show_cmd ]] ; then
         typeset thing
@@ -175,10 +175,6 @@ _Dbg_do_show_internal() {
             _Dbg_do_show_version
             return 0
             ;;
-        w | wa | war | warr | warra | warran | warrant | warranty )
-            _Dbg_do_info warranty
-            return 0
-            ;;
         wi | wid | width )
             [[ -n $label ]] && label='width: '
             _Dbg_msg \
@@ -190,6 +186,6 @@ _Dbg_do_show_internal() {
             _Dbg_errmsg "Show subcommands are:"
             typeset -a list; list=(${subcmds[@]})
             _Dbg_list_columns '  ' _Dbg_errmsg
-            [[ $msg == '_Dbg_errmsg' ]] && return 1 || return 0
+            return -1
     esac
 }

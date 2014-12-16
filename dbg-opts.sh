@@ -78,8 +78,8 @@ typeset -a _Dbg_o_init_files; _Dbg_o_init_files=()
 typeset -i _Dbg_o_nx=0
 typeset    _Dbg_tty=''
 typeset -i _Dbg_history_save=1
-typeset -i _Dbg_history_length=100
-typeset    _Dbg_histfile=$(echo ~/.zshdb_hist)
+typeset -i _Dbg_history_size=${HISTSIZE:-256} # gdb's defaulit value
+typeset    _Dbg_histfile=${ZDOTDIR:-$HOME}/.${_Dbg_debugger_name}_hist
 
 typeset _Dbg_edit='-e'
 typeset _Dbg_edit_style='emacs'

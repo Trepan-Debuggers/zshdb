@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # quit.sh - gdb-like "quit" debugger command
 #
-#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -55,7 +55,7 @@ _Dbg_do_quit() {
     _Dbg_write_journal "_Dbg_QUIT_LEVELS=$_Dbg_QUIT_LEVELS"
     _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
 
-    # Reset signal handlers to their default but only if 
+    # Reset signal handlers to their default but only if
     # we are not in a subshell.
     if (( ZSH_SUBSHELL == 0 )) ; then
 
@@ -65,10 +65,11 @@ _Dbg_do_quit() {
             _Dbg_save_state
             exec $_Dbg_RESTART_COMMAND
         fi
-        
+
         _Dbg_msg "${_Dbg_debugger_name}: That's all, folks..."
+	# Get the last command into the history
+	print -s -- $_Dbg_orig_cmd >/dev/null
         _Dbg_cleanup
-        _Dbg_history_write
     fi
 
     # And just when you thought we'd never get around to it...

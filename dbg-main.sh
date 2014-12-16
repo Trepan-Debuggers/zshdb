@@ -56,7 +56,7 @@ if [[ -z "${_Dbg_DEBUGGER_LEVEL}" ]] ; then
 fi
 
 if ((_Dbg_history_save)) ; then
-    history -ap "$_Dbg_histfile"
+    history -ap $_Dbg_histfile $_Dbg_history_size
 fi
 
 for source_file in ${_Dbg_o_init_files[@]} "$DBG_RESTART_FILE";  do

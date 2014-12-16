@@ -231,9 +231,7 @@ _Dbg_hook_enter_debugger() {
 
 # Cleanup routine: erase temp files before exiting.
 _Dbg_cleanup() {
-    if setopt | grep interactive 2>&1 >/dev/null ; then
-	_Dbg_history_write
-    fi
+    ((_Dbg_history_save != 0)) && _Dbg_history_write
     [[ -f $_Dbg_evalfile ]] && rm -f $_Dbg_evalfile 2>/dev/null
     set +u
     if [[ -n $_Dbg_EXECUTION_STRING ]] && [[ -r $_Dbg_script_file ]] ; then

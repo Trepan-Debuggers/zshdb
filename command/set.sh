@@ -49,7 +49,7 @@ _Dbg_complete_level_1_data[set]=$(echo ${(kM)_Dbg_debugger_set_commands})
 
 _Dbg_do_set() {
     _Dbg_do_set_internal "$@"
-    return 0
+    return $?
 }
 
 _Dbg_do_set_internal() {
@@ -82,7 +82,7 @@ _Dbg_do_set_internal() {
             ;;
 	*)
             _Dbg_undefined_cmd "set" "$set_cmd"
-            return 1
+            return -1
     esac
     return $?
 }

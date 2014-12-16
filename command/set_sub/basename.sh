@@ -30,7 +30,9 @@ typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_basename]='on off'
 
 _Dbg_help_add_sub set basename \
-'Set short filenames (the basename) in debug output'
+'set basename [on|off]
+
+Set short filenames (the basename) in debug output'
 
 _Dbg_do_set_basename() {
     _Dbg_set_onoff "$1" 'basename'

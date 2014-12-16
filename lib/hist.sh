@@ -17,23 +17,25 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && _Dbg_libdir='..' || _Dbg_libdir=${dirname}/..
+    # dbg-ipts sets defines _Dbg_history_size, _Dbg_histfile, and _Dbg_history_save
+    source $_Dbg_libdir/dbg-opts
+fi
+
 typeset -i _Dbg_hi_last_stop=-1
-
-typeset -i _Dbg_history_length=${HISTSIZE:-256}  # gdb's default value
 typeset -i _Dbg_set_history=1
-
-SAVEHIST=30  # what zsh uses by default on save
-_Dbg_histfile=${ZDOTDIR:-$HOME}/.${_Dbg_debugger_name}_hist
 
 _Dbg_history_read() {
     if ((_Dbg_history_save)) && [[ -r $_Dbg_histfile ]] ; then
-	fc -R $_Dbg_histfile
+	builtin fc -R $_Dbg_histfile
     fi
 }
 
 # Save history file
 _Dbg_history_write() {
-    if (( _Dbg_history_length > 0 && _Dbg_set_history)) ; then
+    if (( _Dbg_history_size > 0 && _Dbg_set_history)) ; then
 	# The following "fc" command doesn't work and I, rocky, don't
 	# have the patients to deal with arcane zsh-isms to want to
 	# make it work.
@@ -41,11 +43,17 @@ _Dbg_history_write() {
 	cat /dev/null >$_Dbg_histfile
 	typeset line
 	typeset -a buffer
-	fc -l | while read -r line >/dev/null; do
-	    IFS=' ' read -A buffer <<< $line >/dev/null 2>&1
-	    buffer[1]=()
+	typeset -a history
+	typeset saveIFS
+	saveIFS=$IFS; IFS=$'\n'; history=($(builtin fc -l)); IFS=$saveIFS
+	typeset -i last=${#history[@]}
+	typeset -i start=0
+	typeset -i i
+	((_Dbg_history_size < last+1)) && ((start=last+1-_Dbg_history_size))
+	for ((i=start; i<=last; i++)); do
+	    buffer=(${history[i]})
+	    buffer[0]=()
 	    print -- "${buffer[@]}" >> $_Dbg_histfile;
-	    buffer=()
 	done
     fi
 }

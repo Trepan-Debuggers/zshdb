@@ -26,13 +26,16 @@ typeset -i  _Dbg_inside_skip=0
 typeset -A _Dbg_cmdloop_hooks
 _Dbg_cmdloop_hooks['display']='_Dbg_eval_all_display'
 
-typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}%h${_Dbg_greater}'
+typeset _Dbg_prompt_str='$_Dbg_debugger_name${_Dbg_less}$_Dbg_cmd_num${_Dbg_greater}'
 
 # The canonical name of last command run.
 typeset _Dbg_last_cmd=''
 
 # Command currently under consideration, without any alias expansion.
 typeset _Dbg_cmd=''
+
+# Command number shown in prompt, e.g. 1 in zshdb<1>
+typeset -i _Dbg_cmd_num=0
 
 typeset last_next_step_cmd='s' # Default is step.
 
@@ -108,7 +111,9 @@ function _Dbg_process_commands {
       _Dbg_preloop
       # typeset _Dbg_cmd
       typeset line=''
+      typeset -i rc
       while : ; do
+	  ((_Dbg_cmd_num++))
 	  if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
 	      _Dbg_in_vared=1
 	      vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
@@ -124,7 +129,7 @@ function _Dbg_process_commands {
 	      fi
 	  fi
           _Dbg_onecmd "$line"
-          typeset -i rc=$?
+          rc=$?
           _Dbg_postcmd
 	  ((_Dbg_continue_rc >= 0)) && return $_Dbg_continue_rc
 

@@ -35,7 +35,7 @@ _Dbg_do_set_listsize() {
         _Dbg_write_journal_eval "_Dbg_set_listsize=$1"
     else
         _Dbg_errmsg "Integer argument expected; got: $1"
-        return 1
+        return -1
     fi
     return 0
 }

@@ -42,7 +42,7 @@ _Dbg_complete_level_1_data[info]=$(echo ${(kM)_Dbg_debugger_info_commands})
 
 _Dbg_do_info() {
     _Dbg_do_info_internal "$@"
-    return 0
+    return $?
 }
 
 _Dbg_do_info_internal() {
@@ -89,7 +89,7 @@ _Dbg_do_info_internal() {
             _Dbg_errmsg "Info subcommands are:"
             typeset -a list; list=(${subcmds[@]})
             _Dbg_list_columns '  ' _Dbg_errmsg
-            [[ $msg == '_Dbg_errmsg' ]] && return 1 || return 0
+            return -1
     esac
 }
 

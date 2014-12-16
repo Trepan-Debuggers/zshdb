@@ -44,7 +44,7 @@ _Dbg_do_set_annotate() {
         fi
     else
         _Dbg_errmsg "Integer argument expected; got: $1"
-        return 1
+        return -1
     fi
     return 0
 }
