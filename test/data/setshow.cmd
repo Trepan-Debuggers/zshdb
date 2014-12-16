@@ -10,6 +10,7 @@ set width 80
 show badcommand
 another-bad-command
 set history size 10
+set history file /tmp/zshdb_hist
 show
 show args
 set args now is the time

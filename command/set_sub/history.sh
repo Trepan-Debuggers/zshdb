@@ -27,17 +27,20 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 typeset -A _Dbg_complete_level_2_data
-_Dbg_complete_level_2_data[set_history]='save size'
+_Dbg_complete_level_2_data[set_history]='filename save size'
 
 _Dbg_help_add_sub set history \
 'set history save [on|off]
 set history size *num*
+set history filename *path*
 
 In the first form, set whether to save history.
 This only works if the debugger or zsh was started in interactive
 mode, option --interactive or -i
 
-In the second form we indicate how many history lines to save.
+In the second form, how many history lines to save is indicated.
+
+In the third form, the place to store the history file is given.
 ' 1
 
 _Dbg_do_set_history() {
@@ -61,8 +64,12 @@ _Dbg_do_set_history() {
             fi
             _Dbg_write_journal_eval "_Dbg_history_size=$2"
             ;;
+        file | filename )
+	    # TODO: check validity of filename
+            _Dbg_write_journal_eval "_Dbg_histfile=$2"
+	    ;;
         *)
-            _Dbg_errmsg "\"save\", or \"size\" expected."
+            _Dbg_errmsg "\"filename\", \"save\", or \"size\" expected."
             return -1
             ;;
     esac
