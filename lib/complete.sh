@@ -85,6 +85,10 @@ _Dbg_complete_level_1() {
 	    typeset -a array
 	    array=($(${completion[2,-1]}))
 	    compadd -- ${array[@]}
+	elif [[ ${completion[0,1]} == '-A' ]] ; then
+	    typeset -a array
+	    array=($(${completion[2,-1]}))
+	    compadd -Q -- ${array[@]}
 	else
 	    compadd -- ${_Dbg_complete_level_1_data[$1]}
 	fi

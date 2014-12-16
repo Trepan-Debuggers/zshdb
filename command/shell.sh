@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Enter nested shell
 #
-#   Copyright (C) 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -110,3 +110,4 @@ _Dbg_do_shell() {
 }
 
 _Dbg_alias_add sh shell
+_Dbg_alias_add zsh shell

@@ -26,7 +26,7 @@ fi
 
 _Dbg_help_command_complete() {
     unsetopt ksharrays
-    echo ${(ki)_Dbg_command_help}
+    echo "${(ki)_Dbg_debugger_commands[@]} ${(ki)_Dbg_aliases[@]} *"
     setopt ksharrays
 }
 
@@ -44,7 +44,7 @@ help up
 help set
 help set args'
 
-_Dbg_complete_level_1_data[help]='-a_Dbg_help_command_complete'
+_Dbg_complete_level_1_data[help]='-A_Dbg_help_command_complete'
 
 # help_text="
 # **help** [*command*]

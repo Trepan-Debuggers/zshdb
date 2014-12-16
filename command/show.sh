@@ -100,11 +100,6 @@ _Dbg_do_show_internal() {
                 "${label}Show short filenames (the basename) in debug output is" $(_Dbg_onoff $_Dbg_set_basename)
             return 0
             ;;
-        # com | comm | comma | comman | command | commands )
-        #     shift # shift off "commands"
-        #     _Dbg_history_list $*
-        #     return $?
-        #     ;;
         dir|dire|direc|direct|directo|director|directori|directorie|directories)
             typeset list=${_Dbg_dir[0]}
             typeset -i n=${#_Dbg_dir[@]}
@@ -122,11 +117,6 @@ _Dbg_do_show_internal() {
                 "${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_set_different)
             return 0
             ;;
-        # hi|his|hist|histo|histor|history)
-        #     _Dbg_do_show_history
-        #     return $?
-        #     ;;
-
         lin | line | linet | linetr | linetra | linetrac | linetrace )
             [[ -n $label ]] && label='line tracing: '
             typeset onoff="off."

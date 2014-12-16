@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# hist.sh - Bourne Again Shell Debugger history routines
+# hist.sh - Shell Debugger history routines
 #
 #   Copyright (C) 2008, 2011, 2014 Rocky Bernstein rocky@gnu.org
 #
@@ -20,7 +20,8 @@
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     dirname=${0%/*}
     [[ $dirname == $0 ]] && _Dbg_libdir='..' || _Dbg_libdir=${dirname}/..
-    # dbg-ipts sets defines _Dbg_history_size, _Dbg_histfile, and _Dbg_history_save
+    # dbg-oppts sets defines _Dbg_history_size, _Dbg_histfile, and
+    # _Dbg_history_save
     source $_Dbg_libdir/dbg-opts
 fi
 
@@ -56,13 +57,4 @@ _Dbg_history_write() {
 	    print -- "${buffer[@]}" >> $_Dbg_histfile;
 	done
     fi
-}
-
-# Show history via fc -l
-_Dbg_history_list() {
-    ## FIXME: if 1st command we get
-    # _Dbg_do_show:fc:2: no such event: 1
-    # Punt for now by eliminating error messages.
-    fc -l $@ 2>/dev/null
-    return $?
 }

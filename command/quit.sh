@@ -68,6 +68,7 @@ _Dbg_do_quit() {
 
         _Dbg_msg "${_Dbg_debugger_name}: That's all, folks..."
 	# Get the last command into the history
+	# set -o incappendhistory
 	print -s -- $_Dbg_orig_cmd >/dev/null
         _Dbg_cleanup
     fi
