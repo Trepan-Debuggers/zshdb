@@ -7,6 +7,7 @@ Breakpoint 1 set in file nexting.sh, line 5.
 Breakpoint 2 set in file nexting.sh, line 3.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   nexting.sh:5
 2   breakpoint keep y   nexting.sh:3
 +disable 1
@@ -23,6 +24,7 @@ Breakpoint 2 hit.
 print ${funcfiletrace[0]##*/}
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep n   nexting.sh:5
 2   breakpoint keep y   nexting.sh:3
     breakpoint already hit 1 time
@@ -46,6 +48,7 @@ p
 +# Should get back to 6
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   nexting.sh:5
 2   breakpoint keep n   nexting.sh:3
     breakpoint already hit 1 time
@@ -64,6 +67,7 @@ Breakpoint 3 hit.
 x=6
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   nexting.sh:5
 2   breakpoint keep n   nexting.sh:3
     breakpoint already hit 1 time

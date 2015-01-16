@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008-2009, 2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2009, 2011, 2014-2015 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -121,12 +121,15 @@ function _Dbg_printf_nocr {
     fi
 }
 
+typeset _Dbg_dashes='---------------------------------------------------'
+
 # print message to output device
 function _Dbg_section {
     if (( _Dbg_set_highlight )) ; then
 	_Dbg_msg "${_Dbg_ansi_term_bold}$@${_Dbg_ansi_term_normal}"
     else
-	_Dbg_msg "$@"
+	local -r msg="$@"
+        _Dbg_msg "$msg\n${_Dbg_dashes[0,${#msg}-1]}"
     fi
 }
 

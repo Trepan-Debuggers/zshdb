@@ -8,6 +8,7 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 Breakpoint 1 set in file dbg-test1.sh, line 22.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   dbg-test1.sh:22
 +################################################################
 +#### Try setting breakpoints outside of the file range...
@@ -19,6 +20,7 @@ Num Type       Disp Enb What
 +# list breakpoints
 +L
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   dbg-test1.sh:22
 No actions have been set.
 +###############################################################
@@ -31,6 +33,7 @@ No breakpoints have been set.
 Breakpoint 2 set in file dbg-test1.sh, line 22.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 2   breakpoint keep y   dbg-test1.sh:22
 +###############################################################
 +#### *** Test using file:line format on break...
@@ -45,6 +48,7 @@ Breakpoint 3 set in file dbg-test1.sh, line 23.
 Breakpoint 4 set in file dbg-test1.sh, line 23.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 2   breakpoint keep y   dbg-test1.sh:22
 3   breakpoint keep y   dbg-test1.sh:23
 4   breakpoint keep y   dbg-test1.sh:23

@@ -11,7 +11,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -40,12 +40,12 @@ typeset -i  _Dbg_action_max=0
 
 # Maps a resolved filename to a list of action entries.
 typeset -A _Dbg_action_file2action; _Dbg_action_file2action=()
- 
+
 # Maps a resolved filename to a list of action line numbers in that file
 typeset -A _Dbg_action_file2linenos; _Dbg_action_file2linenos=()
 
 # Note: we loop over possibly sparse arrays with _Dbg_brkpt_max by adding one
-# and testing for an entry. Could add yet another array to list only 
+# and testing for an entry. Could add yet another array to list only
 # used indices. Zsh is kind of primitive.
 
 #========================= FUNCTIONS   ============================#
@@ -67,7 +67,7 @@ _Dbg_list_action() {
     _Dbg_msg "Actions at following places:"
     typeset -i i
 
-    _Dbg_msg "Num Enb Stmt               file:line"
+    _Dbg_section "Num Enb Stmt               file:line"
     for (( i=1; (( i <= _Dbg_action_max )) ; i++ )) ; do
       if [[ -n ${_Dbg_action_line[$i]} ]] ; then
 	typeset source_file=${_Dbg_action_file[$i]}
@@ -82,7 +82,7 @@ _Dbg_list_action() {
   fi
 }
 
-# Internal routine to a set action unconditonally. 
+# Internal routine to a set action unconditonally.
 
 _Dbg_set_action() {
     (( $# != 3 )) && return 1
@@ -101,7 +101,7 @@ _Dbg_set_action() {
     _Dbg_action_file[$_Dbg_action_max]="$source_file"
     _Dbg_action_stmt[$_Dbg_action_max]="$stmt"
     _Dbg_action_enable[$_Dbg_action_max]=1
-    
+
     typeset dq_source_file
     typeset dq_source_file=$(_Dbg_esc_dq "$source_file")
     typeset dq_stmt=$(_Dbg_esc_dq "$stmt")
@@ -140,7 +140,7 @@ _Dbg_unset_action() {
     eval "action_nos=(${_Dbg_action_file2action[$fullname]})"
 
     typeset -i i
-    for ((i=0; i < ${#linenos[@]}; i++)); do 
+    for ((i=0; i < ${#linenos[@]}; i++)); do
 	if (( linenos[i] == lineno )) ; then
 	    # Got a match, find action entry number
 	    typeset -i action_num

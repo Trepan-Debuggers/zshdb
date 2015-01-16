@@ -9,6 +9,7 @@ Breakpoint 1 set in file dbg-test1.sh, line 23.
 Breakpoint 2 set in file dbg-test1.sh, line 24.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   dbg-test1.sh:23
 	stop only if x==0
 2   breakpoint keep y   dbg-test1.sh:24
@@ -19,6 +20,7 @@ Num Type       Disp Enb What
 ** condition: Argument required (breakpoint number).
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   dbg-test1.sh:23
 	stop only if x==0
 2   breakpoint keep y   dbg-test1.sh:24
@@ -33,6 +35,7 @@ Num Type       Disp Enb What
 ** condition: Breakpoint entry 30 is not set. Condition not changed.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   dbg-test1.sh:23
 	stop only if x==0
 2   breakpoint keep y   dbg-test1.sh:24

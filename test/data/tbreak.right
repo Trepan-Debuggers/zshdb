@@ -9,6 +9,7 @@ setopt ksharrays
 One-time breakpoint 1 set in file nexting.sh, line 3.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint del  y   nexting.sh:3
 +# Should stop at line 3
 +continue 6
@@ -19,6 +20,7 @@ print ${funcfiletrace[0]##*/}
 +# Breakpoint at line 6 should still be shown
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 2   breakpoint del  y   nexting.sh:6
 +continue
 nexting.sh:5

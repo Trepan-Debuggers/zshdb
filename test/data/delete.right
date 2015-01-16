@@ -13,6 +13,7 @@ Breakpoint 1 set in file stepping.sh, line 4.
 ** No breakpoint number 4.
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 1   breakpoint keep y   stepping.sh:4
 +###############################
 +# Should work
@@ -41,6 +42,7 @@ for ((i=0; i<3; i++)) do print 3rd loop $i done
 ->0 in file `stepping.sh' at line 5
 +info breakpoints
 Num Type       Disp Enb What
+----------------------------
 2   breakpoint keep y   stepping.sh:5
     breakpoint already hit 1 time
 +break 6

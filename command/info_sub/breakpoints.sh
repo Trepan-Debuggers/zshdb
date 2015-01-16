@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info program" debugger command
 #
-#   Copyright (C) 2010, 2013, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010, 2013-2015 Rocky Bernstein <rocky@gnu.org>
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -69,7 +69,7 @@ _Dbg_do_info_breakpoints() {
             typeset -r -i i=$brkpt_num
             typeset source_file=${_Dbg_brkpt_file[$i]}
             source_file=$(_Dbg_adjust_filename "$source_file")
-            _Dbg_msg "Num Type       Disp Enb What"
+            _Dbg_section "Num Type       Disp Enb What"
             _Dbg_printf "%-3d breakpoint %-4s %-3s %s:%s" $i \
 		${_Dbg_keep[${_Dbg_brkpt_onetime[$i]}]} \
 		${_Dbg_yn[${_Dbg_brkpt_enable[$i]}]} \
