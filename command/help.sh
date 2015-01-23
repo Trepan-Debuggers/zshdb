@@ -79,7 +79,7 @@ _Dbg_do_help() {
         typeset dbg_cmd="$1"
         if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
 	    help_text="${_Dbg_command_help[$dbg_cmd]}"
-	    # if (( _Dbg_set_highlight )) ; then
+	    # if [[ -n $_Dbg_set_highlight ]] ; then
 	    # 	highlight_cmd="${_Dbg_libdir}/lib/rstext.py -w $_Dbg_set_linewidth \"$help_text(gs/\n/\\n/)\""
 	    # 	help_text=$($highlight_cmd 2>/dev/null)
 	    # fi

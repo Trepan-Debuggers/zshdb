@@ -26,8 +26,8 @@ _Dbg_do_show_highlight() {
     [[ -n $label ]] && label='highlight: '
     _Dbg_msg_nocr \
         "${label}Terminal highlighting is "
-    if (( _Dbg_set_highlight )) ; then
-        _Dbg_msg 'on.'
+    if [[ -n $_Dbg_set_highlight ]] ; then
+        _Dbg_msg "${_Dbg_set_highlight}."
     else
         _Dbg_msg 'off.'
     fi

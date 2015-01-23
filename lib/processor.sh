@@ -103,7 +103,7 @@ function _Dbg_process_commands {
       fi
 
       # typeset _Dbg_prompt
-      if ((_Dbg_set_highlight)) ; then
+      if [[ -n $_Dbg_set_highlight ]] ; then
 	      eval "_Dbg_prompt=\"${_Dbg_ansi_term_underline}$_Dbg_prompt_str${_Dbg_ansi_term_normal} \"" 2>/dev/null
       else
 	  eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null

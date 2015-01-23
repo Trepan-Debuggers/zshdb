@@ -24,7 +24,7 @@ SH_PROG=@SH_PROG@
 SHORT_SH_PROG=${SH_PROG##*/}
 (cd $srcdir && $SH ${TEST_NAME}.tests > $TEST_FILE 2>&1 < /dev/null)
 
-cat ${TEST_FILE} | sed -e "s:library helper file.*:library helper file:" \
+cat ${TEST_FILE} | sed -e "s:.*dbg-main\.sh$:				dbg-main.sh:" \
     | sed -e "s:Runs $SHORT_SH_PROG:Runs zsh:" > ${TEST_FILTERED_FILE}
 check_output $TEST_FILTERED_FILE $RIGHT_FILE
 

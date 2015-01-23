@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set highlight" debugger command
 #
-#   Copyright (C) 2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014, 2015 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -27,7 +27,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 typeset -A _Dbg_complete_level_2_data
-_Dbg_complete_level_2_data[set_highlight]='on off reset'
+_Dbg_complete_level_2_data[set_highlight]='dark light off reset'
 
 _Dbg_help_add_sub set highlight \
 '
@@ -49,21 +49,24 @@ _Dbg_do_set_highlight() {
 	_Dbg_errmsg "Can't run pygmentize. Setting forced off"
 	return 1
     fi
-    typeset onoff=${1:-'on'}
+    typeset onoff=${1:-'light'}
     case $onoff in
-	on | 1 )
-	    _Dbg_set_highlight=1
+	on | light )
+	    _Dbg_set_highlight='light'
+	    ;;
+	dark )
+	    _Dbg_set_highlight='dark'
 	    ;;
 	off | 0 )
-	    _Dbg_set_highlight=0
+	    _Dbg_set_highlight=''
 	    ;;
 	reset )
-	    _Dbg_set_highlight=1
+	    [[ -z $_Dbg_set_highlight ]] && _Dbg_set_highlight='light'
 	    _Dbg_filecache_reset
 	    _Dbg_readin $_Dbg_frame_last_filename
 	    ;;
 	* )
-	    _Dbg_errmsg '"on", "off", or "reset" expected.'
+	    _Dbg_errmsg '"dark", "light", "off", or "reset" expected.'
 	    return 1
     esac
     _Dbg_do_show highlight

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Eval and Print commands.
 #
-#   Copyright (C) 2008, 2010, 2011, 2014 Rocky Bernstein
+#   Copyright (C) 2008, 2010-2011, 2014-2015 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -60,7 +60,7 @@ _Dbg_do_eval() {
         # always save a copy of that in _Dbg_sget_source_line
         typeset source_line
         typeset highlight_save=$_Dbg_set_highlight
-        _Dbg_set_highlight=0
+        _Dbg_set_highlight=''
         _Dbg_get_source_line
         typeset source_line_save="$source_line"
 

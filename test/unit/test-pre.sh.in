@@ -39,7 +39,7 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 _Dbg_libdir=$abs_top_srcdir
 . ${abs_top_srcdir}test/unit/helper.sh
 . ${abs_top_srcdir}/dbg-pre.sh
-_Dbg_set_highlight=0
+_Dbg_set_highlight=''
 set -- # reset $# so shunit2 doesn't get confused.
 
 SHUNIT_PARENT=$0

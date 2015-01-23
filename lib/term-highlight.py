@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# from pydbgr.api import debug
+# from trepan.api import debug
 # debug()
 from pygments import highlight
 from pygments.lexers import BashLexer
@@ -7,6 +7,7 @@ from pygments.formatters import TerminalFormatter
 from pygments.token import Keyword, Name, Comment, String, Error, \
      Number, Operator, Generic, Token, Whitespace
 from tempfile import mktemp
+from getopt import getopt
 import os, sys
 
 #: Map token types to a tuple of color values for light and dark
@@ -15,9 +16,9 @@ TERMINAL_COLORS = {
     Token:              ('',            ''),
 
     Whitespace:         ('lightgray',   'darkgray'),
-    Comment:            ('brown',       'darkgray'),
+    Comment:            ('brown',       'brown'),
     Comment.Preproc:    ('teal',        'turquoise'),
-    Keyword:            ('*darkgreen*',  'blue'),
+    Keyword:            ('*darkgreen*',  'turquoise'),
     Keyword.Type:       ('teal',        'turquoise'),
     Operator.Word:      ('purple',      'fuchsia'),
     Name.Builtin:       ('teal',        'turquoise'),
@@ -26,12 +27,12 @@ TERMINAL_COLORS = {
     Name.Class:         ('_darkgreen_', '_green_'),
     Name.Exception:     ('teal',        'turquoise'),
     Name.Decorator:     ('darkgray',    'lightgray'),
-    Name.Variable:      ('darkblue',    'blue'),
-    Name.Constant:      ('darkblue',    'blue'),
+    Name.Variable:      ('darkblue',    'green'),
+    Name.Constant:      ('darkblue',    'orange'),
     Name.Attribute:     ('teal',        'turquoise'),
-    Name.Tag:           ('blue',        'blue'),
+    Name.Tag:           ('blue',        'orange'),
     String:             ('brown',       'brown'),
-    Number:             ('black',       'blue'),
+    Number:             ('black',       'orange'),
 
     Generic.Deleted:    ('red',        'red'),
     Generic.Inserted:   ('darkgreen',  'green'),
@@ -43,7 +44,7 @@ TERMINAL_COLORS = {
 }
 
 
-def syntax_highlight_file(input_filename, to_stdout = False, color_file=None):
+def syntax_highlight_file(input_filename, to_stdout = False, bg='light', colors_file=None):
     if to_stdout:
         outfile = sys.stdout
         out_filename = None
@@ -78,10 +79,10 @@ def syntax_highlight_file(input_filename, to_stdout = False, color_file=None):
         infile = sys.stdin
         pass
 
-    formatter = TerminalFormatter()
-    if color_file and os.path.isfile(color_file):
+    formatter = TerminalFormatter(bg=bg)
+    if colors_file is not None and os.path.isfile(colors_file):
         try:
-            execfile(color_file)
+            execfile(colors_file)
         except:
             sys.exit(10)
             pass
@@ -97,20 +98,47 @@ def syntax_highlight_file(input_filename, to_stdout = False, color_file=None):
     sys.exit(0)
     pass
 
-if __name__=='__main__':
-    color_file = None
+def main():
+    try:
+        opts, args = getopt(sys.argv[1:], "hb:", ["help", "bg="])
+    except GetoptError as err:
+        # print help information and exit:
+        print str(err) # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+    output = None
+    verbose = False
+    dark_light = 'light'
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif o in ("-b", "--bg"):
+            if a in ['dark', 'light']:
+                dark_light = a
+            else:
+                assert False, "expecting 'dark' or 'light'; got %s" % a
+        else:
+            assert False, "unhandled option"
+        pass
+    colors_file = None
     to_stdout = False
-    if len(sys.argv) == 1:
+    if len(args) == 0:
         to_stdout = True
         filename = None
-    elif len(sys.argv) == 2:
-        filename = sys.argv[1]
-    elif len(sys.argv) == 3:
-        filename = sys.argv[1]
-        color_file = sys.argv[2]
+    elif len(args) == 1:
+        filename = args[0]
+    elif len(args) == 2:
+        filename = args[0]
+        colors_file = args[1]
     else:
-        print "usage: $0 [FILE [color-file]]"
+        print "usage: $0 [FILE [--bg {dark|light}] [color-file]]"
         sys.exit(3)
         pass
-    syntax_highlight_file(filename, to_stdout, color_file)
+    syntax_highlight_file(filename, to_stdout, bg=dark_light, colors_file=colors_file)
+    pass
+
+
+if __name__=='__main__':
+    main()
     pass

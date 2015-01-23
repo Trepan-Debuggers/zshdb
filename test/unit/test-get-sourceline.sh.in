@@ -47,7 +47,7 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 . ${abs_top_srcdir}lib/fns.sh
 . ${abs_top_srcdir}lib/frame.sh
 . ${abs_top_srcdir}lib/msg.sh
-_Dbg_set_highlight=0
+_Dbg_set_highlight=''
 set -- # reset $# so shunit2 doesn't get confused.
 
 SHUNIT_PARENT=$0

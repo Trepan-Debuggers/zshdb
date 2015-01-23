@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # debugger command options processing. The bane of programming.
 #
-#   Copyright (C) 2008-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2011, 2014-2015 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -25,28 +25,31 @@ _Dbg_usage() {
 Runs $_Dbg_shell_name <script_file> under a debugger.
 
 options:
-    -h | --help             Print this help.
-    -q | --quiet            Do not print introductory and quiet messages.
-    -A | --annotate  LEVEL  Set the annotation level.
-    -B | --basename         Show basename only on source file listings.
-                            (Needed in regression tests)
-    --highlight | --no-highlight
-                            Use or don't use ANSI terminal sequences for syntax
-                            highlight
-    --init-file FILE        Source script file FILE. Similar to bash's
-                            corresponding option. This option can be given
-                            several times with different files.
+    -h | --help              Print this help.
+    -q | --quiet             Do not print introductory and quiet messages.
+    -A | --annotate  LEVEL   Set the annotation level.
+    -B | --basename          Show basename only on source file listings.
+                             (Needed in regression tests)
+    --highlight {dark|light} Use dark or light background ANSI terminal sequence
+                             syntax highlighting
+      | --no-highlight
+                             Don't use ANSI terminal sequences for syntax
+                             highlight
+    --init-file FILE         Source script file FILE. Similar to bash's
+                             corresponding option. This option can be given
+                             several times with different files.
     -L | --library DIRECTORY
-                            Set the directory location of library helper file: $_Dbg_main
-    -c | --command STRING   Run STRING instead of a script file
-    -n | --nx | --no-init   Don't run initialization files.
-    -t | --tty DEV          Run using device for your programs standard input and output
+                             Set the directory location of library helper file:
+                             $_Dbg_main
+    -c | --command STRING    Run STRING instead of a script file
+    -n | --nx | --no-init    Don't run initialization files.
+    -t | --tty DEV           Run using device for your programs standard input and output
     -T | --tempdir DIRECTORY
-                            Use DIRECTORY to store temporary files in
-    -V | --version          Print the debugger version number.
-    -X | --trace            Set line tracing similar to set -x
+                             Use DIRECTORY to store temporary files in
+    -V | --version           Print the debugger version number.
+    -X | --trace             Set line tracing similar to set -x
     -x | --eval-command CMDFILE
-                            Execute debugger commands from CMDFILE.
+                             Execute debugger commands from CMDFILE.
 "
   exit 100
 }
@@ -73,7 +76,7 @@ typeset -i _Dbg_set_annotate=0
 typeset -i _Dbg_set_linetrace=0
 
 typeset -i _Dbg_set_basename=0
-typeset -i _Dbg_set_highlight  # Initialized below
+typeset    _Dbg_set_highlight  # Initialized below
 typeset -a _Dbg_o_init_files; _Dbg_o_init_files=()
 typeset -i _Dbg_o_nx=0
 typeset    _Dbg_tty=''
@@ -87,9 +90,9 @@ builtin bindkey -e
 
 # If we can do highlighting, do it.
 if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
-    _Dbg_set_highlight=1
+    _Dbg_set_highlight="light"
 else
-    _Dbg_set_highlight=0
+    _Dbg_set_highlight=''
 fi
 
 # $_Dbg_tmpdir could have been set by the top-level debugger script.
@@ -109,7 +112,7 @@ _Dbg_parse_options() {
 	eval-command required_argument           \
 	cmdfile      required_argument           \
     	help         no_argument                 \
-    	highlight    no_argument                 \
+    	highlight    required_argument           \
 	init-file    required_argument           \
 	library      required_argument           \
 	no-highlight no_argument                 \
@@ -131,14 +134,22 @@ _Dbg_parse_options() {
 	    h | help )
 		_Dbg_usage		;;
 	    highlight )
-		if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
-		    _Dbg_set_highlight=1
-		else
+		case "$OPTLARG" in
+		    light | dark )
+			_Dbg_set_highlight=$OPTLARG
+		    ;;
+		* )
+		    print "Expecting 'dark' or 'light', got \"${OPTLARG}\"" >&2
+		    exit 2
+		esac
+
+		if ! ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
 		    print "Can't run pygmentize. --highight forced off" >&2
+		    _Dbg_set_highlight=''
 		fi
 		;;
 	    no-highlight )
-		_Dbg_set_highlight=0  	;;
+		_Dbg_set_highlight=''  	;;
 	    init-file )
 		_Dbg_o_init_files+="$OPTLARG"
 		;;

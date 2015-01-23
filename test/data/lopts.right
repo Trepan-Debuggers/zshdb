@@ -1,38 +1,41 @@
-Usage: 
+Usage:
    zshdb [OPTIONS] <script_file>
 
 Runs zsh <script_file> under a debugger.
 
 options:
-    -h | --help             Print this help.
-    -q | --quiet            Do not print introductory and quiet messages.
-    -A | --annotate  LEVEL  Set the annotation level.
-    -B | --basename         Show basename only on source file listings. 
-                            (Needed in regression tests)
-    --highlight | --no-highlight 
-                            Use or don't use ANSI terminal sequences for syntax
-                            highlight
-    --init-file FILE        Source script file FILE. Similar to bash's 
-                            corresponding option. This option can be given 
-                            several times with different files.
+    -h | --help              Print this help.
+    -q | --quiet             Do not print introductory and quiet messages.
+    -A | --annotate  LEVEL   Set the annotation level.
+    -B | --basename          Show basename only on source file listings.
+                             (Needed in regression tests)
+    --highlight {dark|light} Use dark or light background ANSI terminal sequence
+                             syntax highlighting
+      | --no-highlight
+                             Don't use ANSI terminal sequences for syntax
+                             highlight
+    --init-file FILE         Source script file FILE. Similar to bash's
+                             corresponding option. This option can be given
+                             several times with different files.
     -L | --library DIRECTORY
-                            Set the directory location of library helper file
-    -c | --command STRING   Run STRING instead of a script file
-    -n | --nx | --no-init   Don't run initialization files.
-    -t | --tty DEV          Run using device for your programs standard input and output
-    -T | --tempdir DIRECTORY 
-                            Use DIRECTORY to store temporary files in
-    -V | --version          Print the debugger version number.
-    -X | --trace            Set line tracing similar to set -x
+                             Set the directory location of library helper file:
+				dbg-main.sh
+    -c | --command STRING    Run STRING instead of a script file
+    -n | --nx | --no-init    Don't run initialization files.
+    -t | --tty DEV           Run using device for your programs standard input and output
+    -T | --tempdir DIRECTORY
+                             Use DIRECTORY to store temporary files in
+    -V | --version           Print the debugger version number.
+    -X | --trace             Set line tracing similar to set -x
     -x | --eval-command CMDFILE
                             Execute debugger commands from CMDFILE.
 (dbg-test1.sh:4):
 fn1 () { echo "fn1 here" x=5 fn3 }
 +# Just a simple quit command.
-+quit 
++quit
 zshdb: That's all, folks...
 (dbg-test1.sh:4):
 fn1 () { echo "fn1 here" x=5 fn3 }
 +# Just a simple quit command.
-+quit 
++quit
 zshdb: That's all, folks...

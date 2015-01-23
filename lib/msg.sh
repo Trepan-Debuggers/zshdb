@@ -68,7 +68,7 @@ _Dbg_confirm() {
 # eval echo "$1" it is the same as echo $1.
 function _Dbg_errmsg {
     typeset -r prefix='**'
-    if (( _Dbg_set_highlight )) ; then
+    if [[ -n $_Dbg_set_highlight ]] ; then
 	_Dbg_msg "$prefix ${_Dbg_ansi_term_underline}$@${_Dbg_ansi_term_normal}"
     else
 	_Dbg_msg "$prefix $@"
@@ -125,7 +125,7 @@ typeset _Dbg_dashes='---------------------------------------------------'
 
 # print message to output device
 function _Dbg_section {
-    if (( _Dbg_set_highlight )) ; then
+    if [[ -n $_Dbg_set_highlight ]] ; then
 	_Dbg_msg "${_Dbg_ansi_term_bold}$@${_Dbg_ansi_term_normal}"
     else
 	local -r msg="$@"
