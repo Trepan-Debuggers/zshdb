@@ -57,5 +57,4 @@ See INSTALL for generic configure installation instructions.
 
 See the [wiki](https://github.com/rocky/zshdb/wiki) for more information.
 
-Rocky Bernstein <rocky@gnu.org> <br>
-[![endorse](https://api.coderwall.com/rocky/endorsecount.png)](https://coderwall.com/rocky)
+Rocky Bernstein <rocky@gnu.org>
