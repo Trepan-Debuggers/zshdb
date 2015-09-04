@@ -5,6 +5,16 @@ This is a port of my bash debugger [bashdb](http://bashdb.sf.net).
 The command syntax generally follows that of the trepanning debuggers
 and, more generally, GNU debugger *gdb*.
 
+On Debian systems, and derivatives, zshdb can be installed by running:
+
+```console
+    sudo apt-get install zshdb
+```
+
+The latest version may not yet be included in the archives. If you are running
+a stable version of Debian or a derivative, you may need to install zshdb from
+the backports repository for your version to get a recent version installed.
+
 To get the code, install git and run in a zsh shell:
 
 ```console
