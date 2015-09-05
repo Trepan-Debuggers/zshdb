@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # from trepan.api import debug
 # debug()
+import warnings
+warnings.simplefilter("ignore")
 from pygments import highlight
 from pygments.lexers import BashLexer
 from pygments.formatters import TerminalFormatter
