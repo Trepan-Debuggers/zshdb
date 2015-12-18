@@ -30,14 +30,14 @@ test_examine()
     typeset -a an_array
     an_array=(1 2 3)
     expect='typeset -a an_array
-an_array=(1 2 3)'
+an_array=( 1 2 3 )'
     msg=$(_Dbg_do_examine an_array)
     assertEquals "$expect" "$msg"
 
     # Expression involving variables
     msg=$(_Dbg_do_examine Dbg_logging+5)
     assertEquals '5' "$msg"
-    
+
     # Expression involving a function
     function a_function { :; }
     msg=$(_Dbg_do_examine a_function)
