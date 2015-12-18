@@ -20,7 +20,7 @@ TERMINAL_COLORS = {
     Token:              ('',            ''),
 
     Whitespace:         ('lightgray',   'darkgray'),
-    Comment:            ('brown',       'brown'),
+    Comment:            ('brown',       'yellow'),
     Comment.Preproc:    ('teal',        'turquoise'),
     Keyword:            ('*darkgreen*',  'turquoise'),
     Keyword.Type:       ('teal',        'turquoise'),
@@ -57,7 +57,7 @@ def syntax_highlight_file(input_filename, to_stdout=False, bg='light', colors_fi
         out_filename = mktemp('.term', basename + '_')
         try:
             outfile = open(out_filename, 'w')
-        except IOError, (errno, strerror):
+        except IOError((errno, strerror)):
             print("I/O in opening debugger output file %s" % out_filename)
             print("error(%s): %s" % (errno, strerror))
             sys.exit(1)
@@ -70,7 +70,7 @@ def syntax_highlight_file(input_filename, to_stdout=False, bg='light', colors_fi
     if input_filename:
         try:
             infile = open(input_filename)
-        except IOError, (errno, strerror):
+        except IOError((errno, strerror)):
             print("I/O in opening debugger input file %s" % input_filename)
             print("error(%s): %s" % (errno, strerror))
             sys.exit(2)
@@ -86,7 +86,9 @@ def syntax_highlight_file(input_filename, to_stdout=False, bg='light', colors_fi
     formatter = TerminalFormatter(bg=bg)
     if colors_file is not None and os.path.isfile(colors_file):
         try:
-            execfile(colors_file)
+            with open(colors_file) as f:
+                code = compile(f.read(), colors_file, 'exec')
+                exec(code)
         except:
             sys.exit(10)
             pass
@@ -111,12 +113,13 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt(sys.argv[1:], "hb:", ["help", "bg="])
+        opts, args = getopt(sys.argv[1:], "hb:c:", ["help", "bg=", "colors=",])
     except GetoptError as err:
         # print help information and exit:
         print(str(err)) # will print something like "option -a not recognized"
         usage()
     dark_light = 'light'
+    colors_file = None
     for o, a in opts:
         if o in ("-h", "--help"):
             usage()
@@ -126,19 +129,17 @@ def main():
                 dark_light = a
             else:
                 assert False, "expecting 'dark' or 'light'; got %s" % a
+        elif o in ("-c", "--colors"):
+            colors_file = a
         else:
-            assert False, "unhandled option"
+            assert False, "unhandled option %s" % o
         pass
-    colors_file = None
     to_stdout = False
     if len(args) == 0:
         to_stdout = True
         filename = None
-    elif len(args) == 1:
+    elif len(args) >= 1:
         filename = args[0]
-    elif len(args) == 2:
-        filename = args[0]
-        colors_file = args[1]
     else:
         sys.exit(3)
         pass

@@ -1,8 +1,8 @@
 language: zsh
 
-install:
-  # Install zsh.
-  - "sudo apt-get install zsh"
+# install:
+#   # Install zsh.
+#   - "sudo apt-get install zsh"
 
 # run the tests
 script: zsh ./autogen.sh && make check
