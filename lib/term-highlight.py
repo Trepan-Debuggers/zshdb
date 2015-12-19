@@ -4,7 +4,6 @@
 from __future__ import print_function
 
 import warnings
-warnings.simplefilter("ignore")
 from pygments import highlight
 from pygments.lexers import BashLexer
 from pygments.formatters import TerminalFormatter
@@ -13,6 +12,7 @@ from pygments.token import Keyword, Name, Comment, String, Error, \
 from tempfile import mktemp
 from getopt import getopt, GetoptError
 import os, sys
+warnings.simplefilter("ignore")
 
 #: Map token types to a tuple of color values for light and dark
 #: backgrounds.
@@ -100,9 +100,10 @@ def syntax_highlight_file(input_filename, to_stdout=False, bg='light', colors_fi
         # print line,
         pass
     outfile.close
-    if out_filename: print(out_filename)
+    if out_filename:
+        print(out_filename)
     sys.exit(0)
-    pass
+
 
 def usage():
     program = os.path.basename(__file__)
@@ -116,7 +117,7 @@ def main():
         opts, args = getopt(sys.argv[1:], "hb:c:", ["help", "bg=", "colors=",])
     except GetoptError as err:
         # print help information and exit:
-        print(str(err)) # will print something like "option -a not recognized"
+        print(str(err))  # will print something like "option -a not recognized"
         usage()
     dark_light = 'light'
     colors_file = None
