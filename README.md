@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rocky/zshdb.png)](https://travis-ci.org/rocky/zshdb)
+[![Build Status Circle](https://circleci.com/gh/rocky/zshdb.svg?&style=shield)](https://circleci.com/gh/rocky/zshdb)
 
 *zshdb* is debugger for zsh scripts. It started as a port of my bash
 debugger [bashdb](http://bashdb.sf.net) so the commands used in
