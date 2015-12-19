@@ -1,6 +1,6 @@
 checkout:
   post:
-    - sudo apt-get -y zsh
+    - sudo apt-get -y install zsh
     - sh ./autogen.sh
 
 test:
