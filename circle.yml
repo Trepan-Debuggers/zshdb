@@ -1,0 +1,8 @@
+checkout:
+  post:
+    - sudo apt-get -y zsh
+    - sh ./autogen.sh
+
+test:
+  override:
+    - make check
