@@ -20,10 +20,6 @@ One-time breakpoint 1 set in file exam.sh, line 10.
 Breakpoint 1 hit.
 (exam.sh:10):
 unset string
-+x ary
-typeset -a ary
-ary=( 10 100 100 )
-typeset -ar ary
 +x string
 typeset string='a string'
 +x xstring
