@@ -7,12 +7,10 @@ Show stepping forces a new line is on.
 +# Invalid delete commands
 +delete 0
 ** No breakpoint number 0.
-Deleted breakpoint 0
 +break 4
 Breakpoint 1 set in file stepping.sh, line 4.
 +delete 4
 ** No breakpoint number 4.
-Deleted breakpoint 4
 +info breakpoints
 Num Type       Disp Enb What
 ----------------------------
@@ -27,7 +25,6 @@ No breakpoints have been set.
 +# Should fail - already deleted
 +delete 1
 ** No breakpoint number 1.
-Deleted breakpoint 1
 +break 5
 Breakpoint 2 set in file stepping.sh, line 5.
 +continue 

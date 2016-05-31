@@ -1,8 +1,17 @@
-Version 0.9
+Version 0.91
+2016-05-30 Mom
 
+- Report deleted breakpoints This helps front-ends like realgud
+- Fix some of the highlight bugs
+- add parameter to option --highlight=dark|light. We now accomdate dark terminals more properly.
 - 2st level completion of "set" and "show" and "info" commands
 - frame order on completion respected
 - add underline attribute and use it for errors and debugger prompt
+- add sectioning to on-line help
+- add set history filename
+- add help completion,
+- help include aliases
+- numerous bug fixes
 
 Version 0.9
 2014-12-12 Late Gecko

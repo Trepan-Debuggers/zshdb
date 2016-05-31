@@ -1,3 +1,120 @@
+2016-05-30  rocky <rocky@gnu.org>
+
+	* command/delete.sh, lib/break.sh, test/data/brkpt1.right,
+	test/data/bug-delete.right, test/data/delete.right: Report deleted
+	breakpoints This helps front-ends like realgud
+
+2015-12-19  rocky <rocky@gnu.org>
+
+	* circle.yml: CircleCI typo
+
+2015-12-19  rocky <rocky@gnu.org>
+
+	* circle.yml: I said try CircleCI
+
+2015-12-19  rocky <rocky@gnu.org>
+
+	* .travis.yml, README.md: Try CircleCI
+
+2015-12-19  rocky <rocky@gnu.org>
+
+	* lib/term-highlight.py: Most of Eiriner's small formatting changes.
+
+2015-12-19  rocky <rocky@gnu.org>
+
+	* test/data/examine.cmd, test/data/examine.right,
+	test/unit/test-examine.sh.in: Handle both print forms (1,2,3) and (
+	1, 2, 3) for typeset -p array
+
+2015-12-18  rocky <rocky@gnu.org>
+
+	* .travis.yml, lib/term-highlight.py: Make highlight program fully
+	Python3-compatible. Try travis without installing zsh
+
+2015-12-18  rocky <rocky@gnu.org>
+
+	* lib/term-highlight.py, lib/tox.ini, test/data/examine.right,
+	test/unit/test-examine.sh.in: Fix some of the highlight bugs more
+	feature remain.  zsh typeset -p array formatting has change. Track
+	that.
+
+2015-09-05  rocky <rocky@gnu.org>
+
+	* README.md, command/set_sub/highlight.sh,
+	command/show_sub/highlight.sh, lib/term-highlight.py: Remove and
+	point to installation instructions
+
+2015-02-09  rocky <rocky@gnu.org>
+
+	* README.md: Revise README
+
+2015-01-23  rocky <rocky@gnu.org>
+
+	* README.md: Remove coderwall endorses count
+
+2015-01-23  rocky <rocky@gnu.org>
+
+	* command/eval.sh, command/help.sh, command/set_sub/highlight.sh,
+	command/show_sub/highlight.sh, dbg-opts.sh, lib/filecache.sh,
+	lib/gdb.sh, lib/msg.sh, lib/processor.sh, lib/term-highlight.py,
+	test/data/lopts.right, test/integration/test-opts.in,
+	test/unit/test-get-sourceline.sh.in, test/unit/test-msg.sh.in,
+	test/unit/test-pre.sh.in: --highlight changed from taking no
+	parameters to --highlight=dark|light. And we now accomdate dark
+	terminals more properly.
+
+2015-01-15  rocky <rocky@gnu.org>
+
+	* command/info_sub/breakpoints.sh, lib/action.sh, lib/msg.sh,
+	test/data/action.right, test/data/brkpt1.right,
+	test/data/condition.right, test/data/delete.right,
+	test/data/enable.right, test/data/tbreak.right: Add more sectioning
+	commands. Non-syntax highlight sectioning adds a line underneath of
+	dashes.
+
+2014-12-16  rocky <rocky@gnu.org>
+
+	* command/help.sh, command/quit.sh, command/shell.sh,
+	command/show.sh, lib/complete.sh, lib/hist.sh: More work on
+	completion. help includes aliases in completion Other small changes
+	and cleanups.
+
+2014-12-15  rocky <rocky@gnu.org>
+
+	* command/set_sub/history.sh, test/data/setshow.cmd,
+	test/data/setshow.right: Add "set history filename"
+
+2014-12-15  rocky <rocky@gnu.org>
+
+	* test/data/setshow.cmd, test/data/setshow.right: In setshow test we
+	need to set histsize (now that this works) before running a generic
+	"show".
+
+2014-12-15  rocky <rocky@gnu.org>
+
+	* command/info.sh, command/quit.sh, command/set.sh,
+	command/set_sub/annotate.sh, command/set_sub/basename.sh,
+	command/set_sub/history.sh, command/set_sub/listsize.sh,
+	command/show.sh, command/show_sub/history.sh, dbg-main.sh,
+	dbg-opts.sh, lib/hist.sh, lib/hook.sh, lib/processor.sh,
+	test/data/setshow.right, zshdb.in: Go over history and history
+	saving. Use more of the subcommand-automated system and less hacked
+	into the subcommand managers. Prompt has to keep more of its own
+	count and not use command history since that may start at a large
+	number.
+
+2014-12-15  rocky <rocky@gnu.org>
+
+	* command/show_sub/commands.sh, dbg-trace.sh.in, lib/complete.sh,
+	lib/hist.sh, lib/hook.sh, zshdb.in: zshdb.in: we need --interactive
+	for any kind of history to work show_sub/commands.sh: "show
+	commands" now works as in gdb lib/hook.sh: put on fc -W, but still
+	save history file.
+
+2014-12-15  rocky <rocky@gnu.org>
+
+	* ChangeLog, lib/help.sh: I hate conflicted merges.
+
 2014-12-15  rocky <rocky@gnu.org>
 
 	* : commit 03cdd913fcd58243bddbf7c08dad045830df37b6 Author: rocky
