@@ -110,19 +110,26 @@ def syntax_highlight_file(input_filename, to_stdout=False, bg='light',
         print(out_filename)
     sys.exit(0)
 
-
+program = os.path.basename(__file__)
 def usage():
-    program = os.path.basename(__file__)
-    print("usage: %s [FILE [--bg {dark|light}] [color-file]]" % program,
-          file=sys.stderr)
+    sys.stderr.write("""usage:
+%s [FILE | --tty]  [--bg {dark|light}] [color-file | --style *pygments-style-name*]]
+%s [--help | -h | --version | -V
+
+Runs pygmentize to prettyprint a file for terminal output
+""" % (program, program))
     sys.exit(2)
+
+def version():
+    sys.stderr.write("%s version 1.0\n" % program)
 
 
 from getopt import getopt, GetoptError
 def main():
     try:
-        opts, args = getopt(sys.argv[1:], "tLhb:c:S:",
-                            ["list-styles", "tty", "help", "bg=", "colors=", 'style='])
+        opts, args = getopt(sys.argv[1:], "LTVhb:c:S:",
+                            ["list-styles", "tty", "help", "version",
+                             "bg=", "colors=", 'style='])
     except GetoptError as err:
         # print help information and exit:
         print(str(err))  # will print something like "option -a not recognized"
@@ -135,10 +142,13 @@ def main():
         if o in ("-h", "--help"):
             usage()
             sys.exit()
+        if o in ("-V", "--version"):
+            version()
+            sys.exit()
         elif o in ("-L", "--list-styles"):
             print(' '.join(style_names))
             sys.exit()
-        elif o in ("-t", '--tty'):
+        elif o in ("-T", '--tty'):
             to_stdout = True
         elif o in ("-S", "--style"):
             if a not in style_names:
