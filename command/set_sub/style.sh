@@ -50,7 +50,7 @@ _Dbg_do_set_style() {
 	return 1
     fi
     style=${1:-'colorful'}
-    if [[ "{$style}" == "off" ]] ; then
+    if [[ "${style}" == "off" ]] ; then
 	_Dbg_set_style=''
 	_Dbg_filecache_reset
 	_Dbg_readin $_Dbg_frame_last_filename

@@ -164,6 +164,11 @@ _Dbg_help_set() {
             [[ -n $label ]] && label='set prompt    -- '
             _Dbg_msg "${label}prompt string ${_Dbg_set_prompt}"
             ;;
+        showcommand  )
+            [[ -n $label ]] && label='set showcommand -- '
+            _Dbg_msg \
+                "${label}command tracing is $_Dbg_set_show_command"
+            ;;
         style )
             [[ -n $label ]] && label='set style    -- '
             _Dbg_msg_nocr \
