@@ -26,7 +26,7 @@ _Dbg_do_show_style() {
     [[ -n $label ]] && label='style: '
     _Dbg_msg_nocr \
         "${label}Pygments terminal formatting style is "
-    if [[ -n $_Dbg_set_highlight ]] ; then
+    if [[ -n $_Dbg_set_style ]] ; then
         _Dbg_msg "${_Dbg_set_style}."
     else
         _Dbg_msg 'off.'

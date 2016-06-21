@@ -88,8 +88,19 @@ typeset _Dbg_edit='-e'
 typeset _Dbg_edit_style='emacs'
 builtin bindkey -e
 
+typeset -i _Dbg_working_term_highlight
+export _Ddg_working_term_highlight
+
+if ${_Dbg_libdir}/lib/term-highlight.py -V 2>/dev/null  1>/dev/null ; then
+    _Dbg_working_term_highlight=1
+else
+    _Dbg_working_term_highlight=0
+fi
+export _Dbg_set_style=''
+
+
 # If we can do highlighting, do it.
-if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
+if ((  _Dbg_working_term_highlight )) ; then
     _Dbg_set_highlight="light"
 else
     _Dbg_set_highlight=''
@@ -105,7 +116,7 @@ _Dbg_parse_options() {
     typeset -i _Dbg_o_quiet=0
     typeset -i _Dbg_o_version=0
 
-    while getopts_long A:Bc:x:hL:nqTt:V opt      \
+    while getopts_long A:Bc:x:hL:nqTS:t:V opt    \
 	annotate required_argument               \
 	basename no_argument                     \
 	command  required_argument               \
@@ -120,6 +131,7 @@ _Dbg_parse_options() {
 	nx           no_argument                 \
 	quiet        no_argument                 \
         tempdir      required_argument           \
+    	style        required_argument           \
         tty          required_argument           \
 	version      no_argument                 \
 	'' "$@"
@@ -143,8 +155,8 @@ _Dbg_parse_options() {
 		    exit 2
 		esac
 
-		if ! ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
-		    print "Can't run pygmentize. --highight forced off" >&2
+		if (( ! _Ddg_working_term_highlight )) ; then
+		    echo "Can't run term-highlight.py; '--highlight' forced off" >&2
 		    _Dbg_set_highlight=''
 		fi
 		;;
@@ -160,6 +172,15 @@ _Dbg_parse_options() {
 		_Dbg_o_nx=1		;;
 	    q | quiet )
 		_Dbg_o_quiet=1		;;
+	    S | style)
+		set -x
+		if (( $_Dbg_working_term_highlight )) ; then
+		    _Dbg_set_style=$OPTLARG
+		else
+		    echo "Can't run term-highlight.py; '--style' option ignored" >&2
+		fi
+		set +x
+		;;
 	    t | tty)
 		_Dbg_tty=$OPTLARG	;;
 	    tempdir)

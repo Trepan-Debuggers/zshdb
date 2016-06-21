@@ -42,8 +42,6 @@ See also: set highlight, show style, show highlight.
 ' 1
 
 
-export _Dbg_set_style=''
-
 _Dbg_do_set_style() {
     if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
 	:
