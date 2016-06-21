@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "set highlight" debugger command
+# "set style" debugger command
 #
-#   Copyright (C) 2011, 2014-2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -27,55 +27,39 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 typeset -A _Dbg_complete_level_2_data
-_Dbg_complete_level_2_data[set_highlight]='dark light off reset'
 
-_Dbg_help_add_sub set highlight \
+export _Dbg_pygments_styles=$(${_Dbg_libdir}/lib/term-highlight.py -L)
+
+_Dbg_complete_level_2_data[set_style]=$_Dbg_pygments_styles
+
+_Dbg_help_add_sub set style \
 '
-set highlight [dark|light|off|reset]
+set style [pygments style]
 
-Set using terminal highlight.
+Set the pygments style use in listings.
 
-Use "reset" to set highlighting on and force a redo of syntax
-highlighting of already cached files. This may be needed if the
-debugger was started without syntax highlighting initially.
-
-"dark" sets sets for highlighting for a terminal with a dark background and
-"light" set for highlighting for a terminal with a light background.
-
-See also: show highlight.
+See also: set highlight, show style, show highlight.
 ' 1
 
-_Dbg_do_set_highlight() {
+
+export _Dbg_set_style=''
+
+_Dbg_do_set_style() {
     if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
 	:
     else
 	_Dbg_errmsg "Can't run pygmentize. Setting forced off"
 	return 1
     fi
-    typeset onoff=${1:-'light'}
-    case $onoff in
-	on | light )
-	    _Dbg_set_highlight='light'
-	    _Dbg_filecache_reset
-	    _Dbg_readin $_Dbg_frame_last_filename
-	    ;;
-	dark )
-	    _Dbg_set_highlight='dark'
-	    _Dbg_filecache_reset
-	    _Dbg_readin $_Dbg_frame_last_filename
-	    ;;
-	off | 0 )
-	    _Dbg_set_highlight=''
-	    ;;
-	reset )
-	    [[ -z $_Dbg_set_highlight ]] && _Dbg_set_highlight='light'
-	    _Dbg_filecache_reset
-	    _Dbg_readin $_Dbg_frame_last_filename
-	    ;;
-	* )
-	    _Dbg_errmsg '"dark", "light", "off", or "reset" expected.'
-	    return 1
-    esac
-    _Dbg_do_show highlight
+    style=${1:-'colorful'}
+    if [[ "${_Dbg_pygments_styles#*$style}" != "$_Dbg_pygments_styles" ]] ; then
+	_Dbg_set_style=$style
+	_Dbg_filecache_reset
+	_Dbg_readin $_Dbg_frame_last_filename
+	_Dbg_do_show style
+    else
+	_Dbg_errmsg "Can't find style $style"
+    fi
+
     return 0
 }

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "show highlight" debugger command
+# "show style" debugger command
 #
-#   Copyright (C) 2011, 2014-2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,16 +18,16 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_help_add_sub show highlight \
-"Show terminal highlighting" 1
+_Dbg_help_add_sub show style \
+"Show pygments terminal formatting style" 1
 
-_Dbg_do_show_highlight() {
+_Dbg_do_show_style() {
     typeset label="$1"
-    [[ -n $label ]] && label='highlight: '
+    [[ -n $label ]] && label='style: '
     _Dbg_msg_nocr \
-        "${label}Terminal highlighting is "
+        "${label}Pygments terminal formatting style is "
     if [[ -n $_Dbg_set_highlight ]] ; then
-        _Dbg_msg "${_Dbg_set_highlight}."
+        _Dbg_msg "${_Dbg_set_style}."
     else
         _Dbg_msg 'off.'
     fi
