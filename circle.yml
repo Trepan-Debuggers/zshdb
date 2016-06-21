@@ -1,6 +1,6 @@
 checkout:
   post:
-    - sudo apt-get -y install zsh pygments
+    - sudo apt-get -y install zsh python-pygments
     - sh ./autogen.sh
 
 test:

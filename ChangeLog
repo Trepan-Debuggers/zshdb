@@ -1,5 +1,10 @@
 2016-05-30  rocky <rocky@gnu.org>
 
+	* ChangeLog, NEWS, configure.ac, test/data/delete.right: Get ready
+	for release 0.91
+
+2016-05-30  rocky <rocky@gnu.org>
+
 	* command/delete.sh, lib/break.sh, test/data/brkpt1.right,
 	test/data/bug-delete.right, test/data/delete.right: Report deleted
 	breakpoints This helps front-ends like realgud

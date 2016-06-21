@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # debugger command options processing. The bane of programming.
 #
-#   Copyright (C) 2008-2011, 2014-2015 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2011, 2014-2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -43,6 +43,7 @@ options:
                              $_Dbg_main
     -c | --command STRING    Run STRING instead of a script file
     -n | --nx | --no-init    Don't run initialization files.
+    -S | --style STYLE       Run use pygments STYLE for formatting source code
     -t | --tty DEV           Run using device for your programs standard input and output
     -T | --tempdir DIRECTORY
                              Use DIRECTORY to store temporary files in
@@ -88,15 +89,15 @@ typeset _Dbg_edit='-e'
 typeset _Dbg_edit_style='emacs'
 builtin bindkey -e
 
-typeset -i _Dbg_working_term_highlight
-export _Ddg_working_term_highlight
+typeset -ix _Dbg_working_term_highlight
 
 if ${_Dbg_libdir}/lib/term-highlight.py -V 2>/dev/null  1>/dev/null ; then
     _Dbg_working_term_highlight=1
 else
     _Dbg_working_term_highlight=0
 fi
-export _Dbg_set_style=''
+
+typeset -x _Dbg_set_style=''
 
 
 # If we can do highlighting, do it.
@@ -173,13 +174,11 @@ _Dbg_parse_options() {
 	    q | quiet )
 		_Dbg_o_quiet=1		;;
 	    S | style)
-		set -x
 		if (( $_Dbg_working_term_highlight )) ; then
 		    _Dbg_set_style=$OPTLARG
 		else
 		    echo "Can't run term-highlight.py; '--style' option ignored" >&2
 		fi
-		set +x
 		;;
 	    t | tty)
 		_Dbg_tty=$OPTLARG	;;

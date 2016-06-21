@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 # help.sh - Debugger Help Routines
-#   Copyright (C) 2008, 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010-2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -72,13 +72,63 @@ _Dbg_help_set() {
         fi
     fi
 
+    # FIXME: DRY this
     case $subcmd in
+        annotate  )
+            [[ -n $label ]] && label='set annotate  -- '
+            _Dbg_msg "${label}annotate style is ${_Dbg_set_annotate}"
+            ;;
         ar | arg | args )
             [[ -n $label ]] && label='set args      -- '
             _Dbg_msg \
-                "${label}Set argument list to give program when it is restarted.
-Follow this command with any number of args, to be passed to the program."
-            return 0
+                "${label}Set argument list to give program when it is restarted."
+            ;;
+        autoeval  )
+            [[ -n $label ]] && label='set autoeval  -- '
+            _Dbg_msg \
+                "${label}auto evaluation of unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
+            ;;
+        autolist  )
+            [[ -n $label ]] && label='set autolist  -- '
+	    typeset onoff="on."
+	    [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
+            _Dbg_msg \
+                "${label}auto listing on debugger stop is ${onoff}"
+            ;;
+        basename  )
+            [[ -n $label ]] && label='set basename  -- '
+            _Dbg_msg \
+                "${label}basenames in files is" $(_Dbg_onoff $_Dbg_set_basename)
+            ;;
+        debug  )
+            [[ -n $label ]] && label='set debug     -- '
+            _Dbg_msg \
+                "${label}debug the debugger is" $(_Dbg_onoff $_Dbg_set_debug)
+            ;;
+        different  )
+            [[ -n $label ]] && label='set different -- '
+            _Dbg_msg \
+                "${label}stop on different lines is" $(_Dbg_onoff $_Dbg_set_different)
+            ;;
+        editing  )
+            [[ -n $label ]] && label='set editing   -- '
+            _Dbg_msg_nocr "${label}edit mode is "
+	    if [[ -z $_Dbg_edit ]] ; then
+		_Dbg_msg 'off.'
+	    else
+		_Dbg_msg 'on.'
+	    fi
+
+            ;;
+        highlight )
+            [[ -n $label ]] && label='set highlight -- '
+            _Dbg_msg_nocr \
+                "${label}highlight style "
+            if [[ -z $_Dbg_set_highlight ]] ; then
+                _Dbg_msg 'off.'
+            else
+		_Dbg_msg "${_Dbg_set_highlight}"
+            fi
             ;;
         his | hist | history )
             [[ -n $label ]] && label='set history   -- '
@@ -105,6 +155,28 @@ Follow this command with any number of args, to be passed to the program."
                     "set linetrace delay -- delay before executing a line is" $_Dbg_linetrace_delay
             fi
             return 0
+            ;;
+        listsize )
+            [[ -n $label ]] && label='set list size -- '
+            _Dbg_msg "${label}Set number of lines in listings is ${_Dbg_set_listsize}"
+	    ;;
+        prompt  )
+            [[ -n $label ]] && label='set prompt    -- '
+            _Dbg_msg "${label}prompt string ${_Dbg_set_prompt}"
+            ;;
+        style )
+            [[ -n $label ]] && label='set style    -- '
+            _Dbg_msg_nocr \
+                "${label}Set pygments highlighting style is "
+            if [[ -z $_Dbg_set_style ]] ; then
+                _Dbg_msg 'off.'
+            else
+		_Dbg_msg "${_Dbg_set_style}"
+            fi
+            ;;
+        width )
+            [[ -n $label ]] && label='set width    -- '
+            _Dbg_msg "${label}Set line width is ${_Dbg_set_linewidth}"
             ;;
         * )
             _Dbg_msg \

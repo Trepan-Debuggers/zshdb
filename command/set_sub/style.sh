@@ -30,11 +30,11 @@ typeset -A _Dbg_complete_level_2_data
 
 export _Dbg_pygments_styles=$(${_Dbg_libdir}/lib/term-highlight.py -L)
 
-_Dbg_complete_level_2_data[set_style]=$_Dbg_pygments_styles
+_Dbg_complete_level_2_data[set_style]="$_Dbg_pygments_styles off"
 
 _Dbg_help_add_sub set style \
 '
-set style [pygments style]
+set style [pygments style | off]
 
 Set the pygments style use in listings.
 
@@ -50,7 +50,12 @@ _Dbg_do_set_style() {
 	return 1
     fi
     style=${1:-'colorful'}
-    if [[ "${_Dbg_pygments_styles#*$style}" != "$_Dbg_pygments_styles" ]] ; then
+    if [[ "{$style}" == "off" ]] ; then
+	_Dbg_set_style=''
+	_Dbg_filecache_reset
+	_Dbg_readin $_Dbg_frame_last_filename
+	_Dbg_do_show style
+    elif [[ "${_Dbg_pygments_styles#*$style}" != "$_Dbg_pygments_styles" ]] ; then
 	_Dbg_set_style=$style
 	_Dbg_filecache_reset
 	_Dbg_readin $_Dbg_frame_last_filename
