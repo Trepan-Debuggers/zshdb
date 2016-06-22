@@ -74,7 +74,7 @@ _Dbg_help_set() {
 
     # FIXME: DRY this
     case $subcmd in
-        annotate  )
+        an | ann | anno | annot | annota | annotat | annotate )
             [[ -n $label ]] && label='set annotate  -- '
             _Dbg_msg "${label}annotate style is ${_Dbg_set_annotate}"
             ;;
@@ -95,22 +95,22 @@ _Dbg_help_set() {
             _Dbg_msg \
                 "${label}auto listing on debugger stop is ${onoff}"
             ;;
-        basename  )
+        b | ba | bas | base | basen | basena | basenam | basename )
             [[ -n $label ]] && label='set basename  -- '
             _Dbg_msg \
                 "${label}basenames in files is" $(_Dbg_onoff $_Dbg_set_basename)
             ;;
-        debug  )
+        de|deb|debu|debug )
             [[ -n $label ]] && label='set debug     -- '
             _Dbg_msg \
                 "${label}debug the debugger is" $(_Dbg_onoff $_Dbg_set_debug)
             ;;
-        different  )
+        di|dif|diff|diffe|differe|differen|different )
             [[ -n $label ]] && label='set different -- '
             _Dbg_msg \
                 "${label}stop on different lines is" $(_Dbg_onoff $_Dbg_set_different)
             ;;
-        editing  )
+        e | ed | edi | edit | editi | editin | editing )
             [[ -n $label ]] && label='set editing   -- '
             _Dbg_msg_nocr "${label}edit mode is "
 	    if [[ -z $_Dbg_edit ]] ; then
@@ -118,9 +118,8 @@ _Dbg_help_set() {
 	    else
 		_Dbg_msg 'on.'
 	    fi
-
             ;;
-        highlight )
+        high | highl | highlight )
             [[ -n $label ]] && label='set highlight -- '
             _Dbg_msg_nocr \
                 "${label}highlight style "
@@ -156,20 +155,20 @@ _Dbg_help_set() {
             fi
             return 0
             ;;
-        listsize )
+        lis | list | lists | listsi | listsiz | listsize )
             [[ -n $label ]] && label='set list size -- '
             _Dbg_msg "${label}Set number of lines in listings is ${_Dbg_set_listsize}"
 	    ;;
-        prompt  )
+        p | pr | pro | prom | promp | prompt )
             [[ -n $label ]] && label='set prompt    -- '
             _Dbg_msg "${label}prompt string ${_Dbg_set_prompt}"
             ;;
-        showcommand  )
+        sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
             [[ -n $label ]] && label='set showcommand -- '
             _Dbg_msg \
                 "${label}command tracing is $_Dbg_set_show_command"
             ;;
-        style )
+        sty | style )
             [[ -n $label ]] && label='set style    -- '
             _Dbg_msg_nocr \
                 "${label}Set pygments highlighting style is "
@@ -179,7 +178,7 @@ _Dbg_help_set() {
 		_Dbg_msg "${_Dbg_set_style}"
             fi
             ;;
-        width )
+        wi|wid|widt|width )
             [[ -n $label ]] && label='set width    -- '
             _Dbg_msg "${label}Set line width is ${_Dbg_set_linewidth}"
             ;;

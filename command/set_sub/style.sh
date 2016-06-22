@@ -26,15 +26,18 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_debugger_set_commands
 fi
 
+typeset -x _Dbg_pygments_styles=''
+
+if (( _Dbg_working_term_highlight )) ; then
+   _Dbg_pygments_styles=$(${_Dbg_libdir}/lib/term-highlight.py -L)
+fi
+
 typeset -A _Dbg_complete_level_2_data
-
-export _Dbg_pygments_styles=$(${_Dbg_libdir}/lib/term-highlight.py -L)
-
 _Dbg_complete_level_2_data[set_style]="$_Dbg_pygments_styles off"
 
 _Dbg_help_add_sub set style \
 '
-set style [pygments style | off]
+set style [pygments-style | off]
 
 Set the pygments style use in listings.
 
@@ -43,10 +46,8 @@ See also: set highlight, show style, show highlight.
 
 
 _Dbg_do_set_style() {
-    if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
-	:
-    else
-	_Dbg_errmsg "Can't run pygmentize. Setting forced off"
+    if (( ! _Dbg_working_term_highlight )) ; then
+	_Dbg_errmsg "Can't run term-highlight. Setting forced off"
 	return 1
     fi
     style=${1:-'colorful'}
@@ -62,6 +63,10 @@ _Dbg_do_set_style() {
 	_Dbg_do_show style
     else
 	_Dbg_errmsg "Can't find style $style"
+        typeset -a list; list=( $_Dbg_pygments_styles )
+	_Dbg_msg "Valid styles are:"
+        _Dbg_list_columns '  ' _Dbg_msg
+
     fi
 
     return 0
