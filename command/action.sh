@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # action.sh - Perldb action debugger command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,9 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add action \
-'action LINESPEC COMMAND
+'**action** *linespec* *command*
 
-Run COMMAND when LINESPEC is hit
+Run *command* when *linespec* is hit
 
 Use "A" to remove all actions and "L" to get a list of the actions in
 effect.'

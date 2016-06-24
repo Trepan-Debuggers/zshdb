@@ -65,7 +65,7 @@ _Dbg_help_set() {
 
     if [[ -n "${_Dbg_command_help_set[$subcmd]}" ]] ; then
         if [[ -z $label ]] ; then
-            _Dbg_msg "${_Dbg_command_help_set[$subcmd]}"
+            _Dbg_msg_rst "${_Dbg_command_help_set[$subcmd]}"
             return 0
         else
             label=$(builtin printf "set %-12s-- " $subcmd)
@@ -189,7 +189,7 @@ _Dbg_help_set() {
 }
 
 typeset _Dbg_show_cmds="aliases annotate args autoeval autolist basename commands
-copying directories debug force linetrace listsize prompt trace-commands warranty"
+copying directories debug force linetrace listsize prompt style trace-commands warranty"
 
 _Dbg_help_show() {
     if (( $# == 0 )) ; then
@@ -208,7 +208,7 @@ _Dbg_help_show() {
 
     if [[ -n "${_Dbg_command_help_show[$subcmd]}" ]] ; then
         if [[ -z $label ]] ; then
-            _Dbg_msg "${_Dbg_command_help_show[$subcmd]}"
+            _Dbg_msg_rst "${_Dbg_command_help_show[$subcmd]}"
             return 0
         else
             label=$(builtin printf "show %-12s-- " $subcmd)
@@ -258,6 +258,10 @@ _Dbg_help_show() {
                 "show prompt      -- Show debugger's prompt."
             return 0
             ;;
+        sty | style )
+            _Dbg_msg \
+                "show style       -- Show pygments style in source-code listings."
+            ;;
         t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
             _Dbg_msg \
                 'show trace-commands -- Show if we are echoing debugger commands'
@@ -292,7 +296,7 @@ _Dbg_help_info() {
 
     if [[ -n "${_Dbg_command_help_set[$subcmd]}" ]] ; then
         if [[ -z $label ]] ; then
-            _Dbg_msg "${_Dbg_command_help_info[$subcmd]}"
+            _Dbg_msg_rst "${_Dbg_command_help_info[$subcmd]}"
             return 0
         else
             label=$(builtin printf "info %-12s-- " $subcmd)

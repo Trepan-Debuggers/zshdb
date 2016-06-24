@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub set args \
-'Set argument list to give program being debugged when it is started.
+'**set** *args** *script-args*
+
+Set argument list to give program being debugged when it is started.
 Follow this command with any number of args, to be passed to the program.' 1
 
 _Dbg_do_set_args() {

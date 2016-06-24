@@ -208,7 +208,7 @@ function _Dbg_readin {
 		if (( 0  == $? )) ; then
 		    eval "$_Dbg_highlight_array_var=( \"\${(f@)mapfile[$tempfile]}\" )"
 		fi
-		[[ -r $tempfile ]] && rm $tempfile
+		# [[ -r $tempfile ]] && rm $tempfile
 
 	    fi
 	else

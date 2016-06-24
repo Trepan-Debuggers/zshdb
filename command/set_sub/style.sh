@@ -37,11 +37,12 @@ _Dbg_complete_level_2_data[set_style]="$_Dbg_pygments_styles off"
 
 _Dbg_help_add_sub set style \
 '
-set style [pygments-style | off]
+**set** **style** [*pygments-style* | **off**]
 
-Set the pygments style use in listings.
+Set the pygments style use in souce-code listings to *pygments-style* or
+remove any pygments formatting if *pygments-style* is **off**.
 
-See also: set highlight, show style, show highlight.
+See also: **set highlight**, **show style**, and **show highlight**.
 ' 1
 
 

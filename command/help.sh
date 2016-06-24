@@ -31,31 +31,22 @@ _Dbg_help_command_complete() {
 }
 
 _Dbg_help_add help \
-'help [COMMAND [SUBCOMMAND ..]]
+'**help** [*command* [*subcommand* ..]]
 
 If no arguments are given, print a list of command names.
 With a command name give help for that command. For many commands
 you can get further detailed help by listing the subcommand name.
 
 Examples:
+---------
 
-help
-help up
-help set
-help set args'
+  help
+  help up
+  help set
+  help set args
+'
 
 _Dbg_complete_level_1_data[help]='-A_Dbg_help_command_complete'
-
-# help_text="
-# **help** [*command*]
-#
-# Without argument, print the list of available debugger commands.
-#
-# When an argument is given, it is first checked to see if it is command
-# name or alias.
-# "
-#
-#_Dbg_help_add help "$help_text"
 
 typeset -i _Dbg_help_cols=8
 _Dbg_do_help() {
@@ -78,17 +69,12 @@ _Dbg_do_help() {
     else
         typeset dbg_cmd="$1"
         if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
-	    help_text="${_Dbg_command_help[$dbg_cmd]}"
-	    # if [[ -n $_Dbg_set_highlight ]] ; then
-	    # 	highlight_cmd="${_Dbg_libdir}/lib/rstext.py -w $_Dbg_set_linewidth \"$help_text(gs/\n/\\n/)\""
-	    # 	help_text=$($highlight_cmd 2>/dev/null)
-	    # fi
-	    _Dbg_msg "$help_text"
+	    _Dbg_msg_rst "${_Dbg_command_help[$dbg_cmd]}"
         else
             typeset expanded_alias; _Dbg_alias_expand $dbg_cmd
             dbg_cmd="$expanded_alias"
             if [[ -n ${_Dbg_command_help[$dbg_cmd]} ]] ; then
-                 _Dbg_msg "${_Dbg_command_help[$dbg_cmd]}"
+		_Dbg_msg_rst "${_Dbg_command_help[$dbg_cmd]}"
             else
                 case $dbg_cmd in
                     i | in | inf | info )

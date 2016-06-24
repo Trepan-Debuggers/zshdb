@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2016 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -25,7 +25,12 @@
 # $? is 0 if successful.
 
 _Dbg_help_add trace \
-'trace FUNCTION | alias ALIAS -- set xtrace tracing when FUNCTION is called'
+'**trace** *function*
+
+trace alias *alias*
+
+Set "xtrace" (set -x) tracing when *fucnction is called.
+'
 
 function _Dbg_do_trace {
     if (($# == 0)) ; then
@@ -69,7 +74,10 @@ function _Dbg_do_trace_alias {
 }
 
 _Dbg_help_add untrace \
-'untrace *function*	untrace previosly traced *function*'
+'**untrace** *function*
+
+Untrace previuosly traced *function*.
+'
 
 # Undo wrapping fn
 # $? is 0 if successful.

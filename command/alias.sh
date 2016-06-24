@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # alias.sh - gdb-like "alias" debugger command
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2016 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,10 +19,13 @@
 #   MA 02111 USA.
 
 _Dbg_help_add alias \
-'alias NAME DEBUGGER-COMMAND -- Make NAME be an alias for DEBUGGER-COMMAND.
+'**alias** *name* *debugger-command*
 
-Use "unalias" to remove an alias and "show aliases" to get a list the
-aliases in effect.'
+Make *name* be an alias for *debugger-command*.
+
+Use **unalias** to remove an alias and **show aliases** to get a list the
+aliases in effect.
+' 1
 
 _Dbg_do_alias() {
   if (($# != 2)) ; then
@@ -34,11 +37,12 @@ _Dbg_do_alias() {
 }
 
 _Dbg_help_add unalias \
-'unalias NAME
+'**unalias** *name*
 
-Remove debugger command alias NAME.
+Remove debugger command alias *name*.
 
-Use "show aliases" to get a list the aliases in effect.'
+Use **show aliases** to get a list the aliases in effect.
+' 1
 
 _Dbg_do_unalias() {
   if (($# != 1)) ; then
