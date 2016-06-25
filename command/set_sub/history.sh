@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set history" debugger command
 #
-#   Copyright (C) 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -30,9 +30,11 @@ typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_history]='filename save size'
 
 _Dbg_help_add_sub set history \
-'set history save [on|off]
-set history size *num*
-set history filename *path*
+'**set history save** [**on**|**off**]
+
+**set history size** *num*
+
+**set history filename** *path*
 
 In the first form, set whether to save history.
 This only works if the debugger or zsh was started in interactive
@@ -41,7 +43,7 @@ mode, option --interactive or -i
 In the second form, how many history lines to save is indicated.
 
 In the third form, the place to store the history file is given.
-' 1
+'
 
 _Dbg_do_set_history() {
     case "$1" in

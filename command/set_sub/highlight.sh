@@ -31,7 +31,7 @@ _Dbg_complete_level_2_data[set_highlight]='dark light off reset'
 
 _Dbg_help_add_sub set highlight \
 '
-**set** **highlight** [*dark*|*light*|*off*|*reset*]
+**set** **highlight** [**dark**|**light**|**off**|**reset**]
 
 Set using terminal highlight.
 
@@ -42,11 +42,11 @@ debugger was started without syntax highlighting initially.
 **dark** sets sets for highlighting for a terminal with a dark background and
 **light** set for highlighting for a terminal with a light background.
 
-See also
+See also:
 ---------
 
 **show highlight**.
-' 1
+'
 
 _Dbg_do_set_highlight() {
     if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then

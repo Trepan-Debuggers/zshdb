@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set autolist" debugger command
 #
-#   Copyright (C) 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -30,7 +30,15 @@ typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_autolist]='on off'
 
 _Dbg_help_add_sub set autolist \
-'Run list command automatically every time the debugger enters' 1
+'**set autolist** [**on**|**off**]
+
+Run list command automatically every time the debugger enters
+
+See also:
+---------
+
+**show autolist**
+'
 
 _Dbg_do_set_autolist() {
     typeset onoff=${1:-'off'}

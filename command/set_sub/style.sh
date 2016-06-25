@@ -43,7 +43,7 @@ Set the pygments style use in souce-code listings to *pygments-style* or
 remove any pygments formatting if *pygments-style* is **off**.
 
 See also: **set highlight**, **show style**, and **show highlight**.
-' 1
+'
 
 
 _Dbg_do_set_style() {

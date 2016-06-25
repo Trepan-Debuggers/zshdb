@@ -30,7 +30,14 @@ typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_different]='on off'
 
 _Dbg_help_add_sub set different \
-'Set to stop at a different line' 1
+'**set different** [**off**|**on**]
+
+Set to stop at a different line
+
+See also:
+---------
+
+**show different**'
 
 _Dbg_do_set_different() {
     _Dbg_set_onoff "$1" 'different'

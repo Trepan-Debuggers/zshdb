@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set prompt" debugger command
 #
-#   Copyright (C) 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub set prompt \
-'Set debugger prompt string' 1
+'**set prompt** [*prompt-template*]
+
+Set debugger prompt string' 1
 
 _Dbg_do_set_prompt() {
     _Dbg_prompt_str="$1"

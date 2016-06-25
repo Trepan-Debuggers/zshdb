@@ -28,7 +28,15 @@ fi
 
 
 _Dbg_help_add_sub set listsize \
-'number of source lines debugger will list by default' 1
+'**set listsize** *number-of-lines*
+
+Set the number of source lines debugger will list by default.
+
+See also:
+---------
+
+**show listsize**
+'
 
 _Dbg_do_set_listsize() {
     if [[ $1 == [0-9]* ]] ; then

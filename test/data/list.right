@@ -39,7 +39,7 @@ Examples:
 See also:
 ---------
 
-**set listize** or **show listsize** to see or set the value.
+**set listsize** or **show listsize** to see or set the value.
 
 
 Aliases for list: l>, list>, l

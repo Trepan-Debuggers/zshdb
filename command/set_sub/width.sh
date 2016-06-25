@@ -21,7 +21,7 @@
 _Dbg_help_add_sub set width \
 '**set** **width** *width*
 
-Set maximum width of lines to *width*.' 1
+Set maximum width of lines to *width*.'
 
 _Dbg_do_set_width() {
     if [[ $1 == [0-9]* ]] ; then

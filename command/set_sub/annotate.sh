@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set annotate" debugger command
 #
-#   Copyright (C) 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -30,8 +30,18 @@ typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_annotate]='0 1'
 
 _Dbg_help_add_sub set annotate \
-'Set annotation level.
-0 == normal;     1 == fullname (for use when running under emacs).' 1
+'**set annotate** {**0**|**1**}
+
+Set annotation level.
+
+  0 - normal
+  1 - fullname (for use when running under emacs).
+
+See also:
+---------
+
+**show annotate**
+'
 
 _Dbg_do_set_annotate() {
     if (( $# == 0 )) ; then

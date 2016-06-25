@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set linetrace" debugger command
 #
-#   Copyright (C) 2010, 2014 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2016 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -28,6 +28,17 @@ fi
 
 typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_linetrace]='on off delay expand'
+
+_Dbg_help_add_sub set basename \
+'**set linetrace** [**on**|**off**]
+
+Set xtrace-style line tracing
+
+See also:
+---------
+
+**show linetrace**
+'
 
 _Dbg_do_set_linetrace() {
     typeset onoff=${1:-'off'}
