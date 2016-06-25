@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "backtrace" debugger command
 #
-#   Copyright (C) 2008 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -22,10 +22,19 @@
 # and absolute line positions, not function names and offset.
 
 _Dbg_help_add backtrace \
-"backtrace [N] -- Print a backtrace of calling functions and sourced files.
+"**backtrace** [*n*]
+
+Print a backtrace of calling functions and sourced files.
 
 The backtrace contains function names, arguments, line numbers, and
-files. If N is given, list only N calls."
+files. If *n* is given, list only *n* calls.
+
+Examples:
+---------
+
+   backtrace    # Print a full stack trace
+   backtrace 2  # Print only the top two entries
+"
 
 # Print a stack backtrace.
 # $1 is the maximum number of entries to include.

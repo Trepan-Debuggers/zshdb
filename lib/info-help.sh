@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # info.sh - Debugger "info" support
 
-#   Copyright (C) 2008 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2016 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -12,21 +12,21 @@
 #   WARRANTY; without even the implied warranty of MERCHANTABILITY or
 #   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
 #   for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License along
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-typeset -r _Dbg_info_cmds='breakpoints files line program source stack variables warranty'
+typeset -r _Dbg_info_cmds='breakpoints display files line program source stack variables warranty'
 
 _Dbg_info_help() {
     typeset info_cmd=$1
     typeset label=$2
-    
+
     if (($# > 0)) ; then
 	typeset info_cmd=$1
 	shift
-	case $info_cmd in 
+	case $info_cmd in
 # 	    ar | arg | args )
 # 	        _Dbg_msg \
 # 		    "info args -- Argument variables (e.g. \$1, \$2, ...) of the current stack frame."
@@ -37,11 +37,11 @@ _Dbg_info_help() {
 		    'info breakpoints -- Status of user-settable breakpoints'
 		return 0
 		;;
-# 	    disp | displ | displa | display ) 
-# 	        _Dbg_msg \
-# 		    'info display -- Show all display expressions'
-# 	        return 0
-# 	        ;;
+ 	    disp | displ | displa | display )
+ 	        _Dbg_msg \
+ 		    'info display -- Show all display expressions'
+ 	        return 0
+ 	        ;;
 	    'fi' | fil | file | files | sources )
 		_Dbg_msg \
 		    'info files -- Source files in the program'
@@ -86,7 +86,7 @@ _Dbg_info_help() {
 	    v | va | var | vari | varia | variab | variabl | variable | variables )
 		_Dbg_msg \
 		    "info variables [PROPERTY] -- Variable lists by property.
-PROPERTY is one of: 
+PROPERTY is one of:
 \t$_Dbg_info_var_attrs"
 		return 0
 		;;
@@ -107,4 +107,3 @@ PROPERTY is one of:
     _Dbg_list_columns '  ' $msg
     [[ $msg == '_Dbg_errmsg' ]] && return 1 || return 0
 }
-

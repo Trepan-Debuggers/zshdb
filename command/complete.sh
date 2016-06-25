@@ -1,6 +1,6 @@
 # complete.sh - gdb-like 'complete' command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -24,12 +24,12 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 _Dbg_help_add complete \
-'complete PREFIX-STR...
+'**complete** *prefix-str*...
 
-Show command completion strings for PREFIX-STR
+Show command completion strings for *prefix-str*
 '
 
-#### zsh compgen's -W (words) doesn't match bash's. 
+#### zsh compgen's -W (words) doesn't match bash's.
 #### Until we get a fix into zsh....
 
 ## Uncomment after we get a change to zsh...
@@ -46,11 +46,11 @@ _compgen_opt_words() {
 }
 
 compgen() {
-  local -a results    
-  local opts prefix suffix job OPTARG OPTIND ret=1 
+  local -a results
+  local opts prefix suffix job OPTARG OPTIND ret=1
   local -a name res results jids
   local -A shortopts
-  
+
   emulate -L sh
   setopt kshglob noshglob braceexpand nokshautoload
 
@@ -148,7 +148,7 @@ compgen() {
     esac
   done
 #### End fix stuff.
-  
+
   # support for the last, `word' option to compgen. Zsh's matching does a
   # better job but if you need to, comment this in and use compadd -U
   #shift $(( OPTIND - 1 ))
@@ -162,24 +162,24 @@ _Dbg_do_complete() {
     _Dbg_matches=()
     if (( ${#args[@]} == 2 )) ; then
 	_Dbg_subcmd_complete ${args[0]} ${args[1]}
-    elif (( ${#args[@]} == 1 )) ; then 
+    elif (( ${#args[@]} == 1 )) ; then
 	typeset -a ary
 	ary=(${(k)_Dbg_debugger_commands[@]})
 	IFS=' ' list=${ary[@]}
 	compgen -W "${list}" "${args[0]}"
-    fi  
+    fi
     typeset -i i
-    for (( i=0;  i < ${#_Dbg_matches[@]}  ; i++ )) ; do 
+    for (( i=0;  i < ${#_Dbg_matches[@]}  ; i++ )) ; do
 	_Dbg_msg ${_Dbg_matches[$i]}
     done
 }
 
 # Demo it.
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    source ./help.sh 
-    source ../lib/msg.sh 
+    source ./help.sh
+    source ../lib/msg.sh
     _Dbg_libdir='..'
-    for _Dbg_file in ${_Dbg_libdir}/command/c*.sh ; do 
+    for _Dbg_file in ${_Dbg_libdir}/command/c*.sh ; do
     	source $_Dbg_file
     done
 

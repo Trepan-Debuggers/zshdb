@@ -1,8 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "kill" debugger command
 #
-#   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008, 2009, 2010,
-#   2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2002-2006, 2008-2011, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -20,17 +19,33 @@
 #   MA 02111 USA.
 
 _Dbg_help_add kill \
-"kill [SIGNAL]
+"**kill** [*signal-number*]
 
-Kill execution of program being debugged.
+Send this process a POSIX signal ('9' for 'SIGKILL' or 'kill -SIGKILL')
 
-If given, SIGNAL should be start with a '-', .e.g. -KILL or -9, and that
-signal is used in the kill command. On \*nix systems the
-command \"kill -l\" sometimes will give a list of signal names and numbers.
+9 is a non-maskable interrupt that terminates the program. If program is threaded it may
+be expedient to use this command to terminate the program.
 
-The signal is sent to process \$\$ (which is $$ right now).
+However other signals, such as those that allow for the debugged to handle them can be
+sent.
 
-Also similar is the \"signal\" command."
+Giving a negative number is the same as using its positive value.
+
+Examples:
+---------
+
+    kill                # non-interuptable, nonmaskable kill
+    kill 9              # same as above
+    kill -9             # same as above
+    kill 15             # nicer, maskable TERM signal
+    kill! 15            # same as above, but no confirmation
+
+See also:
+---------
+
+**quit** for less a forceful termination command.
+**run** is a way to restart the debugged program.
+Also similar is the **signal** command."
 
 _Dbg_do_kill() {
     if (($# > 1)); then
@@ -50,8 +65,8 @@ _Dbg_do_kill() {
 
     typeset _Dbg_response
     _Dbg_confirm "Send kill signal ${signal} which may terminate the debugger? (y/N): " 'N'
-    
-    if [[ $_Dbg_response == [yY] ]] ; then 
+
+    if [[ $_Dbg_response == [yY] ]] ; then
         case $signal in
             -9 | -SEGV )
                 _Dbg_cleanup2

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # list.sh - Some listing commands
 #
-#   Copyright (C) 2008, 2009, 2010, 2011
+#   Copyright (C) 2008, 2009, 2010, 2011, 2016
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -20,18 +20,43 @@
 #   MA 02111 USA.
 
 _Dbg_help_add list \
-'list[>] [LOC|.|-] [COUNT] -- List COUNT lines of a script centered around LOC
+'**list**[**>**] [*location*|**.**|**-**] [*count*]
 
-LOC is the starting location or dot (.) for current file and
-line. Subsequent list commands continue from the last line
-listed. Frame switching however resets the line to dot.
+List source code.
 
-If COUNT is omitted, use the setting LISTSIZE. Use "set listsize" to
-change this setting.
+Without arguments, print lines centered around the current line. If
+*location* is given, that number of lines is shown.
 
-By default aliases "l>" and "list>" are set to list. In this case and
+If this is the first list command issued since the debugger command
+loop was entered, then the current line is the current frame. If a
+subsequent list command was issued with no intervening frame changing,
+then that is start the line after we last one previously shown.
+
+*location* is either:
+
+  - a number, e.g. 5,
+
+  - a "." for the current line number
+
+  - a "-" for the preceding lines
+
+By default aliases **l>** and **list>** are set to list. In this case and
 more generally when the alias ends in ">", rather than center lines
-around LOC that will be used as the starting point.
+around *location* that will be used as the starting point.
+
+Examples:
+---------
+
+    list              # List from current program position or where we last left off
+    list 5            # List starting from line 5
+    list 5 2          # List two lines starting from line 5
+    list .            # List lines centered from where we currently are stopped
+    list -            # List lines previous to those just shown
+
+See also:
+---------
+
+**set listsize** or **show listsize** to see or set the value.
 '
 
 # l [start|.|-] [cnt] List cnt lines from line start.

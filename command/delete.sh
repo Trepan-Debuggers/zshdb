@@ -19,10 +19,12 @@
 #   MA 02111 USA.
 
 _Dbg_help_add delete \
-"delete {BRKPT-NUM}...
+"**delete** {*brkpt-num*}...
 
-Delete the breakpoint entry or entries.
-With no BRKPT-NUM, delete all breakpoints."
+Delete some breakpoints.
+
+Arguments are breakpoint numbers with spaces in between. To delete all breakpoints, give
+no argument. Without arguments, clear all breaks (but first ask for confirmation)."
 
 # Routine to a delete breakpoint/watchpoint by entry numbers.
 _Dbg_do_delete() {

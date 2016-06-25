@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "up" debugger command
 #
-#   Copyright (C) 2010-2012, 2014 Rocky Bernstein
+#   Copyright (C) 2010-2012, 2014, 2016 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -27,14 +27,17 @@ fi
 
 # Move default values up $1 or one in the stack.
 _Dbg_help_add up \
-'up [COUNT]
+'**up** [*count*]
 
 Move the current frame up in the stack trace (to an older frame). 0 is
 the most recent frame.
 
-If COUNT is omitted, use 1. COUNT can be any arithmetic expression.
+If **count** is omitted, use 1.
 
-See also "down" and "frame".'
+See also:
+---------
+
+**down** and **frame**.'
 
 typeset -A _Dbg_complete_level_1_data
 _Dbg_complete_level_1_data[up]='-f_Dbg_frame_complete 1'

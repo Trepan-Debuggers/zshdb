@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2011, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -17,17 +17,23 @@
 #   MA 02111 USA.
 
 _Dbg_help_add break \
-'break [LOCSPEC]
+'**break** [*loc-spec*]
 
-Set a breakpoint at LOCSPEC.
+Set a breakpoint at *loc-spec*.
 
 If no location specification is given, use the current line.
 
 Multiple breakpoints at one place are permitted, and useful if conditional.
-See also "tbreak" and "continue".'
+
+See also:
+---------
+
+"tbreak" and "continue"'
 
 _Dbg_help_add tbreak \
-'tbreak [LOCSPEC] -- Set a one-time breakpoint at LOCSPEC.
+'**tbreak* [*loc-spec*]
+
+Set a one-time breakpoint at *loc-spec*.
 
 Like "break" except the breakpoint is only temporary,
 so it will be deleted when hit.  Equivalent to "break" followed

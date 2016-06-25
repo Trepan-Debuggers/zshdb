@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "down" debugger command
 #
-#   Copyright (C) 2010-2012, 2014 Rocky Bernstein
+#   Copyright (C) 2010-2012, 2014, 2016 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -27,14 +27,17 @@ fi
 
 # Move default values down $1 or one in the stack.
 _Dbg_help_add down \
-'down [COUNT]
+'**down** [*count*]
 
 Move the current frame down in the stack trace (to an newer frame). 0 is
 the most recent frame.
 
-If COUNT is omitted, use 1. COUNT can be any arithmetic expression.
+If *count* is omitted, use 1.
 
-See also "up" and "frame".'
+See also:
+---------
+
+**down** and **frame**.'
 
 typeset -A _Dbg_complete_level_1_data
 _Dbg_complete_level_1_data[down]='-f_Dbg_frame_complete -1'

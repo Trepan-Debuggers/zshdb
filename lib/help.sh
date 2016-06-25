@@ -286,7 +286,7 @@ _Dbg_help_info() {
         list=(${(ki)_Dbg_command_help_info[@]})
         sort_list 0 ${#list[@]}-1
         for subcmd in ${list[@]}; do
-            _Dbg_help_set $subcmd 1
+            _Dbg_help_info $subcmd 1
         done
         return 0
     fi
@@ -294,7 +294,7 @@ _Dbg_help_info() {
     subcmd="$1"
     typeset label="$2"
 
-    if [[ -n "${_Dbg_command_help_set[$subcmd]}" ]] ; then
+    if [[ -n "${_Dbg_command_help_info[$subcmd]}" ]] ; then
         if [[ -z $label ]] ; then
             _Dbg_msg_rst "${_Dbg_command_help_info[$subcmd]}"
             return 0
@@ -303,9 +303,5 @@ _Dbg_help_info() {
         fi
     fi
 
-    case $subcmd in
-        * )
-            _Dbg_msg \
-                "There is no \"set $subcmd\" command."
-    esac
+    _Dbg_info_help $subcmd $label
 }
