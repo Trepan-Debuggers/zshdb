@@ -29,7 +29,7 @@ fi
 typeset -A _Dbg_complete_level_2_data
 _Dbg_complete_level_2_data[set_linetrace]='on off delay expand'
 
-_Dbg_help_add_sub set basename \
+_Dbg_help_add_sub set linetrace \
 '**set linetrace** [**on**|**off**]
 
 Set xtrace-style line tracing
