@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info source" debugger command
 #
-#   Copyright (C) 2010, 2014 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2016 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -18,11 +18,14 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add_sub info source \
-'info source
+'**info source**
 
 Information about the current source file.
 
-See also \"info program\", \"info file\" and \"info line\".' 1
+See also:
+---------
+
+**info program**, **info file** and **info line**.' 1
 
 _Dbg_do_info_source() {
     if (( ! _Dbg_running )) ; then

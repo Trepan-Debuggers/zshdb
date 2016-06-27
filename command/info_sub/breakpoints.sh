@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info program" debugger command
 #
-#   Copyright (C) 2010, 2013-2015 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010, 2013-2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -26,7 +26,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 _Dbg_help_add_sub info breakpoints \
-"info breakpoints
+"**info breakpoints**
 
 Show status of user-settable breakpoints. If no breakpoint numbers are
 given, the show all breakpoints. Otherwise only those breakpoints
@@ -40,7 +40,10 @@ The \"enb\" column indicates whether the breakpoint is enabled.
 The \"Where\" column indicates where the breakpoint is located.
 Info whether use short filenames
 
-See also \"break\", \"enable\", and \"disable\"." 1
+See also:
+---------
+
+**break**, **enable**, and **disable**." 1
 
 _Dbg_info_breakpoints_complete() {
     typeset -i i

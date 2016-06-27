@@ -79,16 +79,20 @@ _Dbg_do_help() {
                 case $dbg_cmd in
                     i | in | inf | info )
                         _Dbg_help_info $2
+			return 0
                         ;;
                     sh | sho | show )
                         _Dbg_help_show $2
+			return 0
                         ;;
                     se | set )
                         _Dbg_help_set $2
+			return 0
                         ;;
                     * )
-                          _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
-                          return 0 ;;
+                        _Dbg_errmsg "Undefined command: \"$dbg_cmd\".  Try \"help\"."
+                        return 0
+			;;
                 esac
             fi
         fi

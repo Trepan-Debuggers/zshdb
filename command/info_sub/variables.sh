@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "info variables" debugger command
 #
-#   Copyright (C) 2010, 2014 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2016 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -17,13 +17,16 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-_Dbg_help_add_sub info program 'info variables [PROPERTY]
+_Dbg_help_add_sub info program '
+**info variables** [*property*]
+
+list global and static variable names.
 
 Variable lists by property.
-PROPERTY is one of:
+*property* is one of:
+
 	array, export, fixed, float, function, hash, integer, or readonly
 
-info variables -- All global and static variable names
 ' 1
 
 typeset _Dbg_info_var_attrs="array, export, fixed, float, function, hash, integer, or readonly"
