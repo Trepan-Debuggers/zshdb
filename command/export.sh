@@ -17,9 +17,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add export \
-'export VAR1 [VAR2 ...]
+'**export** *var1* [**var2** ...]
 
-Marks VAR1, VAR2, to get reassigned with their current values after on
+Marks **var1**, **var2***, to get reassigned with their current values after on
 subshell exit. The values are set by the debugger only after it
 notices that the current shell is left.
 

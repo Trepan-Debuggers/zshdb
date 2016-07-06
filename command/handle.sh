@@ -1,8 +1,8 @@
 # -*- shell-script -*-
 # handle.sh - gdb-like "handle" debugger command
 #
-#   Copyright (C) 2002, 2003, 2004, 2005, 2006, 2008, 2010,
-#   2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2002-2006, 2008, 2010-2011,
+#   2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -118,4 +118,3 @@ _Dbg_do_handle() {
 
     return 0
 }
-

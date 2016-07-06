@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "source" command.
 #
-#   Copyright (C) 2002, 2003, 2004, 2006, 2008, 2010
+#   Copyright (C) 2002-2004, 2006, 2008, 2010, 2016
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -24,9 +24,9 @@
 # be picked up in next debugger command loop.
 
 _Dbg_help_add source \
-'source FILE
+'**source** *file*
 
-Run debugger commands in FILE.'
+Run debugger commands in *file*.'
 
 _Dbg_do_source() {
     if (( $# == 0 )) ; then

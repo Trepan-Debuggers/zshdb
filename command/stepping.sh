@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # stepping.cmd - gdb-like "step" and "skip" debugger commands
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2016 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -31,11 +31,19 @@ typeset -i _Dbg_return_level=-1
 typeset -i _Dbg_set_different=0
 
 _Dbg_help_add skip \
-"skip [COUNT]	-- Skip (don't run) the next COUNT command(s).
+"**skip** [*count*]
 
-If COUNT is given, stepping occurs that many times before
-stopping. Otherwise COUNT is one. COUNT an be an arithmetic
-expression. See also \"next\" and \"step\"."
+Skip (don't run) the next *count* command(s).
+
+If *count* is given, stepping occurs that many times before
+stopping. Otherwise *count* is one. *count* an be an arithmetic
+expression.
+
+See also:
+---------
+
+**next** and **step**.
+"
 
 _Dbg_do_skip() {
     _Dbg_do_skip_internal $@ && return 2
@@ -68,32 +76,47 @@ _Dbg_do_skip_internal() {
 }
 
 _Dbg_help_add 'step' \
-"step [COUNT] -- Single step a statement COUNT times.
+"**step** *count*
 
-If COUNT is given, stepping occurs that many times before
-stopping. Otherwise COUNT is one. COUNT an be an arithmetic
+Single step a statement *count* times.
+
+If *count* is given, stepping occurs that many times before
+stopping. Otherwise *count* is one. *count* an be an arithmetic
 expression.
 
 In contrast to \"next\", functions and source\'d files are stepped
 into.
 
-See also \"next\", \"skip\", \"step-\" \"step+\", and \"set force\"."
+See also:
+---------
+
+**next**, **skip**, **step-** **step+**, and **set different**."
 
 _Dbg_help_add 'step+' \
-"step+ -- Single step a statement ensuring a different line after the step.
+"**step+**
 
-In contrast to \"step\", we ensure that the file and line position is
+Single step a statement ensuring a different line after the step.
+
+In contrast to **step**, we ensure that the file and line position is
 different from the last one just stopped at.
 
-See also \"step-\" and \"set force\"."  0
+See also:
+---------
+
+**step-** and **set different**."  0
 
 _Dbg_help_add 'step-' \
-"step- -- Single step a statement without the \`step force' setting.
+"**step-**
+
+Single step a statement without the \`step force' setting.
 
 Set step force may have been set on. step- ensures we turn that off for
 this command.
 
-See also \"step\" and \"set force\"." 0
+See also:
+---------
+
+**step** and **set different**." 0
 
 # Step command
 # $1 is command step+, step-, or step
@@ -130,32 +153,47 @@ _Dbg_do_step() {
 }
 
 _Dbg_help_add next \
-"next [COUNT] -- Single step a statement COUNT times ignoring functions.
+"**next** [*count*]
 
-If COUNT is given, stepping occurs that many times before
-stopping. Otherwise COUNT is one. COUNT an be an arithmetic
+Step over a statement *count* times ignoring functions.
+
+If *count* is given, stepping occurs that many times before
+stopping. Otherwise *count* is one. *count* can be an arithmetic
 expression.
 
-In contrast to \"step\", functions and source\'d files are not stepped
+In contrast to **step**, functions and source\'d files are not stepped
 into.
 
-See also \"step\" \"skip\", \"next-\" \"next+\", and \"set force\"."
+See also:
+---------
+
+**step**, **skip**, **next-** **next+**, and **set different**."
 
 _Dbg_help_add 'next+' \
-"next+ -- Next stepping ensuring a different line after the step.
+"**next+**
 
-In contrast to \"next\", we ensure that the file and line position is
+Step over stepping ensuring a different line after the step.
+
+In contrast to **next**, we ensure that the file and line position is
 different from the last one just stopped at.
 
-See also \"next-\", \"next\" and \"set force\"." 0
+See also:
+---------
+
+**next-**, **next** and **set different**." 0
 
 _Dbg_help_add 'next-' \
-"next- -- Next stepping a statement without the \`set force' setting.
+"**next-**
+
+Step over stepping a statement without the **set different** setting.
 
 Set step force may have been set on. step- ensures we turn that off for
 this command.
 
-See also \"next+\", \"next\" and \"set force\"." 0
+See also:
+---------
+
+**next+**, **next**, and **set different**." 0
 
 # Next command
 # $1 is command next+, next-, or next

@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # gdb-like "enable" debugger command
 #
-#   Copyright (C) 2008, 2009, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2009, 2011, 2016 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,12 +20,15 @@
 #   MA 02111 USA.
 
 _Dbg_help_add enable \
-'enable BPNUM1 [BPNUM2 ...]
+'**enable** *bpnum1* [*bpnum2* ...]
 
-Enables breakpoints BPNUM1, BPNUM2... Breakpoints numbers are given as a space-
-separated list numbers. 
+Enables breakpoints *bpnum1*, *bpnum2*... Breakpoints numbers are given as a space-
+separated list numbers.
 
-See also "disable" and "info break".'
+See also:
+---------
+
+**disable** and **info break**.'
 
 # Enable breakpoint(s)/watchpoint(s) by entry number(s).
 _Dbg_do_enable() {

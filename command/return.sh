@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # return command.
 #
-#   Copyright (C) 2008, 2010 Rocky Bernstein  <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2016 Rocky Bernstein  <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,13 +19,18 @@
 #   MA 02111 USA.
 
 _Dbg_help_add return \
-'return [RETURN-VALUE]
+'**return** [*return-value*]
 
 Force an immediate return from a function.
 
-The remainder of function will not be executed. If RETURN-VALUE is given,
+The remainder of function will not be executed. If *return-value* is given,
 it should be an integer and will be the return value passed back as
-$?. See also "finish", "quit", and "run."
+$?.
+
+See also:
+---------
+
+**finish**, **quit**, and **run**.
 '
 
 # Return value when a return is taken.
@@ -47,4 +52,3 @@ _Dbg_do_return() {
     _Dbg_continue_rc 255
     return 0
 }
-

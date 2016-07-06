@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Enter nested shell
 #
-#   Copyright (C) 2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -21,9 +21,11 @@
 _Dbg_restore_info="${_Dbg_tmpdir}/${_Dbg_debugger_name}_restore_$$"
 
 _Dbg_help_add shell \
-"shell [options]
+"**shell** [*options*]
 
-options:
+Options:
+--------
+
    --no-fns  | -F  : don't copy in function definitions from parent shell
    --no-vars | -V  : don't copy in variable definitions
    --shell SHELL_NAME
@@ -35,15 +37,16 @@ options:
 Enter a nested shell, not a subshell. Before entering the shell
 current variable definitions and function definitions are stored in
 profile $_Dbg_shell_temp_profile. which is is read in via the
---init-file option.
+**--init-file** option.
 
-If you don't want variable definitions to be set, use option -V or
---no-vars. If you don't want function definitions to be set, use option
--F or --no-fns. There are several corresponding shell options. Many of
-these by nature defeate reading on saved functions and variables.
+If you don't want variable definitions to be set, use option **-V** or
+**--no-vars**. If you don't want function definitions to be set, use
+option **-F** or **--no-fns**. There are several corresponding shell
+options. Many of these by nature defeate reading on saved functions
+and variables.
 
 The shell that used is taken from the shell used to build the debugger
-which is: $_Dbg_shell_name. Use --shell to a different compatible shell.
+which is: $_Dbg_shell_name. Use **--shell** to a different compatible shell.
 
 By default, variables set or changed in the shell do not persist after
 the shell is left to to back to the debugger or debugged program.

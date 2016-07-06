@@ -19,7 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_help_add quit \
-'quit [EXIT-CODE [SHELL-LEVELS]]
+'**quit** [*exit-code* [*shell-levels*]]
 
 Quit the debugger.
 
@@ -28,7 +28,10 @@ will be the exit return code. If SHELL-LEVELS then up to that many
 nested shells are quit. However to be effective, the last of those
 shells should have been run under the debugger.
 
-See also "finish", "return" and "run".'
+See also:
+---------
+
+**finish**, **return** and **run**.'
 
 _Dbg_do_quit() {
     typeset -i return_code=${1:-$_Dbg_program_exit_code}

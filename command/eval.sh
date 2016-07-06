@@ -33,11 +33,13 @@ _Dbg_complete_eval() {
 _Dbg_complete_level_1_data[eval]='-Q_Dbg_complete_eval'
 
 _Dbg_help_add eval \
-'eval CMD
-eval
-eval?
+'**eval** *cmd*
 
-In the first form CMD is a string CMD is a string sent to special
+**eval**
+
+**eval?**
+
+In the first form *cmd* is a string *cmd* is a string sent to special
 shell builtin eval.
 
 In the second form, use evaluate the current source line text.
@@ -48,7 +50,10 @@ statement, one wants to eval is just the expression portion.  For
 this, use eval?. Actually, any alias that ends in ? which is aliased
 to eval will do thie same thing.
 
-See also "print" and "set autoeval".'
+See also:
+---------
+
+**print** and **set autoeval**.'
 
 typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=1
 

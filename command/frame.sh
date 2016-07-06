@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # frame.sh - gdb-like "frame" debugger commands
 #
-#   Copyright (C) 2008, 2010-2011, 2014 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010-2011, 2014, 2016 Rocky Bernstein
+#   rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -25,13 +26,18 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 _Dbg_help_add frame \
-'frame [FRAME-NUMBER].
+'**frame** [*frame-number*].
 
-Change the current frame to frame FRAME-NUMBER if specified, or the
+Change the current frame to frame *frame-numbrer* if specified, or the
 most-recent frame, 0, if no frame number specified.
 
 A negative number indicates the position from the other or
-least-recently-entered end.  So "frame -1" moves to the oldest frame.
+least-recently-entered end.  So **frame -1** moves to the oldest frame.
+
+See also:
+---------
+
+**up**, **down**
 '
 
 typeset -A _Dbg_complete_level_1_data
