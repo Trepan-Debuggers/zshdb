@@ -1,3 +1,91 @@
+2016-07-06  Rocky Bernstein <rocky@gnu.org>
+
+	* configure.ac: Get ready for releaes 0.92
+
+2016-07-06  Rocky Bernstein <rocky@gnu.org>
+
+	* command/continue.sh, command/display.sh, command/enable.sh,
+	command/eval.sh, command/examine.sh, command/export.sh,
+	command/frame.sh, command/handle.sh, command/next.sh,
+	command/pwd.sh, command/quit.sh, command/return.sh, command/run.sh,
+	command/shell.sh, command/source.sh, command/stepping.sh: Markdown
+	format remaining commands.
+
+2016-06-27  rocky <rocky@gnu.org>
+
+	* command/help.sh, command/info_sub/breakpoints.sh,
+	command/info_sub/display.sh, command/info_sub/line.sh,
+	command/info_sub/program.sh, command/info_sub/source.sh,
+	command/info_sub/variables.sh, command/info_sub/warranty.sh,
+	command/set_sub/different.sh: Revise info help for RsT
+
+2016-06-26  rocky <rocky@gnu.org>
+
+	* command/set_sub/linetrace.sh, lib/filecache.sh: Small changes
+
+2016-06-25  rocky <rocky@gnu.org>
+
+	* command/edit.sh, command/set_sub/annotate.sh,
+	command/set_sub/args.sh, command/set_sub/autoeval.sh,
+	command/set_sub/autolist.sh, command/set_sub/basename.sh,
+	command/set_sub/different.sh, command/set_sub/editing.sh,
+	command/set_sub/highlight.sh, command/set_sub/history.sh,
+	command/set_sub/linetrace.sh, command/set_sub/listsize.sh,
+	command/set_sub/prompt.sh, command/set_sub/style.sh,
+	command/set_sub/width.sh, test/data/list.right: Revise help
+
+2016-06-25  rocky <rocky@gnu.org>
+
+	* command/alias.sh, command/backtrace.sh, command/break.sh,
+	command/complete.sh, command/condition.sh, command/delete.sh,
+	command/disable.sh, command/down.sh, command/help.sh,
+	command/kill.sh, command/list.sh, command/undisplay.sh,
+	command/up.sh, lib/help.sh, lib/info-help.sh, lib/info.sh,
+	test/data/list.right: Correct info help. Start rSt for commands
+
+2016-06-23  rocky <rocky@gnu.org>
+
+	* command/action.sh, command/alias.sh, command/help.sh,
+	command/set_sub/args.sh, command/set_sub/highlight.sh,
+	command/set_sub/style.sh, command/set_sub/width.sh,
+	command/trace.sh, lib/filecache.sh, lib/help.sh, lib/msg.sh,
+	lib/term-highlight.py: Start using ReStructuredText in help strings
+
+2016-06-22  rocky <rocky@gnu.org>
+
+	* dbg-opts.sh: Update year
+
+2016-06-22  rocky <rocky@gnu.org>
+
+	* command/set_sub/style.sh, lib/filecache.sh, lib/help.sh: small
+	changes and sync with bashdb * abbrevs in help set <command> set_sub/style.sh: on error show
+	columnized list.  Single check of whether term-highlight.py works
+
+2016-06-21  rocky <rocky@gnu.org>
+
+	* command/set_sub/style.sh, lib/help.sh: Small fixes
+
+2016-06-21  rocky <rocky@gnu.org>
+
+	* ChangeLog, circle.yml, command/set_sub/style.sh, dbg-opts.sh,
+	lib/help.sh, test/data/lopts.right: Small style fixes. Fix CircleCI?
+
+2016-06-21  rocky <rocky@gnu.org>
+
+	* circle.yml, command/set_sub/style.sh, command/show_sub/style.sh,
+	dbg-opts.sh: Add top-level set Style Address CircleCI failure?
+
+2016-06-21  rocky <rocky@gnu.org>
+
+	* lib/term-highlight.py: Add top-level option for setting style
+
+2016-06-21  rocky <rocky@gnu.org>
+
+	* command/set_sub/highlight.sh, command/set_sub/style.sh,
+	command/show_sub/highlight.sh, command/show_sub/style.sh,
+	lib/filecache.sh, lib/rstext.py, lib/term-highlight.py: Allow
+	setting pygments style Use set/show style to change
+
 2016-05-30  rocky <rocky@gnu.org>
 
 	* ChangeLog, NEWS, configure.ac, test/data/delete.right: Get ready
