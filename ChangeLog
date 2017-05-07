@@ -1,6 +1,6 @@
 2016-07-06  Rocky Bernstein <rocky@gnu.org>
 
-	* configure.ac: Get ready for releaes 0.92
+	* ChangeLog, NEWS, configure.ac: Get ready for releaes 0.92
 
 2016-07-06  Rocky Bernstein <rocky@gnu.org>
 

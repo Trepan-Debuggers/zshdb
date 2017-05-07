@@ -29,7 +29,7 @@ _Dbg_help_add trace \
 
 trace alias *alias*
 
-Set "xtrace" (set -x) tracing when *fucnction is called.
+Set "xtrace" (set -x) tracing when *function* is called.
 '
 
 function _Dbg_do_trace {
