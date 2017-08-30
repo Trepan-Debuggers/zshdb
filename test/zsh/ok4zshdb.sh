@@ -4,8 +4,8 @@ PS4='%(%x:%I): [%?]
 '
 
 second_fn() {
-  decls=$(declare -p)
-  if [[ $decls != *funcfiletrace* ]] ; then
+  zmodload zsh/parameter
+  if ! (( ${+funcfiletrace} )) ; then
     print "Looks like you don't have funcfiletrace."
     print "We need a zsh new enough which has that."
     exit 10
