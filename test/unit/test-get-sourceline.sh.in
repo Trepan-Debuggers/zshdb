@@ -17,6 +17,35 @@ test_get_source_line()
     assertEquals '# -*- shell-script -*-' "$source_line"
 }
 
+# # Test _Dbg_get_source_line
+# test_get_file_line()
+# {
+#     _Dbg_frame_file 1
+#     typeset -i len=${#BASH_SOURCE[@]}
+#     typeset -r expected_file=${BASH_SOURCE[len-1]}
+#     assertEquals "$expected_file" "$_Dbg_frame_filename"
+#     _Dbg_frame_line 1
+#     # assertEquals ${BASH_LINENO[len]} $_Dbg_frame_last_lineno
+# }
+
+# Test check_line
+# test should appear after tests which read in source.
+test_get_source_line_with_spaces()
+{
+    _Dbg_frame_last_filename="${abs_top_srcdir}test/example/dir with spaces/bug.sh"
+    # Can't figure out how to get this packaged with autoconf, so this
+    # will work with git only.
+    _Dbg_frame_file
+    if [[ -f $_Dbg_frame_filename ]] && [[ $_Dbg_frame_filename =~ 'frame.sh' ]] ; then
+	_Dbg_get_source_line 2
+	assertEquals 'x=1' "$_Dbg_source_line"
+    else
+	startSkipping
+	echo "Skipping test due to autoconf problems"
+	assertEquals 'skipped' 'skipped'
+	endSkipping
+    fi
+}
 # Test check_line
 # test should appear after tests which read in source.
 test_get_source_line_with_spaces()

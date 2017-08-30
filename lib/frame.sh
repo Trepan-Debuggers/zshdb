@@ -139,6 +139,17 @@ _Dbg_frame_file() {
     return 0
 }
 
+# Set $_Dbg_frame_filename to be frame line for the call stack at
+# given position $1 or _Dbg_stack_pos if $1 is omitted. 0 is returned
+# if no error, nonzero means some sort of error.
+_Dbg_frame_line() {
+    (($# > 1)) && return 2
+    # FIXME check to see that $1 doesn't run off the end.
+    typeset -i pos=${1:-$_Dbg_stack_pos}
+    _Dbg_frame_last_lineno="${BASH_LINENO[pos]}"
+    return 0
+}
+
 # Tests for a signed integer parameter and set global retval
 # if everything is okay. Retval is set to 1 on error
 _Dbg_frame_int_setup() {

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # delete.sh - gdb-like "delete" debugger command
 #
-#   Copyright (C) 2008, 2011, 2012, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2002-2006, 2008, 2011, 2016-2017 Rocky Bernstein
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -23,8 +23,8 @@ _Dbg_help_add delete \
 
 Delete some breakpoints.
 
-Arguments are breakpoint numbers with spaces in between. To delete all breakpoints, give
-no argument. Without arguments, clear all breaks (but first ask for confirmation)."
+Arguments are breakpoint numbers with spaces in between. Without
+arguments, clear all breaks (but first ask for confirmation).  "
 
 # Routine to a delete breakpoint/watchpoint by entry numbers.
 _Dbg_do_delete() {
@@ -36,6 +36,19 @@ _Dbg_do_delete_internal() {
   typeset to_go; to_go=$@
   typeset -i  i
   typeset -i  tot_found=0
+
+  if (( $# == 0 )) ; then
+      _Dbg_confirm "Delete all breakpoints? (y/N): " 'N'
+      if [[ $_Dbg_response == [yY] ]] ; then
+	  # typeset indices=${(k)_Dbg_brkpt_line}
+	  typeset tot_found=${#_Dbg_brkpt_line[@]}
+	  _Dbg_clear_all_brkpt
+	  _Dbg_msg "All breakpoints deleted"
+	  return $tot_found
+      else
+	  return
+      fi
+  fi
 
   _Dbg_last_cmd='delete'
   for del in $to_go ; do

@@ -46,7 +46,7 @@ _Dbg_show_onoff() {
     eval "value=\$_Dbg_set_${cmd}"
     (( value )) && onoff='on.'
     _Dbg_msg \
-"${label}$msg is" $onoff
+	"${label}$msg is" $onoff
     return 0
 
 }

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # disable.sh - gdb-like "disable" debugger command
 #
-#   Copyright (C) 2008, 2009, 2011, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2009, 2011, 2016-2017 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,9 +19,10 @@
 #   MA 02111 USA.
 
 _Dbg_help_add disable \
-'**disable** *bpnumber* [*bpnumber* ...]
+'**disable** *bpnum1* [*bpnum2* ...]
 
-Disables the breakpoints given as a space separated list of breakpoint numbers.
+Disables breakopints *bpnum1*, *bpnum2*. Breakpoints numbers are given
+as a space-separated list of breakpoint numbers.
 
 See also:
 ---------
@@ -34,6 +35,6 @@ _Dbg_do_disable() {
 	_Dbg_errmsg 'Expecting breakpoint/watchpoint numbers. Got none.'
 	return 0
     fi
-    _Dbg_enable_disable 0 'disabled' $@
+    _Dbg_enable_disable 0 'disabled' "$@"
     return 0
 }
