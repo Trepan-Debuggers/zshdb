@@ -52,7 +52,7 @@ check_DATA = \
 	step.cmd           \
 	step.right         \
 	subshell.cmd       \
-	subshell-5-4.1.right \
+	subshell-5.4.1.right \
 	subshell.right     \
 	tbreak.cmd         \
 	tbreak.right       \
