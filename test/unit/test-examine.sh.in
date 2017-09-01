@@ -12,27 +12,45 @@ test_examine()
     # Integer property variable
     typeset -i an_int=2
     msg=$(_Dbg_do_examine an_int)
-    expect='typeset -i an_int=2'
+
+    typeset -fuz is-at-least
+    if is-at-least 5.4.1 ; then
+	expect='typeset -g -i an_int=2'
+    else
+	expect='typeset -i an_int=2'
+    fi
     assertEquals  "$expect" "$msg"
 
     # String variable
     typeset str_var='ho'
     msg=$(_Dbg_do_examine str_var)
-    assertEquals "typeset str_var=ho" "$msg"
+    if is-at-least 5.4.1 ; then
+	assertEquals "typeset -g str_var=ho" "$msg"
+    else
+	assertEquals "typeset str_var=ho" "$msg"
+    fi
 
     # Exported string variable
     typeset -x exported_str_var='exported string'
-    expect=$(print -r "typeset -x exported_str_var='exported string'")
+    if is-at-least 5.4.1 ; then
+	expect=$(print -r "export exported_str_var='exported string'")
+    else
+	expect=$(print -r "typeset -x exported_str_var='exported string'")
+    fi
     msg=$(_Dbg_do_examine exported_str_var)
     assertEquals  "$expect" "$msg"
 
     # Array variable
     typeset -a an_array
     an_array=(1 2 3)
-    expect_old='typeset -a an_array
+	expect_old='typeset -a an_array
 an_array=(1 2 3)'
-    expect='typeset -a an_array
+    if is-at-least 5.4.1 ; then
+	expect='typeset -g -a an_array=( 1 2 3 )'
+    else
+	expect='typeset -a an_array
 an_array=( 1 2 3 )'
+    fi
     msg=$(_Dbg_do_examine an_array)
     if [[ $msg != $expect ]]; then
        expect=$expect_old

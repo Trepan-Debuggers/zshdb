@@ -1,0 +1,38 @@
+(exam.sh:3):
+unsetopt ksharrays
++# Examine with blanks
++x 
+
++x 
+
++# Examine constant expressions
++x 1+30
+31
++x '2*4+10/2'
+13
++x '(2*4+10)/2'
+9
++x "1<<4"
+16
++# Set up some values
++continue 10
+One-time breakpoint 1 set in file exam.sh, line 10.
+Breakpoint 1 hit.
+(exam.sh:10):
+unset string
++x string
+typeset -g string='a string'
++x xstring
+export xstring='an exported string'
++x fn
+fn () {
+	print "a function"
+}
++x z
+typeset -g z=1
++x $ary[1]
+10
++x $ary[1]+3
+13
++quit 
+zshdb: That's all, folks...

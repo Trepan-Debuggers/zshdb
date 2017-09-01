@@ -9,6 +9,11 @@ ARGS='testarg1 testarg2'
 debugged_script="${top_srcdir}/test/example/dbg-test2.sh"
 (cd $srcdir && run_debugger $debugged_script 2>&1 >$TEST_FILE </dev/null)
 
+typeset -fuz is-at-least
+if is-at-least 5.4.1 ; then
+    RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}-5.4.1.right"
+fi
+
 cat ${TEST_FILE} | @SED@ -e "s:-x .*/data/setshow\.cmd .*/example/dbg-test2.sh:-x data/setshow.cmd example/dbg-test2.sh:" \
 | @SED@ -e 's:record the command history is .*:record the command history is: ' \
 > ${TEST_FILTERED_FILE}

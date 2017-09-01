@@ -23,6 +23,7 @@ check_DATA = \
 	enable.cmd         \
 	enable.right       \
 	examine.right      \
+	examine-5.4.1.right \
 	examine.cmd        \
 	export.right       \
 	export.cmd         \
@@ -43,6 +44,7 @@ check_DATA = \
 	restart.cmd        \
 	restart.right      \
 	setshow.cmd        \
+	setshow-5.4.1.right \
 	setshow.right      \
 	skip.cmd           \
 	skip.right         \
@@ -50,6 +52,7 @@ check_DATA = \
 	step.cmd           \
 	step.right         \
 	subshell.cmd       \
+	subshell-5-4.1.right \
 	subshell.right     \
 	tbreak.cmd         \
 	tbreak.right       \

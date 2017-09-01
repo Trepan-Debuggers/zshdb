@@ -1,0 +1,48 @@
+(subshell.sh:2):
+x=2
++# Test of debugging through a subshell
++x x
+x
++step 
+(subshell.sh:3):
+( x='line 3' y='line 4' )
++examine x
+typeset -g x=2
++s 
+(subshell.sh:3):
+x='line 3'
++print $ZSH_SUBSHELL
+1
++examine x
+typeset -g x=2
++s 
+(subshell.sh:4):
+y='line 4'
++# Set inside a subshell
++set autoeval on
+Evaluate unrecognized commands is on.
++examine x
+typeset -g x='line 3'
++# fc -l
++s 
+(subshell.sh:6):
+( x=$(print line 7) y='line 8' )
++x x
+typeset -g x=2
++print $ZSH_SUBSHELL
+0
++# See that debugger settings and history are preserved
++# DISABLED because we are not in an interactive tty
++show autoeval
+Evaluate unrecognized commands is on.
++# fc -l
++s 3
+(subshell.sh:8):
+y='line 8'
++x x
+typeset -g x='line 7'
++print $ZSH_SUBSHELL
+1
++# A quit inside a nested subshell.
++quit 
+zshdb: That's all, folks...

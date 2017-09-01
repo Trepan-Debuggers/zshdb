@@ -6,6 +6,7 @@ t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
 . ${builddir}/check-common.sh
 
 for SUBTEST in multi1 multi2 multi3 ; do
+    RIGHT_FILE="${top_srcdir}/test/data/${SUBTEST}.right"
     run_test_check $TEST_NAME $SUBTEST
     rc=$?
     [[ $rc != 0 ]] && exit $rc

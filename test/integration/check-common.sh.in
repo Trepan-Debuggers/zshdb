@@ -49,7 +49,7 @@ run_test_check() {
 
     # Reassign variables to allow overrides via the above parameters
     TEST_FILE="${top_builddir}/test/integration/${short_test_name}.check"
-    RIGHT_FILE="${top_srcdir}/test/data/${short_test_name}.right"
+    RIGHT_FILE=${RIGHT_FILE:-"${top_srcdir}/test/data/${short_test_name}.right"}
     TEST_FILTERED_FILE="/tmp/${short_test_name}-filtered.check"
     RIGHT_FILTERED_FILE="/tmp/${short_test_name}-filtered.right"
 
