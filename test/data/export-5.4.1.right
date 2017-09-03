@@ -1,0 +1,34 @@
+(subshell.sh:2):
+x=2
++set showcommand 1
++export 
+** Expecting at least one variable name; got none.
++step 
+(subshell.sh:3):
+( x='line 3' y='line 4' )
++export foo
+** You are not in a subshell, so no value(s) need saving.
++export x
+** You are not in a subshell, so no value(s) need saving.
++c 3
+One-time breakpoint 1 set in file subshell.sh, line 3.
+Breakpoint 1 hit.
+(subshell.sh:3):
+x='line 3'
++set autoeval on
+Evaluate unrecognized commands is on.
++step 
+(subshell.sh:4):
+y='line 4'
++x=30 
+$? is 0
++export x
++c 10
+One-time breakpoint 2 set in file subshell.sh, line 10.
+Breakpoint 2 hit.
+(subshell.sh:10):
+x=10
++x x
+typeset -g x=30
++quit 
+zshdb: That's all, folks...

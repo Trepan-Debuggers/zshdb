@@ -205,7 +205,7 @@ _Dbg_parse_options() {
 	[[ -n $_Dbg_release ]] ; then
 	echo "$_Dbg_shell_name debugger, $_Dbg_debugger_name, release $_Dbg_release"
 	printf '
-Copyright 2008-2011, 2014, 2016 Rocky Bernstein
+Copyright 2008-2011, 2014, 2016-2017 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
 welcome to change it and/or distribute copies of it under certain conditions.
 

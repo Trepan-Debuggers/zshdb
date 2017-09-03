@@ -4,4 +4,10 @@ t=${0##*/}; TEST_NAME=$t[6,-1]  # basename $0 with 'test-' stripped off
 
 [ -z "$builddir" ] && builddir=$PWD
 . ${builddir}/check-common.sh
+
+typeset -fuz is-at-least
+if is-at-least 5.4.1 ; then
+    RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}-5.4.1.right"
+fi
+
 run_test_check subshell

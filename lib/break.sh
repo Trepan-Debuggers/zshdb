@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # break.sh - Debugger Break and Watch routines
 #
-#   Copyright (C) 2008-2009, 2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2009, 2011, 2014, 2016-2017 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -195,6 +196,9 @@ _Dbg_set_brkpt() {
 
     # Add line number with a leading and trailing space. Delimiting the
     # number with space helps do a string search for the line number.
+
+    # Note in the below two lines we don't eval.
+    # That is done as a separate _Dbg_write_journal_avar
     _Dbg_brkpt_file2linenos[$source_file]+=" $lineno "
     _Dbg_brkpt_file2brkpt[$source_file]+=" $_Dbg_brkpt_max "
 
