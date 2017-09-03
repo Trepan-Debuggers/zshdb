@@ -41,9 +41,15 @@ _Dbg_write_journal_var() {
     _Dbg_write_journal "${var_name}=${val}"
 }
 
+typeset -fuz is-at-least
+
 _Dbg_write_journal_avar() {
     if (( ZSH_SUBSHELL != 0 )) ; then
-	typeset -p $1 >> ${_Dbg_journal} 2>/dev/null
+	if is-at-least 5.4.1 ; then
+	    typeset -p $1 >> ${_Dbg_journal} 2>/dev/null
+	else
+	    typeset -p $1 | grep -v ^typeset >> ${_Dbg_journal} 2>/dev/null
+	fi
     fi
 }
 
