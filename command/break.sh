@@ -108,13 +108,6 @@ _Dbg_do_clear_brkpt() {
   typeset -i line_number
   typeset full_filename
 
-  _Dbg_linespec_setup $n
-
-  if [[ -z $n ]] ; then
-      _Dbg_errmsg "No line number given and no frame line number found"
-      return 0
-  fi
-
   if [[ -n $full_filename ]] ; then
     if (( line_number ==  0 )) ; then
       _Dbg_msg "There is no line 0 to clear."

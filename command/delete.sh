@@ -40,11 +40,7 @@ _Dbg_do_delete_internal() {
   if (( $# == 0 )) ; then
       _Dbg_confirm "Delete all breakpoints? (y/N): " 'N'
       if [[ $_Dbg_response == [yY] ]] ; then
-	  # typeset indices=${(k)_Dbg_brkpt_line}
-	  typeset tot_found=${#_Dbg_brkpt_line[@]}
-	  _Dbg_clear_all_brkpt
-	  _Dbg_msg "All breakpoints deleted"
-	  return $tot_found
+	  typeset to_go=$(_Dbg_breakpoint_list)
       else
 	  return
       fi
@@ -70,3 +66,5 @@ _Dbg_do_delete_internal() {
 }
 
 _Dbg_alias_add 'd' delete
+
+_Dbg_alias_add 'unset' 'delete'

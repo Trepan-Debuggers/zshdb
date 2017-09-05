@@ -1,5 +1,6 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008-2009, 2011, 2014-2015 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2009, 2011, 2014-2015, 2017
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -26,6 +27,9 @@ _Dbg_ansi_term_normal="[0m"
 # user response is returned in variable $_Dbg_response and $? is set
 # to 0.  _Dbg_response is set to 'error' and $? set to 1 on an error.
 #
+
+typeset -g _Dbg_response=''
+
 _Dbg_confirm() {
     if (( $# < 1 || $# > 2 )) ; then
 	_Dbg_response='error'

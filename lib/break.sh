@@ -80,6 +80,16 @@ function _Dbg_save_breakpoints {
 
 }
 
+_Dbg_breakpoint_list() {
+    typeset -i i
+    list=''
+    for ((i=0; i<=${#_Dbg_brkpt_file[@]}; i++)) ; do
+	[[ -n ${_Dbg_brkpt_file[i]} ]] && list="${list}${i} "
+    done
+    echo $list
+}
+
+
 # Start out with general break/watchpoint functions first...
 
 # Enable/disable breakpoint or watchpoint by entry numbers.
@@ -106,7 +116,7 @@ _Dbg_enable_disable() {
     return 0
   elif [[ $1 == 'action' ]] ; then
     shift
-    typeset to_go="$@"
+    to_go="$@"
     typeset i
     for i in $to_go ; do
       if [[ $i == [0-9]* ]] ; then
@@ -116,9 +126,19 @@ _Dbg_enable_disable() {
       fi
     done
     return 0
+  elif [[ $1 == 'breakpoints' ]] ; then
+    shift
+    to_go="$@"
+    if (( 0 == $# )) ; then
+	to_go=$(_Dbg_breakpoint_list)
+    fi
+  else
+    to_go="$@"
+    if (( 0 == $# )) ; then
+	to_go=$(_Dbg_breakpoint_list)
+    fi
   fi
 
-  typeset to_go; to_go="$@"
   typeset i
   for i in $to_go ; do
       if [[ $i == [0-9]* ]] ; then
@@ -316,23 +336,28 @@ function _Dbg_delete_brkpt_entry {
 
 # Enable/disable breakpoint(s) by entry numbers.
 function _Dbg_enable_disable_brkpt {
-    (($# != 3)) && return 1
+    (($# < 2)) && return 1
     typeset -i on=$1
     typeset en_dis=$2
-    typeset -i i=$3
-    if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
-	if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
-	    _Dbg_errmsg "Breakpoint entry $i already ${en_dis}, so nothing done."
-	    return 1
+    typeset -a brkpts=($3)
+    typeset -i rc=0
+
+    for i in "${brkpts[@]}";  do
+	if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
+	    if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
+		_Dbg_errmsg "Breakpoint entry $i already ${en_dis}, so nothing done."
+		rc=1
+	    else
+		_Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
+		_Dbg_msg "Breakpoint entry $i $en_dis."
+	    fi
 	else
-	    _Dbg_write_journal_eval "_Dbg_brkpt_enable[$i]=$on"
-	    _Dbg_msg "Breakpoint entry $i $en_dis."
-	    return 0
+	    _Dbg_errmsg "Breakpoint entry $i doesn't exist, so nothing done."
+	    rc=1
 	fi
-    else
-	_Dbg_errmsg "Breakpoint entry $i doesn't exist, so nothing done."
-	return 1
-    fi
+    done
+    return $rc
+
 }
 
 # # Enable/disable breakpoint(s) by entry numbers.

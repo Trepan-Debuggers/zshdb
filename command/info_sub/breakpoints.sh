@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# gdb-like "info program" debugger command
+# gdb-like "info breakpoints" debugger command
 #
-#   Copyright (C) 2010, 2013-2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010, 2013-2017 Rocky Bernstein <rocky@gnu.org>
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -46,12 +46,7 @@ See also:
 **break**, **enable**, and **disable**." 1
 
 _Dbg_info_breakpoints_complete() {
-    typeset -i i
-    list=''
-    for ((i=0; i<=${#_Dbg_brkpt_file[@]}; i++)) ; do
-	[[ -n ${_Dbg_brkpt_file[i]} ]] && list="${list}${i} "
-    done
-    echo $list
+    _Dbg_breakpoint_list
 }
 
 typeset -A _Dbg_complete_level_2_data

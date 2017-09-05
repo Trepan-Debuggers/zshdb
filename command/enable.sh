@@ -25,6 +25,9 @@ _Dbg_help_add enable \
 Enables breakpoints *bpnum1*, *bpnum2*... Breakpoints numbers are
 given as a space-separated list of numbers.
 
+With no subcommand, breakpoints are enabled until you command otherwise.
+This is used to cancel the effect of the "disable" command.
+
 See also:
 ---------
 
@@ -32,10 +35,6 @@ See also:
 
 # Enable breakpoint(s)/watchpoint(s) by entry number(s).
 _Dbg_do_enable() {
-    if (($# == 0)) ; then
-	_Dbg_errmsg 'Expecting breakpoint/watchpoint numbers. Got none.'
-	return 0
-    fi
     _Dbg_enable_disable 1 'enabled' "$@"
     return 0
 }
