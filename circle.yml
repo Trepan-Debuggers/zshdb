@@ -5,4 +5,4 @@ checkout:
 
 test:
   override:
-    - make check
+    - CIRCLECI=1 make check
