@@ -1,4 +1,4 @@
-|buildstatus| |appveyor| |license|
+|buildstatus| |license|
 
 .. contents:: :local:
 
@@ -79,8 +79,8 @@ Documentation: http://zshdb.readthedocs.org
 .. _debuggers: https://metacpan.org/pod/Devel::Trepan
 .. _this: http://bashdb.sourceforge.net/pydb/features.html
 .. |buildstatus| image:: https://travis-ci.org/rocky/zshdb.svg
-    :target: https://travis-ci.org/rocky/python2-trepan
-    :alt: Travis Build status
+    :target: https://circleci.com/gh/rocky/zshdb.svg?&style=shield
+    :alt: CircleCI Build status
 .. _set_substitute:  https://python2-trepan.readthedocs.org/en/latest/commands/set/substitute.html
 .. _set_style:  https://python2-trepan.readthedocs.org/en/latest/commands/set/style.html
 .. _set_width:  https://python2-trepan.readthedocs.org/en/latest/commands/set/width.html

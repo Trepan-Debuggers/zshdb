@@ -9,6 +9,7 @@ and, more generally, GNU debugger *gdb*.
 
 See [Installation](https://github.com/rocky/zshdb/wiki/Installation) for how to install.
 
-See the [wiki](https://github.com/rocky/zshdb/wiki) for more information.
+See the [wiki](https://github.com/rocky/zshdb/wiki) and [documentation](http://zshdb.readthedocs.io/en/latest/)
+for more information.
 
 Rocky Bernstein <rocky@gnu.org>
