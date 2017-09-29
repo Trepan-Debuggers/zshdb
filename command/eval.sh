@@ -57,7 +57,7 @@ given, the following translations occur:
     {if|elif} <expr> [; then] => <expr>
     while <expr> [; do]?      => <expr>
     return <expr>             => <expr>
-    <var> = <expr>            => <expr>
+    <var>=<expr>              => <expr>
 
 See also:
 ---------
