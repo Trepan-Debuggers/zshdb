@@ -1,3 +1,4 @@
+.. index:: show_cmdtrace
 .. _show_cmdtrace:
 
 Show Cmdtrace

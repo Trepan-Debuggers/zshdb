@@ -1,3 +1,4 @@
+.. index:: set; substitute
 .. _set_substitute:
 
 Set Substitute

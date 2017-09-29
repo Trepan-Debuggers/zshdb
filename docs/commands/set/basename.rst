@@ -1,3 +1,4 @@
+.. index:: set; basename
 .. _set_basename:
 
 Set Basename

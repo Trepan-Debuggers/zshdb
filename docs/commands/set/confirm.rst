@@ -1,3 +1,4 @@
+.. index:: set; confirm
 .. _set_confirm:
 
 Set Confirm

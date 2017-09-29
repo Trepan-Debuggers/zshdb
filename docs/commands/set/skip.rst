@@ -1,3 +1,4 @@
+.. index:: set; skip
 .. _set_skip:
 
 Set Skip

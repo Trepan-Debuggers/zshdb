@@ -1,3 +1,4 @@
+.. index:: show_args
 .. _show_args:
 
 Show Args (show arguments when program is started)

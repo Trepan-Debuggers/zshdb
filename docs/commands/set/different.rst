@@ -1,3 +1,4 @@
+.. index:: set; different
 .. _set_different:
 
 Set Different

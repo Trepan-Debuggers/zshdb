@@ -1,3 +1,4 @@
+.. index:: set; events
 .. _set_events:
 
 Set Events

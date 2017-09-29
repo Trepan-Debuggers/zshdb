@@ -1,3 +1,4 @@
+.. index:: set; highlight
 .. _set_highlight:
 
 Set Highlight

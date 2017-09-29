@@ -1,3 +1,4 @@
+.. index:: set; autoeval
 .. _set_autoeval:
 
 Set Auto Eval

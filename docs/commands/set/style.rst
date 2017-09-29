@@ -1,3 +1,4 @@
+.. index:: set; style
 .. _set_style:
 
 Set Style

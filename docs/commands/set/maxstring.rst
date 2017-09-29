@@ -1,3 +1,4 @@
+.. index:: set; maxstring
 .. _set_maxstring:
 
 Set Maxstring

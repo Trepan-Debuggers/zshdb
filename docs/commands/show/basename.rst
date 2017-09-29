@@ -1,3 +1,4 @@
+.. index:: show_basename
 .. _show_basename:
 
 Show Basename

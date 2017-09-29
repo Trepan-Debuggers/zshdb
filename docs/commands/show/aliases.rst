@@ -1,3 +1,4 @@
+.. index:: show_aliases
 .. _show_aliases:
 
 Show Aliases (show debugger command aliases)

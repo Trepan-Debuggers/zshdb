@@ -1,4 +1,4 @@
-.. index:: `source`
+.. index:: source
 .. _source:
 
 Source (Read and run debugger commands from a file)

@@ -1,3 +1,4 @@
+.. index:: set; trace
 .. _set_trace:
 
 Set Trace

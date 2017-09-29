@@ -1,3 +1,4 @@
+.. index:: show_maxstring
 .. _show_maxstring:
 
 Show Maxstring

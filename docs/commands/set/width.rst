@@ -1,3 +1,4 @@
+.. index:: set; width
 .. _set_width:
 
 Set Width

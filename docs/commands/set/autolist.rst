@@ -1,3 +1,4 @@
+.. index:: set; autolist
 .. _set_autolist:
 
 Set Auto List

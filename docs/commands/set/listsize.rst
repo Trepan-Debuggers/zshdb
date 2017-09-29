@@ -1,3 +1,4 @@
+.. index:: set; listsize
 .. _set_listsize:
 
 Set Listsize

@@ -1,3 +1,4 @@
+.. index:: set; cmdtrace
 .. _set_cmdtrace:
 
 Set Cmdtrace

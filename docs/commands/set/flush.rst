@@ -1,3 +1,4 @@
+.. index:: set; flush
 .. _set_flush:
 
 Set Flush
