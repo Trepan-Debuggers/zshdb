@@ -1,5 +1,5 @@
-Trepan Command Reference
-************************
+Command Reference
+*****************
 
 Following *gdb*, we classify commands into categories. Note though
 that some commands, like `quit`, and `restart`, are in different categories
