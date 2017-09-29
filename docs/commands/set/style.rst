@@ -17,10 +17,9 @@ Examples:
 
 ::
 
-    set style            # give a list of the style names
-    set style colorful   # Pygments 'colorful' style
-    set style fdasfda    # Probably display available styles
-    set style none       # Turn off style, still use highlight though
+    set style monokai # use monokai style (a dark style)
+    set style         # list all known pygments styles
+    set style off     # turn off any pygments source mark up
 
 .. seealso::
 
