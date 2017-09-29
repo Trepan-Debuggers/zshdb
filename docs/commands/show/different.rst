@@ -1,4 +1,4 @@
-.. index:: show_different
+.. index:: show; different
 .. _show_different:
 
 Show Different

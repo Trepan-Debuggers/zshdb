@@ -1,4 +1,4 @@
-.. index:: show_highlight
+.. index:: show; highlight
 .. _show_highlight:
 
 Show Highlight

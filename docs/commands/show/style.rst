@@ -1,4 +1,4 @@
-.. index:: show_style
+.. index:: show; style
 .. _show_style:
 
 Show Style

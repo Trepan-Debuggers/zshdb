@@ -1,4 +1,4 @@
-.. index:: show_confirm
+.. index:: show; confirm
 .. _show_confirm:
 
 Show Confirm

@@ -1,4 +1,4 @@
-.. index:: show_skip
+.. index:: show; skip
 .. _show_skip:
 
 Show Skip

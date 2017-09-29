@@ -1,4 +1,4 @@
-.. index:: show_listsize
+.. index:: show; listsize
 .. _show_listsize:
 
 Show Listsize
