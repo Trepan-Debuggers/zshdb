@@ -3,7 +3,21 @@
 Eval (evaluate Python code)
 ---------------------------
 
-**eval** *python-statement*
+**eval** _cmd_
+
+**eval**
+
+**eval?**
+
+In the first form *cmd* is a string; *cmd* is a string sent to special
+shell builtin *eval*.
+
+In the second form, use evaluate the current source line text.
+
+Often when one is stopped at the line of the first part of an "if", "elif", "case", "return",
+"while" compound statement or an assignment statement, one wants to eval is just the expression
+portion. For this, use eval?. Actually, any alias that ends in ? which is aliased to eval will
+do thie same thing.
 
 Run *python-statement* in the context of the current frame.
 
@@ -13,12 +27,10 @@ given, the following translations occur:
 
 ::
 
-   assert = <expr>       => <expr>
-   {if|elif} <expr> :    => <expr>
-   while <expr> :        => <expr>
-   return <expr>         => <expr>
-   for <var> in <expr> : => <expr>
-   <var> = <expr>        => <expr>
+   {if|elif} <expr> [; then] => <expr>
+   while <expr> [; do]?      => <expr>
+   return <expr>             => <expr>
+   <var> = <expr>            => <expr>
 
 The above is done via regular expression matching. No fancy parsing is
 done, say, to look to see if *expr* is split across a line or whether
@@ -36,5 +48,5 @@ Examples:
 
 .. seealso::
 
-   :ref:`set autoeval <set_autoeval>`, :ref:`pr <pr>`,
-   :ref:`pp <pp>` and :ref:`examine <examine>`.
+   :ref:`set autoeval <set_autoeval>`, :ref:`pr <pr>`
+   and :ref:`examine <examine>`.

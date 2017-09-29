@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Eval and Print commands.
 #
-#   Copyright (C) 2008, 2010-2011, 2014-2015 Rocky Bernstein
+#   Copyright (C) 2008, 2010-2011, 2014-2015, 2017 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@ _Dbg_help_add eval \
 
 **eval?**
 
-In the first form *cmd* is a string *cmd* is a string sent to special
+In the first form *cmd* is a string; *cmd* is a string sent to special
 shell builtin eval.
 
 In the second form, use evaluate the current source line text.
@@ -50,10 +50,19 @@ statement, one wants to eval is just the expression portion.  For
 this, use eval?. Actually, any alias that ends in ? which is aliased
 to eval will do thie same thing.
 
+If no string is given, we run the string from the current source code
+about to be run. If the command ends `?` (via an alias) and no string is
+given, the following translations occur:
+
+    {if|elif} <expr> [; then] => <expr>
+    while <expr> [; do]?      => <expr>
+    return <expr>             => <expr>
+    <var> = <expr>            => <expr>
+
 See also:
 ---------
 
-**print** and **set autoeval**.'
+**set autoeval**, **print** and **examine**.'
 
 typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=1
 
