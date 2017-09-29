@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+s#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # zshdb documentation build configuration file, created by
@@ -167,6 +167,3 @@ texinfo_documents = [
      author, 'zshdb', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
