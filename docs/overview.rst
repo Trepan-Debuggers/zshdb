@@ -81,9 +81,9 @@ Documentation: http://zshdb.readthedocs.org
 .. |buildstatus| image:: https://circleci.com/gh/rocky/zshdb.svg?&style=shield
     :target: https://circleci.com/gh/rocky/zshdb.svg?&style=shield
     :alt: CircleCI Build status
-.. _set_substitute:  https://python2-trepan.readthedocs.org/en/latest/commands/set/substitute.html
-.. _set_style:  https://python2-trepan.readthedocs.org/en/latest/commands/set/style.html
-.. _set_width:  https://python2-trepan.readthedocs.org/en/latest/commands/set/width.html
-.. _eval: https://python2-trepan.readthedocs.org/en/latest/commands/data/eval.html
-.. _step: https://python2-trepan.readthedocs.org/en/latest/commands/running/step.html
-.. _install: http://python2-trepan.readthedocs.org/en/latest/install.html
+.. _set_substitute:  https://zshdb.readthedocs.org/en/latest/commands/set/substitute.html
+.. _set_style:  https://zshdb.readthedocs.org/en/latest/commands/set/style.html
+.. _set_width:  https://zshdb.readthedocs.org/en/latest/commands/set/width.html
+.. _eval: https://zshdb.readthedocs.org/en/latest/commands/data/eval.html
+.. _step: https://zshdb.readthedocs.org/en/latest/commands/running/step.html
+.. _install: http://zshdb.readthedocs.org/en/latest/install.html
