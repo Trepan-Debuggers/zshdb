@@ -44,11 +44,10 @@ terminal. If it changes, or you want to adjust it, see set_width_ .
 Smart Eval
 ----------
 
-Starting with release 0.2.0, if you want to evaluate the current
-source line before it is run in the code, use ``eval``. To evaluate
-text of a common fragment of line, such as the expression part of an
-*if* statement, you can do that with ``eval?``. See eval_ for more
-information.
+If you want to evaluate the current source line before it is run in
+the code, use ``eval``. To evaluate text of a common fragment of line,
+such as the expression part of an *if* statement, you can do that with
+``eval?``. See eval_ for more information.
 
 More Stepping Control
 ---------------------
