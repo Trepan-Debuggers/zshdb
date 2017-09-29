@@ -1,3 +1,4 @@
+.. index:: info; source
 .. _info_source:
 
 Info Source

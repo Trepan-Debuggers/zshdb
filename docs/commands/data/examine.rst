@@ -1,3 +1,4 @@
+.. index:: examine
 .. _examine:
 
 Examine

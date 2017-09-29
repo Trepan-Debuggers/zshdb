@@ -1,3 +1,4 @@
+.. index:: list
 .. _list:
 
 List (show me the code!)

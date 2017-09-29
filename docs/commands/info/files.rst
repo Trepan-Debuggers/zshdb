@@ -1,3 +1,4 @@
+.. index:: info; files
 .. _info_files:
 
 Info Files

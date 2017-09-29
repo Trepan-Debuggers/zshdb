@@ -1,3 +1,4 @@
+.. index:: enable
 .. _enable:
 
 Enable (enable breakpoints)

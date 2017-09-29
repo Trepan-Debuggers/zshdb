@@ -19,9 +19,9 @@ Welcome to zshdb's documentation!
 
 
 
-.. Indices and tables
-.. ==================
-..
-.. * :ref:`genindex`
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`
 .. * :ref:`modindex`
-.. * :ref:`search`

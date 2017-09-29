@@ -1,3 +1,4 @@
+.. index:: display
 .. _display:
 
 Display (set display expression)

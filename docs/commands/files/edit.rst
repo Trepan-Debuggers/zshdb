@@ -1,3 +1,4 @@
+.. index:: edit
 .. _edit:
 
 Edit

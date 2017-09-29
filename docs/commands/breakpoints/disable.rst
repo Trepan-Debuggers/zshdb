@@ -1,3 +1,4 @@
+.. index:: disable
 .. _disable:
 
 Disable (disable breakpoints)

@@ -1,3 +1,4 @@
+.. index:: delete
 .. _delete:
 
 Delete (remove breakpoints)

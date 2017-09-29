@@ -1,3 +1,4 @@
+.. index:: info; program
 .. _info_program:
 
 Info Program

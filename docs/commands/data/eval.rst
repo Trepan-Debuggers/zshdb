@@ -1,3 +1,4 @@
+.. index:: eval
 .. _eval:
 
 Eval (evaluate zsh expression)

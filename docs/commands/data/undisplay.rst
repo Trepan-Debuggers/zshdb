@@ -1,3 +1,4 @@
+.. index:: undisplay
 .. _undisplay:
 
 Undisplay (cancel a display expression)

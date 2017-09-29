@@ -1,3 +1,4 @@
+.. index:: info; line
 .. _info_line:
 
 Info Line

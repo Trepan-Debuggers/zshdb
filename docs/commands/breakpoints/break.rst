@@ -1,3 +1,4 @@
+.. index:: break
 .. _break:
 
 Break (set a breakpoint)

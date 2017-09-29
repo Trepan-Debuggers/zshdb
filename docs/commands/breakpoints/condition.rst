@@ -1,3 +1,4 @@
+.. index:: condition
 .. _condition:
 
 Condition (add condition to breakpoint)

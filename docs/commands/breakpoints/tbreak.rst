@@ -1,3 +1,4 @@
+.. index:: tbreak
 .. _tbreak:
 
 Tbreak (temporary breakpoint)

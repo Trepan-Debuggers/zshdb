@@ -1,3 +1,4 @@
+.. index:: info; break
 .. _info_break:
 
 Info Break
