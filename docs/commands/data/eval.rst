@@ -3,7 +3,7 @@
 Eval (evaluate Python code)
 ---------------------------
 
-**eval** _cmd_
+**eval** *cmd*
 
 **eval**
 
@@ -30,7 +30,7 @@ given, the following translations occur:
    {if|elif} <expr> [; then] => <expr>
    while <expr> [; do]?      => <expr>
    return <expr>             => <expr>
-   <var> = <expr>            => <expr>
+   <var>=<expr>              => <expr>
 
 The above is done via regular expression matching. No fancy parsing is
 done, say, to look to see if *expr* is split across a line or whether
