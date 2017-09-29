@@ -1,3 +1,4 @@
+.. index:: backtrace
 .. _backtrace:
 
 Backtrace (show call-stack)

@@ -1,3 +1,4 @@
+.. index:: step
 .. _step:
 
 Step (step into)

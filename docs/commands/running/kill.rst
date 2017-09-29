@@ -1,3 +1,4 @@
+.. index:: kill
 .. _kill:
 
 Kill

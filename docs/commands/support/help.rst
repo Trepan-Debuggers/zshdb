@@ -1,3 +1,4 @@
+.. index:: help
 .. _help:
 
 Help (Won't you please help me if you can)

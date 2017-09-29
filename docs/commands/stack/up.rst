@@ -1,3 +1,4 @@
+.. index:: up
 .. _up:
 
 Up (relative frame motion towards a less-recent frame)

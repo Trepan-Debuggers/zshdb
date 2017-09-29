@@ -1,3 +1,4 @@
+.. index:: alias
 .. _alias:
 
 Alias (add debugger command alias)

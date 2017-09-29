@@ -1,3 +1,4 @@
+.. index:: quit
 .. _quit:
 
 Quit

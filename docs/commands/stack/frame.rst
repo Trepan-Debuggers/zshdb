@@ -1,3 +1,4 @@
+.. index:: frame
 .. _frame:
 
 Frame (absolute frame positioning)

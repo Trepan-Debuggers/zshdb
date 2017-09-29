@@ -1,3 +1,4 @@
+.. index:: next
 .. _next:
 
 Next (step over)

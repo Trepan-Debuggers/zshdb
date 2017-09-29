@@ -1,3 +1,4 @@
+.. index:: continue
 .. _continue:
 
 Continue

@@ -1,3 +1,4 @@
+.. index:: down
 .. _down:
 
 Down (relative frame motion towards a more-recent frame)
