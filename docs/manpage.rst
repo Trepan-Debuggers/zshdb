@@ -1,7 +1,7 @@
 .. _zshdb:
 
-zshdb - zsh debugger
-####################
+zsh man page
+############
 
 Synopsis
 --------
