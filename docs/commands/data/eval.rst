@@ -1,6 +1,6 @@
 .. _eval:
 
-Eval (evaluate Python code)
+Eval (evaluate zsh expression)
 ---------------------------
 
 **eval** *cmd*
