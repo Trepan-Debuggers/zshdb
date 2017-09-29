@@ -3,7 +3,7 @@
 List (show me the code!)
 ------------------------
 
-**list** [*module] [ *first* [ *num* ]]
+**list**[**>**] [ *location*|**.**|**-** [ *num* ]]
 
 **list** *location* [*num*]
 
@@ -20,10 +20,7 @@ then that is start the line after we last one previously shown.
 A *location* is either:
 
 * a number, e.g. 5,
-* a function, e.g. `join` or `os.path.join`
-* a module, e.g. os or os.path
-* a filename, colon, and a number, e.g. `foo.py:5`,
-* a module name and a number, e.g,. `os.path:5`.
+* a filename, colon, and a number, e.g. `/etc/profile:5`,
 * a "." for the current line number
 * a "-" for the lines before the current linenumber
 
@@ -41,17 +38,15 @@ Examples:
 
 ::
 
-    list 5            # List starting from line 5
-    list 4+1          # Same as above.
-    list foo.py:5     # List starting from line 5 of foo.py
-    list os.path:5    # List starting from line 5 of os.path
-    list os.path 5    # Same as above.
-    list os.path 5 6  # list lines 5 and 6 of os.path
-    list os.path 5 2  # Same as above, since 2 < 5.
-    list foo.py:5 2   # List two lines starting from line 5 of foo.py
-    list os.path.join # List lines around the os.join.path function.
-    list .            # List lines centered from where we currently are stopped
-    list -            # List lines previous to those just shown
+    list 5                  # List starting from line 5
+    list 4+1                # Same as above.
+    list /etc/profile:5     # List starting from line 5 of /etc/profile
+    list /etc/profile 5     # Same as above.
+    list /etc/profile 5 6   # list lines 5 and 6 of /etc/profile
+    list /etc/profile 5 2   # Same as above, since 2 < 5.
+    list profile:5 2        # List two lines starting from line 5 of profile
+    list .                  # List lines centered from where we currently are stopped
+    list -                  # List lines previous to those just shown
 
 .. seealso::
 

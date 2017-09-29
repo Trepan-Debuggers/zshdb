@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # list.sh - Some listing commands
 #
-#   Copyright (C) 2008, 2009, 2010, 2011, 2016
+#   Copyright (C) 2008, 2009, 2010, 2011, 2016, 2017
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@
 #   MA 02111 USA.
 
 _Dbg_help_add list \
-'**list**[**>**] [*location*|**.**|**-**] [*count*]
+'**list**[**>**] [*location*|**.**|**-**] [*num*]
 
 List source code.
 
@@ -32,13 +32,12 @@ loop was entered, then the current line is the current frame. If a
 subsequent list command was issued with no intervening frame changing,
 then that is start the line after we last one previously shown.
 
-*location* is either:
+A *location* is either:
 
-  - a number, e.g. 5,
-
-  - a "." for the current line number
-
-  - a "-" for the preceding lines
+* a number, e.g. 5,
+* a filename, colon, and a number, e.g. `/etc/profile:5`,
+* a "." for the current line number
+* a "-" for the lines before the current linenumber
 
 By default aliases **l>** and **list>** are set to list. In this case and
 more generally when the alias ends in ">", rather than center lines
@@ -47,11 +46,15 @@ around *location* that will be used as the starting point.
 Examples:
 ---------
 
-    list              # List from current program position or where we last left off
-    list 5            # List starting from line 5
-    list 5 2          # List two lines starting from line 5
-    list .            # List lines centered from where we currently are stopped
-    list -            # List lines previous to those just shown
+    list 5                  # List starting from line 5
+    list 4+1                # Same as above.
+    list /etc/profile:5     # List starting from line 5 of /etc/profile
+    list /etc/profile 5     # Same as above.
+    list /etc/profile 5 6   # list lines 5 and 6 of /etc/profile
+    list /etc/profile 5 2   # Same as above, since 2 < 5.
+    list profile:5 2        # List two lines starting from line 5 of profile
+    list .                  # List lines centered from where we currently are stopped
+    list -                  # List lines previous to those just shown
 
 See also:
 ---------

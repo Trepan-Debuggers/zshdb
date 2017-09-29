@@ -1,4 +1,4 @@
-|buildstatus| |license|
+|buildstatus|
 
 .. contents:: :local:
 
@@ -78,7 +78,7 @@ Documentation: http://zshdb.readthedocs.org
 .. _trepanning: https://rubygems.org/gems/trepanning
 .. _debuggers: https://metacpan.org/pod/Devel::Trepan
 .. _this: http://bashdb.sourceforge.net/pydb/features.html
-.. |buildstatus| image:: https://travis-ci.org/rocky/zshdb.svg
+.. |buildstatus| image:: https://circleci.com/gh/rocky/zshdb.svg?&style=shield
     :target: https://circleci.com/gh/rocky/zshdb.svg?&style=shield
     :alt: CircleCI Build status
 .. _set_substitute:  https://python2-trepan.readthedocs.org/en/latest/commands/set/substitute.html
