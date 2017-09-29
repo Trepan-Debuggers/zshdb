@@ -19,28 +19,12 @@ debugger command changes from:
 
       Undefined command: "fdafds". Try "help".
 
-to something more Python-eval-specific such as:
+to something more zsh-eval-specific such as:
 
 ::
 
-      NameError: name 'fdafds' is not defined
+      /tmp/zshdb_eval_26397:2: command not found: fdafds
 
-One other thing that trips people up is when setting autoeval is that
-there are some short debugger commands that sometimes one wants to use
-as a variable, such as in an assignment statement. For example:
-
-::
-
-      s = 5
-
-which produces when *autoeval* is on:
-
-::
-
-      Command 'step' can take at most 1 argument(s); got 2.
-
-because by default, ``s`` is an alias for the debugger ``step`` command.
-It is possible to remove that alias if this causes constant problem.
 
 .. seealso::
 

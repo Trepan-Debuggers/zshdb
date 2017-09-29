@@ -9,5 +9,4 @@ Examining data.
    data/display
    data/eval
    data/examine
-   data/pr
    data/undisplay

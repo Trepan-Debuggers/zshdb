@@ -24,7 +24,6 @@ Show
    show/basename
    show/cmdtrace
    show/confirm
-   show/dbg_trepan
    show/different
    show/events
    show/highlight
