@@ -25,7 +25,6 @@ An Emacs interface is available via realgud_.
 
    features
    install
-   entry-exit
    syntax
    commands
    manpage
