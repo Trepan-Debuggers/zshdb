@@ -1,5 +1,3 @@
-|buildstatus|
-
 .. contents:: :local:
 
 Features
@@ -65,9 +63,6 @@ the default; this is set by the `set different` command.
 .. _trepanning: https://pypi.python.org/pypi/trepan2
 .. _debuggers: https://metacpan.org/pod/Devel::Trepan
 .. _this: http://bashdb.sourceforge.net/pydb/features.html
-.. |buildstatus| image:: https://circleci.com/gh/rocky/zshdb.svg?&style=shield
-    :target: https://circleci.com/gh/rocky/zshdb.svg?&style=shield
-    :alt: CircleCI Build status
 .. _set_substitute:  https://zshdb.readthedocs.org/en/latest/commands/set/substitute.html
 .. _set_style:  https://zshdb.readthedocs.org/en/latest/commands/set/style.html
 .. _set_width:  https://zshdb.readthedocs.org/en/latest/commands/set/width.html

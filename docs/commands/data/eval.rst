@@ -49,5 +49,5 @@ Examples:
 
 .. seealso::
 
-   :ref:`set autoeval <set_autoeval>`, :ref:`pr <pr>`
+   :ref:`set autoeval <set_autoeval>`
    and :ref:`examine <examine>`.
