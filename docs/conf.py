@@ -168,6 +168,6 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'zshdb', 'zshdb Documentation',
-     author, 'zshdb', 'gdb-like debugger for Python 2.',
+     author, 'zshdb', 'gdb-like debugger for zsh.',
      'Programming'),
 ]
