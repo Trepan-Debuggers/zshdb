@@ -1,6 +1,7 @@
 /*.tar.bz2
 /*.tar.gz
 /*~
+/.python-version
 /Makefile
 /Makefile
 /Makefile.in
@@ -13,10 +14,10 @@
 /dbg-trace.sh
 /install-sh
 /missing
-/tmp
-/zshdb
-/test/integration/*.log
 /test/*/*.log
 /test/*/*.trs
+/test/integration/*.log
+/tmp
+/zshdb
 INSTALL
 README

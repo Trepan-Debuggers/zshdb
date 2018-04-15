@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "backtrace" debugger command
 #
-#   Copyright (C) 2008, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2016, 2018 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -22,37 +22,78 @@
 # and absolute line positions, not function names and offset.
 
 _Dbg_help_add backtrace \
-"**backtrace** [*n*]
+'**backtrace** [*opts*] [*count*]
 
-Print a backtrace of calling functions and sourced files.
+Print backtrace of all stack frames, or innermost *count* frames.
 
-The backtrace contains function names, arguments, line numbers, and
-files. If *n* is given, list only *n* calls.
+With a negative argument, print outermost -*count* frames.
+
+An arrow indicates the "current frame". The current frame determines
+the context used for many debugger commands such as expression
+evaluation or source-line listing.
+
+*opts* are:
+
+   -s | --source  - show source code line
+   -h | --help    - give this help
 
 Examples:
 ---------
 
-   backtrace    # Print a full stack trace
-   backtrace 2  # Print only the top two entries
-"
+   backtrace      # Print a full stack trace
+   backtrace 2    # Print only the top two entries
+   backtrace -1   # Print a stack trace except the initial (least recent) call.
+   backtrace -s   # show source lines in listing
+   backtrace --source   # same as above
 
-# Print a stack backtrace.
-# $1 is the maximum number of entries to include.
+See also:
+---------
+
+**frame** and  **list**
+'
+
+# Print a stack backtrace. $1 after processing options is the maximum
+# number of entries to include.
 _Dbg_do_backtrace() {
 
-  _Dbg_not_running && return 1
+    _Dbg_not_running && return 1
 
-  typeset prefix='##'
-  typeset -i n=${#_Dbg_frame_stack[@]}
-  typeset -i count=${1:-$n}
-  typeset -i i
+    local -A shortopts
+    typeset -i show_source=0
+    emulate -L sh
+    setopt kshglob noshglob braceexpand nokshautoload
+    shortopts=(s source)
 
-  # Loop which dumps out stack trace.
-  for (( i=0 ; (( i < n && count > 0 )) ; i++ )) ; do
-      _Dbg_print_frame $i
-      ((count--))
-  done
-  return 0
+    while getopts "hs" name; do
+	case $name in
+	    [s]) OPTARG="${shortopts[$name]}" ;&
+	    s)
+		show_source=1
+		shift
+		;;
+	    h)
+		_Dbg_do_help backtrace
+		return
+		;;
+	esac
+    done
+
+    typeset prefix='##'
+    typeset -i at_most=${#_Dbg_frame_stack[@]}
+    typeset -i count=${1:-$at_most}
+    typeset -i i=0
+
+    if (( count < 0 )) ; then
+	(( i = at_most + count ))
+	(( count = at_most ))
+    fi
+
+    # Loop which dumps out stack trace.
+    for (( ; (( i < at_most && count > 0 )) ; i++ )) ; do
+	_Dbg_print_frame $i $show_source
+	((count--))
+    done
+    return 0
 }
 
 _Dbg_alias_add bt backtrace

@@ -68,13 +68,15 @@ function _Dbg_print_location_and_command {
 }
 
 # Print position $1 of stack frame (from global _Dbg_frame_stack)
-# Prefix the entry with $2 if that's set.
+# If $2 is set, show the source line code.
 _Dbg_print_frame() {
-    if (($# > 1)); then
-      _Dbg_errmsg "got $# parameters, but need 0 or 1."
+    if (($# > 2)); then
+      _Dbg_errmsg "got $# parameters, but need 0..2."
       return -1
     fi
+
     typeset -i pos; pos=${1:-$_Dbg_stack_pos}
+    typeset -i show_source=${2:0}
 
     typeset prefix='##'
     (( pos == _Dbg_stack_pos)) && prefix='->'
@@ -97,5 +99,8 @@ _Dbg_print_frame() {
     typeset -i line="${split_result[1]}"
     (( _Dbg_set_basename )) && filename=${filename##*/}
     _Dbg_msg "$prefix file \`$filename' at line $line"
+    if (( show_source )) ; then
+	_Dbg_list "$filename" $line 1
+    fi
 
 }
