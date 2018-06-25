@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Enter nested shell
 #
-#   Copyright (C) 2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014, 2016, 2018 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -46,7 +46,8 @@ options. Many of these by nature defeate reading on saved functions
 and variables.
 
 The shell that used is taken from the shell used to build the debugger
-which is: $_Dbg_shell_name. Use **--shell** to a different compatible shell.
+which is: $_Dbg_shell_name. Use **--shell** to use a different
+compatible shell.
 
 By default, variables set or changed in the shell do not persist after
 the shell is left to to back to the debugger or debugged program.
