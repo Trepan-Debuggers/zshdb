@@ -1,8 +1,0 @@
-checkout:
-  post:
-    - sudo apt-get -y install zsh python-pygments
-    - sh ./autogen.sh
-
-test:
-  override:
-    - CIRCLECI=1 make check
