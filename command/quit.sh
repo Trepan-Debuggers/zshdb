@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # quit.sh - gdb-like "quit" debugger command
 #
-#   Copyright (C) 2008, 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010-2011, 2014, 2018 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -23,10 +23,10 @@ _Dbg_help_add quit \
 
 Quit the debugger.
 
-The program being debugged is aborted.  If EXIT-CODE is given that
-will be the exit return code. If SHELL-LEVELS then up to that many
-nested shells are quit. However to be effective, the last of those
-shells should have been run under the debugger.
+The program being debugged is aborted.  If *exit-code* is given, then
+that will be the exit return code. If *shell-levels* is given, then up
+to that many nested shells are quit. However to be effective, the last
+of those shells should have been run under the debugger.
 
 See also:
 ---------

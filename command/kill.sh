@@ -44,8 +44,7 @@ See also:
 ---------
 
 **quit** for less a forceful termination command.
-**run** is a way to restart the debugged program.
-Also similar is the **signal** command."
+**run** is a way to restart the debugged program."
 
 _Dbg_do_kill() {
     if (($# > 1)); then
