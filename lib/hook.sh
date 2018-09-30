@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
-#   Copyright (C) 2008, 2009, 2010, 2011
+#   Copyright (C) 2008, 2009, 2010, 2011, 2018
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -168,6 +168,7 @@ _Dbg_hook_action_hit() {
 
     # FIXME: combine with _Dbg_unset_action
     typeset -a linenos
+    [[ -z "$full_filename" ]] && return 1
     eval "linenos=(${_Dbg_action_file2linenos[$full_filename]})"
     typeset -a action_nos
     eval "action_nos=(${_Dbg_action_file2action[$full_filename]})"
@@ -210,10 +211,16 @@ _Dbg_hook_breakpoint_hit() {
     # Check breakpoints within full_filename
     for ((i=0; i < ${#linenos[@]}; i++)); do
 	if (( linenos[i] == lineno )) ; then
-	    # Got a match, but is the breakpoint enabled?
+	    # Got a match, but is the breakpoint enabled and condition met?
 	    (( _Dbg_brkpt_num = brkpt_nos[i] ))
-	    if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )) ; then
-		return 0
+        if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )); then
+
+            if ( eval "((${_Dbg_brkpt_cond[_Dbg_brkpt_num]}))" || eval "${_Dbg_brkpt_cond[_Dbg_brkpt_num]}" ) 2>/dev/null; then
+                return 0
+            else
+                _Dbg_msg "Breakpoint: evaluation of '${_Dbg_brkpt_cond[_Dbg_brkpt_num]}' returned false."
+            fi
+
 	    fi
 	fi
     done
@@ -234,8 +241,8 @@ _Dbg_cleanup() {
     ((_Dbg_history_save != 0)) && _Dbg_history_write
     [[ -f $_Dbg_evalfile ]] && rm -f $_Dbg_evalfile 2>/dev/null
     set +u
-    if [[ -n $_Dbg_EXECUTION_STRING ]] && [[ -r $_Dbg_script_file ]] ; then
-	rm $_Dbg_script_file
+    if [[ -n "$_Dbg_EXECUTION_STRING" ]] && [[ -r "$_Dbg_script_file" ]] ; then
+	rm "$_Dbg_script_file"
     fi
     _Dbg_erase_journals || true  # ignore return code for now
     _Dbg_restore_user_vars
@@ -246,7 +253,7 @@ _Dbg_cleanup() {
 # Somehow we can't put this in _Dbg_cleanup and have it work.
 # I am not sure why.
 _Dbg_cleanup2() {
-    [[ -f $_Dbg_evalfile ]] && rm -f $_Dbg_evalfile 2>/dev/null
+    [[ -f "$_Dbg_evalfile" ]] && rm -f "$_Dbg_evalfile" 2>/dev/null
     _Dbg_erase_journals
     trap - EXIT
     ls -l ${_Dbg_journal}

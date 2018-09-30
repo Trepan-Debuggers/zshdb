@@ -64,6 +64,14 @@ typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
 # in the debugger, we prefer to preface these with _Dbg_.
 function _Dbg_process_commands {
 
+  # initial debugger input source from zshdb arguments
+  if [[ ! -z "$_Dbg_tty_in" ]] && [[  -r "$_Dbg_tty_in" ]]
+  then
+    exec {_Dbg_fdi}<$_Dbg_tty_in
+    _Dbg_fd[++_Dbg_fd_last]=$_Dbg_fdi
+    _Dbg_cmdfile+=("$_Dbg_tty_in")
+  fi
+
   _Dbg_continue_rc=-1  # Don't continue execution unless told to do so.
   # Nuke any prior step-ignore counts
   _Dbg_write_journal_eval "_Dbg_step_ignore=-1"

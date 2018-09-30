@@ -68,7 +68,7 @@ typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=1
 
 _Dbg_do_eval() {
 
-    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > $_Dbg_evalfile
+    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > "$_Dbg_evalfile"
     if (( $# == 0 )) ; then
         # FIXME: add parameter to get unhighlighted line, or
         # always save a copy of that in _Dbg_sget_source_line
@@ -99,14 +99,14 @@ _Dbg_do_eval() {
             source_line_save="$extracted"
         fi
 
-        print "$source_line" >> $_Dbg_evalfile
+        print "$source_line" >> "$_Dbg_evalfile"
         _Dbg_msg "eval: ${source_line}"
         _Dbg_source_line="$source_line_save"
         _Dbg_set_highlight=$_Dbg_highlight_save
     else
-        print "$@" >> $_Dbg_evalfile
+        print "$@" >> "$_Dbg_evalfile"
     fi
-    print '_Dbg_rc=$?' >> $_Dbg_evalfile
+    print '_Dbg_rc=$?' >> "$_Dbg_evalfile"
     typeset -i _Dbg_rc
     if [[ -t $_Dbg_fdi  ]] ; then
         _Dbg_set_dol_q $_Dbg_debugged_exit_code

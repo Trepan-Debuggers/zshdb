@@ -1,5 +1,7 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008-2011, 2016 Rocky Bernstein <rocky@gnu.org>
+#
+#   Copyright (C) 2008-2011, 2016, 2018 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -74,7 +76,7 @@ _Dbg_do_break_common() {
     condition=1
   elif [[ $condition == 'if' ]] ; then
     shift
-    condition="$*"
+    condition="$@"
   fi
   [[ -z $condition ]] && condition=1
 

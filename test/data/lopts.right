@@ -24,6 +24,7 @@ options:
     -n | --nx | --no-init    Don't run initialization files.
     -S | --style STYLE       Run use pygments STYLE for formatting source code
     -t | --tty DEV           Run using device for your programs standard input and output
+    --tty_in | --terminal_in DEV   Set to ...
     -T | --tempdir DIRECTORY
                              Use DIRECTORY to store temporary files in
     -V | --version           Print the debugger version number.

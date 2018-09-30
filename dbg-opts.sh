@@ -45,6 +45,7 @@ options:
     -n | --nx | --no-init    Don't run initialization files.
     -S | --style STYLE       Run use pygments STYLE for formatting source code
     -t | --tty DEV           Run using device for your programs standard input and output
+    --tty_in | --terminal_in DEV   Set to ...
     -T | --tempdir DIRECTORY
                              Use DIRECTORY to store temporary files in
     -V | --version           Print the debugger version number.
@@ -134,6 +135,8 @@ _Dbg_parse_options() {
         tempdir      required_argument           \
     	style        required_argument           \
         tty          required_argument           \
+        tty_in       required_argument           \
+        terminal_in  required_argument           \
 	version      no_argument                 \
 	'' "$@"
     do
@@ -184,6 +187,9 @@ _Dbg_parse_options() {
 		_Dbg_tty=$OPTLARG	;;
 	    tempdir)
 		_Dbg_tmpdir=$OPTLARG	;;
+            terminal_in | tty_in )
+                _Dbg_tty_in="$OPTLARG"
+                ;;
 	    x | eval-command )
 		DBG_INPUT=$OPTLARG	;;
 	    X | trace )
@@ -205,7 +211,7 @@ _Dbg_parse_options() {
 	[[ -n $_Dbg_release ]] ; then
 	echo "$_Dbg_shell_name debugger, $_Dbg_debugger_name, release $_Dbg_release"
 	printf '
-Copyright 2008-2011, 2014, 2016-2017 Rocky Bernstein
+Copyright 2008-2011, 2014, 2016-2018 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
 welcome to change it and/or distribute copies of it under certain conditions.
 
