@@ -111,6 +111,24 @@ fi
 # $_Dbg_tmpdir could have been set by the top-level debugger script.
 [[ -z $_Dbg_tmpdir ]] && typeset _Dbg_tmpdir=/tmp
 
+_Dbg_check_tty() {
+    (( $# < 1 )) && return 1
+    typeset tty=$1
+    if [[ $tty != '&1' ]] ; then
+        if ! $(touch "$tty" >/dev/null 2>/dev/null); then
+            _Dbg_errmsg "Can't access $tty for writing."
+            return 1
+        fi
+        if [[ ! -w "$tty" ]] ; then
+            _Dbg_errmsg "tty $tty needs to be writable"
+            return 1
+        fi
+        _Dbg_tty="$tty"
+        _Dbg_prompt_output="$_Dbg_tty"
+    fi
+    return 0
+}
+
 _Dbg_parse_options() {
 
     . ${_Dbg_libdir}/getopts_long.sh
