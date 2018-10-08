@@ -84,6 +84,7 @@ function _Dbg_process_commands {
       ${hook}
   done
 
+  _Dbg_prompt_output="${_Dbg_tty:-/dev/null}"
 
   # Loop over all pending open input file descriptors
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
@@ -124,21 +125,21 @@ function _Dbg_process_commands {
 	  ((_Dbg_cmd_num++))
 	  if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
 	      _Dbg_in_vared=1
-	      vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
+	      vared -e -h -p "$_Dbg_prompt" line 2>>$_Dbg_prompt_output <&${_Dbg_fdi} || break
 	      _Dbg_in_vared=0
 	  else
 	      if ((1 == _Dbg_in_vared)) ; then
-		  _Dbg_msg "Unable to echo characters in input below"
+		   _Dbg_msg "Unable to echo characters in input below"
 	      fi
 	      if [[ -z ${_Dbg_cmdfile[-1]} ]] ; then
-		  read -u ${_Dbg_fdi} "?$_Dbg_prompt" line || break
+		   read -u ${_Dbg_fdi} "?$_Dbg_prompt" line 2>>$_Dbg_prompt_output || break
 	      else
-		  read -u ${_Dbg_fdi}  line || break
+		   read -u ${_Dbg_fdi}  line || break
 	      fi
 	  fi
-          _Dbg_onecmd "$line"
-          rc=$?
-          _Dbg_postcmd
+      _Dbg_onecmd "$line"
+      rc=$?
+      _Dbg_postcmd
 	  ((_Dbg_continue_rc >= 0)) && return $_Dbg_continue_rc
 
 	  # Add $line to the debugger history file unless there was an
@@ -156,7 +157,7 @@ function _Dbg_process_commands {
 	      fi
 	  fi
 
-          (( rc > 0 )) && return $rc
+      (( rc > 0 )) && return $rc
 
 	  line=''
       done # read "?$_Dbg_prompt" ...
@@ -207,8 +208,8 @@ _Dbg_onecmd() {
     fi
 
     if [[ -n ${_Dbg_debugger_commands[$expanded_alias]} ]] ; then
-	${_Dbg_debugger_commands[$expanded_alias]} $args
-	return $?
+      ${_Dbg_debugger_commands[$expanded_alias]} $args
+      return $?
     fi
 
     # The below are command names that are just a little irregular
@@ -254,7 +255,7 @@ _Dbg_onecmd() {
 	* )
 	   if (( _Dbg_set_autoeval )) ; then
 	       if [[ -t $_Dbg_fdi ]] ; then
-		   if ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 ; then
+		   if ! _Dbg_do_eval $_Dbg_cmd $args >>"$_Dbg_tty" 2>&1 ; then
 		       return -1
 		   fi
 	       else

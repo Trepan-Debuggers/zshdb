@@ -110,7 +110,7 @@ _Dbg_do_eval() {
     typeset -i _Dbg_rc
     if [[ -t $_Dbg_fdi  ]] ; then
         _Dbg_set_dol_q $_Dbg_debugged_exit_code
-        . $_Dbg_evalfile >&${_Dbg_fdi}
+        . $_Dbg_evalfile >>"$_Dbg_tty"
     else
         _Dbg_set_dol_q $_Dbg_debugged_exit_code
         . $_Dbg_evalfile
