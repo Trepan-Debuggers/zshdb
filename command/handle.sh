@@ -36,6 +36,21 @@
 # stack is printed. Prefacing these actions with \"no\" indicates not to
 # do the indicated action."
 
+_Dbg_help_add handle \
+"**handle** *signal* *action*
+
+Specify how to handle *signal*.
+
+*signal* is a signal name like SIGSEGV, but numeric signals like 11
+(which is usually equivalent on \*nix systems) is okay too.
+
+*action* is one of \"stop\", \"nostop\", \"print\", and
+\"noprint\". \"Stop\" indicates entering debugger if this signal
+happens. \"Print\" indicates printing a message if this signal is
+encountered. \"Stack\" is like \"print\" but except the entire call
+stack is printed. Prefacing these actions with \"no\" indicates not to
+do the indicated action."
+
 _Dbg_do_handle() {
     typeset sig=$1
     typeset cmd=$2
