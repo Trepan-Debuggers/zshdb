@@ -41,7 +41,7 @@ _Dbg_confirm() {
 	  if [[ -t $_Dbg_fdi ]]; then
 	      vared -e -h -p "$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
 	  else
-	      read "?$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
+	      read "?$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} >>$_Dbg_prompt_output || break
 	  fi
 
 	case "$_Dbg_response" in
@@ -86,8 +86,9 @@ function _Dbg_errmsg_no_cr {
 }
 
 function _Dbg_msg {
-    if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
-	builtin print -- "$@"  >&${_Dbg_fdi}
+    #if [[ -n "$_Dbg_tty" ]] && [[ -t "$_Dbg_tty" ]] ; then
+	if [[ -n "$_Dbg_tty" ]] ; then
+	builtin print -- "$@"  >> "$_Dbg_tty"
     else
 	builtin print -- "$@"
     fi
@@ -95,8 +96,9 @@ function _Dbg_msg {
 }
 
 function _Dbg_msg_nocr {
-    if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
-	builtin echo -n "$@" >&${_Dbg_fdi}
+    #if [[ -n "$_Dbg_tty" ]] && [[ -t "$_Dbg_tty" ]] ; then
+	if [[ -n "$_Dbg_tty" ]] ; then
+	builtin echo -n "$@" >>"$_Dbg_tty"
     else
 	builtin echo -n "$@"
     fi
@@ -117,8 +119,9 @@ function _Dbg_printf_nocr {
 	builtin printf "$format" "$@" >>$_Dbg_logfid
     fi
     if (( ! _Dbg_logging_redirect )) ; then
-	if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
-	    builtin printf "$format" "$@" >&${_Dbg_fdi}
+	#if [[ -n $_Dbg_fdi ]] && [[ -t $_Dbg_fdi ]] ; then
+	if [[ -n "$_Dbg_tty" ]] ; then
+	    builtin printf "$format" "$@" >>"$_Dbg_tty"
 	else
 	    builtin printf "$format" "$@"
 	fi

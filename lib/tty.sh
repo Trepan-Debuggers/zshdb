@@ -30,11 +30,11 @@
 function _Dbg_open_if_tty {
     _Dbg_new_fd=-1
     (( $# != 1 )) && return 1
-    [[ ! -r $1 ]] || [[ ! -w $1 ]] && return 1
+    [[ ! -w $1 ]] && return 1
     typeset -i r=1
     # Code modelled off of code from David Korn:
     {
-	if exec {_Dbg_new_fd} <> $1 ; then
+	if exec ${_Dbg_new_fd} > $1 ; then
 	    if [[ -t $_Dbg_new_fd  ]] ; then
 		r=0
 	    else
