@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # dbg-processor.sh - Top-level debugger commands
 #
-#   Copyright (C) 2008, 2009, 2010, 2011
+#   Copyright (C) 2008, 2009, 2010, 2011, 2018
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -100,65 +100,65 @@ function _Dbg_process_commands {
       typeset result 1>/dev/null
 
       if _Dbg_copies '>' $_Dbg_DEBUGGER_LEVEL ; then
-	  _Dbg_greater=$result
-	  _Dbg_copies '<' $_Dbg_DEBUGGER_LEVEL
-      	  _Dbg_less=$result
+          _Dbg_greater=$result
+          _Dbg_copies '<' $_Dbg_DEBUGGER_LEVEL
+          _Dbg_less=$result
       fi
 
       if _Dbg_copies ')' $ZSH_SUBSHELL ; then
-	  _Dbg_greater="${result}${_Dbg_greater}"
-	  _Dbg_less="${_Dbg_less}${result//)/(}"
+          _Dbg_greater="${result}${_Dbg_greater}"
+          _Dbg_less="${_Dbg_less}${result//)/(}"
       fi
 
       # typeset _Dbg_prompt
       if [[ -n $_Dbg_set_highlight ]] ; then
-	      eval "_Dbg_prompt=\"${_Dbg_ansi_term_underline}$_Dbg_prompt_str${_Dbg_ansi_term_normal} \"" 2>/dev/null
+          eval "_Dbg_prompt=\"${_Dbg_ansi_term_underline}$_Dbg_prompt_str${_Dbg_ansi_term_normal} \"" 2>/dev/null
       else
-	  eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
+          eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
       fi
       _Dbg_preloop
       # typeset _Dbg_cmd
       typeset line=''
       typeset -i rc
       while : ; do
-	  ((_Dbg_cmd_num++))
-	  if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
-	      _Dbg_in_vared=1
-	      vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
-	      _Dbg_in_vared=0
-	  else
-	      if ((1 == _Dbg_in_vared)) ; then
-		  _Dbg_msg "Unable to echo characters in input below"
-	      fi
-	      if [[ -z ${_Dbg_cmdfile[-1]} ]] ; then
-		  read -u ${_Dbg_fdi} "?$_Dbg_prompt" line || break
-	      else
-		  read -u ${_Dbg_fdi}  line || break
-	      fi
-	  fi
+          ((_Dbg_cmd_num++))
+          if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
+              _Dbg_in_vared=1
+              vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
+              _Dbg_in_vared=0
+          else
+              if ((1 == _Dbg_in_vared)) ; then
+                  _Dbg_msg "Unable to echo characters in input below"
+              fi
+              if [[ -z ${_Dbg_cmdfile[-1]} ]] ; then
+                  read -u ${_Dbg_fdi} "?$_Dbg_prompt" line || break
+              else
+                  read -u ${_Dbg_fdi}  line || break
+              fi
+          fi
           _Dbg_onecmd "$line"
           rc=$?
           _Dbg_postcmd
-	  ((_Dbg_continue_rc >= 0)) && return $_Dbg_continue_rc
+          ((_Dbg_continue_rc >= 0)) && return $_Dbg_continue_rc
 
-	  # Add $line to the debugger history file unless there was an
-	  # error or the line was empty. Command "print -s" is what
-	  # does this. Obvious, right?
-	  if [[ -n $line ]] && (( rc >= 0 )) ; then
-	      if [[ -z ${_Dbg_cmdfile[-1]} ]]; then
-		  _Dbg_write_journal "((\$ZSH_SUBSHELL < $ZSH_SUBSHELL)) && print -s -- \"$line\""
-		  print -s -- "$line"
-	      else
-		  print -s -- "$line" > /dev/null
-	      fi
-	      if ((_Dbg_history_save)) && [[ -n $_Dbg_histfile ]]; then
-		  fc -W ${_Dbg_histfile} ${_Dbg_history_length}
-	      fi
-	  fi
+          # Add $line to the debugger history file unless there was an
+          # error or the line was empty. Command "print -s" is what
+          # does this. Obvious, right?
+          if [[ -n $line ]] && (( rc >= 0 )) ; then
+              if [[ -z ${_Dbg_cmdfile[-1]} ]]; then
+                  _Dbg_write_journal "((\$ZSH_SUBSHELL < $ZSH_SUBSHELL)) && print -s -- \"$line\""
+                  print -s -- "$line"
+              else
+                  print -s -- "$line" > /dev/null
+              fi
+              if ((_Dbg_history_save)) && [[ -n $_Dbg_histfile ]]; then
+                  fc -W ${_Dbg_histfile} ${_Dbg_history_length}
+              fi
+          fi
 
           (( rc > 0 )) && return $rc
 
-	  line=''
+          line=''
       done # read "?$_Dbg_prompt" ...
 
       _Dbg_fd[-1]=()  # Remove last element
@@ -172,11 +172,11 @@ function _Dbg_process_commands {
 
 # Run a debugger command "annotating" the output
 _Dbg_annotation() {
-  typeset label="$1"
-  shift
-  _Dbg_do_print "$label"
-  $*
-  _Dbg_do_print  ''
+    typeset label="$1"
+    shift
+    _Dbg_do_print "$label"
+    $*
+    _Dbg_do_print  ''
 }
 
 # Run a single command
@@ -190,12 +190,12 @@ _Dbg_onecmd() {
     typeset args
     set -- $*
     if (( $# == 0 )) ; then
-	_Dbg_cmd=$_Dbg_last_next_step_cmd
-	args=$_Dbg_last_next_step_args
+        _Dbg_cmd=$_Dbg_last_next_step_cmd
+        args=$_Dbg_last_next_step_args
     else
-	_Dbg_cmd=$1
-	shift
-	args="$@"
+        _Dbg_cmd=$1
+        shift
+        args="$@"
     fi
     typeset _Dbg_orig_cmd;
     _Dbg_orig_cmd=$_Dbg_cmd
@@ -203,92 +203,92 @@ _Dbg_onecmd() {
 
     # If "set trace-commands" is "on", echo the the command
     if [[  $_Dbg_set_trace_commands == 'on' ]]  ; then
-      _Dbg_msg "+$_Dbg_cmd $args"
+	_Dbg_msg "+$_Dbg_cmd $args"
     fi
 
     if [[ -n ${_Dbg_debugger_commands[$expanded_alias]} ]] ; then
-	${_Dbg_debugger_commands[$expanded_alias]} $args
-	return $?
+        ${_Dbg_debugger_commands[$expanded_alias]} $args
+        return $?
     fi
 
     # The below are command names that are just a little irregular
     case $_Dbg_cmd in
-	[#]* )
-	  _Dbg_last_cmd="#"
-	  # _Dbg_remove_history_item
-	  return -1 # don't put in history.
-	  ;;
+        [#]* )
+            _Dbg_last_cmd="#"
+            # _Dbg_remove_history_item
+            return -1 # don't put in history.
+            ;;
 
-	# single-step ignoring functions
-	'next+' | 'next-' )
-	  _Dbg_do_next $@
-	  return $?
-	  ;;
+        # single-step ignoring functions
+        'next+' | 'next-' )
+            _Dbg_do_next $@
+            return $?
+            ;;
 
-	# single-step
-	'step+' | 'step-' )
-	  _Dbg_do_step $@
-	  return $?
-	  ;;
+        # single-step
+        'step+' | 'step-' )
+            _Dbg_do_step $@
+            return $?
+            ;;
 
-	'' )
-	  # Redo last_cmd
-	  if [[ -n $_Dbg_last_cmd ]] ; then
-	      _Dbg_cmd=$_Dbg_last_cmd
-	      _Dbg_redo=1
-	  fi
-	  ;;
+        '' )
+            # Redo last_cmd
+            if [[ -n $_Dbg_last_cmd ]] ; then
+		_Dbg_cmd=$_Dbg_last_cmd
+		_Dbg_redo=1
+            fi
+            ;;
 
-	# List all breakpoints and actions.
-	L )
-	  _Dbg_do_info_breakpoints
-	  # _Dbg_list_watch
-	  _Dbg_list_action
-	  ;;
+        # List all breakpoints and actions.
+        L )
+            _Dbg_do_info_breakpoints
+            # _Dbg_list_watch
+            _Dbg_list_action
+            ;;
 
-	# Remove all actions
-	A )
-	  _Dbg_do_clear_all_actions $args
-	  ;;
+        # Remove all actions
+        A )
+            _Dbg_do_clear_all_actions $args
+            ;;
 
-	* )
-	   if (( _Dbg_set_autoeval )) ; then
-	       if [[ -t $_Dbg_fdi ]] ; then
-		   if ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 ; then
-		       return -1
-		   fi
-	       else
-		   if ! _Dbg_do_eval $_Dbg_cmd $args ; then
-		       return -1
-		   fi
-	       fi
-	   else
-             _Dbg_undefined_cmd $_Dbg_cmd
-	     return -1
-	   fi
-	  ;;
-      esac
-      return 0
+        * )
+            if (( _Dbg_set_autoeval )) ; then
+		if [[ -t $_Dbg_fdi ]] ; then
+                    if ! _Dbg_do_eval $_Dbg_cmd $args >&${_Dbg_fdi} 2>&1 ; then
+			return -1
+                    fi
+		else
+                    if ! _Dbg_do_eval $_Dbg_cmd $args ; then
+			return -1
+                    fi
+		fi
+            else
+		_Dbg_undefined_cmd $_Dbg_cmd
+		return -1
+            fi
+            ;;
+    esac
+    return 0
 }
 
 _Dbg_preloop() {
     if ((_Dbg_set_annotate)) ; then
-	_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
-	# _Dbg_annotation 'locals'      _Dbg_do_backtrace 3
-	_Dbg_annotation 'stack'       _Dbg_do_backtrace 3
+        _Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
+        # _Dbg_annotation 'locals'      _Dbg_do_backtrace 3
+        _Dbg_annotation 'stack'       _Dbg_do_backtrace 3
     fi
 }
 
 _Dbg_postcmd() {
     if ((_Dbg_set_annotate)) ; then
-	case $_Dbg_last_cmd in
+        case $_Dbg_last_cmd in
             break | tbreak | disable | enable | condition | clear | delete )
-		_Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
-		;;
-	    up | down | frame )
-		_Dbg_annotation 'stack' _Dbg_do_backtrace 3
-		;;
-	    * )
-	esac
+                _Dbg_annotation 'breakpoints' _Dbg_do_info breakpoints
+                ;;
+            up | down | frame )
+                _Dbg_annotation 'stack' _Dbg_do_backtrace 3
+                ;;
+            * )
+        esac
     fi
 }
