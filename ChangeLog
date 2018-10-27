@@ -1,7 +1,7 @@
 2018-10-27  rocky <rocky@gnu.org>
 
-	* admin/how-to-make-a-release.md, configure.ac: Get ready for
-	release ZSHDB_VERSION
+	* ChangeLog, NEWS, admin/how-to-make-a-release.md, configure.ac: Get
+	ready for release 1.0.0
 
 2018-10-19  rocky <rocky@gnu.org>
 
