@@ -5,21 +5,21 @@
 
 - Look for patches and outstanding bugs on sourceforge.net
 
+- git pull
 
 - Edit from configure.ac's release name. E.g.
-   ZSHDB_VERSION='0.92'
-    AC_INIT([zshdb],[0.92],[rocky@gnu.org])
-                       ^^
+   export ZSHDB_VERSION='1.0.0'
+    AC_INIT([zshdb],[1.0.0],[rocky@gnu.org])
+                     ^^^^^
 
 - ./autogen.sh && make && make check
 
 - Commit changes
 
-  git pull
   git commit -m"Get ready for release ZSHDB_VERSION" .
   make Changelog
 
-- Go over Changelog and add NEWS. Update date of release.
+- Go over ChangeLog and add NEWS. Update date of release.
 
   git commit --amend .
 

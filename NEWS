@@ -1,3 +1,22 @@
+Version 1.0.0
+2018-10-27
+
+- Untabify some sources
+- Better handling of paths with embedded blanks
+- Add --tty_in and --terminal_in
+- backtrace with more eatures
+     * Allow negative count.
+     * Option -s or --source show source-code line in backtrace
+- Document how tests work
+- More sub-indexing in command help
+- Other documentation improvements
+- "set style" lists all available pygments styles
+- allow gdb-style enable/disable/delete all brkpts
+- _Dbg_write_journal_avar for zsh 5.1 and 5.4
+- unvarnished "typeset -p" output Fixes issue #12 Fixes #10
+- Sync with bashdb. Closer gdb conformance
+- Fix test for funcfiletrace on later zshdb in ok4zshdb
+
 Version 0.92
 2016-07-06
 

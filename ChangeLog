@@ -1,3 +1,324 @@
+2018-10-27  rocky <rocky@gnu.org>
+
+	* admin/how-to-make-a-release.md, configure.ac: Get ready for
+	release ZSHDB_VERSION
+
+2018-10-19  rocky <rocky@gnu.org>
+
+	* lib/processor.sh: Untabify
+
+2018-10-12  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #17 from rocky/rogalmic-safe-changes Minor safe changes.
+
+2018-10-07  rocky <rocky@gnu.org>
+
+	* lib/tty.sh: Minor space strip change
+
+2018-09-30  rocky <rocky@gnu.org>
+
+	* dbg-opts.sh, lib/hook.sh: More rogalmic changes
+
+2018-09-30  rocky <rocky@gnu.org>
+
+	* command/action.sh, command/break.sh, command/eval.sh,
+	command/set.sh, dbg-opts.sh, lib/hook.sh, lib/processor.sh,
+	test/Makefile.am, test/data/lopts.right: rogalmic's bashdb patches
+	applied to zshdb Tolerance for path names with embedded blanks.  Adds --tty_in
+	--terminal_in
+
+2018-06-26  rocky <rocky@gnu.org>
+
+	* circle.yml: Remove CircleCI 1.1
+
+2018-06-26  rocky <rocky@gnu.org>
+
+	* command/kill.sh, command/quit.sh: Small RsT doc changes on some
+	commands
+
+2018-06-25  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml, admin/how-to-make-a-release.md,
+	command/frame.sh, command/shell.sh: Some typos and try CircleCI 2.0
+
+2018-04-15  rocky <rocky@gnu.org>
+
+	* lib/gdb.sh: Bump copyright
+
+2018-04-15  rocky <rocky@gnu.org>
+
+	* .gitignore, command/backtrace.sh, lib/gdb.sh: backtrace with more
+	features...  Allow negative count. Option -s or --source show source-code line in
+	backtrace
+
+2018-04-13  rocky <rocky@gnu.org>
+
+	* test/README.md: Add most rudimentary README.md for tests
+
+2017-12-22  rocky <rocky@gnu.org>
+
+	* docs/conf.py: Typo
+
+2017-10-02  rocky <rocky@gnu.org>
+
+	* docs/conf.py: Go over conf
+
+2017-09-30  rocky <rocky@gnu.org>
+
+	* docs/index.rst: Doc correction
+
+2017-09-30  rocky <rocky@gnu.org>
+
+	* docs/commands/data/eval.rst, docs/features.rst: More doc tweaks
+
+2017-09-30  rocky <rocky@gnu.org>
+
+	* docs/features.rst, docs/index.rst: overview->features
+
+2017-09-30  rocky <rocky@gnu.org>
+
+	* docs/index.rst: overview -> features
+
+2017-09-30  rocky <rocky@gnu.org>
+
+	* docs/index.rst, docs/overview.rst: Revise readthedocs index page
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands/show/aliases.rst, docs/commands/show/args.rst,
+	docs/commands/show/autoeval.rst, docs/commands/show/autolist.rst,
+	docs/commands/show/basename.rst, docs/commands/show/cmdtrace.rst,
+	docs/commands/show/confirm.rst, docs/commands/show/different.rst,
+	docs/commands/show/highlight.rst, docs/commands/show/listsize.rst,
+	docs/commands/show/maxstring.rst, docs/commands/show/skip.rst,
+	docs/commands/show/style.rst, docs/commands/show/trace.rst,
+	docs/commands/show/width.rst: Last of subindexed command doc
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands/set/autoeval.rst, docs/commands/set/autolist.rst,
+	docs/commands/set/basename.rst, docs/commands/set/cmdtrace.rst,
+	docs/commands/set/confirm.rst, docs/commands/set/different.rst,
+	docs/commands/set/events.rst, docs/commands/set/flush.rst,
+	docs/commands/set/highlight.rst, docs/commands/set/listsize.rst,
+	docs/commands/set/maxstring.rst, docs/commands/set/skip.rst,
+	docs/commands/set/style.rst, docs/commands/set/substitute.rst,
+	docs/commands/set/trace.rst, docs/commands/set/width.rst,
+	docs/commands/show/aliases.rst, docs/commands/show/args.rst,
+	docs/commands/show/autoeval.rst, docs/commands/show/autolist.rst,
+	docs/commands/show/basename.rst, docs/commands/show/cmdtrace.rst,
+	docs/commands/show/confirm.rst, docs/commands/show/different.rst,
+	docs/commands/show/highlight.rst, docs/commands/show/listsize.rst,
+	docs/commands/show/maxstring.rst, docs/commands/show/skip.rst,
+	docs/commands/show/style.rst, docs/commands/show/trace.rst,
+	docs/commands/show/width.rst, docs/commands/support/source.rst: More
+	sub-indexed commands
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands/running/continue.rst,
+	docs/commands/running/exit.rst, docs/commands/running/kill.rst,
+	docs/commands/running/next.rst, docs/commands/running/quit.rst,
+	docs/commands/running/restart.rst, docs/commands/running/run.rst,
+	docs/commands/running/skip.rst, docs/commands/running/step.rst,
+	docs/commands/stack/backtrace.rst, docs/commands/stack/down.rst,
+	docs/commands/stack/frame.rst, docs/commands/stack/up.rst,
+	docs/commands/support/alias.rst, docs/commands/support/help.rst,
+	docs/commands/support/source.rst, docs/commands/support/unalias.rst: 
+	More command index entries
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands/breakpoints/break.rst,
+	docs/commands/breakpoints/condition.rst,
+	docs/commands/breakpoints/delete.rst,
+	docs/commands/breakpoints/disable.rst,
+	docs/commands/breakpoints/enable.rst,
+	docs/commands/breakpoints/tbreak.rst,
+	docs/commands/data/display.rst, docs/commands/data/eval.rst,
+	docs/commands/data/examine.rst, docs/commands/data/undisplay.rst,
+	docs/commands/files/edit.rst, docs/commands/files/list.rst,
+	docs/commands/info/break.rst, docs/commands/info/files.rst,
+	docs/commands/info/line.rst, docs/commands/info/program.rst,
+	docs/commands/info/source.rst, docs/index.rst: Start a command index
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* : commit 7a529f084211fb9cdf1de0d72b6d6a75bf775b66 Author: rocky
+	<rocky@gnu.org> Date:   Fri Sep 29 13:22:10 2017 -0400
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/index.rst, docs/manpage.rst: Doc title change
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* command/set_sub/style.sh, docs/commands/set/style.rst: plain "set
+	style" lists all styles Beef up help doc too.
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands/data/eval.rst: eval doc typo
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/overview.rst: Fix overview links
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* command/eval.sh: eval doc
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands/data/eval.rst: eval doc
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* command/list.sh, docs/commands/files/list.rst, docs/overview.rst,
+	test/data/list.right: update list help
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* README.md, docs/overview.rst: More doc hacking
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands.rst: More doc hacking
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* command/condition.sh, command/eval.sh,
+	docs/commands/data/eval.rst: More doc changes
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/conf.py: remove schmutz
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands.rst: Start doc for commands
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/overview.rst: Small doc change
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/commands/Makefile, docs/commands/breakpoints.rst,
+	docs/commands/breakpoints/Makefile,
+	docs/commands/breakpoints/break.rst,
+	docs/commands/breakpoints/condition.rst,
+	docs/commands/breakpoints/delete.rst,
+	docs/commands/breakpoints/disable.rst,
+	docs/commands/breakpoints/enable.rst,
+	docs/commands/breakpoints/tbreak.rst, docs/commands/data.rst,
+	docs/commands/data/Makefile, docs/commands/data/display.rst,
+	docs/commands/data/eval.rst, docs/commands/data/examine.rst,
+	docs/commands/data/pr.rst, docs/commands/data/undisplay.rst,
+	docs/commands/files.rst, docs/commands/files/Makefile,
+	docs/commands/files/edit.rst, docs/commands/files/list.rst,
+	docs/commands/info.rst, docs/commands/info/Makefile,
+	docs/commands/info/break.rst, docs/commands/info/files.rst,
+	docs/commands/info/line.rst, docs/commands/info/program.rst,
+	docs/commands/info/source.rst, docs/commands/running.rst,
+	docs/commands/running/Makefile, docs/commands/running/continue.rst,
+	docs/commands/running/exit.rst, docs/commands/running/kill.rst,
+	docs/commands/running/next.rst, docs/commands/running/quit.rst,
+	docs/commands/running/restart.rst, docs/commands/running/run.rst,
+	docs/commands/running/skip.rst, docs/commands/running/step.rst,
+	docs/commands/set.rst, docs/commands/set/Makefile,
+	docs/commands/set/autoeval.rst, docs/commands/set/autolist.rst,
+	docs/commands/set/basename.rst, docs/commands/set/cmdtrace.rst,
+	docs/commands/set/confirm.rst, docs/commands/set/different.rst,
+	docs/commands/set/events.rst, docs/commands/set/flush.rst,
+	docs/commands/set/highlight.rst, docs/commands/set/listsize.rst,
+	docs/commands/set/maxstring.rst, docs/commands/set/skip.rst,
+	docs/commands/set/style.rst, docs/commands/set/substitute.rst,
+	docs/commands/set/trace.rst, docs/commands/set/width.rst,
+	docs/commands/show.rst, docs/commands/show/Makefile,
+	docs/commands/show/aliases.rst, docs/commands/show/args.rst,
+	docs/commands/show/autoeval.rst, docs/commands/show/autolist.rst,
+	docs/commands/show/basename.rst, docs/commands/show/cmdtrace.rst,
+	docs/commands/show/confirm.rst, docs/commands/show/different.rst,
+	docs/commands/show/events.rst, docs/commands/show/flush.rst,
+	docs/commands/show/highlight.rst, docs/commands/show/listsize.rst,
+	docs/commands/show/maxstring.rst, docs/commands/show/skip.rst,
+	docs/commands/show/style.rst, docs/commands/show/trace.rst,
+	docs/commands/show/width.rst, docs/commands/stack.rst,
+	docs/commands/stack/Makefile, docs/commands/stack/backtrace.rst,
+	docs/commands/stack/down.rst, docs/commands/stack/frame.rst,
+	docs/commands/stack/up.rst, docs/commands/support.rst,
+	docs/commands/support/Makefile, docs/commands/support/alias.rst,
+	docs/commands/support/debug.rst, docs/commands/support/help.rst,
+	docs/commands/support/source.rst,
+	docs/commands/support/unalias.rst, docs/conf.py,
+	docs/syntax/command.rst, docs/syntax/suffixes.rst: Fill in docs on
+	zsh commnads
+
+2017-09-29  rocky <rocky@gnu.org>
+
+	* docs/.gitignore, docs/Makefile, docs/conf.py, docs/index.rst,
+	docs/install.md, docs/make.bat, docs/manpage.rst,
+	docs/overview.rst, docs/syntax.rst, test-driver: Try readthedocs
+
+2017-09-05  rocky <rocky@gnu.org>
+
+	* circle.yml, test/integration/test-enable.in: Diable a test in
+	CircleCI for now
+
+2017-09-05  rocky <rocky@gnu.org>
+
+	* command/break.sh, command/delete.sh, command/disable.sh,
+	command/enable.sh, command/info_sub/breakpoints.sh, lib/break.sh,
+	lib/msg.sh: allo gdb-style enable/disable/delete all brkpts
+
+2017-09-03  rocky <rocky@gnu.org>
+
+	* lib/journal.sh: _Dbg_write_journal_avar for zsh 5.1 and 5.4
+
+2017-09-03  rocky <rocky@gnu.org>
+
+	* dbg-opts.sh, lib/break.sh, lib/journal.sh,
+	test/data/export-5.4.1.right, test/integration/test-export.in: Assoc
+	array journal writing for zsh 5.4 At some point, zsh "typeset -p" output changed and eval can now read
+	unvarnished "typeset -p" output Fixes issue #12 Fixes #10
+
+2017-09-01  rocky <rocky@gnu.org>
+
+	* test/data/Makefile.am: Filename typo
+
+2017-09-01  rocky <rocky@gnu.org>
+
+	* configure.ac, test/data/Makefile.am,
+	test/data/examine-5.4.1.right, test/data/setshow-5.4.1.right,
+	test/data/subshell-5.4.1.right,
+	test/integration/check-common.sh.in,
+	test/integration/test-examine.in, test/integration/test-multi.in,
+	test/integration/test-setshow.in,
+	test/integration/test-subshell.in, test/unit/test-examine.sh.in: Zsh
+	changes typeset output Remove failures associated with that.  One bug still remains related to some other zsh version change.
+
+2017-08-30  rocky <rocky@gnu.org>
+
+	* lib/break.sh: Revert gdb multiple breakpoint numbers
+
+2017-08-30  rocky <rocky@gnu.org>
+
+	* command/break.sh, command/delete.sh, command/disable.sh,
+	command/enable.sh, lib/break.sh, lib/frame.sh, lib/setshow.sh,
+	test/unit/test-get-sourceline.sh.in: Sync with bashdb. Closer gdb
+	conformance
+
+2017-08-30  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #11 from irl/task/9 Fix test for funcfiletrace on later zshdb in ok4zshdb.sh (Closes:
+	#9)
+
+2017-05-07  rocky <rocky@gnu.org>
+
+	* .gitignore, COPYING, ChangeLog, command/stepping.sh,
+	command/trace.sh: Small changes
+
 2016-07-06  Rocky Bernstein <rocky@gnu.org>
 
 	* ChangeLog, NEWS, configure.ac: Get ready for releaes 0.92
@@ -40,7 +361,7 @@
 	command/complete.sh, command/condition.sh, command/delete.sh,
 	command/disable.sh, command/down.sh, command/help.sh,
 	command/kill.sh, command/list.sh, command/undisplay.sh,
-	command/up.sh, lib/help.sh, lib/info-help.sh, lib/info.sh,
+	command/up.sh, lib/help.sh, lib/{info.sh => info-help.sh},
 	test/data/list.right: Correct info help. Start rSt for commands
 
 2016-06-23  rocky <rocky@gnu.org>
@@ -427,10 +748,10 @@
 
 2011-05-27  rocky <rocky@gnu.org>
 
-	* configure.ac, test/unit/.gitignore, test/unit/test-eval.sh.in,
-	test/unit/test-fns.sh.in, test/unit/test-lib-eval.sh.in: 
-	Administrivia: test-eval.sh.in -> test-lib-eval.sh.in. test-fns.sh:
-	Remove extra slash in sourcing files
+	* configure.ac, test/unit/.gitignore, test/unit/test-fns.sh.in,
+	test/unit/{test-eval.sh.in => test-lib-eval.sh.in}: Administrivia:
+	test-eval.sh.in -> test-lib-eval.sh.in. test-fns.sh: Remove extra
+	slash in sourcing files
 
 2011-05-18  rocky <rocky@gnu.org>
 
@@ -548,7 +869,7 @@
 	command/edit.sh, command/examine.sh, command/kill.sh,
 	command/next.sh, command/pwd.sh, command/quit.sh,
 	command/return.sh, command/run.sh, command/source.sh,
-	command/up.sh, lib/columnize.sh, lib/columns.sh,
+	command/up.sh, lib/{columns.sh => columnize.sh},
 	test/unit/test-columns.sh.in: Go over help. Sync with bashdb and
 	kshdb.
 
@@ -570,15 +891,15 @@
 
 2011-05-07  rocky <rocky@gnu.org>
 
-	* command/examine.sh, command/show.sh, command/show_sub/debug.sh,
-	command/show_sub/debugging.sh, command/trace.sh, lib/Makefile.am,
-	lib/fns.sh, lib/help.sh, lib/hook.sh, lib/shell.sh,
-	test/data/setshow.right: set debug -> set debugging
+	* command/examine.sh, command/show.sh,
+	command/show_sub/{debugging.sh => debug.sh}, command/trace.sh,
+	lib/Makefile.am, lib/fns.sh, lib/help.sh, lib/hook.sh,
+	lib/shell.sh, test/data/setshow.right: set debug -> set debugging
 
 2011-05-07  rocky <rocky@gnu.org>
 
-	* command/set_sub/debug.sh, command/set_sub/debugging.sh: Set
-	debugging -> set debug to follow gdb.
+	* command/set_sub/{debugging.sh => debug.sh}: Set debugging -> set
+	debug to follow gdb.
 
 2011-05-06  rocky <rocky@gnu.org>
 
@@ -946,10 +1267,10 @@
 	* command/set.sh, command/set_sub/Makefile.am,
 	command/set_sub/annotate.sh, command/set_sub/args.sh,
 	command/set_sub/autolist.sh, command/set_sub/editing.sh,
-	command/set_sub/history.sh, command/set_sub/linewidth.sh,
-	command/set_sub/listsize.sh, command/set_sub/showcommand.sh,
-	command/set_sub/width.sh, command/show.sh: Move subcommand dispatch
-	into hash in set commands. Add help although not used yet.
+	command/set_sub/history.sh, command/set_sub/listsize.sh,
+	command/set_sub/showcommand.sh, command/set_sub/{linewidth.sh =>
+	width.sh}, command/show.sh: Move subcommand dispatch into hash in
+	set commands. Add help although not used yet.
 
 2011-02-06  rocky <rocky@gnu.org>
 
@@ -1169,10 +1490,10 @@
 
 2010-11-14  rocky <rocky@gnu.org>
 
-	* command/backtrace.sh, command/trace.sh, command/tracefn.sh,
-	command/where.sh: Simplify, shorten and generalize command-selection
-	code using an associative array for command selection rather than a
-	case statement.
+	* command/{where.sh => backtrace.sh}, command/{tracefn.sh =>
+	trace.sh}: Simplify, shorten and generalize command-selection code
+	using an associative array for command selection rather than a case
+	statement.
 
 2010-10-31  rocky <rocky@gnu.org>
 
@@ -2756,14 +3077,15 @@
 
 2008-08-23  R. Bernstein <rocky@gnu.org>
 
-	* .gitignore, Makefile.am, configure.ac, dbg-trace.sh.in,
-	emacs/.gitignore, emacs/Makefile.am, emacs/dbg-test.el.in,
-	emacs/zshdb-test.el.in, test/example/settrace.sh, zshdb-trace.in: 
-	Infrstructure more generic and common with other *shdb debuggers
+	* .gitignore, Makefile.am, configure.ac, zshdb-trace.in =>
+	dbg-trace.sh.in, emacs/.gitignore, emacs/Makefile.am,
+	emacs/{zshdb-test.el.in => dbg-test.el.in},
+	test/example/settrace.sh: Infrstructure more generic and common with
+	other *shdb debuggers
 
 2008-08-23  R. Bernstein <rocky@gnu.org>
 
-	* lib/Makefile.am, lib/hook.sh, lib/processor.sh, lib/sig.sh: sig.sh
+	* lib/Makefile.am, lib/{sig.sh => hook.sh}, lib/processor.sh: sig.sh
 	-> hook.sh.
 
 2008-08-23  R. Bernstein <rocky@gnu.org>
@@ -2999,8 +3321,8 @@
 
 	* command/alias.sh, command/frame.sh, command/run.sh,
 	command/stepping.sh, command/where.sh, dbg-main.sh,
-	lib/Makefile.am, lib/alias.sh, lib/fns.sh, lib/frame.sh,
-	lib/gdb.sh, lib/help.sh, lib/processor.sh, lib/sig.sh, lib/stack.sh: 
+	lib/Makefile.am, lib/alias.sh, lib/fns.sh, lib/{stack.sh =>
+	frame.sh}, lib/gdb.sh, lib/help.sh, lib/processor.sh, lib/sig.sh: 
 	add_help->_Dbg_add_help and a number of other small typos and
 	cleanups.
 
@@ -3123,24 +3445,23 @@
 
 2008-08-07  R. Bernstein <rocky@sanchez.(none)>
 
-	* Makefile.am, command/Makefile.am, command/alias.cmd,
-	command/alias.sh, command/continue.cmd, command/continue.sh,
-	command/eval.cmd, command/eval.sh, command/frame.cmd,
-	command/frame.sh, command/help.cmd, command/help.sh,
-	command/quit.cmd, command/quit.sh, command/run.cmd, command/run.sh,
-	command/source.sh, command/stepping.cmd, command/stepping.sh,
-	command/tracefn.cmd, command/tracefn.sh, command/where.cmd,
-	command/where.sh, dbg-main.sh, dbg-opts.sh, dbg-pre.inc,
-	dbg-pre.sh, lib/Makefile.am, lib/alias.inc, lib/alias.sh,
-	lib/file.sh, lib/fns.inc, lib/fns.sh, lib/gdb.inc, lib/gdb.sh,
-	lib/help.inc, lib/help.sh, lib/journal.inc, lib/journal.sh,
-	lib/processor.inc, lib/processor.sh, lib/run.inc, lib/run.sh,
-	lib/set-d-vars.inc, lib/set-d-vars.sh, lib/sig.inc, lib/sig.sh,
-	lib/stack.inc, lib/stack.sh, main.inc, opts.inc,
-	test/unit/.gitignore, test/unit/test-alias.sh.in,
-	test/unit/test-fns.sh.in, test/unit/test-run.sh.in, zshdb, zshdb.in: 
-	Work usage help and add -x --command option.  remove .cmd and .inc
-	prefixes in favor of the more normal .sh
+	* Makefile.am, command/Makefile.am, command/{alias.cmd =>
+	alias.sh}, command/{continue.cmd => continue.sh}, command/{eval.cmd
+	=> eval.sh}, command/{frame.cmd => frame.sh}, command/{help.cmd =>
+	help.sh}, command/{quit.cmd => quit.sh}, command/{run.cmd =>
+	run.sh}, command/source.sh, command/{stepping.cmd => stepping.sh},
+	command/{tracefn.cmd => tracefn.sh}, command/{where.cmd =>
+	where.sh}, dbg-main.sh, dbg-opts.sh, dbg-pre.inc => dbg-pre.sh,
+	lib/Makefile.am, lib/{alias.inc => alias.sh}, lib/file.sh,
+	lib/{fns.inc => fns.sh}, lib/{gdb.inc => gdb.sh}, lib/{help.inc =>
+	help.sh}, lib/{journal.inc => journal.sh}, lib/{processor.inc =>
+	processor.sh}, lib/{run.inc => run.sh}, lib/{set-d-vars.inc =>
+	set-d-vars.sh}, lib/{sig.inc => sig.sh}, lib/{stack.inc =>
+	stack.sh}, main.inc, opts.inc, test/unit/.gitignore,
+	test/unit/test-alias.sh.in, test/unit/test-fns.sh.in,
+	test/unit/test-run.sh.in, zshdb, zshdb.in: Work usage help and add
+	-x --command option.  remove .cmd and .inc prefixes in favor of the
+	more normal .sh
 
 2008-08-06  R. Bernstein <rocky@sanchez.(none)>
 
@@ -3170,8 +3491,8 @@
 
 	* command/Makefile.am, command/continue.cmd, command/down.cmd,
 	command/eval.cmd, command/frame.cmd, command/help.cmd,
-	command/print.cmd, command/skip.cmd, command/step.cmd,
-	command/stepping.cmd, command/trace.cmd, command/tracefn.cmd,
+	command/print.cmd, command/step.cmd, command/{skip.cmd =>
+	stepping.cmd}, command/{trace.cmd => tracefn.cmd},
 	command/untrace.cmd, command/up.cmd, configure.ac, emacs/zshdb.el,
 	lib/help.inc, lib/run.inc, main.inc, test/unit/test-alias.sh,
 	test/unit/test-alias.sh.in, test/unit/test-fns.sh,
@@ -3205,7 +3526,7 @@
 2008-08-05  R. Bernstein <rocky@sanchez.(none)>
 
 	* Makefile.am, configure.ac, test/.gitignore, test/Makefile.am,
-	test/unit/.gitignore, test/unit/Makefile.am, zshdb, zshtrace.sh: 
+	test/unit/.gitignore, test/unit/Makefile.am, zshtrace.sh => zshdb: 
 	Start automess.
 
 2008-08-05  R. Bernstein <rocky@sanchez>
@@ -3286,22 +3607,21 @@
 
 2008-08-02  R. Bernstein <rocky@sanchez.(none)>
 
-	* dbg-fns.inc, dbg-gdb.inc, dbg-init.inc, dbg-main.inc,
-	dbg-processor.inc, dbg-set-d-vars.inc, dbg-sig.inc, dbg-stack.inc,
-	init.inc, lib/alias.inc, lib/fns.inc, lib/gdb.inc,
-	lib/processor.inc, lib/set-d-vars.inc, lib/sig.inc, lib/stack.inc,
-	main.inc, test/unit/test-alias.sh: Create lib directory and move
-	files there. Add help.
+	* dbg-main.inc, dbg-init.inc => init.inc, lib/alias.inc,
+	dbg-fns.inc => lib/fns.inc, dbg-gdb.inc => lib/gdb.inc,
+	dbg-processor.inc => lib/processor.inc, dbg-set-d-vars.inc =>
+	lib/set-d-vars.inc, dbg-sig.inc => lib/sig.inc, dbg-stack.inc =>
+	lib/stack.inc, main.inc, test/unit/test-alias.sh: Create lib
+	directory and move files there. Add help.
 
 2008-08-01  R. Bernstein <rocky@sanchez.(none)>
 
-	* command/alias.cmd, command/backtrace.cmd, command/help.cmd,
-	command/print.cmd, command/quit.cmd, command/up.cmd,
-	command/where.cmd, dbg-processor.inc, dbg-set-d-vars.inc,
-	dbg-sig.inc, emacs/elk-test.el, emacs/zshdb-test.el.in,
-	emacs/zshdb.el, testing.sh, zshtrace.sh: Attempt full substitution
-	in print and eval. Add alias command.  Add alias for "bt". Add
-	emacs.
+	* command/alias.cmd, command/help.cmd, command/print.cmd,
+	command/quit.cmd, command/up.cmd, command/{backtrace.cmd =>
+	where.cmd}, dbg-processor.inc, dbg-set-d-vars.inc, dbg-sig.inc,
+	emacs/elk-test.el, emacs/zshdb-test.el.in, emacs/zshdb.el,
+	testing.sh, zshtrace.sh: Attempt full substitution in print and
+	eval. Add alias command.  Add alias for "bt". Add emacs.
 
 2008-07-30  R. Bernstein <rocky@sanchez.(none)>
 
