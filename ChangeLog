@@ -1,3 +1,26 @@
+2019-09-10  rocky <rocky@gnu.org>
+
+	* Makefile.am, NEWS, configure.ac: Get ready for release
+	ZSHDB_VERSION
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml: CircleCI try 2
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml, .gitignore: CircleCI Try 1 - use ubuntu
+	disco
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* : commit 1615809238e8a992128c50558d011d49929b7c69 Author: rocky
+	<rocky@gnu.org> Date:   Tue Sep 10 04:33:51 2019 -0400
+
+2018-10-27  rocky <rocky@gnu.org>
+
+	* ChangeLog: Update Changelog
+
 2018-10-27  rocky <rocky@gnu.org>
 
 	* ChangeLog, NEWS, admin/how-to-make-a-release.md, configure.ac: Get

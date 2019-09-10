@@ -34,7 +34,7 @@ bin_SCRIPTS = zshdb
 
 MOSTLYCLEANFILES = *.orig *.rej
 
-EXTRA_DIST = $(pkgdata_DATA) THANKS README.md make-check-filter.rb
+EXTRA_DIST = $(pkgdata_DATA) THANKS README.md NEWS.md make-check-filter.rb
 
 #: Run all tests without bloated output
 check-short:
