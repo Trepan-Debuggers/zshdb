@@ -12,6 +12,7 @@
 /config.status
 /configure
 /dbg-trace.sh
+/dist
 /install-sh
 /missing
 /test/*/*.log
