@@ -1,5 +1,19 @@
 2019-09-10  rocky <rocky@gnu.org>
 
+	* NEWS.md, test/integration/test-enable.in: Get ready for release
+	1.0.1
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* configure.ac: NEWS->NEWS.md problem
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* .travis.yml, ChangeLog, admin/how-to-make-a-release.md: Now it is
+	Travis acting up
+
+2019-09-10  rocky <rocky@gnu.org>
+
 	* ChangeLog, Makefile.am, NEWS, configure.ac: Get ready for release
 	ZSHDB_VERSION
 
