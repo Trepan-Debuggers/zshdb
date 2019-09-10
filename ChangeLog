@@ -1,6 +1,6 @@
 2019-09-10  rocky <rocky@gnu.org>
 
-	* Makefile.am, NEWS, configure.ac: Get ready for release
+	* ChangeLog, Makefile.am, NEWS, configure.ac: Get ready for release
 	ZSHDB_VERSION
 
 2019-09-10  rocky <rocky@gnu.org>

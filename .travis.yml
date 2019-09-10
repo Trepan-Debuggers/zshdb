@@ -1,5 +1,7 @@
 language: zsh
 
+dist: zenial
+
 install:
   # Install zsh.
   - "sudo apt-get install zsh"

@@ -25,9 +25,8 @@
 
 - "make distcheck" should work
 
-- Tag release in git:
-   git tag release-${ZSHDB_VERSION}
-   git push --tags
+- Tag release on github
+   https://github.com/rocky/zshdb/releases
 
 - Get onto sourceforge:
   Use the GUI
