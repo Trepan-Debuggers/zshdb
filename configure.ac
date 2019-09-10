@@ -3,7 +3,7 @@ define(DEBUGGER, zshdb)
 define(POSIXSHELL, zsh)
 AC_INIT([zshdb],[1.0.1],[https://github.com/rocky/zshdb/issues])
 AM_MAINTAINER_MODE
-AM_INIT_AUTOMAKE([no-define])
+AM_INIT_AUTOMAKE([foreign])
 
 AC_CONFIG_SRCDIR(DEBUGGER.in)
 if test x$srcdir = x ; then
