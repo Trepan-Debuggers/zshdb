@@ -10,6 +10,7 @@
 /test-bug-errexit
 /test-bug-ksharrays
 /test-bugIFS
+/test-bugIFS2
 /test-condition
 /test-delete
 /test-display

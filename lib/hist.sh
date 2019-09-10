@@ -53,7 +53,7 @@ _Dbg_history_write() {
 	((_Dbg_history_size < last+1)) && ((start=last+1-_Dbg_history_size))
 	for ((i=start; i<=last; i++)); do
 	    buffer=(${history[i]})
-	    buffer[0]=()
+	    ((last > 2)) && buffer[0]=()
 	    print -- "${buffer[@]}" >> $_Dbg_histfile;
 	done
     fi

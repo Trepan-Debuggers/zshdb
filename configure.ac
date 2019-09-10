@@ -108,6 +108,8 @@ AC_CONFIG_FILES([test/integration/test-bug-errexit],
                 [chmod +x test/integration/test-bug-errexit])
 AC_CONFIG_FILES([test/integration/test-bugIFS],
                 [chmod +x test/integration/test-bugIFS])
+AC_CONFIG_FILES([test/integration/test-bugIFS2],
+                [chmod +x test/integration/test-bugIFS2])
 AC_CONFIG_FILES([test/integration/test-bug-ksharrays],
                 [chmod +x test/integration/test-bug-ksharrays])
 AC_CONFIG_FILES([test/integration/test-condition],

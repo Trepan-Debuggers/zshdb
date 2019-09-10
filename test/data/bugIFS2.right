@@ -1,0 +1,12 @@
+(bugIFS2.sh:3):
+typeset -p IFS
++# Debugger test of another IFS bug
++# 
++c 
+typeset IFS=$' \t\n\C-@'
+temp = 1
+temp = 2
+temp = 3
+Program terminated. Type 's' or 'R' to restart.
++quit 
+zshdb: That's all, folks...

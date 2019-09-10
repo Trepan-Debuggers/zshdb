@@ -4,6 +4,7 @@ TESTS = \
 	test-bug-args      \
 	test-bug-delete	   \
 	test-bugIFS        \
+	test-bugIFS2       \
 	test-bug-errexit   \
 	test-bug-ksharrays \
 	test-condition     \

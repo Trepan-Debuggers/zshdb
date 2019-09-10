@@ -12,7 +12,7 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
@@ -33,7 +33,7 @@
 "$_Dbg_debugger_set_opts $_Dbg_debugger_unset_opts"
 
 # Do things for debugger entry. Set some global debugger variables
-# Remove trapping ourselves. 
+# Remove trapping ourselves.
 # We assume that we are nested two calls deep from the point of debug
 # or signal fault. If this isn't the constant 2, then consider adding
 # a parameter to this routine.
@@ -41,7 +41,7 @@ _Dbg_set_debugger_entry() {
 
     _Dbg_rc=0
     _Dbg_return_rc=0
-    _Dbg_old_IFS="$IFS"
+    _Dbg_old_IFS=$(typeset -p IFS)
     _Dbg_old_PS4="$PS4"
     if (( $# > 0 )) ; then
 	_Dbg_create_unsetopt "$_Dbg_check_opts"
@@ -77,7 +77,7 @@ function _Dbg_create_unsetopt {
 
 
 # Does things to after on entry of after an eval to set some debugger
-# internal settings  
+# internal settings
 _Dbg_set_debugger_internal() {
   IFS="$_Dbg_space_IFS"
   PS4='(%x:%I): %? $_Dbg_debugger_name
@@ -87,7 +87,7 @@ _Dbg_set_debugger_internal() {
 }
 
 _Dbg_restore_user_vars() {
-  IFS="$_Dbg_old_IFS"
+  eval $_Dbg_old_IFS > /dev/null 2>&1
   PS4="$_Dbg_old_PS4"
   [[ -n $_Dbg_restore_unsetopt ]] && eval "unsetopt $_Dbg_restore_unsetopt"
   [[ -n $_Dbg_restore_setopt ]] && eval "setopt $_Dbg_restore_setopt"
