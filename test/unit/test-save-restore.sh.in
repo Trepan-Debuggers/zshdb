@@ -43,8 +43,10 @@ test_save_restore_IFS_PS4()
     fi
     assertNotEquals '123' "$PS4"
     _Dbg_set_to_return_from_debugger
-    assertNotEquals "$_Dbg_space_IFS" "$IFS"
-    assertEquals "$new_ifs" "$IFS"
+    if [[ -z "$TRAVIS" ]] ; then
+	assertNotEquals "$_Dbg_space_IFS" "$IFS"
+	assertEquals "$new_ifs" "$IFS"
+    fi
     IFS="$old_IFS"
 }
 
