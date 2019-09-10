@@ -152,6 +152,8 @@ AC_CONFIG_FILES([test/unit/test-columns.sh],
                 [chmod +x test/unit/test-columns.sh])
 AC_CONFIG_FILES([test/unit/test-cmd-complete.sh],
                 [chmod +x test/unit/test-cmd-complete.sh])
+AC_CONFIG_FILES([test/unit/test-cmd-info-variables.sh],
+                [chmod +x test/unit/test-cmd-info-variables.sh])
 AC_CONFIG_FILES([test/unit/test-dbg-opts.sh],
                 [chmod +x test/unit/test-dbg-opts.sh])
 AC_CONFIG_FILES([test/unit/test-examine.sh],

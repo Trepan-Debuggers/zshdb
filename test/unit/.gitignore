@@ -6,6 +6,7 @@
 /test-alias.sh
 /test-break.sh
 /test-cmd-complete.sh
+/test-cmd-info-variables.sh
 /test-columns.sh
 /test-dbg-opts.sh
 /test-examine.sh

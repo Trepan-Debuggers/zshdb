@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # info.sh - Debugger "info" support
 
-#   Copyright (C) 2008, 2016 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2016, 2019 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -20,8 +20,29 @@
 typeset -r _Dbg_info_cmds='breakpoints display files line program source stack variables warranty'
 
 _Dbg_info_help() {
+
+    if (( $# == 0 )) ; then
+        typeset -a list
+	_Dbg_section 'List of info subcommands:'
+
+	for thing in $_Dbg_info_cmds ; do
+	    _Dbg_info_help $thing 1
+	done
+        return 0
+    fi
+
+
     typeset info_cmd=$1
     typeset label=$2
+
+    if [[ -n "${_Dbg_command_help_info[$info_cmd]}" ]] ; then
+	if [[ -z $label ]] ; then
+            _Dbg_msg_rst "${_Dbg_command_help_info[$info_cmd]}"
+            return 0
+	else
+            label=$(builtin printf "info %-12s-- " $info_cmd)
+	fi
+    fi
 
     if (($# > 0)) ; then
 	typeset info_cmd=$1
@@ -85,9 +106,7 @@ _Dbg_info_help() {
 # 	        ;;
 	    v | va | var | vari | varia | variab | variabl | variable | variables )
 		_Dbg_msg \
-		    "info variables [PROPERTY] -- Variable lists by property.
-PROPERTY is one of:
-\t$_Dbg_info_var_attrs"
+'info variables -- All global and static variable names'
 		return 0
 		;;
 	    w | wa | war | warr | warra | warran | warrant | warranty )

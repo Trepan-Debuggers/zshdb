@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "info variables" debugger command
 #
-#   Copyright (C) 2010, 2014, 2016 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2016, 2019 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -17,33 +17,42 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-_Dbg_help_add_sub info program '
+_Dbg_help_add_sub info variables '
 **info variables** [*property*]
 
 list global and static variable names.
 
 Variable lists by property.
-*property* is one of:
+*property* is an abbreviation of one of:
 
-	array, export, fixed, float, function, hash, integer, or readonly
+	arrays, exports, fixed, floats, functions, hash, integers, or readonly
+
+Examples:
+---------
+
+    info variables             # show all variables
+    info variables readonly    # show only read-only variables
+    info variables integer     # show only integer variables
+    info variables functions   # show only functions
 
 ' 1
 
 typeset _Dbg_info_var_attrs="array, export, fixed, float, function, hash, integer, or readonly"
 _Dbg_do_info_variables() {
-    if (($# > 0)) ; then
+    if (($# > 1)) ; then
         typeset kind="$1"
-        shift
+	# Remove "info variables xxx"
+        shift; shift; shift
         case "$kind" in
-            a | ar | arr | arra | array )
-                _Dbg_do_list_typeset_attr '+a' $*
+            a | ar | arr | arra | array | arrays )
+                _Dbg_do_list_typeset_attr '+a' $@
                 return 0
                 ;;
-            e | ex | exp | expor | export )
-                _Dbg_do_list_typeset_attr '+x' $*
+            e | ex | exp | expor | export | exports )
+                _Dbg_do_list_typeset_attr '+x' $@
                 return 0
                 ;;
-            fu|fun|func|funct|functi|functio|function )
+            fu|fun|func|funct|functi|functio|function|functions )
                 _Dbg_do_list_typeset_attr '+f' $*
                 return 0
                 ;;
@@ -51,7 +60,7 @@ _Dbg_do_info_variables() {
                 _Dbg_do_list_typeset_attr '+F' $*
                 return 0
                 ;;
-            fl|flo|floa|float )
+            fl|flo|floa|float|floats)
                 _Dbg_do_list_typeset_attr '+E' $*
                 return 0
                 ;;
@@ -63,7 +72,7 @@ _Dbg_do_info_variables() {
                 _Dbg_do_list_typeset_attr '+A' $*
                 return 0
                 ;;
-            i | in | int| inte | integ | intege | integer )
+            i | in | int| inte | integ | intege | integer | integers )
                 _Dbg_do_list_typeset_attr '+i' $*
                 return 0
                 ;;

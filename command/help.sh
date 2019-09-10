@@ -78,7 +78,7 @@ _Dbg_do_help() {
             else
                 case $dbg_cmd in
                     i | in | inf | info )
-                        _Dbg_help_info $2
+                        _Dbg_info_help $2
 			return 0
                         ;;
                     sh | sho | show )
