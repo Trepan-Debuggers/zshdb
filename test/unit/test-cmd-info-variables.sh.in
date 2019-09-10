@@ -1,0 +1,49 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+test_cmd_info_variables()
+{
+    typeset -i test_cmd_integer=123
+    typeset -x test_cmd_export=exported
+    typeset -i too_permissive=0
+    typeset -i found=0
+    for line in $(_Dbg_do_info_variables -i); do
+	if [[ "$line" == 'test_cmd_integer="123"' ]]; then
+	    found=1
+	elif [[ "$line" == 'test_cmd_export="exported"' ]]; then
+	    too_permissive=1
+	fi
+    done
+
+    assertEquals "1" "$found"
+    assertEquals "0" "$too_permissive"
+
+    found=0
+    too_permissive=0
+    for line in $(_Dbg_do_info_variables -x); do
+	if [[ "$line" == 'test_cmd_integer="123"' ]]; then
+	    too_permissive=1
+	elif [[ "$line" == 'test_cmd_export="exported"' ]]; then
+	    found=1
+	fi
+    done
+
+    assertEquals "1" "$found"
+    assertEquals "0" "$too_permissive"
+    # FIXME try -x -i, and no options. try invalid opts
+}
+
+if [ '/src/external-vcs/sourceforge/bashdb' = '' ] ; then
+  echo "Something is wrong: abs_top_srcdir is not set."
+ exit 1
+fi
+abs_top_srcdir=/src/external-vcs/sourceforge/bashdb
+# Make sure $abs_top_src has a trailing slash
+abs_top_srcdir=${abs_top_srcdir%%/}/
+. ${abs_top_srcdir}test/unit/helper.sh
+. $abs_top_srcdir/lib/help.sh
+. $abs_top_srcdir/lib/msg.sh
+. $abs_top_srcdir/command/info_sub/variables.sh
+
+set -- # reset $# so shunit2 doesn't get confused.
+
+[[ @CMDLINE_INVOKED@ ]] && . ${shunit_file}

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # debugger command options processing. The bane of programming.
 #
-#   Copyright (C) 2008-2011, 2014-2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2011, 2014-2016, 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -81,6 +81,12 @@ typeset -i _Dbg_set_basename=0
 typeset    _Dbg_set_highlight  # Initialized below
 typeset -a _Dbg_o_init_files; _Dbg_o_init_files=()
 typeset -i _Dbg_o_nx=0
+typeset -i _Dbg_have_working_pygmentize=0
+
+if ( pygmentize --version || pygmentize -V ) 2>/dev/null 1>/dev/null ; then
+   _Dbg_have_working_pygmentize=1
+fi
+
 typeset    _Dbg_tty=''
 typeset -i _Dbg_history_save=1
 typeset -i _Dbg_history_size=${HISTSIZE:-256} # gdb's defaulit value
@@ -229,7 +235,7 @@ _Dbg_parse_options() {
 	[[ -n $_Dbg_release ]] ; then
 	echo "$_Dbg_shell_name debugger, $_Dbg_debugger_name, release $_Dbg_release"
 	printf '
-Copyright 2008-2011, 2014, 2016-2018 Rocky Bernstein
+Copyright 2008-2011, 2014, 2016-2019 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
 welcome to change it and/or distribute copies of it under certain conditions.
 
@@ -253,6 +259,24 @@ welcome to change it and/or distribute copies of it under certain conditions.
     unset _Dbg_o_annotate _Dbg_o_version _Dbg_o_quiet
     _Dbg_script_args=("$@")
 }
+
+
+if (( _Dbg_have_working_pygmentize )) && [[ -z "$_Dbg_set_highlight" ]] ; then
+    # Honor DARK_BG if already set. If not set, set it.
+    if [[ -z "$DARK_BG" ]] ; then
+	. "${_Dbg_libdir}/zterm-background.sh" >/dev/null
+    fi
+
+    # DARK_BG is now either 0 or 1.
+    # Set _Dbg_set_highlight based on DARK_BG
+    # Note however that options processing has one more chance to
+    # change _Dbg_set_highlight
+    if (( $DARK_BG )); then
+	_Dbg_set_highlight="dark"
+    else
+	_Dbg_set_highlight="light"
+    fi
+fi
 
 
 # Stand-alone Testing.
