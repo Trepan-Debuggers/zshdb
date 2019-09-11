@@ -15,6 +15,7 @@ Type `info` for a list of info subcommands and what they do. Type help
    :maxdepth: 1
 
    info/break
+   info/display
    info/files
    info/frame
    info/line
