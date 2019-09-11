@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 zshdb - a gdb-like debugger for zsh
-===================================
+========================================
 
 zshdb is a gdb-like debugger for zsh_.
 
@@ -29,6 +29,7 @@ An Emacs interface is available via realgud_.
 
 Indices and tables
 ==================
+
 
 * :ref:`genindex`
 * :ref:`search`
