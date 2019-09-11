@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# gdb-like "info display" debugger command
+# "info signals" debugger command
 #
-#   Copyright (C) 2010-2011, 2014, 2016, 2019 Rocky Bernstein
+#   Copyright (C) 2010-2011, 2016, 2019 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -19,30 +19,26 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_help_add_sub info display '
-**info display**
+_Dbg_help_add_sub info signals \
+"**info signals**
 
-Show all display expressions.
+Show what debugger does when program gets various signals.
 
 See also:
 ---------
-*display*
-' 1
 
-# List display command(s)
-_Dbg_do_info_display() {
-    if [ ${#_Dbg_disp_exp[@]} != 0 ]; then
-	typeset i=0
-	_Dbg_msg "Auto-display statements now in effect:"
-	_Dbg_msg "Num Enb Expression          "
-	for (( i=0; i < _Dbg_disp_max; i++ )) ; do
-	    if [ -n "${_Dbg_disp_exp[$i]}" ] ;then
-		_Dbg_printf '%-3d %3d %s' \
-		    $i ${_Dbg_disp_enable[$i]} "${_Dbg_disp_exp[$i]}"
-	    fi
-	done
-    else
-	_Dbg_msg "No display expressions have been set."
-    fi
-    return 0
+ \"signal\"." 1
+
+# List signal handlers in effect.
+function _Dbg_do_info_signals {
+    # typeset -a signal_array=($(builtin kill -l))
+    # typeset -i i
+    trap | while IFS= read -r line; do
+	if [[ !  "$line" =~ "DEBUG$" ]] ; then
+	    echo $line | IFS=" " read -A fields
+	    signal_name=${fields[-1]}
+	    typeset -i len=${#signal_name[@]}+2
+	    _Dbg_msg ${signal_name}: ${line[8,-1]}
+	fi
+  done
 }

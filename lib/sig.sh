@@ -25,7 +25,7 @@
 typeset _Dbg_old_setopts
 
 # Place to save debugged program's exit handler, if any.
-typeset _Dbg_old_EXIT_handler=''  
+typeset _Dbg_old_EXIT_handler=''
 
 typeset -i _Dbg_QUIT_ON_QUIT=0
 
@@ -36,23 +36,23 @@ typeset -i _Dbg_program_exit_code=0
 ## Signal arrays: These are indexed by the signal number. ##
 ############################################################
 
-# Should we print that a signal was intercepted? 
+# Should we print that a signal was intercepted?
 # Each entry is "print" or "noprint" or null.
 typeset -a _Dbg_sig_print; _Dbg_sig_print=()
 
-# Should we reentry the debugger command loop on receiving the signal? 
+# Should we reentry the debugger command loop on receiving the signal?
 # Each entry is "stop" or "nostop" or null.
 typeset -a _Dbg_sig_stop; _Dbg_sig_stop=()
 
-# Should we show a traceback on receiving the signal? 
+# Should we show a traceback on receiving the signal?
 # Each entry is "stack" or "nostack" or null.
 typeset -a _Dbg_sig_show_stack; _Dbg_sig_show_stack=()
 
-# Should pass the signal to the user program?? 
+# Should pass the signal to the user program??
 # Each entry is the trap handler with some variables substituted.
 typeset -a _Dbg_sig_passthrough; _Dbg_sig_passthrough=()
 
-# Should pass the signal to the user program?? 
+# Should pass the signal to the user program??
 # Each entry is the trap handler with some variables substituted.
 typeset -i _Dbg_return_level=0
 
@@ -79,10 +79,10 @@ _Dbg_save_handler() {
 _Dbg_subst_handler_var() {
     typeset -i i
     typeset result=''
-    for arg in $* ; do 
+    for arg in $* ; do
 	## FIXME: figure out what to do here. Something with
 	## funcfiletrace and incrementing the index?
-	# case $arg in 
+	# case $arg in
 	# '$LINENO' )
 	#     arg='${BASH_LINENO[0]}'
 	#     ;;
@@ -97,7 +97,7 @@ _Dbg_subst_handler_var() {
 	#     ;;
 	# esac
 	if [[ $result == '' ]] ; then
-	    result=$arg 
+	    result=$arg
 	else
 	    result="$result $arg"
 	fi
@@ -105,7 +105,7 @@ _Dbg_subst_handler_var() {
     echo $result
 }
 
-# Debugger exit handler. Don't really exit - but go back the debugger 
+# Debugger exit handler. Don't really exit - but go back the debugger
 # command loop
 _Dbg_exit_handler() {
 
@@ -116,10 +116,10 @@ _Dbg_exit_handler() {
   # Turn off line and variable trace listing; allow unset parameter expansion.
   set +x +v +u
 
-  if [[ ${_Dbg_sig_print[0]} == "print" ]] ; then 
+  if [[ ${_Dbg_sig_print[0]} == "print" ]] ; then
     # Note: use the same message that gdb does for this.
     _Dbg_msg "Program received signal EXIT (0)..."
-    if [[ ${_Dbg_sig_show_stack[0]} == "showstack" ]] ; then 
+    if [[ ${_Dbg_sig_show_stack[0]} == "showstack" ]] ; then
       _Dbg_do_backtrace 0
     fi
   fi
@@ -134,7 +134,7 @@ _Dbg_exit_handler() {
 
   if [[ ${_Dbg_sig_stop[0]} != "stop" ]] \
     || (( _Dbg_QUIT_LEVELS != 0 )) \
-    || (( _Dbg_QUIT_ON_QUIT )) ; then 
+    || (( _Dbg_QUIT_ON_QUIT )) ; then
     _Dbg_do_quit
     # We don't return from here.
   fi
@@ -143,13 +143,13 @@ _Dbg_exit_handler() {
   # Even though this is an exit handler, don't exit!
 
   typeset term_msg="normally"
-  if [[ $_Dbg_debugged_exit_code != 0 ]] ; then 
+  if [[ $_Dbg_debugged_exit_code != 0 ]] ; then
     term_msg="with code $_Dbg_debugged_exit_code"
   fi
 
   # If we tried to exit from inside a subshell, we only want to enter
-  # the command loop if don't have any pending subshells. 
-  if (( ZSH_SUBSHELL == 0 )) ; then 
+  # the command loop if don't have any pending subshells.
+  if (( ZSH_SUBSHELL == 0 )) ; then
     _Dbg_msg \
       "Debugged program terminated $term_msg. Use q to quit or R to restart."
 
@@ -164,41 +164,41 @@ _Dbg_exit_handler() {
 # to handle this signal.
 
 # Since the command loop may be called we need to be careful about
-# using variable names that would be exposed to the user. 
+# using variable names that would be exposed to the user.
 _Dbg_sig_handler() {
 
     # Consider putting the following line(s) in a routine.
     # Ditto for the restore environment
     typeset -i _Dbg_debugged_exit_code=$?
     _Dbg_old_set_opts=$-
-  
+
     # Turn off line and variable trace listing if were not in our own debug
     # mode, and set our own PS4 for debugging inside the debugger
     (( !_Dbg_debug_debugger )) && set +x +v +u
     # shopt -s extdebug
 
     # This is the signal number. E.g. 15 is SIGTERM
-    typeset -r -i _Dbg_signum=$1   
+    typeset -r -i _Dbg_signum=$1
 
     if [[ ${_Dbg_sig_print[$_Dbg_signum]} == "print" ]] || \
         [[ ${_Dbg_sig_stop[$_Dbg_signum]} == "stop" ]] ; then
         typeset -r name=$(_Dbg_signum2name $_Dbg_signum)
         # Note: use the same message that gdb does for this.
         _Dbg_msg "Program received signal $name ($_Dbg_signum)..."
-        if [[ ${_Dbg_sig_show_stack[$_Dbg_signum]} == "showstack" ]] ; then 
+        if [[ ${_Dbg_sig_show_stack[$_Dbg_signum]} == "showstack" ]] ; then
             _Dbg_stack_pos=0
             ((_Dbg_stack_size = ${#FUNCNAME[@]}))
-            _Dbg_do_backtrace 
+            _Dbg_do_backtrace
         fi
     fi
     if [[ ${_Dbg_sig_stop[$_Dbg_signum]} == "stop" ]] ; then
 
         ### The below duplicates what is above in _Dbg_debug_trap handler
         ### Should put common stuff into a function.
-    
+
         shift  # signum
 
-	_Dbg_arg=($@)   # Does this require shword split off? 
+	_Dbg_arg=($@)   # Does this require shword split off?
 
         _Dbg_set_debugger_entry
         _Dbg_hook_enter_debugger 'on receiving a signal' 'noprint'
@@ -248,16 +248,16 @@ _Dbg_subexit_handler() {
     fi
 }
 
-# Set up generic trap handler. Arguments are: 
+# Set up generic trap handler. Arguments are:
 # NAME print showstack stop passthrough
 _Dbg_init_trap() {
     typeset -r name=$1
     typeset -i -r signum=$(_Dbg_name2signum $name)
-    
+
     _Dbg_sig_print[$signum]=$2;
     _Dbg_sig_show_stack[$signum]=${3:-'nostack'};
     _Dbg_sig_stop[$signum]=${4:-'nostop'};
-    
+
     # Work out passthrough later...
     # if [[ $5 == "pass*" ]] ; then
     #  get existing trap from env.
@@ -273,10 +273,10 @@ _Dbg_init_trap() {
 }
 
 _Dbg_init_default_traps() {
-    # _Dbg_init_trap EXIT   "noprint" "nostack" "stop" 
-    _Dbg_init_trap ILL    "print" "showstack" "stop" 
-    _Dbg_init_trap INT    "print" "showstack" "stop" 
-    _Dbg_init_trap QUIT   "print" "showstack" "stop" 
-    _Dbg_init_trap TERM   "print" "showstack" "stop" 
-    # _Dbg_init_trap TRAP   "print" "showstack" "stop" 
+    # _Dbg_init_trap EXIT   "noprint" "nostack" "stop"
+    _Dbg_init_trap ILL    "print" "showstack" "stop"
+    _Dbg_init_trap INT    "print" "showstack" "stop"
+    _Dbg_init_trap QUIT   "print" "showstack" "stop"
+    _Dbg_init_trap TERM   "print" "showstack" "stop"
+    # _Dbg_init_trap TRAP   "print" "showstack" "stop"
 }
