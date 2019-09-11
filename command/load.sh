@@ -23,6 +23,10 @@ _Dbg_help_add load \
 '**load** *zsh-script*
 
 Read in lines of a *zsh-script*.
+
+See also:
+---------
+**info files**
 '
 
 _Dbg_do_load() {
