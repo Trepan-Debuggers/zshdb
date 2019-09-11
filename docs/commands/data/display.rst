@@ -22,4 +22,3 @@ auto-display expressions.
 .. seealso::
 
    :ref:`undisplay <undisplay>` to cancel display requests previously made.
-   :ref:`whatis <whatis>`

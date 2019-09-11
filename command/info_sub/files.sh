@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info files" debugger command
 #
-#   Copyright (C) 2010, 2014 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2019 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -17,19 +17,22 @@
 #   with zshdb; see the file COPYING.  If not, write to the Free Software
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
-_Dbg_help_add_sub info files \
-'info files
+_Dbg_help_add_sub info files '
+**info files**
 
-show a list of files that have been read in and properties regarding them.
+Show a list of files that have been read in and properties regarding them.
+
+See also:
+---------
+*load*
+
 ' 1
 
 _Dbg_do_info_files() {
     _Dbg_msg "Source files which we have recorded info about:"
     unsetopt ksharrays
-    for file in "${(ki)_Dbg_file2canonic}" ; do
+    for file canonic_file in ${(kv)_Dbg_file2canonic} ; do
         typeset -i lines=$(_Dbg_get_maxline "$file")
-        typeset canonic_file
-        canonic_file="${_Dbg_file2canonic[$file]}"
         if (( _Dbg_set_basename )) ; then
             # Do the same with canonic_file ?
             file="${file##*/}"

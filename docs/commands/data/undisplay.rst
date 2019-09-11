@@ -14,5 +14,4 @@ the same as `delete display`.
 
 .. seealso::
 
-   :ref:`info display <info_display>` to see current list of code numbers.
-   :ref:`whatis <whatis>`
+   :ref:`info display <info_display>` to see current list of display expresssions
