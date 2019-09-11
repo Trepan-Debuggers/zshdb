@@ -12,7 +12,8 @@ Since this debugger is similar to other_ trepanning_ debuggers_ and *gdb*
 in general, knowledge gained by learning this is transferable to those
 debuggers and vice versa.
 
-An Emacs interface is available via realgud_.
+An Emacs interface is available via realgud_. Visual Studio integration is available from rogalmic via
+ZshDebug_.
 
 
 
@@ -40,3 +41,4 @@ Indices and tables
 .. _trepanning: https://pypi.python.org/pypi/trepan2
 .. _debuggers: https://metacpan.org/pod/Devel::Trepan
 .. _realgud: https://github.com/realgud/realgud
+.. _ZshDebug: https://marketplace.visualstudio.com/items?itemName=rogalmic.zsh-debug

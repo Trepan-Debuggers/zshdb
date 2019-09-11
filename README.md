@@ -1,13 +1,15 @@
 [![Build Status Circle](https://circleci.com/gh/rocky/zshdb.svg?&style=shield)](https://circleci.com/gh/rocky/zshdb)
 
-*zshdb* is debugger for zsh scripts. It started as a port of my bash
-debugger [bashdb](http://bashdb.sf.net) so the commands used in
-both are similar.
+*zshdb* is gdb-like debugger for [zsh](http://www.zsh.org/) scripts. It started as a port of my bash
+debugger [bashdb](http://bashdb.sf.net) so the commands used in both are similar.
 
 The command syntax generally follows that of the trepanning debuggers
-and, more generally, GNU debugger *gdb*.
+and, more generally, GNU debugger *gdb*. Therefore knowledge gained by learning this is transferable to those
+debuggers and vice versa.
 
-See [Installation](https://github.com/rocky/zshdb/wiki/Installation) for how to install.
+An Emacs interface is available via [realgud](https://github.com/realgud/realgud). Visual Studio integration is available from rogalmic via
+[ZshDebug](https://marketplace.visualstudio.com/items?itemName=rogalmic.zsh-debug).
+
 
 See the [wiki](https://github.com/rocky/zshdb/wiki) and [documentation](http://zshdb.readthedocs.io/en/latest/)
 for more information.
