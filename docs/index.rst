@@ -23,6 +23,7 @@ ZshDebug_.
 
    features
    install
+   entry-exit
    syntax
    commands
    manpage
