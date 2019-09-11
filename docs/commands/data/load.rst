@@ -4,7 +4,7 @@
 Load (source zsh file)
 -------------------------
 
-**eval** *zsh-script*
+**load** *zsh-script*
 
 Read in lines of a *zsh-script*.
 

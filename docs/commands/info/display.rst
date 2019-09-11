@@ -1,5 +1,5 @@
 .. index:: info; display
-.. _info_display
+.. _info_display:
 
 Info Display
 ------------

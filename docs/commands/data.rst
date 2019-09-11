@@ -9,4 +9,5 @@ Examining data.
    data/display
    data/eval
    data/examine
+   data/load
    data/undisplay
