@@ -19,3 +19,4 @@ Type `info` for a list of info subcommands and what they do. Type help
    info/frame
    info/line
    info/source
+   info/variables
