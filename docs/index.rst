@@ -38,8 +38,8 @@ Indices and tables
 .. * :ref:`modindex`
 
 .. _zsh: http://www.zsh.org/
-.. _other: https://www.npmjs.com/package/trepanjs
-.. _trepanning: https://pypi.python.org/pypi/trepan2
+.. _other: https://www.npmjs.com/package/trepan-ni
+.. _trepanning: https://pypi.python.org/pypi/trepan3k
 .. _debuggers: https://metacpan.org/pod/Devel::Trepan
 .. _realgud: https://github.com/realgud/realgud
 .. _ZshDebug: https://marketplace.visualstudio.com/items?itemName=rogalmic.zsh-debug

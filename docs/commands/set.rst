@@ -21,19 +21,18 @@ environment settings with the :ref:`show <show>` command.
 .. toctree::
    :maxdepth: 1
 
+   set/annotate
    set/autoeval
    set/autolist
    set/basename
    set/cmdtrace
    set/confirm
    set/different
-   set/events
-   set/flush
+   set/editing
    set/highlight
    set/listsize
    set/maxstring
    set/skip
    set/style
-   set/substitute
    set/trace
    set/width

@@ -1,11 +1,15 @@
-.. index:: set; basename
-.. _set_basename:
+.. index:: set; annotate
+.. _set_annotate:
 
-**set annotate** {**0**|**1**}
+Set Annotate
+------------
+
+**set annotate** { **0** | **1** }
 
 Set annotation level.
 
 ::
+
    0 - normal
    1 - fullname (for use when running under emacs).
 

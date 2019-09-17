@@ -25,6 +25,7 @@ Show
    show/cmdtrace
    show/confirm
    show/different
+   show/editing
    show/highlight
    show/listsize
    show/maxstring

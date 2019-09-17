@@ -52,9 +52,7 @@ Step Granularity
 There are now ``step`` *event* and ``next`` *event* commands with
 aliases to ``s+``, ``s>`` and so on. The plus-suffixed commands force
 a different line on a subsequent stop, the dash-suffixed commands
-don't.  Suffixes ``>``, ``<``, and ``!`` specify ``call``, ``return``
-and ``exception`` events respectively. And without a suffix you get
-the default; this is set by the `set different` command.
+don't.  Without a suffix you get the default; this is set by the :ref:`set different <set_different>` command.
 
 
 .. _pygments:  http://pygments.org

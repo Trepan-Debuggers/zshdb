@@ -3,7 +3,7 @@
 .. toctree::
 .. contents::
 
-zsh command
+zshdb command
 #############
 
 Synopsis
@@ -17,14 +17,14 @@ Synopsis
 Description
 -----------
 
-`zshdb` is a *zsh* script to which arranges for another *zsh* script
+*zshdb* is a *zsh* script to which arranges for another *zsh* script
 to be debugged.
 
 The debugger has a similar command interface as gdb_.
 
-If you used zshdb script and need to pass options to the script to be
-debugged, add `--` before the script name. That will tell *zshdb* not
-to try to process any further options.
+If your zsh script needs to be passed options, add ``--`` before the
+script name. That will tell *zshdb* not to try to process any further
+options.
 
 Options
 --------
@@ -37,16 +37,16 @@ of 100.
 :-A | --annotation *level*:
 
 Sets to output additional stack and status information which allows
-front-ends such as emacs to track what's going on without polling.
+front-ends such as Emacs to track what's going on without polling.
 
 This is needed in for regression testing. Using this
 option is equivalent to issuing:
 
-```
-set annotation LEVEL
-```
+::
 
-inside the debugger.
+    set annotate LEVEL
+
+inside the debugger. See :ref:`set annotate <set_annotate>` for more information on that command
 
 :-B | --basename:
 
@@ -54,9 +54,9 @@ In places where a filename appears in debugger output give just the
 basename only. This is needed in for regression testing. Using this
 option is equivalent to issuing:
 
-```
-set basename on
-```
+::
+
+   set basename on
 
 inside the debugger. See :ref:`set basename <set_basename>` for more information on that command
 
@@ -65,7 +65,7 @@ inside the debugger. See :ref:`set basename <set_basename>` for more information
 
 Normally the debugger will read debugger commands in `~/.zshdbinit` if
 that file exists before accepting user interaction.  `.zshdbinit` is
-analogus to GNU gdb's `.gdbinit`: a user might want to create such a
+analogous to GNU gdb's `.gdbinit`: a user might want to create such a
 debugger profile to add various user-specific customizations.
 
 Using the `-n` option this initialization file will not be read. This
@@ -132,7 +132,7 @@ actually "source"-ing) some debug-support code and then sourcing the
 given script or command string.
 
 One problem with sourcing a debugged script is that the program name
-stored in $0 will not be the name of the script to be debugged. The
+stored in ``$0`` will not be the name of the script to be debugged. The
 debugged script will appear in a call stack not as the top item but as
 the item below `zshdb`.
 
@@ -145,11 +145,8 @@ intercept every statement and check to see if some action is to be taken.
 See also
 ---------
 
-* bashmanual_ - Until a full manual is written, this manual for a
-similar bash debugger may give some guidance. The two debuggers have
-similar command interfaces (and code).
-
-* zshdbgithub_ - the homepage for the project for the family of debugger, zshdb, bashdb.
+* `bashdb manual <http://bashdb.sourceforge.net/bashdb.html>`_ - Until a full manual is written, this manual for a similar bash debugger may give some guidance. The two debuggers have similar command interfaces (and code).
+* `zshdb github <https://github.com/rocky/zshdb>`_ - the github project page
 
 Author
 ------
@@ -159,23 +156,19 @@ The current version is maintained (or not) by Rocky Bernstein.
 Copyright
 ---------
 
-::
-  Copyright (C) 2009, 2017, 2019 Rocky Bernstein
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+Copyright (C) 2009, 2017, 2019 Rocky Bernstein
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 .. _gdb: http://sourceware.org/gdb/current/onlinedocs/gdb_toc.html
-.. _bashmanual: http://bashdb.sourceforge.net/bashdb.html
-.. _zshdbgithub: http://bashdb.sourceforge.net
