@@ -1,10 +1,14 @@
 .. _zshdb:
 
-zsh man page
-############
+.. toctree::
+.. contents::
+
+zsh command
+#############
 
 Synopsis
 --------
+
 
 **zshdb** [ *debugger-options* ] [ \-- ] [ *zsh-script* [ *script-options* ...]]
 
@@ -13,18 +17,17 @@ Synopsis
 Description
 -----------
 
-`zshdb` is a zsh script to which arranges for another zsh script
+`zshdb` is a *zsh* script to which arranges for another *zsh* script
 to be debugged.
 
-The debugger has a similar command interface as
-[gdb](http://sourceware.org/gdb/current/onlinedocs/gdb_toc.html)
+The debugger has a similar command interface as gdb_.
 
 If you used zshdb script and need to pass options to the script to be
-debugged, add C<--> before the script name. That will tell zshdb not
+debugged, add `--` before the script name. That will tell *zshdb* not
 to try to process any further options.
 
 Options
--------
+--------
 
 :-h | --help:
 
@@ -55,21 +58,19 @@ option is equivalent to issuing:
 set basename on
 ```
 
-inside the debugger.
+inside the debugger. See :ref:`set basename <set_basename>` for more information on that command
 
 
 :-n | --nx | --no-init:
 
-Normally the debugger will read debugger commands in C<~/.zshdbinit>
-if that file exists before accepting user interaction.
-C<.zshdbinit> is analogus to Perl's C<.perldb> or GNU gdb's
-C<.gdbinit>: a user might want to create such a debugger profile to
-add various user-specific customizations.
+Normally the debugger will read debugger commands in `~/.zshdbinit` if
+that file exists before accepting user interaction.  `.zshdbinit` is
+analogus to GNU gdb's `.gdbinit`: a user might want to create such a
+debugger profile to add various user-specific customizations.
 
-Using the C<-n> option this initialization file will not be read. This
+Using the `-n` option this initialization file will not be read. This
 is useful in regression testing or in tracking down a problem with
-one's C<.zshdbinit> profile.
-
+one's `.zshdbinit` profile.
 
 
 :-c | --command *command-string*:
@@ -87,8 +88,8 @@ changeable copyright date in the regression-test matching.
 
 :-x | --eval-command *debugger-cmdfile*:
 
-Run the debugger commands I<debugger-cmdfile> before accepting user
-input.  These commands are read however after any C<.zshdbinit>
+Run the debugger commands *debugger-cmdfile* before accepting user
+input.  These commands are read however after any `.zshdbinit`
 commands. Again this is useful running regression-testing debug
 scripts.
 
@@ -96,8 +97,9 @@ scripts.
 :-L | --library *debugger-library*:
 
 The debugger needs to source or include a number of functions and
-these reside in a library. If this option is not given the default location
-of library is relative to the installed zshdb script: C<../lib/zshdb>.
+these reside in a library. If this option is not given the default
+location of library is relative to the installed zshdb script:
+`../lib/zshdb`.
 
 
 
@@ -105,7 +107,7 @@ of library is relative to the installed zshdb script: C<../lib/zshdb>.
 
 The debugger needs to make use of some temporary filesystem storage to
 save persistent information across a subshell return or in order to
-evaluate an expression. The default directory is C</tmp> but you can
+evaluate an expression. The default directory is `/tmp` but you can
 use this option to set the directory where debugger temporary files
 will be created.
 
@@ -134,21 +136,20 @@ stored in $0 will not be the name of the script to be debugged. The
 debugged script will appear in a call stack not as the top item but as
 the item below `zshdb`.
 
-The `zshdb` script option assume a version of zsh with debugging
+The `zshdb` script option assumes a version of zsh with debugging
 support, zsh 4.3.6-dev-2 or later.
 
 The debugger slows things down a little because the debugger has to
 intercept every statement and check to see if some action is to be taken.
 
 See also
---------
+---------
 
-* [bash manual](http://bashdb.sourceforge.net/bashdb.html) - Until a
-full manual is written, this manual for a similar bash debugger may
-give some guidance. The two debuggers have similar command interfaces
-(and code).
+* bashmanual_ - Until a full manual is written, this manual for a
+similar bash debugger may give some guidance. The two debuggers have
+similar command interfaces (and code).
 
-* [sourceforge page](http://bashdb.sourceforge.net) - the homepage for the project for the family of debugger, zshdb, bashdb.
+* zshdbgithub_ - the homepage for the project for the family of debugger, zshdb, bashdb.
 
 Author
 ------
@@ -158,8 +159,8 @@ The current version is maintained (or not) by Rocky Bernstein.
 Copyright
 ---------
 
-```
-  Copyright (C) 2009, 2017 Rocky Bernstein
+::
+  Copyright (C) 2009, 2017, 2019 Rocky Bernstein
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
@@ -173,4 +174,8 @@ Copyright
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-```
+
+
+.. _gdb: http://sourceware.org/gdb/current/onlinedocs/gdb_toc.html
+.. _bashmanual: http://bashdb.sourceforge.net/bashdb.html
+.. _zshdbgithub: http://bashdb.sourceforge.net

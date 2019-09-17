@@ -271,17 +271,17 @@ of promoting the sharing and reuse of software generally.
 ** Show subcommands are:
 **   annotate  autoeval  basename  editing  history   prompt          width
 **   args      autolist  debug     force    listsize  trace-commands
-+another-bad-command 
++another-bad-command
 ** Undefined command "another-bad-command". Try "help".
 +set history size 10
 +set history file /tmp/zshdb_hist
-+show 
-annotate: Annotation_level is 0.
++show
+annotate:  Annotation level is 0.
 args:     Argument list to give script when debugged program starts is:
        "testarg1 testarg2".
 autoeval: Evaluate unrecognized commands is off.
 autolist: Auto run of 'list' command is off.
-basename:  Show short filenames is on.
+basename:  Show short filenames (the basename) is on.
 debug: Allow debugging the debugger is off
 editing:  Editing of command lines as they are typed is on.
   Edit style is emacs.
@@ -312,12 +312,12 @@ Argument list to give script when debugged program starts is:
 +set annotate 6
 Annotation level must be between 0 and 3. Got: 6.
 +show annotate
-Annotation_level is 0.
+Annotation level is 0.
 +set annotate 1
 +show listsize
 Number of source lines zshdb will list by default is 40.
 +show annotate
-Annotation_level is 1.
+Annotation level is 1.
 +set width 40
 +show width
 Line width is 40.
@@ -327,13 +327,13 @@ Line width is 40.
 +# show history
 +# set history save on
 +# show history
-+######################### 
++#########################
 +#### Test 'show commands'...
 +# show commands
 +# show commands +
 +# show commands -5
 +# show commands 12
-+######################### 
++#########################
 +#### Test 'autoeval'...
 +set autoeval on
 Evaluate unrecognized commands is on.
@@ -344,5 +344,5 @@ $? is 0
 Evaluate unrecognized commands is off.
 +xx=1 ; declare -p xx
 ** Undefined command "xx=1". Try "help".
-+quit 
++quit
 zshdb: That's all, folks...

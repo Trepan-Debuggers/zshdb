@@ -17,15 +17,14 @@ Show
    :maxdepth: 1
 
    show/aliases
+   show/annotate
    show/args
    show/autoeval
    show/autolist
-   show/autopython
    show/basename
    show/cmdtrace
    show/confirm
    show/different
-   show/events
    show/highlight
    show/listsize
    show/maxstring

@@ -6,7 +6,7 @@ Show Autoeval
 
 **show autoeval**
 
-Show Python evaluation of unrecognized debugger commands.
+Show whether zsh evaluate of unrecognized debugger commands.
 
 .. seealso::
 

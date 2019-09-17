@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # show.sh - Show debugger settings
 #
-#   Copyright (C) 2008, 2010-2011, 2014
+#   Copyright (C) 2008, 2010-2011, 2014, 2019
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -74,12 +74,6 @@ _Dbg_do_show_internal() {
                 "      \"${_Dbg_script_args[@]}\"."
             return 0
             ;;
-        an | ann | anno | annot | annota | annotat | annotate )
-            [[ -n $label ]] && label='annotate: '
-            _Dbg_msg \
-                "${label}Annotation_level is $_Dbg_set_annotate."
-            return 0
-            ;;
         autoe | autoev | autoeva | autoeval )
             [[ -n $label ]] && label='autoeval: '
             _Dbg_msg \
@@ -92,12 +86,6 @@ _Dbg_do_show_internal() {
             [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
             _Dbg_msg \
                 "${label}Auto run of 'list' command is ${onoff}"
-            return 0
-            ;;
-        b | ba | bas | base | basen | basena | basenam | basename )
-            [[ -n $label ]] && label='basename: '
-            _Dbg_msg \
-                "${label}Show short filenames (the basename) in debug output is" $(_Dbg_onoff $_Dbg_set_basename)
             return 0
             ;;
         dir|dire|direc|direct|directo|director|directori|directorie|directories)

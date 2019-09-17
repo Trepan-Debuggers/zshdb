@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "show basename" debugger command
+# "show annotate" debugger command
 #
-#   Copyright (C) 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,20 +18,15 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_help_add_sub show basename \
-"show basename
+_Dbg_help_add_sub show annotate \
+"show annotate
 
-Show whether file basenames are in effect" 1
+Show annotation level" 1
 
-_Dbg_do_show_basename() {
+_Dbg_do_show_annotate() {
     typeset label="$1"
-    [[ -n $label ]] && label='basename:  '
-    _Dbg_msg_nocr \
-        "${label}Show short filenames (the basename) is "
-    if (( _Dbg_set_basename == 0 )); then
-        _Dbg_msg 'off.'
-    else
-        _Dbg_msg 'on.'
-    fi
+    [[ -n $label ]] && label='annotate:  '
+    _Dbg_msg \
+        "${label}Annotation level is ${_Dbg_set_annotate}."
     return 0
 }
