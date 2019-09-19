@@ -8,11 +8,21 @@ Info Program
 
 Execution status of the program. Listed are:
 
-* Program name
-* Instruction PC
 * Reason the program is stopped.
+* The next line to be run
+
+Example:
+++++++++
+
+::
+
+     zshdb<1> info program
+     Program stopped.
+     It stopped after being stepped.
+     Next statement to be run is:
+     [ "${PS1-}" ]
+
 
 .. seealso::
 
-   :ref:`info line <info_line>`, :ref:`info args <info_args>`,
-   :ref:`info frame <info_frame>`
+   :ref:`info line <info_line>`, and :ref:`info source <info_source>`.

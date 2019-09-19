@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info program" debugger command
 #
-#   Copyright (C) 2010, 2014, 2016 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2016, 2019 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -22,10 +22,19 @@ _Dbg_help_add_sub info program '
 
 Information about debugged program stopping point.
 
+Example:
+---------
+
+    zshdb<1> info program
+    Program stopped.
+    It stopped after being stepped.
+    Next statement to be run is:
+    [ "\${PS1-}" ]
+
 See also:
 ---------
 
-\"info line\".' 1
+**info line**, and **info source**.' 1
 
 _Dbg_do_info_program() {
     if (( _Dbg_running )) ; then

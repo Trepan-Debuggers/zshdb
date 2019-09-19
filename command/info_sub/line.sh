@@ -22,6 +22,12 @@ _Dbg_help_add_sub info line \
 
 Show line and filename for stopped position in program.
 
+Example:
+--------
+
+    zshdb<1> info line
+    Line 4 of "/etc/profile"
+
 See also:
 ---------
 

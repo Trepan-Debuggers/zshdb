@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "info source" debugger command
 #
-#   Copyright (C) 2010, 2014, 2016 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2016, 2019 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -21,6 +21,14 @@ _Dbg_help_add_sub info source \
 '**info source**
 
 Information about the current source file.
+
+Example:
+---------
+
+    zshdb<1> info source
+    Current script file is /etc/profile
+    Located in /etc/profile
+    Contains 27 lines.
 
 See also:
 ---------

@@ -20,4 +20,5 @@ Type `info` for a list of info subcommands and what they do. Type ``help info`` 
    info/line
    info/program
    info/source
+   info/stack
    info/variables

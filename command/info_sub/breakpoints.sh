@@ -40,10 +40,20 @@ The \"enb\" column indicates whether the breakpoint is enabled.
 The \"Where\" column indicates where the breakpoint is located.
 Info whether use short filenames
 
+Example:
+--------
+
+   zshdb<4> info breakpoints
+   Num Type       Disp Enb What
+   1   breakpoint keep n   /etc/profile:8
+   2   breakpoint keep y   /etc/profile:10
+       stop only if [[ ${PS1-} ]]
+
+
 See also:
 ---------
 
-**break**, **enable**, and **disable**." 1
+**break**, **condition**, **delete**, **enable**, and **disable**." 1
 
 _Dbg_info_breakpoints_complete() {
     _Dbg_breakpoint_list
