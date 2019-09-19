@@ -4,11 +4,10 @@
 
 Modifies parts of the debugger environment.
 
-You can give unique prefix of the name of a subcommand to get information
-about just that subcommand.
+You can give unique prefix of the name of a subcommand to get information about just that subcommand.
 
-Type `set` for a list of set subcommands and what they do. Type help set *
-for just the list of set subcommands.
+Type `set` for a list of set subcommands and what they do. Type ``help set``
+for a summary list of set subcommands.
 
 All of the "set" commands have a corresponding :ref:`show <show>` command.
 

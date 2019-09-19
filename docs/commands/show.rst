@@ -2,12 +2,9 @@
 
 **show**  [ *subcommand* ]
 
-A command for showing things about the debugger. You can give unique
-prefix of the name of a subcommand to get information about just that
-subcommand.
+A command for showing things about the debugger. You can give unique prefix of the name of a subcommand to get information about just that subcommand.
 
-Type `show` for a list of show subcommands and what they do. Type help
-`show *` for just a list of show subcommands.  Many of the "show"
+Type `show` for a list of show subcommands and what they do. Type ``help show`` for a summmary list of show subcommands.  Many of the "show"
 commands have a corresponding :ref:`set <set>` command.
 
 Show
