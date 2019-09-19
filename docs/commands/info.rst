@@ -13,10 +13,11 @@ Type `info` for a list of info subcommands and what they do. Type ``help info`` 
 .. toctree::
    :maxdepth: 1
 
-   info/break
+   info/breakpoints
    info/display
    info/files
    info/frame
    info/line
+   info/program
    info/source
    info/variables

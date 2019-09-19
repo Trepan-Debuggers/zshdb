@@ -1,5 +1,5 @@
-.. index:: info; break
-.. _info_break:
+.. index:: info; breakpoints
+.. _info_breakpoints:
 
 Info Break
 ----------
