@@ -1,8 +1,9 @@
 .. index:: show; highlight
 .. _show_highlight:
 
-Show Highlight
---------------
+Show Highlight (terminal highlighting)
+--------------------------------------
+
 **show highlight**
 
 Show whether we use terminal highlighting.

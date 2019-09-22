@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # "set annotate" debugger command
 #
-#   Copyright (C) 2010-2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014, 2016, 2019 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -32,10 +33,11 @@ _Dbg_complete_level_2_data[set_annotate]='0 1'
 _Dbg_help_add_sub set annotate \
 '**set annotate** {**0**|**1**}
 
-Set annotation level.
+Set annotation level. This is a (mostly obsolete) gdb setting, but
+it is used in GNU Emacs.
 
   0 - normal
-  1 - fullname (for use when running under emacs).
+  1 - fullname (for use when running under GNU Emacs).
 
 See also:
 ---------

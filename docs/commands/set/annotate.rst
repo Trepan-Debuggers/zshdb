@@ -1,17 +1,18 @@
 .. index:: set; annotate
 .. _set_annotate:
 
-Set Annotate
-------------
+Set Annotate (GNU Emacs annotation level)
+-----------------------------------------
 
 **set annotate** { **0** | **1** }
 
-Set annotation level.
+Set annotation level. This is a (mostly obsolete) gdb setting, but
+it is used in GNU Emacs.
 
 ::
 
    0 - normal
-   1 - fullname (for use when running under emacs).
+   1 - fullname (for use when running under GNU Emacs).
 
 .. seealso::
 

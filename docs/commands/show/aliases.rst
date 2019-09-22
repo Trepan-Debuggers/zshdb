@@ -1,8 +1,8 @@
 .. index:: show; aliases
 .. _show_aliases:
 
-Show Aliases (show debugger command aliases)
---------------------------------------------
+Show Aliases (debugger command aliases)
+---------------------------------------
 
 **show aliases** [ *alias* ...| **\*** ]
 

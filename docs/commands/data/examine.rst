@@ -3,12 +3,16 @@
 
 Examine
 -------
-**examine** *expr1* [*expr2* ...]
+**examine** *expr1*
 
-Examine value, type and object attributes of an expression.
+Print value of an expression via typeset, let, and failing these, eval.
 
-In contrast to normal Python expressions, expressions should not have
-blanks which would cause shlex to see them as different tokens.
+Single variables and arithmetic expressions do not need leading ``$`` for
+their value is to be substituted. However if neither these, variables
+need ``$`` to have their value substituted.
+
+In contrast to normal zsh expressions, expressions should not have
+blanks which would cause zsh to see them as different tokens.
 
 Examples:
 +++++++++
@@ -20,4 +24,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`pr <pr>`, :ref:`pp <pp>`, and :ref:`whatis <whatis>`.
+   :ref:`eval <eval>`.

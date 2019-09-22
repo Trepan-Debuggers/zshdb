@@ -1,12 +1,12 @@
 .. index:: show; basename
 .. _show_basename:
 
-Show Basename
--------------
+Show Basename (basename only in file path)
+------------------------------------------
 
 **show basename**
 
-Show Python evaluation of unrecognized debugger commands.
+Show whether filename basenames or full path names are shown.
 
 .. seealso::
 

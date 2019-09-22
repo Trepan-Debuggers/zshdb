@@ -1,8 +1,9 @@
 .. index:: set; style
 .. _set_style:
 
-Set Style
----------
+Set Style (pygments formatting style)
+-------------------------------------
+
 **set style** [*pygments-style*]
 
 Set the pygments style in to use in formatting text for a 256-color terminal.

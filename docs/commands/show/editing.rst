@@ -1,8 +1,8 @@
 .. index:: show; editing
 .. _show_editing:
 
-Show Editing
-------------
+Show Editing (readline editing)
+-------------------------------
 
 **show editing**
 

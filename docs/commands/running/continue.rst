@@ -1,8 +1,8 @@
 .. index:: continue
 .. _continue:
 
-Continue
---------
+Continue (continue program execution)
+--------------------------------------
 
 **continue** [[ *file* :] *lineno* | *function* ]
 

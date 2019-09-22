@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set args" debugger command
 #
-#   Copyright (C) 2010-2011, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2016, 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -22,7 +22,13 @@ _Dbg_help_add_sub set args \
 '**set** *args** *script-args*
 
 Set argument list to give program being debugged when it is started.
-Follow this command with any number of args, to be passed to the program.'
+Follow this command with any number of args, to be passed to the program.
+
+See also:
+---------
+
+**run**
+'
 
 _Dbg_do_set_args() {
     # We use the loop below rather than _Dbg_set_args="(@)" because

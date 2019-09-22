@@ -1,8 +1,8 @@
 .. index:: set; basename
 .. _set_basename:
 
-Set Basename
-------------
+Set Basename (basename only in file path)
+-----------------------------------------
 
 **set basename** [ **on** | **off** ]
 

@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # gdb-like "kill" debugger command
 #
-#   Copyright (C) 2002-2006, 2008-2011, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2002-2006, 2008-2011, 2016-2019 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,15 +20,16 @@
 #   MA 02111 USA.
 
 _Dbg_help_add kill \
-"**kill** [*signal-number*]
+'**kill** [*signal-number*]
 
-Send this process a POSIX signal ('9' for 'SIGKILL' or 'kill -SIGKILL')
+Send this process a POSIX signal ("9" for "SIGKILL" or "kill -SIGKILL")
 
-9 is a non-maskable interrupt that terminates the program. If program is threaded it may
-be expedient to use this command to terminate the program.
+9 is a non-maskable interrupt that terminates the program. If program
+is threaded it may be expedient to use this command to terminate the
+program.
 
-However other signals, such as those that allow for the debugged to handle them can be
-sent.
+However other signals, such 15 or `-INT` which allow for the debugged program to
+run an interrupt handler can be sent too.
 
 Giving a negative number is the same as using its positive value.
 
@@ -38,13 +40,16 @@ Examples:
     kill 9              # same as above
     kill -9             # same as above
     kill 15             # nicer, maskable TERM signal
-    kill! 15            # same as above, but no confirmation
+    kill -INT           # same as above
+    kill -SIGINT        # same as above
+    kill -WINCH         # send "window change" signal
+    kill -USR1          # send "user 1" signal
 
 See also:
 ---------
 
 **quit** for less a forceful termination command.
-**run** is a way to restart the debugged program."
+**run** is a way to restart the debugged program.'
 
 _Dbg_do_kill() {
     if (($# > 1)); then

@@ -1,8 +1,8 @@
 .. index:: set; highlight
 .. _set_highlight:
 
-Set Highlight
--------------
+Set Highlight (terminal highlighting)
+-------------------------------------
 
 **set highlight** [ **reset** ] {**plain** | **light** | **dark** | **off**}
 

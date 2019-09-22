@@ -1,25 +1,15 @@
 .. index:: quit
 .. _quit:
 
-Quit
-----
-**quit** [**unconditionally**]
+Quit (gentle termination)
+-------------------------
 
-Gently terminate the debugged program.
+**quit** [*exit-code* [*shell-levels*]]
 
-The program being debugged is aborted via a *DebuggerQuit*
-exception.
-
-When the debugger from the outside (e.g. via a `trepan` command), the
-debugged program is contained inside a try block which handles the
-*DebuggerQuit* exception.  However if you called the debugger was
-started in the middle of a program, there might not be such an
-exception handler; the debugged program still terminates but generally
-with a traceback showing that exception.
-
-If the debugged program is threaded, we raise an exception in each of
-the threads ending with our own. However this might not quit the
-program.
+The program being debugged is aborted.  If *exit-code* is given, then
+that will be the exit return code. If *shell-levels* is given, then up
+to that many nested shells are quit. However to be effective, the last
+of those shells should have been run under the debugger.
 
 .. seealso::
 

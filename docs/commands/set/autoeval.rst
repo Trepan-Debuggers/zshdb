@@ -1,17 +1,17 @@
 .. index:: set; autoeval
 .. _set_autoeval:
 
-Set Auto Eval
--------------
+Set Auto Eval (auto evaluation of unrecognized debugger commands)
+-----------------------------------------------------------------
 
 **set autoeval** [ **on** | **off** ]
 
 Evaluate unrecognized debugger commands.
 
 Often inside the debugger, one would like to be able to run arbitrary
-Python commands without having to preface Python expressions with
+zsh commands without having to preface expressions with
 ``print`` or ``eval``. Setting *autoeval* on will cause unrecognized
-debugger commands to be *eval*'d as a Python expression.
+debugger commands to be *eval*'d as a zsh expression.
 
 Note that if this is set, on error the message shown on type a bad
 debugger command changes from:

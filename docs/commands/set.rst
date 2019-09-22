@@ -21,6 +21,7 @@ environment settings with the :ref:`show <show>` command.
    :maxdepth: 1
 
    set/annotate
+   set/args
    set/autoeval
    set/autolist
    set/basename
@@ -30,8 +31,6 @@ environment settings with the :ref:`show <show>` command.
    set/editing
    set/highlight
    set/listsize
-   set/maxstring
    set/skip
    set/style
-   set/trace
    set/width

@@ -1,8 +1,8 @@
 .. index:: set; cmdtrace
 .. _set_cmdtrace:
 
-Set Cmdtrace
-------------
+Set Cmdtrace (show debugger commands before running)
+----------------------------------------------------
 
 **set cmdtrace** [ **on** | **off** ]
 

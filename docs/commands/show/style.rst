@@ -1,8 +1,8 @@
 .. index:: show; style
 .. _show_style:
 
-Show Style
----------
+Show Style (pygments formatting style)
+--------------------------------------
 **show style** *pygments-style*
 
 Show the pygments style used in formatting 256-color terminal text.

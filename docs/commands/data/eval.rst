@@ -20,7 +20,7 @@ Often when one is stopped at the line of the first part of an "if", "elif", "cas
 portion. For this, use eval?. Actually, any alias that ends in ? which is aliased to eval will
 do thie same thing.
 
-Run *python-statement* in the context of the current frame.
+Run *cmd* in the context of the current frame.
 
 If no string is given, we run the string from the current source code
 about to be run. If the command ends `?` (via an alias) and no string is
@@ -49,5 +49,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`set autoeval <set_autoeval>`
-   and :ref:`examine <examine>`.
+   :ref:`set autoeval <set_autoeval>` and :ref:`examine <examine>`.

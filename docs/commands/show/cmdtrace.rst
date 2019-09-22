@@ -1,8 +1,8 @@
 .. index:: show; cmdtrace
 .. _show_cmdtrace:
 
-Show Cmdtrace
--------------
+Show Cmdtrace (show debugger commands before running)
+-----------------------------------------------------
 
 **show cmdtrace**
 

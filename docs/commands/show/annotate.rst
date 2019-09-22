@@ -1,17 +1,18 @@
 .. index:: show; annotate
 .. _show_annotate:
 
-Show Annotate
----------------
+Show Annotate (GNU Emacs annotation level)
+------------------------------------------
 
 **show annotate**
 
-Show annotation level.
+Show annotation level. This is a (mostly obsolete) gdb setting, but
+it is used in GNU Emacs.
 
 ::
 
    0 - normal
-   1 - fullname (for use when running under emacs).
+   1 - fullname (for use when running under GNU Emacs).
 
 .. seealso::
 

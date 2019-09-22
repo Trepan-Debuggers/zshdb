@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "Examine" debugger command.
 #
-#   Copyright (C) 2008, 2010-2011, 2016
+#   Copyright (C) 2008, 2010-2011, 2016, 2019
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -26,18 +26,27 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 _Dbg_help_add 'examine' \
-"**examine** *expr*
+'**examine** *expr*
 
-Print value of an expression via typeset, let, and failing these, eval.
+Print value of an expression via `typeset`, `let`, and failing these, `eval`.
 
 Single variables and arithmetic expressions do not need leading $ for
 their value is to be substituted. However if neither these, variables
 need $ to have their value substituted.
 
+In contrast to normal zsh expressions, expressions should not have
+blanks which would cause zsh to see them as different tokens.
+
+Examples:
+---------
+
+    examine x+1   # ok
+    examine x + 1 # not ok
+
 See also:
 ---------
 
-**eval** and **pr**."
+**eval**.'
 
 function _Dbg_do_examine {
   typeset _Dbg_expr; _Dbg_expr=${@:-"$_Dbg_last_x_args"}

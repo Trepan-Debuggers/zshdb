@@ -29,7 +29,8 @@ Attempt to restart the program.
 See also:
 ---------
 
-**set args**, **kill** and **quit**'
+**kill** and **quit** for termintation commands, or
+**set args** for another way to set run arguments.'
 
 _Dbg_do_run() {
 

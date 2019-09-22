@@ -1,17 +1,17 @@
 .. index:: set; different
 .. _set_different:
 
-Set Different
--------------
+Set Different (consecutive stops on different file/line positions)
+------------------------------------------------------------------
 
-**set** **different** [ **on** | **off** ]
+**set different** [ **on** | **off** ]
 
 Set consecutive stops must be on different file/line positions.
 
 By default, the debugger traces all events possible including line,
 exceptions, call and return events. Just this alone may mean that for
 any given source line several consecutive stops at a given line may
-occur. Independent of this, Python allows one to put several commands in
+occur. Independent of this, zsh allows one to put several commands in
 a single source line of code. When a programmer does this, it might be
 because the programmer thinks of the line as one unit.
 

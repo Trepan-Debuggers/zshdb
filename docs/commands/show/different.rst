@@ -1,8 +1,9 @@
 .. index:: show; different
 .. _show_different:
 
-Show Different
---------------
+Show Different (consecutive stops on different file/line positions)
+-------------------------------------------------------------------
+
 Show consecutive stops on different file/line positions
 
 .. seealso::

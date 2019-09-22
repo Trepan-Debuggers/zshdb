@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Eval and Print commands.
 #
-#   Copyright (C) 2008, 2010-2011, 2014-2015, 2017 Rocky Bernstein
+#   Copyright (C) 2008, 2010-2011, 2014-2015, 2017, 2019 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -62,7 +62,7 @@ given, the following translations occur:
 See also:
 ---------
 
-**set autoeval**, **print** and **examine**.'
+**set autoeval** and **examine**.'
 
 typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=1
 

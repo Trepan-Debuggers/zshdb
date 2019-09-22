@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # "set autoeval" debugger command
 #
-#   Copyright (C) 2011, 2014, 2016-2017 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014, 2016-2017, 2019 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -35,9 +36,9 @@ _Dbg_help_add_sub set autoeval \
 Evaluate unrecognized debugger commands.
 
 Often inside the debugger, one would like to be able to run arbitrary
-Python commands without having to preface Python expressions with
+zsh commands without having to preface zsh expressions with
 ``print`` or ``eval``. Setting *autoeval* on will cause unrecognized
-debugger commands to be *eval* as a Python expression.
+debugger commands to be *eval* as a zsh expression.
 
 Note that if this is set, on error the message shown on type a bad
 debugger command changes from:

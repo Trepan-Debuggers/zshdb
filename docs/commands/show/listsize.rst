@@ -1,8 +1,8 @@
 .. index:: show; listsize
 .. _show_listsize:
 
-Show Listsize
--------------
+Show Listsize (list command line count)
+---------------------------------------
 
 **show listsize**
 

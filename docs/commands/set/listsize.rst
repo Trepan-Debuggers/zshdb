@@ -1,8 +1,8 @@
 .. index:: set; listsize
 .. _set_listsize:
 
-Set Listsize
-------------
+Set Listsize (list command line count)
+--------------------------------------
 
 **set listsize** *number-of-lines*
 

@@ -1,14 +1,12 @@
 .. index:: run
 .. _run:
 
-Run
----
-**run**
+Run (restart program execution)
+-------------------------------
+**run** [*args*]
 
-Soft restart debugger and program via a *DebuggerRestart*
-exception.
+Attempt to restart the program.
 
 .. seealso::
 
-   :ref:`restart <restart>` for another way to restart the debugged program.
-   :ref:`quit <quit>`, or :ref:`kill <kill>` for termination commands.
+   :ref:`quit <quit>`, or :ref:`kill <kill>` for termination commands, or :ref:`set args <set_args>` for another way to set run arguments.

@@ -19,9 +19,14 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub show annotate \
-"show annotate
+"**show annotate**
 
-Show annotation level" 1
+Show annotation level. This is a (mostly obsolete) gdb setting, but
+it is used in GNU Emacs.
+
+   0 - normal
+   1 - fullname (for use when running under emacs).
+" 1
 
 _Dbg_do_show_annotate() {
     typeset label="$1"

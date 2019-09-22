@@ -1,8 +1,8 @@
 .. index:: show; width
 .. _show_width:
 
-Show Width
-----------
+Show Width (terminal width)
+---------------------------
 
 **show width**
 

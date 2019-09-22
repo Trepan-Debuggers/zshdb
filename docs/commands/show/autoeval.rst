@@ -1,8 +1,8 @@
 .. index:: show; autoeval
 .. _show_autoeval:
 
-Show Autoeval
--------------
+Show Autoeval (auto evaluation of unrecognized debugger commands)
+-----------------------------------------------------------------
 
 **show autoeval**
 
