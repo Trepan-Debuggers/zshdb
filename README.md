@@ -1,5 +1,8 @@
 [![Build Status Circle](https://circleci.com/gh/rocky/zshdb.svg?&style=shield)](https://circleci.com/gh/rocky/zshdb)
 
+[![Packaging status](https://repology.org/badge/vertical-allrepos/zshdb.svg)](https://repology.org/project/zshdb/versions)
+
+
 *zshdb* is gdb-like debugger for [zsh](http://www.zsh.org/) scripts. It started as a port of my bash
 debugger [bashdb](http://bashdb.sf.net) so the commands used in both are similar.
 
