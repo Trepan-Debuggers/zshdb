@@ -1,4 +1,4 @@
-[![Build Status Circle](https://circleci.com/gh/rocky/zshdb.svg?&style=shield)](https://circleci.com/gh/rocky/zshdb) [![Packaging status](https://repology.org/badge/tiny-repos/zshdb.svg)](https://repology.org/project/zshdb/versions)
+[![Build Status Circle](https://circleci.com/gh/rocky/zshdb.svg?&style=shield)](https://circleci.com/gh/rocky/zshdb)
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/zshdb.svg)](https://repology.org/project/zshdb/versions)
 
