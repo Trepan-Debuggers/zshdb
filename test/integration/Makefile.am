@@ -39,6 +39,7 @@ SOURCES=check-common.sh.in \
 	test-action.in \
 	test-brkpt1.in \
 	test-bug-args.in \
+	test-bug-delete.in \
 	test-bug-errexit.in \
 	test-bugIFS.in \
 	test-bug-ksharrays.in \

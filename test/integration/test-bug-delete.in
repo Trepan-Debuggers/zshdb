@@ -1,4 +1,4 @@
-#!/usr/bin/zsh -f
+#!@SH_PROG@ -f
 # -*- shell-script -*-
 t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
 

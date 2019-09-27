@@ -104,6 +104,8 @@ AC_CONFIG_FILES([test/integration/test-brkpt1],
                 [chmod +x test/integration/test-brkpt1])
 AC_CONFIG_FILES([test/integration/test-bug-args],
                 [chmod +x test/integration/test-bug-args])
+AC_CONFIG_FILES([test/integration/test-bug-delete],
+                [chmod +x test/integration/test-bug-delete])
 AC_CONFIG_FILES([test/integration/test-bug-errexit],
                 [chmod +x test/integration/test-bug-errexit])
 AC_CONFIG_FILES([test/integration/test-bugIFS],
