@@ -1,4 +1,6 @@
 /*.check
+/*.log
+/*.trs
 /*~
 /Makefile
 /Makefile.in

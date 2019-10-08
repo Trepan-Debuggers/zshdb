@@ -1,3 +1,180 @@
+2019-10-08  rocky <rocky@gnu.org>
+
+	* configure.ac, test/integration/.gitignore,
+	test/integration/Makefile.am, test/integration/README.md,
+	test/integration/test-file-with-spaces,
+	test/integration/test-file-with-spaces.in, test/unit/Makefile.am: 
+	Start guide on writing tests...  and some administrivia.
+
+2019-09-27  rocky <rocky@gnu.org>
+
+	* configure.ac, test/integration/.gitignore,
+	test/integration/Makefile.am, test/integration/{test-bug-delete =>
+	test-bug-delete.in}: Convert test-bug-delete to auto-generation.  Fixes #18
+
+2019-09-22  rocky <rocky@gnu.org>
+
+	* command/eval.sh, command/examine.sh, command/kill.sh,
+	command/quit.sh, command/run.sh, command/set_sub/annotate.sh,
+	command/set_sub/args.sh, command/set_sub/autoeval.sh,
+	command/show_sub/annotate.sh, docs/commands/data/eval.rst,
+	docs/commands/data/examine.rst, docs/commands/running.rst,
+	docs/commands/running/continue.rst, docs/commands/running/exit.rst,
+	docs/commands/running/kill.rst, docs/commands/running/quit.rst,
+	docs/commands/running/restart.rst, docs/commands/running/run.rst,
+	docs/commands/running/skip.rst, docs/commands/set.rst,
+	docs/commands/set/annotate.rst, docs/commands/set/args.rst,
+	docs/commands/set/autoeval.rst, docs/commands/set/basename.rst,
+	docs/commands/set/cmdtrace.rst, docs/commands/set/confirm.rst,
+	docs/commands/set/different.rst, docs/commands/set/editing.rst,
+	docs/commands/set/highlight.rst, docs/commands/set/listsize.rst,
+	docs/commands/set/maxstring.rst, docs/commands/set/skip.rst,
+	docs/commands/set/style.rst, docs/commands/set/trace.rst,
+	docs/commands/set/width.rst, docs/commands/show.rst,
+	docs/commands/show/aliases.rst, docs/commands/show/annotate.rst,
+	docs/commands/show/args.rst, docs/commands/show/autoeval.rst,
+	docs/commands/show/basename.rst, docs/commands/show/cmdtrace.rst,
+	docs/commands/show/confirm.rst, docs/commands/show/different.rst,
+	docs/commands/show/editing.rst, docs/commands/show/highlight.rst,
+	docs/commands/show/listsize.rst, docs/commands/show/maxstring.rst,
+	docs/commands/show/skip.rst, docs/commands/show/style.rst,
+	docs/commands/show/trace.rst, docs/commands/show/width.rst,
+	docs/commands/support/help.rst, docs/conf.py: Go over docs, yet
+	again.
+
+2019-09-22  R. Bernstein <rocky@users.noreply.github.com>
+
+	* README.md: Update README.md
+
+2019-09-22  R. Bernstein <rocky@users.noreply.github.com>
+
+	* README.md: Update README.md
+
+2019-09-21  rocky <rocky@gnu.org>
+
+	* README.md: Add repology badges
+
+2019-09-19  rocky <rocky@gnu.org>
+
+	* command/info_sub/breakpoints.sh, command/info_sub/line.sh,
+	command/info_sub/program.sh, command/info_sub/source.sh,
+	docs/commands/info.rst, docs/commands/info/breakpoints.rst,
+	docs/commands/info/line.rst, docs/commands/info/program.rst,
+	docs/commands/info/source.rst, docs/commands/info/stack.rst: Docs
+	yet again.
+
+2019-09-19  rocky <rocky@gnu.org>
+
+	* doc/toRsT.py, docs/commands/info.rst,
+	docs/commands/info/{break.rst => breakpoints.rst}: More doc stuff
+
+2019-09-18  rocky <rocky@gnu.org>
+
+	* docs/commands/info.rst, docs/commands/set.rst,
+	docs/commands/show.rst: More doc stuff
+
+2019-09-17  rocky <rocky@gnu.org>
+
+	* command/set_sub/editing.sh, docs/commands/set.rst,
+	docs/commands/set/annotate.rst, docs/commands/set/editing.rst,
+	docs/commands/set/events.rst, docs/commands/set/flush.rst,
+	docs/commands/set/substitute.rst, docs/commands/show.rst,
+	docs/commands/show/annotate.rst, docs/commands/show/editing.rst,
+	docs/features.rst, docs/index.rst, docs/manpage.rst: Update zshdb
+	doc yet again
+
+2019-09-16  rocky <rocky@gnu.org>
+
+	* test/integration/test-setshow.in: skip setshow on Travis
+
+2019-09-16  rocky <rocky@gnu.org>
+
+	* command/show.sh, command/show_sub/annotate.sh,
+	command/show_sub/basename.sh, docs/commands/set/annotate.rst,
+	docs/commands/show.rst, docs/commands/show/annotate.rst,
+	docs/commands/show/autoeval.rst, docs/manpage.rst,
+	test/data/action.right, test/data/next.right,
+	test/data/setshow-5.4.1.right: Go over docs..  zshdb manual show annotate, basename and show in general
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* command/load.sh: Doc for load improvement
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* docs/commands/data.rst, docs/commands/data/load.rst,
+	docs/commands/info/display.rst: More small RsT doc fixes
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* command/info_sub/files.sh, command/load.sh,
+	docs/commands/data/display.rst, docs/commands/data/load.rst,
+	docs/commands/data/undisplay.rst, docs/commands/info/display.rst,
+	docs/commands/info/files.rst: Add "load" command
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* docs/commands/data/display.rst: Rst typo
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* : commit ce73940bb86175637cd8b65ed5a61c10d29efacc Author: rocky
+	<rocky@gnu.org> Date:   Wed Sep 11 15:24:15 2019 -0400
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* command/info_sub/display.sh, command/info_sub/signals.sh,
+	docs/commands/info.rst, docs/commands/info/display.rst, lib/sig.sh: 
+	Add routine to show signal handlers; update docs
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* docs/commands/info.rst: Add link in doc to "info variables"
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* README.md, docs/commands/info/variables.rst, docs/index.rst: More
+	doc updates
+
+2019-09-11  rocky <rocky@gnu.org>
+
+	* docs/index.rst, docs/install.md, docs/install.rst: Convert install
+	to RST
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* test/integration/test-bugIFS.in, test/integration/test-bugIFS2.in: 
+	TravisCI take 4
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* test/integration/test-bugIFS.in, test/integration/test-bugIFS2.in: 
+	TravisCI take 3
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* test/unit/test-save-restore.sh.in: Travis test 2
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* test/unit/test-save-restore.sh.in: See if this addresses TravisCI
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* configure.ac, lib/hist.sh, lib/save-restore.sh,
+	test/data/bugIFS2.cmd, test/data/bugIFS2.right,
+	test/example/bugIFS2.sh, test/integration/.gitignore,
+	test/integration/Makefile.am, test/integration/test-bugIFS2.in: 
+	Fixes #7
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml: Try upding circleci dependencies
+
+2019-09-10  rocky <rocky@gnu.org>
+
+	* ChangeLog: Update ChangeLog
+
 2019-09-10  rocky <rocky@gnu.org>
 
 	* NEWS.md, test/integration/test-enable.in: Get ready for release

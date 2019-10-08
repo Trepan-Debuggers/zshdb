@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # hist.sh - Shell Debugger history routines
 #
-#   Copyright (C) 2008, 2011, 2014 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2011, 2014, 2019 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -38,7 +38,7 @@ _Dbg_history_read() {
 _Dbg_history_write() {
     if (( _Dbg_history_size > 0 && _Dbg_set_history)) ; then
 	# The following "fc" command doesn't work and I, rocky, don't
-	# have the patients to deal with arcane zsh-isms to want to
+	# have the patience to deal with arcane zsh-isms to want to
 	# make it work.
 	## fc -WI $_Dbg_histfile
 	cat /dev/null >$_Dbg_histfile
