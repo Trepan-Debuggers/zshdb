@@ -10,7 +10,7 @@ Here is a guide for writing a new test case.
 
 In general, each integration test case in this directory starts with a file that ends in `.in` like `test-delete.in`.
 
-This is a _zsh_ program however with some text to be substituted based on information in configuration. The text to be substituted is delimted with `@`.
+This is a _zsh_ program however with some text to be substituted based on information in configuration. The text to be substituted is delimited with `@`.
 
 For example, the first shbang or `#!` line looks like this:
 
@@ -18,9 +18,9 @@ For example, the first shbang or `#!` line looks like this:
     #!@SH_PROG@ -f
 ```
 
-In `configure.ac` you will see this file listed in `configure.ac`, as a file that is to be used as a template to create the actual shell program that gets run in integration testing.
+You will see this file listed in `configure.ac`, as a file that is to be used as a template to create the actual shell program that gets run in integration testing.
 
-In `configure` (produced via `configure.ac`) `@SH_PROG@` is substitued with the full path of _zsh_ that is to be run. For example `@SH_PROG@` could be `/bin/zsh` or `/usr/local/bin/zsh`.
+In `configure` (produced via `configure.ac`) `@SH_PROG@` is substituted with the full path of _zsh_ that is to be run. For example `@SH_PROG@` could be `/bin/zsh` or `/usr/local/bin/zsh`.
 
 The line in `configure.ac` that cause this to happen when `configure` is run looks like this:
 
@@ -31,7 +31,7 @@ AC_CONFIG_FILES([test/integration/test-delete],
 
 ## Anatomy of integration tests.
 
-At a high level, an integraion test does these things:
+At a high level, an integration test does these things:
 
 * Unless the test is to be skipped, the test is run under _zshdb_ with some _zshdb_ flags
 * the output, possibly filtered, is compared with expected results
@@ -62,7 +62,7 @@ Line 5: get where we are so that we can reference the script to run and the expe
 
 Line 6: source in library routines based on the directory set in line 5.
 
-Line 7: runs _zshdb_. The parameter `stepping` the variable porition is the name of the _zsh_ script in `test/example` to run. Here it is `test/example/stepping.sh`. If this parameter were not given we would have used `test/example/delete.sh` because this is was the extracted value in line 3.
+Line 7: runs _zshdb_. The parameter `stepping` the variable portion is the name of the _zsh_ script in `test/example` to run. Here it is `test/example/stepping.sh`. If this parameter were not given we would have used `test/example/delete.sh` because this is was the extracted value in line 3.
 
 Lets look at an example that is slightly (but only slightly) more complicated,
 `test-frame.in`:
