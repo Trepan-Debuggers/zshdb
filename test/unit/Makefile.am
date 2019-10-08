@@ -34,9 +34,9 @@ TESTS_ENVIRONMENT = \
   srcdir="$(abs_srcdir)" \
   builddir="$(abs_builddir)"
 
-TESTS_SOURCES = $(TESTS:=.in) $(COMBINED_TESTS::=.in)
+test_sources = $(TESTS:=.in) $(COMBINED_TESTS::=.in)
 
-EXTRA_DIST = helper.sh $(COMBINED_TESTS) $(TESTS) shunit2 $(TEST_SOURCES)
+EXTRA_DIST = helper.sh $(COMBINED_TESTS) $(TESTS) shunit2 $(test_sources)
 
 check: combined-tests check-am
 test: check

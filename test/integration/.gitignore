@@ -18,6 +18,8 @@
 /test-enable
 /test-examine
 /test-export
+/test-file-with-space
+/test-file-with-spaces
 /test-frame
 /test-list
 /test-multi

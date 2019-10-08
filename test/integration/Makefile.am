@@ -12,6 +12,7 @@ TESTS = \
 	test-enable        \
 	test-examine       \
 	test-export        \
+	test-examine       \
 	test-frame         \
 	test-list          \
 	test-multi         \
@@ -48,6 +49,7 @@ SOURCES=check-common.sh.in \
 	test-display.in \
 	test-enable.in \
 	test-examine.in \
+	test-file-with-spaces.in \
 	test-frame.in \
 	test-list.in \
 	test-multi.in \
@@ -61,7 +63,7 @@ SOURCES=check-common.sh.in \
 	test-tbreak.in
 
 EXTRA_DIST = $(TESTS) $(check_DATA) $(SOURCES) \
-	check-common.sh.in \
+	README.md check-common.sh.in \
 	lopts.tests        \
 	sopts.tests
 

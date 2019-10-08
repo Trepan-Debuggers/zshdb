@@ -126,6 +126,8 @@ AC_CONFIG_FILES([test/integration/test-examine],
                 [chmod +x test/integration/test-examine])
 AC_CONFIG_FILES([test/integration/test-export],
 	        [chmod +x test/integration/test-export])
+AC_CONFIG_FILES([test/integration/test-file-with-spaces],
+                [chmod +x test/integration/test-file-with-spaces])
 AC_CONFIG_FILES([test/integration/test-frame],
                 [chmod +x test/integration/test-frame])
 AC_CONFIG_FILES([test/integration/test-list],

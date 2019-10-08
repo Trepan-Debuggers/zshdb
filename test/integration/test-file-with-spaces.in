@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!@SH_PROG@
 # -*- shell-script -*-
 TEST_NAME='file with spaces'
 
