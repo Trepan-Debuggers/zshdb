@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+n#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#   Copyright (C) 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2016, 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ from pygments.console    import ansiformat
 from pygments.lexers     import BashLexer, RstLexer
 from pygments.filter     import Filter
 from pygments.formatter  import Formatter
+from pygments.formatters.terminal import TERMINAL_COLORS
 from pygments.formatters import TerminalFormatter, Terminal256Formatter
 from pygments.token      import Keyword, Name, Comment, String, Error, \
     Number, Operator, Generic, Token, Whitespace
@@ -38,40 +39,6 @@ from pygments.styles import STYLE_MAP
 style_names = sorted(list(STYLE_MAP.keys()))
 
 warnings.simplefilter("ignore")
-
-#: Map token types to a tuple of color values for light and dark
-#: backgrounds.
-TERMINAL_COLORS = {
-    Token:              ('',            ''),
-
-    Whitespace:         ('lightgray',   'darkgray'),
-    Comment:            ('brown',       'yellow'),
-    Comment.Preproc:    ('teal',        'turquoise'),
-    Keyword:            ('*darkgreen*',  'turquoise'),
-    Keyword.Type:       ('teal',        'turquoise'),
-    Operator.Word:      ('purple',      'fuchsia'),
-    Name.Builtin:       ('teal',        'turquoise'),
-    Name.Function:      ('darkgreen',   'green'),
-    Name.Namespace:     ('_teal_',      '_turquoise_'),
-    Name.Class:         ('_darkgreen_', '_green_'),
-    Name.Exception:     ('teal',        'turquoise'),
-    Name.Decorator:     ('darkgray',    'lightgray'),
-    Name.Variable:      ('darkblue',    'green'),
-    Name.Constant:      ('darkblue',    'yellow'),
-    Name.Attribute:     ('teal',        'turquoise'),
-    Name.Tag:           ('blue',        'yellow'),
-    String:             ('brown',       'lightgray'),
-    Number:             ('black',       'yellow'),
-
-    Generic.Deleted:    ('red',        'red'),
-    Generic.Inserted:   ('darkgreen',  'green'),
-    Generic.Heading:    ('**',         '**'),
-    Generic.Subheading: ('*purple*',   '*fuchsia*'),
-    Generic.Error:      ('red',        'red'),
-
-    Error:              ('_red_',      '_red_'),
-}
-
 
 # FIXME: change some horrible colors under atom dark
 # this is a hack until I get general way to do colorstyle setting
