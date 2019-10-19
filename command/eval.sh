@@ -85,7 +85,7 @@ _Dbg_do_eval() {
         # ZSH_DEBUG_CMD is preferable to _Dbg_source_line in that we
         # know is a complete statement. But to determine if it is a
         # compound statement like "if .. ; then .. fi we'd prefer just
-        # to go with the line shown and pehraps use eval? to shorten
+        # to go with the line shown and perhaps use eval? to shorten
         # that.  The heuristic we use to determine a compound statement
         # is just whether the the length of text of the the current is less
         # than the length of the full command in ZSH_DEBUG_CMD
