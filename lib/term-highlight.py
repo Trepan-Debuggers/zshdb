@@ -1,4 +1,4 @@
-n#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #   Copyright (C) 2016, 2019 Rocky Bernstein <rocky@gnu.org>
 #
