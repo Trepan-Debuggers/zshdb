@@ -12,17 +12,17 @@
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #   General Public License for more details.
-#   
+#
 #   You should have received a copy of the GNU General Public License
 #   along with this program; see the file COPYING.  If not, write to
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-typeset -a _Dbg_yn; _Dbg_yn=("n" "y")         
+typeset -a _Dbg_yn; _Dbg_yn=("n" "y")
 
 # Return $2 copies of $1. If successful, $? is 0 and the return value
 # is in result.  Otherwise $? is 1 and result ''
-function _Dbg_copies { 
+function _Dbg_copies {
     result=''
     (( $# < 2 )) && return 1
     typeset -r string="$1"
@@ -35,7 +35,7 @@ function _Dbg_copies {
     return 0
 }
 
-# _Dbg_defined returns 0 if $1 is a defined variable or nonzero otherwise. 
+# _Dbg_defined returns 0 if $1 is a defined variable or nonzero otherwise.
 _Dbg_defined() {
     (( 0 == $# )) && return 1
     typeset -p "$1" &>/dev/null
@@ -80,8 +80,8 @@ _Dbg_eval_extract_condition()
 # _Dbg_get_typeset_attr echoes a list of all of the functions matching
 # optional pattern if $1 is nonzero, include debugger functions,
 # i.e. those whose name starts with an underscore (_Dbg), are included in
-# the search.  
-# A grep pattern can be specified to filter function names. If the 
+# the search.
+# A grep pattern can be specified to filter function names. If the
 # pattern starts with ! we report patterns that don't match.
 _Dbg_get_typeset_attr() {
     (( $# == 0 )) && return 1
@@ -110,7 +110,7 @@ function _Dbg_onoff {
   builtin echo $onoff
 }
 
-# Set $? to $1 if supplied or the saved entry value of $?. 
+# Set $? to $1 if supplied or the saved entry value of $?.
 function _Dbg_set_dol_q {
   return ${1:-$_Dbg_debugged_exit_code}
 }
@@ -124,7 +124,7 @@ function _Dbg_split {
 }
 
 # Common routine for setup of commands that take a single
-# linespec argument. We assume the following variables 
+# linespec argument. We assume the following variables
 # which we store into:
 #  filename, line_number, full_filename
 
@@ -140,7 +140,7 @@ function _Dbg_linespec_setup {
 	_Dbg_errmsg "Invalid line specification: $linespec"
 	return 1
     fi
-    
+
     filename=${word[2]}
     typeset -i is_function=${word[1]}
     line_number=${word[0]}
@@ -148,7 +148,7 @@ function _Dbg_linespec_setup {
     full_filename=$(_Dbg_is_file "$filename")
 
 #   if (( is_function )) ; then
-#       if [[ -z $full_filename ]] ; then 
+#       if [[ -z $full_filename ]] ; then
 # 	  _Dbg_readin "$filename"
 # 	  full_filename=`_Dbg_is_file $filename`
 #       fi
@@ -165,13 +165,13 @@ function _Dbg_linespec_setup {
 function _Dbg_parse_linespec {
     typeset linespec="$1"
     case "$linespec" in
-	
+
 	# line number only - use filename from last adjust_frame
-	[0-9]* )	
+	[0-9]* )
 	    word=($linespec 0 "${_Dbg_frame_last_filename}")
 	    return 0
 	    ;;
-	
+
 	# file:line
 	[^:][^:]*[:][0-9]* )
 	    # Split the POSIX way
@@ -181,10 +181,10 @@ function _Dbg_parse_linespec {
 	    word=("$line_word" 0 "$file_word")
 	    return 0
 	    ;;
-	
+
 	# Function name or error
 	* )
-	    if _Dbg_is_function $linespec ${_Dbg_set_debug} ; then 
+	    if _Dbg_is_function $linespec ${_Dbg_set_debug} ; then
 		word=( '' 1 '')
 		return 0
 	    fi
