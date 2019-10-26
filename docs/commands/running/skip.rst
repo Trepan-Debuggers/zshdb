@@ -16,6 +16,8 @@ Note that skipping doesn't change the value of \$?. This has
 consequences in some compound statements that test on \$?. For example
 in:
 
+::
+
    if grep foo bar.txt ; then
       echo not skipped
    fi
@@ -27,4 +29,4 @@ test.
 
 .. seealso::
 
-   :ref:`next <next>` command. :ref:`step <step>`, and :ref:`continue <continue>` provide other ways to progress execution.
+   :ref:`next <next>`,  :ref:`step <step>`, and :ref:`continue <continue>` provide other ways to progress execution.

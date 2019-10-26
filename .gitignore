@@ -20,5 +20,6 @@
 /test/integration/*.log
 /tmp
 /zshdb
+/zshdb-1*
 INSTALL
 README

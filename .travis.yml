@@ -7,7 +7,11 @@ install:
   - "sudo apt-get install zsh"
 
 addons:
-  artifacts: true
+  artifacts:
+    paths:
+      - $(du -a test | grep log$ | cut -f 2)
+      - $HOME/some/other/thing.log
+    debug: true
 
 # run the tests
 script: zsh ./autogen.sh && make check
