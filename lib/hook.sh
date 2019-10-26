@@ -231,6 +231,11 @@ _Dbg_hook_enter_debugger() {
     _Dbg_print_location_and_command
     _Dbg_process_commands
     _Dbg_set_to_return_from_debugger $?
+    if (( $_Dbg_skip != 0 )) ; then
+	echo "Skipping..."
+	# Set to skip instruction
+	set -o errexit
+    fi
     return $_Dbg_rc # _Dbg_rc set to $? by above
 }
 

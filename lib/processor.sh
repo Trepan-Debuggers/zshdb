@@ -55,6 +55,7 @@ typeset -a _Dbg_fd ; _Dbg_fd=()
 # A list of source'd command files. If the entry is '', then we are
 # interactive.
 typeset -a _Dbg_cmdfile ; _Dbg_cmdfile=('')
+typeset -i _Dbg_skip=0
 
 # The main debugger command reading loop.
 #
@@ -73,6 +74,7 @@ function _Dbg_process_commands {
   fi
 
   _Dbg_continue_rc=-1  # Don't continue execution unless told to do so.
+  _Dbg_skip=0  # Don't skip execution unless told to do so.
   # Nuke any prior step-ignore counts
   _Dbg_write_journal_eval "_Dbg_step_ignore=-1"
   _Dbg_hi_last_stop=-1
