@@ -6,5 +6,8 @@ install:
   # Install zsh.
   - "sudo apt-get install zsh"
 
+addons:
+  artifacts: true
+
 # run the tests
 script: zsh ./autogen.sh && make check
