@@ -19,13 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add skip \
-"**skip** [*count*]
+"**skip**
 
-Skip (don't run) the next *count* command(s).
-
-If *count* is given, stepping occurs that many times before
-stopping. Otherwise *count* is one. *count* can be an arithmetic
-expression.
+Skip (don't run) the next command(s).
 
 Note that skipping doesn't change the value of \$?. This has
 consequences in some compound statements that test on \$?. For example
@@ -40,16 +36,14 @@ command. Since the return code is 0 when skipped, the *if* body is
 entered. Similarly the same thing can  happen in a *while* statement
 test.
 
-See http://lists.gnu.org/archive/html/bug-bash/2017-04/msg00004.html
-
 See also:
 ---------
 
-**next** and **step**.
+**next**, **step**, **continue*, and **finish**.
 "
 
 _Dbg_do_skip() {
     _Dbg_last_cmd='skip'
-    _Dbg_skip=1
+,    _Dbg_skip=1
     return $?
 }

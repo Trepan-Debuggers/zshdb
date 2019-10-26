@@ -20,4 +20,5 @@ program execution. You can:
    running/next
    running/quit
    running/run
+   running/skip
    running/step
