@@ -1,6 +1,6 @@
 (stepping.sh:3):
 for ((i=0; i<3; i++)) do print 1st loop $i done
-+# Make sure autostep is off for next text
++# Make sure autostep is off for tests
 +set force off
 Show stepping forces a new line is off.
 +show force

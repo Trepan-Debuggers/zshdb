@@ -13,9 +13,10 @@ check_DATA = \
 	multi.sh         \
 	nexting.sh       \
 	restart.sh       \
+	skip.sh          \
 	stepping.sh      \
 	subshell.sh
 
-SOURCES=hanoi.sh.in restart.sh.in
+SOURCES=hanoi.sh.in restart.sh.in skip.sh.in
 
 EXTRA_DIST = $(check_DATA) $(SOURCES)

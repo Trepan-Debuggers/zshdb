@@ -1,4 +1,4 @@
-# -*- shell-script -*-
+#  -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
 #   Copyright (C) 2008, 2009, 2010, 2011, 2018
@@ -27,6 +27,9 @@ typeset -i _Dbg_QUIT_LEVELS=0     # Number of nested shells we have to exit
 
 # Return code that debugged program reports
 typeset -i _Dbg_program_exit_code=0
+
+# Number of statements to skip before entering the debugger if greater than 0
+typeset -i _Dbg_skip_ignore=0
 
 # This is the main hook routine that gets called before every statement.
 # It's the function called via trap DEBUG.
@@ -77,8 +80,9 @@ function _Dbg_trap_handler {
 	if ((! _Dbg_skipping_fn )) ; then
 	    ((_Dbg_skip_ignore--))
 	    _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
-	    _Dbg_set_to_return_from_debugger 2
-	    return 2 # 2 indicates skip statement.
+	    # Set to skip instruction
+	    set -o errexit
+	    return
 	fi
     fi
 
@@ -231,8 +235,7 @@ _Dbg_hook_enter_debugger() {
     _Dbg_print_location_and_command
     _Dbg_process_commands
     _Dbg_set_to_return_from_debugger $?
-    if (( $_Dbg_skip != 0 )) ; then
-	echo "Skipping..."
+    if (( $_Dbg_skip_ignore != 0 )) ; then
 	# Set to skip instruction
 	set -o errexit
     fi

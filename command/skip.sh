@@ -19,9 +19,13 @@
 #   MA 02111 USA.
 
 _Dbg_help_add skip \
-"**skip**
+"**skip** [*count*]
 
-Skip (don't run) the next command(s).
+Skip (don't run) the next *count* command(s).
+
+If *count* is given, stepping occurs that many times before
+stopping. Otherwise *count* is one. *count* can be an arithmetic
+expression.
 
 Note that skipping doesn't change the value of \$?. This has
 consequences in some compound statements that test on \$?. For example
@@ -31,7 +35,7 @@ in:
       echo not skipped
    fi
 
-skipping the *if* statement will in effect skip running the *grep*
+Skipping the *if* statement will, in effect, skip running the *grep*
 command. Since the return code is 0 when skipped, the *if* body is
 entered. Similarly the same thing can  happen in a *while* statement
 test.
@@ -39,11 +43,24 @@ test.
 See also:
 ---------
 
-**next**, **step**, **continue*, and **finish**.
+**continue**, **next**, and **step**.
 "
 
 _Dbg_do_skip() {
     _Dbg_last_cmd='skip'
-,    _Dbg_skip=1
+
+    typeset count=${1:-1}
+
+    if [[ $count == [0-9]* ]] ; then
+	_Dbg_skip_ignore=${count:-1}
+	_Dbg_continue_rc=0
+    else
+	_Dbg_errmsg "'skip' argument ($count) should be a number or nothing."
+	return 0
+    fi
+
+    _Dbg_step_ignore=1
+    # We're cool. Do the skip.
+    _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
     return $?
 }

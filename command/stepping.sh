@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # stepping.cmd - gdb-like "step" and "skip" debugger commands
 #
-#   Copyright (C) 2008, 2010, 2016-2017 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2016-2017, 2019 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,9 +18,6 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-# Number of statements to skip before entering the debugger if greater than 0
-typeset -i _Dbg_skip_ignore=0
-
 # 1 if we need to ensure we stop on a different line?
 typeset -i _Dbg_step_force=0
 
@@ -30,53 +27,8 @@ typeset -i _Dbg_return_level=-1
 # The default behavior of step_force.
 typeset -i _Dbg_set_different=0
 
-_Dbg_help_add skip \
-"**skip** [*count*]
-
-Skip (don't run) the next *count* command(s).
-
-If *count* is given, stepping occurs that many times before
-stopping. Otherwise *count* is one. *count* can be an arithmetic
-expression.
-
-See also:
----------
-
-**next** and **step**.
-"
-
-_Dbg_do_skip() {
-    _Dbg_do_skip_internal $@ && return 2
-}
-
-# Return 0 if we should skip. Nonzero if there was an error.
-# $1 is an optional additional count.
-_Dbg_do_skip_internal() {
-
-  _Dbg_not_running && return 1
-
-  _Dbg_last_cmd='skip'
-  typeset count=${1:-1}
-
-  if [[ $count == [0-9]* ]] ; then
-    _Dbg_skip_ignore=${count:-1}
-    ((_Dbg_skip_ignore--)) # Remove one from the skip caused by this return
-  else
-    _Dbg_errmsg "Argument ($count) should be a number or nothing."
-    _Dbg_skip_ignore=0
-    return 3
-  fi
-  # We're cool. Do the skip.
-  _Dbg_write_journal "_Dbg_skip_ignore=$_Dbg_skip_ignore"
-
-  # Set to do a stepping stop after skipping
-  _Dbg_step_ignore=0
-  _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
-  return 0
-}
-
 _Dbg_help_add 'step' \
-"**step** *count*
+"**step** [*count*]
 
 Single step a statement *count* times.
 

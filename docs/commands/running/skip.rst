@@ -4,9 +4,13 @@
 Skip (skip over)
 ----------------
 
-**skip**
+**skip** [*count*]
 
-Skip (don't run) the next command(s).
+Skip (don't run) the next *count* command(s).
+
+If *count* is given, stepping occurs that many times before
+stopping. Otherwise *count* is one. *count* can be an arithmetic
+expression.
 
 Note that skipping doesn't change the value of \$?. This has
 consequences in some compound statements that test on \$?. For example
@@ -16,11 +20,11 @@ in:
       echo not skipped
    fi
 
-skipping the *if* statement will in effect skip running the *grep*
+Skipping the *if* statement will, in effect, skip running the *grep*
 command. Since the return code is 0 when skipped, the *if* body is
 entered. Similarly the same thing can  happen in a *while* statement
 test.
 
 .. seealso::
 
-   :ref:`next <next>` command. :ref:`step <step>`, :ref:`continue <continue>`, and :ref:`finish <finish>` provide other ways to progress execution.
+   :ref:`next <next>` command. :ref:`step <step>`, and :ref:`continue <continue>` provide other ways to progress execution.
