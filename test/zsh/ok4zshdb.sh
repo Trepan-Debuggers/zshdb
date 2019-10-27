@@ -1,6 +1,6 @@
 # !/usr/bin/zsh -f
 # Returns 0 if run with a zsh compatible with zshdb
-PS4='%(%x:%I): [%?]  
+PS4='%(%x:%I): [%?]
 '
 
 second_fn() {
@@ -24,8 +24,10 @@ functrace_no_source() {
 
 typeset -fuz is-at-least  # Same as "functions -u -z" but better documented.
 if ! is-at-least 4.3.6-dev-2 ; then
-  print "zsh needs version 4.3.6-dev-2 or greater"
-  exit 20
+    print "zsh needs version 4.3.6-dev-2 or greater"
+    exit 20
+else
+    print $(zsh --version) is recent enough.
 fi
 
 functrace_no_source
@@ -39,10 +41,10 @@ function get_processor {
     if (( $? == 0 )); then
         ZSH_PROCESSOR=${cmd[0]}
     else
-        # Solaris doesn't have "h" on ps 
+        # Solaris doesn't have "h" on ps
 	cmd=( $(COLUMNS=3000 ps -o args -p $$ | tail -1) ) 2>/dev/null
         ZSH_PROCESSOR=${cmd[0]}
-    fi	
+    fi
 }
 
 get_processor
@@ -60,4 +62,3 @@ fi
 # you get here no dice.
 print "Internal test error you. You shouldn't be seing this."
 exit 40
-

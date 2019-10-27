@@ -1,3 +1,9 @@
+2019-10-27  rocky <rocky@gnu.org>
+
+	* ChangeLog, NEWS.md, admin/how-to-make-a-release.md, configure.ac,
+	test/data/Makefile.am, test/example/Makefile.am: Get ready for
+	release 1.1.0
+
 2019-10-26  rocky <rocky@gnu.org>
 
 	* .gitignore, .travis.yml, docs/commands/running/skip.rst: Imporve
