@@ -12,6 +12,8 @@ check_DATA = \
 	bug-errexit.right  \
 	bug-ksharrays.cmd  \
 	bug-ksharrays.right\
+	bugIFS2.cmd        \
+	bugIFS2.right      \
 	bugIFS.cmd         \
 	bugIFS.right       \
 	condition.cmd      \
@@ -25,6 +27,7 @@ check_DATA = \
 	examine.right      \
 	examine-5.4.1.right \
 	examine.cmd        \
+	export-5.4.1.right \
 	export.right       \
 	export.cmd         \
 	frame.cmd          \

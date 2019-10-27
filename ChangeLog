@@ -1,3 +1,51 @@
+2019-10-26  rocky <rocky@gnu.org>
+
+	* .gitignore, .travis.yml, docs/commands/running/skip.rst: Imporve
+	"skip" doc artifact logging; more ignore
+
+2019-10-26  rocky <rocky@gnu.org>
+
+	* .travis.yml: Save travis artifacts
+
+2019-10-26  rocky <rocky@gnu.org>
+
+	* command/skip.sh, command/stepping.sh, configure.ac,
+	docs/commands/running/skip.rst, lib/hook.sh, test/data/skip.cmd,
+	test/data/skip.right, test/data/step.cmd, test/data/step.right,
+	test/example/.gitignore, test/example/Makefile.am,
+	test/example/skip.sh.in, test/integration/test-skip.in: Allow
+	**count** to "skip" command...  Some minor doc fixes
+
+2019-10-25  rocky <rocky@gnu.org>
+
+	* command/skip.sh, docs/commands/running.rst,
+	docs/commands/running/skip.rst, test/data/skip.cmd,
+	test/data/skip.right: Doc skip command
+
+2019-10-25  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #21 from rocky/add-skip-command Add "skip" command
+
+2019-10-24  rocky <rocky@gnu.org>
+
+	* command/debug.sh, lib/term-highlight.py: Add "debug" command ...  term-highlight.py: Remove stray schmutz from beginning of file
+
+2019-10-19  rocky <rocky@gnu.org>
+
+	* command/eval.sh: Typo.
+
+2019-10-10  rocky <rocky@gnu.org>
+
+	* lib/term-highlight.py: Keep up with pygmentize...  Use default TERMINAL_COLORS. It's simpler.
+
+2019-10-08  rocky <rocky@gnu.org>
+
+	* test/integration/README.md: Spelling errors
+
+2019-10-08  rocky <rocky@gnu.org>
+
+	* ChangeLog, lib/hist.sh, test/integration/.gitignore: Small changes
+
 2019-10-08  rocky <rocky@gnu.org>
 
 	* configure.ac, test/integration/.gitignore,

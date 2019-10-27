@@ -1,3 +1,11 @@
+Version 1.1.1 2019--10-27 9 x 7
+-------------------------------
+
+- Add "skip" command
+- Add "debug" command
+- Lots of little help doc fixes
+- Update for current pygments advances. Now use the default TERMINAL colors
+
 Version 1.0.1 2019--09-18
 -------------------------
 
