@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# gdb-like "skip" (step over) commmand.
+# gdb-like "skip" (skip over) debugger commmand.
 #
 #   Copyright (C) 2019 Rocky Bernstein <rocky@gnu.org>
 #

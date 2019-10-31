@@ -201,7 +201,7 @@ function _Dbg_readin {
 	    if [[ -n $_Dbg_set_highlight ]] ; then
 		opts="--bg=${_Dbg_set_highlight}"
 		if [[ -n $_Dbg_set_style ]] ; then
-		    opts="--style=${_Dbg_set_style}"
+		    opts="$opts --style=${_Dbg_set_style}"
 		fi
 		highlight_cmd="${_Dbg_libdir}/lib/term-highlight.py $opts $fullname"
 		tempfile=$($highlight_cmd 2>/dev/null)
