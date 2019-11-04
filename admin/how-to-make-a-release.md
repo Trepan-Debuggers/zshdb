@@ -2,27 +2,37 @@
 
 - test on lots of platforms.
 
-- Look for patches and outstanding bugs on sourceforge.net
+- Look for patches and outstanding bugs
 
 - git pull
 
-- Edit from configure.ac's release name. E.g.
-   export ZSHDB_VERSION='1.1.0'
-    AC_INIT([zshdb],[1.1.0],[rocky@gnu.org])
-                     ^^^^^
+- Edit from `configure.ac`'s release name. If we have this in `configure.ac`:
+```
+   AC_INIT([zshdb],[1.1.0],[rocky@gnu.org])
+                    ^^^^^^
+```
 
-- ./autogen.sh && make && make check
+then:
 
-- Commit changes
+```console
+   $ export ZSHDB_VERSION='1.1.0'
+   $ ./autogen.sh && make && make check
+```
 
-  git commit -m"Get ready for release $ZSHDB_VERSION" .
-  make Changelog
+- Commit changes:
 
-- Go over ChangeLog and add NEWS. Update date of release.
+```console
+  $ git commit -m"Get ready for release $ZSHDB_VERSION" .
+  $ make Changelog
+```
 
-  git commit --amend .
+- Go over ChangeLog and add to `NEWS.md`. Update date of release.
 
-- "make distcheck" should work
+  ```console
+	$  git commit --amend .
+  ```
+
+- `make distcheck` should work
 
 - Tag release on github
    https://github.com/rocky/zshdb/releases
@@ -33,7 +43,7 @@
   Use the GUI
    login, file release, add folder $ZSHDB_VERSION
    hit upload button.
-   copy NEWS as README in $ZSHDB_VERSION
+   copy NEWS.md as README.md in $ZSHDB_VERSION
 
 - Update link in github/rocky.github.com/zshdb/index.html
 
