@@ -104,8 +104,9 @@ _Dbg_do_shell() {
     typeset -i _Dbg_rc
     _Dbg_shell_new_shell_profile $_Dbg_o_vars _$Dbg_o_fns
 
-    # Set prompt in new shell
-    echo "PS1='${_Dbg_debugger_name} $ '" >>$_Dbg_shell_temp_profile
+    # Set prompt and $0 in new shell
+    print "PS1='${_Dbg_debugger_name} $ '" >>"$_Dbg_shell_temp_profile"
+    print "0=$_Dbg_dollar_0" >> "$_Dbg_shell_temp_profile"
     ZDOTDIR=$_Dbg_tmpdir $shell -o TYPESET_SILENT $shell_opts
     rc=$?
     _Dbg_restore_from_nested_shell

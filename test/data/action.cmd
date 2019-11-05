@@ -1,6 +1,6 @@
 set trace-commands on
 set basename on
-# Debugger test of action command
+# Debugger test of action command, and some $ vars
 #
 # Show actions
 a
@@ -12,4 +12,6 @@ L
 a
 cont 24
 eval echo "value of x is now $x"
+# Check
+eval echo dollar 0 is $(basename $0)
 quit

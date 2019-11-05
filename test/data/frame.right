@@ -37,8 +37,8 @@ if (( $tracing )) then _Dbg_set_linetrace=1 fi
 +# Try some negative numbers
 +# should be the same as up
 +down -1
-->2 hanoi.sh called from file `zshdb' at line 134
-(zshdb:134):
+->2 hanoi.sh called from file `zshdb' at line 140
+(zshdb:140):
 +T 2
 ##0 in file `hanoi.sh' at line 8
 ##1 init called from file `hanoi.sh' at line 41

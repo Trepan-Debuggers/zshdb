@@ -119,6 +119,12 @@ fi
 ## Skip for now
 ## _Dbg_init_default_traps
 
+if [[ -n $_Dbg_script_file ]] ; then
+    # Set $0
+    0=$_Dbg_script_file
+fi
+typeset _Dbg_dollar_0=$0
+
 while : ; do
   # trap 'echo ERR encountered inside debugger' ERR
 
