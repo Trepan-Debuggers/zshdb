@@ -68,8 +68,8 @@ typeset -i _Dbg_show_eval_rc; _Dbg_show_eval_rc=1
 
 _Dbg_do_eval() {
 
-    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" > "$_Dbg_evalfile"
-    print "0=$_Dbg_dollar_0" >> "$_Dbg_evalfile"
+    print "0=$_Dbg_dollar_0" > "$_Dbg_evalfile"
+    print ". ${_Dbg_libdir}/lib/set-d-vars.sh" >> "$_Dbg_evalfile"
     print '_Dbg_rc=$?' >> "$_Dbg_evalfile"
 
     if (( $# == 0 )) ; then

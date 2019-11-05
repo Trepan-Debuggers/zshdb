@@ -1,6 +1,6 @@
 language: zsh
 
-dist: zenial
+dist: bionic
 
 install:
   # Install zsh.
