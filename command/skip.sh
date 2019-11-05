@@ -21,7 +21,7 @@
 _Dbg_help_add skip \
 "**skip** [*count*]
 
-Skip (don't run) the next *count* command(s).
+Skip over (don't run) the next *count* command(s).
 
 If *count* is given, stepping occurs that many times before
 stopping. Otherwise *count* is one. *count* can be an arithmetic
