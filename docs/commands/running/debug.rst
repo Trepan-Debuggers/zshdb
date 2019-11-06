@@ -6,7 +6,7 @@ Debug (recursive debugging)
 
 **debug** [*zsh-script* [*args*...]]
 
-Set up *zsh-script* for debugging.
+Recursively debug into *zsh-script*.
 
 If *script* is not given, take the script name from the command that
 is about to be executed. Note that when the nested debug finished, you

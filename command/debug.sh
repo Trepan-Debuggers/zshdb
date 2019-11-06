@@ -19,9 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add debug \
-"debug [*zsh-script* [*args*...]  ]
+"debug [*zsh-script* [*args*...]]
 
-Set up *zsh-script* for debugging.
+Recursively debug into *ksh-script*.
 
 If *script* is not given, take the script name from the command that
 is about to be executed. Note that when the nested debug finished, you
