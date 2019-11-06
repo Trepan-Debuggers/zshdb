@@ -1,5 +1,3 @@
-language: zsh
-
 dist: bionic
 
 install:
