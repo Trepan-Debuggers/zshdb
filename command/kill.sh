@@ -21,6 +21,7 @@
 
 _Dbg_help_add kill \
 '**kill** [*signal-number*]
+
 **kill!** [*signal-number*]
 
 Send this process a POSIX signal ("9" for "SIGKILL" or "kill -SIGKILL")
