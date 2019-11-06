@@ -21,7 +21,7 @@
 _Dbg_help_add debug \
 "debug [*zsh-script* [*args*...]]
 
-Recursively debug into *ksh-script*.
+Recursively debug into *zsh-script*.
 
 If *script* is not given, take the script name from the command that
 is about to be executed. Note that when the nested debug finished, you
