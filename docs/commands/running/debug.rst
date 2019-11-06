@@ -1,8 +1,9 @@
-.. index:: run
-.. _run:
+.. index:: debug
+.. _debug:
 
-Run (restart program execution)
--------------------------------
+Debug (recursive debugging)
+---------------------------
+
 **debug** [*zsh-script* [*args*...]]
 
 Set up *zsh-script* for debugging.
