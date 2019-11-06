@@ -15,6 +15,7 @@ program execution. You can:
 .. toctree::
    :maxdepth: 1
 
+   running/debug
    running/continue
    running/kill
    running/next

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # continue.sh - gdb-like "continue" debugger command
 #
-#   Copyright (C) 2008, 2010-2011, 2016 Rocky Bernstein
+#   Copyright (C) 2008, 2010-2011, 2016, 2019 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -29,7 +29,18 @@ the end of program is reached.  If **-** is given, then debugging will
 be turned off after continuing causing your program to run at full
 speed.
 
-If **loc* is given, a temporary breakpoint is set at the location.'
+If **loc* is given, a temporary breakpoint is set at the location.
+
+Examples:
+---------
+
+    continue          # Continue execution
+    continue 5        # Continue with a one-time breakpoint at line 5
+
+See Also:
+---------
+
+**next**, **skip**, and **step** provide other ways to progress execution.'
 
 function _Dbg_do_continue {
 
