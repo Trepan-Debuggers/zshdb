@@ -75,5 +75,5 @@ set -${_Dbg_trace_old_set_opts}
 unset _Dbg_trace_old_set_opts
 
 _Dbg_debugger() {
-    trap '_Dbg_trap_handler $? "$@"' DEBUG
+    trap '_Dbg_trap_handler $? "$0" "$@"' DEBUG
 }

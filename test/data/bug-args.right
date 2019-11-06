@@ -1,13 +1,17 @@
 (bug-args.sh:2):
-echo First parm is: $1
+echo Dollar 0 is $(basename $0)
 +# Debugger test to see that parameter handling of $1, $2, etc is correct.
++eval echo "basename(dollar 0) = $(basename $0)"
+basename(dollar 0) = bug-args.sh
+$? is 0
 +pr $#
 0
 +pr $5
 
-+step 2
++step 4
+Dollar 0 is bug-args.sh
 First parm is:
-(bug-args.sh:4):
+(bug-args.sh:5):
 shift 2
 +# There should now be 5 args set and $5 should have a value
 +pr $#
@@ -17,8 +21,8 @@ c
 +pr $5
 e
 +step 
-(bug-args.sh:6):
-exit 0
+(bug-args.sh:7):
+0="foo"
 +# There should now be 3 args set and $5 should not have a value
 +pr $#
 3
@@ -26,5 +30,15 @@ exit 0
 e
 +pr $5
 
++c 9
+One-time breakpoint 1 set in file bug-args.sh, line 9.
+Dollar 0 is now foo
+Breakpoint 1 hit.
+(bug-args.sh:9):
+exit 0
++# $0 should be changed
++eval echo "Dollar 0 from eval is now $0"
+Dollar 0 from eval is now foo
+$? is 0
 +quit 
 zshdb: That's all, folks...

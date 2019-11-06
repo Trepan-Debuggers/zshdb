@@ -53,6 +53,8 @@ function _Dbg_trap_handler {
     typeset -i _Dbg_debugged_exit_code=$1
     shift
 
+    _Dbg_dollar_0=$1
+    shift
     # Populate _Dbg_arg with $1, $2, etc.
     typeset -a _Dbg_arg
     _Dbg_arg=($@)   # Does this require shword split off?

@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!@SH_PROG@
 echo Dollar 0 is $(basename $0)
 echo First parm is: $1
 set a b c d e

@@ -131,7 +131,7 @@ while : ; do
   _Dbg_set_to_return_from_debugger
   _Dbg_step_ignore=2
   emulate -R zsh
-  trap '_Dbg_trap_handler $? "$@"
+  trap '_Dbg_trap_handler $? "$0" "$@"
     case $_Dbg_rc in
     2 ) setopt errexit ;;
     255 ) return $_Dbg_return_rc ;;
