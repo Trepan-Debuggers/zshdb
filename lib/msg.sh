@@ -38,18 +38,19 @@ _Dbg_confirm() {
     _Dbg_confirm_prompt=$1
     typeset _Dbg_confirm_default=${2:-'no'}
     while : ; do
-	  if [[ -t $_Dbg_fdi ]]; then
-	      vared -e -h -p "$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
-	  else
-	      read "?$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
-	  fi
+	_Dbg_response=''
+	if [[ -t $_Dbg_fdi ]]; then
+	    vared -e -h -p "$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
+	else
+	    read "?$_Dbg_confirm_prompt" _Dbg_response <&${_Dbg_fdi} || break
+	fi
 
-	case "$_Dbg_response" in
+	case $_Dbg_response in
 	    'y' | 'yes' | 'yeah' | 'ya' | 'ja' | 'si' | 'oui' | 'ok' | 'okay' )
 		_Dbg_response='y'
 		return 0
 		;;
-	    'n' | 'no' | 'nope' | 'nyet' | 'nein' | 'non' )
+	    'N' | 'n' | 'no' | 'nope' | 'nyet' | 'nein' | 'non' )
 		_Dbg_response='n'
 		return 0
 		;;

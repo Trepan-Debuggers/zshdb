@@ -5,6 +5,7 @@ Kill (send kill signal)
 -----------------------
 
 **kill** [ *signal-number* ]
+**kill!** [*signal-number*]
 
 Send this process a POSIX signal ('9' for 'SIGKILL' or ``kill -SIGKILL``)
 
@@ -15,6 +16,8 @@ However other signals, such as 15 or ``INT`` that allow for the debugged to
 handle them can be sent.
 
 Giving a negative number is the same as using its positive value.
+
+When the ! suffix appears, no confirmation is neeeded.
 
 Examples:
 +++++++++

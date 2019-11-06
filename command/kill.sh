@@ -21,6 +21,7 @@
 
 _Dbg_help_add kill \
 '**kill** [*signal-number*]
+**kill!** [*signal-number*]
 
 Send this process a POSIX signal ("9" for "SIGKILL" or "kill -SIGKILL")
 
@@ -33,6 +34,8 @@ run an interrupt handler can be sent too.
 
 Giving a negative number is the same as using its positive value.
 
+When the ! suffix appears, no confirmation is neeeded.
+
 Examples:
 ---------
 
@@ -40,6 +43,7 @@ Examples:
     kill 9              # same as above
     kill -9             # same as above
     kill 15             # nicer, maskable TERM signal
+    kill! 15            # same as above, but no confirmation
     kill -INT           # same as above
     kill -SIGINT        # same as above
     kill -WINCH         # send "window change" signal
@@ -57,6 +61,12 @@ _Dbg_do_kill() {
         return 0
         # return 1
     fi
+
+    typeset _Dbg_response='n'
+    if [[ "${_Dbg_orig_cmd[-1,-1]}"  == '!' ]]; then
+	 _Dbg_response='y'
+    fi
+
     typeset _Dbg_prompt_output=${_Dbg_tty:-/dev/null}
     typeset signal='-9'
     (($# == 1)) && signal="$1"
@@ -67,8 +77,9 @@ _Dbg_do_kill() {
         # return 2
     fi
 
-    typeset _Dbg_response
-    _Dbg_confirm "Send kill signal ${signal} which may terminate the debugger? (y/N): " 'N'
+    if [[ $_Dbg_response == n ]] ; then
+	_Dbg_confirm "Send kill signal ${signal} which may terminate the debugger? (y/N): " 'n'
+    fi
 
     if [[ $_Dbg_response == [yY] ]] ; then
         case $signal in
@@ -78,9 +89,11 @@ _Dbg_do_kill() {
         esac
         kill $signal $$
     else
-        _Dbg_msg "Kill not done - not confirmed."
+        _Dbg_errmsg "Kill not done - not confirmed."
         return 0
         # return 3
     fi
     return 0
 }
+
+_Dbg_alias_add 'kill!' 'kill'

@@ -257,14 +257,13 @@ _Dbg_cleanup() {
 
 }
 
-# Follows bashdb which reports:
-# Somehow we can't put this in _Dbg_cleanup and have it work.
-# I am not sure why.
+# Follows zshdb
+# FIXME: In bash we can't put this in _Dbg_cleanup and have it work.
+# I am not sure why. This may or be applicable here.
 _Dbg_cleanup2() {
     [[ -f "$_Dbg_evalfile" ]] && rm -f "$_Dbg_evalfile" 2>/dev/null
     _Dbg_erase_journals
     trap - EXIT
-    ls -l ${_Dbg_journal}
 }
 
 _Dbg_hook_error_handler() {
