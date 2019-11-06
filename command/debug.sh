@@ -19,14 +19,18 @@
 #   MA 02111 USA.
 
 _Dbg_help_add debug \
-"debug [*script*]
+"debug [*zsh-script* [*args*...]]
 
-Set up *script* for debugging.
+Recursively debug into *zsh-script*.
 
 If *script* is not given, take the script name from the command that
 is about to be executed. Note that when the nested debug finished, you
 are still where you were prior to entering the debugger.
-"
+
+See Also:
+---------
+
+**skip** and **run**"
 
 # TODO: would work better if instead of using $source_line below
 # which might have several statements, we could just pick up the next

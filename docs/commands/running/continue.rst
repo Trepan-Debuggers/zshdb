@@ -4,14 +4,14 @@
 Continue (continue program execution)
 --------------------------------------
 
-**continue** [[ *file* :] *lineno* | *function* ]
+**continue** [ *loc* | **-*** ]
 
-Leave the debugger read-eval print loop and continue
-execution. Subsequent entry to the debugger however may occur via
-breakpoints or explicit calls, or exceptions.
+If *loc* or *-* is not given, continue until the next breakpoint or
+the end of program is reached.  If **-** is given, then debugging will
+be turned off after continuing causing your program to run at full
+speed.
 
-If a line position or function is given, a temporary breakpoint is set at that
-position before continuing.
+If **loc* is given, a temporary breakpoint is set at the location.'
 
 Examples:
 +++++++++
@@ -20,11 +20,6 @@ Examples:
 
     continue          # Continue execution
     continue 5        # Continue with a one-time breakpoint at line 5
-    continue basename # Go to os.path.basename if we have basename imported
-    continue /usr/lib/python2.7/posixpath.py:110 # Possibly the same as
-                                                 # the above using file
-                                                 # and line number
-
 .. seealso::
 
-   :ref:`step <step>` :ref:`jump <jump>`, :ref:`next <next>`, and :ref:`finish <finish>` provide other ways to progress execution.
+   :ref:`next <next>` :ref:`skip <skip>`, and :ref:`step <step>` provide other ways to progress execution.

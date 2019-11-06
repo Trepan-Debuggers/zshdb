@@ -16,6 +16,7 @@ program execution. You can:
    :maxdepth: 1
 
    running/continue
+   running/debug
    running/kill
    running/next
    running/quit
