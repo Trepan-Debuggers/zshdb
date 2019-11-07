@@ -1,8 +1,0 @@
-#!/usr/bin/zsh
-# -*- shell-script -*-
-TEST_NAME='file with spaces'
-
-[ -z "$builddir" ] && builddir=$PWD
-. ${builddir}/check-common.sh
-emulate -L zsh
-run_test_check
