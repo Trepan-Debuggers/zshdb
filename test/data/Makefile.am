@@ -19,6 +19,7 @@ check_DATA = \
 	condition.cmd      \
 	condition.right    \
 	debug.cmd          \
+	debug2.cmd         \
 	debug.right        \
 	delete.cmd         \
 	delete.right       \
