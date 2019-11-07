@@ -1,3 +1,77 @@
+2019-11-06  rocky <rocky@gnu.org>
+
+	* : commit 073f1d8109dffd2ce3dc4978f1a9bb6484475589 Author: rocky
+	<rocky@gnu.org> Date:   Wed Nov 6 12:46:43 2019 -0500
+
+2019-11-06  rocky <rocky@gnu.org>
+
+	* command/kill.sh, docs/commands/running/kill.rst, lib/hook.sh,
+	lib/msg.sh: Add ! suffix to "kill" command.
+
+2019-11-06  rocky <rocky@gnu.org>
+
+	* command/debug.sh: cut-n-paste typo
+
+2019-11-06  rocky <rocky@gnu.org>
+
+	* command/debug.sh, docs/commands/running/debug.rst: debug doc tweak
+
+2019-11-06  rocky <rocky@gnu.org>
+
+	* docs/commands/running.rst, docs/commands/running/debug.rst: Tweaks
+	to "debug" doc
+
+2019-11-06  rocky <rocky@gnu.org>
+
+	* command/continue.sh, command/debug.sh, docs/commands/running.rst,
+	docs/commands/running/continue.rst, docs/commands/running/debug.rst: 
+	Doc "debug" and go over docs.
+
+2019-11-06  rocky <rocky@gnu.org>
+
+	* configure.ac, dbg-trace.sh.in, lib/hook.sh,
+	test/data/bug-args.cmd, test/data/bug-args.right,
+	test/example/bug-args.sh, test/example/bug-args.sh.in,
+	test/zsh/ok4zshdb.sh, zshdb.in: track $0 changes in debugged code...  bump minimum version of zshdb to a version that doesn't have memory
+	problems when $0 is changed.
+
+2019-11-05  rocky <rocky@gnu.org>
+
+	* .travis.yml: I said, use *bionic*
+
+2019-11-05  rocky <rocky@gnu.org>
+
+	* .travis.yml, command/eval.sh: Travis zenial zsh has problems...  try bionic instead
+
+2019-11-05  rocky <rocky@gnu.org>
+
+	* command/eval.sh, command/shell.sh, lib/set-d-vars.sh,
+	test/data/action.cmd, test/data/action.right,
+	test/data/frame.right, zshdb.in: Fix setting $0 ...  inside "eval" and "shell" commands
+
+2019-11-05  rocky <rocky@gnu.org>
+
+	* command/set_sub/different.sh, command/skip.sh,
+	docs/commands/running/skip.rst: Small doc tweaks
+
+2019-11-03  rocky <rocky@gnu.org>
+
+	* admin/how-to-make-a-release.md, command/backtrace.sh: Small doc
+	typo
+
+2019-10-31  rocky <rocky@gnu.org>
+
+	* command/set_sub/style.sh, command/show.sh, command/skip.sh,
+	lib/filecache.sh: Some small typos and tweaks
+
+2019-10-27  rocky <rocky@gnu.org>
+
+	* test/integration/test-skip.in: Travis is giving us problesm....  silence travis.
+
+2019-10-27  rocky <rocky@gnu.org>
+
+	* ChangeLog, test/zsh/ok4zshdb.sh: Show zsh versiosn in configure
+
 2019-10-27  rocky <rocky@gnu.org>
 
 	* ChangeLog, NEWS.md, admin/how-to-make-a-release.md, configure.ac,

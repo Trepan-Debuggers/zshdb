@@ -18,6 +18,8 @@ check_DATA = \
 	bugIFS.right       \
 	condition.cmd      \
 	condition.right    \
+	debug.cmd          \
+	debug.right        \
 	delete.cmd         \
 	delete.right       \
 	display.cmd        \

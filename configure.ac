@@ -14,6 +14,7 @@ fi
 #
 AC_SUBST(DIFF)
 AC_SUBST(DIFF_OPTS)
+AC_PROG_GREP
 
 CMDLINE_INVOKED='0 == ${#funcfiletrace[@]}'
 AC_SUBST(CMDLINE_INVOKED)
@@ -120,6 +121,8 @@ AC_CONFIG_FILES([test/integration/test-bug-ksharrays],
                 [chmod +x test/integration/test-bug-ksharrays])
 AC_CONFIG_FILES([test/integration/test-condition],
                 [chmod +x test/integration/test-condition])
+AC_CONFIG_FILES([test/integration/test-debug],
+                [chmod +x test/integration/test-debug])
 AC_CONFIG_FILES([test/integration/test-delete],
                 [chmod +x test/integration/test-delete])
 AC_CONFIG_FILES([test/integration/test-display],

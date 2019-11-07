@@ -1,0 +1,23 @@
+#!@SH_PROG@
+# -*- shell-script -*-
+t=${0##*/}; TEST_NAME=${t:5}   # basename $0 with 'test-' stripped off
+
+[ -z "$builddir" ] && export builddir=$PWD
+. ${builddir}/check-common.sh
+RIGHT_FILTERED_FILE="/tmp/${TEST_NAME}-filtered.right"
+debugged_script="$top_srcdir/test/example/debug.sh"
+
+(cd $srcdir && run_debugger $debugged_script 2>&1 >$TEST_FILE </dev/null)
+
+@GREP@ -v '##2 main("-q", "-L",' $RIGHT_FILE >${RIGHT_FILTERED_FILE}
+@GREP@ -v '##2 main("-q", "-L",' $TEST_FILE  >${TEST_FILTERED_FILE}
+
+check_output $TEST_FILTERED_FILE ${RIGHT_FILTERED_FILE}
+rc=$? 
+if ((0 == rc)) ; then
+  rm -f $TEST_FILE
+  rm -f $RIGHT_FILTERED_FILE
+fi
+
+# Return code tells testing mechanism whether passed or not.
+exit $rc

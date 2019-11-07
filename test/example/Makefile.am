@@ -4,6 +4,7 @@ check_DATA = \
 	bug-errexit.sh   \
 	bug-ksharrays.sh \
 	bugIFS.sh        \
+	debug.sh         \
 	dbg-test1.sh     \
 	dbg-test1.sub    \
 	dbg-test2.sh     \

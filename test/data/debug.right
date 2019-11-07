@@ -1,0 +1,25 @@
+(debug.sh:3):
+if (( $# > 0 )) then echo "passed $1" exit 1 fi
++#### Test 'debug' command
++continue 8
+One-time breakpoint 1 set in file debug.sh, line 8.
+Breakpoint 1 hit.
+(debug.sh:8):
+cmd=../example/debug.sh
++where 1
+->0 in file `debug.sh' at line 8
++print running debug -n ./debug.sh $_Dbg_DEBUGGER_LEVEL ...
+running debug -n ./debug.sh 1 ...
++debug -B -q --no-highlight --no-init -x ../data/debug2.cmd ../example/debug.sh $_Dbg_DEBUGGER_LEVEL
+Debugging new script with -B -q --no-highlight --no-init -x ../data/debug2.cmd ../example/debug.sh $_Dbg_DEBUGGER_LEVEL
+(debug.sh:3):
+if (( $# > 0 )) then echo "passed $1" exit 1 fi
++### Second part of testing 'debug' command.
++where 1
+->0 in file `debug.sh' at line 3
++print _Dbg_DEBUGGER_LEVEL is $_Dbg_DEBUGGER_LEVEL
+_Dbg_DEBUGGER_LEVEL is 2
++continue 
+passed 1
++quit 
+zshdb: That's all, folks...

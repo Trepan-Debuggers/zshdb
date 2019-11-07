@@ -8,6 +8,7 @@ TESTS = \
 	test-bug-errexit   \
 	test-bug-ksharrays \
 	test-condition     \
+	test-debug         \
 	test-delete        \
 	test-enable        \
 	test-examine       \
@@ -45,6 +46,7 @@ SOURCES=check-common.sh.in \
 	test-bugIFS.in \
 	test-bug-ksharrays.in \
 	test-condition.in \
+	test-debug.in \
 	test-delete.in \
 	test-display.in \
 	test-enable.in \
