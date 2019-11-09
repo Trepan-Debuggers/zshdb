@@ -57,7 +57,7 @@ git
 +++
 
 
-Many package managers have back-level versions of this debugger. THe most recent versions is from the github_.
+Many package managers have back-level versions of this debugger. The most recent versions is from the github_.
 
 To install from git:
 
