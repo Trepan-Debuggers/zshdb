@@ -14,7 +14,7 @@ An Emacs interface is available via [realgud](https://github.com/realgud/realgud
 [ZshDebug](https://marketplace.visualstudio.com/items?itemName=rogalmic.zsh-debug).
 
 
-See the [wiki](https://github.com/rocky/zshdb/wiki) and [documentation](http://zshdb.readthedocs.io/en/latest/)
+See the [documentation](http://zshdb.readthedocs.io/en/latest/) and [wiki](https://github.com/rocky/zshdb/wiki)
 for more information.
 
 Rocky Bernstein <rocky@gnu.org>
