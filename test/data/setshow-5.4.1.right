@@ -11,15 +11,21 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 +#### Invalid commands...
 +show badcommand
 
-+another-bad-command
++another-bad-command 
 ** Undefined command "another-bad-command". Try "help".
 +set history size 10
 +set history file /tmp/zshdb_hist
-+show
++show 
 show alias       -- Show list of aliases currently in effect.
 show annotate    -- Show annotation_level.
 show basename    -- Files show only their basenames.
+show commands    -- Show the history of commands you typed.
 show confirm     -- Show confirmation of dangerous operations.
+show copying     -- Conditions for redistributing copies of debugger.
+show debug       -- Show if we are set to debug the debugger.
+show editing     -- Show editing of command lines and edit style.
+show highlight   -- Show if we syntax highlight source listings.
+show history     -- Show if we are recording command history.
 show style       -- Show pygments style in source-code listings.
 show warranty    -- Various kinds of warranty you do not have.
 +show args
@@ -52,13 +58,13 @@ Annotation level must be between 0 and 3. Got: 6.
 +# show history
 +# set history save on
 +# show history
-+#########################
++######################### 
 +#### Test 'show commands'...
 +# show commands
 +# show commands +
 +# show commands -5
 +# show commands 12
-+#########################
++######################### 
 +#### Test 'autoeval'...
 +set autoeval on
 
@@ -69,5 +75,5 @@ $? is 0
 
 +xx=1 ; declare -p xx
 ** Undefined command "xx=1". Try "help".
-+quit
++quit 
 zshdb: That's all, folks...

@@ -82,11 +82,13 @@ _Dbg_help_set() {
             _Dbg_msg \
                 "${label}Set argument list to give program when it is restarted."
             ;;
-        autoeval  )
+        autoe | autoev | autoeva | autoeval )
+            [[ -n $label ]] && label='set autoeval  -- '
             _Dbg_msg \
                 "${label}auto evaluation of unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
             ;;
-        autolist  )
+        autol | autoli | autolis | autolist )
+            [[ -n $label ]] && label='set autolist  -- '
 	    typeset onoff="on."
 	    [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
             _Dbg_msg \
@@ -172,7 +174,7 @@ _Dbg_help_set() {
             ;;
 
         * )
-            _Dbg_msg \
+            _Dbg_errmsg \
                 "There is no \"set $subcmd\" command."
     esac
 }
@@ -233,9 +235,22 @@ _Dbg_help_show() {
                 'show basename    -- Files show only their basenames.'
             return 0
             ;;
+        com | comm | comma | comman | command | commands )
+            _Dbg_msg \
+                "${label}Show the history of commands you typed."
+            ;;
         c | co | con | conf | confi | confir | confirm )
             _Dbg_msg \
                 'show confirm     -- Show confirmation of dangerous operations.'
+            return 0
+            ;;
+        cop | copy| copyi | copyin | copying )
+            _Dbg_msg \
+                "${label}Conditions for redistributing copies of debugger."
+            ;;
+        d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
+            _Dbg_msg \
+                "${label}Show if we are set to debug the debugger."
             return 0
             ;;
         different | force)
@@ -246,6 +261,20 @@ _Dbg_help_show() {
         dir|dire|direc|direct|directo|director|directori|directorie|directories)
             _Dbg_msg \
                 "show directories -- Show file directories searched for listing source."
+            return 0
+            ;;
+        editing )
+            _Dbg_msg \
+                "${label}Show editing of command lines and edit style."
+            ;;
+        highlight )
+            _Dbg_msg \
+                "${label}Show if we syntax highlight source listings."
+            return 0
+            ;;
+        history )
+            _Dbg_msg \
+                "${label}Show if we are recording command history."
             return 0
             ;;
         lin | line | linet | linetr | linetra | linetrac | linetrace )
@@ -263,6 +292,12 @@ _Dbg_help_show() {
                 "show prompt      -- Show debugger's prompt."
             return 0
             ;;
+        sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
+            [[ -n $label ]] && label='set showcommand -- '
+            _Dbg_msg \
+                "${label}Set showing the command to execute is $_Dbg_set_show_command."
+            return 0
+            ;;
         sty | style )
             _Dbg_msg \
                 "show style       -- Show pygments style in source-code listings."
@@ -272,15 +307,16 @@ _Dbg_help_show() {
                 'show trace-commands -- Show if we are echoing debugger commands'
             return 0
             ;;
-        w | wa | war | warr | warra | warran | warrant | warranty )
+        wa | war | warr | warra | warran | warrant | warranty )
             _Dbg_msg \
                 'show warranty    -- Various kinds of warranty you do not have.'
             return 0
             ;;
-	"commands" | "copying" | "debug" | "editing" | "highlight"| "history" )
-	    # Not done yet
-	    ;;
-
+        width )
+            _Dbg_msg \
+                "${label}maximum width of a line."
+            return 0
+            ;;
         * )
             _Dbg_msg \
                 "Undefined show command: \"$subcmd\".  Try \"help show\"."

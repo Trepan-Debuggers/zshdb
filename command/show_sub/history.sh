@@ -21,7 +21,7 @@
 _Dbg_help_add_sub show history \
 '**show history**
 
-Show history settings
+Show history settings.
 ' 1
 
 _Dbg_do_show_history() {
