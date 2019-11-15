@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "show warranty" debugger command
 #
-#   Copyright (C) 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,7 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub show warranty \
-'info warranty
+'**show warranty**
 
 Lack of warranty of this debugger.' 1
 

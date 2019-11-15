@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "show history" debugger command
+# "set confirm" debugger command
 #
-#   Copyright (C) 2010, 2014, 2019 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,19 +18,29 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_help_add_sub show history \
-'**show history**
+if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+    dirname=${0%/*}
+    [[ $dirname == $0 ]] && top_dir='../..' || top_dir=${dirname}/../..
+    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+    typeset -A _Dbg_command_help_set
+    typeset -A _Dbg_debugger_set_commands
+fi
 
-Show history settings
-' 1
+typeset -A _Dbg_complete_level_2_data
+_Dbg_complete_level_2_data[set_confirm]='on off'
 
-_Dbg_do_show_history() {
-    _Dbg_msg \
-        "filename: The filename in which to record the command history is:"
-    _Dbg_msg "	$_Dbg_histfile"
-    _Dbg_msg \
-        "save: Saving of history save is" $(_Dbg_onoff $_Dbg_set_history)
-    _Dbg_msg \
-        "size: Debugger history size is $_Dbg_history_size"
-    return 0
+_Dbg_help_add_sub set confirm \
+'**set confirm** [**on**|**off**]
+
+Set confirmation of dangerous operations.
+
+See also:
+---------
+
+**show confirm**
+'
+
+_Dbg_do_set_confirm() {
+    _Dbg_set_onoff "$1" 'confirm'
+    return $?
 }

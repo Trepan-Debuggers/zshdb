@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub show style \
-"Show pygments terminal formatting style" 1
+"**show style**
+
+Show pygments terminal formatting style" 1
 
 _Dbg_do_show_style() {
     typeset label="$1"

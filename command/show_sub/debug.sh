@@ -18,7 +18,9 @@
 #   Foundation, 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 
 _Dbg_help_add_sub show debug \
-"Show if we are set to debug the debugger." 1
+"** show debug**
+
+Show if we are set to debug the debugger." 1
 
 _Dbg_do_show_debug() {
     [[ -n $label ]] && label='debug: '

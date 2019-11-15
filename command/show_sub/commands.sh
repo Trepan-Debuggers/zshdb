@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "show commands" debugger command
 #
-#   Copyright (C) 2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014, 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -25,7 +25,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 _Dbg_help_add_sub show commands \
-'show commands
+'**show commands**
 
 Show the history of commands you typed.
 ' 1

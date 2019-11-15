@@ -78,6 +78,7 @@ typeset -i _Dbg_set_annotate=0
 typeset -i _Dbg_set_linetrace=0
 
 typeset -i _Dbg_set_basename=0
+typeset -i _Dbg_set_confirm=1
 typeset    _Dbg_set_highlight  # Initialized below
 typeset -a _Dbg_o_init_files; _Dbg_o_init_files=()
 typeset -i _Dbg_o_nx=0

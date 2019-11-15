@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "show alias" debugger command
 #
-#   Copyright (C) 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,7 +19,7 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub show alias \
-'show alias [NAME1 NAME2 ...]
+'**show alias** [*name* *name2* ...]
 
 If aliases names are given, show their definition. If left blank, show
 all alias names' 1

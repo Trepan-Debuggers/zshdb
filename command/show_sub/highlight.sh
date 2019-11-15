@@ -19,7 +19,9 @@
 #   MA 02111 USA.
 
 _Dbg_help_add_sub show highlight \
-"Show terminal highlighting" 1
+"**show highlight**
+
+Show terminal highlighting" 1
 
 _Dbg_do_show_highlight() {
     typeset label="$1"

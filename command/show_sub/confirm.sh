@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "show basename" debugger command
+# "show confirm" debugger command
 #
-#   Copyright (C) 2014, 2019 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,17 +18,17 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-_Dbg_help_add_sub show basename \
-"**show basename**
+_Dbg_help_add_sub show confirm \
+"**show confirm**
 
-Show whether file basenames are in effect" 1
+Show whether dangerous-operation confirmation is in effect." 1
 
-_Dbg_do_show_basename() {
+_Dbg_do_show_confirm() {
     typeset label="$1"
-    [[ -n $label ]] && label='basename:  '
+    [[ -n $label ]] && label='confirm:  '
     _Dbg_msg_nocr \
-        "${label}Show short filenames (the basename) is "
-    if (( _Dbg_set_basename == 0 )); then
+        "${label}Show confirmation of dangerous operations is "
+    if (( _Dbg_set_confirm == 0 )); then
         _Dbg_msg 'off.'
     else
         _Dbg_msg 'on.'

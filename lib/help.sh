@@ -100,6 +100,11 @@ _Dbg_help_set() {
             _Dbg_msg \
                 "${label}basenames in files is" $(_Dbg_onoff $_Dbg_set_basename)
             ;;
+        c | co | con | conf | confi | confir | confirm )
+            [[ -n $label ]] && label='set confirm   -- '
+            _Dbg_msg \
+                "${label}confirm dangerous operations" $(_Dbg_onoff $_Dbg_set_confirm)
+            ;;
         de|deb|debu|debug )
             [[ -n $label ]] && label='set debug     -- '
             _Dbg_msg \
@@ -182,6 +187,7 @@ _Dbg_help_set() {
             [[ -n $label ]] && label='set width    -- '
             _Dbg_msg "${label}Set line width is ${_Dbg_set_linewidth}"
             ;;
+
         * )
             _Dbg_msg \
                 "There is no \"set $subcmd\" command."
@@ -189,12 +195,12 @@ _Dbg_help_set() {
 }
 
 typeset _Dbg_show_cmds="aliases annotate args autoeval autolist basename commands
-copying directories debug force linetrace listsize prompt style trace-commands warranty"
+confirm copying directories debug force linetrace listsize prompt style trace-commands warranty"
 
 _Dbg_help_show() {
     if (( $# == 0 )) ; then
         typeset -a list
-        list=("${!_Dbg_command_help_show[@]}")
+        list=(${(ki)_Dbg_command_help_show[@]})
         sort_list 0 ${#list[@]}-1
         typeset subcmd
         for subcmd in ${list[@]}; do
@@ -237,21 +243,35 @@ _Dbg_help_show() {
                 "show autolist    -- Run list before command loop?"
             return 0
             ;;
+        b | ba | bas | base | basen | basena | basenam | basename )
+            _Dbg_msg \
+                'show basename    -- Files show only their basenams.'
+            return 0
+            ;;
+        c | co | con | conf | confi | confir | confirm )
+            _Dbg_msg \
+                'show confirm     -- Show confirmation of dangerous operations.'
+            return 0
+            ;;
         different | force)
             _Dbg_msg \
                 'show different   -- Show if setting forces a different line.'
+            return 0
             ;;
         dir|dire|direc|direct|directo|director|directori|directorie|directories)
             _Dbg_msg \
                 "show directories -- Show file directories searched for listing source."
+            return 0
             ;;
         lin | line | linet | linetr | linetra | linetrac | linetrace )
             _Dbg_msg \
                 'show linetrace   -- Show whether to trace lines before execution.'
+            return 0
             ;;
         lis | list | lists | listsi | listsiz | listsize )
             _Dbg_msg \
                 'show listsize    -- Show number of source lines debugger will list by default.'
+            return 0
             ;;
         p | pr | pro | prom | promp | prompt )
             _Dbg_msg \
@@ -272,6 +292,10 @@ _Dbg_help_show() {
                 'show warranty    -- Various kinds of warranty you do not have.'
             return 0
             ;;
+	"commands" | "copying" | "debug" | "editing" | "highlight"| "history" )
+	    # Not done yet
+	    ;;
+
         * )
             _Dbg_msg \
                 "Undefined show command: \"$subcmd\".  Try \"help show\"."
