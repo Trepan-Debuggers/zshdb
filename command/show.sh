@@ -43,11 +43,11 @@ done
 _Dbg_complete_level_1_data[show]=$(echo ${(kM)_Dbg_debugger_show_commands})
 
 _Dbg_do_show() {
-    _Dbg_do_show_internal $@
+    _Dbg_help_show $@
     return $?
 }
 
-_Dbg_do_show_internal() {
+_Dbg_help_show() {
 
     if (( $# == 0 )) ; then
         typeset list
@@ -62,10 +62,10 @@ _Dbg_do_show_internal() {
     typeset show_cmd=$1
     typeset label=$2
 
-    if [[ -n" ${_Dbg_debugger_show_commands[$show_cmd]}" ]] ; then
+    if [[ -n "${_Dbg_debugger_show_commands[$show_cmd]}" ]] ; then
         if [[ -z $label ]] ; then
-            _Dbg_msg_rst "${_Dbg_command_help_show[$subcmd]}"
-            return 0
+            ${_Dbg_debugger_show_commands[$show_cmd]} $label
+            return $?
         else
             label=$(printf "show %-12s-- " $subcmd)
         fi
@@ -75,20 +75,21 @@ _Dbg_do_show_internal() {
         al | ali | alia | alias | aliase | aliases )
             _Dbg_msg \
                 "${label}Show list of aliases currently in effect."
-            return 0
             ;;
         ar | arg | args )
             [[ -n $label ]] && label='args:     '
             _Dbg_msg \
                 "${label}Argument list to give script when debugged program starts is:\n" \
                 "      \"${_Dbg_script_args[@]}\"."
-            return 0
+            ;;
+        an | ann | anno | annot | annota | annotat | annotate )
+            _Dbg_msg \
+                "${label}Show annotation_level"
             ;;
         autoe | autoev | autoeva | autoeval )
             [[ -n $label ]] && label='autoeval: '
             _Dbg_msg \
                 "${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
-            return 0
             ;;
         autol | autoli | autolis | autolist )
             [[ -n $label ]] && label='autolist: '
@@ -96,26 +97,22 @@ _Dbg_do_show_internal() {
             [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
             _Dbg_msg \
                 "${label}Auto run of 'list' command is ${onoff}"
-            return 0
             ;;
         b | ba | bas | base | basen | basena | basenam | basename )
             _Dbg_msg \
                 "${label}Show if we are are to show short or long filenames."
-            return 0
             ;;
-        c | co | con | conf | confi | confir | confirm )
+        com | comm | comma | comman | command | commands )
+            _Dbg_msg \
+                "${label}Show the history of commands you typed."
+            ;;
+        con | conf | confi | confir | confirm )
             _Dbg_msg \
                 "${label}confirm dangerous operations" $(_Dbg_onoff $_Dbg_set_confirm)
             ;;
-        d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
+        cop | copy| copyi | copyin | copying )
             _Dbg_msg \
-                "${label}Show if we are set to debug the debugger."
-            return 0
-            ;;
-        different | force)
-            _Dbg_msg \
-                "${label}Show if debugger stops at a different line."
-            return 0
+                "${label}Conditions for redistributing copies of debugger."
             ;;
         dir|dire|direc|direct|directo|director|directori|directorie|directories)
             typeset list=${_Dbg_dir[0]}
@@ -126,22 +123,22 @@ _Dbg_do_show_internal() {
             done
 
             _Dbg_msg "Source directories searched: $list"
-            return 0
+            ;;
+        d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
+            _Dbg_msg \
+                "${label}Show if we are set to debug the debugger."
             ;;
         editing )
             _Dbg_msg \
                 "${label}Show editing of command lines and edit style."
             ;;
         force | diff | differ | different )
-            [[ -n $label ]] && label='different: '
             _Dbg_msg \
                 "${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_set_different)
-            return 0
             ;;
         highlight )
             _Dbg_msg \
                 "${label}Show if we syntax highlight source listings."
-            return 0
             ;;
         history )
             _Dbg_msg \
@@ -149,73 +146,54 @@ _Dbg_do_show_internal() {
             return 0
             ;;
         lin | line | linet | linetr | linetra | linetrac | linetrace )
-            [[ -n $label ]] && label='line tracing: '
-            typeset onoff="off."
-            (( _Dbg_set_linetrace != 0 )) && onoff='on.'
             _Dbg_msg \
-                "${label}Show line tracing is" $onoff
-            _Dbg_msg \
-                "${label}Show line trace delay is ${_Dbg_linetrace_delay}."
-            return 0
+                "${label}Show whether to trace lines before execution."
             ;;
-
         lis | list | lists | listsi | listsiz | listsize )
             [[ -n $label ]] && label='listsize: '
             _Dbg_msg \
                 "${label}Number of source lines ${_Dbg_debugger_name} will list by default is" \
                 "$_Dbg_set_listsize."
-            return 0
             ;;
 
-        lo | log | logg | loggi | loggin | logging )
-            shift
-            _Dbg_do_show_logging $*
-            ;;
         p | pr | pro | prom | promp | prompt )
             [[ -n $label ]] && label='prompt:   '
             _Dbg_msg \
                 "${label}${_Dbg_debugger_name}'s prompt is:\n" \
                 "      \"$_Dbg_prompt_str\"."
-            return 0
+            ;;
+        st | sty | styl | style )
+            _Dbg_msg_nocr \
+                "${label}Set pygments highlighting style is "
+            if [[ -z $_Dbg_set_style ]] ; then
+                _Dbg_msg 'off.'
+            else
+		_Dbg_msg "${_Dbg_set_style}"
+            fi
             ;;
         sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
-            [[ -n $label ]] && label='showcommand: '
+            [[ -n $label ]] && label='set showcommand -- '
             _Dbg_msg \
-                "${label}Show commands in debugger prompt is" \
-                "$_Dbg_set_show_command."
-            return 0
+                "${label}Set showing the command to execute is $_Dbg_set_show_command."
             ;;
-        t|tr|tra|trac|trace|trace-|tracec|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
-            [[ -n $label ]] && label='trace-commands: '
+        t|tr|tra|trac|trace|trace-|trace-c|trace-co|trace-com|trace-comm|trace-comma|trace-comman|trace-command|trace-commands )
             _Dbg_msg \
-                "${label}State of command tracing is" \
-                "$_Dbg_set_trace_commands."
-            return 0
+                'show trace-commands -- Show if we are echoing debugger commands'
             ;;
         v | ve | ver | vers | versi | versio | version )
             _Dbg_do_show_version
-            return 0
             ;;
         wa | war | warr | warra | warran | warrant | warranty )
             _Dbg_msg \
                 "${label}Various kinds of warranty you do not have."
-            return 0
             ;;
         wi | wid | width )
             [[ -n $label ]] && label='width: '
             _Dbg_msg \
                 "${label}Line width is $_Dbg_set_linewidth."
-            return 0
             ;;
-	"style" | "version" )
-	    # Not done yet
-	    ;;
-
-        *)
-            _Dbg_errmsg "Unknown show subcommand: $show_cmd"
-            _Dbg_errmsg "Show subcommands are:"
-            typeset -a list; list=(${subcmds[@]})
-            _Dbg_list_columns '  ' _Dbg_errmsg
-            return -1
+        * )
+            _Dbg_msg \
+                "Undefined show command: \"$show_cmd\".  Try \"help show\"."
     esac
 }

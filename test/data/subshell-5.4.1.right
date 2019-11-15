@@ -20,7 +20,7 @@ typeset -g x=2
 y='line 4'
 +# Set inside a subshell
 +set autoeval on
-
+Evaluate unrecognized commands is on.
 +examine x
 typeset -g x='line 3'
 +# fc -l
@@ -34,7 +34,7 @@ typeset -g x=2
 +# See that debugger settings and history are preserved
 +# DISABLED because we are not in an interactive tty
 +show autoeval
-
+Evaluate unrecognized commands is on.
 +# fc -l
 +s 3
 (subshell.sh:8):

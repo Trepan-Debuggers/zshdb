@@ -32,7 +32,7 @@ _Dbg_set_onoff() {
 	    _Dbg_msg "\"on\" or \"off\" expected."
 	    return 1
     esac
-    _Dbg_do_show_internal $cmdname
+    _Dbg_help_show $cmdname
     return 0
 }
 
