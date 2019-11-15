@@ -1,6 +1,7 @@
 # -*- shell-script -*-
 # help.sh - Debugger Help Routines
-#   Copyright (C) 2008, 2010-2011, 2014, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010-2011, 2014, 2016, 2019
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -75,48 +76,39 @@ _Dbg_help_set() {
     # FIXME: DRY this
     case $subcmd in
         an | ann | anno | annot | annota | annotat | annotate )
-            [[ -n $label ]] && label='set annotate  -- '
-            _Dbg_msg "${label}annotate style is ${_Dbg_set_annotate}"
+            _Dbg_msg "${label}annotate style is ${_Dbg_set_annotate}."
             ;;
         ar | arg | args )
-            [[ -n $label ]] && label='set args      -- '
             _Dbg_msg \
                 "${label}Set argument list to give program when it is restarted."
             ;;
         autoeval  )
-            [[ -n $label ]] && label='set autoeval  -- '
             _Dbg_msg \
                 "${label}auto evaluation of unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
             ;;
         autolist  )
-            [[ -n $label ]] && label='set autolist  -- '
 	    typeset onoff="on."
 	    [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
             _Dbg_msg \
                 "${label}auto listing on debugger stop is ${onoff}"
             ;;
         b | ba | bas | base | basen | basena | basenam | basename )
-            [[ -n $label ]] && label='set basename  -- '
             _Dbg_msg \
                 "${label}basenames in files is" $(_Dbg_onoff $_Dbg_set_basename)
             ;;
         c | co | con | conf | confi | confir | confirm )
-            [[ -n $label ]] && label='set confirm   -- '
             _Dbg_msg \
                 "${label}confirm dangerous operations" $(_Dbg_onoff $_Dbg_set_confirm)
             ;;
         de|deb|debu|debug )
-            [[ -n $label ]] && label='set debug     -- '
             _Dbg_msg \
                 "${label}debug the debugger is" $(_Dbg_onoff $_Dbg_set_debug)
             ;;
         di|dif|diff|diffe|differe|differen|different )
-            [[ -n $label ]] && label='set different -- '
             _Dbg_msg \
                 "${label}stop on different lines is" $(_Dbg_onoff $_Dbg_set_different)
             ;;
         e | ed | edi | edit | editi | editin | editing )
-            [[ -n $label ]] && label='set editing   -- '
             _Dbg_msg_nocr "${label}edit mode is "
 	    if [[ -z $_Dbg_edit ]] ; then
 		_Dbg_msg 'off.'
@@ -125,7 +117,6 @@ _Dbg_help_set() {
 	    fi
             ;;
         high | highl | highlight )
-            [[ -n $label ]] && label='set highlight -- '
             _Dbg_msg_nocr \
                 "${label}highlight style "
             if [[ -z $_Dbg_set_highlight ]] ; then
@@ -135,7 +126,6 @@ _Dbg_help_set() {
             fi
             ;;
         his | hist | history )
-            [[ -n $label ]] && label='set history   -- '
             _Dbg_msg_nocr \
                 "${label}Set record command history is "
             if [[ -z $_Dbg_set_edit ]] ; then
@@ -145,11 +135,9 @@ _Dbg_help_set() {
             fi
             ;;
         inferior-tty )
-            [[ -n $label ]] && label='set inferior-tty -- '
             _Dbg_msg "${label} set tty for input and output"
             ;;
         lin | line | linet | linetr | linetra | linetrac | linetrace )
-            [[ -n $label ]] && label='set linetrace -- '
             typeset onoff='off.'
             (( _Dbg_set_linetrace )) && onoff='on.'
             _Dbg_msg \
@@ -161,20 +149,16 @@ _Dbg_help_set() {
             return 0
             ;;
         lis | list | lists | listsi | listsiz | listsize )
-            [[ -n $label ]] && label='set list size -- '
             _Dbg_msg "${label}Set number of lines in listings is ${_Dbg_set_listsize}"
 	    ;;
         p | pr | pro | prom | promp | prompt )
-            [[ -n $label ]] && label='set prompt    -- '
             _Dbg_msg "${label}prompt string ${_Dbg_set_prompt}"
             ;;
         sho|show|showc|showco|showcom|showcomm|showcomma|showcomman|showcommand )
-            [[ -n $label ]] && label='set showcommand -- '
             _Dbg_msg \
-                "${label}command tracing is $_Dbg_set_show_command"
+                "${label}command tracing is ${_Dbg_set_show_command}."
             ;;
         sty | style )
-            [[ -n $label ]] && label='set style    -- '
             _Dbg_msg_nocr \
                 "${label}Set pygments highlighting style is "
             if [[ -z $_Dbg_set_style ]] ; then
@@ -184,8 +168,7 @@ _Dbg_help_set() {
             fi
             ;;
         wi|wid|widt|width )
-            [[ -n $label ]] && label='set width    -- '
-            _Dbg_msg "${label}Set line width is ${_Dbg_set_linewidth}"
+            _Dbg_msg "${label}Set line width is ${_Dbg_set_linewidth}."
             ;;
 
         * )
@@ -193,9 +176,6 @@ _Dbg_help_set() {
                 "There is no \"set $subcmd\" command."
     esac
 }
-
-typeset _Dbg_show_cmds="aliases annotate args autoeval autolist basename commands
-confirm copying directories debug force linetrace listsize prompt style trace-commands warranty"
 
 _Dbg_help_show() {
     if (( $# == 0 )) ; then
@@ -222,6 +202,11 @@ _Dbg_help_show() {
     fi
 
     case $subcmd in
+        al | ali | alia | alias | aliase | aliases )
+            _Dbg_msg \
+                "${label}Show list of aliases currently in effect."
+            return 0
+            ;;
         ar | arg | args )
             _Dbg_msg \
                 'show args        -- Show argument list to give program being debugged when it
@@ -230,7 +215,7 @@ _Dbg_help_show() {
             ;;
         an | ann | anno | annot | annota | annotat | annotate )
             _Dbg_msg \
-                "show annotate    -- Show annotation_level"
+                "show annotate    -- Show annotation_level."
             return 0
             ;;
         autoe | autoev | autoeva | autoeval )
@@ -245,7 +230,7 @@ _Dbg_help_show() {
             ;;
         b | ba | bas | base | basen | basena | basenam | basename )
             _Dbg_msg \
-                'show basename    -- Files show only their basenams.'
+                'show basename    -- Files show only their basenames.'
             return 0
             ;;
         c | co | con | conf | confi | confir | confirm )

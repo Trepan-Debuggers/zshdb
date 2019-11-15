@@ -179,7 +179,7 @@ Aliases for list: l>, list>, l
 +# 
 +### Testing set/show listsize
 +show listsize
-Number of source lines zshdb will list by default is 10.
+
 +### Setting listsize to 3...
 +set listsize 3
 +l 10
@@ -193,7 +193,7 @@ Number of source lines zshdb will list by default is 10.
 +### Setting listsize to 4...
 +set listsize 4
 +show listsize
-Number of source lines zshdb will list by default is 4.
+
 +l 10
   8:    }    
   9:    

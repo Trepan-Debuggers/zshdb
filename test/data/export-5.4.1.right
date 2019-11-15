@@ -16,7 +16,7 @@ Breakpoint 1 hit.
 (subshell.sh:3):
 x='line 3'
 +set autoeval on
-Evaluate unrecognized commands is on.
+
 +step 
 (subshell.sh:4):
 y='line 4'

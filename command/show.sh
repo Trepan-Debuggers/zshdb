@@ -48,25 +48,35 @@ _Dbg_do_show() {
 }
 
 _Dbg_do_show_internal() {
+
+    if (( $# == 0 )) ; then
+        typeset list
+        list=(${(ki)_Dbg_command_help_show[@]})
+        typeset subcmd
+        for subcmd in ${list[@]}; do
+            _Dbg_help_show $subcmd 1
+        done
+        return 0
+    fi
+
     typeset show_cmd=$1
     typeset label=$2
 
-    # Warranty, copying, directories, and aliases are omitted below.
-    typeset subcmds='annotate args autoeval autolist basename debug editing force history listsize prompt trace-commands width'
-
-    if [[ -z $show_cmd ]] ; then
-        typeset thing
-        for thing in $subcmds ; do
-            _Dbg_do_show $thing 1
-        done
-        return 0
-    elif [[ -n ${_Dbg_debugger_show_commands[$show_cmd]} ]] ; then
-	[[ -n ${_Dbg_show_nolist[$thing]} ]] || \
-            ${_Dbg_debugger_show_commands[$show_cmd]} $label
-        return $?
+    if [[ -n" ${_Dbg_debugger_show_commands[$show_cmd]}" ]] ; then
+        if [[ -z $label ]] ; then
+            _Dbg_msg_rst "${_Dbg_command_help_show[$subcmd]}"
+            return 0
+        else
+            label=$(printf "show %-12s-- " $subcmd)
+        fi
     fi
 
     case $show_cmd in
+        al | ali | alia | alias | aliase | aliases )
+            _Dbg_msg \
+                "${label}Show list of aliases currently in effect."
+            return 0
+            ;;
         ar | arg | args )
             [[ -n $label ]] && label='args:     '
             _Dbg_msg \
@@ -88,6 +98,25 @@ _Dbg_do_show_internal() {
                 "${label}Auto run of 'list' command is ${onoff}"
             return 0
             ;;
+        b | ba | bas | base | basen | basena | basenam | basename )
+            _Dbg_msg \
+                "${label}Show if we are are to show short or long filenames."
+            return 0
+            ;;
+        c | co | con | conf | confi | confir | confirm )
+            _Dbg_msg \
+                "${label}confirm dangerous operations" $(_Dbg_onoff $_Dbg_set_confirm)
+            ;;
+        d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
+            _Dbg_msg \
+                "${label}Show if we are set to debug the debugger."
+            return 0
+            ;;
+        different | force)
+            _Dbg_msg \
+                "${label}Show if debugger stops at a different line."
+            return 0
+            ;;
         dir|dire|direc|direct|directo|director|directori|directorie|directories)
             typeset list=${_Dbg_dir[0]}
             typeset -i n=${#_Dbg_dir[@]}
@@ -99,10 +128,24 @@ _Dbg_do_show_internal() {
             _Dbg_msg "Source directories searched: $list"
             return 0
             ;;
+        editing )
+            _Dbg_msg \
+                "${label}Show editing of command lines and edit style."
+            ;;
         force | diff | differ | different )
             [[ -n $label ]] && label='different: '
             _Dbg_msg \
                 "${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_set_different)
+            return 0
+            ;;
+        highlight )
+            _Dbg_msg \
+                "${label}Show if we syntax highlight source listings."
+            return 0
+            ;;
+        history )
+            _Dbg_msg \
+                "${label}Show if we are recording command history."
             return 0
             ;;
         lin | line | linet | linetr | linetra | linetrac | linetrace )
@@ -153,12 +196,21 @@ _Dbg_do_show_internal() {
             _Dbg_do_show_version
             return 0
             ;;
+        wa | war | warr | warra | warran | warrant | warranty )
+            _Dbg_msg \
+                "${label}Various kinds of warranty you do not have."
+            return 0
+            ;;
         wi | wid | width )
             [[ -n $label ]] && label='width: '
             _Dbg_msg \
                 "${label}Line width is $_Dbg_set_linewidth."
             return 0
             ;;
+	"style" | "version" )
+	    # Not done yet
+	    ;;
+
         *)
             _Dbg_errmsg "Unknown show subcommand: $show_cmd"
             _Dbg_errmsg "Show subcommands are:"

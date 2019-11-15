@@ -2,7 +2,7 @@
 x=1
 +# Make sure autostep is off for tests
 +set force on
-Show stepping forces a new line is on.
+
 +# Test that skip skips multiple statements
 +n 
 (skip.sh:4):

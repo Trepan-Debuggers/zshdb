@@ -2,7 +2,7 @@
 for ((i=0; i<3; i++)) do print 1st loop $i done
 +# Make sure autostep is off for next text
 +set force on
-Show stepping forces a new line is on.
+
 +############################### 
 +# Invalid delete commands
 +delete 0
