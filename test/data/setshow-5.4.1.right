@@ -275,6 +275,8 @@ Undefined show command: "badcommand".  Try "help show".
 +show
 show alias       -- Show list of aliases currently in effect.
 show annotate    -- Show annotation_level
+show autoeval    -- Evaluate unrecognized commands is off.
+show autolist    -- Auto run a 'list' command is off.
 show basename    -- Show if we are are to show short or long filenames.
 show commands    -- Show the history of commands you typed.
 show confirm     -- confirm dangerous operations on.
@@ -283,8 +285,10 @@ show debug       -- Show if we are set to debug the debugger.
 show editing     -- Show editing of command lines and edit style.
 show highlight   -- Show if we syntax highlight source listings.
 show history     -- Show if we are recording command history.
+show listsize    -- Number of source lines zshdb will list by default is 10.
 show style       -- Set pygments highlighting style is off.
 show warranty    -- Various kinds of warranty you do not have.
+show width       -- Line width is 80.
 +show args
 Argument list to give script when debugged program starts is:
        "testarg1 testarg2".

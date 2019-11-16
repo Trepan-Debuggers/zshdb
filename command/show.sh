@@ -87,16 +87,12 @@ _Dbg_help_show() {
                 "${label}Show annotation_level"
             ;;
         autoe | autoev | autoeva | autoeval )
-            [[ -n $label ]] && label='autoeval: '
             _Dbg_msg \
                 "${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
             ;;
         autol | autoli | autolis | autolist )
-            [[ -n $label ]] && label='autolist: '
-            typeset onoff="on."
-            [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
             _Dbg_msg \
-                "${label}Auto run of 'list' command is ${onoff}"
+                "${label}Auto run a 'list' command is" $(_Dbg_onoff $_Dbg_set_autolist)
             ;;
         b | ba | bas | base | basen | basena | basenam | basename )
             _Dbg_msg \
@@ -150,7 +146,6 @@ _Dbg_help_show() {
                 "${label}Show whether to trace lines before execution."
             ;;
         lis | list | lists | listsi | listsiz | listsize )
-            [[ -n $label ]] && label='listsize: '
             _Dbg_msg \
                 "${label}Number of source lines ${_Dbg_debugger_name} will list by default is" \
                 "$_Dbg_set_listsize."
@@ -188,7 +183,6 @@ _Dbg_help_show() {
                 "${label}Various kinds of warranty you do not have."
             ;;
         wi | wid | width )
-            [[ -n $label ]] && label='width: '
             _Dbg_msg \
                 "${label}Line width is $_Dbg_set_linewidth."
             ;;

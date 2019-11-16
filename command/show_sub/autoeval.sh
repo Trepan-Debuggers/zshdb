@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# "show basename" debugger command
+# "show autoeval" debugger command
 #
-#   Copyright (C) 2014, 2019 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2019 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -26,19 +26,19 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_debugger_show_commands
 fi
 
-_Dbg_help_add_sub show basename \
-'**show basename**
+_Dbg_help_add_sub show autoeval \
+'**show autoeval**
 
-Show whether file basenames are in effect.
+Show whether unrecognized commands are automatically evaluated.
 
 See also:
 ---------
+**set autoeval**.' 1
 
-**set basename**.' 1
 
-_Dbg_do_show_basename() {
-    [[ -n $1 ]] && label=$(_Dbg_printf_nocr "%-12s: " basename)
+_Dbg_do_show_autoeval() {
+    [[ -n $1 ]] && label=$(_Dbg_printf_nocr "%-12s: " autoeval)
     _Dbg_msg \
-        "${label}Show short filenames (the basename) is " $(_Dbg_onoff $_Dbg_set_basename)
+	"${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
     return 0
 }

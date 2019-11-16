@@ -32,7 +32,7 @@ _Dbg_complete_level_2_data[set_autolist]='on off'
 _Dbg_help_add_sub set autolist \
 '**set autolist** [**on**|**off**]
 
-Run list command automatically every time the debugger enters
+Run a "list" command automatically every time the debugger enters.
 
 See also:
 ---------
