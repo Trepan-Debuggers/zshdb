@@ -1,4 +1,4 @@
-.. index:: show; cmdtrace
+.. index:: show; trace-commands
 .. _show_cmdtrace:
 
 Show Cmdtrace (show debugger commands before running)
@@ -10,4 +10,4 @@ Show tracking commands before running them
 
 .. seealso::
 
-   :ref:`set cmdtrace <set_cmdtrace>`
+   :ref:`set trace-commans <set_trace-commands>`

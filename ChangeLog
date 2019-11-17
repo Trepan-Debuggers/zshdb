@@ -1,5 +1,14 @@
 2019-11-17  rocky <rocky@gnu.org>
 
+	* NEWS.md: Update news for release
+
+2019-11-17  rocky <rocky@gnu.org>
+
+	* ChangeLog, docs/commands/set/different.rst,
+	docs/commands/set/trace-commands.rst: Small doc changes
+
+2019-11-17  rocky <rocky@gnu.org>
+
 	* ChangeLog, admin/how-to-make-a-release.md,
 	command/show_sub/different.sh, command/show_sub/linetrace.sh,
 	configure.ac, docs/commands/set.rst,

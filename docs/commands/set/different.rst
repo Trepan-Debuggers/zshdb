@@ -26,4 +26,4 @@ suffixes if you wan to override this setting on a per-command basis.
 
 .. seealso::
 
-   :ref:`show different <show_differnt>`.
+   :ref:`show different <show_different>`.
