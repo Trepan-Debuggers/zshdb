@@ -1,10 +1,10 @@
 .. index:: show; trace-commands
-.. _show_cmdtrace:
+.. _show_trace-commands:
 
 Show Cmdtrace (show debugger commands before running)
 -----------------------------------------------------
 
-**show cmdtrace**
+**show trace-commands**
 
 Show tracking commands before running them
 

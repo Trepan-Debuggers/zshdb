@@ -1,5 +1,10 @@
 2019-11-17  rocky <rocky@gnu.org>
 
+	* ChangeLog, docs/commands/set/different.rst,
+	docs/commands/show/trace-commands.rst: RsT link typos
+
+2019-11-17  rocky <rocky@gnu.org>
+
 	* NEWS.md: Update news for release
 
 2019-11-17  rocky <rocky@gnu.org>

@@ -30,6 +30,7 @@ environment settings with the :ref:`show <show>` command.
    set/different
    set/editing
    set/highlight
+   set/linetrace
    set/listsize
    set/skip
    set/style
