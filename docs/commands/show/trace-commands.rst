@@ -6,7 +6,7 @@ Show Cmdtrace (show debugger commands before running)
 
 **show cmdtrace**
 
-Show debugger commands before running them
+Show tracking commands before running them
 
 .. seealso::
 

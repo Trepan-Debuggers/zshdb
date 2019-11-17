@@ -19,11 +19,12 @@ Show
    show/autoeval
    show/autolist
    show/basename
-   show/cmdtrace
    show/confirm
    show/different
    show/editing
    show/highlight
+   show/linetrace
    show/listsize
    show/style
+   show/trace-commands
    show/width

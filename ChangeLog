@@ -1,3 +1,62 @@
+2019-11-16  rocky <rocky@gnu.org>
+
+	* command/set.sh, command/set_sub/autolist.sh, command/show.sh,
+	command/show_sub/autoeval.sh, command/show_sub/autolist.sh,
+	command/show_sub/basename.sh, command/show_sub/listsize.sh,
+	command/show_sub/width.sh, test/data/setshow-5.4.1.right: Fill out
+	show commands more: add autoeval, autolist listsize, width
+
+2019-11-15  rocky <rocky@gnu.org>
+
+	* command/show.sh, lib/help.sh, lib/setshow.sh,
+	test/data/action.right, test/data/delete.right,
+	test/data/export-5.4.1.right, test/data/list.right,
+	test/data/next.right, test/data/setshow-5.4.1.right,
+	test/data/skip.right, test/data/step.right,
+	test/data/subshell-5.4.1.right: DRY show a little...  this time, for sure!
+
+2019-11-15  rocky <rocky@gnu.org>
+
+	* command/show_sub/copying.sh, command/show_sub/debug.sh,
+	command/show_sub/highlight.sh, command/show_sub/history.sh,
+	lib/help.sh, test/data/setshow-5.4.1.right: More "help show"
+	fixes/improvements
+
+2019-11-14  rocky <rocky@gnu.org>
+
+	* command/show.sh, lib/help.sh, test/data/action.right,
+	test/data/delete.right, test/data/export-5.4.1.right,
+	test/data/list.right, test/data/next.right,
+	test/data/setshow-5.4.1.right, test/data/skip.right,
+	test/data/step.right, test/data/subshell-5.4.1.right: Simplify and
+	regularize help set/show...  sync with kshdb
+
+2019-11-14  rocky <rocky@gnu.org>
+
+	* command/set_sub/confirm.sh, command/show_sub/alias.sh,
+	command/show_sub/basename.sh, command/show_sub/commands.sh,
+	command/show_sub/confirm.sh, command/show_sub/copying.sh,
+	command/show_sub/debug.sh, command/show_sub/editing.sh,
+	command/show_sub/highlight.sh, command/show_sub/history.sh,
+	command/show_sub/style.sh, command/show_sub/warranty.sh,
+	dbg-opts.sh, lib/help.sh, lib/msg.sh: Add set/show confirm...  Go over "show" rSt formatting
+
+2019-11-11  rocky <rocky@gnu.org>
+
+	* README.md: Small doc tweak
+
+2019-11-08  rocky <rocky@gnu.org>
+
+	* test/example/bug-args.sh: Remove a derived file
+
+2019-11-08  rocky <rocky@gnu.org>
+
+	* docs/install.rst, test/example/bug-args.sh: Small typo
+
+2019-11-08  rocky <rocky@gnu.org>
+
+	* ChangeLog, zterm-background.sh: Silence "stty echo" failures
+
 2019-11-07  rocky <rocky@gnu.org>
 
 	* ChangeLog, test/data/Makefile.am: Add debug test file

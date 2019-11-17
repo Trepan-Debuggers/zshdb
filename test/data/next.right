@@ -4,7 +4,7 @@ p () { print ${funcfiletrace[0]##*/} print '===' }
 Show short filenames (the basename) is on.
 +# Make sure autostep is off for next text
 +set force off
-Show stepping forces a new line is off.
+Stepping forces stopping at a new line is off.
 +show force
 Show stepping forces a new line is off.
 +next
@@ -42,7 +42,7 @@ p
 ->0 in file `nexting.sh' at line 8
 +# Now check with set force on
 +set force on
-Show stepping forces a new line is on.
+Stepping forces stopping at a new line is on.
 +show force
 Show stepping forces a new line is on.
 +next

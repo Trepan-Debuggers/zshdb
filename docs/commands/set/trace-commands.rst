@@ -1,13 +1,13 @@
-.. index:: set; cmdtrace
-.. _set_cmdtrace:
+.. index:: set; trace-commands
+.. _set_trace-commands:
 
 Set Cmdtrace (show debugger commands before running)
 ----------------------------------------------------
 
-**set cmdtrace** [ **on** | **off** ]
+**set trace-commands** [ **on** | **off** ]
 
 Set echoing lines read from debugger command files
 
 .. seealso::
 
-   :ref:`show cmdtrace <show_cmdtrace>`
+   :ref:`show cmdtrace <show_trace-commands>`

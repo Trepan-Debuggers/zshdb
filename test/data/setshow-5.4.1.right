@@ -282,9 +282,11 @@ show commands    -- Show the history of commands you typed.
 show confirm     -- confirm dangerous operations on.
 show copying     -- Conditions for redistributing copies of debugger.
 show debug       -- Show if we are set to debug the debugger.
+show different   -- Show stepping forces a new line is off.
 show editing     -- Show editing of command lines and edit style.
 show highlight   -- Show if we syntax highlight source listings.
 show history     -- Show if we are recording command history.
+show linetrace   -- Show whether to trace lines before execution.
 show listsize    -- Number of source lines zshdb will list by default is 10.
 show style       -- Set pygments highlighting style is off.
 show warranty    -- Various kinds of warranty you do not have.

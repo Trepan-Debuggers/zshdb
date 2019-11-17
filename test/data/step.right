@@ -2,56 +2,56 @@
 for ((i=0; i<3; i++)) do print 1st loop $i done
 +# Make sure autostep is off for tests
 +set force off
-Show stepping forces a new line is off.
+Stepping forces stopping at a new line is off.
 +show force
 Show stepping forces a new line is off.
 +# Test that step+ skips multiple statements
-+step+ 
++step+
 1st loop 0
 1st loop 1
 1st loop 2
 (stepping.sh:4):
 for ((i=0; i<3; i++)) do print 2nd loop $i done
 +set force on
-Show stepping forces a new line is on.
+Stepping forces stopping at a new line is on.
 +show force
 Show stepping forces a new line is on.
 +# Same thing - skip loop
-+step 
++step
 2nd loop 0
 2nd loop 1
 2nd loop 2
 (stepping.sh:5):
 for ((i=0; i<3; i++)) do print 3rd loop $i done
 +# Override force
-+step- 
++step-
 (stepping.sh:5):
 print 3rd loop $i
-+s- 
++s-
 3rd loop 0
 (stepping.sh:5):
 print 3rd loop $i
 +# A null command should use the last step
-+s- 
++s-
 3rd loop 1
 (stepping.sh:5):
 print 3rd loop $i
-+step 
++step
 3rd loop 2
 (stepping.sh:6):
 for ((i=0; i<3; i++)) do print 4th loop $i done
 +# Try a null command the other way
-+s+ 
++s+
 4th loop 0
 4th loop 1
 4th loop 2
 (stepping.sh:7):
 for ((i=0; i<3; i++)) do print 5th loop $i done
-+s+ 
++s+
 5th loop 0
 5th loop 1
 5th loop 2
 (stepping.sh:8):
 for ((i=0; i<3; i++)) do print 6th loop $i done
-+quit 
++quit
 zshdb: That's all, folks...

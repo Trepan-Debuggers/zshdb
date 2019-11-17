@@ -25,12 +25,13 @@ environment settings with the :ref:`show <show>` command.
    set/autoeval
    set/autolist
    set/basename
-   set/cmdtrace
    set/confirm
+   set/debugger
    set/different
    set/editing
    set/highlight
    set/listsize
    set/skip
    set/style
+   set/trace-commands
    set/width
