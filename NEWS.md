@@ -1,4 +1,25 @@
-Version 1.1.1 2019--10-27 9 x 7
+Version 1.1.1 2019-11-17 JNC
+----------------------------
+
+- clean up and document better set/show commands
+	- autoeval,
+	- autolist
+	- confirm,
+    - different
+	- linetrace
+	- trace-command
+	- listsize,
+	- width
+- more RsT formatting in set/show commands
+- Silence "stty echo" failures in terminal detection
+- Add set/show confirm
+- Add ! suffix to kill command
+- set $0 properly inside "eval" and "shell commands
+- bump min zshdb version at least 5.4.1 to avoid memory corruption when setting $0
+- other small fixes and doc improvements
+
+
+Version 1.1.1 2019-10-27 9 x 7
 -------------------------------
 
 - Add "skip" command
@@ -6,7 +27,7 @@ Version 1.1.1 2019--10-27 9 x 7
 - Lots of little help doc fixes
 - Update for current pygments advances. Now use the default TERMINAL colors
 
-Version 1.0.1 2019--09-18
+Version 1.0.1 2019-09-18
 -------------------------
 
 - Revise "info variables"
