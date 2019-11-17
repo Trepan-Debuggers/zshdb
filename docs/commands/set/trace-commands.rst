@@ -10,4 +10,4 @@ Set echoing lines read from debugger command files
 
 .. seealso::
 
-   :ref:`show cmdtrace <show_trace-commands>`
+   :ref:`show trace-commands <show_trace-commands>`

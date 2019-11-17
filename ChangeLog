@@ -1,3 +1,16 @@
+2019-11-17  rocky <rocky@gnu.org>
+
+	* ChangeLog, admin/how-to-make-a-release.md,
+	command/show_sub/different.sh, command/show_sub/linetrace.sh,
+	configure.ac, docs/commands/set.rst,
+	docs/commands/set/linetrace.rst, docs/commands/set/{cmdtrace.rst =>
+	trace-commands.rst}, docs/commands/show.rst,
+	docs/commands/show/linetrace.rst, docs/commands/show/{cmdtrace.rst
+	=> trace-commands.rst}, test/data/delete.right,
+	test/data/next.right, test/data/setshow-5.4.1.right,
+	test/data/skip.right, test/data/step.right: Get ready for release
+	1.1.1
+
 2019-11-16  rocky <rocky@gnu.org>
 
 	* command/set.sh, command/set_sub/autolist.sh, command/show.sh,

@@ -26,5 +26,4 @@ suffixes if you wan to override this setting on a per-command basis.
 
 .. seealso::
 
-   :ref:`set trace <set_trace>` to change what events you want to filter.
-   :ref:`show trace <show_trace>`.
+   :ref:`show different <show_differnt>`.
