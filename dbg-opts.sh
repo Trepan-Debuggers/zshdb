@@ -184,7 +184,7 @@ _Dbg_parse_options() {
 		    exit 2
 		esac
 
-		if (( ! _Ddg_working_term_highlight )) ; then
+		if (( ! _Dbg_working_term_highlight )) ; then
 		    echo "Can't run term-highlight.py; '--highlight' forced off" >&2
 		    _Dbg_set_highlight=''
 		fi
