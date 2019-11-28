@@ -1,5 +1,10 @@
 2019-11-17  rocky <rocky@gnu.org>
 
+	* ChangeLog, docs/commands/set/trace-commands.rst,
+	docs/commands/show/trace-commands.rst: More RST doc typos
+
+2019-11-17  rocky <rocky@gnu.org>
+
 	* ChangeLog, docs/commands/set.rst,
 	docs/commands/show/trace-commands.rst: More RsT link corrections
 

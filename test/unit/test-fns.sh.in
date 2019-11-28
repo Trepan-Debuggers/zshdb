@@ -56,14 +56,14 @@ test_fns_esc_dbg_enter_return() {
 # Test _Dbg_defined
 test_fns_defined()
 {
-    _Dbg_defined 
-    assertFalse 'No variable given; is_function should report false' $? 
+    _Dbg_defined
+    assertFalse 'No variable given; is_function should report false' $?
     unset xxx
     _Dbg_defined xxx
-    assertFalse 'variable xxx should not be defined' $? 
+    assertFalse 'variable xxx should not be defined' $?
     typeset xxx=1
     _Dbg_defined xxx
-    assertTrue 'variable xxx should be defined' $? 
+    assertTrue 'variable xxx should be defined' $?
 }
 
 test_fns_parse_linespec()
@@ -81,7 +81,7 @@ test_fns_parse_linespec()
     assertEquals 0 $?
     result=${word[@]}
     assertEquals '456 0 abc.txt' "$result"
-    
+
     _Dbg_parse_linespec :4
     assertEquals 1 $?
 
@@ -96,17 +96,17 @@ test_fns_parse_linespec()
 # Test _Dbg_set_dol_q
 test_fns_set_q()
 {
-    _Dbg_set_dol_q 1 
-    assertFalse '$? should have been set to 1==false' $? 
-    _Dbg_set_dol_q 0 
-    assertTrue '$? should have been set to 0==true' $? 
-#     # Test without giving a parameter
-#     local _Ddg_debugged_exit_code=0
-#     _Dbg_set_dol_q 
-#     assertTrue '$? should be set true via _Dbg_debugged_exit_code' $? 
-#     _Ddg_debugged_exit_code=1
-#     _Dbg_set_dol_q
-#     assertFalse '$? should be set false via _Dbg_debugged_exit_code' $? 
+    _Dbg_set_dol_q 1
+    assertFalse '$? should have been set to 1==false' $?
+    _Dbg_set_dol_q 0
+    assertTrue '$? should have been set to 0==true' $?
+    # Test without giving a parameter
+    local _Dbg_debugged_exit_code=0
+    _Dbg_set_dol_q
+    assertTrue '$? should be set true via _Dbg_debugged_exit_code' $?
+    _Dbg_debugged_exit_code=1
+    _Dbg_set_dol_q
+     assertFalse '$? should be set false via _Dbg_debugged_exit_code' $?
 }
 
 # Test _Dbg_split
