@@ -6,6 +6,7 @@ install:
 
 addons:
   artifacts:
+    working_dir: /home/circleci/rocky/zshdb/test
     paths:
       - $(du -a /home/circleci/rocky/zshdb/test | grep log$ | cut -f 2 | tr "\n" ":")
     debug: true
