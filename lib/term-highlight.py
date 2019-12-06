@@ -35,8 +35,8 @@ from pygments.token      import Keyword, Name, Comment, String, Error, \
     Number, Operator, Generic, Token, Whitespace
 from pygments.util       import get_choice_opt
 
-from pygments.styles import STYLE_MAP
-style_names = sorted(list(STYLE_MAP.keys()))
+from pygments.styles import get_all_styles
+style_names = sorted(list(get_all_styles()))
 
 warnings.simplefilter("ignore")
 

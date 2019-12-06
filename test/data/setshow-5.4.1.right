@@ -288,6 +288,7 @@ show highlight   -- Show if we syntax highlight source listings.
 show history     -- Show if we are recording command history.
 show linetrace   -- Show whether to trace lines before execution.
 show listsize    -- Number of source lines zshdb will list by default is 10.
+show prompt      -- Show zshdb's command prompt.
 show style       -- Set pygments highlighting style is off.
 show warranty    -- Various kinds of warranty you do not have.
 show width       -- Line width is 80.

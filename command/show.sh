@@ -152,10 +152,9 @@ _Dbg_help_show() {
             ;;
 
         p | pr | pro | prom | promp | prompt )
-            [[ -n $label ]] && label='prompt:   '
+	    # Note this is different fom "help show prompt" output
             _Dbg_msg \
-                "${label}${_Dbg_debugger_name}'s prompt is:\n" \
-                "      \"$_Dbg_prompt_str\"."
+                "${label}Show ${_Dbg_debugger_name}'s command prompt."
             ;;
         st | sty | styl | style )
             _Dbg_msg_nocr \
