@@ -7,9 +7,9 @@ install:
 addons:
   artifacts:
     paths:
-      - $(du -a . | grep log$ | cut -f 2)
-      - $HOME/some/other/thing.log
+      - $(du -a /home/circleci/rocky/zshdb/test | grep log$ | cut -f 2)
     debug: true
+
 
 # run the tests
 script: zsh ./autogen.sh && make check
