@@ -111,14 +111,18 @@ _Dbg_help_show() {
                 "${label}Conditions for redistributing copies of debugger."
             ;;
         dir|dire|direc|direct|directo|director|directori|directorie|directories)
-            typeset list=${_Dbg_dir[0]}
-            typeset -i n=${#_Dbg_dir[@]}
-            typeset -i i
-            for (( i=1 ; i < n; i++ )) ; do
-                list="${list}:${_Dbg_dir[i]}"
-            done
-
-            _Dbg_msg "Source directories searched: $list"
+	    if [[ -n $label ]]; then
+		_Dbg_msg \
+                    "${label}Show the search path for finding source files."
+	    else
+		typeset list=${_Dbg_dir[0]}
+		typeset -i n=${#_Dbg_dir[@]}
+		typeset -i i
+		for (( i=1 ; i < n; i++ )) ; do
+                    list="${list}:${_Dbg_dir[i]}"
+		done
+		_Dbg_msg "Source directories searched: $list"
+	    fi
             ;;
         d|de|deb|debu|debug|debugg|debugger|debuggi|debuggin|debugging )
             _Dbg_msg \
