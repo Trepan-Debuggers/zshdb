@@ -7,7 +7,7 @@ install:
 addons:
   artifacts:
     paths:
-      - $(du -a /home/circleci/rocky/zshdb/test | grep log$ | cut -f 2)
+      - $(du -a /home/circleci/rocky/zshdb/test | grep log$ | cut -f 2 | tr "\n" ":")
     debug: true
 
 
