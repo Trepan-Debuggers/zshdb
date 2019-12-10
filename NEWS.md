@@ -1,3 +1,13 @@
+Version 1.1.2 2019-12-10 gecko gecko
+------------------------------------
+
+Very minor improvements
+
+- Add "show prompt" to "show" list
+- add "show dir"  to "show" list
+- Show *all* Pygments sytles a has installed, not just builtins. (John Purnell in bashdb)
+- Fix typo which prevented syntax highlighting option from working (MenkeTechnologies)
+
 Version 1.1.1 2019-11-17 JNC
 ----------------------------
 

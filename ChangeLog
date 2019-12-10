@@ -1,3 +1,34 @@
+2019-12-05  rocky <rocky@gnu.org>
+
+	* .travis.yml: Travis CI artifact upload try 4
+
+2019-12-05  rocky <rocky@gnu.org>
+
+	* .travis.yml: Travis CI artifact upload try 3
+
+2019-12-05  rocky <rocky@gnu.org>
+
+	* .travis.yml, command/show_sub/prompt.sh: Add missing show prompt
+	subcmd...  and Travis CI 2nd attempt to get artifacts
+
+2019-12-05  rocky <rocky@gnu.org>
+
+	* .travis.yml, command/show.sh: add "dir" to show list and ...  attempt to get Travis to upload artifacts
+
+2019-12-05  rocky <rocky@gnu.org>
+
+	* command/show.sh, lib/term-highlight.py,
+	test/data/setshow-5.4.1.right: Get all Pygments style a user has
+	installed not just builtins ...  Patch is due to John Purnell (in bashdb).  Also, "help show" now includes "prompt".
+
+2019-11-28  rocky <rocky@gnu.org>
+
+	* ChangeLog, test/unit/test-fns.sh.in: Another Ddg -> Dbg typo
+
+2019-11-28  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #22 from MenkeTechnologies/master ddg to dbg typo fix
+
 2019-11-17  rocky <rocky@gnu.org>
 
 	* ChangeLog, docs/commands/set/trace-commands.rst,

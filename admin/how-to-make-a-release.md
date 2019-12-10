@@ -8,14 +8,14 @@
 
 - Edit from `configure.ac`'s release name. If we have this in `configure.ac`:
 ```
-   AC_INIT([zshdb],[1.1.1],[rocky@gnu.org])
+   AC_INIT([zshdb],[1.1.3],[rocky@gnu.org])
                     ^^^^^^
 ```
 
 then:
 
 ```console
-   $ export ZSHDB_VERSION='1.1.1'
+   $ export ZSHDB_VERSION='1.1.3'
    $ ./autogen.sh && make && make check
 ```
 
