@@ -37,8 +37,7 @@ then:
 - Tag release on github
    https://github.com/rocky/zshdb/releases
 
-- Get onto sourceforge:
-  Use the GUI
+- Get onto sourceforge https://sourceforge.net/projects/bashdb/files/zshdb/:
 
   Use the GUI
    login, file release, add folder $ZSHDB_VERSION

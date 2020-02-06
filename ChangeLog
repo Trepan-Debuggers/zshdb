@@ -1,3 +1,8 @@
+2019-12-10  rocky <rocky@gnu.org>
+
+	* ChangeLog, NEWS.md, admin/how-to-make-a-release.md, configure.ac: 
+	Get ready for release 1.1.2
+
 2019-12-05  rocky <rocky@gnu.org>
 
 	* .travis.yml: Travis CI artifact upload try 4
