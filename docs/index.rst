@@ -15,8 +15,6 @@ debuggers and vice versa.
 An Emacs interface is available via realgud_. Visual Studio integration is available from rogalmic via
 ZshDebug_.
 
-|packagestatus|
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -43,5 +41,3 @@ Indices and tables
 .. _debuggers: https://metacpan.org/pod/Devel::Trepan
 .. _realgud: https://github.com/realgud/realgud
 .. _ZshDebug: https://marketplace.visualstudio.com/items?itemName=rogalmic.zsh-debug
-.. |packagestatus| image:: https://repology.org/badge/vertical-allrepos/zshdb.svg
-		 :target: https://repology.org/project/zshdb/versions

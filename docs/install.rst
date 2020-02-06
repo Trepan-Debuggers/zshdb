@@ -9,6 +9,16 @@ From a Package
 
 Repology_ maintains a list of various bundled `zshdb` packages. Below are some specific distributions that contain `zshdb`.
 
+At the time this documentation was built, here is status that they provide:
+
+|packagestatus|
+
+Check the link above for more up-to-date information.
+
+
+.. |packagestatus| image:: https://repology.org/badge/vertical-allrepos/zshdb.svg
+		 :target: https://repology.org/project/zshdb/versions
+
 
 Debian/Ubuntu
 +++++++++++++++
