@@ -23,7 +23,7 @@ Check the link above for more up-to-date information.
 Debian/Ubuntu
 +++++++++++++++
 
-On Debian systems, and derivatives, zshdb can be installed by running:
+On Debian systems, and derivatives, `zshdb` can be installed by running:
 
 .. code:: console
 
@@ -31,7 +31,7 @@ On Debian systems, and derivatives, zshdb can be installed by running:
 
 
 The latest version may not yet be included in the archives. If you are running
-a stable version of Debian or a derivative, you may need to install zshdb from
+a stable version of Debian or a derivative, you may need to install `zshdb` from
 the backports repository for your version to get a recent version installed.
 
 MacOSX
@@ -45,7 +45,7 @@ On OSX systems, you can install from Homebrew or MacPorts_.
 
 
 From Source
-----------------
+------------
 
 SourceForge
 ++++++++++++
@@ -56,7 +56,7 @@ Go to sourceforge_ and find the most recent version and download a tarball of th
 .. code:: console
 
     $ tar -xpf zshdb-xxx.tar.bz2
-    $ cd zshdb
+    $ cd zshdb-xxx
     $ ./autogen.sh
     $ make && make test
     $ make install # may need sudo

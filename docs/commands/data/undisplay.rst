@@ -1,7 +1,7 @@
 .. index:: undisplay
 .. _undisplay:
 
-Undisplay (cancel a display expression)
+Cancel a Display Expression (undisplay)
 ---------------------------------------
 
 **undisplay** *display-number*...

@@ -1,7 +1,7 @@
 .. index:: delete
 .. _delete:
 
-Delete (remove breakpoints)
+Remove Breakpoints (delete)
 ---------------------------
 
 **delete** [*bpnumber* [*bpnumber*...]]

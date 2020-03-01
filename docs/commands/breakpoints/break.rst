@@ -1,7 +1,7 @@
 .. index:: break
 .. _break:
 
-Break (set a breakpoint)
+Set a Breakpoint (break)
 ------------------------
 
 **break** [*loc-spec*]
@@ -24,4 +24,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`tbreak <tbreak>`, and :ref:`continue <continue>`.
+   :ref:`tbreak <tbreak>`, `condition <condition>`, `delete <delete>`, `disable <disable>` and :ref:`continue <continue>`.

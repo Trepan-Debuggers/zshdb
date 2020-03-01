@@ -1,8 +1,8 @@
 .. index:: tbreak
 .. _tbreak:
 
-Tbreak (temporary breakpoint)
------------------------------
+Set a Temporary Breakpoint (tbreak)
+-----------------------------------
 
 **tbreak** [ *location* ] [**if** *condition*]
 
@@ -30,4 +30,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`break <break>`.
+   :ref:`break <break>`, `condition <condition>`, `delete <delete>`.

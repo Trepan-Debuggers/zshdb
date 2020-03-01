@@ -1,8 +1,9 @@
 .. index:: examine
 .. _examine:
 
-Examine
--------
+Print the value of an expression (examine)
+------------------------------------------
+
 **examine** *expr1*
 
 Print value of an expression via typeset, let, and failing these, eval.

@@ -1,7 +1,7 @@
 .. index:: enable
 .. _enable:
 
-Enable (enable breakpoints)
+Enable Breakpoints (enable)
 ---------------------------
 
 **enable** *bpnumber* [*bpnumber* ...]

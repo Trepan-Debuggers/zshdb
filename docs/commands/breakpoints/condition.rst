@@ -1,8 +1,8 @@
 .. index:: condition
 .. _condition:
 
-Condition (add condition to breakpoint)
----------------------------------------
+Add Condition to a Breakpoint (condition)
+-----------------------------------------
 
 **condition** *bp_number* *condition*
 

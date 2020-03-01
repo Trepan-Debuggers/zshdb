@@ -1,8 +1,8 @@
 .. index:: display
 .. _display:
 
-Display (set display expression)
---------------------------------
+Set a Display Expression) (display)
+-----------------------------------
 
 **display** [ *format* ] *expression*
 

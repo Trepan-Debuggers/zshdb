@@ -1,8 +1,8 @@
 .. index:: list
 .. _list:
 
-List (show me the code!)
-------------------------
+List Zsh Source Code (list)
+---------------------------
 
 **list**[**>**] [ *location*|**.**|**-** [ *num* ]]
 

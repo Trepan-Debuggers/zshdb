@@ -1,8 +1,8 @@
 .. index:: eval
 .. _eval:
 
-Eval (evaluate zsh expression)
----------------------------
+Evaluate a Zsh Expression) (eval)
+---------------------------------
 
 **eval** *cmd*
 
