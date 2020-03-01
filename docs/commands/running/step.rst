@@ -1,7 +1,7 @@
 .. index:: step
 .. _step:
 
-Step (step into)
+Step Into (step)
 ----------------
 
 **step** [ **+** | **-** | **<** | **>** | **!** ] [*event*...] [*count*]

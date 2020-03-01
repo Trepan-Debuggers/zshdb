@@ -1,7 +1,7 @@
 .. index:: debug
 .. _debug:
 
-Debug (recursive debugging)
+Recursive Debugging (debug)
 ---------------------------
 
 **debug** [*zsh-script* [*args*...]]

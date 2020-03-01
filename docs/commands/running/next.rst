@@ -1,7 +1,7 @@
 .. index:: next
 .. _next:
 
-Next (step over)
+Step Over (next)
 ----------------
 
 **next** [ **+** | **-** ] [ *count* ]

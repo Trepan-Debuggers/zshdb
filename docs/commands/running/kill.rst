@@ -1,7 +1,7 @@
 .. index:: kill
 .. _kill:
 
-Kill (send kill signal)
+Send Kill Signal (kill)
 -----------------------
 
 **kill** [ *signal-number* ]
