@@ -24,4 +24,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`tbreak <tbreak>`, `condition <condition>`, `delete <delete>`, `disable <disable>` and :ref:`continue <continue>`.
+   :ref:`tbreak <tbreak>`, :ref:`condition <condition>`, :ref:`delete <delete>`, :ref:`disable <disable>` and :ref:`continue <continue>`.

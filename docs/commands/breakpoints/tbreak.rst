@@ -30,4 +30,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`break <break>`, `condition <condition>`, `delete <delete>`.
+   :ref:`break <break>`, :ref:`condition <condition>`, :ref:`delete <delete>`.
