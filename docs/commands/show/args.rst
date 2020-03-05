@@ -1,8 +1,8 @@
 .. index:: show; args
 .. _show_args:
 
-Show Args (arguments when program is started)
----------------------------------------------
+Show Program invocation Arguments (`show args`)
+-----------------------------------------------
 
 **show args**
 

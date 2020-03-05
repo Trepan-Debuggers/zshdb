@@ -1,8 +1,8 @@
 .. index:: show; trace-commands
 .. _show_trace-commands:
 
-Show trace command (show debugger commands before running)
-----------------------------------------------------------
+Show whether line tracing in is effect (`show trace-command`)
+-------------------------------------------------------------
 
 **show trace-commands**
 

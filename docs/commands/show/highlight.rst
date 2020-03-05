@@ -1,8 +1,8 @@
 .. index:: show; highlight
 .. _show_highlight:
 
-Show Highlight (terminal highlighting)
---------------------------------------
+Show whether highlighting is used in output (`show highlight`)
+--------------------------------------------------------------
 
 **show highlight**
 

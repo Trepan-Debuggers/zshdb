@@ -1,8 +1,8 @@
 .. index:: set; trace-commands
 .. _set_trace-commands:
 
-Set trace commands (show debugger commands before running)
-----------------------------------------------------------
+Set whether line tracing is in effect (`set trace-commands`)
+------------------------------------------------------------
 
 **set trace-commands** [ **on** | **off** ]
 

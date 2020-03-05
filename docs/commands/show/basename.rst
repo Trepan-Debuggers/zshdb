@@ -1,8 +1,8 @@
 .. index:: show; basename
 .. _show_basename:
 
-Show Basename (basename only in file path)
-------------------------------------------
+Show if path should have basename only (`show basename`)
+---------------------------------------------------------
 
 **show basename**
 

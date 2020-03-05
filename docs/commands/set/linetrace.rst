@@ -1,8 +1,8 @@
 .. index:: set; linetrace
 .. _set_linetrace:
 
-Set Linetrace (consecutive stops on linetrace file/line positions)
-------------------------------------------------------------------
+Set whether to trace executed lines (`set linetrace`)
+-----------------------------------------------------
 
 **set linetrace** [ **on** | **off** ]
 

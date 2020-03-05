@@ -1,8 +1,8 @@
 .. index:: set; highlight
 .. _set_highlight:
 
-Set Highlight (terminal highlighting)
--------------------------------------
+Set whether to use Terminal Highlighting (`set highlight`)
+----------------------------------------------------------
 
 **set highlight** [ **reset** ] {**plain** | **light** | **dark** | **off**}
 

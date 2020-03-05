@@ -1,8 +1,8 @@
 .. index:: show; editing
 .. _show_editing:
 
-Show Editing (readline editing)
--------------------------------
+Show whether GNU readline editing is in effect (`show editing`)
+---------------------------------------------------------------
 
 **show editing**
 

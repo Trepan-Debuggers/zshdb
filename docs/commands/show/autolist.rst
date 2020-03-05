@@ -1,8 +1,8 @@
 .. index:: show; autolist
 .. _show_autolist:
 
-Show Autolist
--------------
+Show whether list on entry is in effect (`show autolist`)
+---------------------------------------------------------
 
 **show autolist**
 

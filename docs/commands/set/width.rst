@@ -1,8 +1,8 @@
 .. index:: set; width
 .. _set_width:
 
-Set Width (terminal width)
---------------------------
+Set Terminal Output Width (`set width`)
+---------------------------------------
 
 **set width** *number*
 

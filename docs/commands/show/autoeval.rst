@@ -1,12 +1,12 @@
 .. index:: show; autoeval
 .. _show_autoeval:
 
-Show Autoeval (auto evaluation of unrecognized debugger commands)
------------------------------------------------------------------
+Show whether to evaluation of unrecognized debugger commands (`show autoeval`)
+------------------------------------------------------------------------------
 
 **show autoeval**
 
-Show whether zsh evaluate of unrecognized debugger commands.
+Show whether *zsh* evaluates of unrecognized debugger commands.
 
 .. seealso::
 

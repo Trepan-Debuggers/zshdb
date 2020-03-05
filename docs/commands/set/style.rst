@@ -1,8 +1,8 @@
 .. index:: set; style
 .. _set_style:
 
-Set Style (pygments formatting style)
--------------------------------------
+Set whether to use Pygments in Formating Listings (`set style`)
+---------------------------------------------------------------
 
 **set style** [*pygments-style*]
 
