@@ -1,8 +1,8 @@
 .. index:: edit
 .. _edit:
 
-Edit a file (edit)
-------------------
+Edit a file (`edit`)
+--------------------
 
 **edit** *position*
 

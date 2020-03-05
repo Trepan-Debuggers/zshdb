@@ -1,8 +1,8 @@
 .. index:: examine
 .. _examine:
 
-Print the value of an expression (examine)
-------------------------------------------
+Print the value of an expression (`examine`)
+--------------------------------------------
 
 **examine** *expr1*
 

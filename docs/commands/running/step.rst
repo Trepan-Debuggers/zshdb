@@ -1,10 +1,10 @@
 .. index:: step
 .. _step:
 
-Step Into (step)
-----------------
+Step Into (`step`)
+------------------
 
-**step** [ **+** | **-** | **<** | **>** | **!** ] [*event*...] [*count*]
+**step** [ **+** | **-** | **<** | **>** | **!** ] [*event* ...] [ *count* ]
 
 Execute the current line, stopping at the next event.
 
@@ -41,4 +41,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`next <next>` command. :ref:`skip <skip>`, :ref:`jump <jump>` (there's no `hop` yet), :ref:`continue <continue>`, and :ref:`finish <finish>` provide other ways to progress execution.
+   :ref:`next <next>` command. :ref:`skip <skip>`, :ref:`continue <continue>`, and :ref:`finish <finish>` provide other ways to progress execution.

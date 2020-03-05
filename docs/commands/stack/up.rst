@@ -1,8 +1,8 @@
 .. index:: up
 .. _up:
 
-Up (relative frame motion towards a less-recent frame)
-------------------------------------------------------
+Relative Target Motion towards a less-recent Frame (`up`)
+---------------------------------------------------------
 
 **up** [*count*]
 

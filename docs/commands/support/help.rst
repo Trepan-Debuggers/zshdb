@@ -1,10 +1,10 @@
 .. index:: help
 .. _help:
 
-Help (Won't you please help me if you can)
-------------------------------------------
+Command Documentation (`help`)
+------------------------------
 
-**help** [*command* [*subcommand*]|*expression*]
+**help** [ *command* [ *subcommand* ]| *expression* ]
 
 Without argument, print the list of available debugger commands.
 
@@ -14,8 +14,8 @@ name.
 Some commands like `info`, `set`, and `show` can accept an
 additional subcommand to give help just about that particular
 subcommand. For example `help info line` give help about the
-info line command.
+`line` subcommand of `info`.
 
 .. seealso::
 
-   :ref:`examine <examine>` and :ref:`whatis <whatis>`.
+   :ref:`examine <examine>`.

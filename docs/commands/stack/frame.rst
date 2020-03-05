@@ -1,10 +1,10 @@
 .. index:: frame
 .. _frame:
 
-Frame (absolute frame positioning)
-----------------------------------
+Absolute Target Frame Positioning (`frame`)
+-------------------------------------------
 
-**frame** [*thread-Name*|*thread-number*] [*frame-number*]
+**frame**  [ *frame-number* ]
 
 Change the current frame to frame *frame-number* if specified, or the
 current frame, 0, if no frame number specified.
@@ -29,15 +29,8 @@ Examples:
    frame     # Set current frame at the current stopping point
    frame 0   # Same as above
    frame 5-5 # Same as above. Note: no spaces allowed in expression 5-5
-   frame .   # Same as above. "current thread" is explicit.
-   frame . 0 # Same as above.
    frame 1   # Move to frame 1. Same as: frame 0; up
-   frame -1  # The least-recent frame
-   frame MainThread 0 # Switch to frame 0 of thread MainThread
-   frame MainThread   # Same as above
-   frame -2434343 0   # Use a thread number instead of name
 
 .. seealso::
 
-   :ref:`down <down>`, :ref:`up <up>`, :ref:`backtrace <backtrace>`, and
-   :ref:`info threads <info_threads>`.
+   :ref:`down <down>`, :ref:`up <up>`, :ref:`backtrace <backtrace>`

@@ -1,8 +1,8 @@
 .. index:: set; annotate
 .. _set_annotate:
 
-Set Annotate (GNU Emacs annotation level)
------------------------------------------
+Set GNU Emacs annotation Level (`set annotation`)
+-------------------------------------------------
 
 **set annotate** { **0** | **1** }
 

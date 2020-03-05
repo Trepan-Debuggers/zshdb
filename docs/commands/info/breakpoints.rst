@@ -10,14 +10,12 @@ Show status of user-settable breakpoints. If no breakpoint numbers are
 given, the show all breakpoints. Otherwise only those breakpoints
 listed are shown and the order given.
 
-The \"Num\" column is the breakpoint number which can be used in an *enable*, *disable* or *condition* commads.
+The columns in a line show are as follows:
 
-The \"Disp\" column contains one of \"keep\", \"del\", the disposition of
-the breakpoint after it gets hit.
-
-The \"enb\" column indicates whether the breakpoint is enabled.
-
-The \"Where\" column indicates where the breakpoint is located.
+* The \"Num\" column is the breakpoint number which can be used in `condition`, `delete`, `disable`, `enable` commands.
+* The \"Disp\" column contains one of \"keep\", \"del\", the disposition of the breakpoint after it gets hit.
+* The \"enb\" column indicates whether the breakpoint is enabled.
+* The \"Where\" column indicates where the breakpoint is located.
 
 Example:
 ++++++++

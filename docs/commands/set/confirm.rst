@@ -1,8 +1,8 @@
 .. index:: set; confirm
 .. _set_confirm:
 
-Set Confirm (confirmation of potentially dangerous operations)
---------------------------------------------------------------
+Confirmation of Potentially Dangerous Operations (`set confirm`)
+----------------------------------------------------------------
 
 **set confirm** [ **on** | **off** ]
 

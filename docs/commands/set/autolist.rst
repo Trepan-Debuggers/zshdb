@@ -1,8 +1,8 @@
 .. index:: set; autolist
 .. _set_autolist:
 
-Set Auto List
--------------
+List Statements on Debugger Entry (`set auto list`)
+---------------------------------------------------
 
 **set autolist** [ **on** | **off** ]
 
@@ -41,9 +41,6 @@ With this, you will get output like:
       9             self.stdout = None
      10             self.stderr = None
     (trepan2)
-
-You may also want to put this this in your debugger startup file. See
-:ref:`Startup Profile <http://python2-trepan.readthedocs.io/en/latest/entry-exit.html#startup-profile>`
 
 .. seealso::
 

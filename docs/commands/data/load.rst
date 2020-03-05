@@ -1,8 +1,8 @@
 .. index:: load
 .. _load:
 
-Read in a Zsh Script (load)
----------------------------
+Read in a Zsh Script (`load`)
+-----------------------------
 
 **load** *zsh-script*
 

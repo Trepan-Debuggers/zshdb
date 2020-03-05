@@ -1,10 +1,10 @@
 .. index:: skip
 .. _skip:
 
-Skip (skip over)
-----------------
+Skip over statement (`skip`)
+----------------------------
 
-**skip** [*count*]
+**skip** [ *count* ]
 
 Skip over (don't run) the next *count* command(s).
 

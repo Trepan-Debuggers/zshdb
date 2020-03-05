@@ -1,8 +1,8 @@
 .. index:: alias
 .. _alias:
 
-Alias (add debugger command alias)
-----------------------------------
+Add Debugger Command Alias (`alias`)
+------------------------------------
 
 **alias** *alias-name* *debugger-command*
 
@@ -13,12 +13,12 @@ that would otherwise be ambigous. For example, by default we make ``s``
 be an alias of ``step`` to force it to be used. Without the alias, ``s``
 might be ``step``, ``show``, or ``set`` among others
 
-Example:
-++++++++
+Examples:
++++++++++
 
 ::
 
-        alias cat list   # "cat myprog.py" is the same as "list myprog.py"
+        alias cat list   # "cat myprog.sh" is the same as "list myprog.sh"
         alias s   step   # "s" is now an alias for "step".
                          # The above example is done by default.
 

@@ -1,8 +1,8 @@
 .. index:: continue
 .. _continue:
 
-Continue Program Execution (continue)
--------------------------------------
+Continue Program Execution (`continue`)
+---------------------------------------
 
 **continue** [ *loc* | **-*** ]
 

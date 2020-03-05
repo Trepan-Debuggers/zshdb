@@ -1,8 +1,8 @@
 .. index:: set; autoeval
 .. _set_autoeval:
 
-Set Auto Eval (auto evaluation of unrecognized debugger commands)
------------------------------------------------------------------
+Auto-Evaluation of Unrecognized Debugger Commands (`set auto eval`)
+-------------------------------------------------------------------
 
 **set autoeval** [ **on** | **off** ]
 

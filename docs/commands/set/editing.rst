@@ -1,8 +1,8 @@
 .. index:: set; editing
 .. _set_editing:
 
-Set Editing (readline editing of commands)
-------------------------------------------
+Readline editing of commands (`set editing`)
+--------------------------------------------
 
 **set editing** [ **on** | **off** | **emacs** | **vi** ]
 

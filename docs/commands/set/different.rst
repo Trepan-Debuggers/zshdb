@@ -1,8 +1,8 @@
 .. index:: set; different
 .. _set_different:
 
-Set Different (consecutive stops on different file/line positions)
-------------------------------------------------------------------
+Consecutive Stops on Different File/Line Positions) (`set different`)
+---------------------------------------------------------------------
 
 **set different** [ **on** | **off** ]
 

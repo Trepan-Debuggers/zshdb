@@ -1,8 +1,8 @@
 .. index:: set; args
 .. _set_args:
 
-Set Args (progam arguments)
--------------------------------
+Set Command Invocation Parameters (`set args`)
+----------------------------------------------
 
 **set args** [*script-args*]
 

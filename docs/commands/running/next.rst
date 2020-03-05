@@ -1,8 +1,8 @@
 .. index:: next
 .. _next:
 
-Step Over (next)
-----------------
+Step Over (`next`)
+------------------
 
 **next** [ **+** | **-** ] [ *count* ]
 
@@ -19,5 +19,4 @@ the debugger setting 'different-line' determines this behavior.
 
 .. seealso::
 
-   :ref:`skip <step>`, :ref:`jump <jump>`, :ref:`continue <continue>`, and
-   :ref:`finish <finish>` provide other ways to progress execution.
+   :ref:`skip <step>`, and :ref:`continue <continue>` provide other ways to progress execution.

@@ -1,8 +1,8 @@
 .. index:: unalias
 .. _unalias:
 
-Unalias (remove debugger command alias)
----------------------------------------
+Remove Debugger Command Alias (`unalias`)
+-----------------------------------------
 
 **unalias** *alias-name*
 
