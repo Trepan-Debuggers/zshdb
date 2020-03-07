@@ -1,15 +1,31 @@
 dist: bionic
+os: linux
 
-install:
-  # Install zsh.
-  - "sudo apt-get install zsh"
+language: minimal
 
 addons:
+  homebrew:
+    update: yes
+    packages:
+      - zsh
+  apt:
+    packages:
+      - zsh
+
   artifacts:
     working_dir: /home/circleci/rocky/zshdb/test
     paths:
       - $(du -a /home/circleci/rocky/zshdb/test | grep log$ | cut -f 2 | tr "\n" ":")
     debug: true
+
+jobs:
+  include:
+    - os: linux
+      name: Ubuntu
+      dist: bionic
+    - os: osx
+      name: macOS
+      osx_image: xcode9.4
 
 
 # run the tests
