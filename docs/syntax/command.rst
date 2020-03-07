@@ -9,7 +9,7 @@ not used. If the first non-blank character of a line starts with `#`,
 the command is ignored.
 
 Within a single command, tokens are then white-space split. Again,
-this process disregards quotes or symbols that have meaning in Python.
+this process disregards quotes or symbols that have meaning in `zsh`.
 Some commands like :ref:`eval <eval>`, have access to the untokenized
 string entered and make use of that rather than the tokenized list.
 
