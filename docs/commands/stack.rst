@@ -11,7 +11,7 @@ At any time the debugger identifies one frame as the "selected" frame.
 Variable lookups are done with respect to the selected frame.  When
 the program being debugged stops, the debugger selects the innermost
 frame.  The commands below can be used to select other frames by
-number or address.
+number.
 
 
 .. toctree::
