@@ -126,7 +126,7 @@ function _Dbg_process_commands {
           ((_Dbg_cmd_num++))
           if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
               _Dbg_in_vared=1
-              vared -e -h -p "$_Dbg_prompt" line <&${_Dbg_fdi} || break
+              vared -e -h -p "$_Dbg_prompt" -t "$_Dbg_tty" line || break
               _Dbg_in_vared=0
           else
               if ((1 == _Dbg_in_vared)) ; then
