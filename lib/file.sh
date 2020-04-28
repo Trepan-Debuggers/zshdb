@@ -44,8 +44,7 @@ _Dbg_adjust_filename() {
 # The result will be in variable $filename which is assumed to be
 # local'd by the caller
 _Dbg_tilde_expand_filename() {
-  typeset cmd="filename=$(expr $1)"
-  eval "$cmd"
+  filename="${1/#\~/$HOME}"
   [[ -r "$filename" ]]
 }
 
