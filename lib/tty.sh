@@ -60,8 +60,8 @@ function _Dbg_set_tty {
   fi
   typeset -i _Dbg_new_fd
   if _Dbg_open_if_tty $1 ; then
-      _Dbg_fdi=$_Dbg_new_fd
-      _Dbg_fd[-1]=$_Dbg_fdi
+      _Dbg_fd=($_Dbg_new_fd "${_Dbg_fd[@]}")
+      _Dbg_fdi=$_Dbg_fd[-1]
   else
       _Dbg_errmsg "$1 is not reputed to be a tty."
   fi
