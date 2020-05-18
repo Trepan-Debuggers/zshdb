@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "info variables" debugger command
 #
-#   Copyright (C) 2010, 2014, 2016, 2019 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2010, 2014, 2016, 2019-2020 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -25,7 +25,7 @@ list global and static variable names.
 Variable lists by property.
 *property* is an abbreviation of one of:
 
-	arrays, exports, fixed, floats, functions, hash, integers, or readonly
+	arrays, exports, fixed, floats, functions, integers, hash, or readonly
 
 Examples:
 ---------
@@ -80,6 +80,10 @@ _Dbg_do_info_variables() {
 # 		_Dbg_do_list_locals
 # 		return 0
 # 		;;
+            # p | pr | pro| prop | prope | proper | propert | properti | propertie | properties )
+            #     _Dbg_do_list_typeset_attr '+p' $*
+            #     return 0
+            #   ;;
             r | re | rea| read | reado | readon | readonl | readonly )
                 _Dbg_do_list_typeset_attr '+r' $*
                 return 0
@@ -90,5 +94,5 @@ _Dbg_do_info_variables() {
     fi
     _Dbg_errmsg "Need to specify a variable class which is one of: "
     _Dbg_errmsg "$_Dbg_info_var_attrs"
-    return 1
+    return 0
 }
