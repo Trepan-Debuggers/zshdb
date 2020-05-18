@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # info.sh - gdb-like "info" debugger commands
 #
-#   Copyright (C) 2002-2006, 2008-2009, 2010-2011, 2014
+#   Copyright (C) 2002-2006, 2008-2009, 2010-2011, 2014, 2020
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -36,7 +36,7 @@ _Dbg_info_subcmds=( breakpoints display files line program source stack variable
 
 # Load in "info" subcommands
 for _Dbg_file in ${_Dbg_libdir}/command/info_sub/*.sh ; do
-    source $_Dbg_file
+    source "$_Dbg_file"
 done
 _Dbg_complete_level_1_data[info]=$(echo ${(kM)_Dbg_debugger_info_commands})
 
