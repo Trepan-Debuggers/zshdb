@@ -53,15 +53,15 @@ _Dbg_do_info_variables() {
                 return 0
                 ;;
             fu|fun|func|funct|functi|functio|function|functions )
-                _Dbg_do_list_typeset_attr '+f' $*
+                _Dbg_do_list_typeset_attr '+f' $@
                 return 0
                 ;;
             fi|fix|fixe|fixed )
-                _Dbg_do_list_typeset_attr '+F' $*
+                _Dbg_do_list_typeset_attr '+F' $@
                 return 0
                 ;;
             fl|flo|floa|float|floats)
-                _Dbg_do_list_typeset_attr '+E' $*
+                _Dbg_do_list_typeset_attr '+E' $@
                 return 0
                 ;;
 # 	    g | gl | glo | glob | globa | global )
@@ -69,11 +69,11 @@ _Dbg_do_info_variables() {
 # 		return 0
 # 		;;
             h | ha | has | hash )
-                _Dbg_do_list_typeset_attr '+A' $*
+                _Dbg_do_list_typeset_attr '+A' $@
                 return 0
                 ;;
             i | in | int| inte | integ | intege | integer | integers )
-                _Dbg_do_list_typeset_attr '+i' $*
+                _Dbg_do_list_typeset_attr '+i' $@
                 return 0
                 ;;
 # 	    l | lo | loc | loca | local | locals )
@@ -81,11 +81,11 @@ _Dbg_do_info_variables() {
 # 		return 0
 # 		;;
             # p | pr | pro| prop | prope | proper | propert | properti | propertie | properties )
-            #     _Dbg_do_list_typeset_attr '+p' $*
+            #     _Dbg_do_list_typeset_attr '+p' $@
             #     return 0
             #   ;;
             r | re | rea| read | reado | readon | readonl | readonly )
-                _Dbg_do_list_typeset_attr '+r' $*
+                _Dbg_do_list_typeset_attr '+r' $@
                 return 0
                 ;;
             * )

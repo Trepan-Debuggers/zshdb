@@ -142,7 +142,7 @@ _Dbg_do_list_typeset_attr() {
     (($# == 0)) && return 1
     typeset attr="$1"; shift
     typeset -a list
-    list=( $(_Dbg_get_typeset_attr "$attr" $*) )
+    list=( $(_Dbg_get_typeset_attr "$attr" $@) )
     typeset -i rc=$?
     (( rc != 0 )) && return $rc
     _Dbg_list_columns

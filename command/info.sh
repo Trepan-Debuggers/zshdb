@@ -32,7 +32,7 @@ typeset -A _Dbg_command_help_info
 _Dbg_help_add info ''  # Help routine is elsewhere
 
 typeset -a _Dbg_info_subcmds
-_Dbg_info_subcmds=( breakpoints display files line program source stack variables )
+_Dbg_info_subcmds=( breakpoints display files "function" "line" program source stack variables )
 
 # Load in "info" subcommands
 for _Dbg_file in ${_Dbg_libdir}/command/info_sub/*.sh ; do
@@ -50,13 +50,14 @@ _Dbg_do_info_internal() {
     typeset label=$2
 
     # Warranty is omitted below.
-    typeset subcmds='breakpoints display files line source stack variables'
+    typeset subcmds='breakpoints display files functions line source stack variables'
 
     if [[ -z $info_cmd ]] ; then
         typeset thing
         for thing in $subcmds ; do
             _Dbg_do_info $thing 1
         done
+	set +x
         return 0
     elif [[ -n ${_Dbg_debugger_info_commands[$info_cmd]} ]] ; then
         ${_Dbg_debugger_info_commands[$info_cmd]} $label "$@"

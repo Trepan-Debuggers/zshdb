@@ -16,6 +16,7 @@ Type `info` for a list of info subcommands and what they do. Type ``help info`` 
    info/breakpoints
    info/display
    info/files
+   info/functions
    info/line
    info/program
    info/source
