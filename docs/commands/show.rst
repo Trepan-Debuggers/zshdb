@@ -22,6 +22,7 @@ Show
    show/confirm
    show/different
    show/editing
+   show/filename-display
    show/highlight
    show/linetrace
    show/listsize

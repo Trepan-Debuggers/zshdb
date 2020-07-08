@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # set.sh - debugger settings
 #
-#   Copyright (C) 2008, 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010-2011, 2014, 2020 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -71,6 +71,9 @@ _Dbg_do_set_internal() {
     case $set_cmd in
 	force | dif | diff | differ | different )
             _Dbg_set_onoff "$1" 'different'
+            ;;
+	filename-display )
+            _Dbg_do_set_filename_display "$1"
             ;;
 	inferior-tty )
             _Dbg_set_tty "$@"

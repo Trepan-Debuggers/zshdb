@@ -43,7 +43,8 @@ function _Dbg_help_add_sub {
     typeset -i add_command; add_command=${4:-1}
     eval "_Dbg_command_help_$1[$2]=\"$3\""
     if (( add_command )) ; then
-        eval "_Dbg_debugger_$1_commands[$2]=\"_Dbg_do_${1}_${2}\""
+	subcmd=${2//[-]/_}
+        eval "_Dbg_debugger_$1_commands[$2]=\"_Dbg_do_${1}_${subcmd}\""
     fi
     return 0
 }
@@ -113,6 +114,14 @@ _Dbg_help_set() {
         di|dif|diff|diffe|differe|differen|different )
             _Dbg_msg \
                 "${label}stop on different lines is" $(_Dbg_onoff $_Dbg_set_different)
+            ;;
+        filename-display )
+	    _Dbg_msg_nocr "${label} "
+	    if (( _Dbg_set_basename == 0 )) ; then
+		_Dbg_msg 'basename.'
+	    else
+		_Dbg_msg 'absolute.'
+	    fi
             ;;
         e | ed | edi | edit | editi | editin | editing )
             _Dbg_msg_nocr \

@@ -132,6 +132,10 @@ _Dbg_help_show() {
             _Dbg_msg \
                 "${label}Show editing of command lines and edit style."
             ;;
+        filename-display )
+            _Dbg_msg \
+                "${label}filename display."
+            ;;
         force | diff | differ | different )
             _Dbg_msg \
                 "${label}Show stepping forces a new line is" $(_Dbg_onoff $_Dbg_set_different)

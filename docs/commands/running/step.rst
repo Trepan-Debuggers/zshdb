@@ -41,4 +41,4 @@ Examples:
 
 .. seealso::
 
-   :ref:`next <next>` command. :ref:`skip <skip>`, :ref:`continue <continue>`, and :ref:`finish <finish>` provide other ways to progress execution.
+   :ref:`next <next>` command. :ref:`skip <skip>`, and :ref:`continue <continue>` provide other ways to progress execution.

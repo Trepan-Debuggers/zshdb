@@ -29,6 +29,7 @@ environment settings with the :ref:`show <show>` command.
    set/debug
    set/different
    set/editing
+   set/filename-display
    set/highlight
    set/linetrace
    set/listsize

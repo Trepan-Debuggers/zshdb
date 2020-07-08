@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "set basename" debugger command
+# "set filename-display" debugger command
 #
 #   Copyright (C) 2011, 2014, 2016, 2020 Rocky Bernstein <rocky@gnu.org>
 #
@@ -27,25 +27,33 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
 fi
 
 typeset -A _Dbg_complete_level_2_data
-_Dbg_complete_level_2_data[set_basename]='on off'
+_Dbg_complete_level_2_data[set_basename]='basename absolute'
 
-_Dbg_help_add_sub set basename \
-'**set basename** [**on**|**off**]
+_Dbg_help_add_sub set "filename-display" \
+'**set filename-display** [**basename**|**absolute**]
 
-Set short filenames (the basename) in debug output.
-
-*This command is deprecated since gdb now has ``set filename-display`` which does the same thing.*
-
-So use ``set filename-display``.
-
+Set how to display filenames.
 
 See also:
 ---------
 
-**set filename-display**, and  **show basename**
+**show filename-display**
 '
 
-_Dbg_do_set_basename() {
-    _Dbg_set_onoff "$1" 'basename'
-    return $?
+_Dbg_do_set_filename_display() {
+    typeset arg=${1:-'absolute'}
+    # FIXME? convert to more gdb-like output
+    case $arg in
+        b | ba | bas | base | basen | basena | basenam | basename )
+	    _Dbg_set_basename=1
+            ;;
+        a | ab | abs | abso | absol | absolu | absolut | absolute )
+	    _Dbg_set_basename=0
+            ;;
+        * )
+            _Dbg_errmsg '"absolute" or "basename" expected.'
+            return 0
+    esac
+    _Dbg_do_show_filename_display
+    return 0
 }

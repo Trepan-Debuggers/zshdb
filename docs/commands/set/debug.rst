@@ -1,5 +1,5 @@
 .. index:: debug
-.. _debug:
+.. _set_debug:
 
 Recursive Debugging (`debug`)
 -----------------------------

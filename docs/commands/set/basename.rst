@@ -14,6 +14,10 @@ filenames. This is useful in debugger testing or possibly showing
 examples where you don't want to hide specific filesystem and
 installation information.
 
+*This command is deprecated since gdb now has ``set filename-display`` which does the same thing.*
+
+So use ``set filename-display``.
+
 .. seealso::
 
-   :ref:`show basename <show_basename>`
+   :ref:`show filename-display <show_filename-display>`, :ref:`show basename <show_basename>`

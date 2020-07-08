@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-# "show basename" debugger command
+# "show filename-display" debugger command
 #
 #   Copyright (C) 2014, 2019, 2020 Rocky Bernstein <rocky@gnu.org>
 #
@@ -26,23 +26,31 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     typeset -A _Dbg_debugger_show_commands
 fi
 
-_Dbg_help_add_sub show basename \
-'**show basename**
+_Dbg_help_add_sub show "filename-display" \
+'**show filename-display**
 
-Show whether file basenames are in effect.
-
-*This command is deprecated since gdb now has ``show filename-display`` which does the same thing.*
-
-So use ``show filename-display``.
+Show how filenames are displayed.
 
 See also:
 ---------
 
-**set filename-display** and **set basename**.' 1
+**set filename-display**.' 1
 
-_Dbg_do_show_basename() {
-    [[ -n $1 ]] && label=$(_Dbg_printf_nocr "%-12s: " basename)
-    _Dbg_msg \
-        "${label}Show short filenames (the basename) is " $(_Dbg_onoff $_Dbg_set_basename)
+_Dbg_do_show_filename_display() {
+    if [[ -n $1 ]]; then
+	label=$(_Dbg_printf_nocr "%-12s: " "filename-display")
+	if (( _Dbg_set_basename == 0 )) ; then
+            _Dbg_msg 'is absolute.'
+	else
+            _Dbg_msg 'is basename.'
+	fi
+    else
+        _Dbg_msg_nocr 'Filenames are displayed as '
+	if (( _Dbg_set_basename == 0 )) ; then
+            _Dbg_msg 'absolute.'
+	else
+            _Dbg_msg 'basename.'
+	fi
+    fi
     return 0
 }
