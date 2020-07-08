@@ -20,4 +20,4 @@ So use ``set filename-display``.
 
 .. seealso::
 
-   :ref:`show filename-display <show_filename-display>`, :ref:`show basename <show_basename>`
+   :ref:`set filename-display <set_filename-display>`, :ref:`show basename <show_basename>`

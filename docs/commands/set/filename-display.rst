@@ -4,7 +4,7 @@
 How to display file names (`set filename-display`)
 --------------------------------------------------
 
-**set filename-display** [**basename**|**absolute**]
+**set filename-display** [ **basename** | **absolute** ]
 
 Set how to display filenames.
 
