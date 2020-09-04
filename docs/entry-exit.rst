@@ -8,7 +8,7 @@ Entering the Zsh Debugger
 Invoking the Debugger Initially
 ====================================
 
-The simplest way to debug your program is to call run `zshdb`. Give
+The simplest way to debug your program is to run `zshdb`. Give
 the name of your program and its options and any debugger options:
 
 .. code:: console
