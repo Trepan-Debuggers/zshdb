@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # gdb-like "up" debugger command
 #
-#   Copyright (C) 2010-2012, 2014, 2016 Rocky Bernstein
+#   Copyright (C) 2010-2012, 2014, 2016, 2021 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     dirname=${0%/*}
     [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
-    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+    for lib_file in help alias ; do source "$top_dir/lib/${lib_file}.sh"; done
 fi
 
 # Move default values up $1 or one in the stack.
@@ -53,9 +53,9 @@ function _Dbg_do_up {
 # Demo it
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     for _Dbg_file in  help msg sort columnize ; do
-        source ${top_dir}/lib/${_Dbg_file}.sh
+        source "${top_dir}/lib/${_Dbg_file}.sh"
     done
-    source ${top_dir}/command/help.sh
+    source "${top_dir}/command/help.sh"
     _Dbg_args='up'
     _Dbg_do_help up
 fi

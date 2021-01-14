@@ -105,7 +105,7 @@ _Dbg_set_to_return_from_debugger() {
 
 _Dbg_save_state() {
 #   _Dbg_statefile=$(_Dbg_tempname statefile)
-#   echo "" > $_Dbg_statefile
+#   echo "" > "$_Dbg_statefile"
 #   _Dbg_save_breakpoints
 #   _Dbg_save_actions
 #   _Dbg_save_watchpoints
@@ -120,15 +120,15 @@ _Dbg_save_state() {
 
 _Dbg_restore_state() {
     typeset statefile=$1
-   . $1
+   . "$1"
  }
 
 # Things we do when coming back from a nested shell.
 # "shell", and "debug" create nested shells.
 _Dbg_restore_from_nested_shell() {
-    rm -f $_Dbg_shell_temp_profile 2>&1 >/dev/null
-    if [[ -r $_Dbg_restore_info ]] ; then
-	. $_Dbg_restore_info
-	rm $_Dbg_restore_info
+    rm -f "$_Dbg_shell_temp_profile" 2>&1 >/dev/null
+    if [[ -r "$_Dbg_restore_info" ]] ; then
+	. "$_Dbg_restore_info"
+	rm "$_Dbg_restore_info"
     fi
 }

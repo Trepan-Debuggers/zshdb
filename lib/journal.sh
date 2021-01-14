@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Things related to variable journaling.
 #
-#   Copyright (C) 2008, 2011, 2017 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2017, 2021 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -72,7 +72,7 @@ _Dbg_erase_journals() {
 _Dbg_source_journal() {
 
   if [ -r $_Dbg_journal ] ; then
-    . $_Dbg_journal
+    . "$_Dbg_journal"
     (( ZSH_SUBSHELL == 0 )) && _Dbg_erase_journals
   fi
 }

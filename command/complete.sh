@@ -1,6 +1,6 @@
 # complete.sh - gdb-like 'complete' command
 #
-#   Copyright (C) 2010-2011, 2016 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2016, 2021 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -20,7 +20,7 @@
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     dirname=${0%/*}
     [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
-    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+    for lib_file in help alias ; do source "$top_dir/lib/${lib_file}.sh"; done
 fi
 
 _Dbg_help_add complete \
@@ -176,11 +176,11 @@ _Dbg_do_complete() {
 
 # Demo it.
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
-    source ./help.sh
-    source ../lib/msg.sh
+    source "./help.sh"
+    source "../lib/msg.sh"
     _Dbg_libdir='..'
     for _Dbg_file in ${_Dbg_libdir}/command/c*.sh ; do
-    	source $_Dbg_file
+    	source "$_Dbg_file"
     done
 
     _Dbg_args='complete'

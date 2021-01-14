@@ -21,7 +21,7 @@
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     dirname=${0%/*}
     [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
-    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+    for lib_file in help alias ; do source "$top_dir/lib/${lib_file}.sh"; done
 fi
 
 _Dbg_help_add_sub show commands \

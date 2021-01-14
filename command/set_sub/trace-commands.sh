@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "set trace-commands" debugger command
 #
-#   Copyright (C) 2010-2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014, 2021 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -21,7 +21,7 @@
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     dirname=${0%/*}
     [[ $dirname == $0 ]] && top_dir='../..' || top_dir=${dirname}/../..
-    for lib_file in help alias ; do source $top_dir/lib/${lib_file}.sh; done
+    for lib_file in help alias ; do source "$top_dir/lib/${lib_file}.sh"; done
     typeset -A _Dbg_command_help_set
     typeset -A _Dbg_debugger_set_commands
 fi
