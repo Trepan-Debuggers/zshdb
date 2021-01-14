@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # fns.sh - Debugger Utility Functions
 #
-#   Copyright (C) 2008, 2009, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2010, 2011, 2021 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -23,14 +23,14 @@ typeset -a _Dbg_yn; _Dbg_yn=("n" "y")
 # Return $2 copies of $1. If successful, $? is 0 and the return value
 # is in result.  Otherwise $? is 1 and result ''
 function _Dbg_copies {
-    result=''
+    _Dbg_result=''
     (( $# < 2 )) && return 1
     typeset -r string="$1"
     typeset -i count=$2 || return 2
     (( count > 0 )) || return 3
-    result=$(builtin printf "%${count}s" ' ')
+    _Dbg_result=$(builtin printf "%${count}s" ' ')
     typeset cmd
-    cmd="result=\${result// /$string}"
+    cmd="_Dbg_result=\${_Dbg_result// /$string}"
     eval $cmd
     return 0
 }

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # dbg-processor.sh - Top-level debugger commands
 #
-#   Copyright (C) 2008, 2009, 2010, 2011, 2018
+#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2021
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -99,17 +99,17 @@ function _Dbg_process_commands {
       # Used by copies to return a value. /dev/null because zsh prints
       # a definition if it has been defined before? So why not
       # needed for _Dbg_less and _Dbg_greater ?
-      typeset result 1>/dev/null
+      typeset _Dbg_result 1>/dev/null
 
       if _Dbg_copies '>' $_Dbg_DEBUGGER_LEVEL ; then
-          _Dbg_greater=$result
+          _Dbg_greater=$_Dbg_result
           _Dbg_copies '<' $_Dbg_DEBUGGER_LEVEL
-          _Dbg_less=$result
+          _Dbg_less=$_Dbg_result
       fi
 
       if _Dbg_copies ')' $ZSH_SUBSHELL ; then
-          _Dbg_greater="${result}${_Dbg_greater}"
-          _Dbg_less="${_Dbg_less}${result//)/(}"
+          _Dbg_greater="${_Dbg_result}${_Dbg_greater}"
+          _Dbg_less="${_Dbg_less}${_Dbg_result//)/(}"
       fi
 
       # typeset _Dbg_prompt

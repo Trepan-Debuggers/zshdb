@@ -3,7 +3,7 @@
 
 test_fns_copies()
 {
-    typeset result='bogus'
+    typeset _Dbg_result='bogus'
 
 #     _Dbg_copies 'a' 'b'
 #     assertFalse '_Dbg_copies "a" "b" should fail' "$?"
