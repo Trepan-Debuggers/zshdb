@@ -13,11 +13,11 @@ test_fns_copies()
 
     _Dbg_copies 'a' 3
     assertTrue '_Dbg_copies "a" 3 should succeed' "$?"
-    assertEquals 'aaa' "$result"
+    assertEquals 'aaa' "$_Dbg_result"
 
     _Dbg_copies ' ab' 4
     assertTrue '_Dbg_copies " ab" 4 should succeed' "$?"
-    assertEquals ' ab ab ab ab' "$result"
+    assertEquals ' ab ab ab ab' "$_Dbg_result"
 }
 
 # Test _Dbg_eqs_dq
