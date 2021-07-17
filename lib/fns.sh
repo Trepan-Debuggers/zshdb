@@ -51,10 +51,10 @@ function _Dbg_esc_dq {
 # gives syntax errors when this is put in place.
 typeset -a _Dbg_eval_re;
 _Dbg_eval_re=(
-    '^[ \t]*(if|elif)[ \t]+([^;]*)((;[ \t]*then?)?|$)'
-    '^[ \t]*return[ \t]+(.*)$'
-    '^[ \t]*while[ \t]+([^;]*)((;[ \t]*do?)?|$)'
-    '^[ \t]*[A-Za-z_][A-Za-z[_0-9]*[-+\]]?=(.*$)'
+    '^[[:blank:]]*(if|elif)[[:blank:]]+([^;]*)((;[[:blank:]]*then?)?|$)'
+    '^[[:blank:]]*return[[:blank:]]+(.*)$'
+    '^[[:blank:]]*while[[:blank:]]+([^;]*)((;[[:blank:]]*do?)?|$)'
+    '^[[:blank:]]*[A-Za-z_][A-Za-z[_0-9]*[-+\]]?=(.*$)'
 )
 
 # Removes "[el]if" .. "; then" or "while" .. "; do" or "return .."
