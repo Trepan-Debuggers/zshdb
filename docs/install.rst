@@ -73,7 +73,7 @@ To install from git:
 
 .. code:: console
 
-        $ git-clone git://github.com/rocky/zshdb.git
+        $ git clone git://github.com/rocky/zshdb.git
         $ cd zshdb
         $ ./autogen.sh  # Add configure options. See ./configure --help
 
