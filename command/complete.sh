@@ -1,6 +1,7 @@
 # complete.sh - gdb-like 'complete' command
 #
-#   Copyright (C) 2010-2011, 2016, 2021 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2016, 2021, 2023 Rocky Bernstein
+#   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -158,19 +159,19 @@ compgen() {
 }
 
 _Dbg_do_complete() {
-    typeset -a args; args=($@)
+    typeset -a _Dbg_args; _Dbg_args=($@)
     _Dbg_matches=()
-    if (( ${#args[@]} == 2 )) ; then
-	_Dbg_subcmd_complete ${args[0]} ${args[1]}
-    elif (( ${#args[@]} == 1 )) ; then
-	typeset -a ary
-	ary=(${(k)_Dbg_debugger_commands[@]})
-	IFS=' ' list=${ary[@]}
-	compgen -W "${list}" "${args[0]}"
+    if (( ${#_Dbg_args[@]} == 2 )) ; then
+        _Dbg_subcmd_complete ${_Dbg_args[0]} ${_Dbg_args[1]}
+    elif (( ${#_Dbg_args[@]} == 1 )) ; then
+	typeset -a _Dbg_ary
+	_Dbg_ary=(${(k)_Dbg_debugger_commands[@]})
+	IFS=' ' _Dbg_list=${_Dbg_ary[@]}
+	compgen -W "${_Dbg_list}" "${_Dbg_args[0]}"
     fi
-    typeset -i i
-    for (( i=0;  i < ${#_Dbg_matches[@]}  ; i++ )) ; do
-	_Dbg_msg ${_Dbg_matches[$i]}
+    typeset -i Dbg_i
+    for (( _Dbg_i=0;  _Dbg_i < ${#_Dbg_matches[@]}  ; _Dbg_i++ )) ; do
+	_Dbg_msg ${_Dbg_matches[$_Dbg_i]}
     done
 }
 

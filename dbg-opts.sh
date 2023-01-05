@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # debugger command options processing. The bane of programming.
 #
-#   Copyright (C) 2008-2011, 2014-2016, 2019 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008-2011, 2014-2016, 2019, 2023
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -97,7 +98,7 @@ typeset _Dbg_edit='-e'
 typeset _Dbg_edit_style='emacs'
 builtin bindkey -e
 
-typeset -ix _Dbg_working_term_highlight
+typeset -xi _Dbg_working_term_highlight
 
 if ${_Dbg_libdir}/lib/term-highlight.py -V 2>/dev/null  1>/dev/null ; then
     _Dbg_working_term_highlight=1
@@ -202,7 +203,7 @@ _Dbg_parse_options() {
 	    q | quiet )
 		_Dbg_o_quiet=1		;;
 	    S | style)
-		if (( $_Dbg_working_term_highlight )) ; then
+		if (( _Dbg_working_term_highlight )) ; then
 		    _Dbg_set_style=$OPTLARG
 		else
 		    echo "Can't run term-highlight.py; '--style' option ignored" >&2
@@ -236,7 +237,7 @@ _Dbg_parse_options() {
 	[[ -n $_Dbg_release ]] ; then
 	echo "$_Dbg_shell_name debugger, $_Dbg_debugger_name, release $_Dbg_release"
 	printf '
-Copyright 2008-2011, 2014, 2016-2020 Rocky Bernstein
+Copyright 2008-2011, 2014, 2016-2020, 2023 Rocky Bernstein
 This is free software, covered by the GNU General Public License, and you are
 welcome to change it and/or distribute copies of it under certain conditions.
 
@@ -272,7 +273,7 @@ if (( _Dbg_have_working_pygmentize )) && [[ -z "$_Dbg_set_highlight" ]] ; then
     # Set _Dbg_set_highlight based on DARK_BG
     # Note however that options processing has one more chance to
     # change _Dbg_set_highlight
-    if (( $DARK_BG )); then
+    if (( DARK_BG )); then
 	_Dbg_set_highlight="dark"
     else
 	_Dbg_set_highlight="light"

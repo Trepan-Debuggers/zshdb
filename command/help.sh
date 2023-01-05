@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # help.sh - gdb-like "help" debugger command
 #
-#   Copyright (C) 2008, 2010, 2013, 2014, 2021 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2013, 2014, 2021, 2023
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -46,6 +47,7 @@ Examples:
   help set args
 '
 
+typeset -A _Dbg_complete_level_1_data
 _Dbg_complete_level_1_data[help]='-A_Dbg_help_command_complete'
 
 typeset -i _Dbg_help_cols=8
