@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # dbg-processor.sh - Top-level debugger commands
 #
-#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2021
+#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2021, 2023
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -112,17 +112,20 @@ function _Dbg_process_commands {
           _Dbg_less="${_Dbg_less}${_Dbg_result//)/(}"
       fi
 
-      # typeset _Dbg_prompt
-      if [[ -n $_Dbg_set_highlight ]] ; then
-          eval "_Dbg_prompt=\"${_Dbg_ansi_term_underline}$_Dbg_prompt_str${_Dbg_ansi_term_normal} \"" 2>/dev/null
-      else
-          eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
-      fi
       _Dbg_preloop
       # typeset _Dbg_cmd
       typeset line=''
       typeset -i rc
       while : ; do
+
+	  # set prompt to ensure it has the latest value of _Dbg_cmd_num (and other status like that)
+	  # in it.
+	  if [[ -n $_Dbg_set_highlight ]] ; then
+              eval "_Dbg_prompt=\"${_Dbg_ansi_term_underline}$_Dbg_prompt_str${_Dbg_ansi_term_normal} \"" 2>/dev/null
+	  else
+              eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
+	  fi
+
           ((_Dbg_cmd_num++))
           if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
               _Dbg_in_vared=1
