@@ -207,3 +207,6 @@ Number of source lines zshdb will list by default is 4.
 +#the initial `#'
 +quit 
 zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
+zshdb: That's all, folks...

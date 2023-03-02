@@ -1,8 +1,8 @@
 (dbg-test1.sh:4):
 fn1 () { echo "fn1 here" x=5 fn3 }
-+#
++# 
 +# Test of condition handling (on breakpoints)
-+###############################################################
++############################################################### 
 +break 23 if x==0
 Breakpoint 1 set in file dbg-test1.sh, line 23.
 +break 24 y > 25
@@ -16,7 +16,7 @@ Num Type       Disp Enb What
 	stop only if y
 +condition 23
 ** condition: Breakpoint entry 23 is not set. Condition not changed.
-+condition
++condition 
 ** condition: Argument required (breakpoint number).
 +info breakpoints
 Num Type       Disp Enb What
@@ -40,5 +40,8 @@ Num Type       Disp Enb What
 	stop only if x==0
 2   breakpoint keep y   dbg-test1.sh:24
 	stop only if y
-+quit
++quit 
+zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
 zshdb: That's all, folks...

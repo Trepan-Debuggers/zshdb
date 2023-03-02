@@ -2,7 +2,7 @@
 # -*- shell-script -*-
 # Top-level debugger program. This program may be initially invoked.
 #
-#   Copyright (C) 2008-2011, 2014 Rocky Bernstein
+#   Copyright (C) 2008-2011, 2014, 2023 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -116,8 +116,9 @@ if ((_Dbg_set_history)) && [[ -r $_Dbg_histfile ]] ; then
     fc -ap $_Dbg_histfile $_Dbg_history_length $_Dbg_history_length
 fi
 
-## Skip for now
-## _Dbg_init_default_traps
+# Signal handling in zsh is different from bash.
+# zshdb/lib/sig.sh has some differences
+# _Dbg_init_default_traps
 
 if [[ -n $_Dbg_script_file ]] ; then
     # Set $0

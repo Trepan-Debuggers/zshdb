@@ -1,7 +1,7 @@
 (dbg-test1.sh:4):
 fn1 () { echo "fn1 here" x=5 fn3 }
 +set basename on
-Show short filenames (the basename) is on.
+Show short filenames (the basename) is  on.
 +# Debugger test of action command, and some $ vars
 +# 
 +# Show actions
@@ -37,4 +37,7 @@ $? is 0
 dollar 0 is dbg-test1.sh
 $? is 0
 +quit 
+zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
 zshdb: That's all, folks...

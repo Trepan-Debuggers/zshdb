@@ -12,3 +12,6 @@ print one
 ->0 in file `bug-errexit.sh' at line 6
 +quit 
 zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
+zshdb: That's all, folks...

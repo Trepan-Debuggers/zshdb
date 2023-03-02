@@ -8,4 +8,10 @@ t=${0##*/}; TEST_NAME=$t[6,-1]   # basename $0 with 'test-' stripped off
 # Doesn't work when not built from the source directory.
 [[ "$top_builddir" != "$top_srcdir" ]] && exit 77
 
+typeset -fuz is-at-least
+if is-at-least 5.8.1 ; then
+    RIGHT_FILE="${top_srcdir}/test/data/${TEST_NAME}-5.8.1.right"
+fi
+
+
 run_test_check hanoi

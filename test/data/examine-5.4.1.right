@@ -36,3 +36,6 @@ typeset -g z=1
 13
 +quit 
 zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
+zshdb: That's all, folks...

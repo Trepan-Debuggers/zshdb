@@ -2,7 +2,7 @@
 #  Signal handling routines
 #
 #   Copyright (C) 2002, 2003, 2004, 2006, 2007, 2008, 2010,
-#   2011 Rocky Bernstein <rocky@gnu.org>
+#   2011, 2023 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -31,6 +31,11 @@ typeset -i _Dbg_QUIT_ON_QUIT=0
 
 # Return code that debugged program reports
 typeset -i _Dbg_program_exit_code=0
+
+# 1 if we we running post-mortem in exit handler?
+typeset -i _Dbg_in_exit_handler=0
+# Allow Quit and things like that to signal a final quit.
+typeset -i _Dbg_exit_from_exit_handler=0
 
 ############################################################
 ## Signal arrays: These are indexed by the signal number. ##
@@ -109,38 +114,14 @@ _Dbg_subst_handler_var() {
 # command loop
 _Dbg_exit_handler() {
 
-  # Consider putting the following line(s) in a routine.
-  # Ditto for the restore environment
   typeset -i _Dbg_debugged_exit_code=$?
 
   # Turn off line and variable trace listing; allow unset parameter expansion.
   set +x +v +u
 
-  if [[ ${_Dbg_sig_print[0]} == "print" ]] ; then
-    # Note: use the same message that gdb does for this.
-    _Dbg_msg "Program received signal EXIT (0)..."
-    if [[ ${_Dbg_sig_show_stack[0]} == "showstack" ]] ; then
-      _Dbg_do_backtrace 0
-    fi
-  fi
-
   if [[ $_Dbg_old_EXIT_handler != '' ]] ; then
     eval $_Dbg_old_EXIT_handler
   fi
-
-  # If we've set the QUIT signal handler not to stop, or we've in the
-  # middle of leaving so many (subshell) levels or we have set to
-  # leave quietly on termination, then do it!
-
-  if [[ ${_Dbg_sig_stop[0]} != "stop" ]] \
-    || (( _Dbg_QUIT_LEVELS != 0 )) \
-    || (( _Dbg_QUIT_ON_QUIT )) ; then
-    _Dbg_do_quit
-    # We don't return from here.
-  fi
-
-  # We've tested for all the quitting conditions above.
-  # Even though this is an exit handler, don't exit!
 
   typeset term_msg="normally"
   if [[ $_Dbg_debugged_exit_code != 0 ]] ; then
@@ -154,10 +135,16 @@ _Dbg_exit_handler() {
       "Debugged program terminated $term_msg. Use q to quit or R to restart."
 
     _Dbg_running=0
+    _Dbg_exit_from_exit_handler=0
+    _Dbg_in_exit_handler=1
     while : ; do
-      _Dbg_process_commands
+	_Dbg_process_commands
+	if (($_Dbg_exit_from_exit_handler != 0)); then
+	    break
+	fi
     done
   fi
+  return $((128+$_Dbg_debugged_exit_code))
 }
 
 # Generic signal handler. We consult global array _Dbg_sig_* for how
@@ -280,3 +267,7 @@ _Dbg_init_default_traps() {
     _Dbg_init_trap TERM   "print" "showstack" "stop"
     # _Dbg_init_trap TRAP   "print" "showstack" "stop"
 }
+
+
+set  -o localtraps
+trap '_Dbg_exit_handler' EXIT

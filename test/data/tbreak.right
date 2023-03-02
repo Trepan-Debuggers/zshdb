@@ -1,7 +1,7 @@
 (nexting.sh:3):
 p () { print ${funcfiletrace[0]##*/} print '===' }
 +# Get past line 3
-+step
++step 
 (nexting.sh:4):
 setopt ksharrays
 +# Temporary breakpoint inside function
@@ -22,7 +22,7 @@ print ${funcfiletrace[0]##*/}
 Num Type       Disp Enb What
 ----------------------------
 2   breakpoint del  y   nexting.sh:6
-+continue
++continue 
 nexting.sh:5
 ===
 Breakpoint 2 hit.
@@ -32,5 +32,8 @@ p
 +# no more breakpoints should be shown.
 +info breakpoints
 No breakpoints have been set.
-+quit
++quit 
+zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
 zshdb: That's all, folks...

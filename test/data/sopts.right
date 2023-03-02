@@ -3,3 +3,6 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 +# Just a simple quit command.
 +quit 
 zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
+zshdb: That's all, folks...

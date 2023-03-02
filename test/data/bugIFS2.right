@@ -10,3 +10,6 @@ temp = 3
 Program terminated. Type 's' or 'R' to restart.
 +quit 
 zshdb: That's all, folks...
+Debugged program terminated with code 1. Use q to quit or R to restart.
+
+zshdb: That's all, folks...

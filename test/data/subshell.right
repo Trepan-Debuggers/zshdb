@@ -7,14 +7,14 @@ x
 (subshell.sh:3):
 ( x='line 3' y='line 4' )
 +examine x
-typeset x=2
+typeset -g x=2
 +s 
 (subshell.sh:3):
 x='line 3'
 +print $ZSH_SUBSHELL
 1
 +examine x
-typeset x=2
+typeset -g x=2
 +s 
 (subshell.sh:4):
 y='line 4'
@@ -22,13 +22,13 @@ y='line 4'
 +set autoeval on
 Evaluate unrecognized commands is on.
 +examine x
-typeset x='line 3'
+typeset -g x='line 3'
 +# fc -l
 +s 
 (subshell.sh:6):
 ( x=$(print line 7) y='line 8' )
 +x x
-typeset x=2
+typeset -g x=2
 +print $ZSH_SUBSHELL
 0
 +# See that debugger settings and history are preserved
@@ -40,9 +40,14 @@ Evaluate unrecognized commands is on.
 (subshell.sh:8):
 y='line 8'
 +x x
-typeset x='line 7'
+typeset -g x='line 7'
 +print $ZSH_SUBSHELL
 1
 +# A quit inside a nested subshell.
 +quit 
+zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
++s 3
+** The program is not being run.
+
 zshdb: That's all, folks...

@@ -74,6 +74,11 @@ _Dbg_do_quit() {
 	# Get the last command into the history
 	# set -o incappendhistory
 	print -s -- $_Dbg_orig_cmd >/dev/null
+	if (($_Dbg_in_exit_handler != 0)); then
+	    _Dbg_exit_from_exit_handler=1
+	    return 1
+	fi
+
         _Dbg_cleanup
     fi
 
