@@ -123,6 +123,9 @@ _Dbg_exit_handler() {
     eval $_Dbg_old_EXIT_handler
   fi
 
+  # Note that we are no longer running a program
+  _Dbg_running=0
+
   typeset term_msg="normally"
   if [[ $_Dbg_debugged_exit_code != 0 ]] ; then
     term_msg="with code $_Dbg_debugged_exit_code"
@@ -137,6 +140,7 @@ _Dbg_exit_handler() {
     _Dbg_running=0
     _Dbg_exit_from_exit_handler=0
     _Dbg_in_exit_handler=1
+    setopt shwordsplit ksharrays
     while : ; do
 	_Dbg_process_commands
 	if (($_Dbg_exit_from_exit_handler != 0)); then
