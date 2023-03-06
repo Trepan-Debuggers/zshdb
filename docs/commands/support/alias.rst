@@ -9,7 +9,7 @@ Add Debugger Command Alias (`alias`)
 Add alias *alias-name* for a debugger command *debugger-comand*.
 
 Add an alias when you want to use a command abbreviation for a command
-that would otherwise be ambigous. For example, by default we make ``s``
+that would otherwise be ambiguous. For example, by default we make ``s``
 be an alias of ``step`` to force it to be used. Without the alias, ``s``
 might be ``step``, ``show``, or ``set`` among others
 

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # debugger source-code listing routines
 #
-#   Copyright (C) 2008, 2009, 2010, 2011
+#   Copyright (C) 2008, 2009, 2010, 2011, 2023
 #    Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -29,7 +29,7 @@ typeset _Dbg_last_search_pat
 typeset -i _Dbg_listline=0
 
 # list $3 lines starting at line $2 of file $1. If $1 is '', use
-# $_Dbg_frame_last_filename value.  If $3 is ommited, print $_Dbg_set_listsize
+# $_Dbg_frame_last_filename value.  If $3 is ommitted, print $_Dbg_set_listsize
 # lines. if $2 is omitted, use global variable $_Dbg_frame_last_lineno.
 _Dbg_list() {
     typeset filename
@@ -72,7 +72,7 @@ _Dbg_list() {
     typeset source_line
     typeset frame_fullfile
     frame_fullfile=${_Dbg_file2canonic[$_Dbg_frame_last_filename]}
-    
+
     for ((  ; _Dbg_listline <= n && _Dbg_listline <= max_line \
             ; _Dbg_listline++ )) ; do
      typeset prefix='    '
@@ -91,14 +91,14 @@ _Dbg_list_columns() {
     (($# > 0 )) && { colsep="$1"; shift; }
     typeset -i linewidth
     # 2 below is the initial prefix
-    if (($# > 0 )) && ; then 
+    if (($# > 0 )) && ; then
 	msg=$1
 	shift
     else
 	msg=_Dbg_msg
     fi
     if (($# > 0 )) ; then
-	((linewidth=$1-2)); 
+	((linewidth=$1-2));
 	shift
     else
 	((linewidth=_Dbg_set_linewidth-2))
@@ -106,7 +106,7 @@ _Dbg_list_columns() {
     (($# != 0)) && return 1
     typeset -a columnized; columnize $linewidth "$colsep"
     typeset -i i
-    for ((i=0; i<${#columnized[@]}; i++)) ; do 
+    for ((i=0; i<${#columnized[@]}; i++)) ; do
 	$msg "  ${columnized[i]}"
     done
 

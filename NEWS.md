@@ -1,3 +1,17 @@
+Version 1.1.3 2023-03-15 Ron Frankel
+------------------------------------
+
+* Trap debugged-program exit like we do in bashdb
+* Update debug prompt string command number after a successful cmd
+* Use `Dbg_` prefix more often
+* Do not exit on "info var" error.
+* Add gdb "info fufunctions" and order list of properties alphabetically
+* Tolerate spaces in filenames (Joachim Ansoorg)
+* Update version of `term-background` used
+* Go over readthedocs and regularize titles in zshdb Rst docs
+* Go over readthedocs sphinx warnings.
+* Miscellaneous small bugs and typos from dbitouze, roc007, bitwranglr, Joachim Ansorg, srinivas32, and hcaw
+
 Version 1.1.2 2019-12-10 gecko gecko
 ------------------------------------
 

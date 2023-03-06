@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # display.sh - gdb-like "(un)display" and list display debugger commands
 #
-#   Copyright (C) 2002-2003, 200-2011, 2016
+#   Copyright (C) 2002-2003, 200-2011, 2016, 2023
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 _Dbg_help_add display \
 "**display** [*stmt*]
 
-Evalute *stmt* each time the debugger is stopped. If *stmt* is omitted, evaluate
+Evaluate *stmt* each time the debugger is stopped. If *stmt* is omitted, evaluate
 all of the display statements that are active. In contrast, **info display**
 shows the display statements without evaluating them.
 

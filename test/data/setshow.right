@@ -267,34 +267,32 @@ of promoting the sharing and reuse of software generally.
 +set width 80
 +#### Invalid commands...
 +show badcommand
-** Unknown show subcommand: badcommand
-** Show subcommands are:
-**   annotate  autoeval  basename  editing  history   prompt          width
-**   args      autolist  debug     force    listsize  trace-commands
-+another-bad-command 
+Undefined show command: "badcommand".  Try "help show".
++another-bad-command
 ** Undefined command "another-bad-command". Try "help".
 +set history size 10
 +set history file /tmp/zshdb_hist
-+show 
-annotate: Annotation_level is 0.
-args:     Argument list to give script when debugged program starts is:
-       "testarg1 testarg2".
-autoeval: Evaluate unrecognized commands is off.
-autolist: Auto run of 'list' command is off.
-basename:  Show short filenames is on.
-debug: Allow debugging the debugger is off
-editing:  Editing of command lines as they are typed is on.
-  Edit style is emacs.
-different: Show stepping forces a new line is off.
-filename: The filename in which to record the command history is:
-	/tmp/zshdb_hist
-save: Saving of history save is on.
-size: Debugger history size is 10
-listsize: Number of source lines zshdb will list by default is 10.
-prompt:   zshdb's prompt is:
-       "$_Dbg_debugger_name${_Dbg_less}$_Dbg_cmd_num${_Dbg_greater}".
-trace-commands: State of command tracing is on.
-width: Line width is 80.
++show
+show alias       -- Show list of aliases currently in effect.
+show annotate    -- Show annotation_level
+show autoeval    -- Evaluate unrecognized commands is off.
+show autolist    -- Auto run a 'list' command is off.
+show basename    -- Show if we are are to show short or long filenames.
+show commands    -- Show the history of commands you typed.
+show confirm     -- confirm dangerous operations on.
+show copying     -- Conditions for redistributing copies of debugger.
+show debug       -- Show if we are set to debug the debugger.
+show different   -- Show stepping forces a new line is off.
+show editing     -- Show editing of command lines and edit style.
+show filename-display-- filename display.
+show highlight   -- Show if we syntax highlight source listings.
+show history     -- Show if we are recording command history.
+show linetrace   -- Show whether to trace lines before execution.
+show listsize    -- Number of source lines zshdb will list by default is 10.
+show prompt      -- Show zshdb's command prompt.
+show style       -- Set pygments highlighting style is off.
+show warranty    -- Various kinds of warranty you do not have.
+show width       -- Line width is 80.
 +show args
 Argument list to give script when debugged program starts is:
        "testarg1 testarg2".
@@ -327,22 +325,31 @@ Line width is 40.
 +# show history
 +# set history save on
 +# show history
-+######################### 
++#########################
 +#### Test 'show commands'...
 +# show commands
 +# show commands +
 +# show commands -5
 +# show commands 12
-+######################### 
++#########################
 +#### Test 'autoeval'...
 +set autoeval on
 Evaluate unrecognized commands is on.
 +xx=1 ; declare -p xx
-typeset xx=1
+typeset -g xx=1
 $? is 0
 +set autoeval off
 Evaluate unrecognized commands is off.
 +xx=1 ; declare -p xx
 ** Undefined command "xx=1". Try "help".
-+quit 
++quit
+zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+breakpoints
+No breakpoints have been set.
+
+stack
+** The program is not being run.
+
+
 zshdb: That's all, folks...

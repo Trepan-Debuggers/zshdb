@@ -16,3 +16,6 @@ builtin cd .
 1
 +quit 0 2
 zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
++quit 
+zshdb: That's all, folks...

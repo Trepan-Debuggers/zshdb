@@ -46,3 +46,8 @@ typeset -g x='line 7'
 +# A quit inside a nested subshell.
 +quit 
 zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
++s 3
+** The program is not being run.
+
+zshdb: That's all, folks...

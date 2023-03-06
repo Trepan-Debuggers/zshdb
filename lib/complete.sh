@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # complete.sh  - command completion handling
 #
-#   Copyright (C) 2006, 2011, 2014 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2006, 2011, 2014, 2023 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -35,7 +35,7 @@ _Dbg_subcmd_complete() {
     local -i last=0
     for word in $list ; do
         # See if $word contains $text at the beginning. We use the string
-        # strip operatior '#' and check that some part of $word was stripped
+        # strip operator '#' and check that some part of $word was stripped
         if [[ ${word#$text} != $word ]] ; then
             _Dbg_matches[$last]="$subcmd $word"
             ((last++))

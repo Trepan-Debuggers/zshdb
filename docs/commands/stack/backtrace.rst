@@ -10,7 +10,7 @@ Print a stack trace, with the most recent frame first.  With a
 positive number, print at most that many entries.  With a negative number
 print the top entries minus that number.
 
-An arrow at the begining of a line indicates the 'current frame'. The
+An arrow at the beginning of a line indicates the 'current frame'. The
 current frame determines the context used for many debugger commands
 such as expression evaluation or source-line listing.
 

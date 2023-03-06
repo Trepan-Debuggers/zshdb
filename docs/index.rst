@@ -27,13 +27,12 @@ ZshDebug_.
    manpage
 
 
-Indices and tables
+Indices and Tables
 ==================
 
 
 * :ref:`genindex`
 * :ref:`search`
-.. * :ref:`modindex`
 
 .. _zsh: http://www.zsh.org/
 .. _other: https://www.npmjs.com/package/trepan-ni

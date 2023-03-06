@@ -1,3 +1,252 @@
+2023-03-05  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Get ready for release 1.1.3
+
+2023-03-01  rocky <rocky@gnu.org>
+
+	* command/quit.sh, command/run.sh, lib/sig.sh,
+	test/data/Makefile.am, test/data/action.right,
+	test/data/brkpt1.right, test/data/bug-args.right,
+	test/data/bug-delete.right, test/data/bug-errexit.right,
+	test/data/bug-ksharrays.right, test/data/bugIFS.right,
+	test/data/bugIFS2.right, test/data/condition.right,
+	test/data/debug.right, test/data/delete.right,
+	test/data/enable.right, test/data/examine-5.4.1.right,
+	test/data/examine.right, test/data/export-5.4.1.right,
+	test/data/export.right, test/data/frame-5.8.1.right,
+	test/data/frame.right, test/data/list.right, test/data/lopts.right,
+	test/data/multi1.right, test/data/multi2.right,
+	test/data/multi3.right, test/data/next.right,
+	test/data/setshow-5.4.1.right, test/data/setshow.right,
+	test/data/skip.right, test/data/sopts.right, test/data/step.right,
+	test/data/subshell-5.4.1.right, test/data/subshell.right,
+	test/data/tbreak.right, test/integration/test-frame.in, zshdb.in: 
+	Trap debugged-program exit
+
+2023-03-01  rocky <rocky@gnu.org>
+
+	* command/info.sh, configure.ac: Bump version number
+
+2023-02-27  rocky <rocky@gnu.org>
+
+	* lib/processor.sh: Update debug prompt string on successful cmd
+
+2023-01-05  rocky <rocky@gnu.org>
+
+	* command/complete.sh, command/help.sh, dbg-opts.sh: misc tweaks...  complete.sh: use Dbg_ prefix more often help.sh: add typeset -A
+	which might be needed by demo fragments db-opts.sh - update
+	copyright
+
+2022-07-03  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml: Adjust CI for newer environment
+
+2022-06-30  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #36 from dbitouze/master Typo fixed
+
+2021-07-18  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #34 from roc007/master add a unit test : test -z "$a"
+
+2021-07-17  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #32 from roc007/master add the return code of the evaluated expression
+
+2021-07-17  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #30 from roc007/master pattern matching modification
+
+2021-01-13  rocky <rocky@gnu.org>
+
+	* test/unit/test-fns.sh.in: Adjust test variable
+
+2021-01-13  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml: CircleCI attempt 2
+
+2021-01-13  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml, command/complete.sh, command/down.sh,
+	command/examine.sh, command/help.sh, command/set_sub/annotate.sh,
+	command/set_sub/autoeval.sh, command/set_sub/autolist.sh,
+	command/set_sub/basename.sh, command/set_sub/confirm.sh,
+	command/set_sub/debug.sh, command/set_sub/different.sh,
+	command/set_sub/editing.sh, command/set_sub/filename-display.sh,
+	command/set_sub/highlight.sh, command/set_sub/history.sh,
+	command/set_sub/linetrace.sh, command/set_sub/listsize.sh,
+	command/set_sub/showcommand.sh, command/set_sub/style.sh,
+	command/set_sub/trace-commands.sh, command/show_sub/autoeval.sh,
+	command/show_sub/autolist.sh, command/show_sub/basename.sh,
+	command/show_sub/commands.sh, command/show_sub/filename-display.sh,
+	command/up.sh, lib/journal.sh, lib/save-restore.sh: Joachim Ansorg's
+	whitespace in filename patches Also try fossa on circleci
+
+2021-01-13  rocky <rocky@gnu.org>
+
+	* lib/fns.sh, lib/processor.sh, test/unit/test-fns.sh.in: Joachim
+	Ansorg's dbg_copies fixes $result -> $Dbg_result
+
+2020-10-21  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #29 from srinivas32/master Update .travis.yml
+
+2020-09-04  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #28 from hcaw/patch-1 Fix simple typo
+
+2020-07-07  rocky <rocky@gnu.org>
+
+	* docs/commands/set/basename.rst,
+	docs/commands/set/filename-display.rst: RsT formatting
+
+2020-07-07  rocky <rocky@gnu.org>
+
+	* command/set.sh, command/set_sub/basename.sh,
+	command/set_sub/filename-display.sh, command/show.sh,
+	command/show_sub/basename.sh, command/show_sub/filename-display.sh,
+	docs/commands/running/continue.rst, docs/commands/running/step.rst,
+	docs/commands/set.rst, docs/commands/set/basename.rst,
+	docs/commands/set/debug.rst,
+	docs/commands/set/filename-display.rst, docs/commands/show.rst,
+	docs/commands/show/basename.rst,
+	docs/commands/show/filename-display.rst, lib/help.sh,
+	test/data/setshow-5.4.1.right: Add gdb-like set/show
+	filename-display
+
+2020-06-08  rocky <rocky@gnu.org>
+
+	* command/info.sh, command/info_sub/Makefile.am,
+	command/info_sub/functions.sh, command/info_sub/variables.sh,
+	command/list.sh, dbg-opts.sh, docs/commands/info.rst,
+	docs/commands/info/functions.rst, lib/info-help.sh: Add gdb "info
+	functions"
+
+2020-05-18  rocky <rocky@gnu.org>
+
+	* command/info_sub/variables.sh: don't exit "info var" on error
+	and...  order list of properties alphabetically
+
+2020-05-18  rocky <rocky@gnu.org>
+
+	* command/info.sh, command/show.sh: Joachim Ansorg's patch for
+	spaces in filenames...  to load in "info" and "show" subcommands.  Thanks Joachim!
+
+2020-05-02  rocky <rocky@gnu.org>
+
+	* zterm-background.sh: Update term-background
+
+2020-05-02  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #26 from bitwranglr/master A few more bugfixes
+
+2020-04-28  bitwranglr <bitwranglr@gmail.com>
+
+	* command/eval.sh, command/source.sh, lib/file.sh: Fix some issues
+	when spaces appear in paths (there are a lot of these bugs)
+
+2020-04-26  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #25 from bitwranglr/master Fix issue #24: use correct tty for prompt/commands
+
+2020-04-24  rocky <rocky@gnu.org>
+
+	* .circleci/config.yml: Try to fix CI
+
+2020-04-24  R. Bernstein <rocky@users.noreply.github.com>
+
+	* .github/FUNDING.yml: Create FUNDING.yml
+
+2020-03-10  rocky <rocky@gnu.org>
+
+	* docs/commands/stack.rst: Small doc correction
+
+2020-03-07  rocky <rocky@gnu.org>
+
+	* : commit b55f44a67aafb35e349a7e475409cae8fda5295a Author: rocky
+	<rocky@gnu.org> Date:   Sat Mar 7 09:22:51 2020 -0500
+
+2020-03-06  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #23 from rocky/feature/travis-ci-macos Add macOS CI support for Travis-CI
+
+2020-03-05  rocky <rocky@gnu.org>
+
+	* docs/commands/set/highlight.rst, docs/commands/set/linetrace.rst,
+	docs/commands/set/listsize.rst, docs/commands/set/style.rst,
+	docs/commands/set/trace-commands.rst, docs/commands/set/width.rst,
+	docs/commands/show/aliases.rst, docs/commands/show/args.rst,
+	docs/commands/show/autoeval.rst, docs/commands/show/autolist.rst,
+	docs/commands/show/basename.rst, docs/commands/show/confirm.rst,
+	docs/commands/show/different.rst, docs/commands/show/editing.rst,
+	docs/commands/show/highlight.rst, docs/commands/show/linetrace.rst,
+	docs/commands/show/listsize.rst, docs/commands/show/style.rst,
+	docs/commands/show/trace-commands.rst, docs/commands/show/width.rst: 
+	Regularize zshdb titles
+
+2020-03-05  rocky <rocky@gnu.org>
+
+	* docs/commands/breakpoints/delete.rst,
+	docs/commands/data/Makefile, docs/commands/data/display.rst,
+	docs/commands/data/eval.rst, docs/commands/data/examine.rst,
+	docs/commands/data/load.rst, docs/commands/files/Makefile,
+	docs/commands/files/edit.rst, docs/commands/files/list.rst,
+	docs/commands/info/breakpoints.rst, docs/commands/running/Makefile,
+	docs/commands/running/continue.rst,
+	docs/commands/running/debug.rst, docs/commands/running/kill.rst,
+	docs/commands/running/next.rst, docs/commands/running/quit.rst,
+	docs/commands/running/run.rst, docs/commands/running/skip.rst,
+	docs/commands/running/step.rst, docs/commands/set/Makefile,
+	docs/commands/set/annotate.rst, docs/commands/set/args.rst,
+	docs/commands/set/autoeval.rst, docs/commands/set/autolist.rst,
+	docs/commands/set/basename.rst, docs/commands/set/confirm.rst,
+	docs/commands/set/debug.rst, docs/commands/set/different.rst,
+	docs/commands/set/editing.rst, docs/commands/stack/Makefile,
+	docs/commands/stack/backtrace.rst, docs/commands/stack/down.rst,
+	docs/commands/stack/frame.rst, docs/commands/stack/up.rst,
+	docs/commands/support/Makefile, docs/commands/support/alias.rst,
+	docs/commands/support/help.rst, docs/commands/support/source.rst,
+	docs/commands/support/unalias.rst: Go over readthedocs
+
+2020-03-01  rocky <rocky@gnu.org>
+
+	* docs/commands/breakpoints/break.rst,
+	docs/commands/breakpoints/tbreak.rst: See above
+
+2020-03-01  rocky <rocky@gnu.org>
+
+	* docs/commands/data/display.rst, docs/commands/data/eval.rst,
+	docs/commands/running/continue.rst,
+	docs/commands/running/debug.rst, docs/commands/running/kill.rst,
+	docs/commands/running/next.rst, docs/commands/running/quit.rst,
+	docs/commands/running/run.rst, docs/commands/running/step.rst: More
+	of the last commit
+
+2020-03-01  rocky <rocky@gnu.org>
+
+	* docs/commands/breakpoints/break.rst,
+	docs/commands/breakpoints/condition.rst,
+	docs/commands/breakpoints/delete.rst,
+	docs/commands/breakpoints/disable.rst,
+	docs/commands/breakpoints/enable.rst,
+	docs/commands/breakpoints/tbreak.rst,
+	docs/commands/data/display.rst, docs/commands/data/eval.rst,
+	docs/commands/data/examine.rst, docs/commands/data/load.rst,
+	docs/commands/data/undisplay.rst, docs/commands/files/edit.rst,
+	docs/commands/files/list.rst, docs/commands/set/debug.rst,
+	docs/install.rst: Start redoing command titles
+
+2020-02-06  rocky <rocky@gnu.org>
+
+	* docs/commands/info.rst, docs/commands/set.rst, docs/conf.py,
+	docs/index.rst, docs/install.rst: Go over sphinx doc warnings
+
+2020-02-06  rocky <rocky@gnu.org>
+
+	* ChangeLog, admin/how-to-make-a-release.md, docs/.gitignore,
+	docs/index.rst, test/example/bug-args.sh: Add packaging status to
+	readthedocs...  and some administrivia
+
 2019-12-10  rocky <rocky@gnu.org>
 
 	* ChangeLog, NEWS.md, admin/how-to-make-a-release.md, configure.ac: 

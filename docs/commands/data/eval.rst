@@ -18,7 +18,7 @@ In the second form, use evaluate the current source line text.
 Often when one is stopped at the line of the first part of an "if", "elif", "case", "return",
 "while" compound statement or an assignment statement, one wants to eval is just the expression
 portion. For this, use eval?. Actually, any alias that ends in ? which is aliased to eval will
-do thie same thing.
+do the same thing.
 
 Run *cmd* in the context of the current frame.
 

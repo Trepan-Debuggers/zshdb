@@ -26,7 +26,7 @@ are dispatched to that command.
 
 3. If after all of the above, we still don't find a command, the line
 may be evaluated as a zsh statement in the current context of the
-program at the point it is stoppped. However this is done only if
+program at the point it is stopped. However this is done only if
 "auto evaluation" is on.  It is on by default.
 
 If :ref:`auto eval <set_autoeval>` is not set on, or if running the

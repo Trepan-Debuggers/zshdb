@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Things related to tty
 #
-#   Copyright (C) 2008, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2023 Rocky Bernstein <rocky@gnu.org>
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -22,7 +22,7 @@
 # 0. _Dbg_new_fdi will be set to the file descriptor of the open tty
 # or set to -1 if none could be opened.
 #
-# We write the interface this way because intead of say a routine to
+# We write the interface this way because instead of say a routine to
 # test a name refers to a terminal, because it's easy to tell if a
 # file descriptor is a tty but not so easy using just the name. And we
 # want to avoid opening and closing file descriptors unnecessarily.

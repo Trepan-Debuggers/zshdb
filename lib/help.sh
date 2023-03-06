@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 # help.sh - Debugger Help Routines
-#   Copyright (C) 2008, 2010-2011, 2014, 2016, 2019
+#   Copyright (C) 2008, 2010-2011, 2014, 2016, 2019 2023
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -24,7 +24,7 @@ export _Dbg_command_help
 
 # List of debugger commands.
 # FIXME: for now we are attaching this to _Dbg_help_add which
-# is whe this is here. After moving somewhere more appropriate, relocate
+# is when this is here. After moving somewhere more appropriate, relocate
 # the definition.
 typeset -A _Dbg_debugger_commands
 

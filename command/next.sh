@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# gdb-like "next" (step through) commmand.
+# gdb-like "next" (step through) command.
 #
-#   Copyright (C) 2008, 2010, 2016 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2016, 2023 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as

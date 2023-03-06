@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 #
-#   Copyright (C) 2010 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010, 2023 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -124,7 +124,7 @@ _Dbg_set_action() {
 
 # Internal routine to delete an action by file/line.
 # 0 is returned if we were able to unset the action.
-# Nonzero is returned otherwize.
+# Nonzero is returned otherwise.
 _Dbg_unset_action() {
     (( $# == 2 )) || return 1
     typeset -r  filename="$1"

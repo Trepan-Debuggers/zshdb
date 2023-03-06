@@ -48,7 +48,7 @@ Often when one is stopped at the line of the first part of an "if",
 "elif", "case", "return", "while" compound statement or an assignment
 statement, one wants to eval is just the expression portion.  For
 this, use eval?. Actually, any alias that ends in ? which is aliased
-to eval will do thie same thing.
+to eval will do the same thing.
 
 If no string is given, we run the string from the current source code
 about to be run. If the command ends `?` (via an alias) and no string is

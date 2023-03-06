@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # show.sh - Show debugger settings
 #
-#   Copyright (C) 2008, 2010-2011, 2014, 2019-2020
+#   Copyright (C) 2008, 2010-2011, 2014, 2019-2020, 2023
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -160,7 +160,7 @@ _Dbg_help_show() {
             ;;
 
         p | pr | pro | prom | promp | prompt )
-	    # Note this is different fom "help show prompt" output
+	    # Note this is different from "help show prompt" output
             _Dbg_msg \
                 "${label}Show ${_Dbg_debugger_name}'s command prompt."
             ;;

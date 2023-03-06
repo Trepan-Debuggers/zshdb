@@ -35,6 +35,7 @@ check_DATA = \
 	export.cmd         \
 	frame.cmd          \
 	frame.right        \
+	frame-5.8.1.right  \
 	list.cmd           \
 	list.right         \
 	multi1.cmd         \

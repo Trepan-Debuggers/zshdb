@@ -156,7 +156,7 @@ The current version is maintained (or not) by Rocky Bernstein.
 Copyright
 ---------
 
-Copyright (C) 2009, 2017, 2019 Rocky Bernstein
+Copyright (C) 2009, 2017, 2019, 2023 Rocky Bernstein
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or

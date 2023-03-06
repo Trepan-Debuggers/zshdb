@@ -32,3 +32,6 @@ x=10
 typeset -g x=30
 +quit 
 zshdb: That's all, folks...
+Debugged program terminated normally. Use q to quit or R to restart.
+
+zshdb: That's all, folks...
