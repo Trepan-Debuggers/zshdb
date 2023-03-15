@@ -5,7 +5,7 @@ Version 1.1.3 2023-03-15 Ron Frankel
 * Update debug prompt string command number after a successful cmd
 * Use `Dbg_` prefix more often
 * Do not exit on "info var" error.
-* Add gdb "info fufunctions" and order list of properties alphabetically
+* Add gdb "info functions" and order list of properties alphabetically
 * Tolerate spaces in filenames (Joachim Ansoorg)
 * Update version of `term-background` used
 * Go over readthedocs and regularize titles in zshdb Rst docs
