@@ -27,7 +27,8 @@ pkgdata_DATA =       \
 	dbg-main.sh  \
 	dbg-opts.sh  \
 	dbg-trace.sh \
-	getopts_long.sh
+	getopts_long.sh \
+	zterm-background.sh
 
 # Set up the install target. Can't figure out how to use @PACKAGE@
 bin_SCRIPTS = zshdb
