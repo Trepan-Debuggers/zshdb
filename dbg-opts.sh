@@ -143,6 +143,7 @@ _Dbg_parse_options() {
 
     typeset -i _Dbg_o_quiet=0
     typeset -i _Dbg_o_version=0
+    typeset -i _Dbg_highlight_enabled=1
 
     while getopts_long A:Bc:x:hL:nqTS:t:V opt    \
 	annotate required_argument               \
@@ -187,10 +188,12 @@ _Dbg_parse_options() {
 
 		if (( ! _Dbg_working_term_highlight )) ; then
 		    echo "Can't run term-highlight.py; '--highlight' forced off" >&2
+		    _Dbg_highlight_enabled=0
 		    _Dbg_set_highlight=''
 		fi
 		;;
 	    no-highlight )
+	    _Dbg_highlight_enabled=0
 		_Dbg_set_highlight=''  	;;
 	    init-file )
 		_Dbg_o_init_files+="$OPTLARG"
@@ -263,7 +266,7 @@ welcome to change it and/or distribute copies of it under certain conditions.
 }
 
 
-if (( _Dbg_have_working_pygmentize )) && [[ -z "$_Dbg_set_highlight" ]] ; then
+if (( _Dbg_have_working_pygmentize )) && (( _Dbg_highlight_enabled )) && [[ -z "$_Dbg_set_highlight" ]] ; then
     # Honor DARK_BG if already set. If not set, set it.
     if [[ -z "$DARK_BG" ]] ; then
 	. "${_Dbg_libdir}/zterm-background.sh" >/dev/null
