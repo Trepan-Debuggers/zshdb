@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # alias.sh - gdb-like "alias" debugger command
 #
-#   Copyright (C) 2008, 2010, 2016 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2010, 2016, 2023 Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -41,7 +41,7 @@ _Dbg_do_alias() {
       _Dbg_errmsg "Got $# parameter(s), but need 2."
       return 1
   fi
-  _Dbg_alias_add $1 $2
+  _Dbg_alias_add "$1" "$2"
   return 0
 }
 
@@ -57,5 +57,5 @@ _Dbg_do_unalias() {
   if (($# != 1)) ; then
       _Dbg_errmsg "Got $# parameters, but need 1."
   fi
-  _Dbg_alias_remove $1
+  _Dbg_alias_remove "$1"
 }

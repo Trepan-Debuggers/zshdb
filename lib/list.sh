@@ -29,7 +29,7 @@ typeset _Dbg_last_search_pat
 typeset -i _Dbg_listline=0
 
 # list $3 lines starting at line $2 of file $1. If $1 is '', use
-# $_Dbg_frame_last_filename value.  If $3 is ommitted, print $_Dbg_set_listsize
+# $_Dbg_frame_last_filename value.  If $3 is omitted, print $_Dbg_set_listsize
 # lines. if $2 is omitted, use global variable $_Dbg_frame_last_lineno.
 _Dbg_list() {
     typeset filename
@@ -69,7 +69,6 @@ _Dbg_list() {
       return 1
     fi
 
-    typeset source_line
     typeset frame_fullfile
     frame_fullfile=${_Dbg_file2canonic[$_Dbg_frame_last_filename]}
 
@@ -80,7 +79,7 @@ _Dbg_list() {
 
        (( _Dbg_listline == _Dbg_frame_last_lineno )) \
          && [[ $fullname == $frame_fullfile ]] &&  prefix=' => '
-      _Dbg_printf "%3d:%s%s" $_Dbg_listline "$prefix" "$source_line"
+      _Dbg_printf "%3d:%s%s" $_Dbg_listline "$prefix" "$_Dbg_source_line"
     done
     (( _Dbg_listline > max_line && _Dbg_listline-- ))
     return 0
@@ -91,7 +90,7 @@ _Dbg_list_columns() {
     (($# > 0 )) && { colsep="$1"; shift; }
     typeset -i linewidth
     # 2 below is the initial prefix
-    if (($# > 0 )) && ; then
+    if (($# > 0 )); then
 	msg=$1
 	shift
     else
