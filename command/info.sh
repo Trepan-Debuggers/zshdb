@@ -50,7 +50,7 @@ _Dbg_do_info_internal() {
     typeset label=$2
 
     # Warranty is omitted below.
-    typeset subcmds='breakpoints display files functions line source stack variables'
+    typeset subcmds='breakpoints display files functions line program signals source stack variables'
 
     if [[ -z $info_cmd ]] ; then
         typeset thing
