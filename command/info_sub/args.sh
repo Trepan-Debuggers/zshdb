@@ -34,7 +34,7 @@ See also:
 **backtrace**." 1
 
 _Dbg_do_info_args() {
-    if (($# != 1)); then
+    if (($# != 0)); then
         _Dbg_errmsg "Arguments are not supported"
         return 1
     fi

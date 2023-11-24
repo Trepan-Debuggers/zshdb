@@ -67,8 +67,8 @@ _Dbg_complete_level_2_data[info_breakpoints]='-a_Dbg_info_breakpoints_complete'
 
 _Dbg_do_info_breakpoints() {
 
-    if (( $# >= 3  )) ; then
-	typeset brkpt_num=$3
+    if (( $# >= 1 )) ; then
+	typeset brkpt_num=$1
 	if [[ $brkpt_num != [0-9]* ]] ; then
             _Dbg_errmsg "Bad breakpoint number $brkpt_num."
 	elif [[ -z ${_Dbg_brkpt_file[$brkpt_num]} ]] ; then

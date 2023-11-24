@@ -32,13 +32,6 @@ Examples:
 ' 1
 
 _Dbg_do_info_functions() {
-    # Remove "functions" or "xx functions"
-    if [[ "$1" != "functions" ]] ; then
-	shift
-    fi
-    if [[ "$1" == "functions" ]]; then
-	shift
-    fi
-    _Dbg_do_list_typeset_attr '+f' $@
+     _Dbg_do_list_typeset_attr '+f' "$@"
     return 0
 }
