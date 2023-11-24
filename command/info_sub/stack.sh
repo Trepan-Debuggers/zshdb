@@ -22,5 +22,5 @@ _Dbg_help_add_sub info stack '
 ' 1
 
 _Dbg_do_info_stack() {
-    _Dbg_do_backtrace 1 $@
+    _Dbg_do_backtrace "$@"
 }
