@@ -35,7 +35,7 @@ typeset -a _Dbg_info_subcmds
 _Dbg_info_subcmds=( breakpoints display files "function" "line" program source stack variables )
 
 # Load in "info" subcommands
-for _Dbg_file in ${_Dbg_libdir}/command/info_sub/*.sh ; do
+for _Dbg_file in "${_Dbg_libdir}"/command/info_sub/*.sh ; do
     source "$_Dbg_file"
 done
 _Dbg_complete_level_1_data[info]=$(echo ${(kM)_Dbg_debugger_info_commands})
