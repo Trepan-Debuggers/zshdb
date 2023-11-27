@@ -5,3 +5,5 @@ SUBDIRS = data example unit integration zsh
 
 MAINTAINERCLEANFILES = *.check
 EXTRA_DIST = README.md
+
+LANG = C
