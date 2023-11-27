@@ -40,13 +40,13 @@ _Dbg_do_info_args() {
     fi
 
     # Print out parameter list.
-    typeset -i arg_count=${#_Dbg_frame_argv[@]}
+    typeset -i arg_count=${#_Dbg_arg[@]}
     if ((arg_count == 0)); then
         _Dbg_msg "Argument count is 0 for this call."
     else
         typeset -i i
         for ((i = 1; i <= arg_count; i++)); do
-            _Dbg_printf "$%d = %s" $i "${_Dbg_frame_argv[$i - 1]}"
+            _Dbg_printf "$%d = %s" $i "${_Dbg_arg[$i - 1]}"
         done
     fi
     return 0
