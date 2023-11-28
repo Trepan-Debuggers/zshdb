@@ -180,7 +180,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     source "./help.sh"
     source "../lib/msg.sh"
     _Dbg_libdir='..'
-    for _Dbg_file in ${_Dbg_libdir}/command/c*.sh ; do
+    for _Dbg_file in "${_Dbg_libdir}"/command/c*.sh ; do
     	source "$_Dbg_file"
     done
 

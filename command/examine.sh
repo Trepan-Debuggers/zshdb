@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "Examine" debugger command.
 #
-#   Copyright (C) 2008, 2010-2011, 2016, 2019, 2021
+#   Copyright (C) 2008, 2010-2011, 2016, 2019, 2021, 2023
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -61,7 +61,7 @@ function _Dbg_do_examine {
     _Dbg_msg "$_Dbg_result"
   else
     typeset -i _Dbg_rc
-    . ${_Dbg_libdir}/lib/set-d-vars.sh
+    . "${_Dbg_libdir}"/lib/set-d-vars.sh
     eval let _Dbg_result=$_Dbg_expr 2>/dev/null; _Dbg_rc=$?
     _Dbg_set_debugger_internal
     if (( _Dbg_rc != 0 )) ; then

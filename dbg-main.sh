@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2008, 2009, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2010, 2011, 2023 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,11 +18,11 @@
 
 # Stuff common to zshdb and dbg-trace. Include the rest of options
 # processing. Also includes things which have to come before other includes
-. ${_Dbg_libdir}/dbg-pre.sh
+. "${_Dbg_libdir}"/dbg-pre.sh
 
 # All debugger lib code has to come before debugger command code.
 typeset _Dbg_file
-for _Dbg_file in ${_Dbg_libdir}/lib/*.sh ${_Dbg_libdir}/command/*.sh ; do
+for _Dbg_file in "${_Dbg_libdir}"/lib/*.sh "${_Dbg_libdir}"/command/*.sh ; do
     source $_Dbg_file
 done
 
