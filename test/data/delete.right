@@ -3,7 +3,7 @@ for ((i=0; i<3; i++)) do print 1st loop $i done
 +# Make sure autostep is off for next text
 +set force on
 Stepping forces stopping at a new line is on.
-+############################### 
++###############################
 +# Invalid delete commands
 +delete 0
 ** No breakpoint number 0.
@@ -15,19 +15,19 @@ Breakpoint 1 set in file stepping.sh, line 4.
 Num Type       Disp Enb What
 ----------------------------
 1   breakpoint keep y   stepping.sh:4
-+############################### 
++###############################
 +# Should work
 +delete 1
 Deleted breakpoint 1
 +info breakpoints
 No breakpoints have been set.
-+############################### 
++###############################
 +# Should fail - already deleted
 +delete 1
 ** No breakpoint number 1.
 +break 5
 Breakpoint 2 set in file stepping.sh, line 5.
-+continue 
++continue
 1st loop 0
 1st loop 1
 1st loop 2
@@ -47,20 +47,20 @@ Num Type       Disp Enb What
     breakpoint already hit 1 time
 +break 6
 Breakpoint 3 set in file stepping.sh, line 6.
-+############################### 
++###############################
 +# try deleting multiple breakpoints
 +delete 2 3
 Deleted breakpoint 2
 Deleted breakpoint 3
 +info breakpoints
 No breakpoints have been set.
-+############################### 
++###############################
 +# Should be able to set several brkpts on same line.
 +break 7
 Breakpoint 4 set in file stepping.sh, line 7.
 +break 7
 Breakpoint 5 set in file stepping.sh, line 7.
-+continue 
++continue
 3rd loop 0
 3rd loop 1
 3rd loop 2
@@ -73,8 +73,6 @@ for ((i=0; i<3; i++)) do print 5th loop $i done
 +# Should be at breakpoint but not one that's been deleted
 +where 1
 ->0 in file `stepping.sh' at line 7
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated normally.

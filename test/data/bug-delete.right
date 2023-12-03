@@ -2,8 +2,8 @@
 echo line 2
 +# Test bug we had where clearing a break on one line
 +# was disabling a break on the next one
-+# 
-+ 
++#
++
 +break 3
 Breakpoint 1 set in file bug-delete.sh, line 3.
 +break 5
@@ -12,12 +12,12 @@ Breakpoint 2 set in file bug-delete.sh, line 5.
 Breakpoint 3 set in file bug-delete.sh, line 7.
 +delete 2
 Deleted breakpoint 2
-+continue 
++continue
 line 2
 Breakpoint 1 hit.
 (bug-delete.sh:3):
 echo line 3
-+continue 
++continue
 line 3
 line 4
 line 5
@@ -26,8 +26,6 @@ Breakpoint 3 hit.
 (bug-delete.sh:7):
 echo line 7
 +# Should have stopped at line 7 above
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

@@ -1,8 +1,8 @@
 (dbg-test1.sh:4):
 fn1 () { echo "fn1 here" x=5 fn3 }
-+# 
++#
 +# Test of breakpoint handling
-+# 
++#
 +# Test the simplest of breakpoints
 +break 22
 Breakpoint 1 set in file dbg-test1.sh, line 22.
@@ -10,20 +10,20 @@ Breakpoint 1 set in file dbg-test1.sh, line 22.
 Num Type       Disp Enb What
 ----------------------------
 1   breakpoint keep y   dbg-test1.sh:22
-+################################################################ 
++################################################################
 +#### Try setting breakpoints outside of the file range...
 +break 99
 ** Line 99 is too large. File dbg-test1.sh has only 34 lines.
 +break 0
 ** There is no line 0 to break at.
-+# 
++#
 +# list breakpoints
-+L 
++L
 Num Type       Disp Enb What
 ----------------------------
 1   breakpoint keep y   dbg-test1.sh:22
 No actions have been set.
-+############################################################### 
++###############################################################
 +#### Test display status...
 +delete 1
 Deleted breakpoint 1
@@ -35,7 +35,7 @@ Breakpoint 2 set in file dbg-test1.sh, line 22.
 Num Type       Disp Enb What
 ----------------------------
 2   breakpoint keep y   dbg-test1.sh:22
-+############################################################### 
++###############################################################
 +#### *** Test using file:line format on break...
 +break ../example/dbg-test1.sh:23
 Breakpoint 3 set in file dbg-test1.sh, line 23.
@@ -52,7 +52,7 @@ Num Type       Disp Enb What
 2   breakpoint keep y   dbg-test1.sh:22
 3   breakpoint keep y   dbg-test1.sh:23
 4   breakpoint keep y   dbg-test1.sh:23
-+############################################################### 
++###############################################################
 +# disable 2 5
 +# info breakpoints
 +# enable 2 6
@@ -63,8 +63,6 @@ Num Type       Disp Enb What
 +# info breakpoints 5
 +# d 23
 +# L
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

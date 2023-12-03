@@ -1,17 +1,15 @@
 (bugIFS.sh:2):
 IFS="."
 +# Debugger test of an old IFS bug
-+# 
-+step 
++#
++step
 (bugIFS.sh:3):
 PS4='foo'
 +## Make sure PS4 in an eval is the same as what we just set.
 +pr "+$IFS+"
 +.+
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-+step 
+Debugged program terminated by user exit.
++step
 ** The program is not being run.
-
-zshdb: That's all, folks...

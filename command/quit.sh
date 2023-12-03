@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # quit.sh - gdb-like "quit" debugger command
 #
-#   Copyright (C) 2008, 2010-2011, 2014, 2018-2019 Rocky Bernstein
+#   Copyright (C) 2008, 2010-2011, 2014, 2018-2019, 2023 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -35,7 +35,6 @@ See also:
 **kill**, **run** and **restart**.'
 
 _Dbg_do_quit() {
-    typeset -i return_code=${1:-$_Dbg_program_exit_code}
 
     typeset -i desired_quit_levels=${2:-0}
 
@@ -70,20 +69,22 @@ _Dbg_do_quit() {
             exec $_Dbg_RESTART_COMMAND
         fi
 
-        _Dbg_msg "${_Dbg_debugger_name}: That's all, folks..."
 	# Get the last command into the history
 	# set -o incappendhistory
 	print -s -- $_Dbg_orig_cmd >/dev/null
 	if (($_Dbg_in_exit_handler != 0)); then
+	    _Dbg_stop_reason="user issued quit"
 	    _Dbg_exit_from_exit_handler=1
 	    return 1
 	fi
 
+	_Dbg_msg "${_Dbg_debugger_name}: That's all, folks..."
         _Dbg_cleanup
     fi
 
     # And just when you thought we'd never get around to it...
-    exit $return_code
+    _Dbg_stop_reason="user issued quit"
+    return 0
 }
 _Dbg_alias_add q quit
 _Dbg_alias_add q! quit
