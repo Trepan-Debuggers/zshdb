@@ -47,7 +47,7 @@ _Dbg_do_load() {
 	    fi
 	done
 
-	_Dbg_readin "$full_filename"
+	_Dbg_readin_if_new "$full_filename"
 	_Dbg_msg "File $full_filename loaded."
     else
 	_Dbg_errmsg "Couldn't resolve or read $filename"

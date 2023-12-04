@@ -19,6 +19,7 @@
 /test-lib-eval.sh
 /test-lib-shell.sh
 /test-lib.eval.sh
+/test-lib-maxline.sh
 /test-msg.sh
 /test-pre.sh
 /test-run.sh
