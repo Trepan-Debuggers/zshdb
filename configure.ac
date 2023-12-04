@@ -198,5 +198,7 @@ AC_CONFIG_FILES([test/unit/test-tty.sh],
 		[chmod +x test/unit/test-tty.sh])
 AC_CONFIG_FILES([test/unit/test-validate.sh],
 		[chmod +x test/unit/test-validate.sh])
+AC_CONFIG_FILES([test/unit/test-lib-maxline.sh],
+		[chmod +x test/unit/test-lib-maxline.sh])
 
 AC_OUTPUT

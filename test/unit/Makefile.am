@@ -5,6 +5,7 @@ COMBINED_TESTS= \
 	test-columns.sh        \
 	test-dbg-opts.sh       \
 	test-lib-eval.sh       \
+	test-lib-maxline.sh    \
 	test-examine.sh        \
 	test-file.sh           \
 	test-filecache.sh      \
