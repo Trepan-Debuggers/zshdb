@@ -31,11 +31,8 @@ typeset -A _Dbg_command_help_info
 
 _Dbg_help_add info ''  # Help routine is elsewhere
 
-typeset -a _Dbg_info_subcmds
-_Dbg_info_subcmds=( breakpoints display files "function" "line" program source stack variables )
-
 # Load in "info" subcommands
-for _Dbg_file in ${_Dbg_libdir}/command/info_sub/*.sh ; do
+for _Dbg_file in "${_Dbg_libdir}"/command/info_sub/*.sh ; do
     source "$_Dbg_file"
 done
 _Dbg_complete_level_1_data[info]=$(echo ${(kM)_Dbg_debugger_info_commands})
@@ -46,47 +43,46 @@ _Dbg_do_info() {
 }
 
 _Dbg_do_info_internal() {
-    typeset info_cmd="$1"
-    typeset label=$2
+    if (($# > 0)) ; then
+        typeset subcmd="$1"
+        shift
 
-    # Warranty is omitted below.
-    typeset subcmds='args breakpoints display files functions line source stack variables'
+        if [[ -n ${_Dbg_debugger_info_commands[$subcmd]} ]] ; then
+            ${_Dbg_debugger_info_commands[$subcmd]} "$@"
+            return $?
+        else
+            # Look for a unique abbreviation
+            typeset -i count=0
+            typeset list; list="${(k)_Dbg_debugger_info_commands[@]}"
+            for try in $list ; do
+                if [[ $try =~ ^$subcmd ]] ; then
+                    subcmd=$try
+                    ((count++))
+                fi
+            done
+            ((found=(count==1)))
+        fi
+        if ((found)); then
+            ${_Dbg_debugger_info_commands[$subcmd]} "$@"
+            return $?
+        fi
 
-    if [[ -z $info_cmd ]] ; then
-        typeset thing
-        for thing in $subcmds ; do
-            _Dbg_do_info $thing 1
-        done
-        return 0
-    elif [[ -n ${_Dbg_debugger_info_commands[$info_cmd]} ]] ; then
-        ${_Dbg_debugger_info_commands[$info_cmd]} $label "$@"
-        return $?
+        _Dbg_errmsg "Unknown info subcommand: $subcmd"
+        msg=_Dbg_errmsg
+    else
+        msg=_Dbg_msg
     fi
 
-    case $info_cmd in
-        #       h | ha | han | hand | handl | handle | \
-        #           si | sig | sign | signa | signal | signals )
-        #         _Dbg_info_signals
-        #         return
-        #     ;;
-
-        st | sta | stac | stack )
-            _Dbg_do_backtrace 1 $@
-            return 0
-            ;;
-
-        #       te | ter | term | termi | termin | termina | terminal | tt | tty )
-        #     _Dbg_msg "tty: $_Dbg_tty"
-        #     return;
-        #     ;;
-
-        *)
-            _Dbg_errmsg "Unknown info subcommand: $info_cmd"
-            _Dbg_errmsg "Info subcommands are:"
-            typeset -a list; list=(${subcmds[@]})
-            _Dbg_list_columns '  ' _Dbg_errmsg
-            return -1
-    esac
+    typeset -a list
+    list=(${(k)_Dbg_debugger_info_commands[@]})
+    sort_list 0 ${#list[@]}-1
+    typeset -i width; ((width=_Dbg_set_linewidth-5))
+    typeset -a columnized=(); columnize $width
+    typeset -i i
+    $msg "Info subcommands are:"
+    for ((i=0; i<${#columnized[@]}; i++)) ; do
+        $msg "  ${columnized[i]}"
+    done
 }
 
 _Dbg_alias_add i info

@@ -41,8 +41,8 @@ typeset _Dbg_info_var_attrs="array, export, fixed, float, function, hash, intege
 _Dbg_do_info_variables() {
     if (($# > 1)) ; then
         typeset kind="$1"
-	# Remove "info variables xxx"
-        shift; shift; shift
+        shift
+
         case "$kind" in
             a | ar | arr | arra | array | arrays )
                 _Dbg_do_list_typeset_attr '+a' $@
