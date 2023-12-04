@@ -31,9 +31,6 @@ typeset -i _Dbg_program_exit_code=0
 # Number of statements to skip before entering the debugger if greater than 0
 typeset -i _Dbg_skip_ignore=0
 
-# tracking of frame arguments, contains the arguments passed to the last call
-typeset -a _Dbg_frame_argv=()
-
 # This is the main hook routine that gets called before every statement.
 # It's the function called via trap DEBUG.
 function _Dbg_trap_handler {
@@ -58,7 +55,9 @@ function _Dbg_trap_handler {
 
     _Dbg_dollar_0=$1
     shift
-    _Dbg_frame_argv=($@)
+    # Populate _Dbg_arg with $1, $2, etc.
+    typeset -a _Dbg_arg
+    _Dbg_arg=($@)   # Does this require shword split off?
 
     typeset -i _Dbg_skipping_fn
     ((_Dbg_skipping_fn =
