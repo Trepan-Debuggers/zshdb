@@ -57,6 +57,8 @@ _Dbg_do_quit() {
     ## write this to the next level up can read it.
     _Dbg_write_journal "_Dbg_QUIT_LEVELS=$_Dbg_QUIT_LEVELS"
     _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
+    _Dbg_stop_reason="user issued quit"
+    _Dbg_write_journal "_Dbg_stop_reason=\"${_Dbg_stop_reason}\""
 
     # Reset signal handlers to their default but only if
     # we are not in a subshell.
@@ -73,7 +75,6 @@ _Dbg_do_quit() {
 	# set -o incappendhistory
 	print -s -- $_Dbg_orig_cmd >/dev/null
 	if (($_Dbg_in_exit_handler != 0)); then
-	    _Dbg_stop_reason="user issued quit"
 	    _Dbg_exit_from_exit_handler=1
 	    return 1
 	fi
@@ -82,9 +83,11 @@ _Dbg_do_quit() {
         _Dbg_cleanup
     fi
 
-    # And just when you thought we'd never get around to it...
-    _Dbg_stop_reason="user issued quit"
+    # Note: In a subshell somethine below raises an
+    # error that will be caught by _Dbg_hook_error_handler()
+    # Removing the "return 0 " still raise the error.
     return 0
+
 }
 _Dbg_alias_add q quit
 _Dbg_alias_add q! quit
