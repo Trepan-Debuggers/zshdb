@@ -109,9 +109,9 @@ function _Dbg_get_source_line {
     fi
   _Dbg_readin_if_new "$filename"
   if [[ -n $_Dbg_set_highlight ]] ; then
-      eval "source_line=\${$_Dbg_highlight_array_var[lineno-1]}"
+      eval "_Dbg_source_line=\${$_Dbg_highlight_array_var[lineno-1]}"
   else
-      eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
+      eval "_Dbgsource_line=\${$_Dbg_source_array_var[$lineno-1]}"
   fi
 }
 

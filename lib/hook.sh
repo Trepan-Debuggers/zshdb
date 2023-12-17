@@ -269,11 +269,9 @@ _Dbg_hook_error_handler() {
 
     # Note: In a subshell, the  "quit" command issues "return 0" which invalid.
     # It raises an error seen here.
-    print "FOO"
 
     _Dbg_source_journal
     if [[ $_Dbg_stop_reason != "user issued quit" ]]; then
-	print ERROR AT: ${funcfiletrace[@]}
 	# Set to make sure we stop after we return
 	_Dbg_write_journal_eval "_Dbg_step_ignore=1"
     fi

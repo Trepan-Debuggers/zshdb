@@ -75,4 +75,4 @@ for ((i=0; i<3; i++)) do print 5th loop $i done
 ->0 in file `stepping.sh' at line 7
 +quit
 zshdb: That's all, folks...
-Debugged program terminated normally.
+Debugged program terminated by user exit.

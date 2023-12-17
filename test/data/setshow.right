@@ -310,12 +310,12 @@ Argument list to give script when debugged program starts is:
 +set annotate 6
 Annotation level must be between 0 and 3. Got: 6.
 +show annotate
-Annotation_level is 0.
+Annotation level is 0.
 +set annotate 1
 +show listsize
 Number of source lines zshdb will list by default is 40.
 +show annotate
-Annotation_level is 1.
+Annotation level is 1.
 +set width 40
 +show width
 Line width is 40.
@@ -344,12 +344,4 @@ Evaluate unrecognized commands is off.
 ** Undefined command "xx=1". Try "help".
 +quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-breakpoints
-No breakpoints have been set.
-
-stack
-** The program is not being run.
-
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

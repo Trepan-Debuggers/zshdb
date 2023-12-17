@@ -2,10 +2,10 @@
 x=1
 +set showcommand 1
 +#### Test step inside multi-statement line...
-+step 
++step
 (multi.sh:5):
 y=2
-+step 
++step
 (multi.sh:5):
 z=3
 +step 2
@@ -16,6 +16,5 @@ builtin cd .
 1
 +quit 0 2
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-+quit 
 zshdb: That's all, folks...
+Debugged program terminated normally.

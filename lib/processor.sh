@@ -155,7 +155,7 @@ function _Dbg_process_commands {
               else
                   print -s -- "$line" > /dev/null
               fi
-              if ((_Dbg_history_save)) && [[ -n $_Dbg_histfile ]]; then
+              if ((_Dbg_history_save)) && [[ -n $_Dbg_histfile ]] && [[ -n ${_Dbg_history_length} ]]; then
                   fc -W ${_Dbg_histfile} ${_Dbg_history_length}
               fi
           fi

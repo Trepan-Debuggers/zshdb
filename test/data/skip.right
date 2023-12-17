@@ -4,19 +4,19 @@ x=1
 +set force on
 Stepping forces stopping at a new line is on.
 +# Test that skip skips multiple statements
-+n 
++n
 (skip.sh:4):
 x=2
 +x x
 typeset -g x=1
 +skip fdafsdg
 ** 'skip' argument (fdafsdg) should be a number or nothing.
-+skip 
++skip
 (skip.sh:6):
 x=4
 +x x
 typeset -g x=1
-+n 
++n
 (skip.sh:7):
 x=5
 +skip 2
@@ -24,17 +24,12 @@ x=5
 x=8
 +x x
 typeset -g x=4
-+n 
++n
 (skip.sh:11):
 x=9
 +skip 1+2
 (skip.sh:15):
 echo $x
-+c 
++c
 8
-Program terminated. Type 's' or 'R' to restart.
-+quit 
-zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated normally.

@@ -11,5 +11,3 @@ PS4='foo'
 +quit
 zshdb: That's all, folks...
 Debugged program terminated by user exit.
-+step
-** The program is not being run.

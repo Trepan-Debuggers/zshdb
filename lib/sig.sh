@@ -138,7 +138,11 @@ _Dbg_exit_handler() {
 
     typeset message="Debugged program terminated $term_msg."
     if (( have_tty )); then
-	message="${message} Use q to quit or R to restart."
+	if _Dbg_can_be_a_tty $(tty); then
+	    message="${message} Use q to quit or R to restart."
+	else
+	    have_tty=0
+	fi
     fi
 
     if ((_Dbg_running)); then
@@ -149,17 +153,16 @@ _Dbg_exit_handler() {
     _Dbg_running=0
 
     if (( have_tty )); then
-
         _Dbg_set_tty $(tty)
         _Dbg_exit_from_exit_handler=0
         _Dbg_in_exit_handler=1
         setopt shwordsplit ksharrays
         _Dbg_stop_reason="in post mortem"
         while : ; do
-            _Dbg_process_commands
-            if (($_Dbg_exit_from_exit_handler != 0)); then
+	    _Dbg_process_commands
+	    if (($_Dbg_exit_from_exit_handler != 0)); then
                 break
-            fi
+	    fi
         done
     fi
   fi
