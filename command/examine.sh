@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # "Examine" debugger command.
 #
-#   Copyright (C) 2008, 2010-2011, 2016, 2019, 2021, 2023
+#   Copyright (C) 2008, 2010-2011, 2016, 2019, 2021, 2023-2024
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
