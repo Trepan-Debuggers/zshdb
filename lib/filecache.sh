@@ -108,7 +108,6 @@ function _Dbg_get_source_line {
     fi
     _Dbg_readin_if_new "$filename"
 
-    typeset -p _Dbg_source_array_var
     typeset -i line_no_m1
     (( line_no_m1 = lineno - 1 ))
 

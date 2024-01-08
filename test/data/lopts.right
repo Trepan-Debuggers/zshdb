@@ -37,13 +37,9 @@ fn1 () { echo "fn1 here" x=5 fn3 }
 +quit
 zshdb: That's all, folks...
 Debugged program terminated by user exit.
-
-zshdb: That's all, folks...
 (dbg-test1.sh:4):
 fn1 () { echo "fn1 here" x=5 fn3 }
 +# Just a simple quit command.
 +quit
 zshdb: That's all, folks...
 Debugged program terminated by user exit.
-
-zshdb: That's all, folks...

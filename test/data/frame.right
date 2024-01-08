@@ -79,12 +79,4 @@ typeset -r a=$2
 (hanoi.sh:42):
 +quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-+step 12
-** The program is not being run.
-+step 12
-** The program is not being run.
-+step 12
-** The program is not being run.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

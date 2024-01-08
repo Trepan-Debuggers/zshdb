@@ -132,7 +132,6 @@ _Dbg_frame_file() {
     # FIXME check to see that $1 doesn't run off the end.
     typeset -i pos=${1:-$_Dbg_stack_pos}
     typeset -i basename_only=${2:-$_Dbg_set_basename}
-    typeset -p _Dbg_frame_stack
     typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset -a split_result; _Dbg_split "$file_line" ':'
     _Dbg_frame_filename=${split_result[0]}
