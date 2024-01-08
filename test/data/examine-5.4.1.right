@@ -1,9 +1,9 @@
 (exam.sh:3):
 unsetopt ksharrays
 +# Examine with blanks
-+x 
++x
 
-+x 
++x
 
 +# Examine constant expressions
 +x 1+30
@@ -34,8 +34,6 @@ typeset -g z=1
 10
 +x $ary[1]+3
 13
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

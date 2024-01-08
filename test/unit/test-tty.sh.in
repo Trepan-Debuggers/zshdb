@@ -7,9 +7,8 @@ test_tty()
     _Dbg_fd[0]=1
     _Dbg_open_if_tty $0
     assertEquals "1" "$?"
-    assertEquals "-1" "$_Dbg_new_fd"
     tty=$(tty)
-    if (($? == 0)); then 
+    if (($? == 0)); then
 	if [[ $tty =~ 'not a tty' ]] ; then
 	    result=1
 	    :
@@ -19,12 +18,12 @@ test_tty()
 	_Dbg_open_if_tty $tty
 	assertEquals "$result" "$?"
 	if ((result == 0)) ; then
-	    assertNotEquals "-1" "$Dbg_new_fd"
-	    exec {_Dbg_new_fd}>&- 
+	    assertNotEquals "-1" "$_Dbg_new_fd"
+	    exec {_Dbg_new_fd}>&-
 	    _Dbg_new_fd=-1
 	    _Dbg_set_tty $tty
 	    assertEquals "$result" "$?"
-	    assertNotEquals "-1" "$Dbg_new_fd"
+	    assertNotEquals "-1" "$_Dbg_new_fd"
 	fi
     fi
 }

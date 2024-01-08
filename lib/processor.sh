@@ -86,7 +86,6 @@ function _Dbg_process_commands {
       ${hook}
   done
 
-
   # Loop over all pending open input file descriptors
   while (( ${#_Dbg_fd[@]} > 0 )) ; do
 
@@ -116,7 +115,7 @@ function _Dbg_process_commands {
       # typeset _Dbg_cmd
       typeset line=''
       typeset -i rc
-      while : ; do
+      while [[ ${_Dbg_stop_reason} != "user issued quit" ]]; do
 
 	  # set prompt to ensure it has the latest value of _Dbg_cmd_num (and other status like that)
 	  # in it.
@@ -156,7 +155,7 @@ function _Dbg_process_commands {
               else
                   print -s -- "$line" > /dev/null
               fi
-              if ((_Dbg_history_save)) && [[ -n $_Dbg_histfile ]]; then
+              if ((_Dbg_history_save)) && [[ -n $_Dbg_histfile ]] && [[ -n ${_Dbg_history_length} ]]; then
                   fc -W ${_Dbg_histfile} ${_Dbg_history_length}
               fi
           fi
@@ -170,9 +169,10 @@ function _Dbg_process_commands {
       (( ${#_Dbg_fd[@]} <= 0 )) && break
   done
 
-  # EOF hit. Same as quit without arguments
-  _Dbg_msg '' # Cause <cr> since EOF may not have put in.
-  _Dbg_do_quit
+  if [[ $_Dbg_stop_reason == "user issued quit" ]] && ((_Dbg_running)) ; then
+      _Dbg_exit_handler "by user exit"
+  fi
+
 }
 
 # Run a debugger command "annotating" the output

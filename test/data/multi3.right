@@ -8,13 +8,12 @@ ho
 Breakpoint 1 hit.
 (multi.sh:14):
 ( builtin cd . x=`builtin echo *` ( builtin echo "ho" ) )
-+step 
++step
 (multi.sh:14):
 builtin cd .
 +pr $ZSH_SUBSHELL
 1
 +quit 0 56
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-+quit 
 zshdb: That's all, folks...
+Debugged program terminated normally.

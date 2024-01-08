@@ -5,4 +5,4 @@ step
 ## Make sure PS4 in an eval is the same as what we just set.
 pr "+$IFS+"
 quit
-
+kill!

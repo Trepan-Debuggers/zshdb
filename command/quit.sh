@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # quit.sh - gdb-like "quit" debugger command
 #
-#   Copyright (C) 2008, 2010-2011, 2014, 2018-2019 Rocky Bernstein
+#   Copyright (C) 2008, 2010-2011, 2014, 2018-2019, 2023 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -35,7 +35,6 @@ See also:
 **kill**, **run** and **restart**.'
 
 _Dbg_do_quit() {
-    typeset -i return_code=${1:-$_Dbg_program_exit_code}
 
     typeset -i desired_quit_levels=${2:-0}
 
@@ -58,6 +57,8 @@ _Dbg_do_quit() {
     ## write this to the next level up can read it.
     _Dbg_write_journal "_Dbg_QUIT_LEVELS=$_Dbg_QUIT_LEVELS"
     _Dbg_write_journal "_Dbg_step_ignore=$_Dbg_step_ignore"
+    _Dbg_stop_reason="user issued quit"
+    _Dbg_write_journal "_Dbg_stop_reason=\"${_Dbg_stop_reason}\""
 
     # Reset signal handlers to their default but only if
     # we are not in a subshell.
@@ -70,7 +71,6 @@ _Dbg_do_quit() {
             exec $_Dbg_RESTART_COMMAND
         fi
 
-        _Dbg_msg "${_Dbg_debugger_name}: That's all, folks..."
 	# Get the last command into the history
 	# set -o incappendhistory
 	print -s -- $_Dbg_orig_cmd >/dev/null
@@ -79,11 +79,15 @@ _Dbg_do_quit() {
 	    return 1
 	fi
 
+	_Dbg_msg "${_Dbg_debugger_name}: That's all, folks..."
         _Dbg_cleanup
     fi
 
-    # And just when you thought we'd never get around to it...
-    exit $return_code
+    # Note: In a subshell somethine below raises an
+    # error that will be caught by _Dbg_hook_error_handler()
+    # Removing the "return 0 " still raise the error.
+    return 0
+
 }
 _Dbg_alias_add q quit
 _Dbg_alias_add q! quit

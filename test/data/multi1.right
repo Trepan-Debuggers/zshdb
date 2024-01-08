@@ -9,10 +9,7 @@ builtin cd .
 +### Should now be inside a subshell...
 +pr $ZSH_SUBSHELL
 1
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-+step 4
-** The program is not being run.
-
 zshdb: That's all, folks...
+Debugged program terminated normally.

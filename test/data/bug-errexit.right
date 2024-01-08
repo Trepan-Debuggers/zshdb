@@ -2,16 +2,14 @@
 set -o errexit
 +# We once had a bug when some options were set (errexit and -u)
 +# Make sure this doesn't happen again.
-+step- 
++step-
 (bug-errexit.sh:5):
 set -u
-+step- 
++step-
 (bug-errexit.sh:6):
 print one
 +where 1
 ->0 in file `bug-errexit.sh' at line 6
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # filecache.sh - cache file information
 #
-#   Copyright (C) 2008-2011, 2015-2016 Rocky Bernstein
+#   Copyright (C) 2008-2011, 2015-2016, 2024 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -100,19 +100,22 @@ function _Dbg_get_source_line {
 	shift
     fi
     typeset filename
-    _Dbg_frame_file
     if (( $# == 0 )) ; then
+	_Dbg_frame_file
 	filename="$_Dbg_frame_filename"
     else
-	filename="$_Dbg_frame_filename"
 	filename="$1"
     fi
-  _Dbg_readin_if_new "$filename"
-  if [[ -n $_Dbg_set_highlight ]] ; then
-      eval "source_line=\${$_Dbg_highlight_array_var[lineno-1]}"
-  else
-      eval "source_line=\${$_Dbg_source_array_var[$lineno-1]}"
-  fi
+    _Dbg_readin_if_new "$filename"
+
+    typeset -i line_no_m1
+    (( line_no_m1 = lineno - 1 ))
+
+    if [[ -n $_Dbg_set_highlight ]] ; then
+      eval "_Dbg_source_line=\${$_Dbg_highlight_array_var[$line_no_m1]}"
+    else
+      eval "_Dbg_source_line=\${$_Dbg_source_array_var[$line_no_m1]}"
+    fi
 }
 
 # _Dbg_is_file echoes the full filename if $1 is a filename found in files
@@ -172,7 +175,10 @@ function _Dbg_is_file {
 # _Dbg_source_*n* and filename will be saved in array
 # _Dbg_filenames. fullname is set to the expanded filename
 # 0 is returned if everything went ok.
-function _Dbg_readin {
+
+# Note this can't start out "function" since we set variable
+# global _Dbg_source_array_var.
+_Dbg_readin() {
     typeset filename
     if (($# != 0)) ; then
 	filename="$1"

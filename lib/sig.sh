@@ -123,32 +123,51 @@ _Dbg_exit_handler() {
     eval $_Dbg_old_EXIT_handler
   fi
 
-  # Note that we are no longer running a program
-  _Dbg_running=0
-
-  typeset term_msg="normally"
+  typeset term_msg=${1:-"normally"}
   if [[ $_Dbg_debugged_exit_code != 0 ]] ; then
     term_msg="with code $_Dbg_debugged_exit_code"
   fi
 
   # If we tried to exit from inside a subshell, we only want to enter
   # the command loop if don't have any pending subshells.
-  if (( ZSH_SUBSHELL == 0 )) ; then
-    _Dbg_msg \
-      "Debugged program terminated $term_msg. Use q to quit or R to restart."
+  if (( ZSH_SUBSHELL == 0 )) && ((_Dbg_running)) ; then
 
-    _Dbg_running=0
-    _Dbg_exit_from_exit_handler=0
-    _Dbg_in_exit_handler=1
-    setopt shwordsplit ksharrays
-    while : ; do
-	_Dbg_process_commands
-	if (($_Dbg_exit_from_exit_handler != 0)); then
-	    break
+    typeset -a wc=( $(tty) )
+    typeset -i have_tty
+    (( have_tty = (${#wc[@]} == 1) ))
+
+    typeset message="Debugged program terminated $term_msg."
+    if (( have_tty )); then
+	if _Dbg_can_be_a_tty $(tty); then
+	    message="${message} Use q to quit or R to restart."
+	else
+	    have_tty=0
 	fi
-    done
+    fi
+
+    if ((_Dbg_running)); then
+	_Dbg_msg $message
+    fi
+
+    # Note that we are no longer running a program
+    _Dbg_running=0
+
+    if (( have_tty )); then
+        _Dbg_set_tty $(tty)
+        _Dbg_exit_from_exit_handler=0
+        _Dbg_in_exit_handler=1
+        setopt shwordsplit ksharrays
+        _Dbg_stop_reason="in post mortem"
+        while : ; do
+	    _Dbg_process_commands
+	    if (($_Dbg_exit_from_exit_handler != 0)); then
+                break
+	    fi
+        done
+    fi
   fi
-  return $((128+$_Dbg_debugged_exit_code))
+  trap '' DEBUG
+  exit $((128+$_Dbg_debugged_exit_code))
 }
 
 # Generic signal handler. We consult global array _Dbg_sig_* for how

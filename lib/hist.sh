@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # hist.sh - Shell Debugger history routines
 #
-#   Copyright (C) 2008, 2011, 2014, 2019 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008, 2011, 2014, 2019, 2023 Rocky Bernstein rocky@gnu.org
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -51,10 +51,12 @@ _Dbg_history_write() {
 	typeset -i start=0
 	typeset -i i
 	((_Dbg_history_size < last+1)) && ((start=last+1-_Dbg_history_size))
-	for ((i=start; i<=last; i++)); do
-	    buffer=(${history[i]})
-	    ((last > 2)) && buffer[0]=()
-	    print -- "${buffer[@]}" >> $_Dbg_histfile;
-	done
+	if (( ${#buffer[@]} > 0 )); then
+	    for ((i=start; i<=last; i++)); do
+		buffer=(${history[i]})
+		((last > 2)) && buffer[0]=()
+		print -- "${buffer[@]}" >> $_Dbg_histfile;
+	    done
+	fi
     fi
 }

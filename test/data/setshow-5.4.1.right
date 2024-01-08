@@ -268,11 +268,11 @@ of promoting the sharing and reuse of software generally.
 +#### Invalid commands...
 +show badcommand
 Undefined show command: "badcommand".  Try "help show".
-+another-bad-command 
++another-bad-command
 ** Undefined command "another-bad-command". Try "help".
 +set history size 10
 +set history file /tmp/zshdb_hist
-+show 
++show
 show alias       -- Show list of aliases currently in effect.
 show annotate    -- Show annotation_level
 show autoeval    -- Evaluate unrecognized commands is off.
@@ -325,13 +325,13 @@ Line width is 40.
 +# show history
 +# set history save on
 +# show history
-+######################### 
++#########################
 +#### Test 'show commands'...
 +# show commands
 +# show commands +
 +# show commands -5
 +# show commands 12
-+######################### 
++#########################
 +#### Test 'autoeval'...
 +set autoeval on
 Evaluate unrecognized commands is on.
@@ -342,14 +342,6 @@ $? is 0
 Evaluate unrecognized commands is off.
 +xx=1 ; declare -p xx
 ** Undefined command "xx=1". Try "help".
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-breakpoints
-No breakpoints have been set.
-
-stack
-** The program is not being run.
-
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

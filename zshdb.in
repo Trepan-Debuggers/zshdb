@@ -126,20 +126,16 @@ if [[ -n $_Dbg_script_file ]] ; then
 fi
 typeset _Dbg_dollar_0=$0
 
-while : ; do
-  # trap 'echo ERR encountered inside debugger' ERR
+typeset -i _Dbg_is_running_program=1
+# trap 'echo ERR encountered inside debugger' ERR
 
-  _Dbg_set_to_return_from_debugger
-  _Dbg_step_ignore=2
-  emulate -R zsh
-  trap '_Dbg_trap_handler $? "$0" "$@"
-    case $_Dbg_rc in
-    2 ) setopt errexit ;;
-    255 ) return $_Dbg_return_rc ;;
-    *   ) ;;
-    esac' DEBUG
-  . "$_Dbg_source_file" ${_Dbg_script_args[@]}
-  trap '' DEBUG
-  _Dbg_msg "Program terminated. Type 's' or 'R' to restart."
-  _Dbg_process_commands
-done
+_Dbg_set_to_return_from_debugger
+_Dbg_step_ignore=2
+emulate -R zsh
+trap '_Dbg_trap_handler $? "$0" "$@"
+  case $_Dbg_rc in
+  2 ) setopt errexit ;;
+  255 ) return $_Dbg_return_rc ;;
+  *   ) ;;
+  esac' DEBUG
+. "$_Dbg_source_file" ${_Dbg_script_args[@]}

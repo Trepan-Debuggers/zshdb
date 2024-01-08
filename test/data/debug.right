@@ -19,13 +19,9 @@ if (( $# > 0 )) then echo "passed $1" exit 1 fi
 ->0 in file `debug.sh' at line 3
 +print _Dbg_DEBUGGER_LEVEL is $_Dbg_DEBUGGER_LEVEL
 _Dbg_DEBUGGER_LEVEL is 2
-+continue 
++continue
 passed 1
-Debugged program terminated with code 1. Use q to quit or R to restart.
-
+Debugged program terminated with code 1.
++quit
 zshdb: That's all, folks...
-+quit 
-zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

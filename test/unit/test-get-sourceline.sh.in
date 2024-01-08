@@ -12,9 +12,9 @@ abs_top_srcdir=${abs_top_srcdir%%/}/
 # Test _Dbg_get_source_line
 test_get_source_line()
 {
-    typeset source_line
+    typeset _Dbg_source_line
     _Dbg_get_source_line 2 $this_script
-    assertEquals '# -*- shell-script -*-' "$source_line"
+    assertEquals '# -*- shell-script -*-' "$_Dbg_source_line"
 }
 
 # # Test _Dbg_get_source_line
@@ -55,7 +55,7 @@ test_get_source_line_with_spaces()
     # will work with git only.
     if [[ -f "$_Dbg_frame_filename" ]] ; then
 	_Dbg_get_source_line 2 "$_Dbg_frame_filename"
-	assertEquals 'x=1' "$source_line"
+	assertEquals 'x=1' "$_Dbg_source_line"
     else
 	echo "Skipping test due to autoconf problems"
 	assertEquals 'skipped' 'skipped'

@@ -1,6 +1,6 @@
 (nexting.sh:3):
 p () { print ${funcfiletrace[0]##*/} print '===' }
-+############################### 
++###############################
 +break 5
 Breakpoint 1 set in file nexting.sh, line 5.
 +break 3
@@ -18,7 +18,7 @@ Breakpoint entry 1 disabled.
 +# Invalid disable
 +disable 10
 ** Breakpoint entry 10 doesn't exist, so nothing done.
-+continue 
++continue
 Breakpoint 2 hit.
 (nexting.sh:3):
 print ${funcfiletrace[0]##*/}
@@ -39,7 +39,7 @@ Breakpoint entry 2 disabled.
 Breakpoint 3 set in file nexting.sh, line 6.
 +enable 10
 ** Breakpoint entry 10 doesn't exist, so nothing done.
-+continue 
++continue
 nexting.sh:5
 ===
 Breakpoint 3 hit.
@@ -59,7 +59,7 @@ Program stopped.
 It stopped at breakpoint 3.
 Next statement to be run is:
 p
-+c 
++c
 nexting.sh:6
 ===
 Breakpoint 3 hit.
@@ -73,8 +73,6 @@ Num Type       Disp Enb What
     breakpoint already hit 1 time
 3   breakpoint keep y   nexting.sh:6
     breakpoint already hit 2 times
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

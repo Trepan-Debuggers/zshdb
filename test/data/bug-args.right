@@ -20,7 +20,7 @@ shift 2
 c
 +pr $5
 e
-+step 
++step
 (bug-args.sh:7):
 0="foo"
 +# There should now be 3 args set and $5 should not have a value
@@ -40,8 +40,6 @@ exit 0
 +eval echo "Dollar 0 from eval is now $0"
 Dollar 0 from eval is now foo
 $? is 0
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.

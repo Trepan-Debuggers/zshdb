@@ -1,7 +1,7 @@
 #  -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
-#   Copyright (C) 2008, 2009, 2010, 2011, 2018
+#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2023
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -20,7 +20,6 @@
 #   MA 02111 USA.
 
 typeset -i _Dbg_set_debug=0       # 1 if we are debug the debugger
-typeset    _Dbg_stop_reason=''    # The reason we are in the debugger.
 typeset -i _Dbg_rc=0
 
 typeset -i _Dbg_QUIT_LEVELS=0     # Number of nested shells we have to exit
@@ -267,7 +266,13 @@ _Dbg_cleanup2() {
 }
 
 _Dbg_hook_error_handler() {
-    print ERROR AT: ${funcfiletrace[@]}
-    # Set to make sure we stop after we return
-    _Dbg_write_journal_eval "_Dbg_step_ignore=1"
+
+    # Note: In a subshell, the  "quit" command issues "return 0" which invalid.
+    # It raises an error seen here.
+
+    _Dbg_source_journal
+    if [[ $_Dbg_stop_reason != "user issued quit" ]]; then
+	# Set to make sure we stop after we return
+	_Dbg_write_journal_eval "_Dbg_step_ignore=1"
+    fi
 }

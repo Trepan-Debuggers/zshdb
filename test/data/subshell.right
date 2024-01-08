@@ -3,19 +3,19 @@ x=2
 +# Test of debugging through a subshell
 +x x
 x
-+step 
++step
 (subshell.sh:3):
 ( x='line 3' y='line 4' )
 +examine x
 typeset -g x=2
-+s 
++s
 (subshell.sh:3):
 x='line 3'
 +print $ZSH_SUBSHELL
 1
 +examine x
 typeset -g x=2
-+s 
++s
 (subshell.sh:4):
 y='line 4'
 +# Set inside a subshell
@@ -24,7 +24,7 @@ Evaluate unrecognized commands is on.
 +examine x
 typeset -g x='line 3'
 +# fc -l
-+s 
++s
 (subshell.sh:6):
 ( x=$(print line 7) y='line 8' )
 +x x
@@ -44,10 +44,6 @@ typeset -g x='line 7'
 +print $ZSH_SUBSHELL
 1
 +# A quit inside a nested subshell.
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-+s 3
-** The program is not being run.
-
-zshdb: That's all, folks...
+Debugged program terminated normally.

@@ -1,9 +1,9 @@
 (subshell.sh:2):
 x=2
 +set showcommand 1
-+export 
++export
 ** Expecting at least one variable name; got none.
-+step 
++step
 (subshell.sh:3):
 ( x='line 3' y='line 4' )
 +export foo
@@ -17,10 +17,10 @@ Breakpoint 1 hit.
 x='line 3'
 +set autoeval on
 Evaluate unrecognized commands is on.
-+step 
++step
 (subshell.sh:4):
 y='line 4'
-+x=30 
++x=30
 $? is 0
 +export x
 +c 10
@@ -30,8 +30,6 @@ Breakpoint 2 hit.
 x=10
 +x x
 typeset -g x=30
-+quit 
++quit
 zshdb: That's all, folks...
-Debugged program terminated normally. Use q to quit or R to restart.
-
-zshdb: That's all, folks...
+Debugged program terminated by user exit.
