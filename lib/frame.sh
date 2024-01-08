@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 # frame.sh - Call Stack routines
-#   Copyright (C) 2008, 2010, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2010, 2011, 2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -132,6 +132,7 @@ _Dbg_frame_file() {
     # FIXME check to see that $1 doesn't run off the end.
     typeset -i pos=${1:-$_Dbg_stack_pos}
     typeset -i basename_only=${2:-$_Dbg_set_basename}
+    typeset -p _Dbg_frame_stack
     typeset file_line="${_Dbg_frame_stack[$pos]}"
     typeset -a split_result; _Dbg_split "$file_line" ':'
     _Dbg_frame_filename=${split_result[0]}

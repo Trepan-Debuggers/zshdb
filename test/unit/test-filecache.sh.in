@@ -5,7 +5,7 @@ test_filecache_readin_maxline()
 {
     typeset filename
     shu=$(_Dbg_resolve_expand_filename $shunit_file)
-    _Dbg_readin ${shu}
+    _Dbg_readin_if_new ${shu}
     assertEquals "Read ${shu} status test" '0' $?
     typeset file2
     file2=$(_Dbg_is_file ${shu})
@@ -20,7 +20,7 @@ test_filecache_readin_maxline()
 
 # Test check_line
 # test should appear after tests which read in source.
-test_filecache_check_line() 
+test_filecache_check_line()
 {
     _Dbg_errmsg() {
 	errmsg+=("$1")
@@ -28,11 +28,11 @@ test_filecache_check_line()
     typeset -a errmsg; errmsg=()
     _Dbg_check_line
     assertNotEquals "check_line with wrong number of args" '0' $?
-    _Dbg_check_line a 
+    _Dbg_check_line a
     assertNotEquals "check_line with wrong number of args" '0' $?
     _Dbg_check_line a b c
     assertNotEquals "check_line with wrong number of args" '0' $?
-    _Dbg_readin "$shunit_file"
+    _Dbg_readin_if_new "$shunit_file"
     _Dbg_check_line 10 $shunit_file
     assertEquals "check_line with an in_range number for $shunit_file" '0' $?
     assertEquals "error queue empty so far for $shunit_file" '0' ${#errmsg[@]}

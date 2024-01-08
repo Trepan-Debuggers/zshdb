@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # Things related to tty
 #
-#   Copyright (C) 2008, 2011, 2023 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2023-2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   zshdb is free software; you can redistribute it and/or modify it under
 #   the terms of the GNU General Public License as published by the Free
@@ -36,7 +36,7 @@ function _Dbg_can_be_a_tty {
     return 0
 }
 
-function _Dbg_open_if_tty {
+_Dbg_open_if_tty() {
     (( $# != 1 )) && return 1
     if ! _Dbg_can_be_a_tty $1; then
 	return 1
@@ -66,15 +66,16 @@ function _Dbg_open_if_tty {
 # Redirect input and output to tty $1
 # Stéphane Chazelas also suggests considering
 ## clone $tty
-function _Dbg_set_tty {
-  if (( $# != 1 )) ; then
+_Dbg_set_tty() {
+
+    if (( $# != 1 )) ; then
     _Dbg_errmsg "Need a single tty parameter; got $# args instead."
     return 1
-  fi
-  if _Dbg_open_if_tty $1 ; then
-      _Dbg_fd=($_Dbg_new_fd "${_Dbg_fd[@]}")
-      _Dbg_fdi=${_Dbg_fd[-1]}
-  else
-      _Dbg_errmsg "$1 is not reputed to be a tty."
-  fi
+    fi
+    if _Dbg_open_if_tty $1 ; then
+	_Dbg_fd=($_Dbg_new_fd "${_Dbg_fd[@]}")
+	_Dbg_fdi=${_Dbg_fd[-1]}
+    else
+	_Dbg_errmsg "$1 is not reputed to be a tty."
+    fi
 }
