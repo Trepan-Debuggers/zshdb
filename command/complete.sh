@@ -1,6 +1,6 @@
 # complete.sh - gdb-like 'complete' command
 #
-#   Copyright (C) 2010-2011, 2016, 2021, 2023 Rocky Bernstein
+#   Copyright (C) 2010-2011, 2016, 2021, 2023-2024 Rocky Bernstein
 #   <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -180,7 +180,7 @@ if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     source "./help.sh"
     source "../lib/msg.sh"
     _Dbg_libdir='..'
-    for _Dbg_file in ${_Dbg_libdir}/command/c*.sh ; do
+    for _Dbg_file in "${_Dbg_libdir}"/command/c*.sh ; do
     	source "$_Dbg_file"
     done
 
