@@ -1,0 +1,15 @@
+(bug-step-subshell.sh:2):
+( echo inside subshell )
+(bug-step-subshell.sh:2):
+echo inside subshell
+Argument count is 0 for this call.
+Argument count is 0 for this call.
+zshdb<(5)>
+$? is 0
+inside subshell
+(bug-step-subshell.sh:3):
+echo out of subshell
+zshdb<6>
+$? is 0
+zshdb: That's all, folks...
+Debugged program terminated by user exit.
