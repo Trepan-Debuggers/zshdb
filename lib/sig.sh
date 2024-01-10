@@ -2,7 +2,7 @@
 #  Signal handling routines
 #
 #   Copyright (C) 2002, 2003, 2004, 2006, 2007, 2008, 2010,
-#   2011, 2023 Rocky Bernstein <rocky@gnu.org>
+#   2011, 2023-2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -160,7 +160,7 @@ _Dbg_exit_handler() {
         _Dbg_stop_reason="in post mortem"
         while : ; do
 	    _Dbg_process_commands
-	    if (($_Dbg_exit_from_exit_handler != 0)); then
+	    if ((_Dbg_exit_from_exit_handler != 0)); then
                 break
 	    fi
         done

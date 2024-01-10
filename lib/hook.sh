@@ -1,7 +1,7 @@
 #  -*- shell-script -*-
 # hook.sh - Debugger trap hook
 #
-#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2023
+#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2023-2024
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -236,7 +236,7 @@ _Dbg_hook_enter_debugger() {
     _Dbg_print_location_and_command
     _Dbg_process_commands
     _Dbg_set_to_return_from_debugger $?
-    if (( $_Dbg_skip_ignore != 0 )) ; then
+    if (( _Dbg_skip_ignore != 0 )) ; then
 	# Set to skip instruction
 	set -o errexit
     fi
