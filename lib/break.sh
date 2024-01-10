@@ -68,15 +68,15 @@ typeset -A _Dbg_brkpt_file2brkpt; _Dbg_brkpt_file2brkpt=()
 #========================= FUNCTIONS   ============================#
 
 function _Dbg_save_breakpoints {
-  typeset -p _Dbg_brkpt_line         >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_file         >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_cond         >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_counts       >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_enable       >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_onetime      >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_max          >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_file2linenos >> $_Dbg_statefile
-  typeset -p _Dbg_brkpt_file2brkpt   >> $_Dbg_statefile
+  typeset -p _Dbg_brkpt_line         >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_file         >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_cond         >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_counts       >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_enable       >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_onetime      >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_max          >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_file2linenos >> "$_Dbg_statefile"
+  typeset -p _Dbg_brkpt_file2brkpt   >> "$_Dbg_statefile"
 
 }
 
@@ -86,7 +86,7 @@ _Dbg_breakpoint_list() {
     for ((i=0; i<=${#_Dbg_brkpt_file[@]}; i++)) ; do
 	[[ -n ${_Dbg_brkpt_file[i]} ]] && list="${list}${i} "
     done
-    echo $list
+    echo "$list"
 }
 
 
@@ -108,7 +108,7 @@ _Dbg_enable_disable() {
     typeset i
     for i in $to_go ; do
       if [[ $i == [0-9]* ]] ; then
-	  _Dbg_enable_disable_display $on $en_dis $i
+	  _Dbg_enable_disable_display "$on" "$en_dis" "$i"
       else
 	  _Dbg_errmsg "Invalid entry number skipped: $i"
       fi
@@ -181,7 +181,7 @@ function _Dbg_clear_all_brkpt {
   _Dbg_write_journal_eval "_Dbg_brkpt_count=0"
 }
 
-# Internal routine to a set breakpoint unconditonally.
+# Internal routine to a set breakpoint unconditionally.
 
 _Dbg_set_brkpt() {
     (( $# < 3 || $# > 4 )) && return 1
@@ -313,7 +313,7 @@ function _Dbg_delete_brkpt_entry {
 		_Dbg_errmsg 'internal brkpt structure inconsistency'
 		return 1
 	    fi
-	    _Dbg_unset_brkpt_arrays $del
+	    _Dbg_unset_brkpt_arrays "$del"
 	    ((found++))
 	else
 	    new_lineno_val+=" $try"
@@ -344,7 +344,9 @@ function _Dbg_enable_disable_brkpt {
 
     for i in "${brkpts[@]}";  do
 	if [[ -n "${_Dbg_brkpt_file[$i]}" ]] ; then
-	    if [[ ${_Dbg_brkpt_enable[$i]} == $on ]] ; then
+	    # shellcheck disable=SC2053
+	    # shellcheck disable=SC2053
+	    if [[ ${_Dbg_brkpt_enable[$i]} == "$on" ]] ; then
 		_Dbg_errmsg "Breakpoint entry $i already ${en_dis}, so nothing done."
 		rc=1
 	    else

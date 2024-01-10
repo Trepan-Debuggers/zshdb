@@ -82,7 +82,7 @@ _Dbg_list_action() {
   fi
 }
 
-# Internal routine to a set action unconditonally.
+# Internal routine to a set action unconditionally.
 
 _Dbg_set_action() {
     (( $# != 3 )) && return 1

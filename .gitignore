@@ -1,8 +1,8 @@
 /*.tar.bz2
 /*.tar.gz
 /*~
+/.idea
 /.python-version
-/Makefile
 /Makefile
 /Makefile.in
 /aclocal.m4
