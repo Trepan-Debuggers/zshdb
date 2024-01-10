@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # run command.
 #
-#   Copyright (C) 2008-2010, 2016, 2023 Rocky Bernstein rocky@gnu.org
+#   Copyright (C) 2008-2010, 2016, 2023-2024
+#   Rocky Bernstein rocky@gnu.org
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -80,7 +81,7 @@ _Dbg_do_run() {
 
   builtin cd $_Dbg_init_cwd
 
-  if (( $_Dbg_in_exit_handler != 0)); then
+  if (( _Dbg_in_exit_handler != 0)); then
       _Dbg_cleanup
   fi
   eval "exec $exec_cmd"

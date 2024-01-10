@@ -1,5 +1,5 @@
 # -*- shell-script -*-
-#   Copyright (C) 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -34,15 +34,15 @@ _Dbg_do_export() {
       # return 1
   fi
 
-  if (( 0 == $ZSH_SUBSHELL )) ; then
+  if (( 0 == ZSH_SUBSHELL )) ; then
       _Dbg_errmsg "You are not in a subshell, so no value(s) need saving."
       return 0
       # return 2
   fi
 
   typeset var_name
-  for var_name in  $@ ; do
-      _Dbg_defined $var_name
+  for var_name in "$@"; do
+      _Dbg_defined "$var_name"
       if (( $? == 0 )) ; then
           typeset val
           typeset val_cmd="val=\${$var_name}"

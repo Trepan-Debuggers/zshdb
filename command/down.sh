@@ -21,7 +21,7 @@
 
 if [[ 0 == "${#funcfiletrace[@]}" ]] ; then
     dirname=${0%/*}
-    [[ $dirname == $0 ]] && top_dir='..' || top_dir="${dirname}/.."
+    [[ $dirname == "$0" ]] && top_dir='..' || top_dir="${dirname}/.."
     for lib_file in help alias ; do source "$top_dir/lib/${lib_file}.sh"; done
 fi
 
@@ -57,7 +57,7 @@ function _Dbg_do_down {
 }
 
 # Demo it
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+if [[ 0 == "${#funcfiletrace[@]}" ]] ; then
     for _Dbg_file in  help msg sort columnize ; do
         source "${top_dir}/lib/${_Dbg_file}.sh"
     done
