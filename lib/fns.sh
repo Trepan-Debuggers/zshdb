@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # fns.sh - Debugger Utility Functions
 #
-#   Copyright (C) 2008, 2009, 2010, 2011, 2021 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2009, 2010, 2011, 2021, 2024
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -99,7 +100,7 @@ _Dbg_get_typeset_attr() {
 	fi
     fi
     ((!_Dbg_set_debug)) && cmd+=' | grep -v ^_Dbg_'
-    eval $cmd
+    eval "$cmd"
 }
 
 # Print "on" or "off" depending on whether $1 is true (0) or false
@@ -120,7 +121,7 @@ function _Dbg_set_dol_q {
 function _Dbg_split {
     local string="$1"
     local separator="$2"
-    IFS="$separator" read -A split_result <<< $string
+    IFS="$separator" read -A split_result <<< "$string"
 }
 
 # Common routine for setup of commands that take a single

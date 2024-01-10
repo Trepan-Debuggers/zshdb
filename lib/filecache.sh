@@ -78,7 +78,6 @@ function _Dbg_get_maxline {
     # If the file had a final newline the last line of the data read in
     # is the empty string.  We want to count the last line whether or
     # not it had a newline.
-    typeset -i last_not_null
     [[ -z $last_line ]] && last_line_is_null=1 || last_line_is_null=0
     eval "print \$((\${#${_Dbg_source_array_var}[@]}-$last_line_is_null))"
     return $?
@@ -187,8 +186,6 @@ _Dbg_readin() {
 	filename="$_Dbg_frame_filename"
     fi
 
-    typeset -i line_count=0
-
     typeset -i next;
     next=${#_Dbg_filenames[@]}
     _Dbg_source_array_var="_Dbg_source_${next}"
@@ -214,7 +211,7 @@ _Dbg_readin() {
 		if (( 0  == $? )) ; then
 		    eval "$_Dbg_highlight_array_var=( \"\${(f@)mapfile[$tempfile]}\" )"
 		fi
-		[[ -r $tempfile ]] && rm $tempfile
+		[[ -r $tempfile ]] && rm "$tempfile"
 
 	    fi
 	else

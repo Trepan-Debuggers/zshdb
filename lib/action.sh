@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 #
-#   Copyright (C) 2010, 2023 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2010, 2023-2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -51,13 +51,13 @@ typeset -A _Dbg_action_file2linenos; _Dbg_action_file2linenos=()
 #========================= FUNCTIONS   ============================#
 
 function _Dbg_save_actions {
-  typeset -p _Dbg_action_line         >> $_Dbg_statefile
-  typeset -p _Dbg_action_file         >> $_Dbg_statefile
-  typeset -p _Dbg_action_enable       >> $_Dbg_statefile
-  typeset -p _Dbg_action_stmt         >> $_Dbg_statefile
-  typeset -p _Dbg_action_max          >> $_Dbg_statefile
-  typeset -p _Dbg_action_file2linenos >> $_Dbg_statefile
-  typeset -p _Dbg_action_file2action  >> $_Dbg_statefile
+  typeset -p _Dbg_action_line         >> "$_Dbg_statefile"
+  typeset -p _Dbg_action_file         >> "$_Dbg_statefile"
+  typeset -p _Dbg_action_enable       >> "$_Dbg_statefile"
+  typeset -p _Dbg_action_stmt         >> "$_Dbg_statefile"
+  typeset -p _Dbg_action_max          >> "$_Dbg_statefile"
+  typeset -p _Dbg_action_file2linenos >> "$_Dbg_statefile"
+  typeset -p _Dbg_action_file2action  >> "$_Dbg_statefile"
 }
 
 # list actions
@@ -72,9 +72,9 @@ _Dbg_list_action() {
       if [[ -n ${_Dbg_action_line[$i]} ]] ; then
 	typeset source_file=${_Dbg_action_file[$i]}
 	source_file=$(_Dbg_adjust_filename "$source_file")
-	_Dbg_printf "%-3d %3d %-18s %s:%s" $i ${_Dbg_action_enable[$i]} \
+	_Dbg_printf "%-3d %3d %-18s %s:%s" $i "${_Dbg_action_enable[$i]}" \
 	  "${_Dbg_action_stmt[$i]}" \
-	  $source_file ${_Dbg_action_line[$i]}
+	  "$source_file" "${_Dbg_action_line[$i]}"
       fi
     done
   else
