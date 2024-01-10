@@ -125,7 +125,7 @@ typeset _Dbg_set_trace_commands='off'
 typeset -x _Dbg_space_IFS=$' \t\r\n'
 
 # Number of statements to run before entering the debugger.  Is used
-# intially to get out of sourced dbg-main.inc script and in top-level
+# initially to get out of sourced dbg-main.inc script and in top-level
 # debugger script to not stop in remaining debugger statements before
 # the sourcing the script to be debugged.
 typeset -i _Dbg_step_ignore=1

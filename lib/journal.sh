@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # Things related to variable journaling.
 #
-#   Copyright (C) 2008, 2011, 2017, 2021 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2017, 2021, 2024
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -45,11 +46,11 @@ typeset -fuz is-at-least
 
 _Dbg_write_journal_avar() {
     if (( ZSH_SUBSHELL != 0 )) ; then
-	if is-at-least 5.4.1 ; then
-	    typeset -p $1 >> ${_Dbg_journal} 2>/dev/null
-	else
-	    typeset -p $1 | grep -v ^typeset >> ${_Dbg_journal} 2>/dev/null
-	fi
+        if is-at-least 5.4.1 ; then
+            typeset -p "$1" >> "${_Dbg_journal}" 2>/dev/null
+        else
+            typeset -p "$1" | grep -v ^typeset >> "${_Dbg_journal}" 2>/dev/null
+        fi
     fi
 }
 
@@ -57,7 +58,7 @@ _Dbg_write_journal_avar() {
 # if we are in a subshell.
 _Dbg_write_journal() {
   if (( ZSH_SUBSHELL != 0 )) ; then
-    echo "$@" >> ${_Dbg_journal} 2>/dev/null
+    echo "$@" >> "${_Dbg_journal}" 2>/dev/null
   fi
   return $?
 }
@@ -71,7 +72,7 @@ _Dbg_erase_journals() {
 # read in or "source" in journal file which will set variables.
 _Dbg_source_journal() {
 
-  if [ -r $_Dbg_journal ] ; then
+  if [ -r "$_Dbg_journal" ] ; then
     . "$_Dbg_journal"
     (( ZSH_SUBSHELL == 0 )) && _Dbg_erase_journals
   fi

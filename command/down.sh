@@ -1,8 +1,8 @@
 # -*- shell-script -*-
 # gdb-like "down" debugger command
 #
-#   Copyright (C) 2010-2012, 2014, 2016, 2021 Rocky Bernstein
-#   <rocky@gnu.org>
+#   Copyright (C) 2010-2012, 2014, 2016, 2021, 2024
+#  Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -19,9 +19,9 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+if [[ 0 == "${#funcfiletrace[@]}" ]] ; then
     dirname=${0%/*}
-    [[ $dirname == $0 ]] && top_dir='..' || top_dir=${dirname}/..
+    [[ $dirname == $0 ]] && top_dir='..' || top_dir="${dirname}/.."
     for lib_file in help alias ; do source "$top_dir/lib/${lib_file}.sh"; done
 fi
 
@@ -44,7 +44,7 @@ _Dbg_complete_level_1_data[down]='-f_Dbg_frame_complete -1'
 
 function _Dbg_do_down {
     _Dbg_not_running && return 1
-    typeset count=${1:-1}
+    typeset -i count=${1:-1}
     _Dbg_is_signed_int $count
     if (( 0 == $? )) ; then
         _Dbg_frame_adjust $count -1
