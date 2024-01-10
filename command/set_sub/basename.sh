@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # "set basename" debugger command
 #
-#   Copyright (C) 2011, 2014, 2016, 2020 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2011, 2014, 2016, 2020, 2024 
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -18,9 +19,9 @@
 #   the Free Software Foundation, 59 Temple Place, Suite 330, Boston,
 #   MA 02111 USA.
 
-if [[ 0 == ${#funcfiletrace[@]} ]] ; then
+if [[ 0 == "${#funcfiletrace[@]}" ]] ; then
     dirname=${0%/*}
-    [[ $dirname == $0 ]] && top_dir='../..' || top_dir=${dirname}/../..
+    [[ $dirname == "$0" ]] && top_dir='../..' || top_dir=${dirname}/../..
     for lib_file in help alias ; do source "$top_dir/lib/${lib_file}.sh"; done
     typeset -A _Dbg_command_help_set
     typeset -A _Dbg_debugger_set_commands

@@ -1,8 +1,8 @@
 # -*- shell-script -*-
 # gdb-like "info display" debugger command
 #
-#   Copyright (C) 2010-2011, 2014, 2016, 2019 Rocky Bernstein
-#   <rocky@gnu.org>
+#   Copyright (C) 2010-2011, 2014, 2016, 2019, 2024
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -38,7 +38,7 @@ _Dbg_do_info_display() {
 	for (( i=0; i < _Dbg_disp_max; i++ )) ; do
 	    if [ -n "${_Dbg_disp_exp[$i]}" ] ;then
 		_Dbg_printf '%-3d %3d %s' \
-		    $i ${_Dbg_disp_enable[$i]} "${_Dbg_disp_exp[$i]}"
+		    $i "${_Dbg_disp_enable[$i]}" "${_Dbg_disp_exp[$i]}"
 	    fi
 	done
     else
