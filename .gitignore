@@ -3,6 +3,7 @@
 /*~
 /.idea
 /.python-version
+/.vscode
 /Makefile
 /Makefile.in
 /aclocal.m4

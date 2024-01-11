@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # dbg-processor.sh - Top-level debugger commands
 #
-#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2021, 2023
+#   Copyright (C) 2008, 2009, 2010, 2011, 2018, 2021, 2023-2024
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -125,7 +125,9 @@ function _Dbg_process_commands {
               eval "_Dbg_prompt=\"$_Dbg_prompt_str \"" 2>/dev/null
 	  fi
 
-          ((_Dbg_cmd_num++))
+	  ((_Dbg_cmd_num++))
+          _Dbg_write_journal_eval "_Dbg_cmd_num=$_Dbg_cmd_num"
+
           if ((0 == _Dbg_in_vared)) && [[ -t $_Dbg_fdi ]]; then
               _Dbg_in_vared=1
               vared -e -h -p "$_Dbg_prompt" -t "$_Dbg_tty" line || break

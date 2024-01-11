@@ -9,7 +9,7 @@ $? is 0
 inside subshell
 (bug-step-subshell.sh:3):
 echo out of subshell
-zshdb<6>
+zshdb<8>
 $? is 0
 zshdb: That's all, folks...
 Debugged program terminated by user exit.
