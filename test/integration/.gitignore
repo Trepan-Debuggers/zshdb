@@ -12,6 +12,7 @@
 /test-bug-delete
 /test-bug-errexit
 /test-bug-ksharrays
+/test-bug-step-subshell
 /test-bugIFS
 /test-bugIFS2
 /test-condition

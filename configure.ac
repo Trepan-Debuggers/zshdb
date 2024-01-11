@@ -118,6 +118,8 @@ AC_CONFIG_FILES([test/integration/test-bugIFS2],
                 [chmod +x test/integration/test-bugIFS2])
 AC_CONFIG_FILES([test/integration/test-bug-ksharrays],
                 [chmod +x test/integration/test-bug-ksharrays])
+AC_CONFIG_FILES([test/integration/test-bug-step-subshell],
+                [chmod +x test/integration/test-bug-step-subshell])
 AC_CONFIG_FILES([test/integration/test-condition],
                 [chmod +x test/integration/test-condition])
 AC_CONFIG_FILES([test/integration/test-debug],
