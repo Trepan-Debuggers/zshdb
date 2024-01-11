@@ -66,7 +66,7 @@ _Dbg_show_version() {
 
 # Script arguments before adulteration by _Dbg_parse_opts
 typeset -xa _Dbg_orig_script_args
-_Dbg_orig_script_args=($@)
+_Dbg_orig_script_args=("$@")
 
 # The following globals are set by _Dbg_parse_opts. Any values set are
 # the default values.
@@ -101,7 +101,7 @@ builtin bindkey -e
 
 typeset -xi _Dbg_working_term_highlight
 
-if ${_Dbg_libdir}/lib/term-highlight.py -V 2>/dev/null  1>/dev/null ; then
+if "${_Dbg_libdir}/lib/term-highlight.py" -V 2>/dev/null  1>/dev/null ; then
     _Dbg_working_term_highlight=1
 else
     _Dbg_working_term_highlight=0
@@ -197,7 +197,7 @@ _Dbg_parse_options() {
 	    _Dbg_highlight_enabled=0
 		_Dbg_set_highlight=''  	;;
 	    init-file )
-		_Dbg_o_init_files+="$OPTLARG"
+		_Dbg_o_init_files+=("$OPTLARG")
 		;;
 	    L | library ) 		;;
 	    V | version )

@@ -24,7 +24,7 @@
 # All debugger lib code has to come before debugger command code.
 typeset _Dbg_file
 for _Dbg_file in "${_Dbg_libdir}"/lib/*.sh "${_Dbg_libdir}"/command/*.sh ; do
-    source $_Dbg_file
+    source "$_Dbg_file"
 done
 
 unsetopt localtraps
@@ -40,7 +40,7 @@ if [[ -z "$_Dbg_tty" ]]; then
     _Dbg_tty=$(tty)
     [[ $_Dbg_tty == 'not a tty' ]] && unset _Dbg_tty
 fi
-[[ -n "$_Dbg_tty" ]] && _Dbg_do_set inferior-tty $_Dbg_tty
+[[ -n "$_Dbg_tty" ]] && _Dbg_do_set inferior-tty "$_Dbg_tty"
 
 # Run the user's debugger startup file. This has to come
 # *after* setting up the tty since _Dbg_do_set inferior-tty
@@ -57,13 +57,13 @@ if [[ -z "${_Dbg_DEBUGGER_LEVEL}" ]] ; then
 fi
 
 if ((_Dbg_history_save)) ; then
-    history -ap $_Dbg_histfile $_Dbg_history_size
+    history -ap "$_Dbg_histfile" $_Dbg_history_size
 fi
 
-for source_file in ${_Dbg_o_init_files[@]} "$DBG_RESTART_FILE";  do
+for source_file in "${_Dbg_o_init_files[@]}" "$DBG_RESTART_FILE";  do
     if [[ -n "$source_file" ]] ; then
 	if [[ -r "$source_file" ]] && [[ -f "$source_file" ]] ; then
-	    source $source_file
+	    source "$source_file"
 	else
 	    _Dbg_errmsg "Unable to read shell script: ${source_file}"
 	fi
