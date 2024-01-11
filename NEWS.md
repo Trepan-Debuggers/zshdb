@@ -19,7 +19,7 @@ Very minor improvements
 
 - Add "show prompt" to "show" list
 - add "show dir"  to "show" list
-- Show *all* Pygments sytles a has installed, not just builtins. (John Purnell in bashdb)
+- Show *all* Pygments styles a has installed, not just builtins. (John Purnell in bashdb)
 - Fix typo which prevented syntax highlighting option from working (MenkeTechnologies)
 
 Version 1.1.1 2019-11-17 JNC
@@ -66,7 +66,7 @@ Version 1.0.0 2018-10-27
 - Untabify some sources
 - Better handling of paths with embedded blanks
 - Add --tty_in and --terminal_in
-- backtrace with more eatures
+- backtrace with more features
      * Allow negative count.
      * Option -s or --source show source-code line in backtrace
 - Document how tests work
@@ -84,7 +84,7 @@ Version 0.92 2016-07-06
 
 - Allow source-code colorization via pygments style.
   use "set style"
-- Help text now formated via Rst.
+- Help text now formatted via Rst.
 - Paragraph reflow adjusts to line width
 - Revise help docs
 
@@ -93,7 +93,7 @@ Version 0.91
 
 - Report deleted breakpoints This helps front-ends like realgud
 - Fix some of the highlight bugs
-- add parameter to option --highlight=dark|light. We now accomdate dark terminals more properly.
+- add parameter to option --highlight=dark|light. We now accommodate dark terminals more properly.
 - 2st level completion of "set" and "show" and "info" commands
 - frame order on completion respected
 - add underline attribute and use it for errors and debugger prompt
@@ -161,7 +161,7 @@ Version 0.05 2010-10-27
 - Add debugger "action" command
 - Add debugger set/show autolist
 - Fix bugs when file contained spaces in a directory portion of the path
-- "Set force" depricated. Use "set different".
+- "Set force" deprecated. Use "set different".
 - Code reorganization to support subcommands (set/show/info) and allow
   for growth
 - Emacs lisp code has been removed. Please multi-debugger code from

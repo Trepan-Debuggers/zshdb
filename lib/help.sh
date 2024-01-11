@@ -1,6 +1,6 @@
 # -*- shell-script -*-
 # help.sh - Debugger Help Routines
-#   Copyright (C) 2008, 2010-2011, 2014, 2016, 2019 2023
+#   Copyright (C) 2008, 2010-2011, 2014, 2016, 2019 2023-2024
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -43,7 +43,7 @@ function _Dbg_help_add_sub {
     typeset -i add_command; add_command=${4:-1}
     eval "_Dbg_command_help_$1[$2]=\"$3\""
     if (( add_command )) ; then
-	subcmd=${2//[-]/_}
+        subcmd=${2//[-]/_}
         eval "_Dbg_debugger_$1_commands[$2]=\"_Dbg_do_${1}_${subcmd}\""
     fi
     return 0
@@ -56,8 +56,8 @@ _Dbg_help_set() {
         typeset -a list
         list=(${(ki)_Dbg_command_help_set[@]})
         sort_list 0 ${#list[@]}-1
-        for subcmd in ${list[@]}; do
-            _Dbg_help_set $subcmd 1
+        for subcmd in "${list[@]}"; do
+            _Dbg_help_set "$subcmd" 1
         done
         return 0
     fi
@@ -70,7 +70,7 @@ _Dbg_help_set() {
             _Dbg_msg_rst "${_Dbg_command_help_set[$subcmd]}"
             return 0
         else
-            label=$(builtin printf "set %-12s-- " $subcmd)
+            label=$(builtin printf "set %-12s-- " "$subcmd")
         fi
     fi
 
@@ -91,37 +91,37 @@ _Dbg_help_set() {
             ;;
         autoe | autoev | autoeva | autoeval )
             _Dbg_msg \
-                "${label}auto evaluation of unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
+                "${label}auto evaluation of unrecognized commands is" $(_Dbg_onoff "$_Dbg_set_autoeval")
             ;;
         autol | autoli | autolis | autolist )
-	    typeset onoff="on."
-	    [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
+            typeset onoff="on."
+            [[ -z ${_Dbg_cmdloop_hooks["list"]} ]] && onoff='off.'
             _Dbg_msg \
                 "${label}auto listing on debugger stop is ${onoff}"
             ;;
         b | ba | bas | base | basen | basena | basenam | basename )
             _Dbg_msg \
-                "${label}short filenames (the basename) is" $(_Dbg_onoff $_Dbg_set_basename)
+                "${label}short filenames (the basename) is" $(_Dbg_onoff "$_Dbg_set_basename")
             ;;
         c | co | con | conf | confi | confir | confirm )
             _Dbg_msg \
-                "${label}confirm dangerous operations" $(_Dbg_onoff $_Dbg_set_confirm)
+                "${label}confirm dangerous operations" $(_Dbg_onoff "$_Dbg_set_confirm")
             ;;
         de|deb|debu|debug )
             _Dbg_msg \
-                "${label}debug the debugger is" $(_Dbg_onoff $_Dbg_set_debug)
+                "${label}debug the debugger is" $(_Dbg_onoff "$_Dbg_set_debug")
             ;;
         di|dif|diff|diffe|differe|differen|different )
             _Dbg_msg \
-                "${label}stop on different lines is" $(_Dbg_onoff $_Dbg_set_different)
+                "${label}stop on different lines is" $(_Dbg_onoff "$_Dbg_set_different")
             ;;
         filename-display )
-	    _Dbg_msg_nocr "${label} "
-	    if (( _Dbg_set_basename == 0 )) ; then
-		_Dbg_msg 'basename.'
-	    else
-		_Dbg_msg 'absolute.'
-	    fi
+            _Dbg_msg_nocr "${label} "
+            if (( _Dbg_set_basename == 0 )) ; then
+                _Dbg_msg 'basename.'
+            else
+                _Dbg_msg 'absolute.'
+            fi
             ;;
         e | ed | edi | edit | editi | editin | editing )
             _Dbg_msg_nocr \
@@ -139,7 +139,7 @@ _Dbg_help_set() {
             if [[ -z $_Dbg_edit ]] ; then
                 _Dbg_msg 'off.'
             else
-		_Dbg_msg "${_Dbg_set_highlight}"
+                _Dbg_msg "${_Dbg_set_highlight}"
             fi
             ;;
         his | hist | history )
@@ -161,13 +161,13 @@ _Dbg_help_set() {
                 "${label}Set tracing execution of lines before executed is" $onoff
             if (( _Dbg_set_linetrace )) ; then
                 _Dbg_msg \
-                    "set linetrace delay -- delay before executing a line is" $_Dbg_linetrace_delay
+                    "set linetrace delay -- delay before executing a line is" "$_Dbg_linetrace_delay"
             fi
             return 0
             ;;
         lis | list | lists | listsi | listsiz | listsize )
             _Dbg_msg "${label}Set number of lines in listings is ${_Dbg_set_listsize}"
-	    ;;
+            ;;
         p | pr | pro | prom | promp | prompt )
             _Dbg_msg "${label}prompt string ${_Dbg_set_prompt}"
             ;;
@@ -182,7 +182,7 @@ _Dbg_help_set() {
             if [[ -z $_Dbg_set_style ]] ; then
                 _Dbg_msg 'off.'
             else
-		_Dbg_msg "${_Dbg_set_style}"
+                _Dbg_msg "${_Dbg_set_style}"
             fi
             ;;
         wi|wid|widt|width )
@@ -204,8 +204,8 @@ _Dbg_help_info() {
         typeset -a list
         list=(${(ki)_Dbg_command_help_info[@]})
         sort_list 0 ${#list[@]}-1
-        for subcmd in ${list[@]}; do
-            _Dbg_help_info $subcmd 1
+        for subcmd in "${list[@]}"; do
+            _Dbg_help_info "$subcmd" 1
         done
         return 0
     fi
@@ -218,9 +218,9 @@ _Dbg_help_info() {
             _Dbg_msg_rst "${_Dbg_command_help_info[$subcmd]}"
             return 0
         else
-            label=$(builtin printf "info %-12s-- " $subcmd)
+            label=$(builtin printf "info %-12s-- " "$subcmd")
         fi
     fi
 
-    _Dbg_info_help $subcmd $label
+    _Dbg_info_help "$subcmd" "$label"
 }

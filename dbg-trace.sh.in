@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # This program needs to be SOURCE'd and is not called as an executable
 #
-#   Copyright (C) 2008, 2011 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -45,7 +45,7 @@ typeset prefix=@prefix@
 typeset _Dbg_libdir=@PKGDATADIR@
 ###
 
-[[ ! -d $_Dbg_libdir ]] && _Dbg_libdir='.'
+[[ ! -d "$_Dbg_libdir" ]] && _Dbg_libdir='.'
 # Parse just the libdir option
 typeset -a libdir
 zparseopts -a libdir -E L: -library:
@@ -69,7 +69,7 @@ if [[ ! -r $_Dbg_main ]] ; then
   exit 1
 
 fi
-. ${_Dbg_libdir}/dbg-main.sh
+. "${_Dbg_libdir}/dbg-main.sh"
 
 set -${_Dbg_trace_old_set_opts}
 unset _Dbg_trace_old_set_opts
