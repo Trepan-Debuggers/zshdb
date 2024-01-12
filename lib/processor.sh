@@ -82,7 +82,7 @@ function _Dbg_process_commands {
   typeset -l key
 
   # Evaluate all hooks
-  for hook in ${_Dbg_cmdloop_hooks[@]} ; do
+  for hook in "${_Dbg_cmdloop_hooks[@]}" ; do
       ${hook}
   done
 
@@ -100,13 +100,13 @@ function _Dbg_process_commands {
       # needed for _Dbg_less and _Dbg_greater ?
       typeset _Dbg_result 1>/dev/null
 
-      if _Dbg_copies '>' $_Dbg_DEBUGGER_LEVEL ; then
+      if _Dbg_copies '>' "$_Dbg_DEBUGGER_LEVEL" ; then
           _Dbg_greater=$_Dbg_result
-          _Dbg_copies '<' $_Dbg_DEBUGGER_LEVEL
+          _Dbg_copies '<' "$_Dbg_DEBUGGER_LEVEL"
           _Dbg_less=$_Dbg_result
       fi
 
-      if _Dbg_copies ')' $ZSH_SUBSHELL ; then
+      if _Dbg_copies ')' "$ZSH_SUBSHELL" ; then
           _Dbg_greater="${_Dbg_result}${_Dbg_greater}"
           _Dbg_less="${_Dbg_less}${_Dbg_result//)/(}"
       fi
@@ -206,7 +206,7 @@ _Dbg_onecmd() {
     fi
     typeset _Dbg_orig_cmd;
     _Dbg_orig_cmd=$_Dbg_cmd
-    typeset expanded_alias; _Dbg_alias_expand $_Dbg_cmd
+    typeset expanded_alias; _Dbg_alias_expand "$_Dbg_cmd"
 
     # If "set trace-commands" is "on", echo the the command
     if [[  $_Dbg_set_trace_commands == 'on' ]]  ; then

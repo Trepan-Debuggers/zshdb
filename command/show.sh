@@ -1,7 +1,7 @@
 # -*- shell-script -*-
 # show.sh - Show debugger settings
 #
-#   Copyright (C) 2008, 2010-2011, 2014, 2019-2020, 2023
+#   Copyright (C) 2008, 2010-2011, 2014, 2019-2020, 2023-2024
 #   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
@@ -21,8 +21,8 @@
 
 if [[ 0 == ${#funcfiletrace[@]} ]] ; then
     dirname=${0%/*}
-    [[ $dirname == $0 ]] && _Dbg_libdir='..' || _Dbg_libdir=${dirname}/..
-    for lib_file in help alias ; do source $_Dbg_libdir/lib/${lib_file}.sh; done
+    [[ $dirname == "$0" ]] && _Dbg_libdir='..' || _Dbg_libdir=${dirname}/..
+    for lib_file in help alias ; do source "$_Dbg_libdir/lib/${lib_file}.sh"; done
     typeset -A _Dbg_complete_level_1_data
 fi
 
@@ -54,7 +54,7 @@ _Dbg_help_show() {
         list=(${(ki)_Dbg_command_help_show[@]})
         typeset subcmd
         for subcmd in ${list[@]}; do
-            _Dbg_help_show $subcmd 1
+            _Dbg_help_show "$subcmd" 1
         done
         return 0
     fi
@@ -64,10 +64,10 @@ _Dbg_help_show() {
 
     if [[ -n "${_Dbg_debugger_show_commands[$show_cmd]}" ]] ; then
         if [[ -z $label ]] ; then
-            ${_Dbg_debugger_show_commands[$show_cmd]} $label
+            ${_Dbg_debugger_show_commands[$show_cmd]} "$label"
             return $?
         else
-            label=$(printf "show %-12s-- " $subcmd)
+            label=$(printf "show %-12s-- " "$subcmd")
         fi
     fi
 
@@ -88,11 +88,11 @@ _Dbg_help_show() {
             ;;
         autoe | autoev | autoeva | autoeval )
             _Dbg_msg \
-                "${label}Evaluate unrecognized commands is" $(_Dbg_onoff $_Dbg_set_autoeval)
+                "${label}Evaluate unrecognized commands is" $(_Dbg_onoff "$_Dbg_set_autoeval")
             ;;
         autol | autoli | autolis | autolist )
             _Dbg_msg \
-                "${label}Auto run a 'list' command is" $(_Dbg_onoff $_Dbg_set_autolist)
+                "${label}Auto run a 'list' command is" $(_Dbg_onoff "$_Dbg_set_autolist")
             ;;
         b | ba | bas | base | basen | basena | basenam | basename )
             _Dbg_msg \
@@ -104,7 +104,7 @@ _Dbg_help_show() {
             ;;
         con | conf | confi | confir | confirm )
             _Dbg_msg \
-                "${label}confirm dangerous operations" $(_Dbg_onoff $_Dbg_set_confirm)
+                "${label}confirm dangerous operations" $(_Dbg_onoff "$_Dbg_set_confirm")
             ;;
         cop | copy| copyi | copyin | copying )
             _Dbg_msg \

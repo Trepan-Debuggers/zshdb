@@ -1,7 +1,8 @@
 # -*- shell-script -*-
 # delete.sh - gdb-like "delete" debugger command
 #
-#   Copyright (C) 2002-2006, 2008, 2011, 2016-2017 Rocky Bernstein
+#   Copyright (C) 2002-2006, 2008, 2011, 2016-2017, 2024
+#   Rocky Bernstein
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -34,7 +35,6 @@ _Dbg_do_delete() {
 
 _Dbg_do_delete_internal() {
   typeset to_go; to_go=$@
-  typeset -i  i
   typeset -i  tot_found=0
 
   if (( $# == 0 )) ; then
@@ -53,7 +53,7 @@ _Dbg_do_delete_internal() {
 #         _Dbg_delete_watch_entry ${del:0:${#del}-1}
 #         ;;
       [0-9]* )
-          if _Dbg_delete_brkpt_entry $del ; then
+          if _Dbg_delete_brkpt_entry "$del" ; then
 	      _Dbg_msg "Deleted breakpoint ${del}"
 	      ((tot_found++))
 	  fi
