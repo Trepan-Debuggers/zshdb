@@ -1,6 +1,7 @@
 # -*- shell-script -*-
 # routines that seem tailored more to the gdb-style of doing things.
-#   Copyright (C) 2008, 2011, 2015, 2018 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2008, 2011, 2015, 2018, 2024
+#   Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -32,16 +33,16 @@ function _Dbg_print_location {
     typeset filename="${split_result[0]}"
     typeset -i line="${split_result[1]}"
     if [[ -n $filename ]] ; then
-	_Dbg_readin "${filename}"
-	if ((_Dbg_set_basename)); then
-	    filename=${filename##*/}
-	    file_line="${filename}:${line}"
-	fi
-	if [[ $filename == $_Dbg_func_stack[1] ]] ; then
-	    _Dbg_msg "($file_line): -- nope"
-	else
-	    _Dbg_msg "($file_line):"
-	fi
+        _Dbg_readin "${filename}"
+        if ((_Dbg_set_basename)); then
+            filename=${filename##*/}
+            file_line="${filename}:${line}"
+        fi
+        if [[ $filename == "${_Dbg_func_stack[1]}" ]] ; then
+            _Dbg_msg "($file_line): -- nope"
+        else
+            _Dbg_msg "($file_line):"
+        fi
     fi
 }
 
@@ -63,7 +64,7 @@ function _Dbg_print_command {
 }
 
 function _Dbg_print_location_and_command {
-    _Dbg_print_location $@
+    _Dbg_print_location "$@"
     _Dbg_print_command
 }
 
@@ -100,7 +101,7 @@ _Dbg_print_frame() {
     (( _Dbg_set_basename )) && filename=${filename##*/}
     _Dbg_msg "$prefix file \`$filename' at line $line"
     if (( show_source )) ; then
-	_Dbg_list "$filename" $line 1
+        _Dbg_list "$filename" "$line" 1
     fi
 
 }
