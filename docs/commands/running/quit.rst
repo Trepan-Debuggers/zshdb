@@ -1,7 +1,7 @@
 .. index:: quit
 .. _quit:
 
-Gentle Termination (`quit`)
+Gentle Termination (``quit``)
 ---------------------------
 
 **quit** [*exit-code* [*shell-levels*]]

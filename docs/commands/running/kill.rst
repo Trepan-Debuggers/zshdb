@@ -1,7 +1,7 @@
 .. index:: kill
 .. _kill:
 
-Send Kill Signal (`kill`)
+Send Kill Signal (``kill``)
 -------------------------
 
 **kill** [ *signal-number* ]
@@ -38,3 +38,4 @@ Examples:
 .. seealso::
 
    :ref:`quit <quit>` for less a forceful termination command, :ref:`run <run>` restarts the debugged program.
+   Also similar is the `signal <signal>` command.

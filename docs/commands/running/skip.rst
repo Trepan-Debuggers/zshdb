@@ -1,7 +1,7 @@
 .. index:: skip
 .. _skip:
 
-Skip over statement (`skip`)
+Skip over statement (``skip``)
 ----------------------------
 
 **skip** [ *count* ]

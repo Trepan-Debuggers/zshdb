@@ -65,6 +65,12 @@ Single step a statement without the \`step force' setting.
 Set step force may have been set on. step- ensures we turn that off for
 this command.
 
+Examples:
+---------
+
+    alias cat list   # "cat prog.py" is the same as "list prog.py"
+    alias s   step   # "s" is now an alias for "step".
+                     # The above example is done by default.
 See also:
 ---------
 
