@@ -2,7 +2,7 @@
 .. _kill:
 
 Send Kill Signal (``kill``)
--------------------------
+---------------------------
 
 **kill** [ *signal-number* ]
 

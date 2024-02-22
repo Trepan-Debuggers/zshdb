@@ -2,7 +2,7 @@
 .. _debug:
 
 Recursive Debugging (``debug``)
------------------------------
+-------------------------------
 
 **debug** [*zsh-script* [*args*...]]
 

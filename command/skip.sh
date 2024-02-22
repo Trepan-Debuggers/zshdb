@@ -1,7 +1,7 @@
 # -*- shell-script -*-
-# gdb-like "skip" (skip over) debugger command.
+# gdb-like "skip" (step over) commmand.
 #
-#   Copyright (C) 2019, 2023 Rocky Bernstein <rocky@gnu.org>
+#   Copyright (C) 2019, 2023-2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as

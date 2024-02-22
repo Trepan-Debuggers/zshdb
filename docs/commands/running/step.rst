@@ -20,7 +20,7 @@ into.
 
 If suffix \"-\" is added, the different line aspect of \"step+\" does not occur.
 
-With no suffix is given, the behavior is dictated by the setting of **set different**.
+With no suffix given, the behavior is dictated by the setting of **set different**.
 
 Examples:
 +++++++++
