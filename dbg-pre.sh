@@ -69,18 +69,18 @@ function _Dbg_expand_filename {
   typeset -x dirname="${filename%/*}"
 
   # No slash given in filename? Then use . for dirname
-  [[ $dirname == $basename ]] && [[ $filename != '/' ]] && dirname='.'
+  [[ "$dirname" == "$basename" ]] && [[ "$filename" != '/' ]] && dirname='.'
 
   # Dirname is ''? Then use / for dirname
-  dirname=${dirname:-/}
+  dirname="${dirname:-/}"
 
   # Handle tilde expansion in dirname
-  dirname=$(echo $dirname)
+  dirname="$(echo $dirname)"
 
   typeset long_path
 
-  [[ $basename == '.' ]] && basename=''
-  if long_path=$( (cd "$dirname" ; pwd) 2>/dev/null ) ; then
+  [[ "$basename" == '.' ]] && basename=''
+  if long_path="$( (cd "$dirname" ; pwd) 2>/dev/null )" ; then
     if [[ "$long_path" == '/' ]] ; then
       echo "/$basename"
     else
@@ -88,7 +88,7 @@ function _Dbg_expand_filename {
     fi
     return 0
   else
-    echo $filename
+    echo "$filename"
     return 1
   fi
 }
@@ -100,18 +100,18 @@ _Dbg_tempname() {
 }
 
 # Process command-line options
-. ${_Dbg_libdir}/dbg-opts.sh
+. "${_Dbg_libdir}/dbg-opts.sh"
 OPTLIND=1
 _Dbg_parse_options "$@"
 
-if [[ ! -d $_Dbg_tmpdir ]] && [[ ! -w $_Dbg_tmpdir ]] ; then
+if [[ ! -d "$_Dbg_tmpdir" ]] && [[ ! -w "$_Dbg_tmpdir" ]] ; then
   echo "${_Dbg_pname}: cannot write to temp directory $_Dbg_tmpdir." >&2
   echo "${_Dbg_pname}: Use -T try directory location." >&2
   exit 1
 fi
 
 # Save the initial working directory so we can reset it on a restart.
-typeset -x _Dbg_init_cwd=$PWD
+typeset -x _Dbg_init_cwd="$PWD"
 
 typeset -i _Dbg_running=1      # True we are not finished running the program
 
@@ -129,4 +129,4 @@ typeset -x _Dbg_space_IFS=$' \t\r\n'
 # debugger script to not stop in remaining debugger statements before
 # the sourcing the script to be debugged.
 typeset -i _Dbg_step_ignore=1
-[[ -n $_Dbg_histfile ]] && fc -p ${_Dbg_histfile}
+[[ -n "$_Dbg_histfile" ]] && fc -p "${_Dbg_histfile}"

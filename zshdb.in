@@ -33,19 +33,19 @@ typeset _Dbg_release='@PACKAGE_VERSION@'
 typeset _Dbg_shell_name=${_Dbg_shell##*/}  # Equivalent to basename(_Dbg_shell)
 
 # Original $0. Note we can't set this in an include.
-typeset _Dbg_orig_0=$0
+typeset _Dbg_orig_0="$0"
 
 # Equivalent to basename $0; the short program name
-typeset _Dbg_pname=${0##*/}
+typeset _Dbg_pname="${0##*/}"
 
 ## Stuff set by autoconf/configure ###
-typeset  prefix=@prefix@  # @PKGDATADIR@ often uses $prefix
-typeset _Dbg_libdir=@PKGDATADIR@
+typeset  prefix="@prefix@"  # @PKGDATADIR@ often uses $prefix
+typeset _Dbg_libdir="@PKGDATADIR@"
 ###
 
 # We agonize a bit over _Dbg_libdir: the root directory for where
 # debugger code is stored. Below is just the first guess...
-[[ -d $_Dbg_libdir ]] || _Dbg_libdir='.'
+[[ -d "$_Dbg_libdir" ]] || _Dbg_libdir='.'
 
 # More _Dbg_libdir finding: respect any library option the user has
 # supplied over any of the above guesses. Go over options and parse
@@ -53,18 +53,18 @@ typeset _Dbg_libdir=@PKGDATADIR@
 local -a libdir
 zparseopts -a libdir -E L: -library:
 if (( ${#libdir} > 0 )) ; then
-    typeset -a lib_opts; eval "lib_opts=($libdir)"
-    if [[ ! -d ${lib_opts[2]} ]] ; then
+    typeset -a lib_opts; lib_opts=("${libdir[@]}")
+    if [[ ! -d "${lib_opts[2]}" ]] ; then
 	print "${lib_opts[2]} is not a directory" >&2
 	exit 1
     fi
-    _Dbg_libdir=${lib_opts[2]}
+    _Dbg_libdir="${lib_opts[2]}"
     unset lib_opts
 fi
 unset libdir
 
 # All _Dbg_libdir setting done above. Have we succeeded?
-if [[ ! -d $_Dbg_libdir ]] ; then
+if [[ ! -d "$_Dbg_libdir" ]] ; then
   echo "${_Dbg_pname}: Can't read debugger library directory '${_Dbg_libdir}'."
   echo "${_Dbg_pname}: Perhaps @PACKAGE@ is installed wrong (if its installed)." >&2
   echo "${_Dbg_pname}: Try running @PACKAGE@ using -L (with a different directory)." >&2
@@ -73,7 +73,7 @@ if [[ ! -d $_Dbg_libdir ]] ; then
 fi
 
 typeset _Dbg_main="$_Dbg_libdir/dbg-main.sh"
-if [[ ! -r $_Dbg_main ]] ; then
+if [[ ! -r "$_Dbg_main" ]] ; then
   print "${_Dbg_pname}: Can't read debugger library file '${_Dbg_main}'."
   print "${_Dbg_pname}: Perhaps @PACKAGE@ is installed wrong (if its installed)." >&2
   print "${_Dbg_pname}: Try running @PACKAGE@ using -L (with a different directory)." >&2
@@ -82,7 +82,7 @@ if [[ ! -r $_Dbg_main ]] ; then
 fi
 
 # Pull in the rest of the debugger code.
-. $_Dbg_main
+. "$_Dbg_main"
 
 _Dbg_set_debugger_entry
 
@@ -107,24 +107,24 @@ if [[ ! -r "$_Dbg_script_file" ]] ; then
   exit 1
 fi
 typeset _Dbg_source_file
-_Dbg_source_file=$(_Dbg_expand_filename "$_Dbg_script_file")
+_Dbg_source_file="$(_Dbg_expand_filename "$_Dbg_script_file")"
 
 # Directory in which the script is located
-typeset _Dbg_cdir=${_Dbg_source_file%/*}
+typeset _Dbg_cdir="${_Dbg_source_file%/*}"
 
-if ((_Dbg_set_history)) && [[ -r $_Dbg_histfile ]] ; then
-    fc -ap $_Dbg_histfile $_Dbg_history_length $_Dbg_history_length
+if ((_Dbg_set_history)) && [[ -r "$_Dbg_histfile" ]] ; then
+    fc -ap "$_Dbg_histfile" $_Dbg_history_length $_Dbg_history_length
 fi
 
 # Signal handling in zsh is different from bash.
 # zshdb/lib/sig.sh has some differences
 # _Dbg_init_default_traps
 
-if [[ -n $_Dbg_script_file ]] ; then
+if [[ -n "$_Dbg_script_file" ]] ; then
     # Set $0
-    0=$_Dbg_script_file
+    0="$_Dbg_script_file"
 fi
-typeset _Dbg_dollar_0=$0
+typeset _Dbg_dollar_0="$0"
 
 typeset -i _Dbg_is_running_program=1
 # trap 'echo ERR encountered inside debugger' ERR
@@ -138,4 +138,4 @@ trap '_Dbg_trap_handler $? "$0" "$@"
   255 ) return $_Dbg_return_rc ;;
   *   ) ;;
   esac' DEBUG
-. "$_Dbg_source_file" ${_Dbg_script_args[@]}
+. "$_Dbg_source_file" "${_Dbg_script_args[@]}"
