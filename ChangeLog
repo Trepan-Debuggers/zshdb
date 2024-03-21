@@ -1,6 +1,6 @@
 2024-03-21  rocky <rocky@gnu.org>
 
-	* configure.ac: Get ready for release 1.1.4
+	* ChangeLog, NEWS.md, configure.ac: Get ready for release 1.1.4
 
 2024-02-22  R. Bernstein <rocky@users.noreply.github.com>
 
