@@ -1,3 +1,22 @@
+Version 1.1.3 2024-03-21 Late Ron Frankel
+-----------------------------------------
+
+Joachim Ansorg provided a number of important bug fixes and
+enhancements.
+
+* Make a pass over help docs
+* Add missing info_sub files (Joachim Ansorg)
+* configure.ac modernization
+* Go over term highlighting
+* Lint a number of files
+* Support library dir with whitespace in info (Joachim Ansorg)
+* Enforce English local in testing
+* Support "info args" for the top-level frame (Joachim Ansorg)
+* Support "info stack" improvements (Joachim Ansorg)
+* Add _Dbg_ prefix for more variables (Joachim Ansorg)
+* redo how "quit" and termination work.  We now note user exit versus normal program termination in "info
+* Fix prompting after a subshell is exited
+
 Version 1.1.3 2023-03-15 Ron Frankel
 ------------------------------------
 

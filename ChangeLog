@@ -1,3 +1,219 @@
+2024-03-21  rocky <rocky@gnu.org>
+
+	* configure.ac: Get ready for release 1.1.4
+
+2024-02-22  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #63 from
+	rocky/doc-update-and-synch-with-bashdb Make a pass over help docs
+
+2024-02-21  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #61 from rocky/some-doc-cleanups Go over some RST documentation
+
+2024-01-11  rocky <rocky@gnu.org>
+
+	* command/delete.sh, command/disable.sh, command/show.sh,
+	lib/info-help.sh, lib/processor.sh: More lint
+
+2024-01-11  rocky <rocky@gnu.org>
+
+	* lib/gdb.sh: One more file linted
+
+2024-01-11  rocky <rocky@gnu.org>
+
+	* NEWS.md, dbg-main.sh, dbg-trace.sh.in, lib/help.sh: More lint
+
+2024-01-11  rocky <rocky@gnu.org>
+
+	* dbg-main.sh, dbg-opts.sh: Lint caught from from vscode
+
+2024-01-11  rocky <rocky@gnu.org>
+
+	* dbg-opts.sh: Bump copyright
+
+2024-01-11  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #60 from rocky/prompt-after-subshell-exit Prompt after subshell exit
+
+2024-01-10  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #59 from
+	BashSupport-Pro/bashsupport-stepping-bug-test wip: Test for prompt after stepping out of a subshell
+
+2024-01-10  rocky <rocky@gnu.org>
+
+	* .editorconfig, .gitignore, lib/action.sh, lib/break.sh,
+	lib/columnize.sh: More lint
+
+2024-01-10  rocky <rocky@gnu.org>
+
+	* command/info_sub/display.sh, command/set_sub/annotate.sh,
+	command/set_sub/autoeval.sh, command/set_sub/autolist.sh,
+	command/set_sub/basename.sh: More lint
+
+2024-01-10  rocky <rocky@gnu.org>
+
+	* command/down.sh, command/export.sh,
+	command/info_sub/breakpoints.sh, command/quit.sh, command/run.sh: 
+	More lint
+
+2024-01-10  rocky <rocky@gnu.org>
+
+	* lib/hook.sh, lib/sig.sh: More lint
+
+2024-01-09  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #57 from rocky/more-lint Some shell linting...
+
+2024-01-08  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #53 from
+	rocky/more-whitespace-in-dir-tolerance Tolerance for spaces in libdir folder name
+
+2023-11-28  rocky <rocky@gnu.org>
+
+	* command/complete.sh, command/examine.sh, command/show.sh,
+	dbg-main.sh: Tolerance for spaces in libdir folder name
+
+2024-01-08  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #55 from rocky/redo-how-quitting-works Start to redo how "quit" and termination work.
+
+2024-01-08  rocky <rocky@gnu.org>
+
+	* lib/filecache.sh, lib/frame.sh, lib/tty.sh,
+	test/unit/test-filecache.sh.in,
+	test/unit/test-get-sourceline.sh.in, test/unit/test-tty.sh.in: Go
+	over tests and fix bug caught by that.  Some global variable names were misspelled in tests.  filecache
+	logic seemed wrong.
+
+2023-12-16  rocky <rocky@gnu.org>
+
+	* dbg-opts.sh, lib/filecache.sh, lib/hook.sh, lib/processor.sh,
+	lib/sig.sh, lib/tty.sh, test/data/bug-ksharrays.right,
+	test/data/bugIFS.cmd, test/data/bugIFS.right,
+	test/data/bugIFS2.right, test/data/condition.right,
+	test/data/debug.right, test/data/delete.right,
+	test/data/enable.right, test/data/examine-5.4.1.right,
+	test/data/export-5.4.1.right, test/data/frame-5.8.1.right,
+	test/data/list.right, test/data/lopts.right,
+	test/data/multi1.right, test/data/multi2.right,
+	test/data/multi3.right, test/data/next.right,
+	test/data/setshow-5.4.1.right, test/data/setshow.right,
+	test/data/skip.right, test/data/sopts.right, test/data/step.right,
+	test/data/subshell-5.4.1.right, test/data/subshell.right,
+	test/data/tbreak.right: More quit code corrections...  Adjust tests based on more correct quit and hook code.
+
+2023-12-03  rocky <rocky@gnu.org>
+
+	* command/quit.sh, lib/hook.sh: mysterious error workaround...  In quit from a subshell "quit" raises a an error.  Why, I don't know. This is a workaround.
+
+2023-12-03  rocky <rocky@gnu.org>
+
+	* command/quit.sh, lib/hist.sh, lib/hook.sh, lib/processor.sh,
+	lib/sig.sh, lib/tty.sh, test/data/action.right,
+	test/data/brkpt1.right, test/data/bug-args.right,
+	test/data/bug-delete.right, test/data/bug-errexit.right,
+	test/data/bugIFS.right, test/data/delete.right, zshdb.in: Start to
+	redo how "quit" and termination work.  We now note user exit versus normal program termination in "info
+	program".  More work is needed.
+
+2023-12-04  Joachim Ansorg <github@ja-dev.eu>
+
+	* : Merge pull request #56 from
+	BashSupport-Pro/bashsupport-pro/zsh-line-count Fix line count calculation for files which are loaded multiple times
+
+2023-12-04  Joachim Ansorg <github@ja-dev.eu>
+
+	* : Merge pull request #51 from
+	BashSupport-Pro/bashsupport-pro/info-stack-list
+
+2023-11-24  Joachim Ansorg <github@ja-dev.eu>
+
+	* command/info_sub/stack.sh: Don't limit "info stack" to one line
+	but work in the same way as bashdb
+
+2023-11-24  Joachim Ansorg <github@ja-dev.eu>
+
+	* command/info_sub/stack.sh: Move "info stack" command into its own
+	file
+
+2023-11-24  Joachim Ansorg <github@ja-dev.eu>
+
+	* command/info.sh, command/info_sub/args.sh,
+	command/info_sub/breakpoints.sh, command/info_sub/functions.sh,
+	command/info_sub/variables.sh: Sync handling of info subcommands
+	with bashdb
+
+2023-12-04  Joachim Ansorg <github@ja-dev.eu>
+
+	* command/load.sh, configure.ac, test/unit/.gitignore,
+	test/unit/Makefile.am, test/unit/test-lib-maxline.sh.in: fix line
+	count for files which are loaded multiple times
+
+2023-11-27  Joachim Ansorg <github@ja-dev.eu>
+
+	* command/info_sub/args.sh, lib/hook.sh: revert removal of _Dbg_arg
+	because it's still in use
+
+2023-11-27  Joachim Ansorg <github@ja-dev.eu>
+
+	* test/Makefile.am: enforce English locale because test-tty.sh
+	relies on English output text
+
+2023-11-24  Joachim Ansorg <github@ja-dev.eu>
+
+	* command/info.sh: Support library dir with whitespace in info
+	command
+
+2023-11-24  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #50 from
+	BashSupport-Pro/bashsupport-pro/info-stack Support "info args" for the top-level frame
+
+2023-10-23  rocky <rocky@gnu.org>
+
+	* command/alias.sh, command/backtrace.sh, lib/list.sh: Lint
+
+2023-07-07  rocky <rocky@gnu.org>
+
+	* lib/term-highlight.py: Lint Python term-lint program
+
+2023-06-16  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #46 from
+	BashSupport-Pro/jansorg/zterm-local-vars Make `a_fg` and `a_bg` local variables to avoid side-effects
+
+2023-06-16  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #44 from BashSupport-Pro/jansorg/setup-fix Add zterm-background.sh to installed files
+
+2023-06-16  Joachim Ansorg <github@ja-dev.eu>
+
+	* dbg-opts.sh: Source term-background.sh only if highlighting is
+	enabled.
+
+2023-06-16  Joachim Ansorg <github@ja-dev.eu>
+
+	* Makefile.am: add zterm-background.sh to installed files
+
+2023-03-20  rocky <rocky@gnu.org>
+
+	* configure.ac: AC_HELP_STRING -> AS_HELP_STRING
+
+2023-03-20  R. Bernstein <rocky@users.noreply.github.com>
+
+	* : Merge pull request #42 from jansorg/master add missing info_sub files to Makefile setup
+
+2023-03-15  R. Bernstein <rocky@users.noreply.github.com>
+
+	* THANKS: Update THANKS
+
+2023-03-15  rocky <rocky@gnu.org>
+
+	* NEWS.md, configure.ac: Bump version to dev
+
 2023-03-05  R. Bernstein <rocky@users.noreply.github.com>
 
 	* : Get ready for release 1.1.3
