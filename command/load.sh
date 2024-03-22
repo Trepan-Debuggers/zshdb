@@ -37,11 +37,11 @@ _Dbg_do_load() {
     fi
 
     typeset filename="$1"
-    local full_filename=$(_Dbg_resolve_expand_filename "$filename")
+    local full_filename="$(_Dbg_resolve_expand_filename "$filename")"
     if [ -n "$full_filename" ] && [ -r "$full_filename" ] ; then
 	# Have we already loaded in this file?
-	for file in ${_Dbg_filenames[@]} ; do
-	    if [[ $file == $full_filename ]] ; then
+	for file in "${_Dbg_filenames[@]}" ; do
+	    if [[ "$file" == "$full_filename" ]] ; then
 		_Dbg_msg "File $full_filename already loaded."
 		return 2
 	    fi
