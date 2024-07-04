@@ -94,7 +94,7 @@ function _Dbg_trap_handler {
     file_line=${funcfiletrace[0]}
     typeset -a split_result; _Dbg_split "$file_line" ':'
     filename=${split_result[0]}
-    lineno=${split_result[1]}
+    _Dbg_lineno=${split_result[1]}
     full_filename=$(_Dbg_is_file $filename)
     if [[ -r $full_filename ]] ; then
 	_Dbg_file2canonic[$filename]="$full_filename"
@@ -162,26 +162,26 @@ function _Dbg_trap_handler {
 
 _Dbg_hook_action_hit() {
     typeset full_filename="$1"
-    typeset lineno=$_Dbg_frame_last_lineno # NOT USED. FIXME
+    typeset _Dbg_lineno=$_Dbg_frame_last_lineno # NOT USED. FIXME
     # FIXME remove below
     typeset file_line
     file_line=${funcfiletrace[1]}
     typeset -a split_result; _Dbg_split "$file_line" ':'
     filename=${split_result[0]}
-    typeset lineno=$_Dbg_frame_last_lineno
-    lineno=${split_result[1]}
+    typeset _Dbg_lineno=$_Dbg_frame_last_lineno
+    _Dbg_lineno=${split_result[1]}
 
     # FIXME: combine with _Dbg_unset_action
-    typeset -a linenos
+    typeset -a _Dbg_linenos
     [[ -z "$full_filename" ]] && return 1
-    eval "linenos=(${_Dbg_action_file2linenos[$full_filename]})"
+    eval "_Dbg_linenos=(${_Dbg_action_file2linenos[$full_filename]})"
     typeset -a action_nos
     eval "action_nos=(${_Dbg_action_file2action[$full_filename]})"
 
     typeset -i _Dbg_i
     # Check action within full_filename
-    for ((_Dbg_i=0; _Dbg_i < ${#linenos[@]}; _Dbg_i++)); do
-	if (( linenos[_Dbg_i] == lineno )) ; then
+    for ((_Dbg_i=0; _Dbg_i < ${#_Dbg_linenos[@]}; _Dbg_i++)); do
+	if (( _Dbg_linenos[_Dbg_i] == _Dbg_lineno )) ; then
 	    (( _Dbg_action_num = action_nos[_Dbg_i] ))
 	    stmt="${_Dbg_action_stmt[$_Dbg_action_num]}"
   	    . "${_Dbg_libdir}/lib/set-d-vars.sh"
@@ -199,23 +199,23 @@ _Dbg_hook_action_hit() {
 # Sets _Dbg_brkpt_num to the breakpoint number found.
 _Dbg_hook_breakpoint_hit() {
     typeset full_filename="$1"
-    typeset lineno=$_Dbg_frame_last_lineno # NOT USED. FIXME
+    typeset _Dbg_lineno=$_Dbg_frame_last_lineno # NOT USED. FIXME
     # FIXME remove below
     typeset file_line
     file_line=${funcfiletrace[1]}
     typeset -a split_result; _Dbg_split "$file_line" ':'
     filename=${split_result[0]}
-    lineno=${split_result[1]}
+    _Dbg_lineno=${split_result[1]}
 
     # FIXME: combine with _Dbg_unset_brkpt
-    typeset -a linenos
-    eval "linenos=(${_Dbg_brkpt_file2linenos[$full_filename]})"
+    typeset -a _Dbg_linenos
+    eval "_Dbg_linenos=(${_Dbg_brkpt_file2linenos[$full_filename]})"
     typeset -a brkpt_nos
     eval "brkpt_nos=(${_Dbg_brkpt_file2brkpt[$full_filename]})"
     typeset -i i
     # Check breakpoints within full_filename
-    for ((i=0; i < ${#linenos[@]}; i++)); do
-	if (( linenos[i] == lineno )) ; then
+    for ((i=0; i < ${#_Dbg_linenos[@]}; i++)); do
+	if (( _Dbg_linenos[i] == _Dbg_lineno )) ; then
 	    # Got a match, but is the breakpoint enabled and condition met?
 	    (( _Dbg_brkpt_num = brkpt_nos[i] ))
             if ((_Dbg_brkpt_enable[_Dbg_brkpt_num] )); then
