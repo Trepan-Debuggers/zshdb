@@ -145,6 +145,7 @@ _Dbg_parse_options() {
     typeset -i _Dbg_o_quiet=0
     typeset -i _Dbg_o_version=0
     typeset -i _Dbg_highlight_enabled=1
+    typeset OPTLARG OPTLERR OPTLPENDING opt
 
     while getopts_long A:Bc:x:hL:nqTS:t:V opt    \
 	annotate required_argument               \
