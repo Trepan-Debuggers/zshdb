@@ -2,7 +2,7 @@
 # Debugger load SCRIPT command.
 #
 #   Copyright (C) 2002-2006, 2008, 2010-2011,
-#   2018-2019 Rocky Bernstein <rocky@gnu.org>
+#   2018-2019, 2024 Rocky Bernstein <rocky@gnu.org>
 #
 #   This program is free software; you can redistribute it and/or
 #   modify it under the terms of the GNU General Public License as
@@ -36,21 +36,21 @@ _Dbg_do_load() {
 	return 1
     fi
 
-    typeset filename="$1"
-    local full_filename="$(_Dbg_resolve_expand_filename "$filename")"
-    if [ -n "$full_filename" ] && [ -r "$full_filename" ] ; then
+    local _Dbg_filename="$1"
+    local _Dbg_full_filename="$(_Dbg_resolve_expand_filename "$_Dbg_filename")"
+    if [ -n "$_Dbg_full_filename" ] && [ -r "$_Dbg_full_filename" ] ; then
 	# Have we already loaded in this file?
 	for file in "${_Dbg_filenames[@]}" ; do
-	    if [[ "$file" == "$full_filename" ]] ; then
-		_Dbg_msg "File $full_filename already loaded."
+	    if [[ "$file" == "$_Dbg_full_filename" ]] ; then
+		_Dbg_msg "File $_Dbg_full_filename already loaded."
 		return 2
 	    fi
 	done
 
-	_Dbg_readin_if_new "$full_filename"
-	_Dbg_msg "File $full_filename loaded."
+	_Dbg_readin_if_new "$_Dbg_full_filename"
+	_Dbg_msg "File $_Dbg_full_filename loaded."
     else
-	_Dbg_errmsg "Couldn't resolve or read $filename"
+	_Dbg_errmsg "Couldn't resolve or read $_Dbg_filename"
 	return 3
     fi
     return 0
