@@ -30,19 +30,19 @@ typeset _Dbg_shell='@SH_PROG@'
 
 # The short shell name. Helps keep code common in bash, zsh, and ksh debuggers.
 # Equivalent to
-typeset _Dbg_shell_name=${_Dbg_shell##*/}
+typeset _Dbg_shell_name="${_Dbg_shell##*/}"
 
 typeset -a _Dbg_script_args; _Dbg_script_args=("$@")
 
 # Original $0. Note we can't set this in an include.
-typeset _Dbg_orig_0=$0
+typeset _Dbg_orig_0="$0"
 
 # Equivalent to basename $0; the short program name
-typeset _Dbg_pname=${0##*/}
+typeset _Dbg_pname="${0##*/}"
 
 ## Stuff set by autoconf/configure ###
-typeset prefix=@prefix@
-typeset _Dbg_libdir=@PKGDATADIR@
+# @PKGDATADIR@ often uses $prefix, _Dbg_libdir must be a global variable
+_Dbg_assign_libdir() { typeset prefix="@prefix@"; _Dbg_libdir="@PKGDATADIR@"; }; _Dbg_assign_libdir
 ###
 
 [[ ! -d "$_Dbg_libdir" ]] && _Dbg_libdir='.'
@@ -51,17 +51,17 @@ typeset -a libdir
 zparseopts -a libdir -E L: -library:
 if (( ${#libdir} > 0 )) ; then
     typeset -a lib_opts; eval "lib_opts=($libdir)"
-    if [[ ! -d ${lib_opts[2]} ]] ; then
+    if [[ ! -d "${lib_opts[2]}" ]] ; then
 	print "${lib_opts[2]} is not a directory"
 	exit 1
     fi
-    _Dbg_libdir=${lib_opts[2]}
+    _Dbg_libdir="${lib_opts[2]}"
     unset lib_opts
 fi
 
 # Pull in the rest of the debugger code.
 typeset _Dbg_main="$_Dbg_libdir/dbg-main.sh"
-if [[ ! -r $_Dbg_main ]] ; then
+if [[ ! -r "$_Dbg_main" ]] ; then
   print "${_Dbg_pname}: Can't read debugger library file '${_Dbg_main}'."
   print "${_Dbg_pname}: Perhaps @PACKAGE@ is installed wrong (if its installed)." >&2
   print "${_Dbg_pname}: Try running @PACKAGE@ using -L (with a different directory)." >&2
