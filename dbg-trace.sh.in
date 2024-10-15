@@ -42,7 +42,7 @@ typeset _Dbg_pname="${0##*/}"
 
 ## Stuff set by autoconf/configure ###
 # @PKGDATADIR@ often uses $prefix, _Dbg_libdir must be a global variable
-_Dbg_assign_libdir() { typeset prefix="@prefix@"; _Dbg_libdir="@PKGDATADIR@"; }; _Dbg_assign_libdir
+function { typeset prefix="@prefix@"; _Dbg_libdir="@PKGDATADIR@"; }
 ###
 
 [[ ! -d "$_Dbg_libdir" ]] && _Dbg_libdir='.'
