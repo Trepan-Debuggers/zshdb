@@ -81,7 +81,7 @@ Here is an Example:
             if [ -r $i ]; then
               if [[ $i == "/etc/profile.d/bash_completion.sh"; then
                 # Load in debugger
-                . /usr/share/bashdb/bashdb-trace -q
+                . /usr/local/share/zshdb/dbg-trace.sh -q
                 # Call debugger
                 _Dbg_debugger
               fi
