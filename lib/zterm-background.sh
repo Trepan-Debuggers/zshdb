@@ -369,20 +369,20 @@ elif [[ -n $COLORFGBG ]]; then
   # Note that this can be wrong if
   # COLORFGBG was set prior invoking a terminal
   is_dark_colorfgbg
-  case $is_dark_bg in
-  0)
-    echo "Light background from COLORFGBG"
-    ;;
-  1)
-    echo "Dark background from COLORFGBG"
-    ;;
-  -1 | *)
-    echo "Can't decide from COLORFGBG"
-    exit_if_not_sourced 1
-    ;;
-  esac
+  # case $is_dark_bg in
+  # 0)
+  #   echo "Light background from COLORFGBG"
+  #   ;;
+  # 1)
+  #   echo "Dark background from COLORFGBG"
+  #   ;;
+  # -1 | *)
+  #   echo "Can't decide from COLORFGBG"
+  #   exit_if_not_sourced 1
+  #   ;;
+  # esac
 else
-  echo "Can't decide"
+  # echo "Can't decide"
   exit_if_not_sourced 1
 fi
 
